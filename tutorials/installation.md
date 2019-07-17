@@ -2,7 +2,7 @@
 
 Welcome to the **napari** installation tutorial!
 
-This tutorial will teach you how to do a clean install of **napari**. It is aimed at people that want to use napari. For people interested in contributing to napari please check our [Contributing Guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md) for more advanced installation procedures. At the end of the tutorial you should have napari successfully installed on your computer and be able to make the napari viewer appear.
+This tutorial will teach you how to do a clean install of **napari**. It is aimed at people that want to use napari. For people interested in contributing to napari please check our [contributing guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md) for more advanced installation procedures. At the end of the tutorial you should have napari successfully installed on your computer and be able to make the napari viewer appear.
 
 ## instalation
 

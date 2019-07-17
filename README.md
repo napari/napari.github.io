@@ -17,18 +17,18 @@ To get a sense of our current plans checkout and contribute to the discussion on
 
 These tutorials target people who want to use
 napari as a user. If you are also interested in contributing to napari then
-please check out [Contributing Guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md).
+please check out [contributing guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md).
 
-If you've already got napari installed then begin with our [Getting Started](getting_started.md) tutorial. For help installing napari checkout our [Installing napari](installation.md) tutorial.
+If you've already got napari installed then begin with our [getting started](./tutorials/getting_started.md) tutorial. For help installing napari checkout our [installing napari](./tutorials/installation.md) tutorial.
 
 ## all tutorials
 
-- [installing napari](installation.md)
-- [getting started tutorial](getting_started.md)
-- [napari viewer tutorial](viewer.md)
-- [image layer tutorial](image.md)
-- [labels layer tutorial](labels.md)
-- [points layer tutorial](points.md)
-- [shapes layer tutorial](shapes.md)
-- [pyramid layer tutorial](pyramid.md)
-- [vectors layer tutorial](vectors.md)
+- [installing napari](./tutorials/installation.md)
+- [getting started tutorial](./tutorials/getting_started.md)
+- [napari viewer tutorial](./tutorials/viewer.md)
+- [image layer tutorial](./tutorials/image.md)
+- [labels layer tutorial](./tutorials/labels.md)
+- [points layer tutorial](./tutorials/points.md)
+- [shapes layer tutorial](./tutorials/shapes.md)
+- [pyramid layer tutorial](./tutorials/pyramid.md)
+- [vectors layer tutorial](./tutorials/vectors.md)

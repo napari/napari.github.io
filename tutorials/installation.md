@@ -38,10 +38,6 @@ An empty napari viewer should appear as follows
 
 ![image](../resources/launch_cli_empty.gif)
 
-## next steps
-
-Now that you've got napari installed, checkout our [getting started](getting_started.md) tutorial to start learning how to use it!
-
 ## upgrading
 
 If you installed napari with `pip` you can upgrade by calling
@@ -52,6 +48,10 @@ $ pip install napari --upgrade
 ## troubleshooting
 
 We're currently working on improving our windows support. For mac0S we also require at least version 10.12.
+
+## next steps
+
+Now that you've got napari installed, checkout our [getting started](getting_started.md) tutorial to start learning how to use it!
 
 
 ## all tutorials

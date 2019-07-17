@@ -63,7 +63,7 @@ then run your script from the command line to launch the viewer with your data:
 python my_example_script.py
 ```
 
-See the scripts inside the [`examples`](https://github.com/napari/napari/tree/master/examples/add_points.py) in the main repository for examples of using napari this way.
+See the scripts inside the [`examples`](https://github.com/napari/napari/tree/master/examples) in the main repository for examples of using napari this way.
 
 ![image](../resources/launch_script.gif)
 
@@ -89,7 +89,7 @@ Note that the Qt GUI can take a few seconds to be created and if you create the 
 
 ![image](../resources/launch_ipython.gif)
 
-or using [`examples/notebook.ipynb`](../examples/notebook.ipynb)
+or using [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master/examples/notebook.ipynb)
 
 ![image](../resources/launch_jupyter.gif)
 

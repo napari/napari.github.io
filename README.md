@@ -25,6 +25,7 @@ If you've already got napari installed then begin with our [getting started](./t
 
 ## all tutorials
 
+- [welcome](README.md)
 - [installing napari](./tutorials/installation.md)
 - [getting started tutorial](./tutorials/getting_started.md)
 - [napari viewer tutorial](./tutorials/viewer.md)

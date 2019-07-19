@@ -287,6 +287,7 @@ the `LayerList` and some of the different layer types. To learn more about the d
 
 ## all tutorials
 
+- [welcome](../README.md)
 - [installing napari](installation.md)
 - [getting started tutorial](getting_started.md)
 - [napari viewer tutorial](viewer.md)

@@ -11,6 +11,7 @@ to set properties like the contrast, opacity, colormaps and blending mode. At th
 
 ## all tutorials
 
+- [welcome](../README.md)
 - [installing napari](installation.md)
 - [getting started tutorial](getting_started.md)
 - [napari viewer tutorial](viewer.md)

@@ -71,7 +71,7 @@ The advantage of launching napari from a python script is that you can preproces
 
 ### jupyter notebook / ipython usage
 
-To launch napari from a jupyter notebook or ipython console, first instantiate a Qt GUI and then import `napari` and create a `Viewer` object.
+To launch napari from a jupyter notebook or IPython console, first instantiate a Qt GUI and then import `napari` and create a `Viewer` object.
 
 ```python
 # instantiate Qt GUI
@@ -85,11 +85,11 @@ viewer = napari.Viewer()
 # custom code to add data here
 viewer.add_image(my_image_data)
 ```
-Note that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch.
+Note that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch. You can also launch IPython with the gui set using `ipython --gui=qt5` or add a configuration to do this automatically to avoid the wait.
 
 ![image](../resources/launch_ipython.gif)
 
-or using [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master/examples/notebook.ipynb)
+You can also launch napari from a jupyter notebook, such as [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master/examples/notebook.ipynb)
 
 ![image](../resources/launch_jupyter.gif)
 

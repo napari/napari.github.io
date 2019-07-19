@@ -10,6 +10,7 @@ This tutorial will teach you about the **napari** `Vectors` layer, including ...
 
 ## all tutorials
 
+- [welcome](../README.md)
 - [installing napari](installation.md)
 - [getting started tutorial](getting_started.md)
 - [napari viewer tutorial](viewer.md)

@@ -56,6 +56,7 @@ Now that you've got napari installed, checkout our [getting started](getting_sta
 
 ## all tutorials
 
+- [welcome](../README.md)
 - [installing napari](installation.md)
 - [getting started tutorial](getting_started.md)
 - [napari viewer tutorial](viewer.md)

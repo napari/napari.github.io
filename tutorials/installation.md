@@ -66,4 +66,5 @@ Now that you've got napari installed, checkout our [getting started](getting_sta
 - [shapes layer tutorial](shapes.md)
 - [pyramid layer tutorial](pyramid.md)
 - [vectors layer tutorial](vectors.md)
+- [volume layer tutorial](volume.md)
 - [gallery](../gallery/gallery.md)

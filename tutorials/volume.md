@@ -1,10 +1,10 @@
 # vectors layer tutorial
 
-Welcome to the tutorial on the **napari** `Vectors` layer!
+Welcome to the tutorial on the **napari** `Volume` layer!
 
 This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](installation.md) tutorial. For help getting started with the viewer see our [getting started](getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](viewer.md) tutorial.
 
-This tutorial will teach you about the **napari** `Vectors` layer, including ...
+This tutorial will teach you about the **napari** `Volume` layer, including ...
 
 **Under construction**
 

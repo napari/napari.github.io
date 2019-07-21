@@ -103,3 +103,18 @@ We can also edit or create our own segmentations using the paintbrush and fill b
 ![image](./resources/ants_bees.gif)
 
 This example shows data from a [hymenoptera classification task](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html) where the goal is to separate the images of the ants and bees. Here we are using [dask-image](https://dask-image.readthedocs.io) to look at two directories of images and lazily load each image when requested by the slider. This method can support easy browsing of training datasets with many many images as we never need to load all the images into memory. Note that not all images need to be the same size either.
+
+## all tutorials
+
+- [welcome](../README.md)
+- [installing napari](../tutorials/installation.md)
+- [getting started tutorial](../tutorials/getting_started.md)
+- [napari viewer tutorial](../tutorials/viewer.md)
+- [image layer tutorial](../tutorials/image.md)
+- [labels layer tutorial](../tutorials/labels.md)
+- [points layer tutorial](../tutorials/points.md)
+- [shapes layer tutorial](../tutorials/shapes.md)
+- [pyramid layer tutorial](../tutorials/pyramid.md)
+- [vectors layer tutorial](../tutorials/vectors.md)
+- [volume layer tutorial](../tutorials/volume.md)
+- [gallery](gallery/gallery.md)

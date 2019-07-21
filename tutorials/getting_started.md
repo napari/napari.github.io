@@ -115,4 +115,5 @@ To learn more about how to use the napari viewer and the different types of napa
 - [shapes layer tutorial](shapes.md)
 - [pyramid layer tutorial](pyramid.md)
 - [vectors layer tutorial](vectors.md)
+- [volume layer tutorial](volume.md)
 - [gallery](../gallery/gallery.md)

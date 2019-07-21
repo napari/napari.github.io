@@ -37,4 +37,5 @@ If you've already got napari installed then begin with our [getting started](./t
 - [shapes layer tutorial](./tutorials/shapes.md)
 - [pyramid layer tutorial](./tutorials/pyramid.md)
 - [vectors layer tutorial](./tutorials/vectors.md)
+- [volume layer tutorial](./tutorials/volume.md)
 - [gallery](./gallery/gallery.md)

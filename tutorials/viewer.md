@@ -297,4 +297,5 @@ the `LayerList` and some of the different layer types. To learn more about the d
 - [shapes layer tutorial](shapes.md)
 - [pyramid layer tutorial](pyramid.md)
 - [vectors layer tutorial](vectors.md)
+- [volume layer tutorial](volume.md)
 - [gallery](../gallery/gallery.md)

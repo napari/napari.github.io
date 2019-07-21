@@ -126,4 +126,4 @@ This example shows data from a [hymenoptera classification task](https://pytorch
 - [pyramid layer tutorial](../tutorials/pyramid.md)
 - [vectors layer tutorial](../tutorials/vectors.md)
 - [volume layer tutorial](../tutorials/volume.md)
-- [gallery](gallery/gallery.md)
+- [gallery](gallery.md)

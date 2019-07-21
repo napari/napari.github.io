@@ -36,7 +36,7 @@ viewer.add_image(data.astronaut())
 
 After running either of those two commands you should now be able to see the photograph of the astronaut in the a **napari** viewer as shown below
 
-![image](../resources/viewer_astronaut.png)
+![image](./resources/viewer_astronaut.png)
 
 Both the `view` and the `add_image` methods accept any numpy-array like object as an input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer](image.md) tutorial. Now we will continue exploring the rest of the viewer.
 
@@ -58,7 +58,7 @@ We'll go through each of these in the next sections.
 
 The main canvas is located in the center of the viewer and contains the visual display of the data passed to **napari**, including images, point, shapes, and our other supported data types. Under the hood the canvas is a `vispy.scene.SceneCanvas` object which has built-in support for features such as zooming and panning. As `vispy` uses `OpenGL` and your graphics card, panning and zooming are highly performant.
 
-![image](../resources/viewer_pan_zoom.gif)
+![image](./resources/viewer_pan_zoom.gif)
 
 ### layer list
 One of the basic **napari** objects are layers. There are different layer types for `images`, `points`, `shapes`, and other basic data types. They can be added to the viewer either programatically or through the GUI. Once added they start to populate the layer list is located on the righthand side of the main canvas.
@@ -76,7 +76,7 @@ viewer.add_image(data.moon(), name=moon)
 viewer.add_image(data.camera(), name=camera)
 ```
 
-![image](../resources/layerlist.png)
+![image](./resources/layerlist.png)
 
 Note that we've also also named each of the layers using the `name` keyword argument in `add_image`, and that name has appeared as a string in the layer property widget.
 
@@ -84,7 +84,7 @@ You can select layers, causing them to become outlined, by clicking on their lay
 
 You can rearrange the order of the layers by dragging them, including dragging multiple layers at the same time.
 
-![image](../resources/layerlist_rearrange.gif)
+![image](./resources/layerlist_rearrange.gif)
 
 The `Viewer` object also contains our `LayerList` object that allows you to access the data of all the layers by
 
@@ -111,7 +111,7 @@ The individual layer property widgets within the layer list contain a `visibilit
 
 Interacting with the layer properties widgets looks as follows:
 
-![image](../resources/layer_properties_widgets.gif)
+![image](./resources/layer_properties_widgets.gif)
 
 Adjusting these properties in the GUI will cause corresponding changes to properties on the individual layers that are accessible in the console through `viewer.layers`.
 
@@ -142,7 +142,7 @@ This example has added 20 red markers to a `Points` layer which we have named `s
 
 Here is a demo of interactivity for the `Image` and `Points` layers in the example above.
 
-![image](../resources/layer_control_panel.gif)
+![image](./resources/layer_control_panel.gif)
 
 ### new layer buttons
 New `Points`, `Shapes`, and `Labels` layers can be added to the viewer using the new layer buttons in the bottom righthand corner of the GUI. These correspond to the calls
@@ -163,7 +163,7 @@ viewer.layers.pop(i)
 
 Adding and deleting layers from the GUI looks as follows
 
-![image](../resources/layer_new.gif)
+![image](./resources/layer_new.gif)
 
 Notice here how we added two `Points` layers and used the layer properties widget to change their colors. We then added a `Shapes` layer which allowed us to draw some rectangles, before we deleted all our new layers.
 
@@ -205,7 +205,7 @@ blobs = np.stack(
 viewer.add_image(blobs, name='4D blobs')
 ```
 
-![image](../resources/multidimensional_sliders.gif)
+![image](./resources/multidimensional_sliders.gif)
 
 Notice how there are two dimension sliders located beneath the main canvas and
 adjusting them affects only the `4D blobs` data.
@@ -220,7 +220,7 @@ To change the theme just update `theme` property of the viewer, for example
 viewer.theme = 'light'
 ```
 
-![image](../resources/viewer_theme_light.png)
+![image](./resources/viewer_theme_light.png)
 
 Adding your own custom theme isn't too hard either but does require creating your own color `palette`
 and rebuilding the icons. If people want more themes, we're happy to add them or if you look at
@@ -297,3 +297,4 @@ the `LayerList` and some of the different layer types. To learn more about the d
 - [shapes layer tutorial](shapes.md)
 - [pyramid layer tutorial](pyramid.md)
 - [vectors layer tutorial](vectors.md)
+- [gallery](../gallery/gallery.md)

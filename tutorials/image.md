@@ -21,3 +21,4 @@ to set properties like the contrast, opacity, colormaps and blending mode. At th
 - [shapes layer tutorial](shapes.md)
 - [pyramid layer tutorial](pyramid.md)
 - [vectors layer tutorial](vectors.md)
+- [gallery](../gallery/gallery.md)

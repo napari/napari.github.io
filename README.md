@@ -9,11 +9,13 @@ in, let's talk a bit about what napari actually is and why we're developing it.
 
 **napari** is a fast, interactive, multi-dimensional image viewer for Python. It's designed for browsing, annotating, and analyzing large multi-dimensional images. It's built on top of `Qt` (for the GUI), `vispy` (for performant GPU-based rendering), and the scientific Python stack (e.g. `numpy`, `scipy`). It includes critical viewer features out-of-the-box, such as support for large multi-dimensional data, and layering and annotation. By integrating closely with the Python ecosystem, **napari** can be easily coupled to leading machine learning and image analysis tools (e.g. `scikit-image`, `scikit-learn`, `TensorFlow`, `PyTorch`), enabling more user-friendly automated analysis.
 
-![image](./resources/napari_overview.png)
+![image](./gallery/resources/napari_overview.png)
 
 We're developing **napari** in the open! But the project is in an **alpha** stage, and there will still likely be **breaking changes** with each release. You can follow progress on this repository, test out new versions as we release them, and contribute ideas and code.
 
 To get a sense of our current plans checkout and contribute to the discussion on some of our [long-term feature issues](https://github.com/napari/napari/issues?q=is%3Aissue+is%3Aopen+label%3A%22long-term+feature%22) on gitub.
+
+To checkout some cool example uses of **napari** with scientific data see our [gallery](./gallery/gallery.md).
 
 ## getting started
 
@@ -35,3 +37,4 @@ If you've already got napari installed then begin with our [getting started](./t
 - [shapes layer tutorial](./tutorials/shapes.md)
 - [pyramid layer tutorial](./tutorials/pyramid.md)
 - [vectors layer tutorial](./tutorials/vectors.md)
+- [gallery](./gallery/gallery.md)

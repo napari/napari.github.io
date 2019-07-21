@@ -15,7 +15,7 @@ We're developing **napari** in the open! But the project is in an **alpha** stag
 
 To get a sense of our current plans checkout and contribute to the discussion on some of our [long-term feature issues](https://github.com/napari/napari/issues?q=is%3Aissue+is%3Aopen+label%3A%22long-term+feature%22) on gitub.
 
-To checkout some cool example usecases of **napari** see our [gallery](./gallery/gallery.md).
+To checkout some cool example uses of **napari** with scientific data see our [gallery](./gallery/gallery.md).
 
 ## getting started
 

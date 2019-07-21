@@ -4,12 +4,14 @@ Welcome to the **napari** gallery!
 
 This gallery contains examples showing real scientific data visualized and annotated with **napari**.
 
-|<a href="#pathology-data"><img src="./resources/pathology.gif" width="125"/><a> | <a href="#lattice-light-sheet-data"><img src="./resources/LLSM.gif" width="125"/><a> | <a href="#neural-calcium-imaging-data"><img src="./resources/calcium_imaging.gif" width="125"/><a> | <a href="#mesoscope-neural-imaging-data"><img src="./resources/mesoscope.gif" width="125"/><a> |
+| | | | |
 |---|---|---|---|
-|<a href="#electron-microscopy-data"><img src="./resources/CREMI.gif" width="125"/><a>| <a href="#allen-brain-reference-atlas"><img src="./resources/allen_brain.gif" width="125"/><a> | <a href="#image-based-transcriptomic-data"><img src="./resources/smFISH.gif" width="125"/><a> | <a href="#image-based-transcriptomic-data"><img src="./resources/smFISH_3D.gif" width="125"/><a> |
-| <a href="#cell-biology-data"><img src="./resources/allen_cell.gif" width="125"/><a> | <a href="#cell-biology-data"><img src="./resources/allen_cell_3D.gif" width="125"/><a> | <a href="#more-cell-biology-data"><img src="./resources/cells.gif" width="125"/><a> | <a href="#volumetric-rendering-data"><img src="./resources/stent.gif" width="125"/><a> |
-| <a href="#geospatial-data"><img src="./resources/geospatial.gif" width="125"/><a> | <a href="#kaggle-nuclei-segmentation-data"><img src="./resources/DSB2018_browse.gif" width="125"/><a> | <a href="#kaggle-nuclei-segmentation-data"><img src="./resources/DSB2018_edit.gif" width="125"/><a> | <a href="#machine-learning-data"><img src="./resources/ants_bees.gif" width="125"/><a> |
+|<a href="#pathology-data"><img src="./resources/pathology.gif" width="130"/><a>| <a href="#lattice-light-sheet-data"><img src="./resources/LLSM.gif" width="130"/><a> | <a href="#neural-calcium-imaging-data"><img src="./resources/calcium_imaging.gif" width="130"/><a> | <a href="#mesoscope-neural-imaging-data"><img src="./resources/mesoscope.gif" width="130"/><a> |
+|<a href="#electron-microscopy-data"><img src="./resources/CREMI.gif" width="130"/><a>| <a href="#allen-brain-reference-atlas"><img src="./resources/allen_brain.gif" width="130"/><a> | <a href="#image-based-transcriptomic-data"><img src="./resources/smFISH.gif" width="130"/><a> | <a href="#image-based-transcriptomic-data"><img src="./resources/smFISH_3D.gif" width="130"/><a> |
+| <a href="#cell-biology-data"><img src="./resources/allen_cell.gif" width="130"/><a> | <a href="#cell-biology-data"><img src="./resources/allen_cell_3D.gif" width="130"/><a> | <a href="#more-cell-biology-data"><img src="./resources/cells.gif" width="130"/><a> | <a href="#volumetric-rendering-data"><img src="./resources/stent.gif" width="130"/><a> |
+| <a href="#geospatial-data"><img src="./resources/geospatial.gif" width="130"/><a> | <a href="#kaggle-nuclei-segmentation-data"><img src="./resources/DSB2018_browse.gif" width="130"/><a> | <a href="#kaggle-nuclei-segmentation-data"><img src="./resources/DSB2018_edit.gif" width="130"/><a> | <a href="#machine-learning-data"><img src="./resources/ants_bees.gif" width="130"/><a> |
 
+## Examples
 
 ### pathology data
 

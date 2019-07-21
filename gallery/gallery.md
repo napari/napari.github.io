@@ -4,13 +4,11 @@ Welcome to the **napari** gallery!
 
 This gallery contains examples showing real scientific data visualized and annotated with **napari**.
 
-
-
-|<a href="#pathology-data"><img src="./resources/pathology.gif" width="100"/><a>| <img src="./resources/LLSM.gif" width="100"/> |   <img src="./resources/calcium_imaging.gif" width="100"/> |   <img src="./resources/mesoscope.gif" width="100"/> |
+|<a href="#pathology-data"><img src="./resources/pathology.gif" width="125"/><a> | <a href="#lattice-light-sheet-data"><img src="./resources/LLSM.gif" width="125"/><a> | <a href="#neural-calcium-imaging-data"><img src="./resources/calcium_imaging.gif" width="125"/><a> | <a href="#mesoscope-neural-imaging-data"><img src="./resources/mesoscope.gif" width="125"/><a> |
 |---|---|---|---|
-|<img src="./resources/CREMI.gif" width="100"/>| <img src="./resources/allen_brain.gif" width="100"/> |   <img src="./resources/smFISH.gif" width="100"/> |   <img src="./resources/smFISH_3D.gif" width="100"/> |
-|<img src="./resources/allen_cell.gif" width="100"/>| <img src="./resources/allen_cell_3D.gif" width="100"/> |   <img src="./resources/cells.gif" width="100"/> |   <img src="./resources/stent.gif" width="100"/> |
-|<img src="./resources/geospatial.gif" width="100"/>| <img src="./resources/DSB2018_browse.gif" width="100"/> |   <img src="./resources/DSB2018_edit.gif" width="100"/> |   <img src="./resources/ants_bees.gif" width="100"/> |
+|<a href="#electron-microscopy-data"><img src="./resources/CREMI.gif" width="125"/><a>| <a href="#allen-brain-reference-atlas"><img src="./resources/allen_brain.gif" width="125"/><a> | <a href="#image-based-transcriptomic-data"><img src="./resources/smFISH.gif" width="125"/><a> | <a href="#image-based-transcriptomic-data"><img src="./resources/smFISH_3D.gif" width="125"/><a> |
+| <a href="#cell-biology-data"><img src="./resources/allen_cell.gif" width="125"/><a> | <a href="#cell-biology-data"><img src="./resources/allen_cell_3D.gif" width="125"/><a> | <a href="#more-cell-biology-data"><img src="./resources/cells.gif" width="125"/><a> | <a href="#volumetric-rendering-data"><img src="./resources/stent.gif" width="125"/><a> |
+| <a href="#geospatial-data"><img src="./resources/geospatial.gif" width="125"/><a> | <a href="#kaggle-nuclei-segmentation-data"><img src="./resources/DSB2018_browse.gif" width="125"/><a> | <a href="#kaggle-nuclei-segmentation-data"><img src="./resources/DSB2018_edit.gif" width="125"/><a> | <a href="#machine-learning-data"><img src="./resources/ants_bees.gif" width="125"/><a> |
 
 
 ### pathology data
@@ -69,6 +67,7 @@ Here the raw volume is shown in a `red` colormap, and the deconvolved volume is 
 Data courtesy of Tim Wang, Svoboda Lab.
 
 ### cell biology data
+
 ![image](./resources/allen_cell.gif)
 
 This examples shows images of cells under brightfield and fluorescent imaging. There are four color channels of flourescently label data all blended together, showing the cell nuclei and the distribution of targets of interest. The top `Labels` layer shows some hand drawn regions around the nuclei, which can been seen in blue.
@@ -106,7 +105,6 @@ We are using [dask-image](https://dask-image.readthedocs.io) to look at director
 We can also edit or create our own segmentations using the paintbrush and fill bucket tool in the `Labels` layer.
 
 ![image](./resources/DSB2018_edit.gif)
-
 
 ### machine learning data
 ![image](./resources/ants_bees.gif)

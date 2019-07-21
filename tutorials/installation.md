@@ -36,7 +36,7 @@ napari
 ```
 An empty napari viewer should appear as follows
 
-![image](../resources/launch_cli_empty.gif)
+![image](./resources/launch_cli_empty.gif)
 
 ## upgrading
 
@@ -66,3 +66,4 @@ Now that you've got napari installed, checkout our [getting started](getting_sta
 - [shapes layer tutorial](shapes.md)
 - [pyramid layer tutorial](pyramid.md)
 - [vectors layer tutorial](vectors.md)
+- [gallery](../gallery/gallery.md)

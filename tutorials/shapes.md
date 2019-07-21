@@ -20,3 +20,4 @@ This tutorial will teach you about the **napari** `Shapes` layer, including ...
 - [shapes layer tutorial](shapes.md)
 - [pyramid layer tutorial](pyramid.md)
 - [vectors layer tutorial](vectors.md)
+- [gallery](../gallery/gallery.md)

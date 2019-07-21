@@ -5,9 +5,9 @@ Welcome to the **napari** gallery!
 This gallery contains examples showing real scientific data visualized and annotated with **napari**.
 
 
-|   |   |   |   |
+
+|<a href="#pathology-data"><img src="./resources/pathology.gif" width="100"/><a>| <img src="./resources/LLSM.gif" width="100"/> |   <img src="./resources/calcium_imaging.gif" width="100"/> |   <img src="./resources/mesoscope.gif" width="100"/> |
 |---|---|---|---|
-|<img src="./resources/pathology.gif" width="100"/>| <img src="./resources/LLSM.gif" width="100"/> |   <img src="./resources/calcium_imaging.gif" width="100"/> |   <img src="./resources/mesoscope.gif" width="100"/> |
 |<img src="./resources/CREMI.gif" width="100"/>| <img src="./resources/allen_brain.gif" width="100"/> |   <img src="./resources/smFISH.gif" width="100"/> |   <img src="./resources/smFISH_3D.gif" width="100"/> |
 |<img src="./resources/allen_cell.gif" width="100"/>| <img src="./resources/allen_cell_3D.gif" width="100"/> |   <img src="./resources/cells.gif" width="100"/> |   <img src="./resources/stent.gif" width="100"/> |
 |<img src="./resources/geospatial.gif" width="100"/>| <img src="./resources/DSB2018_browse.gif" width="100"/> |   <img src="./resources/DSB2018_edit.gif" width="100"/> |   <img src="./resources/ants_bees.gif" width="100"/> |

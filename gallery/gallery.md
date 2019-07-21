@@ -29,6 +29,12 @@ We also extracted the coordinates of two tumors on this slide and visualized the
 
 This example browses over 100GB of [lattice lightsheet](https://science.sciencemag.org/content/360/6386/eaaq1392) data, representing a volumetric timeseries. Using the sliders we can move through both the `z` dimension and the `time` dimension. The data is stored on disk as a [zarr](https://zarr.readthedocs.io) file, which are lazily reading using [dask](https://dask.readthedocs.io/en/latest/).
 
+Or rendered in 3D as a volumetric timeseries.
+
+![image](./resources/LLSM_3D.gif)
+
+Note that the volume has been downsampled in each spatial axis by a factor of four before displaying it.
+
 ### neural calcium imaging data
 ![image](./resources/calcium_imaging.gif)
 

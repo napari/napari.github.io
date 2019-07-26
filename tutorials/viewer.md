@@ -71,9 +71,9 @@ from skimage import data
 import napari
 
 viewer = napari.Viewer()
-viewer.add_image(data.astronaut(), name=astronaut)
-viewer.add_image(data.moon(), name=moon)
-viewer.add_image(data.camera(), name=camera)
+viewer.add_image(data.astronaut(), name='astronaut')
+viewer.add_image(data.moon(), name='moon')
+viewer.add_image(data.camera(), name='camera')
 ```
 
 ![image](./resources/layerlist.png)

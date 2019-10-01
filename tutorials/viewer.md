@@ -12,16 +12,16 @@ As discussed in [getting started](getting_started.md) tutorial the napari viewer
 
 Let's get stated by launching a viewer with a simple 2D image.
 
-The fasted way to get the viewer open and throw an image up on the screen is using the `napari.view` method:
+The fasted way to get the viewer open and throw an image up on the screen is using the `napari.view_image` method:
 
 ```python
 %gui qt5
 from skimage import data
 import napari
 
-viewer = napari.view(data.astronaut())
+viewer = napari.view_image(data.astronaut(), rgb=True)
 ```
-Calling `napari.view` will return a `Viewer` object that is the main object inside **napari**. All the data you add to **napari** will be stored inside the `Viewer` object. It will also open the viewer to create a GUI (graphical user interface) that you can interact with.
+Calling `napari.view_image` will return a `Viewer` object that is the main object inside **napari**. All the data you add to **napari** will be stored inside the `Viewer` object. It will also open the viewer to create a GUI (graphical user interface) that you can interact with.
 
 You can also create an empty `Viewer` directly and then start adding images to it. This approach can be more flexible for complex work flows, and will allow you to add other types of data like `points` and `shapes`.
 
@@ -31,14 +31,16 @@ from skimage import data
 import napari
 
 viewer = napari.Viewer()
-viewer.add_image(data.astronaut())
+viewer.add_image(data.astronaut(), rgb=True)
 ```
+
+`add_image` accepts the same arguments as `view_image` but doesn't create a `Viewer`, as you must already have one to use it.
 
 After running either of those two commands you should now be able to see the photograph of the astronaut in the a **napari** viewer as shown below
 
 ![image](./resources/viewer_astronaut.png)
 
-Both the `view` and the `add_image` methods accept any numpy-array like object as an input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer](image.md) tutorial. Now we will continue exploring the rest of the viewer.
+Both the `view_image` and the `add_image` methods accept any numpy-array like object as an input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer](image.md) tutorial. Now we will continue exploring the rest of the viewer.
 
 ## layout of the viewer
 
@@ -46,27 +48,29 @@ The viewer is organized into a few key areas:
 
 - main canvas
 - layer list
-- layer properties widgets
-- layer control panel
+- layer controls
 - new layer buttons
-- status bar
+- viewer buttons
+- console
 - dimension sliders
+- status bar
 
 We'll go through each of these in the next sections.
 
 ### main canvas
 
-The main canvas is located in the center of the viewer and contains the visual display of the data passed to **napari**, including images, point, shapes, and our other supported data types. Under the hood the canvas is a `vispy.scene.SceneCanvas` object which has built-in support for features such as zooming and panning. As `vispy` uses `OpenGL` and your graphics card, panning and zooming are highly performant.
+The main canvas is located in the center of the viewer and contains the visual display of the data passed to **napari**, including images, point, shapes, and our other supported data types. Under the hood the canvas is a `vispy.scene.SceneCanvas` object which has built-in support for features such as zooming and panning. As `vispy` uses `OpenGL` and your graphics card, panning and zooming are highly performant. You can also return to the original zoom level by clicking the `home` button in the viewer buttons panel.
 
 ![image](./resources/viewer_pan_zoom.gif)
 
 ### layer list
-One of the basic **napari** objects are layers. There are different layer types for `images`, `points`, `shapes`, and other basic data types. They can be added to the viewer either programatically or through the GUI. Once added they start to populate the layer list is located on the righthand side of the main canvas.
+One of the basic **napari** objects are layers. There are different layer types for `Image`, `Points`, `Shapes`, and other basic data types. They can be added to the viewer either programmatically or through the GUI. Once added they start to populate the layer list is located on the bottom lefthand side of the main canvas.
 
-The layer list contains one layer properties widget for each of the layers that have been added to the viewer. For example adding the following three layers using the code below adds three layer properties widgets as follows:
+The layer list contains one widget for each of the layers that have been added to the viewer and includes a `thumbnail` which shows a miniaturized version of the currently viewed data, a `name` that is an editable text box, `visibility` button that can be toggled on or off to show or hide the layer, and an `icon` for the layer type.
+
+Adding the following three image layers using the code below adds three layer widgets to the layer list as follows:
 
 ```python
-%gui qt5
 from skimage import data
 import napari
 
@@ -78,13 +82,11 @@ viewer.add_image(data.camera(), name=camera)
 
 ![image](./resources/layerlist.png)
 
-Note that we've also also named each of the layers using the `name` keyword argument in `add_image`, and that name has appeared as a string in the layer property widget.
+Note that we've also also named each of the layers using the `name` keyword argument in `add_image`, and that name has appeared as a string in the layer widget. The layer name is coerced into being unique so that it can be used to index into the `LayerList`.
 
-You can select layers, causing them to become outlined, by clicking on their layer properties widget. Multiple layers can be simultaneously selected using either `shift` or `command` click to select either all the layers in between clicked on layers or just the clicked on layers respectively.
+You can select layers, causing them to become outlined, by clicking on their layer widget. Multiple layers can be simultaneously selected using either `shift` or `command` click to select either all the layers in between clicked on layers or just the clicked on layers respectively.
 
 You can rearrange the order of the layers by dragging them, including dragging multiple layers at the same time.
-
-![image](./resources/layerlist_rearrange.gif)
 
 The `Viewer` object also contains our `LayerList` object that allows you to access the data of all the layers by
 
@@ -104,18 +106,15 @@ viewer.layers['astronaut', 'moon'] = viewer.layers['moon', 'astronaut']
 ```
 from the console will swap the positions of the `moon` and `astronaut` layers in the viewer.
 
+When you select a layer you will notice that layer controls box above the layers list becomes populate with options that depend on the layer type that you have selected.
 
-### layer properties widgets
+### layer controls
 
-The individual layer property widgets within the layer list contain a `visibility` icon on the lefthand side that can be toggled on or off to show or hide the layer, a thumbnail which shows a miniaturized version of the currently viewed data, a name string in which the text can be edited, and an arrow switch that can be clicked to expand the widget and show more properties that are customized for each of the different layer types. Note that the layer name is coerced into being unique so that it can be used to index into the `LayerList`.
-
-Interacting with the layer properties widgets looks as follows:
-
-![image](./resources/layer_properties_widgets.gif)
+Above the layers list there is a box that contains the layer controls. The controls that you have available to you depend on the layer type that you have selected.
 
 Adjusting these properties in the GUI will cause corresponding changes to properties on the individual layers that are accessible in the console through `viewer.layers`.
 
-These properties can also be changed within the console as follows:
+For example the `name` and `visible` properties can also be changed within the console as follows:
 
 ```python
 viewer.layers['camera'].name = 'photographer'
@@ -124,27 +123,9 @@ viewer.layers['astronaut'].visible = False
 
 and these changes will instantly propagate to the GUI. For more information about the different properties for different layer types checkout our layer specific tutorials listed below.
 
-### layer control panel
-
-On the lefthand side of the main canvas is a thin vertical control panel that is used to display more layer specific controls. To get a sense of its full usage we'll start a new example with both `Image` and `Points` layers, where a `Points` layer is used to display 2D markers at different locations.
-
-```python
-%gui qt5
-from skimage import data
-import numpy as np
-import napari
-
-viewer = napari.Viewer()
-viewer.add_image(data.moon(), name=moon)
-viewer.add_points(512 * np.random.random((20, 2)), name=spots, size=20, face_color='red')
-```
-This example has added 20 red markers to a `Points` layer which we have named `spots`. You'll note that as we select the two different layers different interactive elements appear in the layer control panel. When we have the `moon` selected then a slider appears, when we have `spots` selected four different buttons appear, and when we have neither or both layers selected no elements appear. These elements allow you to control global properties of the layer like the contrast slider for an `Image` layer, or allow you to add and select points for a `Points` layer. For more information about the different elements in the control panel for different layer types checkout our layer specific tutorials listed below.
-
-Here is a demo of interactivity for the `Image` and `Points` layers in the example above.
-
-![image](./resources/layer_control_panel.gif)
 
 ### new layer buttons
+
 New `Points`, `Shapes`, and `Labels` layers can be added to the viewer using the new layer buttons in the bottom righthand corner of the GUI. These correspond to the calls
 
 ```python
@@ -154,30 +135,15 @@ viewer.add_labels(data)
 ```
 but with empty data. Once added in the GUI these layers become accessible in the layers list and at `viewer.layers`.
 
-Layers can also be deleted by selecting them and the clicking on the trash icon, the far right button, or by dragging the layers and dropping them into the trash.
+Layers can also be deleted by selecting them and the clicking on the trash icon, or by dragging the layers and dropping them into the trash.
 
 In the console a layer at index `i` can be removed by
 ```python
 viewer.layers.pop(i)
 ```
 
-Adding and deleting layers from the GUI looks as follows
-
-![image](./resources/layer_new.gif)
-
-Notice here how we added two `Points` layers and used the layer properties widget to change their colors. We then added a `Shapes` layer which allowed us to draw some rectangles, before we deleted all our new layers.
-
-### status bar
-
-At the very bottom of the GUI there is a status bar that contains useful updates and tips.
-
-On the lefthand side of the status bar there is a message that contains information about the position of the mouse and the values of any images or the indices of any points that are currently hovered over, depending on which layer is selected. The status bar will also display information about what button you are clicking in the layer control panel too.
-
-The righthand side of the status bar contains some helpful tips depending on which layer and tools are currently selected.
-
-You should be able to see the status bar changing as the cursor moves in our examples above.
-
 ## dimension sliders
+
 One of the main strengths of **napari** is that it has been designed from the beginning to handle n-dimensional data. While much consumer photography is 2D and `RGB`, scientific image data can often be volumetric (i.e. 3D), volumetric timeseries (i.e. 4D), or even higher dimensional. **napari** places no limits on the dimensionality of its input data for all of its layer types.
 
 Adding data with a dimensionality greater than 2D will cause dimension sliders to appear directly underneath the main canvas and above the status bar. As many sliders as needed will appear to ensure the data can be fully browsed. For example a 3D dataset needs one slider, a 4D dataset needs two sliders, and so on.
@@ -205,12 +171,28 @@ blobs = np.stack(
 viewer.add_image(blobs, name='4D blobs')
 ```
 
-![image](./resources/multidimensional_sliders.gif)
 
-Notice how there are two dimension sliders located beneath the main canvas and
-adjusting them affects only the `4D blobs` data.
+### viewer buttons
 
-The multidimensional sliders conclude our exploration of the layout of the viewer.
+Underneath the layers list there is a row of buttons that includes the `Conosle` button that will show or hide our console that allows you to interact with a python kernel. Inside the console you can access the viewer using the `viewer` argument.
+
+We then have a button that switches between `2D` and `3D` rendering.
+
+Next is a button to roll the dimensions that are currently being displayed in the viewer - for example if you have a `ZYX` volume and are looking at the `YX` slice this will then show you the `ZY` slice.
+
+After that is a button that transposes the displayed dimensions.
+
+Finally is the `home` button that will reset the camera state to its initial value.
+
+
+### status bar
+
+At the very bottom of the GUI there is a status bar that contains useful updates and tips.
+
+On the lefthand side of the status bar there is a message that contains information about the position of the mouse and the values of any images or the indices of any points that are currently hovered over, depending on which layer is selected. The status bar will also display information about what button you are clicking in the layer control panel too.
+
+The righthand side of the status bar contains some helpful tips depending on which layer and tools are currently selected.
+
 
 ## changing viewer theme
 
@@ -290,12 +272,11 @@ the `LayerList` and some of the different layer types. To learn more about the d
 - [welcome](../README.md)
 - [installing napari](installation.md)
 - [getting started tutorial](getting_started.md)
-- [napari viewer tutorial](viewer.md)
+- [viewer tutorial](viewer.md)
 - [image layer tutorial](image.md)
 - [labels layer tutorial](labels.md)
 - [points layer tutorial](points.md)
 - [shapes layer tutorial](shapes.md)
-- [pyramid layer tutorial](pyramid.md)
+- [surface layer tutorial](surface.md)
 - [vectors layer tutorial](vectors.md)
-- [volume layer tutorial](volume.md)
 - [gallery](../gallery/gallery.md)

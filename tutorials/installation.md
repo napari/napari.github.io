@@ -2,7 +2,7 @@
 
 Welcome to the **napari** installation tutorial!
 
-This tutorial will teach you how to do a clean install of **napari**. It is aimed at people that want to use napari. For people interested in contributing to napari please check our [contributing guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md) for more advanced installation procedures. At the end of the tutorial you should have napari successfully installed on your computer and be able to make the napari viewer appear.
+This tutorial will teach you how to do a clean install of **napari**. It is aimed at people that just want to use napari. For people also interested in contributing to napari please check our [contributing guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md) for more advanced installation procedures. At the end of the tutorial you should have napari successfully installed on your computer and be able to make the napari viewer appear.
 
 ## instalation
 
@@ -36,7 +36,7 @@ napari
 ```
 An empty napari viewer should appear as follows
 
-![image](./resources/launch_cli_empty.gif)
+![image](./resources/launch_cli_empty.png)
 
 ## upgrading
 
@@ -47,24 +47,30 @@ $ pip install napari --upgrade
 
 ## troubleshooting
 
-We're currently working on improving our windows support. For mac0S we also require at least version 10.12.
+We're currently working on improving our windows support. Right now for some windows systems we have a known issue which we are working to resolve that causes the following error message:
+```python
+AttributeError: 'LooseVersion' object has no attribute 'version'
+```
+For mac0S we require at least version 10.12.
+
+## help
+
+We're a community partner on the [imagesc forum](https://forum.image.sc/tags/napari) and all help and support requests should be posted on the forum with the tag `napari`. We look forward to interacting with you there.
 
 ## next steps
 
 Now that you've got napari installed, checkout our [getting started](getting_started.md) tutorial to start learning how to use it!
-
 
 ## all tutorials
 
 - [welcome](../README.md)
 - [installing napari](installation.md)
 - [getting started tutorial](getting_started.md)
-- [napari viewer tutorial](viewer.md)
+- [viewer tutorial](viewer.md)
 - [image layer tutorial](image.md)
 - [labels layer tutorial](labels.md)
 - [points layer tutorial](points.md)
 - [shapes layer tutorial](shapes.md)
-- [pyramid layer tutorial](pyramid.md)
+- [surface layer tutorial](surface.md)
 - [vectors layer tutorial](vectors.md)
-- [volume layer tutorial](volume.md)
 - [gallery](../gallery/gallery.md)

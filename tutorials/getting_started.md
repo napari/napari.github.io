@@ -12,7 +12,8 @@ This tutorial will teach you all the different ways to launch napari. At the end
 There are three ways to launch the **napari** viewer:
 - command line
 - python script
-- jupyter notebook / ipython
+- IPython console
+- jupyter notebook
 
 
 All three of these methods will launch the same napari viewer, but depending on your use-case different ones may be preferable.
@@ -26,7 +27,7 @@ napari
 
 This command will launch an empty viewer:
 
-![image](./resources/launch_cli_empty.gif)
+![image](./resources/launch_cli_empty.png)
 
 Once you have the viewer open you can add images through the `File/Open` dropdown menu or by dragging and dropping images directly on the viewer. We currently only support files that can be read with [`skimage.io.imread`](https://scikit-image.org/docs/dev/api/skimage.io.html#skimage.io.imread), such as `tif`, `png`, and `jpg`. We plan on adding support for more exotic file types shortly - see [issue #379](https://github.com/napari/napari/issues/379) for discussion. You can also create new empty `points`, `shapes`, and `labels` layers using the new layer buttons in the bottom right of the viewer.
 
@@ -34,28 +35,28 @@ You can also directly load an image into the viewer from the command line by pas
 ```sh
 napari my_image.png
 ```
-If the image is multichannel (i.e. `RGB` or `RGBA`) use the `-m` or `--multichannel` flag.
+If the image is `RGB` or `RGBA` use the `-r` or `--rgb` flag.
 
-![image](./resources/launch_cli_image.gif)
+![image](./resources/launch_cli_image.png)
 
-Launching napari directly from the command line is the simplest and fastest way to open the viewer, but it doesn't allow you to preprocess your images before opening them. It is also currently not possible to save images or other layer types directly from the viewer, but we'll be adding support for this functionality soon as discussed in #379.
+Launching napari directly from the command line is the simplest and fastest way to open the viewer, but it doesn't allow you to preprocess your images before opening them. It is also currently not possible to save images or other layer types directly from the viewer, but we'll be adding support for this functionality soon as discussed in [#379](https://github.com/napari/napari/issues/379).
 
 ### python script usage
 
-To launch napari from a python script, inside your script you should import `napari`, instantiate a Qt GUI, and create a `Viewer` object.
+To launch napari from a python script, inside your script you should import `napari`, create a Qt GUI context, and then create the `Viewer` by adding some data.
 
-Inside your script you should include:
+For example to add an image and some points inside your script you should include:
 
 ```python
 import napari
 
-# instantiate Qt GUI
+# create Qt GUI context
 with napari.gui_qt():
-    # create an empty viewer object
-    viewer = napari.Viewer()
+    # create a Viewer and add an image here
+    viewer = napari.view_image(my_image_data)
 
     # custom code to add data here
-    viewer.add_image(my_image_data)
+    viewer.add_points(my_points_data)
 ```
 
 then run your script from the command line to launch the viewer with your data:
@@ -65,55 +66,60 @@ python my_example_script.py
 
 See the scripts inside the [`examples`](https://github.com/napari/napari/tree/master/examples) in the main repository for examples of using napari this way.
 
-![image](./resources/launch_script.gif)
+![image](./resources/launch_script.png)
 
-The advantage of launching napari from a python script is that you can preprocess your images and add multiple layers before displaying the viewer. It is possible to save out any edits made inside the viewer by including saving code outside the `with napari.gui_qt():` context, however this can require knowing what you want to save when you write the script. You can load additional images into the viewer using the `File/Open` dropdown menu or dragging and dropping them directly on the viewer, similar to if you had launched napari from the command line.
+An advantage of launching napari from a python script is that you can preprocess your images and add multiple layers before displaying the viewer.
 
-### jupyter notebook / ipython usage
+### IPython console usage
 
-To launch napari from a jupyter notebook or IPython console, first instantiate a Qt GUI and then import `napari` and create a `Viewer` object.
+To launch napari from an IPython console, first instantiate a Qt GUI and then import `napari` and create a `Viewer` object.
 
+It is best to launch the viewer with the GUI already set to be Qt by
+
+```
+IPython --gui=qt5
+```
+
+Then inside IPython
 ```python
 # instantiate Qt GUI
-%gui qt5
-
 import napari
+from skimage.data import astronaut
 
-# create an empty viewer object
-viewer = napari.Viewer()
-
-# custom code to add data here
-viewer.add_image(my_image_data)
+# create the viewer and display the image
+viewer = napari.view_image(astronaut(), rgb=True)
 ```
-Note that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch. You can also launch IPython with the gui set using `ipython --gui=qt5` or add a configuration to do this automatically to avoid the wait.
 
-![image](./resources/launch_ipython.gif)
+If you did not launch IPython with the GUI already then you can set it from within IPython using `%gui qt5`, but be warned that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch.
+
+![image](./resources/launch_IPython.png)
+
+An advantage of launching napari from an IPython console is that the you can continue to programmatically interact with the viewer from the IPython console, including bidirectional communication, where code run in the console will update the current viewer and where data changed in the GUI will be accessible in the console.
+
+### jupyter notebook usage
 
 You can also launch napari from a jupyter notebook, such as [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master/examples/notebook.ipynb)
 
-![image](./resources/launch_jupyter.gif)
+![image](./resources/launch_jupyter.png)
 
-One of the advantages of launching napari from an ipython console or the jupyter notebook is that you can have bidirectional communication between the console / notebook and the viewer. If you add data in the viewer, say by creating new layers or adding annotations like shapes, points, or labels, you will be able to instantly access that data in the console / notebook. Similarly if you continue to add or modify data in the console / notebook those changes will instantly propagate to the viewer.
+As in the case of the IPython console though you must wait for the Qt GUI to instantiate following the `%gui qt5` magic command. Instantiating the Qt GUI can take a few seconds and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch. For this reason the `%gui qt5` magic command should always be run in a separate cell from creating the viewer.
 
-![image](./resources/bidirectional_communication.gif)
-
-Note that we currently don't support launching napari from a remote jupyter notebook as `Qt` is unable to create a window in that usage mode. We are interested in adding support for accessing remote data / compute with napari in the future.
+Similar to launching from the IPython console, an advantage of launching napari from a jupyter notebook is that you can continue to programmatically interact with the viewer from jupyter notebook, including bidirectional communication, where code run in the notebook will update the current viewer and where data changed in the GUI will be accessible in the notebook.
 
 ## next steps
 
-To learn more about how to use the napari viewer and the different types of napari layers checkout the [napari viewer tutorial](viewer.md) and more of our tutorials listed below.
+To learn more about how to use the napari viewer the different types of napari layers checkout the [viewer tutorial](viewer.md) and more of our tutorials listed below.
 
 ## all tutorials
 
 - [welcome](../README.md)
 - [installing napari](installation.md)
 - [getting started tutorial](getting_started.md)
-- [napari viewer tutorial](viewer.md)
+- [viewer tutorial](viewer.md)
 - [image layer tutorial](image.md)
 - [labels layer tutorial](labels.md)
 - [points layer tutorial](points.md)
 - [shapes layer tutorial](shapes.md)
-- [pyramid layer tutorial](pyramid.md)
+- [surface layer tutorial](surface.md)
 - [vectors layer tutorial](vectors.md)
-- [volume layer tutorial](volume.md)
 - [gallery](../gallery/gallery.md)

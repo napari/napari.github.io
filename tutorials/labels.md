@@ -4,7 +4,7 @@ Welcome to the tutorial on the **napari** `Labels` layer!
 
 This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](installation.md) tutorial. For help getting started with the viewer see our [getting started](getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](viewer.md) tutorial.
 
-This tutorial will teach you about the **napari** `Labels` layer, including the types of use the layer to display the results of image segmentation analyses, and how to manually segment images using the paintbrush and fill buckets. At the end of the tutorial you should understand how to add a labels image and edit it from the GUI and from the console.
+This tutorial will teach you about the **napari** `Labels` layer, including using the layer to display the results of image segmentation analyses, and how to manually segment images using the paintbrush and fill buckets. At the end of the tutorial you should understand how to add a labels image and edit it from the GUI and from the console.
 
 The labels layer allows you to take an array of integers and display each integer as a different random color, with the background color 0 rendered as transparent.
 
@@ -58,7 +58,7 @@ Because the labels layer subclasses the image layer it inherits the great proper
 
 ## creating a new labels layer
 
-As you can edit a labels layer using the paintbrush and fill bucket, it is possible to create a brand new empty labels layers by clicking the new labels layer button above the layers list. The size of the new labels layer will match the size of any currently existing image layers, allowing you to paint on top of them.
+As you can edit a labels layer using the paintbrush and fill bucket, it is possible to create a brand new empty labels layers by clicking the new labels layer button above the layers list. The shape of the new labels layer will match the size of any currently existing image layers, allowing you to paint on top of them.
 
 ## non-editable mode
 
@@ -76,7 +76,7 @@ Note though that when entering 3D rendering mode the colorpicker, paintbrush, an
 
 ## pan and zoom mode
 
-The default mode of the labels layer is to support panning and zooming, as in the image layer. This mode is represent by the magnifying glass in the layers control panel, and while it is selected editing the layer is not possible. Continue reading to learn how to use some of the editing modes.
+The default mode of the labels layer is to support panning and zooming, as in the image layer. This mode is represent by the magnifying glass in the layers control panel, and while it is selected editing the layer is not possible. Continue reading to learn how to use some of the editing modes. You can always return to pan and zoom mode by pressing the `Z` key when the labels layer is selected.
 
 ## changing labels colors
 
@@ -94,7 +94,7 @@ You can set the selected label to be one larger than the current largest label b
 You can also increment or decrement the currently selected label by pressing the `I` or `D` key respectively.
 
 ## painting in the labels layer
-One of the major use cases for the labels layer is to manually edit or create image segmentations. One of the tools that can be used for manual editing is the `paintbrush`, that can be made active from by clicking the paintbrush icon in the layers control panel. Once the paintbrush is enable the pan and zoom functionality of the  viewer canvas get disabled and you are able to paint onto the canvas. You can temporarily re-enable pan and zoom by pressing and holding the spacebar. This feature can be useful if you want to move around the labels layer as you paint.
+One of the major use cases for the labels layer is to manually edit or create image segmentations. One of the tools that can be used for manual editing is the `paintbrush`, that can be made active from by clicking the paintbrush icon in the layers control panel. Once the paintbrush is enable the pan and zoom functionality of the  viewer canvas gets disabled and you are able to paint onto the canvas. You can temporarily re-enable pan and zoom by pressing and holding the spacebar. This feature can be useful if you want to move around the labels layer as you paint.
 
 When you start painting the label that you are painting with, and the color that you will see are determined by the selected label. Note there is no explicit eraser tool, instead you just need to make the selected label 0 and then you are effectively painting with the background color. Remember you can use the color picker tool at any point to change the selected label.
 
@@ -159,6 +159,7 @@ All our layers also support a `metadata` property and keyword argument that you 
 ## next steps
 
 Hopefully this tutorial has given you a detailed understanding of the `Labels` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [points layer](points.md) tutorial is a great one to try next as points are one of our simplest shape-like layers.
+
 ## all tutorials
 
 - [welcome](../README.md)

@@ -52,7 +52,7 @@ This example had precomputed image pyramids stored in a zarr file, which is best
 
 You can use the `is_pyramid` keyword argument to specify if you data is an image pyramid or not. If you don't provide this value then will try and guess whether your data is or needs to be an image pyramid.
 
-## 3D rendering of image layers
+## 3D rendering of images
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer, allowing you to browse volumetric timeseries data and other high dimensional data. See for example these cells undergoing mitosis in this volumetric timeseries:
 

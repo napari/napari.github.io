@@ -66,7 +66,7 @@ If you want to disable editing of the labels layer you can set the `editable` pr
 
 As note in the section on 3D rendering, when using 3D rendering the labels layer is not editable. Similarly for now, a labels layer where the data is represented as an image pyramid is not editable.
 
-## 3D rendering of image layers
+## 3D rendering of labels
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer, allowing you to browse volumetric timeseries data and other high dimensional data. See for example the labeled blobs in 3D in the `examples/nD_labels.py`:
 

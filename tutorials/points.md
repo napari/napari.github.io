@@ -45,7 +45,7 @@ If you want to disable editing of the points layer you can set the `editable` pr
 
 As note in the section on 3D rendering, when using 3D rendering the points layer is not editable.
 
-## 3D rendering of image layers
+## 3D rendering of points
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer. See for example these points overlaid on an image in both 2D and 3D:
 
@@ -65,7 +65,7 @@ You can select a point by selecting the select points tool and then clicking on 
 
 You can select all the points in the currently viewed slice by clicking the `A` key if you are in select mode.
 
-Once selected you can delete the selected points clicking on the delete button in the layer controls panel or pressing the delete key.
+Once selected you can delete the selected points by clicking on the delete button in the layer controls panel or pressing the delete key.
 
 When using these point editing tools the pan and zoom functionality of the viewer canvas is disabled and you are able to edit the layer. You can temporarily re-enable pan and zoom by pressing and holding the spacebar. This feature can be useful if you want to move around the points layer as you edit it.
 

@@ -55,6 +55,17 @@ The labels layer is a subclass of the `Image` layer and as such can support the 
 
 Because the labels layer subclasses the image layer it inherits the great properties of the image layer, like supporting lazy loading and image pyramids for big data layers. For more information about both these concepts see the details in the [image layer](image.md) tutorial.
 
+
+## creating a new labels layer
+
+As you can edit a labels layer using the paintbrush and fill bucket, it is possible to create a brand new empty labels layers by clicking the new labels layer button above the layers list. The size of the new labels layer will match the size of any currently existing image layers, allowing you to paint on top of them.
+
+## non-editable mode
+
+If you want to disable editing of the labels layer you can set the `editable` property of the layer to `False`.
+
+As note in the section on 3D rendering, when using 3D rendering the labels layer is not editable. Similarly for now, a labels layer where the data is represented as an image pyramid is not editable.
+
 ## 3D rendering of image layers
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer, allowing you to browse volumetric timeseries data and other high dimensional data. See for example the labeled blobs in 3D in the `examples/nD_labels.py`:
@@ -144,14 +155,6 @@ All our layers support a `translate` property and keyword argument that you can 
 ## layer metadata
 
 All our layers also support a `metadata` property and keyword argument that you can use to store an arbitrary metadata dictionary on the layer.
-
-## creating a new labels layer
-
-As you can edit a labels layer using the paintbrush and fill bucket, it is possible to create a brand new empty labels layers by clicking the new labels layer button above the layers list. The size of the new labels layer will match the size of any currently existing image layers, allowing you to paint on top of them.
-
-## non-editable mode
-
-As note in the section on 3D rendering, when using 3D rendering the labels layer is not editable. You can also disable the editability of the labels layer by setting the `editable` property of the layer to `False`.
 
 ## next steps
 

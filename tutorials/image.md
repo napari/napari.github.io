@@ -70,7 +70,7 @@ If we had left that keyword argument out napari would have successfully guessed 
 `rgb` data must either be `uint8`, corresponding to values between 0 and 255, or `float` and between 0 and 1. If the values are `float` and outside the 0 to 1 range they will be clipped.
 
 ## working with colormaps
-Napari supports any colormap that is created with `vispy.color.Colormap`. We provide access to some standard colormaps that you can set using a string of their name. These include:
+napari supports any colormap that is created with `vispy.color.Colormap`. We provide access to some standard colormaps that you can set using a string of their name. These include:
 - PiYG
 - blue
 - cyan
@@ -94,7 +94,7 @@ viewer = napari.view_image(data.moon(), colormap='red')
 ```
 will set the colormap of that image. You can also access the current colormap through the `layer.colormap` property which returns a tuple of the colormap name followed by the vispy colormap object. You can list all the available colormaps using `layer.colormaps`.
 
-It is also possible to create your own colormaps using vispy's `vispy.color.Colormap` object, see it's full [documentation here](???). Briefly, you can pass `Colormap` a list of length 3 or length 4 lists, corresponding to the `rgb` or `rgba` values at different points along the colormap. For example to make a diverging colormap the goes from red to blue through black and color a random array you can do the following:
+It is also possible to create your own colormaps using vispy's `vispy.color.Colormap` object, see it's full [documentation here](http://vispy.org/color.html#vispy.color.Colormap). Briefly, you can pass `Colormap` a list of length 3 or length 4 lists, corresponding to the `rgb` or `rgba` values at different points along the colormap. For example to make a diverging colormap the goes from red to blue through black and color a random array you can do the following:
 
 ```python
 import numpy as np

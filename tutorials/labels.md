@@ -140,6 +140,8 @@ An `opaque` layer renders all the other layers below it invisibile, and will fad
 
 The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity, but will fully block those layers if its opacity is 1. This is a reasonable default, useful for many applications.
 
+The final blending mode `additive` will cause the layer to blend with the layers below even when it has full opacity. This mode is very useful for visualizing multiple layers at the same time.
+
 ## naming layers
 
 All our layers support a `name` property that can be set inside a text box inside the layer widget in the layers list. The name of each layer is forced into being unique so that you can use the name to index into `viewer.layers` to retrieve the layer object.

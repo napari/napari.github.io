@@ -153,14 +153,16 @@ An `opaque` layer renders all the other layers below it invisibile, and will fad
 
 The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity, but will fully block those layers if its opacity is 1. This is a reasonable default, useful for many applications.
 
-The final blending mode `additive` will cause the layer to blend with the layers below even when it have full opacity. This mode is very useful for many cell biology applications where you have multiple different components of a cell labeled in different colors. For example:
+The final blending mode `additive` will cause the layer to blend with the layers below even when it has full opacity. This mode is very useful for many cell biology applications where you have multiple different components of a cell labeled in different colors. For example:
 
 ![image](./resources/blending.png)
 
 ## layer interpolation
+
 We support a variety of interpolation modes when viewing 2D slices. In the default mode `nearest` each pixel is represented as a small square of specified size. As you zoom in you will eventually see each pixel. In other modes neighbouring pixels are blended together according to different functions, for example `bicubic`, which can lead to smoother looking images. For most scientific use-cases `nearest` is recommended because it does not introduce more artificial blurring.  These modes have no effect when viewing 3D slices.
 
 ## layer rendering
+
 When viewing 3D slices we support a variety of rendering modes. The default mode `mip`, or maximum intensity projection, will combine voxels at different distances from the camera according to a maximum intensity projection to create the 2D image that is then displayed on the screen. This mode works well for many biological images such as these cells growing in culture:
 
 ![image](./resources/rendering.png)
@@ -185,7 +187,7 @@ All our layers also support a `metadata` property and keyword argument that you 
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Image` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [labels layer](labels.md) tutorial is a great one to try next as viewing labels layers are an extension of our image layers.
+Hopefully this tutorial has given you a detailed understanding of the `Image` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [labels layer](labels.md) tutorial is a great one to try next as labels layers are an extension of our image layers used for labeling regions of images.
 
 ## all tutorials
 

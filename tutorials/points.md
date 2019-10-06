@@ -103,13 +103,15 @@ An `opaque` layer renders all the other layers below it invisibile, and will fad
 
 The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity, but will fully block those layers if its opacity is 1. This is a reasonable default, useful for many applications.
 
+The final blending mode `additive` will cause the layer to blend with the layers below even when it has full opacity. This mode is very useful for visualizing multiple layers at the same time.
+
 ## naming layers
 
 All our layers support a `name` property that can be set inside a text box inside the layer widget in the layers list. The name of each layer is forced into being unique so that you can use the name to index into `viewer.layers` to retrieve the layer object.
 
 ## scaling layers
 
-All our layers support a `scale` property and keyword argument that will rescale the layer multiplicatively according to the scale values (one for each dimension). This property can be particularly useful for viewing anisotropic volumes where the size of the voxel in the z dimension might be different then the size in the x and y dimensions.
+All our layers support a `scale` property and keyword argument that will rescale the layer multiplicatively according to the scale values (one for each dimension). This property can be particularly useful for viewing anisotropic data where the size of the voxel in the z dimension might be different then the size in the x and y dimensions.
 
 ## translating layers
 
@@ -127,7 +129,7 @@ Here you can see an example of adding, selecting, deleting points and change the
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Points` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [shapes layer](shapes.md) tutorial is a great one to try next as it supports more complex shapes and interactivity.
+Hopefully this tutorial has given you a detailed understanding of the `Points` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [shapes layer](shapes.md) tutorial is a great one to try next as it describes more complex shapes and interactivity.
 
 ## all tutorials
 

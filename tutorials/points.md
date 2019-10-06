@@ -10,7 +10,7 @@ The points layer allows you to display an NxD array of N points in D coordinates
 
 ## a simple example
 
-You can create a new viewer and add a set of points in one go using the `napari.view_points` method, or if you already have an existing viewer, you can add points to it using `viewer.add_points`. The api of both methods is the same. In these examples we'll mainly use `add_points` to overlay points onto on image.
+You can create a new viewer and add a set of points in one go using the `napari.view_points` method, or if you already have an existing viewer, you can add points to it using `viewer.add_points`. The api of both methods is the same. In these examples we'll mainly use `add_points` to overlay points onto on an existing image.
 
 In this example of we will overlay some points on the image of an astronaut:
 

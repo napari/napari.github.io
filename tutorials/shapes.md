@@ -10,7 +10,7 @@ The points layer allows you to display a list of an NxD arrays, where each array
 
 ## a simple example
 
-You can create a new viewer and add a list of shapes in one go using the `napari.view_shapes` method, or if you already have an existing viewer, you can add shapes to it using `viewer.add_shapes`. The api of both methods is the same. In these examples we'll mainly use `add_shapes` to overlay shapes onto on image.
+You can create a new viewer and add a list of shapes in one go using the `napari.view_shapes` method, or if you already have an existing viewer, you can add shapes to it using `viewer.add_shapes`. The api of both methods is the same. In these examples we'll mainly use `add_shapes` to overlay shapes onto on an existing image.
 
 In this example of we will overlay some shapes on the image of a photographer:
 

@@ -2,7 +2,7 @@
 
 Welcome to the **napari** gallery!
 
-This gallery contains examples showing real scientific data visualized and annotated with **napari**.
+This gallery contains examples showing real scientific data visualized and annotated with **napari**. Note that some of these examples were made with napari 0.1, before the UI upgraded in the 0.2 release, so they layout might look a little different in your version of napari, but all these functionalities and more are still supported.
 
 | | | | |
 |---|---|---|---|

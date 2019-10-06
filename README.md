@@ -28,6 +28,10 @@ If you've already got napari installed then begin with our [getting started](./t
 
 We're a community partner on the [imagesc forum](https://forum.image.sc/tags/napari) and all help and support requests should be posted on the forum with the tag `napari`. We look forward to interacting with you there.
 
+## improving the tutorials
+
+Our tutorials are hosted on Github at https://github.com/napari/napari-tutorials. If as you're going through the tutorials you spot any errors or can think of ways to improve them please raise an issue on the repository or make a PR, we'd love to have the community help make them better for everyone.
+
 ## all tutorials
 
 - [welcome](README.md)

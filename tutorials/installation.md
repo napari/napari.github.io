@@ -6,7 +6,7 @@ This tutorial will teach you how to do a clean install of **napari**. It is aime
 
 ## instalation
 
-**napari** can be installed on most macOS and Linux systems with Python 3.6 or 3.7. We're currently working on improving Windows support. There are three different ways to install napari.
+**napari** can be installed on most macOS, Linux, and Windows systems with Python 3.6 or 3.7. There are three different ways to install napari.
 
 ### install the latest release from pip
  The simplest option is to install the latest release on PyPi by calling
@@ -47,7 +47,7 @@ $ pip install napari --upgrade
 
 ## troubleshooting
 
-We're currently working on improving our windows support. Right now for some windows systems we have a known issue which we are working to resolve that causes the following error message:
+We're currently working on improving our Windows support. Right now for some older Windows systems we have a known issue which we are working to resolve that causes the following error message:
 ```python
 AttributeError: 'LooseVersion' object has no attribute 'version'
 ```

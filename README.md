@@ -30,7 +30,7 @@ We're a community partner on the [imagesc forum](https://forum.image.sc/tags/nap
 
 ## improving the tutorials
 
-Our tutorials are hosted on Github at https://github.com/napari/napari-tutorials. If as you're going through the tutorials you spot any errors or can think of ways to improve them please raise an issue on the repository or make a PR, we'd love to have the community help make them better for everyone.
+Our tutorials are hosted on Github at [napari/napari-tutorials](https://github.com/napari/napari-tutorials). If as you're going through the tutorials you spot any errors or can think of ways to improve them please raise an issue on the repository or make a PR, we'd love to have the community help make them better for everyone.
 
 ## all tutorials
 

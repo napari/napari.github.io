@@ -1,8 +1,9 @@
 # napari tutorials
 
-Welcome to the **napari** tutorials! Our main development occurs on the https://github.com/napari/napari
-repository. Here we've provided a couple tutorials to
-explore the main usage modes and methods of napari, but before we dive in, let's talk a bit about what napari actually is and why we're developing it.
+Welcome to the **napari** tutorials! Our main development occurs on the
+[napari/napari](https://github.com/napari/napari)
+repository. Here we've provided a few tutorials to
+explore the main usage modes and methods of napari. Before we dive in, let's talk a bit about what napari actually is and why we're developing it.
 
 ## what is napari?
 

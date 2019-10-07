@@ -53,6 +53,40 @@ AttributeError: 'LooseVersion' object has no attribute 'version'
 ```
 For mac0S we require at least version 10.12.
 
+If you are running into issue please make a bug report on our issues and include the results of the following command
+
+```python
+import vispy
+print(vispy.sys_info())
+```
+
+If everything is working fine you might see an output that looks like this:
+```
+Platform: Darwin-18.5.0-x86_64-i386-64bit
+Python:   3.7.3 (default, Mar 27 2019, 16:54:48)  [Clang 4.0.1 (tags/RELEASE_401/final)]
+NumPy:    1.17.2
+Backend:  PyQt5
+pyqt4:    None
+pyqt5:    ('PyQt5', '5.12.2', '5.12.3')
+pyside:   None
+pyside2:  None
+pyglet:   None
+glfw:     None
+sdl2:     None
+wx:       None
+egl:      None
+osmesa:   None
+_test:    None
+
+GL version:  '2.1 INTEL-12.8.38'
+MAX_TEXTURE_SIZE: 16384
+```
+
+If things are not working you might see
+```
+GL version: ''
+```
+
 ## help
 
 We're a community partner on the [imagesc forum](https://forum.image.sc/tags/napari) and all help and support requests should be posted on the forum with the tag `napari`. We look forward to interacting with you there.

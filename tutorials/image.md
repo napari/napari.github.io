@@ -27,7 +27,31 @@ with napari.gui_qt():
 
 Both `view_image` and `add_image` have the following doc strings:
 
-**insert formatted doc strings here**
+```python
+Parameters
+----------
+image : np.ndarray
+    Image data.
+meta : dict, optional
+    Image metadata.
+multichannel : bool, optional
+    Whether the image is multichannel. Guesses if None.
+name : str, keyword-only
+    Name of the layer.
+clim_range : list | array | None
+    Length two list or array with the default color limit range for the
+    image. If not passed will be calculated as the min and max of the
+    image. Passing a value prevents this calculation which can be
+    useful when working with very large datasets that are dynamically
+    loaded.
+**kwargs : dict
+    Parameters that will be translated to metadata.
+
+Returns
+-------
+layer : :class:`napari.layers.Image`
+    The newly-created image layer.
+```
 
 ## image data and numpy-like arrays
 

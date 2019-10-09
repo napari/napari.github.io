@@ -49,7 +49,7 @@ clim_range : list | array | None
 
 Returns
 -------
-layer : :class:`napari.layers.Image`
+layer : napari.layers.Image
     The newly-created image layer.
 ```
 

@@ -27,7 +27,7 @@ with napari.gui_qt():
 
 Both `view_image` and `add_image` have the following doc strings:
 
-```python
+```
 Parameters
 ----------
 image : np.ndarray

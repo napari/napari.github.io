@@ -46,7 +46,55 @@ with napari.gui_qt():
 
 Both `view_shapes` and `add_shapes` have the following doc strings:
 
-**insert formatted doc strings here**
+```
+Parameters
+----------
+data : np.array | list
+    List of np.array of data or np.array. Each element of the list (or
+    row of a 3D np.array) corresponds to one shape. If a 2D array is
+    passed it corresponds to just a single shape.
+shape_type : string | list
+    String of shape shape_type, must be one of "{'line', 'rectangle',
+    'ellipse', 'path', 'polygon'}". If a list is supplied it must be
+    the same length as the length of `data` and each element will be
+    applied to each shape otherwise the same value will be used for all
+    shapes.
+edge_width : float | list
+    thickness of lines and edges. If a list is supplied it must be the
+    same length as the length of `data` and each element will be
+    applied to each shape otherwise the same value will be used for all
+    shapes.
+edge_color : str | tuple | list
+    If string can be any color name recognized by vispy or hex value if
+    starting with `#`. If array-like must be 1-dimensional array with 3
+    or 4 elements. If a list is supplied it must be the same length as
+    the length of `data` and each element will be applied to each shape
+    otherwise the same value will be used for all shapes.
+face_color : str | tuple | list
+    If string can be any color name recognized by vispy or hex value if
+    starting with `#`. If array-like must be 1-dimensional array with 3
+    or 4 elements. If a list is supplied it must be the same length as
+    the length of `data` and each element will be applied to each shape
+    otherwise the same value will be used for all shapes.
+opacity : float | list
+    Opacity of the shapes, must be between 0 and 1.
+z_index : int | list
+    Specifier of z order priority. Shapes with higher z order are
+    displayed ontop of others. If a list is supplied it must be the
+    same length as the length of `data` and each element will be
+    applied to each shape otherwise the same value will be used for all
+    shapes.
+ndim : int, optional
+    Dimensions of shape data. Once set cannot be changed. Defaults to
+    2.
+name : str, keyword-only
+    Name of the layer.
+
+Returns
+-------
+layer : napari.layers.Shapes
+    The newly-created shapes layer.
+```
 
 ## shapes data
 

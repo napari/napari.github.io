@@ -47,7 +47,29 @@ with napari.gui_qt():
 
 Both `view_labels` and `add_labels` have the following doc strings:
 
-**insert formatted doc strings here**
+```
+Parameters
+----------
+image : np.ndarray
+    Image data.
+meta : dict, optional
+    Image metadata.
+multichannel : bool, optional
+    Whether the image is multichannel. Guesses if None.
+opacity : float, optional
+    Opacity of the labels, must be between 0 and 1.
+name : str, keyword-only
+    Name of the layer.
+num_colors : int, optional
+    Number of unique colors to use. Default used if not given.
+**kwargs : dict
+    Parameters that will be translated to metadata.
+
+Returns
+-------
+layer : `napari.layers.Labels`
+    The newly-created labels layer.
+```
 
 ## labels data
 

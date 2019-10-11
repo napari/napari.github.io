@@ -32,25 +32,35 @@ Both `view_points` and `add_points` have the following doc strings:
 ```
 Parameters
 ----------
-image : np.ndarray
-    Image data.
-meta : dict, optional
-    Image metadata.
-multichannel : bool, optional
-    Whether the image is multichannel. Guesses if None.
-opacity : float, optional
-    Opacity of the labels, must be between 0 and 1.
-name : str, keyword-only
-    Name of the layer.
-num_colors : int, optional
-    Number of unique colors to use. Default used if not given.
-**kwargs : dict
-    Parameters that will be translated to metadata.
+coords : np.ndarray
+    Coordinates for each point.
+symbol : Symbol or {'arrow', 'clobber', 'cross', 'diamond', 'disc',
+                     'hbar', 'ring', 'square', 'star', 'tailed_arrow',
+                     'triangle_down', 'triangle_up', 'vbar', 'x'}
+    Symbol to be used as a point. If given as a string, must be one of
+    the following: arrow, clobber, cross, diamond, disc, hbar, ring,
+    square, star, tailed_arrow, triangle_down, triangle_up, vbar, x
+size : int, float, np.ndarray, list
+    Size of the point marker. If given as a scalar, all points are the same
+    size. If given as a list/array, size must be the same length as
+    coords and sets the point marker size for each point in coords
+    (element-wise). If n_dimensional is True then can be a list of
+    length dims or can be an array of shape Nxdims where N is the
+    number of points and dims is the number of dimensions
+edge_width : int, float, None
+    Width of the symbol edge in pixels.
+edge_color : Color, ColorArray
+    Color of the point marker border.
+face_color : Color, ColorArray
+    Color of the point marker body.
+n_dimensional : bool
+    If True, renders points not just in central plane but also in all
+    n-dimensions according to specified point marker size.
 
 Returns
 -------
-layer : napari.layers.Labels
-    The newly-created labels layer.
+layer : napari.layers.Points
+    The newly-created points layer.
     
 ```
 

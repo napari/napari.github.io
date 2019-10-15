@@ -34,7 +34,9 @@ with napari.gui_qt():
 
 Both `view_surface` and `add_surface` have the following doc strings:
 
-**insert formatted doc strings here**
+```
+
+```
 
 ## surface data
 

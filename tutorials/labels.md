@@ -67,7 +67,7 @@ num_colors : int, optional
 
 Returns
 -------
-layer : `napari.layers.Labels`
+layer : napari.layers.Labels
     The newly-created labels layer.
 ```
 

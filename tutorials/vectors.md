@@ -45,7 +45,29 @@ with napari.gui_qt():
 
 Both `view_vectors` and `add_vectors` have the following doc strings:
 
-**insert formatted doc strings here**
+```
+Parameters
+----------
+vectors : (N, 2, D) or (N1, N2, ..., ND, D) array
+    An (N, 2, D) array is interpreted as "coordinate-like" data and a
+    list of N vectors with start point and projections of the vector in
+    D dimensions. An (N1, N2, ..., ND, D) array is interpreted as
+    "image-like" data where there is a length D vector of the
+    projections at each pixel.
+width : int
+    width of the line in pixels
+length : float
+    multiplier on length of the line
+color : str
+    one of "get_color_names" from vispy.color
+mode : str
+    control panel mode
+
+Returns
+-------
+layer : napari.layers.Vectors
+    The newly-created vectors layer.
+```
 
 ## vectors data
 

@@ -107,6 +107,7 @@ napari supports any colormap that is created with `vispy.color.Colormap`. We pro
 - magenta
 - plasma
 - red
+- turbo
 - twilight
 - twilight_shifted
 - yellow

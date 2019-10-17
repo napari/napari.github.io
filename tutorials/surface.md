@@ -104,6 +104,7 @@ The same colormaps available for the `Image` layer are also available for the `S
 - magenta
 - plasma
 - red
+- turbo
 - twilight
 - twilight_shifted
 - yellow

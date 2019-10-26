@@ -76,9 +76,9 @@ import napari
 
 with napari.gui_qt():
     viewer = napari.Viewer()
-    viewer.add_image(data.astronaut(), name=astronaut)
-    viewer.add_image(data.moon(), name=moon)
-    viewer.add_image(data.camera(), name=camera)
+    viewer.add_image(data.astronaut(), name='astronaut')
+    viewer.add_image(data.moon(), name='moon')
+    viewer.add_image(data.camera(), name='camera')
 ```
 
 ![image](./resources/layerlist.png)
@@ -246,7 +246,7 @@ press the `p` key you can do the following:
 import napari
 
 viewer = napari.Viewer()
-viewer.add_image(data.astronaut(), name=astronaut)
+viewer.add_image(data.astronaut(), name='astronaut')
 
 @viewer.bind_key('p')
 def print_names(viewer):
@@ -263,7 +263,7 @@ import napari
 from skimage import data
 
 viewer = napari.Viewer()
-viewer.add_image(data.astronaut(), name=astronaut)
+viewer.add_image(data.astronaut(), name='astronaut')
 
 @viewer.bind_key('m')
 def print_message(viewer):

@@ -38,7 +38,7 @@ multichannel : bool, optional
     Whether the image is multichannel. Guesses if None.
 name : str, keyword-only
     Name of the layer.
-clim_range : list | array | None
+contrast_limits : list | array | None
     Length two list or array with the default color limit range for the
     image. If not passed will be calculated as the min and max of the
     image. Passing a value prevents this calculation which can be

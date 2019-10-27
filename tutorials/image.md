@@ -32,10 +32,10 @@ Parameters
 ----------
 image : np.ndarray
     Image data.
-meta : dict, optional
+metadata : dict, optional
     Image metadata.
-multichannel : bool, optional
-    Whether the image is multichannel. Guesses if None.
+rgb : bool, optional
+    Whether the image is rgb. Guesses if None.
 name : str, keyword-only
     Name of the layer.
 contrast_limits : list | array | None

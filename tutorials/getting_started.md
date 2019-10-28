@@ -9,14 +9,15 @@ This tutorial will teach you all the different ways to launch napari. At the end
 
 ## launching napari
 
-There are three ways to launch the **napari** viewer:
+There are four ways to launch the **napari** viewer:
+
 - command line
 - python script
 - IPython console
 - jupyter notebook
 
 
-All three of these methods will launch the same napari viewer, but depending on your use-case different ones may be preferable.
+All four of these methods will launch the same napari viewer, but depending on your use-case different ones may be preferable.
 
 ### command line usage
 
@@ -92,7 +93,7 @@ viewer = napari.view_image(astronaut(), rgb=True)
 
 If you did not launch IPython with the GUI already then you can set it from within IPython using `%gui qt5`, but be warned that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch.
 
-![image](./resources/launch_ipython.png) 
+![image](./resources/launch_ipython.png)
 
 An advantage of launching napari from an IPython console is that the you can continue to programmatically interact with the viewer from the IPython console, including bidirectional communication, where code run in the console will update the current viewer and where data changed in the GUI will be accessible in the console.
 

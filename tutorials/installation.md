@@ -4,7 +4,7 @@ Welcome to the **napari** installation tutorial!
 
 This tutorial will teach you how to do a clean install of **napari**. It is aimed at people that just want to use napari. For people also interested in contributing to napari please check our [contributing guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md) for more advanced installation procedures. At the end of the tutorial you should have napari successfully installed on your computer and be able to make the napari viewer appear.
 
-## instalation
+## installation
 
 **napari** can be installed on most macOS, Linux, and Windows systems with Python 3.6 or 3.7. There are three different ways to install napari.
 
@@ -28,6 +28,10 @@ $ git clone https://github.com/napari/napari.git
 $ cd napari
 $ pip install -e .
 ```
+
+### Linux dependencies
+
+On Linux, additional dependencies may be needed.  On Arch Linux, install [qt5-tools](https://www.archlinux.org/packages/extra/x86_64/qt5-tools/) may be needed to enable napari from an ipython session
 
 ## checking it worked
 After installation you should be able to launch napari from the command line by simply running

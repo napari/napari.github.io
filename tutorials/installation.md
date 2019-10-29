@@ -29,10 +29,6 @@ $ cd napari
 $ pip install -e .
 ```
 
-### Linux dependencies
-
-On Linux, additional dependencies may be needed.  On Arch Linux, install [qt5-tools](https://www.archlinux.org/packages/extra/x86_64/qt5-tools/) may be needed to enable napari from an ipython session
-
 ## checking it worked
 After installation you should be able to launch napari from the command line by simply running
 ```sh

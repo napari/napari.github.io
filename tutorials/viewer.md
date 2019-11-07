@@ -226,7 +226,7 @@ viewer.theme = 'light'
 
 Adding your own custom theme isn't too hard either but does require creating your own color `palette`
 and rebuilding the icons. If people want more themes, we're happy to add them or if you look at
-our [contributing guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md) for more information about building the icons and
+our [contributing guidelines](https://github.com/napari/napari/tree/master/docs/CONTRIBUTING.md) for more information about building the icons and
 add one yourself!
 
 ## custom keybinding

@@ -21,7 +21,7 @@ To checkout some cool example uses of **napari** with scientific data see our [g
 
 These tutorials target people who want to use
 napari as a user. If you are also interested in contributing to napari then
-please check out [contributing guidelines](https://github.com/napari/napari/tree/master/CONTRIBUTING.md).
+please check out [contributing guidelines](https://github.com/napari/napari/tree/master/docs/CONTRIBUTING.md).
 
 If you've already got napari installed then begin with our [getting started](./tutorials/getting_started.md) tutorial. For help installing napari checkout our [installing napari](./tutorials/installation.md) tutorial.
 

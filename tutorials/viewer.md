@@ -8,7 +8,7 @@ This tutorial will teach you about the **napari** viewer, including how to use i
 
 
 ## launching the viewer
-As discussed in [getting started](getting_started.md) tutorial the napari viewer can be launched from the command-line, a python script, an IPython console, or a jupyter notebook. All four methods launch the same viewer and anything related to the interacting with the viewer on the screen applies equally to all of them. We will use the syntax inside python scripts so you can copy and paste these examples into scripts and run them. If you are using as IPython console (launched with `IPython --gui=qt5`) then you won't need to use the `napari.gui_qt` context.
+As discussed in [getting started](getting_started.md) tutorial the napari viewer can be launched from the command-line, a python script, an IPython console, or a jupyter notebook. All four methods launch the same viewer and anything related to the interacting with the viewer on the screen applies equally to all of them. We will use the syntax inside python scripts so you can copy and paste these examples into scripts and run them. If you are using as IPython console (launched with `IPython --gui=qt`) then you won't need to use the `napari.gui_qt` context.
 
 Let's get stated by launching a viewer with a simple 2D image.
 
@@ -298,3 +298,4 @@ the `LayerList` and some of the different layer types. To learn more about the d
 - [surface layer tutorial](surface.md)
 - [vectors layer tutorial](vectors.md)
 - [gallery](../gallery/gallery.md)
+- [napari/napari repository on GitHub](https://github.com/napari/napari)

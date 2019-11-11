@@ -251,3 +251,4 @@ Hopefully this tutorial has given you a detailed understanding of the `Shapes` l
 - [surface layer tutorial](surface.md)
 - [vectors layer tutorial](vectors.md)
 - [gallery](../gallery/gallery.md)
+- [napari/napari repository on GitHub](https://github.com/napari/napari)

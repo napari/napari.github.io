@@ -124,4 +124,5 @@ To learn more about how to use the napari viewer the different types of napari l
 - [surface layer tutorial](surface.md)
 - [vectors layer tutorial](vectors.md)
 - [gallery](../gallery/gallery.md)
-- [napari/napari repository on GitHub](https://github.com/napari/napari)
+- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
+- [napari on GitHub](https://github.com/napari/napari)

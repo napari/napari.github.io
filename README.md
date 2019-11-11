@@ -46,4 +46,5 @@ Our tutorials are hosted on Github at [napari/napari-tutorials](https://github.c
 - [surface layer tutorial](./tutorials/surface.md)
 - [vectors layer tutorial](./tutorials/vectors.md)
 - [gallery](./gallery/gallery.md)
-- [napari/napari repository on GitHub](https://github.com/napari/napari)
+- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
+- [napari on GitHub](https://github.com/napari/napari)

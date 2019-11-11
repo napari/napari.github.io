@@ -132,4 +132,5 @@ This example shows data from a [hymenoptera classification task](https://pytorch
 - [surface layer tutorial](../tutorials/surface.md)
 - [vectors layer tutorial](../tutorials/vectors.md)
 - [gallery](gallery.md)
-- [napari/napari repository on GitHub](https://github.com/napari/napari)
+- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
+- [napari on GitHub](https://github.com/napari/napari)

@@ -227,3 +227,5 @@ Hopefully this tutorial has given you a detailed understanding of the `Image` la
 - [surface layer tutorial](surface.md)
 - [vectors layer tutorial](vectors.md)
 - [gallery](../gallery/gallery.md)
+- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
+- [napari on GitHub](https://github.com/napari/napari)

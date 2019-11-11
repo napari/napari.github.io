@@ -78,7 +78,7 @@ To launch napari from an IPython console, first instantiate a Qt GUI and then im
 It is best to launch the viewer with the GUI already set to be Qt by
 
 ```
-IPython --gui=qt5
+IPython --gui=qt
 ```
 
 Then inside IPython
@@ -91,7 +91,7 @@ from skimage.data import astronaut
 viewer = napari.view_image(astronaut(), rgb=True)
 ```
 
-If you did not launch IPython with the GUI already then you can set it from within IPython using `%gui qt5`, but be warned that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch.
+If you did not launch IPython with the GUI already then you can set it from within IPython using `%gui qt`, but be warned that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch.
 
 ![image](./resources/launch_ipython.png)
 
@@ -103,7 +103,7 @@ You can also launch napari from a jupyter notebook, such as [`examples/notebook.
 
 ![image](./resources/launch_jupyter.png)
 
-As in the case of the IPython console though you must wait for the Qt GUI to instantiate following the `%gui qt5` magic command. Instantiating the Qt GUI can take a few seconds and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch. For this reason the `%gui qt5` magic command should always be run in a separate cell from creating the viewer.
+As in the case of the IPython console though you must wait for the Qt GUI to instantiate following the `%gui qt` magic command. Instantiating the Qt GUI can take a few seconds and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch. For this reason the `%gui qt` magic command should always be run in a separate cell from creating the viewer.
 
 Similar to launching from the IPython console, an advantage of launching napari from a jupyter notebook is that you can continue to programmatically interact with the viewer from jupyter notebook, including bidirectional communication, where code run in the notebook will update the current viewer and where data changed in the GUI will be accessible in the notebook.
 
@@ -124,3 +124,5 @@ To learn more about how to use the napari viewer the different types of napari l
 - [surface layer tutorial](surface.md)
 - [vectors layer tutorial](vectors.md)
 - [gallery](../gallery/gallery.md)
+- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
+- [napari on GitHub](https://github.com/napari/napari)

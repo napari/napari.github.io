@@ -113,6 +113,8 @@ def crop(array):
 # https://docs.python.org/3.8/library/functools.html#functools.partial
 deskew = last3dims(partial(pycudadecon.deskew_gpu, angle=31.5))
 deconv = last3dims(partial(pycudadecon.decon, psf=psf, background=10))
+# note: this is done in two steps just as an example...
+# in reality pycudadecon.decon also has a deskew argument
 
 # map and chain those functions across all dask blocks
 deskewed = stack.map_blocks(deskew, dtype="uint16")

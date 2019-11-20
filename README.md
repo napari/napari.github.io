@@ -48,3 +48,7 @@ Our tutorials are hosted on Github at [napari/napari-tutorials](https://github.c
 - [gallery](./gallery/gallery.md)
 - [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
 - [napari on GitHub](https://github.com/napari/napari)
+
+## applications
+
+- [using dask & dask_image to view and process large datasets with arbitrary formats](./tutorials/dask.md)

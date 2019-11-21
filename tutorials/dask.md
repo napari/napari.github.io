@@ -27,11 +27,12 @@ We can create a [Dask array](https://docs.dask.org/en/latest/array.html) of dela
 
 ```python
 from skimage.io import imread
+from skimage.io.collection import alphanumeric_key
 from dask import delayed
 import dask.array as da
 from glob import glob
 
-filenames = sorted(glob("/path/to/experiment/*.tif"))
+filenames = sorted(glob("/path/to/experiment/*.tif"), key=alphanumeric_key)
 # read the first file to get the shape and dtype
 sample = imread(filenames[0])
 

@@ -79,13 +79,12 @@ with napari.gui_qt():
 
 As previously mentioned, sometimes it is desireable to process data prior to viewing. We'll take as an example a series of TIFF files acquired on a lattice-light-sheet microscope.  A typical workflow might be to deskew, deconvolve, and perhaps crop or apply some channel registration prior to viewing.
 
-With `dask.array.map_blocks` we can apply any function that accepts a `numpy` array and returns a modified array to all of the images in our `dask.array`.  It will be evaluated lazily, when requested (in this case, by `napari`); e do not have to wait for it to process the entire dataset.
+With `dask.array.map_blocks` we can apply any function that accepts a `numpy` array and returns a modified array to all of the images in our `dask.array`.  It will be evaluated lazily, when requested (in this case, by `napari`); we do not have to wait for it to process the entire dataset.
 
 Here is an example of a script that will take a folder of raw tiff files, and lazily read, deskew, deconvolve, crop, and display them, *on demand* as you move the `napari` dimensions sliders around.
 
 ```python
 import napari
-import numpy as np
 import pycudadecon
 from functools import partial
 from skimage import io
@@ -102,7 +101,7 @@ def last3dims(f):
     # this is just a wrapper because the pycudadecon function
     # expects ndims==3 but our blocks will have ndim==4
     def func(array):
-        return np.expand_dims(f(array[0]), 0)
+        return f(array[0])[None, ...]
     return func
 
 
@@ -137,6 +136,8 @@ with napari.gui_qt():
 Of course, the GUI isn't as responsive as it would be if you had processed the data up front and loaded the results into RAM and viewed them in `napari` (it's doing a lot of work after all!), but it's suprisingly usable, and allows you to preview the result of a relatively complex processing pipeline *on-the-fly*, for arbitrary timepoints/channels, while storing *only* the raw data on disk.
 
 ![image](./resources/dask2.gif)
+
+This workflow is very much patterned after [another great post by John Kirkam, Matthew Rocklin, and Matthew McCormick](https://blog.dask.org/2019/08/09/image-itk) that describes a similar image processing pipeline using [ITK](https://itk.org/).  `napari` simply sits at the end of this lazy processing chain, ready to show you the result on demand!
 
 ### Further Reading
 

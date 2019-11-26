@@ -23,7 +23,9 @@ reader = lazy_imread('/path/to/file.tif')  # doesn't actually read the file
 array = reader.compute()  # *now* it reads.
 ```
 
-We can create a [Dask array](https://docs.dask.org/en/latest/array.html) of delayed file-readers for *all* of the files in our multidimensional experiment using the `dask.array.from_delayed` function and a [`glob`](https://docs.python.org/3/library/glob.html) filename pattern:
+(If you have an unusual image format, but you *do* have a python function that returns a `numpy` array, simply substitute it for `skimage.io.imread` in the example above).  
+
+We can create a [Dask array](https://docs.dask.org/en/latest/array.html) of delayed file-readers for *all* of the files in our multidimensional experiment using the `dask.array.from_delayed` function and a [`glob`](https://docs.python.org/3/library/glob.html) filename pattern (*this example assumes that all files are of the same `shape` and `dtype`!*):
 
 ```python
 from skimage.io import imread
@@ -34,6 +36,7 @@ from glob import glob
 
 filenames = sorted(glob("/path/to/experiment/*.tif"), key=alphanumeric_key)
 # read the first file to get the shape and dtype
+# ASSUMES THAT ALL FILES SHARE THE SAME SHAPE/TYPE
 sample = imread(filenames[0])
 
 lazy_imread = delayed(imread)  # lazy reader
@@ -45,9 +48,14 @@ dask_arrays = [
 # Stack into one large dask.array
 stack = da.stack(dask_arrays, axis=0)
 stack.shape  # (nfiles, nz, ny, nx)
+
+# in jupyter notebook the repr of a dask stack provides a useful visual:
+stack
 ```
 
-`napari` is capable of consuming dask arrays, so you can simply call `napari.view_image` on `stack` and behind the scenes, dask will take care of reading the data from disk and handing a `numpy` array to napari each time a new timepoint/channel is requested.
+![image](./resources/dask_repr.png)
+
+`napari` is capable of consuming dask arrays, so you can simply call `napari.view_image` on `stack` and behind the scenes, dask will take care of reading the data from disk and handing a `numpy` array to napari each time a new timepoint/channel is requested.  (Note: providing the `contrast_limits` and `is_pyramid` argument prevents `napari` from trying to calculate the data min/max, which can take an extremely long time with big data)
 
 ```python
 import napari
@@ -60,7 +68,7 @@ with napari.gui_qt():
 
 ## make your life easier with `dask-image`
 
-This pattern for creating a `dask.array` from image data has been previously described in an [excellent blog post](https://blog.dask.org/2019/06/20/load-image-data) by John Kirkham.  It is a common-enough pattern that John created a useful library ([`dask-image`](https://github.com/dask/dask-image)) that does all this for you, provided your image format can be read by the [`pims`](https://github.com/soft-matter/pims) (Python Image Sequence) reader.  (If you have an unusual image format, but you do have a python function that returns a `numpy` array, simply substitute it for `skimage.io.imread` in the example above).  
+This pattern for creating a `dask.array` from image data has been previously described in an [excellent blog post](https://blog.dask.org/2019/06/20/load-image-data) by John Kirkham.  It is a common-enough pattern that John created a useful library ([`dask-image`](https://github.com/dask/dask-image)) that does all this for you, provided your image format can be read by the [`pims`](https://github.com/soft-matter/pims) (Python Image Sequence) reader (if not, see note above about providing your own reader function with `dask.delayed`).
 
 Using `dask-image`, *all* of the above code can be simplified to 5 lines:
 
@@ -74,7 +82,52 @@ with napari.gui_qt():
 
 ```
 
-![image](./resources/dask1.gif)
+| ![image](./resources/dask1.gif) |
+|:--:|
+| *mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope*
+
+### **sidenote regarding higher-dimensional datasets**
+
+In the above example, it would be quite common to have a 5+ dimensional dataset (e.g. different
+timepoints *and* channels represented among the 3D TIFF files in a folder).  A standard approach to
+deal with that sort of thing in `numpy` would be to `reshape` the array after instantiation.
+With `dask`, reshaping arrays can *sometimes* lead to unexpected read events if you're not careful.
+
+For example:
+
+```python
+from dask_image.imread import imread
+stack = imread('/path/to/experiment/*.tif')
+stack.shape  # -> something like (1200, 64, 256, 280)
+stack[0].compute()  # incurs a single file read
+
+# if there were two channels in that folder you might try to do this:
+stack = stack.reshape(2, 600, 64, 256, 280)
+# but now trying to read just the first timepoint in the first channel:
+stack[0, 0].compute()  # incurs 600 read events!
+```
+
+We will update this post as best-practices emerge, but one possible solution to this is to avoid reshaping
+Dask arrays altogether, by constructing multiple Dask arrays using `dask-image`, and then using
+`da.stack` to combine them:
+
+```python
+from dask_image.imread import imread
+import dask.array as da
+
+# # instead of this
+# stack = imread('/path/to/experiment/*.tif')
+# stack = stack.reshape(2, 600, 64, 256, 280)
+# stack[0, 0].compute()  # incurs 600 read events!
+
+# do something like this:
+file_pattern = "/path/to/experiment/*ch{}*.tif"
+channels = [imread(file_pattern.format(i)) for i in range(nchannels)]
+stack = da.stack(channels)
+stack.shape  # (2, 600, 64, 256, 280)
+stack[0, 0].compute()  # incurs a single file read
+
+```
 
 ## processing data with `dask.array.map_blocks`
 
@@ -136,14 +189,16 @@ with napari.gui_qt():
 
 Of course, the GUI isn't as responsive as it would be if you had processed the data up front and loaded the results into RAM and viewed them in `napari` (it's doing a lot of work after all!), but it's suprisingly usable, and allows you to preview the result of a relatively complex processing pipeline *on-the-fly*, for arbitrary timepoints/channels, while storing *only* the raw data on disk.
 
-![image](./resources/dask2.gif)
+| ![image](./resources/dask2.gif) |
+|:--:|
+| *same dataset, with on-the-fly read → deskew → deconvolve → crop* |
 
 This workflow is very much patterned after [another great post by John Kirkam, Matthew Rocklin, and Matthew McCormick](https://blog.dask.org/2019/08/09/image-itk) that describes a similar image processing pipeline using [ITK](https://itk.org/).  `napari` simply sits at the end of this lazy processing chain, ready to show you the result on demand!
 
-### Further Reading
+## Further Reading
 
-<https://docs.dask.org/en/latest/delayed.html>
+[Documentation on dask.delayed](https://docs.dask.org/en/latest/delayed.html)
 
-<https://blog.dask.org/2019/06/20/load-image-data>
+[Dask working notes on dask-image](https://blog.dask.org/2019/06/20/load-image-data)
 
-<https://blog.dask.org/2019/08/09/image-itk>
+[Dask working notes on image processing with `dask.array.map_blocks`](https://blog.dask.org/2019/08/09/image-itk)

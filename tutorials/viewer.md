@@ -285,18 +285,4 @@ you take full advantage of them.
 Hopefully this tutorial has given you an overview of the functionality available on the **napari** viewer, including
 the `LayerList` and some of the different layer types. To learn more about the different layer types that **napari** supports checkout some more of our tutorials listed below. The [image layer](image.md) tutorial is a great one to try next as viewing images is a fundamental part of what **napari** is about.
 
-## all tutorials
-
-- [welcome](../README.md)
-- [installing napari](installation.md)
-- [getting started tutorial](getting_started.md)
-- [viewer tutorial](viewer.md)
-- [image layer tutorial](image.md)
-- [labels layer tutorial](labels.md)
-- [points layer tutorial](points.md)
-- [shapes layer tutorial](shapes.md)
-- [surface layer tutorial](surface.md)
-- [vectors layer tutorial](vectors.md)
-- [gallery](../gallery/gallery.md)
-- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
-- [napari on GitHub](https://github.com/napari/napari)
+{% include footer.md %}

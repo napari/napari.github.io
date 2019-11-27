@@ -203,3 +203,5 @@ This workflow is very much patterned after [another great post by John Kirkam, M
 [Dask working notes on dask-image](https://blog.dask.org/2019/06/20/load-image-data)
 
 [Dask working notes on image processing with `dask.array.map_blocks`](https://blog.dask.org/2019/08/09/image-itk)
+
+{% include footer.md %}

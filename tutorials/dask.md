@@ -88,7 +88,7 @@ with napari.gui_qt():
 
 | ![image](./resources/dask1.gif) |
 |:--:|
-| *mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope*
+| *mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope* |
 
 ### **sidenote regarding higher-dimensional datasets**
 

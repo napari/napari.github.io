@@ -111,18 +111,4 @@ Similar to launching from the IPython console, an advantage of launching napari 
 
 To learn more about how to use the napari viewer the different types of napari layers checkout the [viewer tutorial](viewer.md) and more of our tutorials listed below.
 
-## all tutorials
-
-- [welcome](../README.md)
-- [installing napari](installation.md)
-- [getting started tutorial](getting_started.md)
-- [viewer tutorial](viewer.md)
-- [image layer tutorial](image.md)
-- [labels layer tutorial](labels.md)
-- [points layer tutorial](points.md)
-- [shapes layer tutorial](shapes.md)
-- [surface layer tutorial](surface.md)
-- [vectors layer tutorial](vectors.md)
-- [gallery](../gallery/gallery.md)
-- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
-- [napari on GitHub](https://github.com/napari/napari)
+{% include footer.md %}

@@ -135,18 +135,4 @@ All our layers also support a `metadata` property and keyword argument that you 
 
 Hopefully this tutorial has given you a detailed understanding of the `Vectors` layer, including how to create one and control its properties. If you've explored all the other layer types that **napari** supports maybe checkout our [gallery](../gallery/gallery.md) for some cool examples of using napari with scientific data.
 
-## all tutorials
-
-- [welcome](../README.md)
-- [installing napari](installation.md)
-- [getting started tutorial](getting_started.md)
-- [viewer tutorial](viewer.md)
-- [image layer tutorial](image.md)
-- [labels layer tutorial](labels.md)
-- [points layer tutorial](points.md)
-- [shapes layer tutorial](shapes.md)
-- [surface layer tutorial](surface.md)
-- [vectors layer tutorial](vectors.md)
-- [gallery](../gallery/gallery.md)
-- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
-- [napari on GitHub](https://github.com/napari/napari)
+{% include footer.md %}

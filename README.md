@@ -33,22 +33,6 @@ We're a community partner on the [imagesc forum](https://forum.image.sc/tags/nap
 
 Our tutorials are hosted on Github at [napari/napari-tutorials](https://github.com/napari/napari-tutorials). If as you're going through the tutorials you spot any errors or can think of ways to improve them please raise an issue on the repository or make a PR, we'd love to have the community help make them better for everyone.
 
-## all tutorials
+[napari-tutorials home page](http://www.napari.org)
 
-- [welcome](README.md)
-- [installing napari](./tutorials/installation.md)
-- [getting started tutorial](./tutorials/getting_started.md)
-- [viewer tutorial](./tutorials/viewer.md)
-- [image layer tutorial](./tutorials/image.md)
-- [labels layer tutorial](./tutorials/labels.md)
-- [points layer tutorial](./tutorials/points.md)
-- [shapes layer tutorial](./tutorials/shapes.md)
-- [surface layer tutorial](./tutorials/surface.md)
-- [vectors layer tutorial](./tutorials/vectors.md)
-- [gallery](./gallery/gallery.md)
-- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
-- [napari on GitHub](https://github.com/napari/napari)
-
-## applications
-
-- [using dask & dask_image to view and process large datasets with arbitrary formats](./tutorials/dask.md)
+{% include footer.md %}

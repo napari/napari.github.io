@@ -95,18 +95,4 @@ We're a community partner on the [imagesc forum](https://forum.image.sc/tags/nap
 
 Now that you've got napari installed, checkout our [getting started](getting_started.md) tutorial to start learning how to use it!
 
-## all tutorials
-
-- [welcome](../README.md)
-- [installing napari](installation.md)
-- [getting started tutorial](getting_started.md)
-- [viewer tutorial](viewer.md)
-- [image layer tutorial](image.md)
-- [labels layer tutorial](labels.md)
-- [points layer tutorial](points.md)
-- [shapes layer tutorial](shapes.md)
-- [surface layer tutorial](surface.md)
-- [vectors layer tutorial](vectors.md)
-- [gallery](../gallery/gallery.md)
-- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
-- [napari on GitHub](https://github.com/napari/napari)
+{% include footer.md %}

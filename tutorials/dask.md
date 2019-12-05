@@ -194,7 +194,7 @@ Of course, the GUI isn't as responsive as it would be if you had processed the d
 
 {% include image.html url="./resources/dask2.gif" description="same dataset, demonstrating on-the-fly read → deskew → deconvolve → crop" %}
 
-This workflow is very much patterned after [another great post by John Kirkam, Matthew Rocklin, and Matthew McCormick](https://blog.dask.org/2019/08/09/image-itk) that describes a similar image processing pipeline using [ITK](https://itk.org/).  `napari` simply sits at the end of this lazy processing chain, ready to show you the result on demand!
+This workflow is very much patterned after [another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick](https://blog.dask.org/2019/08/09/image-itk) that describes a similar image processing pipeline using [ITK](https://itk.org/).  `napari` simply sits at the end of this lazy processing chain, ready to show you the result on demand!
 
 ## Further Reading
 

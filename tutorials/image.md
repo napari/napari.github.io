@@ -145,7 +145,7 @@ Each image layer gets mapped through its colormap according to values called con
 
 For example you are looking at an image that has values between 0 and 100 with a standard `gray` colormap, and you set the contrast limits to `(20, 75)` Then all the pixels with values less than 20 will get mapped to black, the color corresponding to 0 in the colormap, and all pixels with values greater than 75 will get mapped to white, the color corresponding to 1 in the colormap. All other pixel values between 20 and 75 will get linearly mapped onto the range of colors between black and white.
 
-In napari you can set the contrast limits when creating an `Image` layer or on an existing layer using the `contras_limits` keyword argument or property respectively.
+In napari you can set the contrast limits when creating an `Image` layer or on an existing layer using the `contrast_limits` keyword argument or property respectively.
 
 ```python
 viewer = napari.view_image(data.moon(), name='moon')

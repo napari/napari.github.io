@@ -9,13 +9,13 @@ explore the main usage modes and methods of napari. Before we dive in, let's tal
 
 **napari** is a fast, interactive, multi-dimensional image viewer for Python. It's designed for browsing, annotating, and analyzing large multi-dimensional images. It's built on top of `Qt` (for the GUI), `vispy` (for performant GPU-based rendering), and the scientific Python stack (e.g. `numpy`, `scipy`). It includes critical viewer features out-of-the-box, such as support for large multi-dimensional data, and layering and annotation. By integrating closely with the Python ecosystem, **napari** can be easily coupled to leading machine learning and image analysis tools (e.g. `scikit-image`, `scikit-learn`, `TensorFlow`, `PyTorch`), enabling more user-friendly automated analysis.
 
-![image](./tutorials/resources/napari_overview.png)
+![image](./assets/tutorials/napari_overview.png)
 
 We're developing **napari** in the open! But the project is in an **alpha** stage, and there will still likely be **breaking changes** with each release. You can follow progress on this repository, test out new versions as we release them, and contribute ideas and code.
 
 To get a sense of our current plans checkout and contribute to the discussion on some of our [long-term feature issues](https://github.com/napari/napari/issues?q=is%3Aissue+is%3Aopen+label%3A%22long-term+feature%22) on gitub.
 
-To checkout some cool example uses of **napari** with scientific data see our [gallery](./gallery/gallery.md).
+To checkout some cool example uses of **napari** with scientific data see our [gallery](./gallery.md).
 
 ## getting started
 
@@ -23,7 +23,7 @@ These tutorials target people who want to use
 napari as a user. If you are also interested in contributing to napari then
 please check out [contributing guidelines](https://github.com/napari/napari/tree/master/docs/CONTRIBUTING.md).
 
-If you've already got napari installed then begin with our [getting started](./tutorials/getting_started.md) tutorial. For help installing napari checkout our [installing napari](./tutorials/installation.md) tutorial.
+If you've already got napari installed then begin with our [getting started](./getting_started.md) tutorial. For help installing napari checkout our [installing napari](./installation.md) tutorial.
 
 ## help
 
@@ -31,8 +31,8 @@ We're a community partner on the [imagesc forum](https://forum.image.sc/tags/nap
 
 ## improving the tutorials
 
-Our tutorials are hosted on Github at [napari/napari-tutorials](https://github.com/napari/napari-tutorials). If as you're going through the tutorials you spot any errors or can think of ways to improve them please raise an issue on the repository or make a PR, we'd love to have the community help make them better for everyone.
+Our tutorials are hosted on Github at [napari/tutorials](https://github.com/napari/tutorials). If as you're going through the tutorials you spot any errors or can think of ways to improve them please raise an issue on the repository or make a PR, we'd love to have the community help make them better for everyone.
 
-[napari-tutorials home page](http://www.napari.org)
+[napari tutorials home page](http://www.napari.org/tutorials)
 
 {% include footer.md %}

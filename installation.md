@@ -36,7 +36,7 @@ napari
 ```
 An empty napari viewer should appear as follows
 
-![image](./resources/launch_cli_empty.png)
+![image](./assets/tutorials/launch_cli_empty.png)
 
 ## upgrading
 
@@ -93,6 +93,6 @@ We're a community partner on the [imagesc forum](https://forum.image.sc/tags/nap
 
 ## next steps
 
-Now that you've got napari installed, checkout our [getting started](getting_started.md) tutorial to start learning how to use it!
+Now that you've got napari installed, checkout our [getting started](./getting_started.md) tutorial to start learning how to use it!
 
 {% include footer.md %}

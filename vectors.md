@@ -2,7 +2,7 @@
 
 Welcome to the tutorial on the **napari** `Vectors` layer!
 
-This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](installation.md) tutorial. For help getting started with the viewer see our [getting started](getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](viewer.md) tutorial.
+This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](installation.md) tutorial. For help getting started with the viewer see our [getting started](./getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](./viewer.md) tutorial.
 
 This tutorial will teach you about the **napari** `Vectors` layer, including how to display many vectors simultaneously and adjust their properties. At the end of the tutorial you should understand how to add a vectors layer and edit it from the GUI and from the console.
 
@@ -39,7 +39,7 @@ with napari.gui_qt():
 
 ```
 
-![image](./resources/add_vectors.png)
+![image](./assets/tutorials/add_vectors.png)
 
 ## arguments of view_vectors and add_vectors
 
@@ -75,7 +75,7 @@ The input data to the vectors layer must either be a Nx2xD numpy array represent
 
 See here for the example from `examples/add_vectors_image.py` of a grid of vectors defined over a random image:
 
-![image](./resources/add_vectors_image.png)
+![image](./assets/tutorials/add_vectors_image.png)
 
 
 Regardless of how the data is passed, we convert it to the Nx2xD representation internally. This representation is  accessible through the `layer.data` property.
@@ -86,7 +86,7 @@ Editing the start position of the vectors from the GUI is not possible. Nor is i
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer. See for example the `examples/nD_vectors.py` to see shapes in both 2D and 3D:
 
-![image](./resources/nD_vectors.gif)
+![image](./assets/tutorials/nD_vectors.gif)
 
 
 ## changing vector length, width, and color
@@ -133,6 +133,6 @@ All our layers also support a `metadata` property and keyword argument that you 
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Vectors` layer, including how to create one and control its properties. If you've explored all the other layer types that **napari** supports maybe checkout our [gallery](../gallery/gallery.md) for some cool examples of using napari with scientific data.
+Hopefully this tutorial has given you a detailed understanding of the `Vectors` layer, including how to create one and control its properties. If you've explored all the other layer types that **napari** supports maybe checkout our [gallery](./gallery.md) for some cool examples of using napari with scientific data.
 
 {% include footer.md %}

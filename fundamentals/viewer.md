@@ -2,13 +2,13 @@
 
 Welcome to the tutorial on the **napari** viewer!
 
-This tutorial assumes you have already installed **napari** and know how to launch the viewer. For help with installation see our [installation](./installation.md) tutorial. For help getting started with the viewer see our [getting started](./getting_started.md) tutorial.
+This tutorial assumes you have already installed **napari** and know how to launch the viewer. For help with installation see our [installation](./installation) tutorial. For help getting started with the viewer see our [getting started](./getting_started) tutorial.
 
 This tutorial will teach you about the **napari** viewer, including how to use its graphical user interface (GUI) and how the data within it is organized. At the end of the tutorial you should understand the both the layout of the viewer on the screen and the data inside of it.
 
 
 ## launching the viewer
-As discussed in [getting started](./getting_started.md) tutorial the napari viewer can be launched from the command-line, a python script, an IPython console, or a jupyter notebook. All four methods launch the same viewer and anything related to the interacting with the viewer on the screen applies equally to all of them. We will use the syntax inside python scripts so you can copy and paste these examples into scripts and run them. If you are using as IPython console (launched with `IPython --gui=qt`) then you won't need to use the `napari.gui_qt` context.
+As discussed in [getting started](./getting_started) tutorial the napari viewer can be launched from the command-line, a python script, an IPython console, or a jupyter notebook. All four methods launch the same viewer and anything related to the interacting with the viewer on the screen applies equally to all of them. We will use the syntax inside python scripts so you can copy and paste these examples into scripts and run them. If you are using as IPython console (launched with `IPython --gui=qt`) then you won't need to use the `napari.gui_qt` context.
 
 Let's get stated by launching a viewer with a simple 2D image.
 
@@ -38,9 +38,9 @@ with napari.gui_qt():
 
 After running either of those two commands you should now be able to see the photograph of the astronaut in the a **napari** viewer as shown below
 
-![image](./assets/tutorials/viewer_astronaut.png)
+![image]({{ '/assets/tutorials/viewer_astronaut.png' | relative_url }})
 
-Both the `view_image` and the `add_image` methods accept any numpy-array like object as an input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer](./image.md) tutorial. Now we will continue exploring the rest of the viewer.
+Both the `view_image` and the `add_image` methods accept any numpy-array like object as an input, including n-dimensional arrays. For more information on adding images to the viewer see the [image layer](./image) tutorial. Now we will continue exploring the rest of the viewer.
 
 ## layout of the viewer
 
@@ -61,7 +61,7 @@ We'll go through each of these in the next sections.
 
 The main canvas is located in the center of the viewer and contains the visual display of the data passed to **napari**, including images, point, shapes, and our other supported data types. Under the hood the canvas is a `vispy.scene.SceneCanvas` object which has built-in support for features such as zooming and panning. As `vispy` uses `OpenGL` and your graphics card, panning and zooming are highly performant. You can also return to the original zoom level by clicking the `home` button in the viewer buttons panel.
 
-![image](./assets/tutorials/viewer_pan_zoom.gif)
+![image]({{ '/assets/tutorials/viewer_pan_zoom.gif' | relative_url }})
 
 ### layer list
 One of the basic **napari** objects are layers. There are different layer types for `Image`, `Points`, `Shapes`, and other basic data types. They can be added to the viewer either programmatically or through the GUI. Once added they start to populate the layer list is located on the bottom lefthand side of the main canvas.
@@ -81,7 +81,7 @@ with napari.gui_qt():
     viewer.add_image(data.camera(), name='camera')
 ```
 
-![image](./assets/tutorials/layerlist.png)
+![image]({{ '/assets/tutorials/layerlist.png' | relative_url }})
 
 Note that we've also also named each of the layers using the `name` keyword argument in `add_image`, and that name has appeared as a string in the layer widget. The layer name is coerced into being unique so that it can be used to index into the `LayerList`.
 
@@ -123,7 +123,7 @@ points = np.array([[100, 100], [200, 200], [300, 100]])
 viewer.add_points(points, size=30)
 ```
 
-![image](./assets/tutorials/add_points.png)
+![image]({{ '/assets/tutorials/add_points.png' | relative_url }})
 
 Adjusting these properties in the GUI will cause corresponding changes to properties on the individual layers that are accessible in the console through `viewer.layers`.
 
@@ -184,7 +184,7 @@ blobs = np.stack(
 viewer.add_image(blobs, name='blobs', opacity=0.5, colormap='red')
 ```
 
-![image](./assets/tutorials/multidimensional.png)
+![image]({{ '/assets/tutorials/multidimensional.png' | relative_url }})
 
 ### viewer buttons
 
@@ -192,11 +192,11 @@ Underneath the layers list there is a row of buttons that includes the `Console`
 
 When the console button is clicked, the console will appear at the bottom of the viewer as follows:
 
-![image](./assets/tutorials/console.png)
+![image]({{ '/assets/tutorials/console.png' | relative_url }})
 
 We then have a button that switches between `2D` and `3D` rendering. Running the `examples/nD_labels.py` and clicking on the 3D button gives the following view:
 
-![image](./assets/tutorials/nD_labels.png)
+![image]({{ '/assets/tutorials/nD_labels.png' | relative_url }})
 
 Next to the 2D / 3D button is a button to roll the dimensions that are currently being displayed in the viewer - for example if you have a `ZYX` volume and are looking at the `YX` slice this will then show you the `ZY` slice.
 
@@ -222,11 +222,11 @@ To change the theme just update `theme` property of the viewer, for example
 viewer.theme = 'light'
 ```
 
-![image](./assets/tutorials/viewer_theme_light.png)
+![image]({{ '/assets/tutorials/viewer_theme_light.png' | relative_url }})
 
 Adding your own custom theme isn't too hard either but does require creating your own color `palette`
 and rebuilding the icons. If people want more themes, we're happy to add them or if you look at
-our [contributing guidelines](https://github.com/napari/napari/tree/master/docs/CONTRIBUTING.md) for more information about building the icons and
+our [contributing guidelines](https://github.com/napari/napari/tree/master/docs/CONTRIBUTING) for more information about building the icons and
 add one yourself!
 
 ## custom keybinding
@@ -283,6 +283,6 @@ you take full advantage of them.
 ## next steps
 
 Hopefully this tutorial has given you an overview of the functionality available on the **napari** viewer, including
-the `LayerList` and some of the different layer types. To learn more about the different layer types that **napari** supports checkout some more of our tutorials listed below. The [image layer](./image.md) tutorial is a great one to try next as viewing images is a fundamental part of what **napari** is about.
+the `LayerList` and some of the different layer types. To learn more about the different layer types that **napari** supports checkout some more of our tutorials listed below. The [image layer](./image) tutorial is a great one to try next as viewing images is a fundamental part of what **napari** is about.
 
 {% include footer.md %}

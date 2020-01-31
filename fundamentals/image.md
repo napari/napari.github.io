@@ -2,7 +2,7 @@
 
 Welcome to the tutorial on the **napari** `Image` layer!
 
-This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](./installation.md) tutorial. For help getting started with the viewer see our [getting started](./getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](./viewer.md) tutorial.
+This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](./installation) tutorial. For help getting started with the viewer see our [getting started](./getting_started) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](./viewer) tutorial.
 
 This tutorial will teach you about the **napari** `Image` layer, including the types of images that can be displayed, and how
 to set properties like the contrast, opacity, colormaps and blending mode. At the end of the tutorial you should understand how to add and manipulate a variety of different types of images both from the GUI and from the console.
@@ -21,7 +21,7 @@ with napari.gui_qt():
     viewer = napari.view_image(data.astronaut(), rgb=True)
 ```
 
-![image](./assets/tutorials/viewer_astronaut.png)
+![image]({{ '/assets/tutorials/viewer_astronaut.png' | relative_url }})
 
 ## arguments of view_image and add_image
 
@@ -61,7 +61,7 @@ The great thing about napari support array-like objects is that you get to keep 
 
 napari will also wait until just before it displays data onto the screen to actually generate a numpy array from your data, and so if you're using a library like `dask` or `zarr` that supports lazy loading and lazy evaluation, we wont force you load or compute on data that you're not looking at. This enables napari to seemlessly browse enormous datasets that are loaded in the right way. For example, here we are browsing over 100GB of lattice lightsheet data stored in a zarr file:
 
-![image](./assets/tutorials/LLSM.gif)
+![image]({{ '/assets/tutorials/LLSM.gif' | relative_url }})
 
 
 ## image pyramids
@@ -70,7 +70,7 @@ For very large datasets napari supports image pyramids. An image pyramid is a li
 
 Image pyramids for are very useful for incredibly large 2D images when viewed in 2D or incredibly large 3D images when viewed in 3D. For example this ~100k x 200k pixel pathology image consists of 10 pyramid levels and can be easily browsed as at each moment in time we only load the level of the pyramid and the part of the image that needs to be displayed:
 
-![image](./assets/tutorials/pathology.gif)
+![image]({{ '/assets/tutorials/pathology.gif' | relative_url }})
 
 This example had precomputed image pyramids stored in a zarr file, which is best for performance. If however you don't have a precomputed pyramid but try and show a very large image napari will try and compute pyramids for you unless you tell it not too.
 
@@ -80,7 +80,7 @@ You can use the `is_pyramid` keyword argument to specify if you data is an image
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer, allowing you to browse volumetric timeseries data and other high dimensional data. See for example these cells undergoing mitosis in this volumetric timeseries:
 
-![image](./assets/tutorials/mitosis.gif)
+![image]({{ '/assets/tutorials/mitosis.gif' | relative_url }})
 
 
 ## viewing rgb vs luminance (grayscale) images
@@ -134,7 +134,7 @@ with napari.gui_qt():
     viewer = napari.view_image(image, colormap=('diverging', cmap))
 ```
 
-![image](./assets/tutorials/diverging_colormap.png)
+![image]({{ '/assets/tutorials/diverging_colormap.png' | relative_url }})
 
 Note in this example how we passed the colormap keyword argument as a tuple containing both a name for our new custom colormap and the colormap itself. If we had only passed the colormap it would have been given a default name.
 
@@ -152,7 +152,7 @@ viewer = napari.view_image(data.moon(), name='moon')
 viewer.layers['moon'].contrast_limits=(100, 175)
 ```
 
-![image](./assets/tutorials/contrast_limits.png)
+![image]({{ '/assets/tutorials/contrast_limits.png' | relative_url }})
 
 Because the contrast limits are defined by two values the corresponding slider has two handles, one the adjusts the smaller value, one that adjusts the larger value.
 
@@ -180,7 +180,7 @@ The `translucent` setting will cause the layer to blend with the layers below it
 
 The final blending mode `additive` will cause the layer to blend with the layers below even when it has full opacity. This mode is very useful for many cell biology applications where you have multiple different components of a cell labeled in different colors. For example:
 
-![image](./assets/tutorials/blending.png)
+![image]({{ '/assets/tutorials/blending.png' | relative_url }})
 
 ## layer interpolation
 
@@ -190,7 +190,7 @@ We support a variety of interpolation modes when viewing 2D slices. In the defau
 
 When viewing 3D slices we support a variety of rendering modes. The default mode `mip`, or maximum intensity projection, will combine voxels at different distances from the camera according to a maximum intensity projection to create the 2D image that is then displayed on the screen. This mode works well for many biological images such as these cells growing in culture:
 
-![image](./assets/tutorials/rendering.png)
+![image]({{ '/assets/tutorials/rendering.png' | relative_url }})
 
 When viewing 2D slices the rendering mode has no effect.
 
@@ -212,6 +212,6 @@ All our layers also support a `metadata` property and keyword argument that you 
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Image` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [labels layer](./labels.md) tutorial is a great one to try next as labels layers are an extension of our image layers used for labeling regions of images.
+Hopefully this tutorial has given you a detailed understanding of the `Image` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [labels layer](./labels) tutorial is a great one to try next as labels layers are an extension of our image layers used for labeling regions of images.
 
 {% include footer.md %}

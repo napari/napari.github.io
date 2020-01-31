@@ -2,7 +2,7 @@
 
 Welcome to the tutorial on the **napari** `Points` layer!
 
-This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](./installation.md) tutorial. For help getting started with the viewer see our [getting started](./getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](./viewer.md) tutorial.
+This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](./installation) tutorial. For help getting started with the viewer see our [getting started](./getting_started) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](./viewer) tutorial.
 
 This tutorial will teach you about the **napari** `Points` layer, including displays spots over an image that have been found in an automated fashion, or manually annotating an image with points. At the end of the tutorial you should understand how to add a points layer and edit it from the GUI and from the console.
 
@@ -23,7 +23,7 @@ points = np.array([[100, 100], [200, 200], [300, 100]])
 viewer.add_points(points, size=30)
 ```
 
-![image](./assets/tutorials/add_points.png)
+![image]({{ '/assets/tutorials/add_points.png' | relative_url }})
 
 ## arguments of view_points and add_points
 
@@ -82,7 +82,7 @@ As note in the section on 3D rendering, when using 3D rendering the points layer
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer. See for example these points overlaid on an image in both 2D and 3D:
 
-![image](./assets/tutorials/smFISH.gif)
+![image]({{ '/assets/tutorials/smFISH.gif' | relative_url }})
 
 Note though that when entering 3D rendering mode the point add, delete, and select tools are all disabled. Those options are only supported when viewing a layer using 2D rendering.
 
@@ -158,10 +158,10 @@ All our layers also support a `metadata` property and keyword argument that you 
 
 Here you can see an example of adding, selecting, deleting points and change their properties:
 
-![image](./assets/tutorials/editing_points.gif)
+![image]({{ '/assets/tutorials/editing_points.gif' | relative_url }})
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Points` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [shapes layer](./shapes.md) tutorial is a great one to try next as it describes more complex shapes and interactivity.
+Hopefully this tutorial has given you a detailed understanding of the `Points` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [shapes layer](./shapes) tutorial is a great one to try next as it describes more complex shapes and interactivity.
 
 {% include footer.md %}

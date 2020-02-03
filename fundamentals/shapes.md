@@ -2,7 +2,7 @@
 
 Welcome to the tutorial on the **napari** `Shapes` layer!
 
-This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](installation.md) tutorial. For help getting started with the viewer see our [getting started](getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](viewer.md) tutorial.
+This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](./installation) tutorial. For help getting started with the viewer see our [getting started](./getting_started) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](./viewer) tutorial.
 
 This tutorial will teach you about the **napari** `Shapes` layer, including how to display and edit shapes like rectangle, ellipses, polygons, paths, and lines. At the end of the tutorial you should understand how to add a shapes layer and edit it from the GUI and from the console.
 
@@ -40,7 +40,7 @@ with napari.gui_qt():
                               edge_color='coral', face_color='royalblue')
 ```
 
-![image](./resources/add_shapes.png)
+![image]({{ '/assets/tutorials/add_shapes.png' | relative_url }})
 
 ## arguments of view_shapes and add_shapes
 
@@ -130,7 +130,7 @@ As note in the section on 3D rendering, when using 3D rendering the shapes layer
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer. See for example the `examples/nD_shapes.py` to see shapes in both 2D and 3D:
 
-![image](./resources/nD_shapes.gif)
+![image]({{ '/assets/tutorials/nD_shapes.gif' | relative_url }})
 
 Note though that when entering 3D rendering mode the shape editing tools are all disabled. Those options are only supported when viewing a layer using 2D rendering.
 
@@ -138,7 +138,7 @@ Note also that for a multidimensional shape to be displayed on a given view slic
 
 For paths that are defined by coordinates spanning more than two dimensions, it is possible to visualize them as 3D cylinders, see for example the `examples/3D_paths.py`
 
-![image](./resources/3D_paths.png)
+![image]({{ '/assets/tutorials/3D_paths.png' | relative_url }})
 
 Right now it is not possible to display 3D cuboids or 3D spheroids, but will be supporting those options soon.
 
@@ -161,7 +161,7 @@ You can select all the shapes in the currently viewed slice by clicking the `A` 
 Once selected you can delete the selected shapes by clicking on the delete button in the layer controls panel or pressing the delete key.
 
 For example see below:
-![image](./resources/shape_resizing.gif)
+![image]({{ '/assets/tutorials/shape_resizing.gif' | relative_url }})
 
 ## adding, moving, and deleting individual vertices
 
@@ -172,7 +172,7 @@ You can add vertices to a selected shape using the vertex addition tool which ca
 You can delete vertices to a selected shape using the vertex deletion tool which can be selected either clicking on the vertex deletion tool in the layer controls panel or pressing the `X` key while the shapes layer is selected.
 
 For example see below:
-![image](./resources/shape_vertex_editing.gif)
+![image]({{ '/assets/tutorials/shape_vertex_editing.gif' | relative_url }})
 
 ## changing shape edge and face colors
 Individual shapes can each have different edge and face colors. You can initially set these colors by providing a list of colors to the `edge_color` or `face_color` keyword arguments respectively, or you can edit them from the GUI. The colors of each of the shapes are available as lists under the `layer.edge_colors` and `layer.face_colors` properties. These properties are different from the `layer.edge_color` and `layer.face_color` properties that will determine the color of the next shape to be added or any currently selected shapes.
@@ -232,10 +232,10 @@ All our layers also support a `metadata` property and keyword argument that you 
 
 Here you can see an example of adding, selecting, and editing shapes and change their properties:
 
-![image](./resources/editing_shapes.gif)
+![image]({{ '/assets/tutorials/editing_shapes.gif' | relative_url }})
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Shapes` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [surface layer](surface.md) tutorial is a great one to try next as it describes rendering complex surfaces.
+Hopefully this tutorial has given you a detailed understanding of the `Shapes` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [surface layer](./surface) tutorial is a great one to try next as it describes rendering complex surfaces.
 
 {% include footer.md %}

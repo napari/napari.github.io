@@ -1,19 +1,19 @@
-## all tutorials
+## index
+- [welcome]({{ '/' | relative_url }})
+- [gallery]({{ '/gallery' | relative_url }})
 
-- [welcome](/)
-- [installing napari](/tutorials/installation)
-- [getting started tutorial](/tutorials/getting_started)
-- [viewer tutorial](/tutorials/viewer)
-- [image layer tutorial](/tutorials/image)
-- [labels layer tutorial](/tutorials/labels)
-- [points layer tutorial](/tutorials/points)
-- [shapes layer tutorial](/tutorials/shapes)
-- [surface layer tutorial](/tutorials/surface)
-- [vectors layer tutorial](/tutorials/vectors)
-- [gallery](/gallery/gallery)
-- [napari-tutorials on GitHub](https://github.com/napari/napari-tutorials)
-- [napari on GitHub](https://github.com/napari/napari)
+### fundamentals
 
-## applications
+- [installing napari]({{ '/fundamentals/installation' | relative_url }})
+- [getting started tutorial]({{ '/fundamentals/getting_started' | relative_url }})
+- [viewer tutorial]({{ '/fundamentals/viewer' | relative_url }})
+- [image layer tutorial]({{ '/fundamentals/image' | relative_url }})
+- [labels layer tutorial]({{ '/fundamentals/labels' | relative_url }})
+- [points layer tutorial]({{ '/fundamentals/points' | relative_url }})
+- [shapes layer tutorial]({{ '/fundamentals/shapes' | relative_url }})
+- [surface layer tutorial]({{ '/fundamentals/surface' | relative_url }})
+- [vectors layer tutorial]({{ '/fundamentals/vectors' | relative_url }})
 
-- [using dask & dask_image to view and process large datasets with arbitrary formats](/tutorials/dask)
+### applications
+
+- [using dask & dask_image to view and process large datasets with arbitrary formats]({{ '/applications/dask' | relative_url }})

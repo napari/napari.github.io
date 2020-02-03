@@ -2,7 +2,7 @@
 
 Welcome to the getting started with **napari** tutorial!
 
-This tutorial assumes you have already installed napari. For help with installation see our [installation tutorial](installation.md).
+This tutorial assumes you have already installed napari. For help with installation see our [installation tutorial](./installation).
 
 This tutorial will teach you all the different ways to launch napari. At the end of the tutorial you should be able to launch napari and see the viewer your favourite way.
 
@@ -28,7 +28,7 @@ napari
 
 This command will launch an empty viewer:
 
-![image](./resources/launch_cli_empty.png)
+![image]({{ '/assets/tutorials/launch_cli_empty.png' | relative_url }})
 
 Once you have the viewer open you can add images through the `File/Open` dropdown menu or by dragging and dropping images directly on the viewer. We currently only support files that can be read with [`skimage.io.imread`](https://scikit-image.org/docs/dev/api/skimage.io.html#skimage.io.imread), such as `tif`, `png`, and `jpg`. We plan on adding support for more exotic file types shortly - see [issue #379](https://github.com/napari/napari/issues/379) for discussion. You can also create new empty `points`, `shapes`, and `labels` layers using the new layer buttons in the bottom right of the viewer.
 
@@ -38,7 +38,7 @@ napari my_image.png
 ```
 If the image is `RGB` or `RGBA` use the `-r` or `--rgb` flag.
 
-![image](./resources/launch_cli_image.png)
+![image]({{ '/assets/tutorials/launch_cli_image.png' | relative_url }})
 
 Launching napari directly from the command line is the simplest and fastest way to open the viewer, but it doesn't allow you to preprocess your images before opening them. It is also currently not possible to save images or other layer types directly from the viewer, but we'll be adding support for this functionality soon as discussed in [#379](https://github.com/napari/napari/issues/379).
 
@@ -67,7 +67,7 @@ python my_example_script.py
 
 See the scripts inside the [`examples`](https://github.com/napari/napari/tree/master/examples) in the main repository for examples of using napari this way.
 
-![image](./resources/launch_script.png)
+![image]({{ '/assets/tutorials/launch_script.png' | relative_url }})
 
 An advantage of launching napari from a python script is that you can preprocess your images and add multiple layers before displaying the viewer.
 
@@ -93,7 +93,7 @@ viewer = napari.view_image(astronaut(), rgb=True)
 
 If you did not launch IPython with the GUI already then you can set it from within IPython using `%gui qt`, but be warned that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch.
 
-![image](./resources/launch_ipython.png)
+![image]({{ '/assets/tutorials/launch_ipython.png' | relative_url }})
 
 An advantage of launching napari from an IPython console is that the you can continue to programmatically interact with the viewer from the IPython console, including bidirectional communication, where code run in the console will update the current viewer and where data changed in the GUI will be accessible in the console.
 
@@ -101,7 +101,7 @@ An advantage of launching napari from an IPython console is that the you can con
 
 You can also launch napari from a jupyter notebook, such as [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master/examples/notebook.ipynb)
 
-![image](./resources/launch_jupyter.png)
+![image]({{ '/assets/tutorials/launch_jupyter.png' | relative_url }})
 
 As in the case of the IPython console though you must wait for the Qt GUI to instantiate following the `%gui qt` magic command. Instantiating the Qt GUI can take a few seconds and if you create the `Viewer` before it is finished, the kernel will die and the viewer will not launch. For this reason the `%gui qt` magic command should always be run in a separate cell from creating the viewer.
 
@@ -109,6 +109,6 @@ Similar to launching from the IPython console, an advantage of launching napari 
 
 ## next steps
 
-To learn more about how to use the napari viewer the different types of napari layers checkout the [viewer tutorial](viewer.md) and more of our tutorials listed below.
+To learn more about how to use the napari viewer the different types of napari layers checkout the [viewer tutorial](./viewer) and more of our tutorials listed below.
 
 {% include footer.md %}

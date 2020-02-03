@@ -2,7 +2,7 @@
 
 Welcome to the tutorial on the **napari** `Labels` layer!
 
-This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](installation.md) tutorial. For help getting started with the viewer see our [getting started](getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](viewer.md) tutorial.
+This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](./installation) tutorial. For help getting started with the viewer see our [getting started](./getting_started) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](./viewer) tutorial.
 
 This tutorial will teach you about the **napari** `Labels` layer, including using the layer to display the results of image segmentation analyses, and how to manually segment images using the paintbrush and fill buckets. At the end of the tutorial you should understand how to add a labels image and edit it from the GUI and from the console.
 
@@ -41,7 +41,7 @@ with napari.gui_qt():
     viewer.add_labels(label_image, name='segmentation')
 ```
 
-![image](./resources/coins.png)
+![image]({{ '/assets/tutorials/coins.png' | relative_url }})
 
 ## arguments of view_labels and add_labels
 
@@ -75,7 +75,7 @@ layer : napari.layers.Labels
 
 The labels layer is a subclass of the `Image` layer and as such can support the same numpy-like arrays, including [dask arrays](https://docs.dask.org/en/stable/array.html), an [xarrays](http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html), and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/core.html). A labels layer though must be integer valued, and the background label must be 0.
 
-Because the labels layer subclasses the image layer it inherits the great properties of the image layer, like supporting lazy loading and image pyramids for big data layers. For more information about both these concepts see the details in the [image layer](image.md) tutorial.
+Because the labels layer subclasses the image layer it inherits the great properties of the image layer, like supporting lazy loading and image pyramids for big data layers. For more information about both these concepts see the details in the [image layer](./image) tutorial.
 
 
 ## creating a new labels layer
@@ -92,7 +92,7 @@ As note in the section on 3D rendering, when using 3D rendering the labels layer
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer, allowing you to browse volumetric timeseries data and other high dimensional data. See for example the labeled blobs in 3D in the `examples/nD_labels.py`:
 
-![image](./resources/nD_labels.png)
+![image]({{ '/assets/tutorials/nD_labels.png' | relative_url }})
 
 Note though that when entering 3D rendering mode the colorpicker, paintbrush, and fill bucket options which allow for layer editing are all disabled. Those options are only supported when viewing a layer using 2D rendering.
 
@@ -138,7 +138,7 @@ You can quickly select the fill bucket by pressing the `F` key when the labels l
 
 Using the paintbrush and fill bucket together we can quickly segment one of the coins at the border of our image with a new label:
 
-![image](./resources/painting.gif)
+![image]({{ '/assets/tutorials/painting.gif' | relative_url }})
 
 ## undo / redo functionality
 
@@ -182,5 +182,5 @@ All our layers also support a `metadata` property and keyword argument that you 
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Labels` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [points layer](points.md) tutorial is a great one to try next as points are one of our simplest shape-like layers.
+Hopefully this tutorial has given you a detailed understanding of the `Labels` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [points layer](./points) tutorial is a great one to try next as points are one of our simplest shape-like layers.
 {% include footer.md %}

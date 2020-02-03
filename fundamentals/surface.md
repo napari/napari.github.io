@@ -2,7 +2,7 @@
 
 Welcome to the tutorial on the **napari** `Surface` layer!
 
-This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](installation.md) tutorial. For help getting started with the viewer see our [getting started](getting_started.md) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](viewer.md) tutorial.
+This tutorial assumes you have already installed **napari**, know how to launch the viewer, and are familiar with its layout. For help with installation see our [installation](./installation) tutorial. For help getting started with the viewer see our [getting started](./getting_started) tutorial. For help understanding the organisation of the viewer, including things like the layers list, the layer properties widgets, the layer control panels, and the dimension sliders see our [napari viewer](./viewer) tutorial.
 
 This tutorial will teach you about the **napari** `Surface` layer, including how to diplay surface data and edit the properties of surfaces like the contrast, opacity, colormaps and blending mode. At the end of the tutorial you should understand how to add and manipulate surfaces both from the GUI and from the console.
 
@@ -28,7 +28,7 @@ with napari.gui_qt():
     viewer = napari.view_surface(surface)
 ```
 
-![image](./resources/add_surface.png)
+![image]({{ '/assets/tutorials/add_surface.png' | relative_url }})
 
 ## arguments of view_surface and add_surface
 
@@ -87,7 +87,7 @@ The data for a surface layer is defined by a 3-tuple of its vertices, faces, and
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer. See for example these brain surfaces rendered in 3D:
 
-![image](./resources/brain_surface.gif)
+![image]({{ '/assets/tutorials/brain_surface.gif' | relative_url }})
 
 
 ## working with colormaps
@@ -112,10 +112,10 @@ The same colormaps available for the `Image` layer are also available for the `S
 
 Passing any of these as follows as keyword arguments will set the colormap of that surface. You can also access the current colormap through the `layer.colormap` property which returns a tuple of the colormap name followed by the vispy colormap object. You can list all the available colormaps using `layer.colormaps`.
 
-It is also possible to create your own colormaps using vispy's `vispy.color.Colormap` object, see it's full [documentation here](http://vispy.org/color.html#vispy.color.Colormap). For more detail see the [image layer tutorial](image.md).
+It is also possible to create your own colormaps using vispy's `vispy.color.Colormap` object, see it's full [documentation here](http://vispy.org/color.html#vispy.color.Colormap). For more detail see the [image layer tutorial](./image).
 
 ## adjusting contrast limits
-The vertex values of the surface layer gets mapped through its colormap according to values called contrast limits. These are a 2-tuple of values defining how what values get applied the minumum and maximum of the colormap and follow the same principles as the `contrast_limits` described in the [image layer tutorial](image.md). They are also accessible through the same keyword arguments, properties, and range slider as in the image layer.
+The vertex values of the surface layer gets mapped through its colormap according to values called contrast limits. These are a 2-tuple of values defining how what values get applied the minumum and maximum of the colormap and follow the same principles as the `contrast_limits` described in the [image layer tutorial](./image). They are also accessible through the same keyword arguments, properties, and range slider as in the image layer.
 
 ## layer visibility
 
@@ -153,6 +153,6 @@ All our layers also support a `metadata` property and keyword argument that you 
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Vectors` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [vectors layer](vectors.md) tutorial is a great one to try next as it describes rendering lots of lines.
+Hopefully this tutorial has given you a detailed understanding of the `Vectors` layer, including how to create one and control its properties. To learn more about some of the other layer types that **napari** supports checkout some more of our tutorials listed below. The [vectors layer](./vectors) tutorial is a great one to try next as it describes rendering lots of lines.
 
 {% include footer.md %}

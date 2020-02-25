@@ -77,7 +77,6 @@ The labels layer is a subclass of the `Image` layer and as such can support the 
 
 Because the labels layer subclasses the image layer it inherits the great properties of the image layer, like supporting lazy loading and image pyramids for big data layers. For more information about both these concepts see the details in the [image layer](./image) tutorial.
 
-
 ## creating a new labels layer
 
 As you can edit a labels layer using the paintbrush and fill bucket, it is possible to create a brand new empty labels layers by clicking the new labels layer button above the layers list. The shape of the new labels layer will match the size of any currently existing image layers, allowing you to paint on top of them.
@@ -148,20 +147,22 @@ Using the `color picker`, `paintbrush` and `fill bucket` tools one can create an
 
 Press `M` to select a new label color. Select the `paintbrush` tool and draw a closed contour around the object. Select the `fill bucket` tool and click inside the contour to assign the label to all pixels of the object.
 
-**seleting a connected component**: 
+**seleting a connected component**:
 
 ![image]({{ '/assets/tutorials/delete_label.gif' | relative_url }})
 
 select the background label with the `color picker` (alternative: press keyboard shortcut `E`), then use the `fill bucket` to set all pixels of the connected component to background.
 
-**merging connected components**: 
+**merging connected components**:
 
 ![image]({{ '/assets/tutorials/merge_labels.gif' | relative_url }})
+
 select the label of one of the components with the `color picker` tool and then filling the components to be merged with the fill bucket.
 
-**splitting a connected component**: 
+**splitting a connected component**:
 
 ![image]({{ '/assets/tutorials/split_label.gif' | relative_url }})
+
 splitting a connected component will introduce an additional object, therefore press `M` to select a label number that is not already in use. Use the paintbrush tool to draw a dividing line, then assign the new label to one of the parts with the `fill bucket`. 
 
 ## undo / redo functionality

@@ -45,6 +45,15 @@ If you installed napari with `pip` you can upgrade by calling
 $ pip install napari --upgrade
 ```
 
+## choosing a different backend
+By default, napari uses [PySide2](https://wiki.qt.io/Qt_for_Python). This is what most users will want. 
+
+If you want to use [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) instead for your backend, you can run these lines after installing napari:
+```
+pip uninstall pyside2 -y
+pip install pyqt5
+```
+
 ## troubleshooting
 
 We're currently working on improving our Windows support. Right now for some older Windows systems we have a known issue which we are working to resolve that causes the following error message:

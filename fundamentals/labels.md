@@ -147,7 +147,7 @@ Using the `color picker`, `paintbrush` and `fill bucket` tools one can create an
 
 Press `M` to select a new label color. Select the `paintbrush` tool and draw a closed contour around the object. Select the `fill bucket` tool and click inside the contour to assign the label to all pixels of the object.
 
-**seleting a connected component**:
+**selecting a connected component**:
 
 ![image]({{ '/assets/tutorials/delete_label.gif' | relative_url }})
 

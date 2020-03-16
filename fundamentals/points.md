@@ -32,30 +32,66 @@ Both `view_points` and `add_points` have the following doc strings:
 ```
 Parameters
 ----------
-coords : np.ndarray
-    Coordinates for each point.
-symbol : Symbol or {'arrow', 'clobber', 'cross', 'diamond', 'disc',
-                     'hbar', 'ring', 'square', 'star', 'tailed_arrow',
-                     'triangle_down', 'triangle_up', 'vbar', 'x'}
-    Symbol to be used as a point. If given as a string, must be one of
-    the following: arrow, clobber, cross, diamond, disc, hbar, ring,
-    square, star, tailed_arrow, triangle_down, triangle_up, vbar, x
-size : int, float, np.ndarray, list
-    Size of the point marker. If given as a scalar, all points are the same
-    size. If given as a list/array, size must be the same length as
-    coords and sets the point marker size for each point in coords
-    (element-wise). If n_dimensional is True then can be a list of
-    length dims or can be an array of shape Nxdims where N is the
-    number of points and dims is the number of dimensions
-edge_width : int, float, None
+data : array (N, D)
+    Coordinates for N points in D dimensions.
+properties : dict {str: array (N,)}, DataFrame
+    Properties for each point. Each property should be an array of length N,
+    where N is the number of points.
+symbol : str
+    Symbol to be used for the point markers. Must be one of the
+    following: arrow, clobber, cross, diamond, disc, hbar, ring,
+    square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.
+size : float, array
+    Size of the point marker. If given as a scalar, all points are made
+    the same size. If given as an array, size must be the same
+    broadcastable to the same shape as the data.
+edge_width : float
     Width of the symbol edge in pixels.
-edge_color : Color, ColorArray
-    Color of the point marker border.
-face_color : Color, ColorArray
-    Color of the point marker body.
+edge_color : str, array-like
+    Color of the point marker border. Numeric color values should be RGB(A).
+edge_color_cycle : np.ndarray, list, cycle
+    Cycle of colors (provided as RGBA) to map to edge_color if a
+    categorical attribute is used to set face_color.
+edge_colormap : str, vispy.color.colormap.Colormap
+    Colormap to set edge_color if a continuous attribute is used to set face_color.
+    See vispy docs for details: http://vispy.org/color.html#vispy.color.Colormap
+edge_contrast_limits : None, (float, float)
+    clims for mapping the property to a color map. These are the min and max value
+    of the specified property that are mapped to 0 and 1, respectively.
+    The default value is None. If set the none, the clims will be set to
+    (property.min(), property.max())
+face_color : str, array-like
+    Color of the point marker body. Numeric color values should be RGB(A).
+face_color_cycle : np.ndarray, list, cycle
+    Cycle of colors (provided as RGBA) to map to face_color if a
+    categorical attribute is used to set face_color.
+face_colormap : str, vispy.color.colormap.Colormap
+    Colormap to set face_color if a continuous attribute is used to set face_color.
+    See vispy docs for details: http://vispy.org/color.html#vispy.color.Colormap
+face_contrast_limits : None, (float, float)
+    clims for mapping the property to a color map. These are the min and max value
+    of the specified property that are mapped to 0 and 1, respectively.
+    The default value is None. If set the none, the clims will be set to
+    (property.min(), property.max())
 n_dimensional : bool
     If True, renders points not just in central plane but also in all
     n-dimensions according to specified point marker size.
+name : str
+    Name of the layer.
+metadata : dict
+    Layer metadata.
+scale : tuple of float
+    Scale factors for the layer.
+translate : tuple of float
+    Translation values for the layer.
+opacity : float
+    Opacity of the layer visual, between 0.0 and 1.0.
+blending : str
+    One of a list of preset blending modes that determines how RGB and
+    alpha values of the layer visual get mixed. Allowed values are
+    {'opaque', 'translucent', and 'additive'}.
+visible : bool
+    Whether the layer visual is currently being displayed.
 
 Returns
 -------

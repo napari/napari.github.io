@@ -68,6 +68,9 @@ layer : napari.layers.Points
 
 The input data to the points layer must be an NxD numpy array containing the coordinates of N points in D dimensions. The ordering of these dimensions is the same as the ordering of the dimensions for image layers. This array is always accessible through the `layer.data` property and will grow or shrink as new points are either added or deleted.
 
+## points properties
+The `Points` layer can contain properties that annotate each point. `Points.properties` stores the properties in a dictionary where each key is the name of the property and the values are numpy arrays with a value for each point (i.e., length N for N points in `Points.data`). As we will see below, we can use the values in a property to set the display properties of the points (e.g., face color or edge color).
+
 ## creating a new points layer
 
 As you can add new points to a points layer using the add points tool, it is possible to create a brand new empty points layers by clicking the new points layer button above the layers list. The shape of the points layer is defined by the points inside it, and so as you add new points the shape will adjust as needed. The dimension of the new points layer will default to the largest dimension of any layer currently in the viewer, or to 2 if no other layers are present in the viewer.
@@ -112,6 +115,35 @@ Points can also be resized within the GUI by first selecting them and then adjus
 Individual points can each have different edge and face colors. You can initially set these colors by providing a list of colors to the `edge_color` or `face_color` keyword arguments respectively, or you can edit them from the GUI. The colors of each of the points are available as lists under the `layer.edge_colors` and `layer.face_colors` properties. Similar to the `sizes` and `size` properties these properties are different from the `layer.edge_color` and `layer.face_color` properties that will determine the color of the next point to be added or any currently selected points.
 
 To change the point color properties from the GUI you must first select the points whose properties you want to change, otherwise you will just be initializing the property for the next point you add.
+
+## setting point edge and face color with properties
+Point edge and face colors can be set as a function of a property in `Points.properties`. There are two ways that the values in properties can be mapped to colors: (1) color cycles and (2) colormaps.
+
+Color cycles are sets of colors that are mapped to categorical properties. The colors are repeated if the number of unique property values is greater than the number of colors in the color cycle.
+
+Colormaps are a continuum of colors that are mapped to a continuous property value. The available colormaps are listed below (colormaps are from [vispy](http://vispy.org/color.html#vispy.color.Colormap)). For some guidance on choosing colormaps, see the [matplotlib colormap docs](https://matplotlib.org/3.2.0/tutorials/colors/colormaps.html).
+
+* autumn
+* blues
+* cool
+* greens
+* reds
+* spring
+* summer
+* fire
+* grays
+* hot
+* ice
+* winter
+* light_blues
+* orange
+* viridis
+* coolwarm
+* PuGr
+* GrBu
+* GrBu_d
+* RdBu
+
 
 ## changing the points symbol
 The symbol for the points layer is a global property for the layer. All points must have the same symbol. You can set the symbol on the loading of the layer using the `symbol` keyword argument, or you can change it from the the GUI using the symbol dropdown menu. Since the symbol property applies to all the points you don't need to have any points selected for it to have an effect.

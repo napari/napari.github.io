@@ -144,6 +144,59 @@ Colormaps are a continuum of colors that are mapped to a continuous property val
 * GrBu_d
 * RdBu
 
+### setting edge or face color with a color cycle
+Here we will set the edge color of the markers with a color cycle on a property. To do the same for a face color, substitute `face_color` for `edge_color` in the example snippet below.
+
+```python
+from skimage import data
+import numpy as np
+import napari
+
+with napari.gui_qt():
+    viewer = napari.view_image(data.astronaut(), rgb=True)
+    points = np.array([[100, 100], [200, 200], [300, 100]])
+    point_properties = {
+        'good_point': np.array([True, True, False]),
+        'confidence': np.array([0.99, 0.8, 0.2]),
+    }
+    points_layer = viewer.add_points(
+        points,
+        properties=point_properties,
+        edge_color='good_point',
+        edge_color_cycle=['magenta', 'green'],
+        edge_width=5,
+    )
+```
+![image]({{ '/assets/tutorials/points_edge_color_cycle.png' | relative_url }})
+
+In the example above, the properties (`point_properties`) were provided as a dictionary with two properties: `good_point` and `confidence`. The values of each property is stored in a numpy ndarray with length 3 since there were three coordinates provided in `points`. We set the edge color as a function of the `good_point` property by providing the keyword argument `edge_color='good_point'` to the `viewer.add_points()` method. We set the color cycle via the `edge_color_cycle` keyword argument (`edge_color_cycle=['magenta', 'green']`). The color cycle can be provided as a list of colors (a list of strings or a (M x 4) array of M RGBA colors).
+
+### setting edge or face color with a colormap
+Here we will set the face color of the markers with a color cycle on a property. To do the same for a face color, substitute `edge_color` for `face_color` in the example snippet below.
+
+```python
+from skimage import data
+import numpy as np
+import napari
+
+with napari.gui_qt():
+    viewer = napari.view_image(data.astronaut(), rgb=True)
+    points = np.array([[100, 100], [200, 200], [300, 100]])
+    point_properties = {
+        'good_point': np.array([True, True, False]),
+        'confidence': np.array([0.99, 0.8, 0.2]),
+    }
+    points_layer = viewer.add_points(
+        points,
+        properties=point_properties,
+        face_color='confidence',
+        face_colormap='viridis',
+    )
+```
+![image]({{ '/assets/tutorials/points_face_colormap.png' | relative_url }})
+
+In the example above, the properties (`point_properties`) were provided as a dictionary with two properties: `good_point` and `confidence`. The values of each property is stored in a numpy ndarray with length 3 since there were three coordinates provided in `points`. We set the face color as a function of the `confidence` property by providing the keyword argument `face_color='confidence'` to the `viewer.add_points()` method. We set the colormap to viridis using the `face_colormap` keyword argument (`face_colormap='viridis'`).
+
 
 ## changing the points symbol
 The symbol for the points layer is a global property for the layer. All points must have the same symbol. You can set the symbol on the loading of the layer using the `symbol` keyword argument, or you can change it from the the GUI using the symbol dropdown menu. Since the symbol property applies to all the points you don't need to have any points selected for it to have an effect.

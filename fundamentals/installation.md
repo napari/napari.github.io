@@ -51,7 +51,7 @@ Most users can safely ignore this section. If, however, you aim to use napari to
 
 [Qt](https://www.qt.io) is a C++ library that provides unified graphical user interface (GUI) elements and interactivity across platforms and operating systems. Several libraries exist for accessing these elements from Python, which we call in the context of napari a *backend*.
 
-The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), and this is what you get if you type `pip install napari` or `conda install -c conda-forge napari`. If you wish to use [PyQt5](https://www.riverbankcomputing.com/software/pyqt/intro) as the backend instead, you can install napari with this single command:
+The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), and this is what you get if you type `pip install napari` or `conda install -c conda-forge napari` and you do not have [pyqt5](https://pypi.org/project/PyQt5/) installed. If you wish to use [PyQt5](https://www.riverbankcomputing.com/software/pyqt/intro) as the backend instead, you can install napari with this single command:
 ```
 pip install pyqt5 napari
 ```

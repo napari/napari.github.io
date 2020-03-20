@@ -15,6 +15,20 @@ This tutorial will teach you how to do a clean install of **napari**. It is aime
 $ pip install napari
 ```
 
+### choosing differnt backends
+The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), which is fine for most users. A small percentage of users may wish to use a [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) backend instead. 
+If you want to install napari with a [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) backend with a single line command, you can use:
+```
+pip install pyqt5 napari
+```
+
+Note: the order of installation is important, [pyqt5](https://pypi.org/project/PyQt5/) must be installed *before* napari. During installation napari checks whether [pyqt5](https://pypi.org/project/PyQt5/) is already available. 
+If  so, napari will use a [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) backend. 
+If there is no pre-existing installation of [pyqt5](https://pypi.org/project/PyQt5/), then napari will install and use 
+a [PySide2](https://wiki.qt.io/Qt_for_Python) backend. 
+This is the default, and fine for most users. 
+
+
 ### install from the master branch on Github
 To get the most up to date version of through pip call
 ```sh
@@ -43,15 +57,6 @@ An empty napari viewer should appear as follows
 If you installed napari with `pip` you can upgrade by calling
 ```sh
 $ pip install napari --upgrade
-```
-
-## choosing a different backend
-By default, napari uses [PySide2](https://wiki.qt.io/Qt_for_Python). This is what most users will want. 
-
-If you want to use [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) instead for your backend, you can run these lines after installing napari:
-```
-pip uninstall pyside2 -y
-pip install pyqt5
 ```
 
 ## troubleshooting

@@ -15,9 +15,13 @@ This tutorial will teach you how to do a clean install of **napari**. It is aime
 $ pip install napari
 ```
 
-### choosing differnt backends
-The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), which is fine for most users. A small percentage of users may wish to use a [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) backend instead. 
-If you want to install napari with a [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) backend with a single line command, you can use:
+### choosing different Qt backends
+
+Most users can safely ignore this section. If, however, you aim to use napari together with software that uses PyQt5, or have some other reason to prefer that Qt backend, read on.
+
+[Qt](https://www.qt.io) is a C++ library that provides unified graphical user interface (GUI) elements and interactivity across platforms and operating systems. Several libraries exist for accessing these elements from Python, which we call in the context of napari a *backend*.
+
+The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), and this is what you get if you type `pip install napari` or `conda install -c conda-forge napari`. If you wish to use [PyQt5](https://www.riverbankcomputing.com/software/pyqt/intro) as the backend instead, you can install napari with this single command:
 ```
 pip install pyqt5 napari
 ```

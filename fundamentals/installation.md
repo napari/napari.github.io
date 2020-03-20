@@ -26,11 +26,7 @@ The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), and t
 pip install pyqt5 napari
 ```
 
-Note: the order of installation is important, [pyqt5](https://pypi.org/project/PyQt5/) must be installed *before* napari. During installation napari checks whether [pyqt5](https://pypi.org/project/PyQt5/) is already available. 
-If  so, napari will use a [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) backend. 
-If there is no pre-existing installation of [pyqt5](https://pypi.org/project/PyQt5/), then napari will install and use 
-a [PySide2](https://wiki.qt.io/Qt_for_Python) backend. 
-This is the default, and fine for most users. 
+**Note**: the order of the packages in the above line is important, because [pyqt5](https://pypi.org/project/PyQt5/) must be installed *before* napari.
 
 
 ### install from the master branch on Github

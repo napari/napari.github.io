@@ -77,7 +77,6 @@ The labels layer is a subclass of the `Image` layer and as such can support the 
 
 Because the labels layer subclasses the image layer it inherits the great properties of the image layer, like supporting lazy loading and image pyramids for big data layers. For more information about both these concepts see the details in the [image layer](./image) tutorial.
 
-
 ## creating a new labels layer
 
 As you can edit a labels layer using the paintbrush and fill bucket, it is possible to create a brand new empty labels layers by clicking the new labels layer button above the layers list. The shape of the new labels layer will match the size of any currently existing image layers, allowing you to paint on top of them.
@@ -100,11 +99,12 @@ Note though that when entering 3D rendering mode the colorpicker, paintbrush, an
 
 The default mode of the labels layer is to support panning and zooming, as in the image layer. This mode is represent by the magnifying glass in the layers control panel, and while it is selected editing the layer is not possible. Continue reading to learn how to use some of the editing modes. You can always return to pan and zoom mode by pressing the `Z` key when the labels layer is selected.
 
-## changing labels colors
+## shuffling label colors
 
-The color that each integer gets assigned is random, aside from 0 which always gets assigned to be transparent. The colormap we use is designed such that nearby integers get assigned very different colors. The exact colors that get assigned as determined by a [random seed](https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.random.seed.html) and changing that seed will shuffle the colors that each label gets assigned. Changing the seed can be done by clicking on the `shuffle colors` button in the layers control panel.
+The color that each integer gets assigned is random, aside from 0 which always gets assigned to be transparent. The colormap we use is designed such that nearby integers get assigned very different colors. The exact colors that get assigned as determined by a [random seed](https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.random.seed.html) and changing that seed will shuffle the colors that each label gets assigned. Changing the seed can be done by clicking on the `shuffle colors` button in the layers control panel. Shuffling colors can be useful as some colors may be hard to distinguish from the background or nearby objects.
 
 ## selecting a label
+
 A particular label can be selected either using the label combobox inside the layers control panel and typing in the value of the desired label or using the plus / minus buttons, or by selecting the color picker tool and then clicking on a pixel with the desired label in the image. When a label is selected you will see its integer inside the label combobox and the color or the label shown in the thumbnail next to the label combobox. If the 0 label is selected then a checkerboard pattern is shown in the thumbnail to represent the transparent color.
 
 You can quickly select the color picker by pressing the `L` key when the labels layer is selected.
@@ -116,6 +116,7 @@ You can set the selected label to be one larger than the current largest label b
 You can also increment or decrement the currently selected label by pressing the `I` or `D` key respectively.
 
 ## painting in the labels layer
+
 One of the major use cases for the labels layer is to manually edit or create image segmentations. One of the tools that can be used for manual editing is the `paintbrush`, that can be made active from by clicking the paintbrush icon in the layers control panel. Once the paintbrush is enable the pan and zoom functionality of the  viewer canvas gets disabled and you are able to paint onto the canvas. You can temporarily re-enable pan and zoom by pressing and holding the spacebar. This feature can be useful if you want to move around the labels layer as you paint.
 
 When you start painting the label that you are painting with, and the color that you will see are determined by the selected label. Note there is no explicit eraser tool, instead you just need to make the selected label 0 and then you are effectively painting with the background color. Remember you can use the color picker tool at any point to change the selected label.
@@ -126,9 +127,9 @@ If you have a multidimensional labels layer then your paintbrush will only edit 
 
 You can quickly select the paintbrush by pressing the `P` key when the labels layer is selected.
 
-## using in the fill bucket
+## using the fill bucket
 
-Sometimes you might want to replace an entire label with a different label. This could be because you want to make two touching regions have the same label, or you want to just replace one label with a different one, or maybe you have painted around the edge of a region and you want to quickly fill in its inside. To do this you can select the `fill bucket` by clicking on its icon in the layer controls panel and then click on a target region of interest in the layer. The fill bucket will fill using the currently selected label.
+Sometimes you might want to replace an entire label with a different label. This could be because you want to make two touching regions have the same label, or you want to just replace one label with a different one, or maybe you have painted around the edge of a region and you want to quickly fill in its inside. To do this you can select the `fill bucket` by clicking on the droplet icon in the layer controls panel and then click on a target region of interest in the layer. The fill bucket will fill using the currently selected label.
 
 By default the fill bucket will only change contiguous or connected pixels of the same label as the pixel that is clicked on. If you want to change all the pixels of that label regardless of where they are in the slice then you can set the `contiguous` property or checkbox to `False`.
 
@@ -136,9 +137,33 @@ If you have a multidimensional labels layer then your fill bucket will only edit
 
 You can quickly select the fill bucket by pressing the `F` key when the labels layer is selected.
 
-Using the paintbrush and fill bucket together we can quickly segment one of the coins at the border of our image with a new label:
+## creating, deleting, merging and splitting connected components
 
-![image]({{ '/assets/tutorials/painting.gif' | relative_url }})
+Using the `color picker`, `paintbrush` and `fill bucket` tools one can create and edit object segmentation maps. Below we show how to use these tools to by perform common editing tasks on connected components (keep the `contiguous` box checked).
+
+**drawing a connected component**:
+
+![image]({{ '/assets/tutorials/draw_component.gif' | relative_url }})
+
+Press `M` to select a new label color. Select the `paintbrush` tool and draw a closed contour around the object. Select the `fill bucket` tool and click inside the contour to assign the label to all pixels of the object.
+
+**selecting a connected component**:
+
+![image]({{ '/assets/tutorials/delete_label.gif' | relative_url }})
+
+select the background label with the `color picker` (alternative: press keyboard shortcut `E`), then use the `fill bucket` to set all pixels of the connected component to background.
+
+**merging connected components**:
+
+![image]({{ '/assets/tutorials/merge_labels.gif' | relative_url }})
+
+select the label of one of the components with the `color picker` tool and then filling the components to be merged with the fill bucket.
+
+**splitting a connected component**:
+
+![image]({{ '/assets/tutorials/split_label.gif' | relative_url }})
+
+splitting a connected component will introduce an additional object, therefore press `M` to select a label number that is not already in use. Use the paintbrush tool to draw a dividing line, then assign the new label to one of the parts with the `fill bucket`. 
 
 ## undo / redo functionality
 

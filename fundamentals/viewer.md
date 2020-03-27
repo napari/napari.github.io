@@ -12,7 +12,7 @@ As discussed in [getting started](./getting_started) tutorial the napari viewer 
 
 Let's get stated by launching a viewer with a simple 2D image.
 
-The fasted way to get the viewer open and throw an image up on the screen is using the `napari.view_image` method:
+The fastest way to get the viewer open and throw an image up on the screen is using the `napari.view_image` method:
 
 ```python
 from skimage import data

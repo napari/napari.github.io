@@ -51,13 +51,31 @@ Most users can safely ignore this section. If, however, you aim to use napari to
 
 [Qt](https://www.qt.io) is a C++ library that provides unified graphical user interface (GUI) elements and interactivity across platforms and operating systems. Several libraries exist for accessing these elements from Python, which we call in the context of napari a *backend*.
 
-The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), and this is what you get if you type `pip install napari` or `conda install -c conda-forge napari` and you do not have [pyqt5](https://pypi.org/project/PyQt5/) installed. If you wish to use [PyQt5](https://www.riverbankcomputing.com/software/pyqt/intro) as the backend instead, you can install napari like this:
+The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), and this is what you get if you type `pip install napari` or `conda install -c conda-forge napari` and you do not have [pyqt5](https://pypi.org/project/PyQt5/) installed. If you wish to use [PyQt5](https://www.riverbankcomputing.com/software/pyqt/intro) as the backend instead, you can install pyqt5 and napari from PyPI like this.
+
+Installing napari from PyPI, using a [pyqt5](https://pypi.org/project/PyQt5/) backend:
 ```
 pip install pyqt5
 pip install napari
 ```
 
-**Note**: the order of the packages in the above line is important, because [pyqt5](https://pypi.org/project/PyQt5/) must be installed *before* napari.
+**Note: The order of installing packages is important, [pyqt5](https://pypi.org/project/PyQt5/) must be installed *before* napari.**
+
+If you would like install napari from the git repository instead, and use [pyqt5](https://pypi.org/project/PyQt5/) instead of [PySide2](https://wiki.qt.io/Qt_for_Python), then you also need to use the pip argument `--no-use-pep517`.
+
+Installing napari from a remote github repository, using a [pyqt5](https://pypi.org/project/PyQt5/) backend:
+```
+pip install pyqt5
+pip install --no-use-pep517 git+https://github.com/napari/napari
+```
+
+Installing napari from a cloned napari repository on your local machine, using a [pyqt5](https://pypi.org/project/PyQt5/) backend:
+```
+pip install pyqt5
+pip install --no-use-pep517 path_to_napari
+```
+
+**Note 2**: Developers who want an *editable* installation can add the `-e` flag, eg: `pip install -e --no-use-pep517 path_to_napari`. Replace `path_to_napari` with the actual path to the napari repository on your local machine.
 
 ## troubleshooting
 

@@ -202,6 +202,18 @@ All our layers support a `name` property that can be set inside a text box insid
 
 All our layers support a `scale` property and keyword argument that will rescale the layer multiplicatively according to the scale values (one for each dimension). This property can be particularly useful for viewing anisotropic volumes where the size of the voxel in the z dimension might be different then the size in the x and y dimensions.
 
+In napari, you can scale the layers when creating an image layer or for an existing layer using the `scale` as a keyword argument or property respectively.
+
+```python
+# scaling while creating the image layer
+napari.view_image(retina, name='retina', scale=[1,10,1,1])
+
+# scaling an existing layer
+viewer.layers['retina'].scale = [1,10,1,1]
+```
+
+![image]({{ '/assets/tutorials/scaling.gif' | relative_url }})
+
 ## translating layers
 
 All our layers support a `translate` property and keyword argument that you can use to offset a layer relative to the other layers, which could be useful if you are trying to overlay two layers for image registration purposes.

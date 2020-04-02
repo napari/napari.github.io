@@ -47,13 +47,13 @@ $ pip install napari --upgrade
 
 ## choosing different python bindings for Qt
 
-Most users can safely ignore this section. If, however, you aim to use napari together with software that uses PyQt5, or have some other reason to prefer that Qt backend, read on.
+Most users can safely ignore this section. If, however, you aim to use napari together with software that uses PyQt5, or have some other reason to prefer specific bindings to the Qt backend, read on.
 
-[Qt](https://www.qt.io) is a C++ library that provides unified graphical user interface (GUI) elements and interactivity across platforms and operating systems. Several libraries exist for accessing these elements from Python, which we call in the context of napari a *backend*.
+[Qt](https://www.qt.io) is a C++ library that provides unified graphical user interface (GUI) elements and interactivity across platforms and operating systems. Several libraries exist for accessing these elements from Python, which we'll call python bindings for Qt. You are able to choose between several different python bindings for Qt, because napari itself uses [qtpy](https://github.com/spyder-ide/qtpy) as an interface that many different python bindings for Qt can fit into.
 
-The default napari backend is [PySide2](https://wiki.qt.io/Qt_for_Python), and this is what you get if you type `pip install napari` or `conda install -c conda-forge napari` and you do not have [pyqt5](https://pypi.org/project/PyQt5/) installed. If you wish to use [PyQt5](https://www.riverbankcomputing.com/software/pyqt/intro) as the backend instead, you can install pyqt5 and napari from PyPI like this.
+The default python binding to Qt in napari is [PySide2](https://wiki.qt.io/Qt_for_Python). This is what you get if you type `pip install napari` or `conda install -c conda-forge napari` and you do *not* have [pyqt5](https://pypi.org/project/PyQt5/) already installed. If you wish to use [PyQt5](https://www.riverbankcomputing.com/software/pyqt/intro) for your python binding to Qt instead, install both pyqt5 and napari from PyPI like this.
 
-Installing napari from PyPI, using a [pyqt5](https://pypi.org/project/PyQt5/) backend:
+Installing napari from PyPI, using [pyqt5](https://pypi.org/project/PyQt5/) bindings for the Qt backend:
 ```
 pip install pyqt5
 pip install napari
@@ -63,13 +63,13 @@ pip install napari
 
 If you would like install napari from the git repository instead, and use [pyqt5](https://pypi.org/project/PyQt5/) instead of [PySide2](https://wiki.qt.io/Qt_for_Python), then you also need to use the pip argument `--no-use-pep517`.
 
-Installing napari from a remote github repository, using a [pyqt5](https://pypi.org/project/PyQt5/) backend:
+Installing napari from a remote github repository, using [pyqt5](https://pypi.org/project/PyQt5/) bindings for the Qt backend:
 ```
 pip install pyqt5
 pip install --no-use-pep517 git+https://github.com/napari/napari
 ```
 
-Installing napari from a cloned napari repository on your local machine, using a [pyqt5](https://pypi.org/project/PyQt5/) backend:
+Installing napari from a cloned napari repository on your local machine, using [pyqt5](https://pypi.org/project/PyQt5/) bindings for the Qt backend:
 ```
 pip install pyqt5
 pip install --no-use-pep517 path_to_napari

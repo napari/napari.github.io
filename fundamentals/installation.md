@@ -45,7 +45,7 @@ If you installed napari with `pip` you can upgrade by calling
 $ pip install napari --upgrade
 ```
 
-## choosing different Qt backends
+## choosing different python bindings for Qt
 
 Most users can safely ignore this section. If, however, you aim to use napari together with software that uses PyQt5, or have some other reason to prefer that Qt backend, read on.
 

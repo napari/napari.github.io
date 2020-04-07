@@ -1,8 +1,8 @@
 # Using Dask and napari to view and process a high-resolution human brain imaging dataset.
 We used napari to view and process a high-resolution human brain imaging dataset, and in the following tutorial we will break down how it all builds up!
 
-The dataset was obtained from Dr. Brian Edlow's Lab for NeuroImaging of Coma and Consciousness, which is dedicated to promoting recovery of consciousness in people with severe brain injuries.
-This dataset is a 100 micron resolution magnetic resonance imaging (MRI) scan of an ex vivo human brain specimen. The brain specimen was donated by a 58-year-old woman who had no history of neurological disease and died of non-neurological causes.
+The dataset was obtained from [Dr. Brian Edlow's Lab](https://www.comarecoverylab.org/) for NeuroImaging of Coma and Consciousness, which is dedicated to promoting recovery of consciousness in people with severe brain injuries.
+This dataset is a 100 micron resolution magnetic resonance imaging (MRI) scan of an ex vivo human brain specimen. The brain specimen was donated by a [58-year-old woman](https://www.youtube.com/watch?v=Q-9jzBkoNuI) who had no history of neurological disease and died of non-neurological causes.
 
 An important concept to bear in mind when going through this tutorial is [Lazy Loading](https://en.wikipedia.org/wiki/Lazy_evaluation), i.e., only loading images to memory when the position slider on napari maps to that particular image, which is very useful when using large datasets.
 
@@ -18,7 +18,7 @@ def load_image(image_name):
 ```
 #### Getting the data
 
-You can download the dataset from [here](https://datadryad.org/stash/downloads/file_stream/223913). A ZIP file will be downloaded, after unzipping the compressed dataset, the `.tiff` images will be extracted to the `SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/` directory. Now your dataset is ready to be used!
+You can download the dataset from [here](https://datadryad.org/stash/downloads/file_stream/223913), the dataset is 3.69 GB unzipped. A ZIP file will be downloaded, after unzipping the compressed dataset, the `.tiff` images will be extracted to the `SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/` directory.
 
 
 
@@ -30,6 +30,7 @@ To load images from a folder we use [`io.imread`](https://scikit-image.org/docs/
 
 And to read images from a folder, you should `import glob` to list all the images in the dataset folder:
 ```python
+import glob
 images_names = glob.glob(
 'SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/Synthesized_FLASH25_Axial_*.tiff')
 images_names = sorted(images_names)

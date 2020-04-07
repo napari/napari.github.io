@@ -1,5 +1,5 @@
 # Using Dask and napari to view and process a high-resolution human brain imaging dataset.
-We used napari to view and process 100µm resolution human brain large dataset, and in the following tutorial we will break down how it all builds up!
+We used napari to view and process a high-resolution human brain imaging dataset, and in the following tutorial we will break down how it all builds up!
 
 The dataset was obtained from Dr. Brian Edlow's Lab for NeuroImaging of Coma and Consciousness, which is dedicated to promoting recovery of consciousness in people with severe brain injuries.
 This dataset is a 100 micron resolution magnetic resonance imaging (MRI) scan of an ex vivo human brain specimen. The brain specimen was donated by a 58-year-old woman who had no history of neurological disease and died of non-neurological causes.
@@ -70,6 +70,5 @@ if __name__ == '__main__':
 
 __And here's the final output!__
 ![Alt text](https://media.giphy.com/media/LO3gPbCs5AxApjAehW/giphy.gif)
-
 
 

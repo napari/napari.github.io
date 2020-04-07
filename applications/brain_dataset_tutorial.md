@@ -8,7 +8,7 @@ A very important concept to bear in mind when going through this tutorial is the
 
 #### So how can we lazily load an image using dask?
 First, we import delayed from dask, which is the main function responsible for handling __Lazy Loading__. Here we defined a function *load_image()* that will lazy load the image data when called given a path to the data. 
-```
+```python
 
 from dask import delayed
 import dask.array as da
@@ -70,5 +70,4 @@ if __name__ == '__main__':
 
 __And here's the final output!__
 ![Alt text](https://media.giphy.com/media/LO3gPbCs5AxApjAehW/giphy.gif)
-
 

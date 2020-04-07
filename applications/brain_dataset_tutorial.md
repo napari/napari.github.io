@@ -24,7 +24,7 @@ You can download the dataset from [here](https://datadryad.org/stash/downloads/f
 
 #### Reading images from a folder
 To load images from a folder we use io.imread, but first we need to  import io from skimage.
-```
+```python
  delayed_image_load = delayed(io.imread)
 ```
 
@@ -70,4 +70,3 @@ if __name__ == '__main__':
 
 __And here's the final output!__
 ![Alt text](https://media.giphy.com/media/LO3gPbCs5AxApjAehW/giphy.gif)
-

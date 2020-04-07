@@ -39,7 +39,7 @@ Here we use the `sorted` function to sort the images, as `glob` returns the imag
 
 #### Using dask.stack() to concatenate images
 
-Dask.array.stack (seq, axis=0) used to stack many existing dask arrays into a new array, creating a new dimension (axis=0 by default), And this is how it is used:
+`dask.array.stack` is used to stack many existing dask arrays into a new array, creating a new dimension (along axis=0 by default):
 ```python
 images = da.stack(load_image(image_name) for image_name in images_names) 
 ```

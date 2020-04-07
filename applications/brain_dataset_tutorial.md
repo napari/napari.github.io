@@ -47,7 +47,7 @@ images = da.stack(load_image(image_name) for image_name in images_names)
 
 
 Here's the complete code:
-``` 
+``` python
 from dask import delayed
 import dask.array as da
 import napari

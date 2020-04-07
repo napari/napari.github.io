@@ -7,7 +7,7 @@ This dataset is a 100 micron resolution magnetic resonance imaging (MRI) scan of
 A very important concept to bear in mind when going through this tutorial is the [Lazy Loading](https://en.wikipedia.org/wiki/Lazy_evaluation), i.e., only loading images to memory when the position slider on napari maps to that particular image, which is very of use, when using large datasets.
 
 #### So how can we lazily load an image using dask?
-First, we import delayed from dask, which is the main function responsible for handling __Lazy Loading__. Here we defined a function *load_image()* that will lazy load the image when called given, the image name as a parameter. 
+First, we import delayed from dask, which is the main function responsible for handling __Lazy Loading__. Here we defined a function *load_image()* that will lazy load the image data when called given a path to the data. 
 ```
 
 from dask import delayed
@@ -70,7 +70,6 @@ if __name__ == '__main__':
 
 __And here's the final output!__
 ![Alt text](https://media.giphy.com/media/LO3gPbCs5AxApjAehW/giphy.gif)
-
 
 
 

@@ -29,7 +29,7 @@ To load images from a folder we use io.imread, but first we need to  import io f
 ```
 
 And to read images from a folder, you should import *glob* to list all the images in the dataset folder, and this is how it is used:
-```
+```python
 images_names = glob.glob(
 'SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/Synthesized_FLASH25_Axial_*.tiff')
 images_names = sorted(images_names)

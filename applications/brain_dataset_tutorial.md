@@ -34,7 +34,7 @@ images_names = glob.glob(
 'SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/Synthesized_FLASH25_Axial_*.tiff')
 images_names = sorted(images_names)
 ```
-Here we use the `sorted` function, to sort the images as, glob returns the images unsorted.
+Here we use the `sorted` function to sort the images, as `glob` returns the images unsorted.
 
 
 #### Using dask.stack() to concatenate images

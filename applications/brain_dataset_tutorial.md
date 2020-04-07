@@ -4,7 +4,7 @@ We used napari to view and process a high-resolution human brain imaging dataset
 The dataset was obtained from Dr. Brian Edlow's Lab for NeuroImaging of Coma and Consciousness, which is dedicated to promoting recovery of consciousness in people with severe brain injuries.
 This dataset is a 100 micron resolution magnetic resonance imaging (MRI) scan of an ex vivo human brain specimen. The brain specimen was donated by a 58-year-old woman who had no history of neurological disease and died of non-neurological causes.
 
-A very important concept to bear in mind when going through this tutorial is the [Lazy Loading](https://en.wikipedia.org/wiki/Lazy_evaluation), i.e., only loading images to memory when the position slider on napari maps to that particular image, which is very of use, when using large datasets.
+An important concept to bear in mind when going through this tutorial is [Lazy Loading](https://en.wikipedia.org/wiki/Lazy_evaluation), i.e., only loading images to memory when the position slider on napari maps to that particular image, which is very useful when using large datasets.
 
 #### So how can we lazily load an image using dask?
 First, we import delayed from dask, which is the main function responsible for handling __Lazy Loading__. Here we defined a function *load_image()* that will lazy load the image data when called given a path to the data. 

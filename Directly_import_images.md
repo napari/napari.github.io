@@ -59,21 +59,14 @@ del resp
 Finally we load that image into napari. 
 You must change the name of the path of your image. 
 ```
-from skimage.io import imread
-from dask import delayed
-lazy = delayed(imread)
-read = lazy('/Users/Ira/Desktop/local_image.jpg')  # doesn't actually read the file
-array = read.compute() 
-import dask.array as da
-stack = da.stack(array, axis=0)
-stack.shape
-napari.view_image(stack, contrast_limits=[0,2000], is_pyramid=False)
-#We don't need to use "with napari.gui_qt():" because we already in Ipython console
+import napari
+
+napari.view_path('/Users/Ira/Desktop/local_image.jpg')
+# We don't need to use "with napari.gui_qt():" because we are already in the Ipython console
 ```
 Voila! A new napari viewer opens with your required image and all you needed was the image URL. 
 Now you can proceed on analyzing and layering and playing around with your imported image. 
 
 Future devlopment ideas: This tutorial teaches about image importing, in future we can download datasets (partial or complete) in a similar fashion.
 Thankyou. 
-
 

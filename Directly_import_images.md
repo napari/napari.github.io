@@ -6,7 +6,7 @@ This tutorial helps us import those images directly into napari and cuts down a 
 
 For the purpose of example we have chose this publicly available [online dataset](https://idr.openmicroscopy.org/ "IDR from Open Microscopy"). Its the Image Data resource from Open Microscopy.
 
-Step 1 : Open this link and Find the datasdet you want to view.
+Step 1 : Open this link and find the dataset you want to view: [https://idr.openmicroscopy.org/](https://idr.openmicroscopy.org/)
 ![Homepage](https://drive.google.com/file/d/1Y75_78QItfhWOGkxiOktWd7F7UZ2TSiy/view?usp=sharing)
 
 Step 2: Click on any dataset and you’ll be shifted to a viewport like below: 

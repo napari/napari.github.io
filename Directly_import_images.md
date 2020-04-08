@@ -38,7 +38,7 @@ with requests.Session() as session:
 Now we create our IDR image link into a useable URL and download it onto our system.
 The image ID used below is an example. You can replace it with the image ID of your chosen image.
 Also you can change the name of image file.
-```
+```python
 IMAGE_DETAILS_URL = "{base}/webclient/imgData/{image_id}/"
 IMAGE_ID = 	9627732
 # Image ID can be changed - It'll be unique to each image of the dataset
@@ -69,4 +69,3 @@ Now you can proceed on analyzing and layering and playing around with your impor
 
 Future devlopment ideas: This tutorial teaches about image importing, in future we can download datasets (partial or complete) in a similar fashion.
 Thankyou. 
-

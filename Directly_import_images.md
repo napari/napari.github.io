@@ -2,7 +2,7 @@
 
 It's not always that we'd have all the data on our system. Maybe we need to view some data available on online platforms or maybe we are working as a team on github and we need to view some images that are not already downloaded on our system. 
 
-This tutorial helps us import those images directly into napari and cuts down a lot of unnecessary hassle. We have given codes along with explanations and some useful links in case somebody wants to explore more.
+This tutorial helps us import those images directly into napari and cuts down a lot of unnecessary hassle. We have given code along with explanations and some useful links in case somebody wants to explore more.
 
 For the purpose of example we have chose this publicly available [online dataset](https://idr.openmicroscopy.org/ "IDR from Open Microscopy"). Its the Image Data resource from Open Microscopy.
 
@@ -75,6 +75,5 @@ Now you can proceed on analyzing and layering and playing around with your impor
 
 Future devlopment ideas: This tutorial teaches about image importing, in future we can download datasets (partial or complete) in a similar fashion.
 Thankyou. 
-
 
 

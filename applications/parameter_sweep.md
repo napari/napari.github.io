@@ -93,8 +93,8 @@ img = data.page()
 thresholds = ["threshold_local", "threshold_sauvola", "threshold_niblack"]
 ```
 
-Next, we define a wrapper function, `del_thresh` that delays the execution of the thresholding function, passed as parameter, by making them lazy. 
-`apply_thresh` is the lazy version of the thresholding functions from `skimage.filters`. 
+Next, we define a wrapper function, `del_thresh` that delays the execution of the thresholding function, passed as parameter, by making it lazy. 
+`apply_thresh` is the lazy version of the thresholding function passed to `del_thresh`. 
 We use [`da.from_delayed`](https://docs.dask.org/en/latest/array-creation.html) to create a single-chunked Dask array from the Dask delayed array by providing `dtype` and `shape`:
 ```python
 def del_thresh(img, threshold_type, size):
@@ -112,7 +112,7 @@ for threshold_type in thresholds:
 ```
 
 Finally, we visualize the thresholded images with napari. 
-We split the `images` array into constituent image layers for different threshold types using `channel_axis=0` as follows:
+We split the stacked `images` array into constituent image layers for different threshold types using `channel_axis=0` as follows:
 ```python
 with napari.gui_qt():
     viewer = napari.view_image(img, name="page")

@@ -1,4 +1,5 @@
-# In this tutorial we'll directly import images from publicly available online datasets into napari. 
+# How to import images from online sources into napari
+In this tutorial we'll directly import images from publicly available online datasets into napari. 
 
 It's not always that we'd have all the data on our system. Maybe we need to view some data available on online platforms or maybe we are working as a team on github and we need to view some images that are not already downloaded on our system. 
 
@@ -67,5 +68,4 @@ napari.view_path('/Users/Ira/Desktop/local_image.jpg')
 Voila! A new napari viewer opens with your required image and all you needed was the image URL. 
 Now you can proceed on analyzing and layering and playing around with your imported image. 
 
-Future devlopment ideas: This tutorial teaches about image importing, in future we can download datasets (partial or complete) in a similar fashion.
 Thankyou. 

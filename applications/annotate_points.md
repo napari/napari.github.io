@@ -1,6 +1,6 @@
 # annotating videos with napari
 
-In this tutorial, we will use napari to make a simple GUI application for annotating points in videos. This GUI could be useful for making annotations required to train algorithms for markless tracking of animals (e.g., DeepLabCut). In this tutorial, we will cover creating and interacting with a Points layer with properties (i.e., labels for the points), connecting custom UI elements to events, and creating custom keybindings.
+In this tutorial, we will use napari (requires version 0.3.2 or greater) to make a simple GUI application for annotating points in videos. This GUI could be useful for making annotations required to train algorithms for markless tracking of animals (e.g., [DeepLabCut](http://www.mousemotorlab.org/deeplabcut)). In this tutorial, we will cover creating and interacting with a Points layer with properties (i.e., labels for the points), connecting custom UI elements to events, and creating custom keybindings.
 
 At the end of this tutorial, we will have created a GUI for annotating points in videos that we can simply call by:
 
@@ -40,18 +40,16 @@ def point_annotator(
     stack = imread(im_path)
     
     with napari.gui_qt():
-        viewer = napari.view_image(stack, contrast_limits=[0, 256], is_pyramid=False)
-        properties = {'label': np.empty(0)}
-        default_properties = {'label': np.array(labels)}
+        viewer = napari.view_image(stack, contrast_limits=[0, 256])
+        properties = {'label': np.array(labels)}
         points_layer = viewer.add_points(
             properties=properties,
-            default_properties=default_properties,
             edge_color='label',
             edge_color_cycle=COLOR_CYCLE,
             symbol='o',
             face_color='transparent',
             edge_width=8,
-            size=12,
+            size=12
         )
         points_layer.edge_color_mode = 'cycle'
 
@@ -97,7 +95,7 @@ def point_annotator(
 
                 # by default, napari selects the point that was just added
                 # disable that behavior, as the highlight gets in the way
-                layer.selected_data = []
+                layer.selected_data = {}
 
         points_layer.mouse_drag_callbacks.append(next_on_click)
 
@@ -182,15 +180,14 @@ We can then start the viewer Note that we use the `napari.gui_qt()` context mana
 
 ```python
 with napari.gui_qt():
-    viewer = napari.view_image(stack, contrast_limits=[0, 256], is_pyramid=False)
+    viewer = napari.view_image(stack, contrast_limits=[0, 256])
 ```
 
 ## Annotating with points
 We will annotate the features of interest using points in a napari Points layer. Each feature will be given a different label so that we can track them across frames. To achieve this, we will store the label in the `Points.properties` property in the 'label' key. We will instantiate the `Points` layer without any points. Therefore, we will initialize `Points.properties` with the key we will use and an empty array (`properties={'label': np.empty(0)}`). We also initialize the layer with the valid label names using the `default_properties` kwarg (`default_properties = {'label': np.array(labels)}`).
 
 ```python
-properties = {'label': np.empty(0)}
-default_properties = {'label': np.array(labels)}
+properties = {'label': np.array(labels)}
 ```
 
 We then add the points layer to the viewer using the `viewer.add_points()` method. As discussed above, we will  To visualize the feature each points represent, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`). 
@@ -198,13 +195,12 @@ We then add the points layer to the viewer using the `viewer.add_points()` metho
 ```python
 points_layer = viewer.add_points(
     properties=properties,
-    default_properties=default_properties,
     edge_color='label',
     edge_color_cycle=COLOR_CYCLE,
     symbol='o',
     face_color='transparent',
     edge_width=8,
-    size=12,
+    size=12
 )
 ```
 
@@ -343,7 +339,7 @@ points_layer.mouse_drag_callbacks.append(next_on_click)
 ```
 
 ## Saving annotation keybinding
-Finally, we will bind a function to the `Command-s` (⌘+s) keypress combination (ctrl+s on Windows) to save the annotations to a file that is readable by deeplabcut.
+Finally, we will bind a function to the `Command-s` (⌘+s) keypress combination to save the annotations to a file that is readable by deeplabcut. Conveniently, napari will automatically convert ⌘+s to ctrl+s on Windwos.
 
 ```python
 @viewer.bind_key('Control-S')
@@ -374,4 +370,14 @@ def save_points(event):
 
     # write the dataframe
     df.to_csv(output_path)
+```
+
+## Using the GUI
+Now that you've put it all together, you should be ready to test! You can call the function as shown below.
+
+```python
+im_path = '<path to directory with data>/*.png'
+output = '<path to directory with data>/annotations.csv'
+point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'], output_path=output)
+
 ```

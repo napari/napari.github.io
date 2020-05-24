@@ -176,11 +176,11 @@ First, we load the movie to be annotated. Since behavior movies can be quite lon
 stack = imread(im_path)
 ```
 
-We can then start the viewer Note that we use the `napari.gui_qt()` context manager to start and manage Qt event loop. We must provide the `contrast_limits` and set `is_pyramid=False` to prevent the image stack from being evaluated (i.e., loaded) upon layer creation. All of the following GUI code should be within the `napari.gui_qt()` context manager.
+We can then start the viewer Note that we use the `napari.gui_qt()` context manager to start and manage Qt event loop. We must provide the `contrast_limits` to prevent the image stack from being evaluated (i.e., loaded) upon layer creation. All of the following GUI code should be within the `napari.gui_qt()` context manager.
 
 ```python
 with napari.gui_qt():
-    viewer = napari.view_image(stack, contrast_limits=[0, 256])
+    viewer = napari.view_image(stack, contrast_limits=[0, 255])
 ```
 
 ## Annotating with points

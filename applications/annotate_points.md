@@ -340,39 +340,16 @@ points_layer.mouse_drag_callbacks.append(next_on_click)
 ```
 
 ## Saving annotation keybinding
-Finally, we will bind a function to the `Command-s` (⌘+s) keypress combination to save the annotations to a file that is readable by deeplabcut. Conveniently, napari will automatically convert ⌘+s to ctrl+s on Windwos.
+Finally, we will bind a function to the `Control-Alt-s` (control+alt+s) keypress combination to save the annotations to the csv file path passed into the `point_annotator()` function (described above). We use the built in csv writer for the points layer using the `Points.save()` method. In the future, we could specify a writer plugin for writing a file compatible with specific downstream analysis tools (e.g., DeepLabCut) using the `plugin` kwarg. Conveniently, napari will automatically convert ctrl+alt+s to ⌘+alt+s on Mac OS.
 
 ```python
-@viewer.bind_key('Control-S')
+@viewer.bind_key('Control-Alt-S')
 def save_points(event):
     """Save the added points to a CSV file"""
-    # get the frame indices
-    frame_indices = np.unique(points_layer.data[:, 0]).astype(np.int)
-
-    # get the filenames
-    all_files = np.asarray(glob.glob(im_path))
-    file_names = all_files[frame_indices]
-
-    # create and write dataframe
-    header = pd.MultiIndex.from_product(
-        [[scorer], labels, ['x', 'y']],
-        names=['scorer', 'bodyparts', 'coords']
-    )
-    df = pd.DataFrame(
-        index=file_names,
-        columns=header,
-    )
-
-    # populate the dataframe
-    for label, coord in zip(points_layer.properties['label'], points_layer.data):
-        fname = all_files[coord[0].astype(np.int)]
-        df.loc[fname][scorer][label]['x'] = coord[2]
-        df.loc[fname][scorer][label]['y'] = coord[1]
-
-    # write the dataframe
-    df.to_csv(output_path)
+    points_layer.save(output_path)
+    
 ```
-
+    
 ## Using the GUI
 Now that you've put it all together, you should be ready to test! You can call the function as shown below.
 

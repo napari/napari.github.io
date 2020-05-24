@@ -144,7 +144,7 @@ def point_annotator(
         
 ```
 ## point_annotator()
-We will create the GUI within a function called `point_annotator()`. Wrapping the GUI creation in the function allows us to  See below for the function definition.
+We will create the GUI within a function called `point_annotator()`. Wrapping the GUI creation in the function allows us to integrate it into other functions (e.g., a command line interface) and applications. See below for the function definition.
 
 ```python
 def point_annotator(

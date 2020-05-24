@@ -228,8 +228,8 @@ Finally, we set the edge color to a color cycle:
 	points_layer.edge_color_mode = 'cycle'
 ```
 
-## Adding a UI for selecting points
-Next, we will use magicgui to add a dropdown menu for selecting which point we would like to add. [magicgui](https://github.com/napari/magicgui) is a library for building GUIs from functions and works by applying function decorators. To make the a dropdown menu populated with the valid point labels, we simply define the function with the label as an input argument and then decorate it with the `magicgui()` decorator, passing the labels choice as `label={'choices': labels}` (recall that labels was passed to `point_annotator() as a list of the allowable labels).
+## Adding a GUI for selecting points
+Next, we will use magicgui to add a dropdown menu for selecting which point we would like to add. [magicgui](https://github.com/napari/magicgui) is a library from the napari team for building GUIs from functions and works by applying function decorators. To make the a dropdown menu populated with the valid point labels, we simply define the function with the label as an input argument and then decorate it with the `magicgui()` decorator, passing the labels choice as `label={'choices': labels}` (recall that labels was passed to `point_annotator() as a list of the allowable labels).
 
 ```python
 @magicgui(label={'choices': labels})

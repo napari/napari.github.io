@@ -41,7 +41,7 @@ def point_annotator(
     
     with napari.gui_qt():
         viewer = napari.view_image(stack, contrast_limits=[0, 256])
-        properties = {'label': np.array(labels)}
+        properties = {'label': labels}
         points_layer = viewer.add_points(
             properties=properties,
             edge_color='label',
@@ -184,15 +184,16 @@ with napari.gui_qt():
 ```
 
 ## Annotating with points
-We will annotate the features of interest using points in a napari Points layer. Each feature will be given a different label so that we can track them across frames. To achieve this, we will store the label in the `Points.properties` property in the 'label' key. We will instantiate the `Points` layer without any points. Therefore, we will initialize `Points.properties` with the key we will use and an empty array (`properties={'label': np.empty(0)}`). We also initialize the layer with the valid label names using the `default_properties` kwarg (`default_properties = {'label': np.array(labels)}`).
+We will annotate the features of interest using points in a napari Points layer. Each feature will be given a different label so that we can track them across frames. To achieve this, we will store the label in the `Points.properties` property in the 'label' key. We will instantiate the `Points` layer without any points. However, we will initialize `Points.properties` with the property values we will be using to annotate the images. To do so, we will define a properties dictionary with a key named `label` and values `labels`. The key, 'label', is the name of the property we are storing which feature of interest each point corresponds with. The values, 'labels', is the list of the names of the features we will annotating (defined above in the "point_annotator()" section). 
 
 ```python
-properties = {'label': np.array(labels)}
+properties = {'label': labels}
 ```
 
-We then add the points layer to the viewer using the `viewer.add_points()` method. As discussed above, we will  To visualize the feature each points represent, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`). 
+We then add the points layer to the viewer using the `viewer.add_points()` method. As discussed above, we will be storing which feature of interest each points corresponds to via the `label` property we defined in the `properties` dictionary. To visualize the feature each points represent, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`). 
 
 ```python
+properties = {'label': labels}
 points_layer = viewer.add_points(
     properties=properties,
     edge_color='label',

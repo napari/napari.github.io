@@ -8,6 +8,8 @@ This tutorial will teach you about the **napari** `Points` layer, including disp
 
 The points layer allows you to display an NxD array of N points in D coordinates. You can adjust the size, face color, edge color of all of the points independently. You can also adjust the opactiy, edge width, and symbol representing all the points simultaneously.
 
+Each data point can have annotations associated with it using the `Points.properties` dictionary. These properties can be used to set the face and edge colors of the points. For example, when displaying points of different classes/types, one could automatically set color the individual points by their respective class/type. For more details on point properties, see the "setting point edge and face color with properties" below or the [point annotation tutorial](../applications/annotate_points). 
+
 ## a simple example
 
 You can create a new viewer and add a set of points in one go using the `napari.view_points` method, or if you already have an existing viewer, you can add points to it using `viewer.add_points`. The api of both methods is the same. In these examples we'll mainly use `add_points` to overlay points onto on an existing image.
@@ -104,8 +106,8 @@ layer : napari.layers.Points
 
 The input data to the points layer must be an NxD numpy array containing the coordinates of N points in D dimensions. The ordering of these dimensions is the same as the ordering of the dimensions for image layers. This array is always accessible through the `layer.data` property and will grow or shrink as new points are either added or deleted.
 
-## points properties
-The `Points` layer can contain properties that annotate each point. `Points.properties` stores the properties in a dictionary where each key is the name of the property and the values are numpy arrays with a value for each point (i.e., length N for N points in `Points.data`). As we will see below, we can use the values in a property to set the display properties of the points (e.g., face color or edge color).
+## using the points properties dictionary
+The `Points` layer can contain properties that annotate each point. `Points.properties` stores the properties in a dictionary where each key is the name of the property and the values are numpy arrays with a value for each point (i.e., length N for N points in `Points.data`). As we will see below, we can use the values in a property to set the display properties of the points (e.g., face color or edge color). To see the points properties in action, please see the [point annotation tutorial](../applications/annotate_points).
 
 ## creating a new points layer
 

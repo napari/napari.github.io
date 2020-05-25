@@ -21,8 +21,6 @@ You can explore the project in [this repository](https://github.com/kevinyamauch
 def point_annotator(
         im_path: str,
         labels: List[str],
-        output_path: str='anno.csv',
-        scorer: str='user'
 ):
     """Create a GUI for annotating points in a series of images.
 
@@ -32,10 +30,6 @@ def point_annotator(
         glob-like string for the images to be labeled.
     labels : List[str]
         list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).
-    output_path : str
-        path to the csv file to which the annotations will be saved
-    scorer : str
-        name of the person performing the annotation
     """
     stack = imread(im_path)
     
@@ -111,36 +105,6 @@ def point_annotator(
             new_label = labels[new_ind]
             current_properties['label'] = np.array([new_label])
             points_layer.current_properties = current_properties
-
-
-        @viewer.bind_key('Control-S')
-        def save_points(event):
-            """Save the added points to a CSV file"""
-            # get the frame indices
-            frame_indices = np.unique(points_layer.data[:, 0]).astype(np.int)
-
-            # get the filenames
-            all_files = np.asarray(glob.glob(im_path))
-            file_names = all_files[frame_indices]
-
-            # create and write dataframe
-            header = pd.MultiIndex.from_product(
-                [[scorer], labels, ['x', 'y']],
-                names=['scorer', 'bodyparts', 'coords']
-            )
-            df = pd.DataFrame(
-                index=file_names,
-                columns=header,
-            )
-
-            # populate the dataframe
-            for label, coord in zip(points_layer.properties['label'], points_layer.data):
-                fname = all_files[coord[0].astype(np.int)]
-                df.loc[fname][scorer][label]['x'] = coord[2]
-                df.loc[fname][scorer][label]['y'] = coord[1]
-
-            # write the dataframe
-            df.to_csv(output_path)
         
 ```
 ## point_annotator()
@@ -150,8 +114,6 @@ We will create the GUI within a function called `point_annotator()`. Wrapping th
 def point_annotator(
 	im_path: str,
 	labels: List[str],
-	output_path: str='anno.csv',
-	scorer: str='user'
 ):
     """Create a GUI for annotating points in a series of images.
 
@@ -161,10 +123,6 @@ def point_annotator(
         glob-like string for the images to be labeled.
     labels : List[str]
         list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).
-    output_path : str
-        path to the csv file to which the annotations will be saved
-    scorer : str
-        name of the person performing the annotation
     """
 
 ```
@@ -339,18 +297,8 @@ After creating the function, we then add it to the `points_layer` mouse drag cal
 points_layer.mouse_drag_callbacks.append(next_on_click)
 ```
 
-## Saving annotation keybinding
-Finally, we will bind a function to the `Control-Alt-s` (control+alt+s) keypress combination to save the annotations to the csv file path passed into the `point_annotator()` function (described above). We use the built in csv writer for the points layer using the `Points.save()` method. In the future, we could specify a writer plugin for writing a file compatible with specific downstream analysis tools (e.g., DeepLabCut) using the `plugin` kwarg. Conveniently, napari will automatically convert ctrl+alt+s to ⌘+alt+s on Mac OS.
-
-```python
-@viewer.bind_key('Control-Alt-S')
-def save_points(event):
-    """Save the added points to a CSV file"""
-    points_layer.save(output_path)
-    
-```
-    
 ## Using the GUI
+### Launching the GUI
 Now that you've put it all together, you should be ready to test! You can call the function as shown below.
 
 ```python
@@ -359,3 +307,8 @@ output = '<path to directory with data>/annotations.csv'
 point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'], output_path=output)
 
 ```
+
+### Saving the annotations
+Once we are happy with the annotations, we can save them to a CSV file using the builing CSV writer for the points layer. To do so, first, select the "Points" layer in the layer list and then click "Save Selected layer(s)"  in the "File" menu or press control+S (cmd+S on Mac OS)  to bring up the file save dialog. From here you can enter the file path and save the annotation coordinates as a CSV.
+
+![image]({{ '/assets/tutorials/points_save_dialog.png' | relative_url }})

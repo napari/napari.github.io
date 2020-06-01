@@ -342,3 +342,9 @@ point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'], output_path=output)
 Once we are happy with the annotations, we can save them to a CSV file using the builing CSV writer for the points layer. To do so, first, select the "Points" layer in the layer list and then click "Save Selected layer(s)"  in the "File" menu or press control+S (cmd+S on Mac OS)  to bring up the file save dialog. From here you can enter the file path and save the annotation coordinates as a CSV.
 
 ![image]({{ '/assets/tutorials/points_save_dialog.png' | relative_url }})
+
+Alternatively, we can use the `points_layer.save()` method to save the coordinates from the points layer to a CSV file. We can enter the command either in the script (e.g., bind a save function to a hot key) or the napari terminal.
+
+```python
+points_layer.save('path/to/file.csv')
+```

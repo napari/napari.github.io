@@ -6,8 +6,7 @@ At the end of this tutorial, we will have created a GUI for annotating points in
 
 ```python
 im_path = '<path to directory with data>/*.png'
-output = '<path to directory with data>/annotations.csv'
-point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'], output_path=output)
+point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'])
 
 ```
 that looks like this:
@@ -18,6 +17,41 @@ that looks like this:
 You can explore the project in [this repository](https://github.com/kevinyamauchi/PointAnnotator) or check out the main function below. We will walk through the code in the following sections.
 
 ```python
+def create_label_menu(points_layer, labels):
+    """Create a label menu widget that can be added to the napari viewer dock
+
+    Parameters:
+    -----------
+    points_layer : napari.layers.Points
+        a napari points layer
+    labels : List[str]
+        list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).
+    """
+    # Create the label selection menu
+    @magicgui(label={'choices': labels})
+    def label_selection(label):
+        return label
+
+    label_menu = label_selection.Gui()
+
+    def update_label_menu(event):
+        """Update the label menu when the point selection changes"""
+        label_menu.label = points_layer.current_properties['label'][0]
+
+    points_layer.events.current_properties.connect(update_label_menu)
+
+    def label_changed(result):
+        """Update the Points layer when the label menu selection changes"""
+        selected_label = result
+        current_properties = points_layer.current_properties
+        current_properties['label'] = np.asarray([selected_label])
+        points_layer.current_properties = current_properties
+
+    label_menu.label_changed.connect(label_changed)
+
+    return label_menu
+
+
 def point_annotator(
         im_path: str,
         labels: List[str],
@@ -32,43 +66,21 @@ def point_annotator(
         list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).
     """
     stack = imread(im_path)
-    
     with napari.gui_qt():
-        viewer = napari.view_image(stack, contrast_limits=[0, 256])
-        properties = {'label': labels}
+        viewer = napari.view_image(stack)
         points_layer = viewer.add_points(
-            properties=properties,
+            properties={'label': labels},
             edge_color='label',
             edge_color_cycle=COLOR_CYCLE,
             symbol='o',
             face_color='transparent',
             edge_width=8,
-            size=12
+            size=12,
         )
         points_layer.edge_color_mode = 'cycle'
 
-        # Create the label selection menu
-        @magicgui(label={'choices': labels})
-        def label_selection(label):
-            return label
-        label_menu = label_selection.Gui()
-
-        def update_label_menu(event):
-            """Update the label menu when the point selection changes"""
-            label_menu.label = points_layer.current_properties['label'][0]
-
-        points_layer.events.current_properties.connect(update_label_menu)
-
-        def label_changed(result):
-            """Update the Points layer when the label menu selection changes"""
-            selected_label = result
-            current_properties = points_layer.current_properties
-            current_properties['label'] = np.asarray([selected_label])
-            points_layer.current_properties = current_properties
-
-        label_menu.label_changed.connect(label_changed)
-
         # add the label menu widget to the viewer
+        label_menu = create_label_menu(points_layer, labels)
         viewer.window.add_dock_widget(label_menu)
 
         @viewer.bind_key('.')
@@ -91,8 +103,8 @@ def point_annotator(
                 # disable that behavior, as the highlight gets in the way
                 layer.selected_data = {}
 
+        points_layer.mode = 'add'
         points_layer.mouse_drag_callbacks.append(next_on_click)
-
 
         @viewer.bind_key(',')
         def prev_label(event):
@@ -134,21 +146,18 @@ First, we load the movie to be annotated. Since behavior movies can be quite lon
 stack = imread(im_path)
 ```
 
-We can then start the viewer Note that we use the `napari.gui_qt()` context manager to start and manage Qt event loop. We must provide the `contrast_limits` to prevent the image stack from being evaluated (i.e., loaded) upon layer creation. All of the following GUI code should be within the `napari.gui_qt()` context manager.
+We can then start the viewer Note that we use the `napari.gui_qt()` context manager to start and manage Qt event loop. All of the following GUI code should be within the `napari.gui_qt()` context manager.
 
 ```python
 with napari.gui_qt():
-    viewer = napari.view_image(stack, contrast_limits=[0, 255])
+    viewer = napari.view_image(stack)
 ```
 
 ## Annotating with points
-We will annotate the features of interest using points in a napari Points layer. Each feature will be given a different label so that we can track them across frames. To achieve this, we will store the label in the `Points.properties` property in the 'label' key. We will instantiate the `Points` layer without any points. However, we will initialize `Points.properties` with the property values we will be using to annotate the images. To do so, we will define a properties dictionary with a key named `label` and values `labels`. The key, 'label', is the name of the property we are storing which feature of interest each point corresponds with. The values, 'labels', is the list of the names of the features we will annotating (defined above in the "point_annotator()" section). 
+We will annotate the features of interest using points in a napari Points layer. Each feature will be given a different label so that we can track them across frames. To achieve this, we will store the label in the `Points.properties` property in the 'label' key. We will instantiate the `Points` layer without any points. However, we will initialize `Points.properties` with the property values we will be using to annotate the images. To do so, we will define a properties dictionary with a key named `label` and values `labels`. The key, 'label', is the name of the property we are storing which feature of interest each point corresponds with. The values, 'labels', is the list of the names of the features we will be annotating (defined above in the "point_annotator()" section). 
 
-```python
-properties = {'label': labels}
-```
 
-We then add the points layer to the viewer using the `viewer.add_points()` method. As discussed above, we will be storing which feature of interest each points corresponds to via the `label` property we defined in the `properties` dictionary. To visualize the feature each points represent, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`). 
+We add the points layer to the viewer using the `viewer.add_points()` method. As discussed above, we will be storing which feature of interest each points corresponds to via the `label` property we defined in the `properties` dictionary. To visualize the feature each points represent, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`). 
 
 ```python
 properties = {'label': labels}
@@ -187,7 +196,27 @@ Finally, we set the edge color to a color cycle:
 ```
 
 ## Adding a GUI for selecting points
-Next, we will use magicgui to add a dropdown menu for selecting which point we would like to add. [magicgui](https://github.com/napari/magicgui) is a library from the napari team for building GUIs from functions and works by applying function decorators. To make the a dropdown menu populated with the valid point labels, we simply define the function with the label as an input argument and then decorate it with the `magicgui()` decorator, passing the labels choice as `label={'choices': labels}` (recall that labels was passed to `point_annotator() as a list of the allowable labels).
+First, we will define a function outside of the `napari.gui_qt()` context to create a GUI for select the labels for points. The function `create_label_menu()` will take the points layer we created and the list of labels we will annotate with and return the label menu GUI. Additionally, we will create and connect all of the required callbacks to make the GUI interactive.
+
+```python
+def create_label_menu(points_layer, labels):
+    """Create a label menu widget that can be added to the napari viewer dock
+
+    Parameters:
+    -----------
+    points_layer : napari.layers.Points
+        a napari points layer
+    labels : List[str]
+        list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).
+        
+    Returns:
+    --------
+    label_menu : QComboBox
+        the label menu qt widget
+    """
+```
+
+Within `create_label_menu()`, we will use magicgui to add a dropdown menu for selecting which the label for the point we are about to add or the point we have selected. [magicgui](https://github.com/napari/magicgui) is a library from the napari team for building GUIs from functions and works by applying function decorators. To make the a dropdown menu populated with the valid point labels, we simply define the function with the label as an input argument and then decorate it with the `magicgui()` decorator, passing the labels choice as `label={'choices': labels}` (recall that labels was passed to `point_annotator() as a list of the allowable labels).
 
 ```python
 @magicgui(label={'choices': labels})
@@ -230,6 +259,7 @@ Finally, we add the GUI created by magicgui to the napari viewer dock.
 
 ```python
  # add the label menu widget to the viewer
+label_menu = create_label_menu(points_layer, labels)
 viewer.window.add_dock_widget(label_menu)
 ```
 

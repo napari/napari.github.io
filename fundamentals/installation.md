@@ -2,38 +2,55 @@
 
 Welcome to the **napari** installation tutorial!
 
-This tutorial will teach you how to do a clean install of **napari**. It is aimed at people that just want to use napari. For people also interested in contributing to napari please check our [contributing guidelines](https://github.com/napari/napari/blob/master/docs/developers/CONTRIBUTING.md) for more advanced installation procedures. At the end of the tutorial you should have napari successfully installed on your computer and be able to make the napari viewer appear.
+This tutorial will teach you how to do a clean install of **napari**. It is
+aimed at people that just want to use napari. For people also interested in
+contributing to napari please check our [contributing
+guidelines](https://github.com/napari/napari/blob/master/docs/developers/CONTRIBUTING.md)
+for more advanced installation procedures. At the end of the tutorial you should
+have napari successfully installed on your computer and be able to make the
+napari viewer appear.
 
 ## installation
 
-**napari** can be installed on most macOS, Linux, and Windows systems with Python 3.6 or 3.7. There are three different ways to install napari.
+**napari** can be installed on most macOS, Linux, and Windows systems with
+Python 3.6 or 3.7. There are three different ways to install napari.
 
 ### install the latest release from pip
- The simplest option is to install the latest release on PyPi by calling
+
+ The simplest option is to install the latest "batteries included" release from
+ PyPi by calling
 
 ```sh
-$ pip install napari
+pip install napari[all]
 ```
 
 ### install from the master branch on Github
+
 To get the most up to date version of through pip call
+
 ```sh
-$ pip install git+https://github.com/napari/napari
+pip install git+https://github.com/napari/napari.git#egg=napari[all]
 ```
 
 ### clone the repository locally and install in editable mode
+
 To get the most up to date version directly from github run
+
 ```sh
-$ git clone https://github.com/napari/napari.git
-$ cd napari
-$ pip install -e .
+git clone https://github.com/napari/napari.git
+cd napari
+pip install -e .[all]
 ```
 
 ## checking it worked
-After installation you should be able to launch napari from the command line by simply running
+
+After installation you should be able to launch napari from the command line by
+simply running
+
 ```sh
 napari
 ```
+
 An empty napari viewer should appear as follows
 
 ![image]({{ '/assets/tutorials/launch_cli_empty.png' | relative_url }})
@@ -41,67 +58,62 @@ An empty napari viewer should appear as follows
 ## upgrading
 
 If you installed napari with `pip` you can upgrade by calling
+
 ```sh
-$ pip install napari --upgrade
+pip install napari[all] --upgrade
 ```
 
-## choosing a different backend
-By default, napari uses [PySide2](https://wiki.qt.io/Qt_for_Python). This is what most users will want. 
+## choosing a different Qt backend
 
-If you want to use [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro) instead for your backend, you can run these lines after installing napari:
-```
-pip uninstall pyside2 -y
-pip install pyqt5
-```
+> ℹ️ **NOTE**
+>
+> napari needs a library called [Qt](https://www.qt.io/) to run its user
+> interface (UI). In Python, there are two alternative libraries to run this,
+> called [PyQt5](https://www.riverbankcomputing.com/software/pyqt/download5) and
+> [PySide2](https://doc.qt.io/qtforpython/). By default, we don't choose for
+> you, and simply running `pip install napari` will not install either. You
+> *might* already have one of them installed in your environment, thanks to
+> other scientific packages such as Spyder or matplotlib. If neither is
+> available, running napari will result in an error message asking you to
+> install one of them.
 
-## troubleshooting
 
-We're currently working on improving our Windows support. Right now for some older Windows systems we have a known issue which we are working to resolve that causes the following error message:
-```python
-AttributeError: 'LooseVersion' object has no attribute 'version'
-```
-For mac0S we require at least version 10.12.
+As mentioned above, `pip install napari[all]` will (currently) install
+[PyQt](https://www.riverbankcomputing.com/software/pyqt/intro).
 
-If you are running into issue please make a bug report on our issues and include the results of the following command
+If you wish to use [PySide2](https://wiki.qt.io/Qt_for_Python), or specify the
+backend explicitly you may do using either
 
-```python
-import vispy
-print(vispy.sys_info())
-```
+```sh
+pip install napari[pyside2]
 
-If everything is working fine you might see an output that looks like this:
-```
-Platform: Darwin-18.5.0-x86_64-i386-64bit
-Python:   3.7.3 (default, Mar 27 2019, 16:54:48)  [Clang 4.0.1 (tags/RELEASE_401/final)]
-NumPy:    1.17.2
-Backend:  PyQt5
-pyqt4:    None
-pyqt5:    ('PyQt5', '5.12.2', '5.12.3')
-pyside:   None
-pyside2:  None
-pyglet:   None
-glfw:     None
-sdl2:     None
-wx:       None
-egl:      None
-osmesa:   None
-_test:    None
-
-GL version:  '2.1 INTEL-12.8.38'
-MAX_TEXTURE_SIZE: 16384
+# or for PyQt5
+pip install napari[pyqt5]
 ```
 
-If things are not working you might see
-```
-GL version: ''
+Note: if you switch backends, it's a good idea to `pip uninstall` the one you're
+not using.
+
+## bug reports
+
+If you are running into issues, please open a new issue on our [issue
+tracker](https://github.com/napari/napari/issues) and include the output of the
+following command
+
+```sh
+napari --info
 ```
 
 ## help
 
-We're a community partner on the [imagesc forum](https://forum.image.sc/tags/napari) and all help and support requests should be posted on the forum with the tag `napari`. We look forward to interacting with you there.
+We're a community partner on the [imagesc
+forum](https://forum.image.sc/tags/napari) and all usage support requests should
+be posted on the forum with the tag `napari`. We look forward to interacting
+with you there.
 
 ## next steps
 
-Now that you've got napari installed, checkout our [getting started](./getting_started) tutorial to start learning how to use it!
+Now that you've got napari installed, checkout our [getting
+started](./getting_started) tutorial to start learning how to use it!
 
 {% include footer.md %}

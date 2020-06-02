@@ -12,21 +12,29 @@ napari viewer appear.
 
 ## installation
 
-**napari** can be installed on most macOS, Linux, and Windows systems with
-Python 3.6 or 3.7. There are three different ways to install napari.
+### from pip, with "batteries included"
 
-### install the latest release from pip
-
- The simplest option is to install the latest "batteries included" release from
- PyPi by calling
+napari can be installed on most macOS, Linux, and Windows systems with
+Python 3.6, 3.7 and 3.8 using pip:
 
 ```sh
 pip install napari[all]
 ```
 
+Note: while not strictly required, it is *highly* recommended to install
+napari into a clean virtual environment using an environment manager like
+[conda](https://docs.conda.io/en/latest/miniconda.html) or
+[venv](https://docs.python.org/3/library/venv.html).  For example, with `conda`:
+
+```sh
+conda create -y -n napari-env python=3.8
+conda activate napari-env
+pip install napari[all]
+```
+
 ### install from the master branch on Github
 
-To get the most up to date version of through pip call
+To install the "next-release" version from github via pip, call
 
 ```sh
 pip install git+https://github.com/napari/napari.git#egg=napari[all]
@@ -34,7 +42,7 @@ pip install git+https://github.com/napari/napari.git#egg=napari[all]
 
 ### clone the repository locally and install in editable mode
 
-To get the most up to date version directly from github run
+To clone the github repository for local install
 
 ```sh
 git clone https://github.com/napari/napari.git
@@ -76,7 +84,6 @@ pip install napari[all] --upgrade
 > other scientific packages such as Spyder or matplotlib. If neither is
 > available, running napari will result in an error message asking you to
 > install one of them.
-
 
 As mentioned above, `pip install napari[all]` will (currently) install
 [PyQt](https://www.riverbankcomputing.com/software/pyqt/intro).

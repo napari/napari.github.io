@@ -9,7 +9,7 @@ im_path = '<path to directory with data>/*.png'
 point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'])
 
 ```
-that looks like this:
+The resulting viewer looks like this (images from [Mathis et al., 2018](https://www.nature.com/articles/s41593-018-0209-y), downloaded from [here](https://github.com/DeepLabCut/DeepLabCut/tree/f21321ef8060c537f9df0ce9346189bda07701b5/examples/openfield-Pranav-2018-10-30/labeled-data/m4s1)):
 
 ![image]({{ '/assets/tutorials/point_annotator_demo.gif' | relative_url }})
 

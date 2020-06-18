@@ -66,10 +66,10 @@ import napari
 with napari.gui_qt():
     # specify contrast_limits and is_pyramid=False with big data
     # to avoid unecessary computations
-    napari.view_image(stack, contrast_limits=[0,2000], is_pyramid=False)
+    napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
 ```
 
-*Note: providing the* `contrast_limits` *and* `is_pyramid` *arguments prevents* `napari` *from trying to calculate the data min/max, which can take an extremely long time with big data.  See [napari issue #736](https://github.com/napari/napari/issues/736) for further discussion.*
+*Note: providing the* `contrast_limits` *and* `multiscale` *arguments prevents* `napari` *from trying to calculate the data min/max, which can take an extremely long time with big data.  See [napari issue #736](https://github.com/napari/napari/issues/736) for further discussion.*
 
 ## make your life easier with `dask-image`
 

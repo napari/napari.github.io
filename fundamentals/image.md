@@ -140,6 +140,11 @@ Note in this example how we passed the colormap keyword argument as a tuple cont
 
 The named colormap now appears in the dropdown menu along side a little thumbnail of the full range of the colormap.
 
+
+## channel axis parameter
+Draft new section
+
+
 ## adjusting contrast limits
 Each image layer gets mapped through its colormap according to values called contrast limits. The contrast limits are a 2-tuple where the second value is larger than the first. The smaller contrast limit corresponds to the value of the image data that will get mapped to the color defined by 0 in the colormap. All values of image data smaller than this value will also get mapped to this color. The larger contrast limit corresponds to the value of the image data that will get mapped to the color defined by 1 in the colormap. All values of image data larger than this value will also get mapped to this color.
 

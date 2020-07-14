@@ -19,7 +19,7 @@ including how to display many vectors simultaneously and adjust their properties
 At the end of the tutorial you should understand how to add a vectors layer
 and edit it from the GUI and from the console.
 
-The vectors layer allows you to display a many vectors with defined starting points and directions.
+The vectors layer allows you to display many vectors with defined starting points and directions.
 It is particularly useful for people who want to visualize large vector fields,
 for example if you are doing polarization microscopy.
 You can adjust the color, width, and length of all the vectors both programmatically and from the GUI.
@@ -117,7 +117,7 @@ If you want to draw lines from the GUI you should use the `Lines` shape inside a
 
 All our layers can be rendered in both 2D and 3D mode,
 and one of our viewer buttons can toggle between each mode.
-The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer.
+The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 See for example the `examples/nD_vectors.py` to see shapes in both 2D and 3D:
 
 ![image]({{ '/assets/tutorials/nD_vectors.gif' | relative_url }})
@@ -146,16 +146,16 @@ The opacity value applies globally to all the vectors in the layer.
 All our layers support three blending modes `translucent`, `additive`, and `opaque`
 that determine how the visuals for this layer get mixed with the visuals from the other layers.
 
-An `opaque` layer renders all the other layers below it invisibile,
+An `opaque` layer renders all the other layers below it invisible
 and will fade to black as you decrease its opacity.
 
-The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity,
+The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity
 but will fully block those layers if its opacity is 1.
 This is a reasonable default, useful for many applications.
 
 The final blending mode `additive` will cause the layer to blend with the layers below
 even when it has full opacity.
-This mode is very useful for visualizing multiple layers at the same time.
+This mode is especially useful for visualizing multiple layers at the same time.
 
 ## naming layers
 
@@ -183,7 +183,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Vectors` layer,
+Hopefully, this tutorial has given you a detailed understanding of the `Vectors` layer,
 including how to create one and control its properties.
 If you've explored all the other layer types that **napari** supports
 maybe checkout our [gallery]({{ '/gallery' | relative_url }}) for some cool examples of using napari with scientific data.

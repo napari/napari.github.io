@@ -78,26 +78,26 @@ a [zarr array](https://zarr.readthedocs.io/en/stable/api/core.html),
 or any other object that you can index into
 and when you call [`np.asarray`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.asarray.html) on it you get back a numpy array.
 
-The great thing about napari support array-like objects is that you get to keep on using you favourite array libraries
+The great thing about napari support array-like objects is that you get to keep on using your favorite array libraries
 without worrying about any conversions as we'll handle all of that for you.
 
 napari will also wait until just before it displays data onto the screen to actually generate a numpy array from your data,
 and so if you're using a library like `dask` or `zarr` that supports lazy loading and lazy evaluation,
-we wont force you load or compute on data that you're not looking at.
-This enables napari to seemlessly browse enormous datasets that are loaded in the right way.
+we won't force you load or compute on data that you're not looking at.
+This enables napari to seamlessly browse enormous datasets that are loaded in the right way.
 For example, here we are browsing over 100GB of lattice lightsheet data stored in a zarr file:
 
 ![image]({{ '/assets/tutorials/LLSM.gif' | relative_url }})
 
 ## image pyramids
 
-For very large datasets napari supports image pyramids.
+For exceptionally large datasets napari supports image pyramids.
 An image pyramid is a list of arrays, where each array is downsampling of the previous array in the list,
 so that you end up with images of successively smaller and smaller shapes.
 A standard image pyramid might have a 2x downsampling at each level,
 but napari can support any type of pyramid as long as the shapes are getting smaller each time.
 
-Image pyramids for are very useful for incredibly large 2D images when viewed in 2D or incredibly large 3D images when viewed in 3D.
+Image pyramids are especially useful for incredibly large 2D images when viewed in 2D or incredibly large 3D images when viewed in 3D.
 For example this ~100k x 200k pixel pathology image consists of 10 pyramid levels
 and can be easily browsed as at each moment in time
 we only load the level of the pyramid and the part of the image that needs to be displayed:
@@ -105,16 +105,16 @@ we only load the level of the pyramid and the part of the image that needs to be
 ![image]({{ '/assets/tutorials/pathology.gif' | relative_url }})
 
 This example had precomputed image pyramids stored in a zarr file, which is best for performance.
-If however you don't have a precomputed pyramid but try and show a very large image
+If, however you don't have a precomputed pyramid but try and show a exceptionally large image
 napari will try and compute pyramids for you unless you tell it not too.
 
-You can use the `is_pyramid` keyword argument to specify if you data is an image pyramid or not.
-If you don't provide this value then will try and guess whether your data is or needs to be an image pyramid.
+You can use the `is_pyramid` keyword argument to specify if your data is an image pyramid or not.
+If you don't provide this value, then will try and guess whether your data is or needs to be an image pyramid.
 
 ## 3D rendering of images
 
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode.
-The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer,
+The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer,
 allowing you to browse volumetric timeseries data and other high dimensional data.
 See for example these cells undergoing mitosis in this volumetric timeseries:
 
@@ -177,7 +177,7 @@ It is also possible to create your own colormaps using vispy's `vispy.color.Colo
 see it's full [documentation here](http://vispy.org/color.html#vispy.color.Colormap).
 Briefly, you can pass `Colormap` a list of length 3 or length 4 lists,
 corresponding to the `rgb` or `rgba` values at different points along the colormap.
-For example to make a diverging colormap the goes from red to blue through black
+For example, to make a diverging colormap that goes from red to blue through black,
 and color a random array you can do the following:
 
 ```python
@@ -198,7 +198,7 @@ with napari.gui_qt():
 Note in this example how we passed the colormap keyword argument as a tuple containing both a name for our new custom colormap and the colormap itself.
 If we had only passed the colormap it would have been given a default name.
 
-The named colormap now appears in the dropdown menu along side a little thumbnail of the full range of the colormap.
+The named colormap now appears in the dropdown menu alongside a little thumbnail of the full range of the colormap.
 
 ## adjusting contrast limits
 
@@ -209,14 +209,14 @@ All values of image data smaller than this value will also get mapped to this co
 The larger contrast limit corresponds to the value of the image data that will get mapped to the color defined by 1 in the colormap.
 All values of image data larger than this value will also get mapped to this color.
 
-For example you are looking at an image that has values between 0 and 100 with a standard `gray` colormap,
+For example, you are looking at an image that has values between 0 and 100 with a standard `gray` colormap,
 and you set the contrast limits to `(20, 75)`.
 Then all the pixels with values less than 20 will get mapped to black, the color corresponding to 0 in the colormap,
 and all pixels with values greater than 75 will get mapped to white, the color corresponding to 1 in the colormap.
 All other pixel values between 20 and 75 will get linearly mapped onto the range of colors between black and white.
 
 In napari you can set the contrast limits when creating an `Image` layer
-or on an existing layer using the `contrast_limits` keyword argument or property respectively.
+or on an existing layer using the `contrast_limits` keyword argument or property, respectively.
 
 ```python
 viewer = napari.view_image(data.moon(), name='moon')
@@ -232,12 +232,12 @@ one that adjusts the larger value.
 
 As of right now adjusting the contras limits has no effect for `rgb` data.
 
-If no contrast limits are passed then napari will compute them.
+If no contrast limits are passed, then napari will compute them.
 If your data is small, then napari will just take the minimum and maximum values across your entire image.
-If your data is very large, this operation can be very time consuming
+If your data is exceptionally large, this operation can be very time consuming
 and so if you have passed an image pyramid then napari will just use the top level of that pyramid,
 or it will use the minimum and maximum values across the top, middle, and bottom slices of your image.
-In general if working with big images it is recommended you explicitly set the contrast limits if you can.
+In general, if working with big images it is recommended you explicitly set the contrast limits if you can.
 
 Currently if you pass contrast limits as a keyword argument to a layer
 then full extent of the contrast limits range slider will be set to those values.
@@ -250,22 +250,22 @@ This property is located inside the layer widget in the layers list and is repre
 ## layer opacity
 
 All our layers support an opacity slider and `opacity` property
-that allow you to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
+that allow you to adjust the layer opacity between 0, fully invisible and 1, fully visible.
 
 ## blending layers
 
 All our layers support three blending modes `translucent`, `additive`, and `opaque`
 that determine how the visuals for this layer get mixed with the visuals from the other layers.
 
-An `opaque` layer renders all the other layers below it invisibile,
+An `opaque` layer renders all the other layers below it invisible
 and will fade to black as you decrease its opacity.
 
-The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity,
+The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity
 but will fully block those layers if its opacity is 1.
 This is a reasonable default, useful for many applications.
 
 The final blending mode `additive` will cause the layer to blend with the layers below even when it has full opacity.
-This mode is very useful for many cell biology applications
+This mode is especially useful for many cell biology applications
 where you have multiple different components of a cell labeled in different colors.
 For example:
 
@@ -283,7 +283,7 @@ These modes have no effect when viewing 3D slices.
 
 ## layer rendering
 
-When viewing 3D slices we support a variety of rendering modes.
+When viewing 3D slices, we support a variety of rendering modes.
 The default mode `mip`, or maximum intensity projection,
 will combine voxels at different distances from the camera according to a maximum intensity projection
 to create the 2D image that is then displayed on the screen.
@@ -319,7 +319,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Image` layer,
+Hopefully, this tutorial has given you a detailed understanding of the `Image` layer,
 including how to create one and control its properties.
 To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.

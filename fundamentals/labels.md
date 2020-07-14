@@ -19,7 +19,7 @@ At the end of the tutorial you should understand how to add a labels image and e
 The labels layer allows you to take an array of integers and display each integer as a different random color,
 with the background color 0 rendered as transparent.
 
-The labels layer therefore very useful for segmentation tasks where each pixel is assigned to a different class,
+The `Labels` layer is therefore especially useful for segmentation tasks where each pixel is assigned to a different class,
 as occurs in semantic segmentation,
 or where pixels corresponding to different objects all get assigned the same label,
 as occurs in instance segmentation.
@@ -28,11 +28,11 @@ as occurs in instance segmentation.
 
 You can create a new viewer and add an labels image in one go using the `napari.view_labels` method,
 or if you already have an existing viewer,
-you can add a labels image to it using `viewer.add_labels`.
+you can add a `Labels` image to it using `viewer.add_labels`.
 The api of both methods is the same.
-In these examples we'll mainly use `add_labels` to overlay a labels image onto on image.
+In these examples we'll mainly use `add_labels` to overlay a `Labels` image onto on image.
 
-In this example of instance segmentation we will find and segment each of the coins in an image,
+In this example of instance segmentation, we will find and segment each of the coins in an image,
 assigning each one an integer label,
 and then overlay the results on the original image as follows:
 
@@ -97,9 +97,9 @@ layer : napari.layers.Labels
 
 The labels layer is a subclass of the `Image` layer and as such can support the same numpy-like arrays,
 including [dask arrays](https://docs.dask.org/en/stable/array.html),
-an [xarrays](http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html),
+[xarrays](http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html),
 and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/core.html).
-A labels layer though must be integer valued, and the background label must be 0.
+A `Labels` layer though must be integer valued, and the background label must be 0.
 
 Because the labels layer subclasses the image layer it inherits the great properties of the image layer,
 like supporting lazy loading and image pyramids for big data layers.
@@ -107,8 +107,8 @@ For more information about both these concepts see the details in the [image lay
 
 ## creating a new labels layer
 
-As you can edit a labels layer using the paintbrush and fill bucket,
-it is possible to create a brand new empty labels layers by clicking the new labels layer button above the layers list.
+As you can edit a `Labels` layer using the paintbrush and fill bucket,
+it is possible to create a brand-new empty labels layers by clicking the new labels layer button above the layers list.
 The shape of the new labels layer will match the size of any currently existing image layers,
 allowing you to paint on top of them.
 
@@ -117,13 +117,13 @@ allowing you to paint on top of them.
 If you want to disable editing of the labels layer you can set the `editable` property of the layer to `False`.
 
 As note in the section on 3D rendering, when using 3D rendering the labels layer is not editable.
-Similarly for now, a labels layer where the data is represented as an image pyramid is not editable.
+Similarly, for now, a labels layer where the data is represented as an image pyramid is not editable.
 
 ## 3D rendering of labels
 
 All our layers can be rendered in both 2D and 3D mode,
 and one of our viewer buttons can toggle between each mode.
-The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer,
+The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer,
 allowing you to browse volumetric timeseries data and other high dimensional data.
 See for example the labeled blobs in 3D in the `examples/nD_labels.py`:
 
@@ -136,7 +136,7 @@ Those options are only supported when viewing a layer using 2D rendering.
 ## pan and zoom mode
 
 The default mode of the labels layer is to support panning and zooming, as in the image layer.
-This mode is represent by the magnifying glass in the layers control panel,
+This mode is represented by the magnifying glass in the layers control panel,
 and while it is selected editing the layer is not possible.
 Continue reading to learn how to use some of the editing modes.
 You can always return to pan and zoom mode by pressing the `Z` key when the labels layer is selected.
@@ -144,7 +144,7 @@ You can always return to pan and zoom mode by pressing the `Z` key when the labe
 ## shuffling label colors
 
 The color that each integer gets assigned is random, aside from 0 which always gets assigned to be transparent.
-The colormap we use is designed such that nearby integers get assigned very different colors.
+The colormap we use is designed such that nearby integers get assigned distinct colors.
 The exact colors that get assigned as determined by a [random seed](https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.random.seed.html)
 and changing that seed will shuffle the colors that each label gets assigned.
 Changing the seed can be done by clicking on the `shuffle colors` button in the layers control panel.
@@ -157,7 +157,7 @@ and typing in the value of the desired label or using the plus / minus buttons,
 or by selecting the color picker tool and then clicking on a pixel with the desired label in the image.
 When a label is selected you will see its integer inside the label combobox
 and the color or the label shown in the thumbnail next to the label combobox.
-If the 0 label is selected then a checkerboard pattern is shown in the thumbnail to represent the transparent color.
+If the 0 label is selected, then a checkerboard pattern is shown in the thumbnail to represent the transparent color.
 
 You can quickly select the color picker by pressing the `L` key when the labels layer is selected.
 
@@ -166,15 +166,15 @@ You can set the selected label to be 0, the background label, by pressing `E`.
 You can set the selected label to be one larger than the current largest label by pressing `M`.
 This selection will guarantee that you are then using a label that hasn't been used before.
 
-You can also increment or decrement the currently selected label by pressing the `I` or `D` key respectively.
+You can also increment or decrement the currently selected label by pressing the `I` or `D` key, respectively.
 
 ## painting in the labels layer
 
 One of the major use cases for the labels layer is to manually edit or create image segmentations.
 One of the tools that can be used for manual editing is the `paintbrush`,
 that can be made active from by clicking the paintbrush icon in the layers control panel.
-Once the paintbrush is enable the pan and zoom functionality of the  viewer canvas gets disabled
-and you are able to paint onto the canvas.
+Once the paintbrush is enabled, the pan and zoom functionality of the  viewer canvas gets disabled,
+and you can paint onto the canvas.
 You can temporarily re-enable pan and zoom by pressing and holding the spacebar.
 This feature can be useful if you want to move around the labels layer as you paint.
 
@@ -185,7 +185,7 @@ instead you just need to make the selected label 0 and then you are effectively 
 Remember you can use the color picker tool at any point to change the selected label.
 
 You can adjust the size of your paintbrush using the brush size slider,
-making it as small as a single pixel for very detailed painting.
+making it as small as a single pixel for incredibly detailed painting.
 
 If you have a multidimensional labels layer
 then your paintbrush will only edit data in the visible slice by default;
@@ -204,8 +204,8 @@ To do this you can select the `fill bucket` by clicking on the droplet icon in t
 and then click on a target region of interest in the layer.
 The fill bucket will fill using the currently selected label.
 
-By default the fill bucket will only change contiguous or connected pixels of the same label as the pixel that is clicked on.
-If you want to change all the pixels of that label regardless of where they are in the slice
+By default, the fill bucket will only change contiguous or connected pixels of the same label as the pixel that is clicked on.
+If you want to change all the pixels of that label regardless of where they are in the slice,
 then you can set the `contiguous` property or checkbox to `False`.
 
 If you have a multidimensional labels layer then your fill bucket will only edit data in the visible slice by default;
@@ -216,9 +216,9 @@ or only connected pixels depending on if the contiguous property is disabled or 
 
 You can quickly select the fill bucket by pressing the `F` key when the labels layer is selected.
 
-## creating, deleting, merging and splitting connected components
+## creating, deleting, merging, and splitting connected components
 
-Using the `color picker`, `paintbrush` and `fill bucket` tools one can create and edit object segmentation maps.
+Using the `color picker`, `paintbrush`, and `fill bucket` tools one can create and edit object segmentation maps.
 Below we show how to use these tools to by perform common editing tasks on connected components (keep the `contiguous` box checked).
 
 **drawing a connected component**:
@@ -258,7 +258,7 @@ For the labels layer we support an undo with `ctrl-Z` and redo with `shift-ctrl-
 We plan to support this sort of functionality more generally,
 but for now these actions will undo the most recent painting or filling event, up to 100 events in the past.
 
-If you have multidimensional data then adjusting the currently viewed slice will cause the undo history to be reset.
+If you have multidimensional data, then adjusting the currently viewed slice will cause the undo history to be reset.
 
 ## layer visibility
 
@@ -275,15 +275,15 @@ that allow you to adjust the layer opacity between 0, fully invisible, and 1, fu
 All our layers support three blending modes `translucent`, `additive`, and `opaque`
 that determine how the visuals for this layer get mixed with the visuals from the other layers.
 
-An `opaque` layer renders all the other layers below it invisibile,
+An `opaque` layer renders all the other layers below it invisible
 and will fade to black as you decrease its opacity.
 
-The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity,
+The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity
 but will fully block those layers if its opacity is 1.
 This is a reasonable default, useful for many applications.
 
 The final blending mode `additive` will cause the layer to blend with the layers below even when it has full opacity.
-This mode is very useful for visualizing multiple layers at the same time.
+This mode is especially useful for visualizing multiple layers at the same time.
 
 ## naming layers
 
@@ -311,7 +311,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Labels` layer,
+Hopefully, this tutorial has given you a detailed understanding of the `Labels` layer,
 including how to create one and control its properties.
 To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.

@@ -175,9 +175,9 @@ To do so, we will define a properties dictionary with a key named `label` and va
 The key, 'label', is the name of the property we are storing which feature of interest each point corresponds with.
 The values, 'labels', is the list of the names of the features we will be annotating (defined above in the "point_annotator()" section).
 
-We add the points layer to the viewer using the `viewer.add_points()` method.
-As discussed above, we will be storing which feature of interest each points corresponds to via the `label` property we defined in the `properties` dictionary.
-To visualize the feature each points represent, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`).
+We add the `Points` layer to the viewer using the `viewer.add_points()` method.
+As discussed above, we will be storing which feature of interest each point corresponds to via the `label` property we defined in the `properties` dictionary.
+To visualize the feature each point represents, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`).
 
 ```python
 properties = {'label': labels}
@@ -195,7 +195,7 @@ points_layer = viewer.add_points(
 Note that we set the `edge_color_cycle` to `COLOR_CYCLE`.
 You can define your own color cycle as a list of colors.
 The colors can be defined as hex strings, standard color names or RGBA arrays.
-For example, the [category10 color pallete](https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#category10) would be:
+For example, the [category10 color palette](https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#category10) would be:
 
 ```python
 COLOR_CYCLE = [
@@ -222,7 +222,7 @@ Finally, we set the edge color to a color cycle:
 
 First, we will define a function outside of the `napari.gui_qt()` context to create a GUI for select the labels for points.
 The function `create_label_menu()` will take the points layer we created and the list of labels we will annotate with and return the label menu GUI.
-Additionally, we will create and connect all of the required callbacks to make the GUI interactive.
+Additionally, we will create and connect all the required callbacks to make the GUI interactive.
 
 ```python
 def create_label_menu(points_layer, labels):
@@ -344,7 +344,7 @@ def prev_label(event):
 
 ## Mousebinding to iterate through labels
 
-Similar to keybindings, we can also bind functions to mouse events such as clicking or dragging.
+Like keybindings, we can also bind functions to mouse events such as clicking or dragging.
 Here, we create a function that will increment the label after a point is added (i.e., the mouse is clicked in the viewer canvas when in the point adding mode).
 This is convenient for quickly adding all labels to a frame, as one can simply click each feature in order without having to manually swap labels.
 To achieve this, we first check if the points layer is the the adding mode (`layer.mode == 'add'`).
@@ -365,7 +365,8 @@ def next_on_click(layer, event):
 
 After creating the function, we then add it to the `points_layer` mouse drag callbacks.
 In napari, clicking and dragging events are both handled under the `mouse_drag_callbacks`.
-For more details on how mouse event callbacks work see the examples [[1](https://github.com/napari/napari/blob/master/examples/custom_mouse_functions.py), [2](https://github.com/napari/napari/blob/master/examples/mouse_drag_callback.py)].
+For more details on how mouse event callbacks work,
+see the examples [[1](https://github.com/napari/napari/blob/master/examples/custom_mouse_functions.py), [2](https://github.com/napari/napari/blob/master/examples/mouse_drag_callback.py)].
 
 ```python
 # bind the callback to the mouse drag event

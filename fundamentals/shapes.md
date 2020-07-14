@@ -120,11 +120,11 @@ layer : napari.layers.Shapes
 The input data to the shapes layer must be a list of NxD numpy array,
 with each array containing the coordinates of the N vertices in D dimensions that make up the shape.
 The ordering of these dimensions is the same as the ordering of the dimensions for image layers.
-This list of arrays array is always accessible through the `layer.data` property
+This list of arrays is always accessible through the `layer.data` property
 and will grow or shrink as new shapes are either added or deleted.
 By storing data as a list of arrays
 it is possible for each shape to have a different number of vertices in it.
-This is very useful when drawing polygons or paths.
+This is especially useful when drawing polygons or paths.
 
 ## adding different shape types
 
@@ -182,7 +182,7 @@ To finish drawing a polygon you must click the `escape` key,
 which will add a final vertex at the current mouse position and complete the polygon.
 You'll then be able to start adding another one.
 
-`Paths` are very similar to polygons but are not closed or filled in.
+`Paths` are like polygons but are not closed or filled in.
 They can also be added using an array of N vertices.
 The path creation tool can be selected from the layer control panel
 or by pressing the `T` key when the shapes layer is selected.
@@ -192,7 +192,7 @@ which will add a final vertex at the current mouse position and complete the pat
 You'll then be able to start adding another one.
 
 When using the shapes addition or editing tools
-the pan and zoom functionality of the viewer canvas is disabled and you are able to edit the layer.
+the pan and zoom functionality of the viewer canvas is disabled and you can edit the layer.
 You can temporarily re-enable pan and zoom
 by pressing and holding the spacebar.
 This feature can be useful if you want to move around the shapes layer as you edit it.
@@ -200,7 +200,7 @@ This feature can be useful if you want to move around the shapes layer as you ed
 ## creating a new shapes layer
 
 As you can add new shapes to a shapes layer using the various shape creation tools,
-it is possible to create a brand new empty shapes layers
+it is possible to create a brand-new empty shapes layers
 by clicking the new shapes layer button above the layers list.
 The shape of the shapes layer is defined by the shapes inside it,
 and so as you add new shapes the shape will adjust as needed.
@@ -219,7 +219,7 @@ when using 3D rendering the shapes layer is not editable.
 
 All our layers can be rendered in both 2D and 3D mode,
 and one of our viewer buttons can toggle between each mode.
-The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer.
+The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 See for example the `examples/nD_shapes.py` to see shapes in both 2D and 3D:
 
 ![image]({{ '/assets/tutorials/nD_shapes.gif' | relative_url }})
@@ -228,8 +228,8 @@ Note though that when entering 3D rendering mode
 the shape editing tools are all disabled.
 Those options are only supported when viewing a layer using 2D rendering.
 
-Note also that for a multidimensional shape to be displayed on a given view slice
-all of it's non-displayed coordinates must match the coordinates of that view slice,
+Also note that for a multidimensional shape to be displayed on a given view slice
+all of its non-displayed coordinates must match the coordinates of that view slice,
 i.e. the shape must be entirely defined within that plane.
 
 For paths that are defined by coordinates spanning more than two dimensions,
@@ -237,13 +237,13 @@ it is possible to visualize them as 3D cylinders, see for example the `examples/
 
 ![image]({{ '/assets/tutorials/3D_paths.png' | relative_url }})
 
-Right now it is not possible to display 3D cuboids or 3D spheroids,
+Right now, it is not possible to display 3D cuboids or 3D spheroids,
 but will be supporting those options soon.
 
 ## pan and zoom mode
 
 The default mode of the shapes layer is to support panning and zooming, as in the image layer.
-This mode is represent by the magnifying glass in the layers control panel,
+This mode is represented by the magnifying glass in the layers control panel,
 and while it is selected editing the layer is not possible.
 Continue reading to learn how to use some of the editing modes.
 You can always return to pan and zoom mode by pressing the `Z` key
@@ -280,7 +280,7 @@ For example see below:
 You can move individual vertices by entering the direct selection mode
 by either clicking on the direct select tool in the layer controls panel
 or pressing the `D` key while the shapes layer is selected.
-To move a vertex you can click and drag it to its new position.
+To move a vertex, you can click and drag it to its new position.
 
 You can add vertices to a selected shape using the vertex addition tool
 which can be selected either clicking on the vertex addition tool in the layer controls panel
@@ -311,7 +311,7 @@ otherwise you will just be initializing the property for the next shape you add.
 Individual shapes can each have different edge widths.
 You can initially set the edge widths by providing a list of values to the `edge_width` keyword arguments respectively,
 or you can edit them from the GUI.
-The widths of each of the shapes are available as a lists under the `layer.edge_widths` property.
+The widths of each of the shapes are available as a list under the `layer.edge_widths` property.
 Similar to the edge and face colors, these property is different from the `layer.edge_width` property
 that will determine the edge width of the next shape to be added or any currently selected shapes.
 
@@ -357,16 +357,16 @@ that determines the opacity of the next shape to be added.
 All our layers support three blending modes `translucent`, `additive`, and `opaque`
 that determine how the visuals for this layer get mixed with the visuals from the other layers.
 
-An `opaque` layer renders all the other layers below it invisibile,
+An `opaque` layer renders all the other layers below it invisible
 and will fade to black as you decrease its opacity.
 
-The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity,
+The `translucent` setting will cause the layer to blend with the layers below it if you decrease its opacity
 but will fully block those layers if its opacity is 1.
 This is a reasonable default, useful for many applications.
 
 The final blending mode `additive` will cause the layer to blend with the layers below
 even when it has full opacity.
-This mode is very useful for visualizing multiple layers at the same time.
+This mode is especially useful for visualizing multiple layers at the same time.
 
 ## naming layers
 
@@ -401,7 +401,7 @@ Here you can see an example of adding, selecting, and editing shapes and change 
 
 ## next steps
 
-Hopefully this tutorial has given you a detailed understanding of the `Shapes` layer,
+Hopefully, this tutorial has given you a detailed understanding of the `Shapes` layer,
 including how to create one and control its properties.
 To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.

@@ -6,7 +6,7 @@ This tutorial assumes you have already installed napari.
 For help with installation see our [installation tutorial](./installation).
 
 This tutorial will teach you all the different ways to launch napari.
-At the end of the tutorial you should be able to launch napari and see the viewer your favourite way.
+At the end of the tutorial you should be able to launch napari and see the viewer your favorite way.
 
 ## launching napari
 
@@ -17,7 +17,7 @@ There are four ways to launch the **napari** viewer:
 - IPython console
 - jupyter notebook
 
-All four of these methods will launch the same napari viewer,
+All four of these methods will launch the same napari viewer
 but depending on your use-case different ones may be preferable.
 
 ### command line usage
@@ -59,7 +59,7 @@ but we'll be adding support for this functionality soon as discussed in [#379](h
 To launch napari from a python script, inside your script you should import `napari`,
 create a Qt GUI context, and then create the `Viewer` by adding some data.
 
-For example to add an image and some points inside your script you should include:
+For example, to add an image and some points inside your script you should include:
 
 ```python
 import napari
@@ -110,7 +110,7 @@ viewer = napari.view_image(astronaut(), rgb=True)
 
 If you did not launch IPython with the GUI already then you can set it from within IPython using `%gui qt`,
 but be warned that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished,
-the kernel will die and the viewer will not launch.
+the kernel will die, and the viewer will not launch.
 
 ![image]({{ '/assets/tutorials/launch_ipython.png' | relative_url }})
 
@@ -129,7 +129,7 @@ such as [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master
 As in the case of the IPython console though you must wait for the Qt GUI to instantiate following the `%gui qt` magic command.
 Instantiating the Qt GUI can take a few seconds and if you create the `Viewer` before it is finished,
 the kernel will die and the viewer will not launch.
-For this reason the `%gui qt` magic command should always be run in a separate cell from creating the viewer.
+For this reason, the `%gui qt` magic command should always be run in a separate cell from creating the viewer.
 
 Similar to launching from the IPython console,
 an advantage of launching napari from a jupyter notebook
@@ -139,7 +139,7 @@ and where data changed in the GUI will be accessible in the notebook.
 
 ## next steps
 
-To learn more about how to use the napari viewer the different types of napari layers
+To learn more about how to use the napari viewer with different types of napari layers
 checkout the [viewer tutorial](./viewer) and more of our tutorials listed below.
 
 {% include footer.md %}

@@ -3,7 +3,7 @@
 Often in microscopy, multidimensional data is acquired and written to disk in many small files,
 each of which contain a subset of one or more dimensions from the complete dataset.
 For example, in a 5-dimensional experiment
-(e.g. 3D z-stacks aquired for multiple channels at various moments over time),
+(e.g. 3D z-stacks acquired for multiple channels at various moments over time),
 each file on disk might be a 3D TIFF stack from a single channel at a single timepoint.
 Data may also be stored in some proprietary format.
 As the size of the dataset grows,
@@ -14,7 +14,7 @@ Chunked file formats exist (such as [hdf5](https://support.hdfgroup.org/HDF5/) a
 > **Note**: This tutorial is not meant to promote a folder of TIFFs as a "good way" to store large datasets on disk;
 > but it is undoubtedly a common scenario in microscopy.
 > Chunked formats such as `hdf5` or `zarr` are superior in many ways, 
-> but they do require the user to either duplicate their data,
+> but they do require the user to either duplicate their data
 > or go "all in" and delete the original data after conversion.
 > And while `napari` can easily handle something like a `zarr` store,
 > it can be a bit more limiting inasmuch as it requires programs that are capable of viewing it (i.e. you can't necessarily just drag it into Fiji ...)
@@ -103,7 +103,7 @@ import napari
 
 with napari.gui_qt():
     # specify contrast_limits and is_pyramid=False with big data
-    # to avoid unecessary computations
+    # to avoid unnecessary computations
     napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
 ```
 
@@ -180,14 +180,14 @@ stack[0, 0].compute()  # incurs a single file read
 ## processing data with `dask.array.map_blocks`
 
 As previously mentioned,
-sometimes it is desireable to process data prior to viewing.
+sometimes it is desirable to process data prior to viewing.
 We'll take as an example
 a series of TIFF files acquired on a lattice-light-sheet microscope.
 A typical workflow might be to deskew, deconvolve, and perhaps crop
 or apply some channel registration prior to viewing.
 
 With `dask.array.map_blocks` we can apply any function that accepts a `numpy` array
-and returns a modified array to all of the images in our `dask.array`.
+and returns a modified array to all the images in our `dask.array`.
 It will be evaluated lazily, when requested (in this case, by `napari`);
 we do not have to wait for it to process the entire dataset.
 
@@ -247,7 +247,7 @@ with napari.gui_qt():
 
 Of course, the GUI isn't as responsive as it would be if you had processed the data up front
 and loaded the results into RAM and viewed them in `napari` (it's doing a lot of work after all!),
-but it's suprisingly usable,
+but it's surprisingly usable,
 and allows you to preview the result of a relatively complex processing pipeline *on-the-fly*,
 for arbitrary timepoints/channels, while storing *only* the raw data on disk.
 

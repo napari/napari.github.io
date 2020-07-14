@@ -26,7 +26,7 @@ You can follow progress on this repository,
 test out new versions as we release them,
 and contribute ideas and code.
 
-To get a sense of our current plans checkout and contribute to the discussion on some of our [long-term feature issues](https://github.com/napari/napari/issues?q=is%3Aissue+is%3Aopen+label%3A%22long-term+feature%22) on gitub.
+To get a sense of our current plans checkout and contribute to the discussion on some of our [long-term feature issues](https://github.com/napari/napari/issues?q=is%3Aissue+is%3Aopen+label%3A%22long-term+feature%22) on Github.
 
 To checkout some cool example uses of **napari** with scientific data see our [gallery](./gallery).
 
@@ -35,7 +35,8 @@ To checkout some cool example uses of **napari** with scientific data see our [g
 These tutorials target people who want to use napari as a user.
 If you are also interested in contributing to napari then please check out [contributing guidelines](https://github.com/napari/napari/blob/master/docs/developers/CONTRIBUTING.md).
 
-If you've already got napari installed then begin with our [getting started](./fundamentals/getting_started) tutorial.
+If you've already got napari installed,
+then begin with our [getting started](./fundamentals/getting_started) tutorial.
 For help installing napari checkout our [installing napari](./fundamentals/installation) tutorial.
 
 ## help

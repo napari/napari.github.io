@@ -18,7 +18,7 @@ the napari viewer can be launched from the command-line,
 a python script,
 an IPython console,
 or a jupyter notebook.
-All four methods launch the same viewer
+All four methods launch the same viewer,
 and anything related to the interacting with the viewer on the screen applies equally to all of them.
 We will use the syntax inside python scripts
 so you can copy and paste these examples into scripts and run them.
@@ -56,7 +56,7 @@ with napari.gui_qt():
 but doesn't create a `Viewer`, as you must already have one to use it.
 
 After running either of those two commands
-you should now be able to see the photograph of the astronaut in the a **napari** viewer as shown below
+you should now be able to see the photograph of the astronaut in the **napari** viewer as shown below
 
 ![image]({{ '/assets/tutorials/viewer_astronaut.png' | relative_url }})
 
@@ -83,7 +83,7 @@ We'll go through each of these in the next sections.
 
 ### main canvas
 
-The main canvas is located in the center of the viewer
+The main canvas is in the center of the viewer
 and contains the visual display of the data passed to **napari**,
 including images, point, shapes, and our other supported data types.
 Under the hood the canvas is a `vispy.scene.SceneCanvas` object
@@ -98,7 +98,7 @@ You can also return to the original zoom level by clicking the `home` button in 
 One of the basic **napari** objects are layers.
 There are different layer types for `Image`, `Points`, `Shapes`, and other basic data types.
 They can be added to the viewer either programmatically or through the GUI.
-Once added they start to populate the layer list is located on the bottom lefthand side of the main canvas.
+Once added they start to populate the layer list located on the bottom lefthand side of the main canvas.
 
 The layer list contains one widget for each of the layers that have been added to the viewer
 and includes a `thumbnail` which shows a miniaturized version of the currently viewed data,
@@ -106,7 +106,7 @@ a `name` that is an editable text box,
 `visibility` button that can be toggled on or off to show or hide the layer,
 and an `icon` for the layer type.
 
-Adding the following three image layers using the code below adds three layer widgets to the layer list as follows:
+Adding the following three image layers using the code below adds three-layer widgets to the layer list as follows:
 
 ```python
 from skimage import data
@@ -127,7 +127,7 @@ The layer name is coerced into being unique so that it can be used to index into
 
 You can select layers, causing them to become outlined, by clicking on their layer widget.
 Multiple layers can be simultaneously selected using either `shift` or `command` click
- to select either all the layers in between clicked on layers or just the clicked on layers respectively.
+ to select either all the layers in between clicked-on layers or just the clicked-on layers respectively.
 
 You can rearrange the order of the layers by dragging them,
 including dragging multiple layers at the same time.
@@ -138,7 +138,7 @@ The `Viewer` object also contains our `LayerList` object that allows you to acce
 viewer.layers
 ```
 
-This object can be indexed into like a normal list using an `int`
+This object can be indexed like a normal list using an `int`
 or using the `str` name of the layer as follows
 
 ```python
@@ -147,8 +147,8 @@ viewer.layers['astronaut']
 ```
 
 When you rearrange layers in the viewer you also rearrange them in the list.
-Similarly rearranging layers in the list rearranges them in the viewer.
-For example calling
+Similarly, rearranging layers in the list rearranges them in the viewer.
+For example, calling
 
 ```python
 viewer.layers['astronaut', 'moon'] = viewer.layers['moon', 'astronaut']
@@ -156,15 +156,15 @@ viewer.layers['astronaut', 'moon'] = viewer.layers['moon', 'astronaut']
 
 from the console will swap the positions of the `moon` and `astronaut` layers in the viewer.
 
-When you select a layer you will notice that layer controls box above the layers list
-becomes populate with options that depend on the layer type that you have selected.
+When you select a layer, you will notice that layer controls box above the layers list
+becomes populated with options that depend on the layer type that you have selected.
 
 ### layer controls
 
 Above the layers list in the top left corner of the viewer there is a box that contains the layer controls.
 The controls that you have available to you depend on the layer type that you have selected.
 
-For example if you add a `Points` layer after adding an `Image` layer you will now see different controls present.
+For example, if you add a `Points` layer after adding an `Image` layer you will now see different controls present.
 
 ```python
 from skimage import data
@@ -179,7 +179,7 @@ viewer.add_points(points, size=30)
 
 Adjusting these properties in the GUI will cause corresponding changes to properties on the individual layers that are accessible in the console through `viewer.layers`.
 
-For example the name and opacity of a layer can be changed within the console as follows:
+For example, the name and opacity of a layer can be changed within the console as follows:
 
 ```python
 viewer.layers[0].name = 'astronaut'
@@ -205,7 +205,7 @@ viewer.add_labels(data)
 but with empty data.
 Once added in the GUI these layers become accessible in the layers list and at `viewer.layers`.
 
-Layers can also be deleted by selecting them and the clicking on the trash icon,
+Layers can also be deleted by selecting them and then clicking on the trash icon,
 or by dragging the layers and dropping them into the trash.
 
 In the console a layer at index `i` can be removed by
@@ -221,21 +221,21 @@ While much consumer photography is 2D and `RGB`,
 scientific image data can often be volumetric (i.e. 3D),
 volumetric timeseries (i.e. 4D),
 or even higher dimensional.
-**napari** places no limits on the dimensionality of its input data for all of its layer types.
+**napari** places no limits on the dimensionality of its input data for all its layer types.
 
 Adding data with a dimensionality greater than 2D
 will cause dimension sliders to appear directly underneath the main canvas and above the status bar.
 As many sliders as needed will appear to ensure the data can be fully browsed.
-For example a 3D dataset needs one slider, a 4D dataset needs two sliders, and so on.
-The widths of the scroll bars in the dimensions sliders
-is directly related to how many slices are in each dimension.
+For example, a 3D dataset needs one slider, a 4D dataset needs two sliders, and so on.
+The widths of the scroll bars of the dimension sliders
+are directly related to how many slices are in each dimension.
 
 It is also possible to mix data of different shapes and dimensionality in different layers.
 If a 2D and 4D dataset are both added to the viewer
 then the sliders will only affect the 4D dataset and the 2D dataset will be remain the same.
 Effectively, the two datasets are broadcast together using [NumPy broadcasting rules](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html).
 
-For example the following commands from the console will add a both 2D and 3D datasets to the same viewer:
+For example, the following commands from the console will add a both 2D and 3D datasets to the same viewer:
 
 ```python
 import numpy as np
@@ -282,7 +282,7 @@ this will then show you the `ZY` slice.
 
 After that is a button that transposes the displayed dimensions.
 
-Finally there is the `home` button that will reset the camera state to its initial values.
+Finally, there is the `home` button that will reset the camera state to its initial values.
 
 ### status bar
 
@@ -315,16 +315,16 @@ and add one yourself!
 ## custom keybinding
 
 One of the promises of **napari** is to provide a beginner friendly environment for interactive analysis.
-For example we want to enable workflows where people can interact with the GUI,
+For example, we want to enable workflows where people can interact with the GUI,
 say click on the centers of some objects,
 or paint over some regions and then perform custom analysis.
 As a first step towards enabling custom interactivity
 we've provided support to add your own custom keybindings to the `Viewer` or individual `Layer` objects
 such that when the corresponding key gets clicked your custom function gets executed.
-Depending on which object you bind your key too
+Depending on which object you bind your key to,
 your function will either get access to the state of the entire `viewer` or `layer` object.
 
-For example to bind function that loops through all layers in the viewer
+For example, to bind function that loops through all layers in the viewer
 and prints their names to your console when you press the `p` key you can do the following:
 
 ```python
@@ -338,7 +338,7 @@ def print_names(viewer):
     print([layer.name for layer in viewer.layers])
 ```
 
-By default your key will bind to the key press event,
+By default, your key will bind to the key press event,
 but it is also possible to bind to the key release event by including a `yield` inside your function.
 All code before the `yield` will get executed on key press
 and all code after the `yield` will get executed on key release.
@@ -363,7 +363,7 @@ Keys can be bound both to the object class or a particular instance
 depending on if you want the keybinding to apply to all instances of the class
 or only one particular instance.
 
-Currently the keybindings only worked when the main canvas is in focus,
+Currently the keybindings only work when the main canvas is in focus,
 we are working to ensure they always work.
 
 The ability to add custom keybindings dramatically increases what is possible within **napari**
@@ -371,7 +371,7 @@ and we hope you take full advantage of them.
 
 ## next steps
 
-Hopefully this tutorial has given you an overview of the functionality available on the **napari** viewer,
+Hopefully, this tutorial has given you an overview of the functionality available on the **napari** viewer,
 including the `LayerList` and some of the different layer types.
 To learn more about the different layer types that **napari** supports
 checkout some more of our tutorials listed below.

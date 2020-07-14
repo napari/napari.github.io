@@ -38,7 +38,7 @@ During the gif you can see us add a new `Shapes` layer and start drawing shapes 
 ![image](./assets/gallery/LLSM.gif)
 
 This example browses over 100GB of [lattice lightsheet](https://science.sciencemag.org/content/360/6386/eaaq1392) data, representing a volumetric timeseries.
-Using the sliders we can move through both the `z` dimension and the `time` dimension.
+Using the sliders, we can move through both the `z` dimension and the `time` dimension.
 The data is stored on disk as a [zarr](https://zarr.readthedocs.io) file,
 which are lazily reading using [dask](https://dask.readthedocs.io/en/latest/).
 
@@ -52,14 +52,14 @@ Note that the volume has been downsampled in each spatial axis by a factor of fo
 
 ![image](./assets/gallery/calcium_imaging.gif)
 
-This example shows calcium imaging of neurons to record neural activity,
+This example shows calcium imaging of neurons to record neural activity
 and is one of the example datasets in the [neurofinder](http://neurofinder.codeneuro.org/) image segmentation challenge.
 The bottom `Image` layer contains timeseries of the neural activity.
 The top `Labels` layer contains the segmented neuron regions.
 The middle two `Image` layers contain helpful processed maps,
 the mean and the local correlation of the timeseries.
 
-In this example we use the paintbrush and fill bucket tools in the `Labels`
+In this example we use the paintbrush and fill bucket tools in the `Labels` layer
 to separate two regions that were incorrectly merged and two add two regions that were missed.
 
 ### mesoscope neural imaging data
@@ -95,7 +95,7 @@ where each colored region corresponds to a different part of the brain.
 
 ![image](./assets/gallery/smFISH.gif)
 
-This examples shows some image-based transcriptomics data analyzed with the [starfish tool](https://spacetx-starfish.readthedocs.io/en/latest/).
+This example shows some image-based transcriptomics data analyzed with the [starfish tool](https://spacetx-starfish.readthedocs.io/en/latest/).
 Each spot in the image corresponds to an mRNA molecule.
 The bottom `Image` layer is the raw image data.
 The middle `Image` layer is the raw data after a learnt deconvolution,
@@ -114,11 +114,11 @@ Data courtesy of Tim Wang, Svoboda Lab.
 
 ![image](./assets/gallery/allen_cell.gif)
 
-This examples shows images of cells under brightfield and fluorescent imaging.
+This example shows images of cells under brightfield and fluorescent imaging.
 There are four color channels of flourescently label data all blended together,
 showing the cell nuclei and the distribution of targets of interest.
 The top `Labels` layer shows some hand drawn regions around the nuclei,
-which can been seen in blue.
+which can be seen in blue.
 
 We can also visualize the flourescent data as `Volume` layers too.
 
@@ -144,7 +144,7 @@ including deleting existing ones and adding new ones.
 
 ![image](./assets/gallery/stent.gif)
 
-This example shows 3D rendering of a stent,
+This example shows 3D rendering of a stent
 and includes the changing of colormaps and color limits.
 Data from vispy examples.
 
@@ -164,7 +164,7 @@ and the segmentations are visualized using a `Labels` layer.
 
 We are using [dask-image](https://dask-image.readthedocs.io) to look at directories of the images
 and labels and lazily them when requested by the slider.
-This method can support easy browsing of training datasets with many many examples
+This method can support easy browsing of training datasets with many examples
 as we never need to load all the images into memory.
 Note that not all images need to be the same size either.
 
@@ -180,7 +180,7 @@ This example shows data from a [hymenoptera classification task](https://pytorch
 where the goal is to separate the images of the ants and bees.
 Here we are using [dask-image](https://dask-image.readthedocs.io) to look at two directories of images
 and lazily load each image when requested by the slider.
-This method can support easy browsing of training datasets with many many images
+This method can support easy browsing of training datasets with many images
 as we never need to load all the images into memory.
 Note that not all images need to be the same size either.
 

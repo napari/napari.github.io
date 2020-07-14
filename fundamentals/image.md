@@ -27,7 +27,8 @@ with napari.gui_qt():
 
 Both `view_image` and `add_image` have the following doc strings:
 
-```
+```python
+"""
 Parameters
 ----------
 image : np.ndarray
@@ -51,6 +52,7 @@ Returns
 -------
 layer : napari.layers.Image
     The newly-created image layer.
+"""
 ```
 
 ## image data and numpy-like arrays
@@ -62,7 +64,6 @@ The great thing about napari support array-like objects is that you get to keep 
 napari will also wait until just before it displays data onto the screen to actually generate a numpy array from your data, and so if you're using a library like `dask` or `zarr` that supports lazy loading and lazy evaluation, we wont force you load or compute on data that you're not looking at. This enables napari to seemlessly browse enormous datasets that are loaded in the right way. For example, here we are browsing over 100GB of lattice lightsheet data stored in a zarr file:
 
 ![image]({{ '/assets/tutorials/LLSM.gif' | relative_url }})
-
 
 ## image pyramids
 
@@ -82,19 +83,22 @@ All our layers can be rendered in both 2D and 3D mode, and one of our viewer but
 
 ![image]({{ '/assets/tutorials/mitosis.gif' | relative_url }})
 
-
 ## viewing rgb vs luminance (grayscale) images
 
 In the above example we explicitly set the `rgb` keyword to be `True` because we knew we were working with an `rgb` image.
+
 ```python
 viewer = napari.view_image(data.astronaut(), rgb=True)
 ```
+
 If we had left that keyword argument out napari would have successfully guessed that we were trying to show an `rgb` or `rgba` image because the final dimension was 3 or 4. If you have a luminance image where the last dimension is 3 or 4 you can set the `rgb` property to `False` so napari handles the image correctly.
 
 `rgb` data must either be `uint8`, corresponding to values between 0 and 255, or `float` and between 0 and 1. If the values are `float` and outside the 0 to 1 range they will be clipped.
 
 ## working with colormaps
+
 napari supports any colormap that is created with `vispy.color.Colormap`. We provide access to some standard colormaps that you can set using a string of their name. These include:
+
 - PiYG
 - blue
 - cyan
@@ -114,9 +118,11 @@ napari supports any colormap that is created with `vispy.color.Colormap`. We pro
 - viridis
 
 Passing any of these as follows
+
 ```python
 viewer = napari.view_image(data.moon(), colormap='red')
 ```
+
 will set the colormap of that image. You can also access the current colormap through the `layer.colormap` property which returns a tuple of the colormap name followed by the vispy colormap object. You can list all the available colormaps using `layer.colormaps`.
 
 It is also possible to create your own colormaps using vispy's `vispy.color.Colormap` object, see it's full [documentation here](http://vispy.org/color.html#vispy.color.Colormap). Briefly, you can pass `Colormap` a list of length 3 or length 4 lists, corresponding to the `rgb` or `rgba` values at different points along the colormap. For example to make a diverging colormap the goes from red to blue through black and color a random array you can do the following:
@@ -141,6 +147,7 @@ Note in this example how we passed the colormap keyword argument as a tuple cont
 The named colormap now appears in the dropdown menu along side a little thumbnail of the full range of the colormap.
 
 ## adjusting contrast limits
+
 Each image layer gets mapped through its colormap according to values called contrast limits. The contrast limits are a 2-tuple where the second value is larger than the first. The smaller contrast limit corresponds to the value of the image data that will get mapped to the color defined by 0 in the colormap. All values of image data smaller than this value will also get mapped to this color. The larger contrast limit corresponds to the value of the image data that will get mapped to the color defined by 1 in the colormap. All values of image data larger than this value will also get mapped to this color.
 
 For example you are looking at an image that has values between 0 and 100 with a standard `gray` colormap, and you set the contrast limits to `(20, 75)` Then all the pixels with values less than 20 will get mapped to black, the color corresponding to 0 in the colormap, and all pixels with values greater than 75 will get mapped to white, the color corresponding to 1 in the colormap. All other pixel values between 20 and 75 will get linearly mapped onto the range of colors between black and white.

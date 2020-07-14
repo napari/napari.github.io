@@ -46,7 +46,8 @@ with napari.gui_qt():
 
 Both `view_shapes` and `add_shapes` have the following doc strings:
 
-```
+```python
+"""
 Parameters
 ----------
 data : np.array | list
@@ -94,6 +95,7 @@ Returns
 -------
 layer : napari.layers.Shapes
     The newly-created shapes layer.
+"""
 ```
 
 ## shapes data
@@ -175,11 +177,13 @@ For example see below:
 ![image]({{ '/assets/tutorials/shape_vertex_editing.gif' | relative_url }})
 
 ## changing shape edge and face colors
+
 Individual shapes can each have different edge and face colors. You can initially set these colors by providing a list of colors to the `edge_color` or `face_color` keyword arguments respectively, or you can edit them from the GUI. The colors of each of the shapes are available as lists under the `layer.edge_colors` and `layer.face_colors` properties. These properties are different from the `layer.edge_color` and `layer.face_color` properties that will determine the color of the next shape to be added or any currently selected shapes.
 
 To change the shape color properties from the GUI you must first select the shape whose properties you want to change, otherwise you will just be initializing the property for the next shape you add.
 
 ## changing shape edge widths
+
 Individual shapes can each have different edge widths. You can initially set the edge widths by providing a list of values to the `edge_width` keyword arguments respectively, or you can edit them from the GUI. The widths of each of the shapes are available as a lists under the `layer.edge_widths` property. Similar to the edge and face colors, these property is different from the `layer.edge_width` property that will determine the edge width of the next shape to be added or any currently selected shapes.
 
 To change the edge with property from the GUI you must first select the shape whose properties you want to change, otherwise you will just be initializing the property for the next shape you add.

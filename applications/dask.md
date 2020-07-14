@@ -53,7 +53,6 @@ stack.shape  # (nfiles, nz, ny, nx)
 stack
 ```
 
-
 ![image]({{ '/assets/tutorials/dask_repr.png' | relative_url }})
 
 *No data has been read from disk yet!*

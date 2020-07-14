@@ -6,8 +6,8 @@ This tutorial assumes you have already installed **napari** and know how to laun
 
 This tutorial will teach you about the **napari** viewer, including how to use its graphical user interface (GUI) and how the data within it is organized. At the end of the tutorial you should understand the both the layout of the viewer on the screen and the data inside of it.
 
-
 ## launching the viewer
+
 As discussed in [getting started](./getting_started) tutorial the napari viewer can be launched from the command-line, a python script, an IPython console, or a jupyter notebook. All four methods launch the same viewer and anything related to the interacting with the viewer on the screen applies equally to all of them. We will use the syntax inside python scripts so you can copy and paste these examples into scripts and run them. If you are using as IPython console (launched with `IPython --gui=qt`) then you won't need to use the `napari.gui_qt` context.
 
 Let's get stated by launching a viewer with a simple 2D image.
@@ -21,6 +21,7 @@ import napari
 with napari.gui_qt():
     viewer = napari.view_image(data.astronaut(), rgb=True)
 ```
+
 Calling `napari.view_image` will return a `Viewer` object that is the main object inside **napari**. All the data you add to **napari** will be stored inside the `Viewer` object and will be accessible from it. This command will also open the viewer to create a GUI that you can interact with.
 
 You can also create an empty `Viewer` directly and then start adding images to it. For example:
@@ -64,6 +65,7 @@ The main canvas is located in the center of the viewer and contains the visual d
 ![image]({{ '/assets/tutorials/viewer_pan_zoom.gif' | relative_url }})
 
 ### layer list
+
 One of the basic **napari** objects are layers. There are different layer types for `Image`, `Points`, `Shapes`, and other basic data types. They can be added to the viewer either programmatically or through the GUI. Once added they start to populate the layer list is located on the bottom lefthand side of the main canvas.
 
 The layer list contains one widget for each of the layers that have been added to the viewer and includes a `thumbnail` which shows a miniaturized version of the currently viewed data, a `name` that is an editable text box, `visibility` button that can be toggled on or off to show or hide the layer, and an `icon` for the layer type.
@@ -94,17 +96,20 @@ The `Viewer` object also contains our `LayerList` object that allows you to acce
 ```python
 viewer.layers
 ```
+
 This object can be indexed into like a normal list using an `int` or using the `str` name of the layer as follows
 
 ```python
 viewer.layers[0]
 viewer.layers['astronaut']
 ```
+
 When you rearrange layers in the viewer you also rearrange them in the list. Similarly rearranging layers in the list rearranges them in the viewer. For example calling
 
 ```python
 viewer.layers['astronaut', 'moon'] = viewer.layers['moon', 'astronaut']
 ```
+
 from the console will swap the positions of the `moon` and `astronaut` layers in the viewer.
 
 When you select a layer you will notice that layer controls box above the layers list becomes populate with options that depend on the layer type that you have selected.
@@ -114,6 +119,7 @@ When you select a layer you will notice that layer controls box above the layers
 Above the layers list in the top left corner of the viewer there is a box that contains the layer controls. The controls that you have available to you depend on the layer type that you have selected.
 
 For example if you add a `Points` layer after adding an `Image` layer you will now see different controls present.
+
 ```python
 from skimage import data
 import napari
@@ -136,7 +142,6 @@ viewer.layers[0].opacity = 0.7
 
 and these changes will instantly propagate to the GUI. For more information about the different properties for different layer types please see our layer specific tutorials listed at the bottom of this tutorial.
 
-
 ### new layer buttons
 
 New `Points`, `Shapes`, and `Labels` layers can be added to the viewer using the new layer buttons in the bottom righthand corner of the GUI. These correspond to the calls such as:
@@ -146,11 +151,13 @@ viewer.add_points(data)
 viewer.add_shapes(data)
 viewer.add_labels(data)
 ```
+
 but with empty data. Once added in the GUI these layers become accessible in the layers list and at `viewer.layers`.
 
 Layers can also be deleted by selecting them and the clicking on the trash icon, or by dragging the layers and dropping them into the trash.
 
 In the console a layer at index `i` can be removed by
+
 ```python
 viewer.layers.pop(i)
 ```
@@ -204,7 +211,6 @@ After that is a button that transposes the displayed dimensions.
 
 Finally there is the `home` button that will reset the camera state to its initial values.
 
-
 ### status bar
 
 At the very bottom of the GUI there is a status bar that contains useful updates and tips.
@@ -213,11 +219,11 @@ On the lefthand side of the status bar there is a message that contains informat
 
 The righthand side of the status bar contains some helpful tips depending on which layer and tools are currently selected.
 
-
 ## changing viewer theme
 
 Currently, **napari** comes with two different themes `light` and `dark`, which is the default.
 To change the theme just update `theme` property of the viewer, for example
+
 ```python
 viewer.theme = 'light'
 ```

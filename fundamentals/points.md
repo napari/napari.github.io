@@ -31,75 +31,76 @@ viewer.add_points(points, size=30)
 
 Both `view_points` and `add_points` have the following doc strings:
 
-```
+```python
+"""
 Parameters
-    ----------
-    data : array (N, D)
-        Coordinates for N points in D dimensions.
-    properties : dict {str: array (N,)}, DataFrame
-        Properties for each point. Each property should be an array of length N,
-        where N is the number of points.
-    symbol : str
-        Symbol to be used for the point markers. Must be one of the
-        following: arrow, clobber, cross, diamond, disc, hbar, ring,
-        square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.
-    size : float, array
-        Size of the point marker. If given as a scalar, all points are made
-        the same size. If given as an array, size must be the same
-        broadcastable to the same shape as the data.
-    edge_width : float
-        Width of the symbol edge in pixels.
-    edge_color : str, array-like
-        Color of the point marker border. Numeric color values should be RGB(A).
-    edge_color_cycle : np.ndarray, list
-        Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
-        categorical attribute is used color the vectors.
-    edge_colormap : str, vispy.color.colormap.Colormap
-        Colormap to set edge_color if a continuous attribute is used to set face_color.
-        See vispy docs for details: http://vispy.org/color.html#vispy.color.Colormap
-    edge_contrast_limits : None, (float, float)
-        clims for mapping the property to a color map. These are the min and max value
-        of the specified property that are mapped to 0 and 1, respectively.
-        The default value is None. If set the none, the clims will be set to
-        (property.min(), property.max())
-    face_color : str, array-like
-        Color of the point marker body. Numeric color values should be RGB(A).
-    face_color_cycle : np.ndarray, list
-        Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
-        categorical attribute is used color the vectors.
-    face_colormap : str, vispy.color.colormap.Colormap
-        Colormap to set face_color if a continuous attribute is used to set face_color.
-        See vispy docs for details: http://vispy.org/color.html#vispy.color.Colormap
-    face_contrast_limits : None, (float, float)
-        clims for mapping the property to a color map. These are the min and max value
-        of the specified property that are mapped to 0 and 1, respectively.
-        The default value is None. If set the none, the clims will be set to
-        (property.min(), property.max())
-    n_dimensional : bool
-        If True, renders points not just in central plane but also in all
-        n-dimensions according to specified point marker size.
-    name : str
-        Name of the layer.
-    metadata : dict
-        Layer metadata.
-    scale : tuple of float
-        Scale factors for the layer.
-    translate : tuple of float
-        Translation values for the layer.
-    opacity : float
-        Opacity of the layer visual, between 0.0 and 1.0.
-    blending : str
-        One of a list of preset blending modes that determines how RGB and
-        alpha values of the layer visual get mixed. Allowed values are
-        {'opaque', 'translucent', and 'additive'}.
-    visible : bool
-        Whether the layer visual is currently being displayed.
+----------
+data : array (N, D)
+    Coordinates for N points in D dimensions.
+properties : dict {str: array (N,)}, DataFrame
+    Properties for each point. Each property should be an array of length N,
+    where N is the number of points.
+symbol : str
+    Symbol to be used for the point markers. Must be one of the
+    following: arrow, clobber, cross, diamond, disc, hbar, ring,
+    square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.
+size : float, array
+    Size of the point marker. If given as a scalar, all points are made
+    the same size. If given as an array, size must be the same
+    broadcastable to the same shape as the data.
+edge_width : float
+    Width of the symbol edge in pixels.
+edge_color : str, array-like
+    Color of the point marker border. Numeric color values should be RGB(A).
+edge_color_cycle : np.ndarray, list
+    Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
+    categorical attribute is used color the vectors.
+edge_colormap : str, vispy.color.colormap.Colormap
+    Colormap to set edge_color if a continuous attribute is used to set face_color.
+    See vispy docs for details: http://vispy.org/color.html#vispy.color.Colormap
+edge_contrast_limits : None, (float, float)
+    clims for mapping the property to a color map. These are the min and max value
+    of the specified property that are mapped to 0 and 1, respectively.
+    The default value is None. If set the none, the clims will be set to
+    (property.min(), property.max())
+face_color : str, array-like
+    Color of the point marker body. Numeric color values should be RGB(A).
+face_color_cycle : np.ndarray, list
+    Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
+    categorical attribute is used color the vectors.
+face_colormap : str, vispy.color.colormap.Colormap
+    Colormap to set face_color if a continuous attribute is used to set face_color.
+    See vispy docs for details: http://vispy.org/color.html#vispy.color.Colormap
+face_contrast_limits : None, (float, float)
+    clims for mapping the property to a color map. These are the min and max value
+    of the specified property that are mapped to 0 and 1, respectively.
+    The default value is None. If set the none, the clims will be set to
+    (property.min(), property.max())
+n_dimensional : bool
+    If True, renders points not just in central plane but also in all
+    n-dimensions according to specified point marker size.
+name : str
+    Name of the layer.
+metadata : dict
+    Layer metadata.
+scale : tuple of float
+    Scale factors for the layer.
+translate : tuple of float
+    Translation values for the layer.
+opacity : float
+    Opacity of the layer visual, between 0.0 and 1.0.
+blending : str
+    One of a list of preset blending modes that determines how RGB and
+    alpha values of the layer visual get mixed. Allowed values are
+    {'opaque', 'translucent', and 'additive'}.
+visible : bool
+    Whether the layer visual is currently being displayed.
 
 Returns
 -------
 layer : napari.layers.Points
     The newly-created points layer.
-
+"""
 ```
 
 ## points data
@@ -107,6 +108,7 @@ layer : napari.layers.Points
 The input data to the points layer must be an NxD numpy array containing the coordinates of N points in D dimensions. The ordering of these dimensions is the same as the ordering of the dimensions for image layers. This array is always accessible through the `layer.data` property and will grow or shrink as new points are either added or deleted.
 
 ## using the points properties dictionary
+
 The `Points` layer can contain properties that annotate each point. `Points.properties` stores the properties in a dictionary where each key is the name of the property and the values are numpy arrays with a value for each point (i.e., length N for N points in `Points.data`). As we will see below, we can use the values in a property to set the display properties of the points (e.g., face color or edge color). To see the points properties in action, please see the [point annotation tutorial](../applications/annotate_points).
 
 ## creating a new points layer
@@ -150,11 +152,13 @@ Each point can have a different size. You can pass a list or 1-dimensional array
 Points can also be resized within the GUI by first selecting them and then adjusting the point size slider. If no points are selected then adjusting the slider value will only serve to initialize the size for new points that are about to be added. The value of the size of the next point to be added can be found in the `layer.size` property. Note this property is different from `layer.sizes` which contains the current sizes of all the points.
 
 ## changing points edge and face color
+
 Individual points can each have different edge and face colors. You can initially set these colors by providing a list of colors to the `edge_color` or `face_color` keyword arguments respectively, or you can edit them from the GUI. The colors of each of the points are available as lists under the `layer.edge_colors` and `layer.face_colors` properties. Similar to the `sizes` and `size` properties these properties are different from the `layer.edge_color` and `layer.face_color` properties that will determine the color of the next point to be added or any currently selected points.
 
 To change the point color properties from the GUI you must first select the points whose properties you want to change, otherwise you will just be initializing the property for the next point you add.
 
 ## setting point edge and face color with properties
+
 Point edge and face colors can be set as a function of a property in `Points.properties`. There are two ways that the values in properties can be mapped to colors: (1) color cycles and (2) colormaps.
 
 Color cycles are sets of colors that are mapped to categorical properties. The colors are repeated if the number of unique property values is greater than the number of colors in the color cycle.
@@ -183,6 +187,7 @@ Colormaps are a continuum of colors that are mapped to a continuous property val
 * RdBu
 
 ### setting edge or face color with a color cycle
+
 Here we will set the edge color of the markers with a color cycle on a property. To do the same for a face color, substitute `face_color` for `edge_color` in the example snippet below.
 
 ```python
@@ -205,11 +210,13 @@ with napari.gui_qt():
         edge_width=5,
     )
 ```
+
 ![image]({{ '/assets/tutorials/points_edge_color_cycle.png' | relative_url }})
 
 In the example above, the properties (`point_properties`) were provided as a dictionary with two properties: `good_point` and `confidence`. The values of each property is stored in a numpy ndarray with length 3 since there were three coordinates provided in `points`. We set the edge color as a function of the `good_point` property by providing the keyword argument `edge_color='good_point'` to the `viewer.add_points()` method. We set the color cycle via the `edge_color_cycle` keyword argument (`edge_color_cycle=['magenta', 'green']`). The color cycle can be provided as a list of colors (a list of strings or a (M x 4) array of M RGBA colors).
 
 ### setting edge or face color with a colormap
+
 Here we will set the face color of the markers with a color cycle on a property. To do the same for a face color, substitute `edge_color` for `face_color` in the example snippet below.
 
 ```python
@@ -231,12 +238,13 @@ with napari.gui_qt():
         face_colormap='viridis',
     )
 ```
+
 ![image]({{ '/assets/tutorials/points_face_colormap.png' | relative_url }})
 
 In the example above, the properties (`point_properties`) were provided as a dictionary with two properties: `good_point` and `confidence`. The values of each property is stored in a numpy ndarray with length 3 since there were three coordinates provided in `points`. We set the face color as a function of the `confidence` property by providing the keyword argument `face_color='confidence'` to the `viewer.add_points()` method. We set the colormap to viridis using the `face_colormap` keyword argument (`face_colormap='viridis'`).
 
-
 ## changing the points symbol
+
 The symbol for the points layer is a global property for the layer. All points must have the same symbol. You can set the symbol on the loading of the layer using the `symbol` keyword argument, or you can change it from the the GUI using the symbol dropdown menu. Since the symbol property applies to all the points you don't need to have any points selected for it to have an effect.
 
 ## copying and pasting points

@@ -36,6 +36,7 @@ Or rendered in 3D as a volumetric timeseries.
 Note that the volume has been downsampled in each spatial axis by a factor of four before displaying it.
 
 ### neural calcium imaging data
+
 ![image](./assets/gallery/calcium_imaging.gif)
 
 This example shows calcium imaging of neurons to record neural activity, and is one of the example datasets in the [neurofinder](http://neurofinder.codeneuro.org/) image segmentation challenge. The bottom `Image` layer contains timeseries of the neural activity. The top `Labels` layer contains the segmented neuron regions. The middle two `Image` layers contain helpful processed maps, the mean and the local correlation of the timeseries.
@@ -87,6 +88,7 @@ We can also visualize the flourescent data as `Volume` layers too.
 Data from Allen Cell.
 
 ### more cell biology data
+
 ![image](./assets/gallery/cells.gif)
 
 This example shows 3 color channels of data of cell nuclei, membranes, and cytoplasm represented using three different `Image` layers with different colormaps, blended together. The top `Points` layer contains markers over the centers of the cell nuclei. The second from the top `Shapes` layer, contains polygon representations of the boundaries of the cells. Data from ImageJ examples.
@@ -94,16 +96,19 @@ This example shows 3 color channels of data of cell nuclei, membranes, and cytop
 During the example we edit the position of some of the points, and shapes, including deleting existing ones and adding new ones.
 
 ### volumetric rendering data
+
 ![image](./assets/gallery/stent.gif)
 
 This example shows 3D rendering of a stent, and includes the changing of colormaps and color limits. Data from vispy examples.
 
 ### geospatial data
+
 ![image](./assets/gallery/geospatial.gif)
 
 This example shows data from the [landsat-8](https://landsat.gsfc.nasa.gov/landsat-8/mission-details/) survey.
 
 ### kaggle nuclei segmentation data
+
 ![image](./assets/gallery/DSB2018_browse.gif)
 
 This example browses data from the [2018 kaggle data science bowl](https://www.kaggle.com/c/data-science-bowl-2018) on nuclei segmentation. The raw images are visualized using an `Image` layer and the segmentations are visualized using a `Labels` layer.
@@ -115,6 +120,7 @@ We can also edit or create our own segmentations using the paintbrush and fill b
 ![image](./assets/gallery/DSB2018_edit.gif)
 
 ### machine learning data
+
 ![image](./assets/gallery/ants_bees.gif)
 
 This example shows data from a [hymenoptera classification task](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html) where the goal is to separate the images of the ants and bees. Here we are using [dask-image](https://dask-image.readthedocs.io) to look at two directories of images and lazily load each image when requested by the slider. This method can support easy browsing of training datasets with many many images as we never need to load all the images into memory. Note that not all images need to be the same size either.

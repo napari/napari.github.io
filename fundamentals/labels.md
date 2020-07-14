@@ -47,7 +47,8 @@ with napari.gui_qt():
 
 Both `view_labels` and `add_labels` have the following doc strings:
 
-```
+```python
+"""
 Parameters
 ----------
 image : np.ndarray
@@ -69,6 +70,7 @@ Returns
 -------
 layer : napari.layers.Labels
     The newly-created labels layer.
+"""
 ```
 
 ## labels data

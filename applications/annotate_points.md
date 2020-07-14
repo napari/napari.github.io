@@ -9,10 +9,10 @@ im_path = '<path to directory with data>/*.png'
 point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'])
 
 ```
+
 The resulting viewer looks like this (images from [Mathis et al., 2018](https://www.nature.com/articles/s41593-018-0209-y), downloaded from [here](https://github.com/DeepLabCut/DeepLabCut/tree/f21321ef8060c537f9df0ce9346189bda07701b5/examples/openfield-Pranav-2018-10-30/labeled-data/m4s1)):
 
 ![image]({{ '/assets/tutorials/point_annotator_demo.gif' | relative_url }})
-
 
 You can explore the project in [this repository](https://github.com/kevinyamauchi/PointAnnotator) or check out the main function below. We will walk through the code in the following sections.
 
@@ -117,15 +117,16 @@ def point_annotator(
             new_label = labels[new_ind]
             current_properties['label'] = np.array([new_label])
             points_layer.current_properties = current_properties
-        
 ```
+
 ## point_annotator()
+
 We will create the GUI within a function called `point_annotator()`. Wrapping the GUI creation in the function allows us to integrate it into other functions (e.g., a command line interface) and applications. See below for the function definition.
 
 ```python
 def point_annotator(
-	im_path: str,
-	labels: List[str],
+    im_path: str,
+    labels: List[str],
 ):
     """Create a GUI for annotating points in a series of images.
 
@@ -140,6 +141,7 @@ def point_annotator(
 ```
 
 ## Loading the video
+
 First, we load the movie to be annotated. Since behavior movies can be quite long, we will use a lazy loading strategy (i.e., we will only load the frames as they are used). Using [`dask-image`](https://github.com/dask/dask-image), we can construct an object that we can pass to napari for lazy loading in just one line. For more explanation on using dask to lazily load images in napari, see [this](https://napari.org/tutorials/applications/dask) tutorial.
 
 ```python
@@ -154,8 +156,8 @@ with napari.gui_qt():
 ```
 
 ## Annotating with points
-We will annotate the features of interest using points in a napari Points layer. Each feature will be given a different label so that we can track them across frames. To achieve this, we will store the label in the `Points.properties` property in the 'label' key. We will instantiate the `Points` layer without any points. However, we will initialize `Points.properties` with the property values we will be using to annotate the images. To do so, we will define a properties dictionary with a key named `label` and values `labels`. The key, 'label', is the name of the property we are storing which feature of interest each point corresponds with. The values, 'labels', is the list of the names of the features we will be annotating (defined above in the "point_annotator()" section). 
 
+We will annotate the features of interest using points in a napari Points layer. Each feature will be given a different label so that we can track them across frames. To achieve this, we will store the label in the `Points.properties` property in the 'label' key. We will instantiate the `Points` layer without any points. However, we will initialize `Points.properties` with the property values we will be using to annotate the images. To do so, we will define a properties dictionary with a key named `label` and values `labels`. The key, 'label', is the name of the property we are storing which feature of interest each point corresponds with. The values, 'labels', is the list of the names of the features we will be annotating (defined above in the "point_annotator()" section). 
 
 We add the points layer to the viewer using the `viewer.add_points()` method. As discussed above, we will be storing which feature of interest each points corresponds to via the `label` property we defined in the `properties` dictionary. To visualize the feature each points represent, we set the edge color as a color cycle mapped to the `label` property (`edge_color='label'`). 
 
@@ -176,26 +178,27 @@ Note that we set the `edge_color_cycle` to `COLOR_CYCLE`. You can define your ow
 
 ```python
 COLOR_CYCLE = [
-	'#1f77b4',
-	'#ff7f0e',
-	'#2ca02c',
-	'#d62728',
-	'#9467bd',
-	'#8c564b',
-	'#e377c2',
-	'#7f7f7f',
-	'#bcbd22',
-	'#17becf'
+    '#1f77b4',
+    '#ff7f0e',
+    '#2ca02c',
+    '#d62728',
+    '#9467bd',
+    '#8c564b',
+    '#e377c2',
+    '#7f7f7f',
+    '#bcbd22',
+    '#17becf'
 ]
 ```
 
 Finally, we set the edge color to a color cycle:
 
 ```python
-	points_layer.edge_color_mode = 'cycle'
+    points_layer.edge_color_mode = 'cycle'
 ```
 
 ## Adding a GUI for selecting points
+
 First, we will define a function outside of the `napari.gui_qt()` context to create a GUI for select the labels for points. The function `create_label_menu()` will take the points layer we created and the list of labels we will annotate with and return the label menu GUI. Additionally, we will create and connect all of the required callbacks to make the GUI interactive.
 
 ```python
@@ -208,7 +211,7 @@ def create_label_menu(points_layer, labels):
         a napari points layer
     labels : List[str]
         list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).
-        
+
     Returns:
     --------
     label_menu : QComboBox
@@ -251,9 +254,9 @@ def label_changed(result):
     current_properties = points_layer.current_properties
     current_properties['label'] = np.asarray([selected_label])
     points_layer.current_properties = current_properties
-    
+
 label_menu.label_changed.connect(label_changed)
-``` 
+```
 
 Finally, we add the GUI created by magicgui to the napari viewer dock.
 
@@ -264,6 +267,7 @@ viewer.window.add_dock_widget(label_menu)
 ```
 
 ## Keybindings for switching labels
+
 For convenience, we can also define functions to increment and decrement the currently selected label and bind them to key presses using the napari keybindings framework.
 
 First, we define a function to increment to the next label and decorate it with the viewer key binding decorator. The decorator requires that we pass the key to bind the function to as a string and the decorated function should take an event as an input argument. In this case, we are binding `next_label()` to the `.` key.
@@ -272,17 +276,17 @@ First, we define a function to increment to the next label and decorate it with 
 @viewer.bind_key('.')
 def next_label(event=None):
     """Keybinding to advance to the next label with wraparound"""
-    
+
     # get the currently selected label
     current_properties = points_layer.current_properties
     current_label = current_properties['label'][0]
-    
+
     # determine the index of that label in the labels list
     ind = list(labels).index(current_label)
-    
+
     # increment the label with wraparound 
     new_ind = (ind + 1) % len(labels)
-    
+
     # get the new label and assign it
     new_label = labels[new_ind]
     current_properties['label'] = np.array([new_label])
@@ -306,6 +310,7 @@ def prev_label(event):
 ```
 
 ## Mousebinding to iterate through labels
+
 Similar to keybindings, we can also bind functions to mouse events such as clicking or dragging. Here, we create a function that will increment the label after a point is added (i.e., the mouse is clicked in the viewer canvas when in the point adding mode). This is convenient for quickly adding all labels to a frame, as one can simply click each feature in order without having to manually swap labels. To achieve this, we first check if the points layer is the the adding mode (`layer.mode == 'add'`). If so, we then reuse the next_label() function we defined above in the keybindings to increment the label. Finally, 
 
 ```python
@@ -328,7 +333,9 @@ points_layer.mouse_drag_callbacks.append(next_on_click)
 ```
 
 ## Using the GUI
+
 ### Launching the GUI
+
 Now that you've put it all together, you should be ready to test! You can call the function as shown below.
 
 ```python
@@ -339,6 +346,7 @@ point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'], output_path=output)
 ```
 
 ### Saving the annotations
+
 Once we are happy with the annotations, we can save them to a CSV file using the builing CSV writer for the points layer. To do so, first, select the "Points" layer in the layer list and then click "Save Selected layer(s)"  in the "File" menu or press control+S (cmd+S on Mac OS)  to bring up the file save dialog. From here you can enter the file path and save the annotation coordinates as a CSV.
 
 ![image]({{ '/assets/tutorials/points_save_dialog.png' | relative_url }})

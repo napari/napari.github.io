@@ -45,7 +45,8 @@ with napari.gui_qt():
 
 Both `view_vectors` and `add_vectors` have the following doc strings:
 
-```
+```python
+"""
 Parameters
 ----------
 vectors : (N, 2, D) or (N1, N2, ..., ND, D) array
@@ -67,6 +68,7 @@ Returns
 -------
 layer : napari.layers.Vectors
     The newly-created vectors layer.
+"""
 ```
 
 ## vectors data
@@ -77,7 +79,6 @@ See here for the example from `examples/add_vectors_image.py` of a grid of vecto
 
 ![image]({{ '/assets/tutorials/add_vectors_image.png' | relative_url }})
 
-
 Regardless of how the data is passed, we convert it to the Nx2xD representation internally. This representation is  accessible through the `layer.data` property.
 
 Editing the start position of the vectors from the GUI is not possible. Nor is it possible to draw vectors from the GUI. If you want to draw lines from the GUI you should use the `Lines` shape inside a `Shapes` layer.
@@ -87,7 +88,6 @@ Editing the start position of the vectors from the GUI is not possible. Nor is i
 All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode. The number of dimensions sliders will be 2 or 3 less then the total number of dimensions of the layer. See for example the `examples/nD_vectors.py` to see shapes in both 2D and 3D:
 
 ![image]({{ '/assets/tutorials/nD_vectors.gif' | relative_url }})
-
 
 ## changing vector length, width, and color
 

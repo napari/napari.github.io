@@ -6,7 +6,6 @@ This tutorial assumes you have already installed napari. For help with installat
 
 This tutorial will teach you all the different ways to launch napari. At the end of the tutorial you should be able to launch napari and see the viewer your favourite way.
 
-
 ## launching napari
 
 There are four ways to launch the **napari** viewer:
@@ -16,12 +15,12 @@ There are four ways to launch the **napari** viewer:
 - IPython console
 - jupyter notebook
 
-
 All four of these methods will launch the same napari viewer, but depending on your use-case different ones may be preferable.
 
 ### command line usage
 
 To launch napari from the command line simply run
+
 ```sh
 napari
 ```
@@ -33,9 +32,11 @@ This command will launch an empty viewer:
 Once you have the viewer open you can add images through the `File/Open` dropdown menu or by dragging and dropping images directly on the viewer. We currently only support files that can be read with [`skimage.io.imread`](https://scikit-image.org/docs/dev/api/skimage.io.html#skimage.io.imread), such as `tif`, `png`, and `jpg`. We plan on adding support for more exotic file types shortly - see [issue #379](https://github.com/napari/napari/issues/379) for discussion. You can also create new empty `points`, `shapes`, and `labels` layers using the new layer buttons in the bottom right of the viewer.
 
 You can also directly load an image into the viewer from the command line by passing the path to the image as an argument as follows
+
 ```sh
 napari my_image.png
 ```
+
 If the image is `RGB` or `RGBA` use the `-r` or `--rgb` flag.
 
 ![image]({{ '/assets/tutorials/launch_cli_image.png' | relative_url }})
@@ -61,6 +62,7 @@ with napari.gui_qt():
 ```
 
 then run your script from the command line to launch the viewer with your data:
+
 ```sh
 python my_example_script.py
 ```
@@ -77,11 +79,12 @@ To launch napari from an IPython console, first instantiate a Qt GUI and then im
 
 It is best to launch the viewer with the GUI already set to be Qt by
 
-```
+```sh
 IPython --gui=qt
 ```
 
 Then inside IPython
+
 ```python
 # instantiate Qt GUI
 import napari

@@ -34,7 +34,7 @@ with napari.gui_qt():
 
 Both `view_surface` and `add_surface` have the following doc strings:
 
-```
+```python
 """
 
 Parameters
@@ -89,9 +89,10 @@ All our layers can be rendered in both 2D and 3D mode, and one of our viewer but
 
 ![image]({{ '/assets/tutorials/brain_surface.gif' | relative_url }})
 
-
 ## working with colormaps
+
 The same colormaps available for the `Image` layer are also available for the `Surface` layer. napari supports any colormap that is created with `vispy.color.Colormap`. We provide access to some standard colormaps that you can set using a string of their name. These include:
+
 - PiYG
 - blue
 - cyan
@@ -115,6 +116,7 @@ Passing any of these as follows as keyword arguments will set the colormap of th
 It is also possible to create your own colormaps using vispy's `vispy.color.Colormap` object, see it's full [documentation here](http://vispy.org/color.html#vispy.color.Colormap). For more detail see the [image layer tutorial](./image).
 
 ## adjusting contrast limits
+
 The vertex values of the surface layer gets mapped through its colormap according to values called contrast limits. These are a 2-tuple of values defining how what values get applied the minumum and maximum of the colormap and follow the same principles as the `contrast_limits` described in the [image layer tutorial](./image). They are also accessible through the same keyword arguments, properties, and range slider as in the image layer.
 
 ## layer visibility

@@ -15,7 +15,7 @@ import numpy as np
 from skimage import data
 from skimage.filters import threshold_otsu
 from skimage.segmentation import clear_border
-from skimage.measure import label, regionprops
+from skimage.measure import label, regionprops_table
 from skimage.morphology import closing, square, remove_small_objects
 import napari
 
@@ -53,9 +53,9 @@ def make_bbox(bbox_extents):
 
     Parameters
     ----------
-    bbox_extents : Tuple[int]
-        The extents of the bounding box.
-        Should be ordered: min_row, min_column, max_row, max_column
+    bbox_extents : list (4xN)
+        List of the extents of the bounding boxes for each of the N regions.
+        Should be ordered: [min_row, min_column, max_row, max_column]
 
     Returns
     -------
@@ -68,12 +68,15 @@ def make_bbox(bbox_extents):
     maxr = bbox_extents[2]
     maxc = bbox_extents[3]
 
-    bbox_rect = np.array([[minr, minc], [maxr, minc], [maxr, maxc], [minr, maxc]])
+    bbox_rect = np.array(
+        [[minr, minc], [maxr, minc], [maxr, maxc], [minr, maxc]]
+    )
+    bbox_rect = np.moveaxis(bbox_rect, 2, 0)
 
     return bbox_rect
 
 
-def calculate_circularity(perimeter, area):
+def circularity(perimeter, area):
     """Calculate the circularity of the region
 
     Parameters
@@ -92,21 +95,21 @@ def calculate_circularity(perimeter, area):
 
     return circularity
 
+
 # load the image and segment it
 image = data.coins()[50:-50, 50:-50]
 label_image = segment(image)
 
-# get the properties of the segmentation
-regions = regionprops(label_image)
-bbox_rects = [make_bbox(reg.bbox) for reg in regions]
-labels = [reg.label for reg in regions]
-circularity = [calculate_circularity(reg.perimeter, reg.area) for reg in regions]
-
 # create the properties dictionary
-properties = {
-    'label': labels,
-    'circularity': circularity,
-}
+properties = regionprops_table(
+    label_image, properties=('label', 'bbox', 'perimeter', 'area')
+)
+properties['circularity'] = circularity(
+    properties['perimeter'], properties['area']
+)
+
+# create the bounding box rectangles
+bbox_rects = make_bbox([properties[f'bbox-{i}'] for i in range(4)])
 
 # specify the display parameters for the text
 text_parameters = {
@@ -114,7 +117,7 @@ text_parameters = {
     'size': 12,
     'color': 'green',
     'anchor': 'upper_left',
-    'translation': [-3, 0]
+    'translation': [-3, 0],
 }
 
 with napari.gui_qt():
@@ -130,8 +133,9 @@ with napari.gui_qt():
         edge_color='green',
         properties=properties,
         text=text_parameters,
-        name='bounding box'
+        name='bounding box',
     )
+
 ```
 
 ## segmentation
@@ -186,46 +190,38 @@ with napari.gui_qt():
 ![image]({{ '/assets/tutorials/segmentation_labels.png' | relative_url }})
 
 ## analyzing the segmentation
-Next, we use [`regionprops`](https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops) from skimage to quantify some parameters of each detection object (e.g., area and perimeter).
+Next, we use [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table) from skimage to quantify some parameters of each detection object (e.g., area and perimeter).
 
 ```python
-# get the properties of the segmentation
-regions = regionprops(label_image)
+# create the properties dictionary
+properties = regionprops_table(
+    label_image, properties=('label', 'bbox', 'perimeter', 'area')
+)
+```
+Conveniently, `regionprops_table()` returns a dictionary in the same format as the napari layer properties dictionary, so we will be able to use it directly. If we inspect the values of properties, we see each key is the name of the properties and the values are arrays with an element containing the property value for each shape. Note that the bounding boxes have been output as `bbox-0`,  `bbox-1`, `bbox-1`, `bbox-2`, `bbox-3` which correspond with the min_row, min_column, max_row, amnd max_column of each bounding box, respectively.
+
+```python
+{
+	'label': array([1, 2, 3, 4, 5, 6, 7, 8]),
+	'bbox-0': array([ 46,  55,  57,  60, 120, 122, 125, 129]),
+	'bbox-1': array([195, 136,  34,  84, 139, 201,  30,  85]),
+	'bbox-2': array([ 94,  94,  95,  95, 166, 166, 167, 167]),
+	'bbox-3': array([246, 177,  72, 124, 187, 247,  74, 124]),
+	'perimeter': 
+		array(
+			[
+				165.88225099, 129.05382387, 123.98275606, 121.98275606,
+       			155.88225099, 149.05382387, 140.46803743, 125.39696962
+       		]
+   		),
+   	'area': array([1895, 1212, 1124, 1102, 1720, 1519, 1475, 1155])
+}
 ```
 
-We will use a napari shapes layer to visualize the bounding box of the segmentation. The napari shapes layer requires each shape to be defined by the coordinates of corner. Since regionprops returns the bounding box as a tuple of `(min_row, min_column, max_row, max_column)` we define a function `make_bbox()` to convert the regionprops bounding box to the napari shapes format.
+Since we know the coins are circular, we want to calculate the circularity of each detected region. We define a function `circularity()` to determine the circularity of each region.
 
 ```python
-def make_bbox(bbox_extents):
-    """Get the coordinates of the corners of a
-    bounding box from the extents
-
-    Parameters
-    ----------
-    bbox_extents : Tuple[int]
-        The extents of the bounding box.
-        Should be ordered: min_row, min_column, max_row, max_column
-
-    Returns
-    -------
-    bbox_rect : np.ndarray
-        The corners of the bounding box. Can be input directly into a
-        napari Shapes layer.
-    """
-    minr = bbox_extents[0]
-    minc = bbox_extents[1]
-    maxr = bbox_extents[2]
-    maxc = bbox_extents[3]
-
-    bbox_rect = np.array([[minr, minc], [maxr, minc], [maxr, maxc], [minr, maxc]])
-
-    return bbox_rect
-```
-
-Since we know the coins are circular, we want to calculate the circularity of each detected region. We define a function `calculate_circularity()` to determine the circularity of a given region.
-
-```python
-def calculate_circularity(perimeter, area):
+def circularity(perimeter, area):
     """Calculate the circularity of the region
 
     Parameters
@@ -245,12 +241,51 @@ def calculate_circularity(perimeter, area):
     return circularity
 ```
 
-Finally, we can then use list comprehensions to create lists of labels, bounding boxes, and circularities for each detected region.
+
+We can then calculate the circularity of each region and save it as a property.
+```python
+properties['circularity'] = circularity(
+    properties['perimeter'], properties['area']
+)
+```
+
+We will use a napari shapes layer to visualize the bounding box of the segmentation. The napari shapes layer requires each shape to be defined by the coordinates of corner. Since regionprops returns the bounding box as a tuple of `(min_row, min_column, max_row, max_column)` we define a function `make_bbox()` to convert the regionprops bounding box to the napari shapes format.
 
 ```python
-labels = [reg.label for reg in regions]
-bbox_rects = [make_bbox(reg.bbox) for reg in regions]
-circularity = [calculate_circularity(reg.perimeter, reg.area) for reg in regions]
+def make_bbox(bbox_extents):
+    """Get the coordinates of the corners of a
+    bounding box from the extents
+
+    Parameters
+    ----------
+    bbox_extents : list (4xN)
+        List of the extents of the bounding boxes for each of the N regions.
+        Should be ordered: [min_row, min_column, max_row, max_column]
+
+    Returns
+    -------
+    bbox_rect : np.ndarray
+        The corners of the bounding box. Can be input directly into a
+        napari Shapes layer.
+    """
+    minr = bbox_extents[0]
+    minc = bbox_extents[1]
+    maxr = bbox_extents[2]
+    maxc = bbox_extents[3]
+
+    bbox_rect = np.array(
+        [[minr, minc], [maxr, minc], [maxr, maxc], [minr, maxc]]
+    )
+    bbox_rect = np.moveaxis(bbox_rect, 2, 0)
+
+    return bbox_rect
+```
+
+Finally, we can use an list comprension to pass the bounding box extents to `make_bbox()` and calculate the bounding box corners required by the `Shapes` layer.
+
+```python
+# create the bounding box rectangles
+bbox_rects = make_bbox([properties[f'bbox-{i}'] for i in range(4)])
 ```
 
 
@@ -369,6 +404,6 @@ with napari.gui_qt():
 ```
 
 ## summary
-In this tutorial, we have used napari to view and annotate segmentation results. 
+In this tutorial, we have used napari to view and annotate segmentation results.
 
 ![image]({{ '/assets/tutorials/annotated_bbox.png' | relative_url }})

@@ -96,6 +96,62 @@ pip install napari[pyqt5]
 
 Note: if you switch backends, it's a good idea to `pip uninstall` the one you're not using.
 
+## installing as a bundled app
+
+napari can also be installed as a bundled app on each of the major platforms, MacOS, Windows,
+and Linux with a simple one click download and installation process. You might want to install
+napari as a bundled app if you are unfamiliar with installing Python packages or if you were
+unable to get the installation process described above working. The bundled app version of
+napari is the same version that you can get through the above described processes, and can
+still be extended with napari plugins installed directly via the app.
+
+To access the cross platform bundles you can visit our [release page](https://github.com/napari/napari/releases)
+and scroll to the release you are interested in and expand the `assets` tab to get a view
+that looks like this:
+
+![image]({{ '/assets/tutorials/installation/bundle_assets.png' | relative_url }})
+
+You can then download the appropriate zip file for your platform.
+
+### installing the MacOS bundle
+
+Once you have downloaded the MacOS bundle zip you will have a zip file with a name like
+`napari-0.3.7.zip`. After unzipping you will have a file with a name like `napari-0.3.7.dmg`.
+Double clicking the `dmg` will open a new finder window giving you the option to install
+napari into your `Applications` folder by dragging the `napari` icon onto the `Applications` icon.
+
+![image]({{ '/assets/tutorials/installation/bundle_install.png' | relative_url }})
+
+After you drag the `napari` icon onto the `Applications` icon napari will be installed in your
+Applications folder and available for opening by double clicking on it.
+
+![image]({{ '/assets/tutorials/installation/bundle_applications_folder.png' | relative_url }})
+
+The first time you try and open napari you will get the "unverified developer warning" that
+appears bellow:
+
+![image]({{ '/assets/tutorials/installation/bundle_dev_warning.png' | relative_url }})
+
+Don't be alarmed, this is because the napari team has not yet obtained a developer certificate
+from Apple, but we will be doing this promtly. It is safe to click `Cancel`. To get napari to
+open you must enter `Systems Preferences` and click the `Security & Privacy` icon, circled in
+red below:
+
+![image]({{ '/assets/tutorials/installation/bundle_security_privacy.png' | relative_url }})
+
+Once inside the `Security & Privacy` tab you should see a message about napari being blocked
+and an `Open Anyway` button, circled in red below:
+
+![image]({{ '/assets/tutorials/installation/bundle_open_anyway.png' | relative_url }})
+
+After clicking this button you'll get one final warning about napari not being verified, but
+now you'll have an `Open` button, as seen below:
+
+![image]({{ '/assets/tutorials/installation/bundle_open.png' | relative_url }})
+
+Now you'll finally see the napari viewer appear, but don't worry, you only have to go through
+this process once when you install a new bundle.
+
 ## bug reports
 
 If you are running into issues,

@@ -13,13 +13,13 @@ and be able to make the napari viewer appear.
 
 ### from pip, with "batteries included"
 
-napari can be installed on most macOS, Linux, and Windows systems with Python 3.6, 3.7 and 3.8 using pip:
+napari can be installed on most macOS, Linux, and Windows systems with Python 3.6 and later using pip:
 
 ```sh
 pip install napari[all]
 ```
 
-Note: while not strictly required, it is *highly* recommended to install napari into a clean virtual environment using an environment manager like
+Note: while not strictly required, it is recommended to install napari into a clean virtual environment using an environment manager like
 [conda](https://docs.conda.io/en/latest/miniconda.html) or
 [venv](https://docs.python.org/3/library/venv.html).
 For example, with `conda`:

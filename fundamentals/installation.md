@@ -163,8 +163,28 @@ Don't worry, you only have to go through this process once when you install a ne
 
 ### installing the Windows bundle
 
-(Guide coming soon...
-In the meantime, if you try it and encounter issues, see below for how to contact us.)
+Once you have downloaded the Windows bundle zip you will have a zip file with a name like
+`napari-0.3.7-Windows.zip`. Unzip the bundle (you may like to use a tool like
+[7-zip](https://www.7-zip.org/) for this) and double click on msi file, eg: `napari-0.3.7.msi`
+
+The napari setup wizard will then open. Click "Next" to begin the installation.
+
+![image: Windows napari setup wizar]({{ '/assets/tutorials/installation/windows_bundle_installer_start.png' | relative_url }})
+
+![image: Windows napari setup wizard in progress]({{ '/assets/tutorials/installation/windows_bundle_installer_progress.png' | relative_url }})
+
+After the setup wizard has installed napari, click "Finish" to exit.
+
+![image: Windows napari setup wizard finished]({{ '/assets/tutorials/installation/windows_bundle_installer_finish.png' | relative_url }})
+
+Now you will be able to launch napari from the Windows start menu.
+
+![image: Windows launch napari from start menu]({{ '/assets/tutorials/installation/windows_launch_napari.png' | relative_url }})
+
+When you launch the bundled napari app on Windows, first you'll see an empty command terminal appear (do not close this window), and then the main napari user interface window will appear a few seconds later.
+
+The very first time you launch napari the startup time will be fairly slow, but after that you will find that napari launches more quickly.
+
 
 ### installing the Linux bundle
 

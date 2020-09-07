@@ -133,24 +133,24 @@ appears bellow:
 ![image]({{ '/assets/tutorials/installation/bundle_dev_warning.png' | relative_url }})
 
 Don't be alarmed, this is because the napari team has not yet obtained a developer certificate
-from Apple, but we will be doing this promtly. It is safe to click `Cancel`. To get napari to
-open you must enter `Systems Preferences` and click the `Security & Privacy` icon, circled in
+from Apple, but we will be doing this promptly. It is safe to click "Cancel". To get napari to
+open you must enter "Systems Preferences" and click the "Security & Privacy" icon, circled in
 red below:
 
 ![image]({{ '/assets/tutorials/installation/bundle_security_privacy.png' | relative_url }})
 
-Once inside the `Security & Privacy` tab you should see a message about napari being blocked
-and an `Open Anyway` button, circled in red below:
+Once inside the "Security & Privacy" tab, you should see a message about napari being blocked
+and an "Open Anyway" button, circled in red below:
 
 ![image]({{ '/assets/tutorials/installation/bundle_open_anyway.png' | relative_url }})
 
 After clicking this button you'll get one final warning about napari not being verified, but
-now you'll have an `Open` button, as seen below:
+now you'll have an "Open" button, as seen below:
 
 ![image]({{ '/assets/tutorials/installation/bundle_open.png' | relative_url }})
 
-Now you'll finally see the napari viewer appear, but don't worry, you only have to go through
-this process once when you install a new bundle.
+After clicking "Open", the viewer should appear.
+Don't worry, you only have to go through this process once when you install a new bundle.
 
 ## bug reports
 

@@ -161,6 +161,16 @@ now you'll have an "Open" button, as seen below:
 After clicking "Open", the viewer should appear.
 Don't worry, you only have to go through this process once when you install a new bundle.
 
+### installing the Windows bundle
+
+(Guide coming soon...
+In the meantime, if you try it and encounter issues, see below for how to contact us.)
+
+### installing the Linux bundle
+
+(Guide coming soon...
+In the meantime, if you try it and encounter issues, see below for how to contact us.)
+
 ## bug reports
 
 If you are running into issues,

@@ -30,6 +30,15 @@ conda activate napari-env
 pip install napari[all]
 ```
 
+### from conda-forge
+
+If you prefer to manage packages with conda, napari is available on the conda-forge channel.
+You can install it with:
+
+```sh
+conda install -c conda-forge napari
+```
+
 ### install from the master branch on Github
 
 To install the "next-release" version from github via pip, call

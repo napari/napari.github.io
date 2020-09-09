@@ -169,7 +169,7 @@ Once you have downloaded the Windows bundle zip you will have a zip file with a 
 
 The napari setup wizard will then open. Click "Next" to begin the installation.
 
-![image: Windows napari setup wizar]({{ '/assets/tutorials/installation/windows_bundle_installer_start.png' | relative_url }})
+![image: Windows napari setup wizard]({{ '/assets/tutorials/installation/windows_bundle_installer_start.png' | relative_url }})
 
 ![image: Windows napari setup wizard in progress]({{ '/assets/tutorials/installation/windows_bundle_installer_progress.png' | relative_url }})
 

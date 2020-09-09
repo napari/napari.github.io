@@ -191,9 +191,6 @@ The very first time you launch napari the startup time will be fairly slow, but 
 (Guide coming soon...
 In the meantime, if you try it and encounter issues, see below for how to contact us.)
 
-Once you have downloaded the Linux bundle zip you will have a zip file with a name like
-`napari-0.3.7-Linux.zip`.
-
 ## bug reports
 
 If you are running into issues,

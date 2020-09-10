@@ -19,4 +19,4 @@
 - [annotating a segmentation with text and bounding boxes]({{ '/applications/annotate_segmentation' | relative_url }})
 - [making a simple application to annotate points in a time series]({{ '/applications/annotate_points' | relative_url }})
 - [using dask & dask_image to view and process large datasets with arbitrary formats]({{ '/applications/dask' | relative_url }})
-- [running imagej and napari side by side]({{ '/applications/napari_imageJ' | relative_url })
+- [running imagej and napari side by side]({{ '/applications/napari_imageJ' | relative_url }})

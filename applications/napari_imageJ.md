@@ -13,7 +13,7 @@ import napari, sys
 if len(sys.argv) <= 1:
     print('Please specify one or more images as arguments.')
     exit(1)
-
+    
 try:
     import imagej
 except ImportError:
@@ -60,7 +60,7 @@ import napari
 with napari.gui_qt():
     napari.Viewer()
 ```
-When napari comes up, open the Jupyter Qt console and type:
+#### 2. When napari comes up, open the Jupyter Qt console and type:
 ```python
 import imagej
 ij = imagej.init(headless=False)
@@ -95,7 +95,7 @@ To fix this we can use either of these 3 following methods :
 
 3. Using ImageJ’s [Script Editor](https://imagej.net/Using_the_Script_Editor)
 
-##### 2. Starting napari + ImageJ from plain Python (without napari's Qt Console)
+##### 3. Starting napari + ImageJ from plain Python (without napari's Qt Console)
 Here is a plain Python script that starts up Qt and spins up ImageJ without use of napari's Qt Console. 
 
 ``` python
@@ -121,9 +121,9 @@ if __name__ == "__main__":
 
 Note that the app.exec_() call blocks the main thread, because Qt takes it over as its GUI/main thread. On macOS, the main thread is the only thread that works for Qt to use as its GUI/main thread.
 
-##### 3. Starting napari+ImageJ from IPython
+##### 4. Starting napari+ImageJ from IPython
 A code that successfully starts ImageJ from IPython 
-**NOTE: First initialize Qt using %gui qt or at launch via ipython --gui=qt
+**NOTE: First Initialize Qt using %gui qt or at launch via ipython --gui=qt
 ```python
 def start_imagej():
     import imagej
@@ -136,3 +136,6 @@ QtCore.QTimer.singleShot(0, start_imagej)
 ```
 
 This how-to-guide is an adaptation of demos provided by [Curtis Rueden](https://forum.image.sc/u/ctrueden) on [https://forum.image.sc/](https://forum.image.sc/t/read-images-with-imagej-display-them-with-napari/32156) platform. 
+
+```
+End of the program```

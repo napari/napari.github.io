@@ -23,15 +23,14 @@ Each track can have annotations associated with it using the `Tracks.properties`
 These properties can be used to set the colors of the tracks.
 
 For example, when displaying tracks of different classes/types,
-one could automatically set color the individual points by their respective class/type.
+one could automatically set color the individual tracks by their respective class/type.
 
 ## a simple example
 
-You can create a new viewer and add a set of points in one go using the `napari.view_points` method,
+You can create a new viewer and add a set of tracks in one go using the `napari.view_tracks` method,
 or if you already have an existing viewer,
-you can add points to it using `viewer.add_points`.
+you can add tracks to it using `viewer.add_tracks`.
 The api of both methods is the same.
-In these examples we'll mainly use `add_points` to overlay points onto on an existing image.
 
 In this example of we will overlay some tracks on an image from the Hubble space telescope:
 
@@ -67,7 +66,7 @@ with napari.gui_qt():
 
 ![image]({{ '/assets/tutorials/add_points.png' | relative_url }})
 
-## arguments of view_points and add_points
+## arguments of view_tracks and add_tracks
 
 Both `view_tracks` and `add_tracks` have the following doc strings:
 
@@ -133,7 +132,7 @@ The input data to the tracks layer must be an NxD numpy array
 containing the coordinates of N verticies with a track ID and coordinate in D dimensions. 
 The ordering of these dimensions is the same as the ordering of the dimensions for image layers.
 This array is always accessible through the `layer.data` property
-and will grow or shrink as new points are either added or deleted.
+and will grow or shrink as new tracks are either added or deleted.
 
 Consider a set of 4D tracks data (time + 3 spatial dimensions) defined below. The `Tracks` layer assumes the first column is the `track_id`, the second column is the time axis, and columns 3-5 are Z, Y, and X, respectively. Each row is one vertex in a track. All vertices with the same `track_id` are joined into a single track. In this case, we have defined 2 tracks: track 0, which goes from [10, 10, 10] to [20, 10, 10] and track 1, which goes from [10, 8, 5] to [7, 8, 10] (coordinates written as [x, y z]\).
 
@@ -198,10 +197,6 @@ As we will see below, we can use the values in a property to set the display pro
 All our layers can be rendered in both 2D and 3D mode,
 and one of our viewer buttons can toggle between each mode.
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
-See for example these points overlaid on an image in both 2D and 3D:
-
-![image]({{ '/assets/tutorials/smFISH.gif' | relative_url }})
-
 
 ## changing track width
 We can specify the width of the tracks in pixels. The track width can be specified via the `tail_width` keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that as already been constructed, we can set the track width via the `layer.tail_width` property.
@@ -233,7 +228,7 @@ Additionally, we can adjust the width of the track in the GUI using the "tail le
 
 
 ## setting the track color with properties
-We can color the tracks by mapping colors to the track properties defined in `Tracks.properties`. If we define properties and pass them via the properties keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods, we can then select the property we would like to color the tracks by in the "color by" dropdown menu in the `Tracks` layer controls. We can additionally specify the 
+We can color the tracks by mapping colors to the track properties defined in `Tracks.properties`. If we define properties and pass them via the properties keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods, we can then select the property we would like to color the tracks by in the "color by" dropdown menu in the `Tracks` layer controls. We can additionally specify the colormap used to map the property value to color via the "colormap" dropdown menu.
 
 ```python
 import napari
@@ -269,10 +264,6 @@ with napari.gui_qt():
     viewer.add_tracks(tracks_data, properties=properties)
 ```
 
-
-To specify which colormap to apply, we can use the `colormaps_dict` argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. The `colormaps_dict` is a dictionary where the keys are the property name and the value is the colormap to use for that property name. We can specify colormaps for the 
-
-
 ## layer visibility
 
 All our layers support a visibility toggle that allows you to set the `visible` property of each layer.
@@ -282,8 +273,7 @@ This property is located inside the layer widget in the layers list and is repre
 
 All our layers support an opacity slider and `opacity` property
 that allow you to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
-The opacity value applies globally to all the points in the layer,
-and so you don't need to have any points selected for it to have an effect.
+The opacity value applies globally to all the tracks in the layer.
 
 ## blending layers
 
@@ -326,7 +316,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 
 ## putting it all together
 
-Here you can see an example of adding, selecting, deleting points and change their properties:
+Here you can see an example of 3D+t tracks. You can view the source code for this example [here](https://github.com/napari/napari/blob/master/examples/tracks_3d.py)
 
 ![image]({{ '/assets/tutorials/editing_points.gif' | relative_url }})
 
@@ -336,7 +326,6 @@ Hopefully, this tutorial has given you a detailed understanding of the `Tracks` 
 including how to create one and control its properties.
 To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.
-The [shapes layer](./shapes) tutorial is a great one to try next
-as it describes more complex shapes and interactivity.
+
 
 {% include footer.md %}

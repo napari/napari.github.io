@@ -129,40 +129,69 @@ layer : napari.layers.Tracks
 
 ## tracks data
 
-The input data to the points layer must be an NxD numpy array
-containing the coordinates of N points in D dimensions.
+The input data to the tracks layer must be an NxD numpy array
+containing the coordinates of N verticies with a track ID and coordinate in D dimensions. 
 The ordering of these dimensions is the same as the ordering of the dimensions for image layers.
 This array is always accessible through the `layer.data` property
 and will grow or shrink as new points are either added or deleted.
 
-## tracks parent_graph
+Consider a set of 4D tracks data (time + 3 spatial dimensions) defined below. The `Tracks` layer assumes the first column is the `track_id`, the second column is the time axis, and columns 3-5 are Z, Y, and X, respectively. Each row is one vertex in a track. All vertices with the same `track_id` are joined into a single track. In this case, we have defined 2 tracks: track 0, which goes from [10, 10, 10] to [20, 10, 10] and track 1, which goes from [10, 8, 5] to [7, 8, 10] (coordinates written as [x, y z]\).
 
-## using the points properties dictionary
+| track_id | t | z  | y  | x  |
+|----------|---|----|----|----|
+| 0        | 0 | 10 | 10 | 10 |
+| 0        | 1 | 10 | 10 | 20 |
+| 1        | 0 | 5  | 8  | 10 |
+| 1        | 1 | 10 | 8  | 7  |
 
-The `Points` layer can contain properties that annotate each point.
-`Points.properties` stores the properties in a dictionary
+We can pass the example data above to the tracks layer as follows:
+
+```python
+
+tracks_data = [
+    [0, 0, 10, 10, 10],
+    [0, 1, 10, 10, 20],
+    [1, 0, 5, 8, 10],
+    [1, 1, 10, 8, 7]
+]
+
+with napari.gui_qt():
+    viewer = napari.view_tracks(tracks_data)
+
+```
+
+
+## tracks graph
+
+We can use the tracks `graph` argument to define the relationships between tracks (e.g., tracks merging or tracks splitting. The graph is defined as a dictionary where the keys are the `track_id` and the values are the `track_id` of the parents of the the key.
+
+For example, if we have a track 0, which splits into tracks 1 and 2 (i.e., track 0 is the parent of tracks 1 and 2), we would define the graph as:
+
+```python
+graph = {
+    1: [0],
+    2: [0]
+}
+```
+If later tracks 1 and 2 merge into track 3 (i.e,. tracks 1 and 2 are the parent of track 3), the dictionary would become
+
+```python
+graph = {
+    1: [0],
+    2: [0],
+    3: [1, 2]  
+}
+```
+For a full example of 3d+t tracks data with a parent graph, please see our [`tracks_3d_with_graph.py` example](https://github.com/napari/napari/blob/master/examples/tracks_3d_with_graph.py).
+
+## using the tracks properties dictionary
+
+The `Tracks` layer can contain properties that annotate each point.
+`Tracks.properties` stores the properties in a dictionary
 where each key is the name of the property
-and the values are numpy arrays with a value for each point (i.e., length N for N points in `Points.data`).
-As we will see below, we can use the values in a property to set the display properties of the points (e.g., face color or edge color).
-To see the points properties in action,
-please see the [point annotation tutorial](../applications/annotate_points).
+and the values are numpy arrays with a value for each vertex in the track (i.e., length N for N vertices in `Tracks.data`).
+As we will see below, we can use the values in a property to set the display properties of the tracks (e.g., the track color).
 
-## creating a new tracks layer
-
-As you can add new points to a points layer using the add points tool,
-it is possible to create a brand new empty points layers
-by clicking the new points layer button above the layers list.
-The shape of the points layer is defined by the points inside it,
-and so as you add new points the shape will adjust as needed.
-The dimension of the new points layer will default to the largest dimension of any layer currently in the viewer,
-or to 2 if no other layers are present in the viewer.
-
-## non-editable mode
-
-If you want to disable editing of the points layer
-you can set the `editable` property of the layer to `False`.
-
-As note in the section on 3D rendering, when using 3D rendering the points layer is not editable.
 
 ## 3D rendering of tracks
 
@@ -173,20 +202,75 @@ See for example these points overlaid on an image in both 2D and 3D:
 
 ![image]({{ '/assets/tutorials/smFISH.gif' | relative_url }})
 
-Note though that when entering 3D rendering mode
-the point add, delete, and select tools are all disabled.
-Those options are only supported when viewing a layer using 2D rendering.
-
 
 ## changing track width
+We can specify the width of the tracks in pixels. The track width can be specified via the `tail_width` keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that as already been constructed, we can set the track width via the `layer.tail_width` property.
 
+```python
+# create a tracks layer with a tail width of 5 pixels
+viewer = napari.view_tracks(data, tail_width=5, name="my_tracks")
 
-## changing track colors
+# update the tail width to 3 pixels
+viewer.layers["my_tracks"].tail_width = 3
+
+```
+
+Additionally, we can adjust the width of the track in the GUI using the "tail width" slider in the Tracks layer controls.
+
+## changing tail length
+We can specify the length of the tails of the tracks in time units. The tail is the portion of the track displayed from previous time steps. The track tail length can be specified via the `tail_length ` keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that as already been constructed, we can set the track width via the `tail_length ` property.
+
+```python
+# create a tracks layer with a tail length of 5 time units
+viewer = napari.view_tracks(data, tail_length=5, name="my_tracks")
+
+# update the tail width to 3 pixels
+viewer.layers["my_tracks"].tail_length = 3
+
+```
+
+Additionally, we can adjust the width of the track in the GUI using the "tail length" slider in the Tracks layer controls.
 
 
 ## setting the track color with properties
+We can color the tracks by mapping colors to the track properties defined in `Tracks.properties`. If we define properties and pass them via the properties keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods, we can then select the property we would like to color the tracks by in the "color by" dropdown menu in the `Tracks` layer controls. We can additionally specify the 
+
+```python
+import napari
+from skimage import data
+
+hubble_image = data.hubble_deep_field()
+
+tracks_data = np.asarray([
+    [1, 0, 236, 0],
+    [1, 1, 236, 100],
+    [1, 2, 236, 200],
+    [1, 3, 236, 500],
+    [1, 4, 236, 1000],
+    [2, 0, 436, 0],
+    [2, 1, 436, 100],
+    [2, 2, 436, 200],
+    [2, 3, 436, 500],
+    [2, 4, 436, 1000],
+    [3, 0, 636, 0],
+    [3, 1, 636, 100],
+    [3, 2, 636, 200],
+    [3, 3, 636, 500],
+    [3, 4, 636, 1000]
+])
+track_confidence = np.array(5*[0.9] + 5*[0.3] + 5 * [0.1])
+properties = {
+    'time': tracks_data[:, 1],
+    'confidence': track_confidence
+}
+
+with napari.gui_qt():
+    viewer = napari.view_image(hubble_image)
+    viewer.add_tracks(tracks_data, properties=properties)
+```
 
 
+To specify which colormap to apply, we can use the `colormaps_dict` argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. The `colormaps_dict` is a dictionary where the keys are the property name and the value is the colormap to use for that property name. We can specify colormaps for the 
 
 
 ## layer visibility

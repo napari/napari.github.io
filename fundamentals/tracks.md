@@ -40,7 +40,7 @@ from skimage import data
 
 hubble_image = data.hubble_deep_field()
 
-tracks_data = np.asarray([
+tracks_data = [
     [1, 0, 236, 0],
     [1, 1, 236, 100],
     [1, 2, 236, 200],
@@ -56,7 +56,7 @@ tracks_data = np.asarray([
     [3, 2, 636, 200],
     [3, 3, 636, 500],
     [3, 4, 636, 1000]
-])
+]
 
 with napari.gui_qt():
     viewer = napari.view_image(test_im, name='image')

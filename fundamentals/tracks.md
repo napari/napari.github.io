@@ -143,7 +143,7 @@ Consider a set of 4D tracks data (time + 3 spatial dimensions) defined below. Th
 | 1        | 0 | 5  | 8  | 10 |
 | 1        | 1 | 10 | 8  | 7  |
 
-We can pass the example data above to the tracks layer as follows:
+The data in the array must be sorted by increasing `track_id` then time, as shown above.  We can pass the example data above to the tracks layer as follows:
 
 ```python
 
@@ -162,7 +162,7 @@ with napari.gui_qt():
 
 ## tracks graph
 
-We can use the tracks `graph` argument to define the relationships between tracks (e.g., tracks merging or tracks splitting. The graph is defined as a dictionary where the keys are the `track_id` and the values are the `track_id` of the parents of the the key.
+We can use the tracks `graph` argument to define the relationships between tracks (e.g., tracks merging or tracks splitting). The graph is defined as a dictionary where the keys are the `track_id` and the values are the `track_id` of the parents of the the key.
 
 For example, if we have a track 0, which splits into tracks 1 and 2 (i.e., track 0 is the parent of tracks 1 and 2), we would define the graph as:
 
@@ -185,7 +185,7 @@ For a full example of 3d+t tracks data with a parent graph, please see our [`tra
 
 ## using the tracks properties dictionary
 
-The `Tracks` layer can contain properties that annotate each point.
+The `Tracks` layer can contain properties that annotate the vertices of each track.
 `Tracks.properties` stores the properties in a dictionary
 where each key is the name of the property
 and the values are numpy arrays with a value for each vertex in the track (i.e., length N for N vertices in `Tracks.data`).

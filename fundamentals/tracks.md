@@ -128,13 +128,11 @@ layer : napari.layers.Tracks
 
 ## tracks data
 
-The input data to the tracks layer must be an NxD numpy array
-containing the coordinates of N verticies with a track ID and coordinate in D dimensions. 
-The ordering of these dimensions is the same as the ordering of the dimensions for image layers.
+The input data to the tracks layer must be an NxD+1 numpy array or list containing the coordinates of N vertices with a track ID and coordinate in D dimensions. The ordering of these dimensions is the same as the ordering of the dimensions for image layers.
 This array is always accessible through the `layer.data` property
 and will grow or shrink as new tracks are either added or deleted.
 
-Consider a set of 4D tracks data (time + 3 spatial dimensions) defined below. The `Tracks` layer assumes the first column is the `track_id`, the second column is the time axis, and columns 3-5 are Z, Y, and X, respectively. Each row is one vertex in a track. All vertices with the same `track_id` are joined into a single track. In this case, we have defined 2 tracks: track 0, which goes from [10, 10, 10] to [20, 10, 10] and track 1, which goes from [10, 8, 5] to [7, 8, 10] (coordinates written as [x, y z]\).
+Consider the set of 4D tracks data (time + 3 spatial dimensions) defined below. The `Tracks` layer assumes the first column is the `track_id`, the second column is the time axis, and columns 3-5 are Z, Y, and X, respectively. Each row is one vertex in a track. All vertices with the same `track_id` are joined into a single track. In this case, we have defined 2 tracks: track 0, which goes from [10, 10, 10] to [20, 10, 10] and track 1, which goes from [10, 8, 5] to [7, 8, 10] (coordinates written as [x, y z]\).
 
 | track_id | t | z  | y  | x  |
 |----------|---|----|----|----|

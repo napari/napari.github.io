@@ -12,6 +12,7 @@
 - [points layer tutorial]({{ '/fundamentals/points' | relative_url }})
 - [shapes layer tutorial]({{ '/fundamentals/shapes' | relative_url }})
 - [surface layer tutorial]({{ '/fundamentals/surface' | relative_url }})
+- [tracks layer tutorial]({{ '/fundamentals/tracks' | relative_url }})
 - [vectors layer tutorial]({{ '/fundamentals/vectors' | relative_url }})
 
 ### applications

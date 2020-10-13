@@ -1,6 +1,6 @@
 # single cell tracking with napari
 
-In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data.
+In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the `Tracks` layer. For an overview of the `Tracks` layer, please see the tutorial.
 
 1. Visualization of a Cell tracking challenge dataset
 2. Single cell tracking using btrack and napari
@@ -8,15 +8,25 @@ In this application note, we will use napari (requires version 0.4.0 or greater)
 
 ## cell tracking challenge data
 [cell tracking challenge](http://celltrackingchallenge.net/3d-datasets/)  
-[dataset](http://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip)
 
-The volumetric data is anisotropic
-```python
-SCALE = (1.0, 1.0, 0.09, 0.09)
-```
+A full description of the data format can be found [here](https://public.celltrackingchallenge.net/documents/Naming%20and%20file%20content%20conventions.pdf).
 
 
 ### extracting the tracks from the dataset
+
+We will use [dataset](http://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip)
+
+```python
+PATH = '/path/to/Fluo-N3DH-CE/'
+```
+
+The image data is volumetric and anisotropic. We can use the `scale` feature of napari layers to set the voxel size where the z dimension is different to the size in the x and y dimensions. From the dataset,
+the voxel size (XYZ) in microns is 0.09 x 0.09 x 1.0. Therefore we can set the scale for the layers as:
+
+```python
+# scale factor for dimensions in TZYX order
+SCALE = (1.0, 1.0, 0.09, 0.09)
+```
 
 ### calculating the graph using the lineage information
 
@@ -63,20 +73,27 @@ We can visualize the tracks in napari. Note that we need to initialize and inter
 with napari.gui_qt():
     viewer = napari.Viewer()
     viewer.add_image(images, scale=SCALE)
-    viewer.add_points(tracks[:, 1:], size=1, scale=SCALE)
-    viewer.add_tracks(tracks, properties=properties, graph=graph, scale=SCALE)
+    viewer.add_points(data[:, 1:], size=1, scale=SCALE)
+    viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE)
 ```
 
 ---
 
 ## using `btrack` to track cells
 
+The `btrack` library can be used for cell tracking. It provides a convenient `to_napari` function to enable rapid visualization of the tracking results.
+
+```python
+import btrack
+import napari
+```
+
 
 ```python
 with btrack.BayesianTracker() as tracker:
 
     # configure the tracker using a config file
-    tracker.configure_from_file('../models/cell_config.json')
+    tracker.configure_from_file('cell_config.json')
 
     tracker.append(objects)
     tracker.volume=((0,1600), (0,1200), (-1e5,1e5))
@@ -89,13 +106,14 @@ with btrack.BayesianTracker() as tracker:
     data, properties, graph = tracker.to_napari(ndim=2)
 ```
 
-
-We can test the segmentation and view it in napari. Note that we need to initialize and interact with the napari view in the `with napari.gui_qt()` context manager in order to ensure the GUI is property initialized.
-
-
+```python
+with napari.gui_qt():
+    viewer = napari.Viewer()
+    viewer.add_tracks(data, properties=properties, graph=graph)
+```
 
 ## summary
-In this tutorial, we have used napari to view and annotate segmentation results.
+In this tutorial, we have used napari to track and visualize single cells.
 
 ## further reading
 

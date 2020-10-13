@@ -24,11 +24,11 @@ First we need to extract the centroids and track labels from the annotated datas
 import os
 import napari
 
-from skimage.io import imread
-from skimage.measurements import regionprops_table
-
 import numpy as np
 import pandas as pd
+
+from skimage.io import imread
+from skimage.measurements import regionprops_table
 ```
 
 Start by loading the images containing the centroids and unique track labels.
@@ -45,12 +45,38 @@ def load_image(idx: int):
     idx : int
         Index of the image to load.
     """
-    filename = os.path.join(PATH, '01_GT/TRA', f'man_track{i:0>3}.tif')
+    filename = os.path.join(PATH, '01_GT/TRA', f'man_track{idx:0>3}.tif')
     return imread(filename)
 
 stack = np.asarray([load_image(i) for i in range(NUM_IMAGES)])
 ```
 
+For each image in the time-lapse sequence, we will now extract the unique track label (`track_id`), centroid and timestamp.
+
+```python
+def regionprops_plus_time(idx):
+    """Return the unique track label, centroid and time for each track vertex.
+
+    Parameters
+    ----------
+    idx : int
+        Index of the image to calculate the centroids and track labels.
+    """
+    props = regionprops_table(stack[idx, ...], properties=('label', 'centroid'))
+    props['frame'] = np.ones(props['label'].shape) * idx
+    return pd.DataFrame(props)
+
+data_df = [regionprops_plus_time(idx) for idx in range(NUM_IMAGES)]
+data_df = pd.concat(data_df)
+
+# sort the data lexicographically by track_id then time
+data_df = data_df.reset_index(drop=True)
+data_df = data_df.sort_values(['label', 'frame'], ignore_index=True)
+
+# create the final data array, track_id, T, Z, Y, X
+data = data_df.loc[:, ['label','frame','centroid-0','centroid-1','centroid-2']]
+data = data.to_numpy()
+```
 
 ### calculating the graph using the lineage information
 
@@ -103,7 +129,7 @@ roots = {k: root(k) for k in full_graph.keys()}
 
 The `Tracks` layer enables the vertices of the tracks to be colored by user specified properties. Here, we will create a property which represents the `root_id` of each tree, so that cells with a common ancestor are colored the same:
 ```python
-properties = {'root_id': [roots[idx] for idx in tracks[:, 0]]}
+properties = {'root_id': [roots[idx] for idx in data[:, 0]]}
 ```
 
 ### visualizing the tracks with napari
@@ -120,7 +146,7 @@ We can now visualize the tracks in napari. Note that we need to initialize and i
 ```python
 with napari.gui_qt():
     viewer = napari.Viewer()
-    viewer.add_image(images, scale=SCALE)
+    viewer.add_image(images, scale=SCALE, name='Fluo-N3DH-CE')
     viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE)
 ```
 
@@ -128,7 +154,7 @@ with napari.gui_qt():
 
 ## using `btrack` to track cells
 
-The `btrack` library can be used for cell tracking. It provides a convenient `to_napari` function to enable rapid visualization of the tracking results.
+The `btrack` library can be used for cell tracking. It provides a convenient `to_napari()` function to enable rapid visualization of the tracking results.
 
 ```python
 import btrack

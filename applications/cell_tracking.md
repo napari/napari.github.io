@@ -7,18 +7,15 @@ In this application note, we will use napari (requires version 0.4.0 or greater)
 
 
 ## cell tracking challenge data
-[cell tracking challenge](http://celltrackingchallenge.net/3d-datasets/)  
+
+The first example of track visualization uses data from the [cell tracking challenge](http://celltrackingchallenge.net/3d-datasets/). We will use the *C. elegans* developing embryo [dataset](http://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip) which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.
 
 A full description of the data format can be found [here](https://public.celltrackingchallenge.net/documents/Naming%20and%20file%20content%20conventions.pdf).
 
-We will use the *C. elegans* developing embryo [dataset](http://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip).
-
-![image]({{ '/assets/tutorials/tracks_isbi.png' | relative_url }})
-![image](/assets/tutorials/tracks_isbi.png)
 
 ### extracting the tracks from the dataset
 
-First we need to extract the centroids and track labels from the annotated dataset.
+We need to extract the centroids of each cell and their associated track labels from the annotated dataset. We start by loading the images containing the centroids and unique track labels:
 
 ```python
 import os
@@ -29,11 +26,7 @@ import pandas as pd
 
 from skimage.io import imread
 from skimage.measurements import regionprops_table
-```
 
-Start by loading the images containing the centroids and unique track labels.
-
-```python
 PATH = '/path/to/Fluo-N3DH-CE/'
 NUM_IMAGES = 195
 
@@ -80,7 +73,10 @@ data = data.to_numpy()
 
 ### calculating the graph using the lineage information
 
-In the cell tracking challenge dataset, cell lineage information is stored in a text file `man_track.txt`.  The graph information is stored in the following format:
+The `Tracks` layer can also be used to visualize a track 'graph' using the additional keyword argument `graph`. The `graph`  represents associations between tracks, by defining the
+mapping between a `track_id` and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events.
+
+In the cell tracking challenge dataset, cell lineage information is stored in a text file `man_track.txt` in the following format:
 
 > A text file representing an acyclic graph for the whole video. Every line corresponds
 to a single track that is encoded by four numbers separated by a space:  
@@ -89,8 +85,7 @@ to a single track that is encoded by four numbers separated by a space:
 > E - a zero-based temporal index of the frame in which the track ends  
 > P - label of the parent track (0 is used when no parent is defined)  
 
-First, we load the text file and convert it to a Nx4 integer numpy array, where the rows represent tracks
-and the columns represent L, B, E and P:
+To extract the graph, we load the text file and convert it to a Nx4 integer numpy array, where the rows represent individual tracks and the columns represent L, B, E and P:
 ```python
 lbep = np.loadtxt(os.path.join(PATH, '01_GT/TRA', 'man_track.txt'), dtype=np.uint)
 ```
@@ -134,33 +129,48 @@ properties = {'root_id': [roots[idx] for idx in data[:, 0]]}
 
 ### visualizing the tracks with napari
 
-Finally, we need to adjust the data to account for the anisotropic nature of the image data. We can use the `scale` feature of napari layers to set the voxel size where the z dimension is different to the size in the x and y dimensions. From the dataset, the voxel size (XYZ) in microns is 0.09 x 0.09 x 1.0. Therefore we can set the scale for the layers as:
+Alongside the tracks, we can also visualize the fluorescence imaging data.
+
+```python
+timelapse = [imread(os.path.join(PATH, '01', f't{i:0>3}.tif')) for i in range(NUM_IMAGES)]
+```
+
+Finally, we need to adjust the scaling of the data to account for the anisotropic nature of the images. We can use the `scale` feature of napari layers to set the voxel size where the z dimension is different to the size in the x and y dimensions. From the dataset, the voxel size (XYZ) in microns is 0.09 x 0.09 x 1.0. Therefore we can set the scale for the layers as:
 
 ```python
 # scale factor for dimensions in TZYX order
 SCALE = (1.0, 1.0, 0.09, 0.09)
 ```
 
-We can now visualize the tracks in napari. Note that we need to initialize and interact with the napari viewer in the `with napari.gui_qt()` context manager in order to ensure the GUI is property initialized.
+We can now visualize the tracks in napari. Note that we need to initialize and interact with the napari viewer in the `with napari.gui_qt()` context manager in order to ensure the GUI is properly initialized.
 
 ```python
 with napari.gui_qt():
     viewer = napari.Viewer()
-    viewer.add_image(images, scale=SCALE, name='Fluo-N3DH-CE')
-    viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE)
+    viewer.add_image(timelapse, scale=SCALE, name='Fluo-N3DH-CE')
+    viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE, name='tracks')
 ```
+
+![image]({{ '/assets/tutorials/tracks_isbi.png' | relative_url }})
+![image](../assets/tutorials/tracks_isbi.png)
 
 ---
 
 ## using `btrack` to track cells
 
-The `btrack` library can be used for cell tracking. It provides a convenient `to_napari()` function to enable rapid visualization of the tracking results.
+The `btrack` library can be used for cell tracking. It provides a convenient `to_napari()` function to enable rapid visualization of the tracking results. You can learn more about the `btrack` library [here](https://github.com/quantumjot/BayesianTracker).
 
 ```python
 import btrack
-import napari
 ```
 
+We start by loading a file containing the centroids of all the found cells in each frame of the source movie. Note that this file only contains the locations of cells in the movie, there are no tracks yet. We can use the `btrack` library to load this file as a list of `objects` that contain information about each cell, including the TZYX position.
+
+```python
+objects = btrack.dataio.import_CSV('napari_example.csv')
+```
+
+Next we initialize a `btrack.BayesianTracker` instance using a context manager to ensure the library is properly initialized. The tracker performs the process of linking individual cell observations into tracks and the associated track graph:
 
 ```python
 with btrack.BayesianTracker() as tracker:
@@ -179,6 +189,14 @@ with btrack.BayesianTracker() as tracker:
     data, properties, graph = tracker.to_napari(ndim=2)
 ```
 
+We set the configuration of the tracker using a configuration file using the `.configure_from_file()` method. An the example configuration file can be found [here](https://github.com/quantumjot/BayesianTracker/blob/master/models/cell_config.json).
+
+The objects loaded earlier are added to the tracker using the `.append()` method. We also set the imaging volume using the `volume` property. As this is a 2D dataset, the limits of the volume are set to the XY dimensions of the image dataset, and the Z dimension is set to be large (±1e5).
+
+Next, the objects are linked into tracks using the `.track_interactive()` method. The `step_size` argument specifies how many steps are taken before reporting the tracking statistics. The `.optimize()` method then performs a global optimization on the dataset and creates lineage trees automatically.
+
+Finally, the `.to_napari()` method returns the track vertices, track properties and graph in a format that can be directly visualized using the napari `Tracks` layer:
+
 ```python
 with napari.gui_qt():
     viewer = napari.Viewer()
@@ -186,16 +204,20 @@ with napari.gui_qt():
 ```
 
 ![image]({{ '/assets/tutorials/tracks_btrack.png' | relative_url }})
-![image](/assets/tutorials/tracks_btrack.png)
+![image](../assets/tutorials/tracks_btrack.png)
 
 ## summary
 In this tutorial, we have used napari to track and visualize single cells.
 
 ## further reading
 
-[Documentation on dask.delayed](https://docs.dask.org/en/latest/delayed.html)
+References for cell tracking challenge:  
++ http://dx.doi.org/10.1093/bioinformatics/btu080  
++ http://dx.doi.org/10.1038/nmeth.4473  
 
-http://dx.doi.org/10.1093/bioinformatics/btu080
-http://dx.doi.org/10.1038/nmeth.4473
+Arboretum plugin for napari:
++ [btrack](https://github.com/quantumjot/BayesianTracker)
++ [arboretum](https://github.com/quantumjot/arboretum)
++ [biorxiv preprint](https://www.biorxiv.org/content/early/2020/09/10/2020.09.10.276980)
 
 {% include footer.md %}

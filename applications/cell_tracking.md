@@ -1,6 +1,6 @@
 # single cell tracking with napari
 
-In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the `Tracks` layer. For an overview of the `Tracks` layer, please see the tutorial.
+In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the `Tracks` layer. For an overview of the `Tracks` layer, please see the [tracks layer fundamentals tutorial]({{ '/fundamentals/tracks' | relative_url }}).
 
 1. Visualization of a Cell tracking challenge dataset
 2. Single cell tracking using btrack and napari
@@ -37,6 +37,10 @@ def load_image(idx: int):
     ----------
     idx : int
         Index of the image to load.
+    Returns
+    -------
+    image : np.ndarray
+       The image specified by the index, idx
     """
     filename = os.path.join(PATH, '01_GT/TRA', f'man_track{idx:0>3}.tif')
     return imread(filename)
@@ -44,7 +48,7 @@ def load_image(idx: int):
 stack = np.asarray([load_image(i) for i in range(NUM_IMAGES)])
 ```
 
-For each image in the time-lapse sequence, we will now extract the unique track label (`track_id`), centroid and timestamp.
+For each image in the time-lapse sequence, we will now extract the unique track label (`track_id`), centroid and timestamp in order to create the track data we will pass to the `Tracks` layer. For more information on the format of the track data, please see the "tracks data" section of the [tracks layer fundamentals tutorial]({{ '/fundamentals/tracks' | relative_url }}).
 
 ```python
 def regionprops_plus_time(idx):
@@ -54,6 +58,10 @@ def regionprops_plus_time(idx):
     ----------
     idx : int
         Index of the image to calculate the centroids and track labels.
+    Returns
+    -------
+    data_df : pd.DataFrame
+       The dataframe of track data for one time step (specified by idx).
     """
     props = regionprops_table(stack[idx, ...], properties=('label', 'centroid'))
     props['frame'] = np.ones(props['label'].shape) * idx
@@ -74,7 +82,7 @@ data = data.to_numpy()
 ### calculating the graph using the lineage information
 
 The `Tracks` layer can also be used to visualize a track 'graph' using the additional keyword argument `graph`. The `graph`  represents associations between tracks, by defining the
-mapping between a `track_id` and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events.
+mapping between a `track_id` and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track `graph`, please see the "tracks graph" section of the [tracks layer fundamentals tutorial]({{ '/fundamentals/tracks' | relative_url }}).
 
 In the cell tracking challenge dataset, cell lineage information is stored in a text file `man_track.txt` in the following format:
 
@@ -215,7 +223,7 @@ References for cell tracking challenge:
 + http://dx.doi.org/10.1093/bioinformatics/btu080  
 + http://dx.doi.org/10.1038/nmeth.4473  
 
-Arboretum plugin for napari:
+For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:
 + [btrack](https://github.com/quantumjot/BayesianTracker)
 + [arboretum](https://github.com/quantumjot/arboretum)
 + [biorxiv preprint](https://www.biorxiv.org/content/early/2020/09/10/2020.09.10.276980)

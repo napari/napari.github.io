@@ -2,7 +2,8 @@
 
 In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the `Tracks` layer. For an overview of the `Tracks` layer, please see the [tracks layer fundamentals tutorial]({{ '/fundamentals/tracks' | relative_url }}).
 
-1. Visualization of a Cell tracking challenge dataset
+This application note covers two examples:
+1. Visualization of a cell tracking challenge dataset
 2. Single cell tracking using btrack and napari
 
 
@@ -37,6 +38,7 @@ def load_image(idx: int):
     ----------
     idx : int
         Index of the image to load.
+
     Returns
     -------
     image : np.ndarray
@@ -58,6 +60,7 @@ def regionprops_plus_time(idx):
     ----------
     idx : int
         Index of the image to calculate the centroids and track labels.
+
     Returns
     -------
     data_df : pd.DataFrame
@@ -141,6 +144,7 @@ Alongside the tracks, we can also visualize the fluorescence imaging data.
 
 ```python
 timelapse = [imread(os.path.join(PATH, '01', f't{i:0>3}.tif')) for i in range(NUM_IMAGES)]
+timelapse = np.asarray(timelapse)
 ```
 
 Finally, we need to adjust the scaling of the data to account for the anisotropic nature of the images. We can use the `scale` feature of napari layers to set the voxel size where the z dimension is different to the size in the x and y dimensions. From the dataset, the voxel size (XYZ) in microns is 0.09 x 0.09 x 1.0. Therefore we can set the scale for the layers as:
@@ -160,7 +164,6 @@ with napari.gui_qt():
 ```
 
 ![image]({{ '/assets/tutorials/tracks_isbi.gif' | relative_url }})
-![image](../assets/tutorials/tracks_isbi.gif)
 
 ---
 
@@ -212,7 +215,8 @@ with napari.gui_qt():
 ```
 
 ![image]({{ '/assets/tutorials/tracks_btrack.png' | relative_url }})
-![image](../assets/tutorials/tracks_btrack.png)
+
+A notebook for this example can be found in the btrack examples directory ([`napari_btrack.ipynb`](https://github.com/quantumjot/BayesianTracker/blob/master/examples/napari_btrack.ipynb))
 
 ## summary
 In this application note, we have used napari to track and visualize single cells.
@@ -220,6 +224,7 @@ In this application note, we have used napari to track and visualize single cell
 ## further reading
 
 References for cell tracking challenge:  
++ https://www.nature.com/articles/nmeth.1228
 + http://dx.doi.org/10.1093/bioinformatics/btu080  
 + http://dx.doi.org/10.1038/nmeth.4473  
 

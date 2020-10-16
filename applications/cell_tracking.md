@@ -125,6 +125,11 @@ def root(node: int):
     ----------
     node : int
         the track_id of the starting graph node.
+
+    Returns
+    -------
+    root_id : int
+       The track_id of the root of the track specified by idx.
     """
     if node == full_graph[node]:
         return node

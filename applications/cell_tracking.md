@@ -26,7 +26,7 @@ import numpy as np
 import pandas as pd
 
 from skimage.io import imread
-from skimage.measurements import regionprops_table
+from skimage.measure import regionprops_table
 
 PATH = '/path/to/Fluo-N3DH-CE/'
 NUM_IMAGES = 195
@@ -82,6 +82,15 @@ data = data_df.loc[
 ].to_numpy()
 ```
 
+This represents the minimum amount of information to display tracks in napari, and can already be visualised.
+At this point, there is no concept of track *links*, lineages, or tracks splitting or merging.
+These single tracks are sometimes known as tracklets:
+
+```python
+with napari.gui_qt():
+    napari.view_tracks(data, name='tracklets')
+```
+
 ### calculating the graph using the lineage information
 
 The `Tracks` layer can also be used to visualize a track 'graph' using the additional keyword argument `graph`. The `graph`  represents associations between tracks, by defining the
@@ -101,11 +110,10 @@ To extract the graph, we load the text file and convert it to a Nx4 integer nump
 lbep = np.loadtxt(os.path.join(PATH, '01_GT/TRA', 'man_track.txt'), dtype=np.uint)
 ```
 
-We can then create a dictionary representing the graph, where the key is the unique track label (L) and the value is the label of the parent track (P). We make a small change to the format here, to set the
-parent label equal to the track label if there is no parent defined.  
+We can then create a dictionary representing the graph, where the key is the unique track label (L) and the value is the label of the parent track (P).
 
 ```python
-full_graph = {row[0]: row[3] if row[3]>0 else row[0] for row in lbep}
+full_graph = dict(lbep[:, [0, 3]])
 ```
 
 Finally, we remove the root nodes (*i.e.* cells without a parent) for visualization with the `Tracks` layer:
@@ -130,7 +138,7 @@ def root(node: int):
     Returns
     -------
     root_id : int
-       The track_id of the root of the track specified by idx.
+       The track_id of the root of the track specified by node.
     """
     if full_graph[node] == 0:  # we found the root
         return node
@@ -189,7 +197,9 @@ We start by loading a file containing the centroids of all the found cells in ea
 objects = btrack.dataio.import_CSV('napari_example.csv')
 ```
 
-Next, we set up a `btrack.BayesianTracker` instance using a context manager to ensure the library is properly initialized. The tracker performs the process of linking individual cell observations into tracks and the generating the associated track graph:
+Next, we set up a `btrack.BayesianTracker` instance using a context manager to ensure the library is properly initialized. The `objects` are added to the tracker using the `.append()` method. We also set the imaging volume using the `volume` property. As this is a 2D dataset, the limits of the volume are set to the XY dimensions of the image dataset, while the Z dimension is set to be very large (±1e5). In this case, setting the Z limits of the volume to be very large penalises tracks which initialize or terminate in the centre of the XY plane, unless they can be explained by corresponding cell division or death events.
+
+ The tracker performs the process of linking individual cell observations into tracks and the generating the associated track graph:
 
 ```python
 with btrack.BayesianTracker() as tracker:
@@ -208,10 +218,8 @@ with btrack.BayesianTracker() as tracker:
     data, properties, graph = tracker.to_napari(ndim=2)
 ```
 
-We set the configuration of the tracker using a configuration file using the `.configure_from_file()` method.
-An example configuration file can be found [here](https://github.com/quantumjot/BayesianTracker/blob/master/models/cell_config.json).
+We set the configuration of the tracker using a configuration file using the `.configure_from_file()` method. An example configuration file can be found [here](https://github.com/quantumjot/BayesianTracker/blob/master/models/cell_config.json).
 
-The objects loaded earlier are added to the tracker using the `.append()` method. We also set the imaging volume using the `volume` property. As this is a 2D dataset, the limits of the volume are set to the XY dimensions of the image dataset, and the Z dimension is set to be large (±1e5).
 
 Next, the objects are linked into tracks using the `.track_interactive()` method. The `step_size` argument specifies how many steps are taken before reporting the tracking statistics. The `.optimize()` method then performs a global optimization on the dataset and creates lineage trees automatically.
 
@@ -225,7 +233,7 @@ with napari.gui_qt():
 
 ![image]({{ '/assets/tutorials/tracks_btrack.png' | relative_url }})
 
-A notebook for this example can be found in the btrack examples directory ([`napari_btrack.ipynb`](https://github.com/quantumjot/BayesianTracker/blob/master/examples/napari_btrack.ipynb))
+A notebook for this example can be found in the btrack examples directory ([`napari_btrack.ipynb`](https://github.com/quantumjot/BayesianTracker/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb))
 
 ## summary
 In this application note, we have used napari to track and visualize single cells.
@@ -240,6 +248,5 @@ References for cell tracking challenge:
 For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:
 + [btrack](https://github.com/quantumjot/BayesianTracker)
 + [arboretum](https://github.com/quantumjot/arboretum)
-+ [biorxiv preprint](https://www.biorxiv.org/content/early/2020/09/10/2020.09.10.276980)
 
 {% include footer.md %}

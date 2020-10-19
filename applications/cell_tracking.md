@@ -67,19 +67,19 @@ def regionprops_plus_time(idx):
        The dataframe of track data for one time step (specified by idx).
     """
     props = regionprops_table(stack[idx, ...], properties=('label', 'centroid'))
-    props['frame'] = np.ones(props['label'].shape) * idx
+    props['frame'] = np.full(props['label'].shape, idx)
     return pd.DataFrame(props)
 
-data_df = [regionprops_plus_time(idx) for idx in range(NUM_IMAGES)]
-data_df = pd.concat(data_df)
+data_df_raw = pd.concat(
+    [regionprops_plus_time(idx) for idx in range(NUM_IMAGES)]
+).reset_index(drop=True)
+# sort the data lexicographically by track_id and time
+data_df = data_df_raw.sort_values(['label', 'frame'], ignore_index=True)
 
-# sort the data lexicographically by track_id then time
-data_df = data_df.reset_index(drop=True)
-data_df = data_df.sort_values(['label', 'frame'], ignore_index=True)
-
-# create the final data array, track_id, T, Z, Y, X
-data = data_df.loc[:, ['label','frame','centroid-0','centroid-1','centroid-2']]
-data = data.to_numpy()
+# create the final data array: track_id, T, Z, Y, X
+data = data_df.loc[
+    :, ['label', 'frame', 'centroid-0', 'centroid-1', 'centroid-2']
+].to_numpy()
 ```
 
 ### calculating the graph using the lineage information
@@ -110,16 +110,17 @@ full_graph = {row[0]: row[3] if row[3]>0 else row[0] for row in lbep}
 
 Finally, we remove the root nodes (*i.e.* cells without a parent) for visualization with the `Tracks` layer:
 ```python
-graph = {k: v for k, v in full_graph.items() if k != v}
+graph = {k: v for k, v in full_graph.items() if v != 0}
 ```
 
 ### traversing the lineage trees to identify the root nodes
 
 One property that is useful to visualize in single cell tracking is the `track_id` of the root node of the lineage trees, *i.e.* the founder cell.
+We create it with the following code:
 
 ```python
 def root(node: int):
-    """ Recursive function to determine the root node of each graph.
+    """Recursive function to determine the root node of each subgraph.
 
     Parameters
     ----------
@@ -131,7 +132,7 @@ def root(node: int):
     root_id : int
        The track_id of the root of the track specified by idx.
     """
-    if node == full_graph[node]:
+    if full_graph[node] == 0:  # we found the root
         return node
     return root(full_graph[node])
 
@@ -148,8 +149,9 @@ properties = {'root_id': [roots[idx] for idx in data[:, 0]]}
 Alongside the tracks, we can also visualize the fluorescence imaging data.
 
 ```python
-timelapse = [imread(os.path.join(PATH, '01', f't{i:0>3}.tif')) for i in range(NUM_IMAGES)]
-timelapse = np.asarray(timelapse)
+timelapse = np.asarray(
+    [imread(os.path.join(PATH, '01', f't{i:0>3}.tif')) for i in range(NUM_IMAGES)]
+)
 ```
 
 Finally, we need to adjust the scaling of the data to account for the anisotropic nature of the images. We can use the `scale` feature of napari layers to set the voxel size where the z dimension is different to the size in the x and y dimensions. From the dataset, the voxel size (XYZ) in microns is 0.09 x 0.09 x 1.0. Therefore we can set the scale for the layers as:
@@ -159,7 +161,8 @@ Finally, we need to adjust the scaling of the data to account for the anisotropi
 SCALE = (1.0, 1.0, 0.09, 0.09)
 ```
 
-We can now visualize the tracks in napari. Note that we need to initialize and interact with the napari viewer in the `with napari.gui_qt()` context manager in order to ensure the GUI is properly initialized.
+We can now visualize the full, linked tracks in napari!
+Remember that we need to initialize and interact with the napari viewer in the `with napari.gui_qt()` context manager in order to ensure the GUI is properly initialized.
 
 ```python
 with napari.gui_qt():
@@ -205,7 +208,8 @@ with btrack.BayesianTracker() as tracker:
     data, properties, graph = tracker.to_napari(ndim=2)
 ```
 
-We set the configuration of the tracker using a configuration file using the `.configure_from_file()` method. An the example configuration file can be found [here](https://github.com/quantumjot/BayesianTracker/blob/master/models/cell_config.json).
+We set the configuration of the tracker using a configuration file using the `.configure_from_file()` method.
+An example configuration file can be found [here](https://github.com/quantumjot/BayesianTracker/blob/master/models/cell_config.json).
 
 The objects loaded earlier are added to the tracker using the `.append()` method. We also set the imaging volume using the `volume` property. As this is a 2D dataset, the limits of the volume are set to the XY dimensions of the image dataset, and the Z dimension is set to be large (±1e5).
 

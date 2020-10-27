@@ -179,7 +179,7 @@ After the setup wizard has installed napari, click "Finish" to exit.
 
 When you launch the bundled napari app on Windows, first you'll see an empty command terminal appear (do not close this window - you can ignore it). The command terminal will be followed by a napari splash screen, and then the main napari user interface window will appear a few seconds later. Note that errors which might occur during your napari session will appear on the command terminal - so if something is not working, it might pay to take a look at the terminal!
 
-
+![image: Windows command terminal on napari launch]({{ '/assets/tutorials/installation/windows_bundle_command_terminal.png' | relative_url }})
 
 You can launch napari from the Windows start menu.
 

@@ -177,11 +177,13 @@ After the setup wizard has installed napari, click "Finish" to exit.
 
 ![image: Windows napari setup wizard finished]({{ '/assets/tutorials/installation/windows_bundle_installer_finish.png' | relative_url }})
 
-Now you will be able to launch napari from the Windows start menu.
+When you launch the bundled napari app on Windows, first you'll see an empty command terminal appear (do not close this window - you can ignore it). The command terminal will be followed by a napari splash screen, and then the main napari user interface window will appear a few seconds later. Note that errors which might occur during your napari session will appear on the command terminal - so if something is not working, it might pay to take a look at the terminal!
+
+![image: Windows command terminal on napari launch]({{ '/assets/tutorials/installation/windows_bundle_command_terminal.png' | relative_url }})
+
+You can launch napari from the Windows start menu.
 
 ![image: Windows launch napari from start menu]({{ '/assets/tutorials/installation/windows_launch_napari.png' | relative_url }})
-
-When you launch the bundled napari app on Windows, first you'll see an empty command terminal appear (do not close this window), and then the main napari user interface window will appear a few seconds later.
 
 The very first time you launch napari the startup time will be fairly slow, but after that you will find that napari launches more quickly.
 

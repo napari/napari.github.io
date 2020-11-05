@@ -1,6 +1,6 @@
 # napari tutorials
 
-source for napari tutorials website
+Source for napari tutorials website
 
 ## Usage
 

@@ -34,6 +34,10 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
 
+    # Test the notebooks
+    - name: Test notebooks
+      run: py.test --nbval-lax -n auto --dist loadscope
+
     # Build the book
     - name: Build the book
       run: |

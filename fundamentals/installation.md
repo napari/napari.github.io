@@ -12,14 +12,13 @@ and be able to make the napari viewer appear.
 ## installation
 
 ### which distribution to install
-If you want to contribute back to napari codebase, you need to install from source code: see the [from source](#from-source) section.
+If you are using napari from Python to programmatically interact with the app, you can install via pip, conda-forge, or from source.
+We recommend that you use conda to help manage the virtual environment. Otherwise you may see compilation issues that are specific to your particular machine, which is difficult for us to debug.
 
 If you do not want to use napari as python code and only use it as GUI app, the bundled app is the easiest way to install.
 This is also the only method that does not require python knowledge to work with napari, see the [from bundled app](https://napari.org/tutorials/fundamentals/installation#installing-as-a-bundled-app) section.
 
-If you are using napari from Python to programmatically interact with the app, you can install via pip, conda-forge, or from source.
-We recommend that you use conda to help manage the virtual environment. Otherwise you may see compilation issues that are specific to your particular machine, which is difficult for us to debug.
-
+If you want to contribute back to napari codebase, you need to install from source code: see the [from source](#from-source) section.
 
 ### from pip, with "batteries included"
 

@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Napari + ImageJ How-to-Guide &#8212; napari tutorials</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="single cell tracking with napari" href="cell_tracking.html" />
+    <link rel="prev" title="using dask and napari to process &amp; view large datasets" href="dask.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.ico" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">napari tutorials</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   napari tutorials
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gallery.html">
+   napari gallery
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../fundamentals/README.html">
+   Fundamentals
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="README.html">
+   Applications
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="annotate_segmentation.html">
+     annotating segmentation with text and bounding boxes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="annotate_points.html">
+     annotating videos with napari
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="dask.html">
+     using dask and napari to process &amp; view large datasets
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Napari + ImageJ How-to-Guide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cell_tracking.html">
+     single cell tracking with napari
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/applications/napari_imageJ.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reading-image-with-imagej-and-viewing-them-with-napari">
+   Reading Image with ImageJ and Viewing them with Napari
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-imagej-and-napari-side-by-side">
+   Using ImageJ and Napari side-by-side
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#issues-with-using-imagej-and-napari-simultaneously">
+     Issues with using ImageJ and Napari simultaneously
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simultaneously-using-imagej-and-napari-in-various-environments">
+     Simultaneously using ImageJ and Napari in various environments
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#running-napari-imagej-from-plain-python">
+       1. Running napari+ImageJ from plain Python
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#starting-napari-imagej-from-plain-python-without-napari-s-qt-console">
+       2. Starting napari + ImageJ from plain Python (without napari’s Qt Console)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#starting-napari-imagej-from-ipython">
+       3. Starting napari+ImageJ from IPython
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="napari-imagej-how-to-guide">
+<h1>Napari + ImageJ How-to-Guide<a class="headerlink" href="#napari-imagej-how-to-guide" title="Permalink to this headline">¶</a></h1>
+<p>ImageJ is a Java-based image processing program that provides extensibility via Java plugins and recordable macros. It can display, edit, analyze, process, save, and print 8-bit color and grayscale, 16-bit integer, and 32-bit floating point images. It can read many image file formats, including TIFF, PNG, GIF, JPEG, BMP, DICOM, and FITS, as well as raw formats. It has a plethora of features that can be checked out <a class="reference external" href="https://en.wikipedia.org/wiki/ImageJ#Features">here</a>.</p>
+<p>People who wish to try their hands on ImageJ can do so by downloading and installing it using this <a class="reference external" href="https://imagej.net/Fiji/Downloads">link</a></p>
+<div class="section" id="reading-image-with-imagej-and-viewing-them-with-napari">
+<h2>Reading Image with ImageJ and Viewing them with Napari<a class="headerlink" href="#reading-image-with-imagej-and-viewing-them-with-napari" title="Permalink to this headline">¶</a></h2>
+<p>Here we first cut at reading images with SCIFIO+Bio-Formats via PyimageJ into NumPy arrays
+and then display them with Napari.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span><span class="o">,</span> <span class="nn">sys</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Please specify one or more images as arguments.&#39;</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imagej</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;This example uses ImageJ but pyimagej is not</span>
+<span class="s2">    installed. To install try &#39;conda install pyimagej&#39;.&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&gt; Initializing imagej&#39;</span><span class="p">)</span>
+    <span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s1">&#39;sc.fiji:fiji&#39;</span><span class="p">)</span> <span class="c1"># Fiji includes Bio-Formats.</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&gt; Reading </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">ij</span><span class="o">.</span><span class="n">io</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">ij</span><span class="o">.</span><span class="n">py</span><span class="o">.</span><span class="n">from_java</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="n">ij</span><span class="o">.</span><span class="n">getContext</span><span class="p">()</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+
+    <span class="n">viewer</span><span class="o">.</span><span class="n">grid_view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-imagej-and-napari-side-by-side">
+<h2>Using ImageJ and Napari side-by-side<a class="headerlink" href="#using-imagej-and-napari-side-by-side" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="issues-with-using-imagej-and-napari-simultaneously">
+<h3>Issues with using ImageJ and Napari simultaneously<a class="headerlink" href="#issues-with-using-imagej-and-napari-simultaneously" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Threading concerns with macOS i.e. to display the Fiji user interface, Java AWT must be started on the Cocoa event loop, however, attempting to invoke the napari viewer from the Cocoa event loop thread crashes the program with errors.</p></li>
+<li><p>If we code a script to open napari and ImageJ together then</p>
+<ul>
+<li><p>The napari UI starts,</p></li>
+<li><p>But, the script blocks until the close of napari viewer window.</p></li>
+<li><p>Even after closing the window, the ImageJ UI never appears even though the code to start ImageJ does then execute.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="simultaneously-using-imagej-and-napari-in-various-environments">
+<h3>Simultaneously using ImageJ and Napari in various environments<a class="headerlink" href="#simultaneously-using-imagej-and-napari-in-various-environments" title="Permalink to this headline">¶</a></h3>
+<p>Due to behavioural differences between plain Python and IPython we use slightly different approaches to run ImageJ and python simultaneously in each different environment.</p>
+<div class="section" id="running-napari-imagej-from-plain-python">
+<h4>1. Running napari+ImageJ from plain Python<a class="headerlink" href="#running-napari-imagej-from-plain-python" title="Permalink to this headline">¶</a></h4>
+<p>Firstly import napari</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When napari comes up, open the Jupyter Qt console and type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">imagej</span>
+<span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ij</span><span class="o">.</span><span class="n">ui</span><span class="p">()</span><span class="o">.</span><span class="n">showUI</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This works because the console in napari is running in the correctly initialized Qt GUI/main thread. However,if we even touch the Java UI from Python it locks up i.e.  Python will now lock up even for the simplest line of code such as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ij</span><span class="o">.</span><span class="n">ui</span><span class="p">()</span><span class="o">.</span><span class="n">showDialog</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To fix this we can use either of these 3 following methods :</p>
+<ol>
+<li><p>Use Java’s EventQueue to queue the task on the Java event dispatch thread:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jnius</span> <span class="kn">import</span> <span class="n">PythonJavaClass</span><span class="p">,</span> <span class="n">java_method</span><span class="p">,</span> <span class="n">autoclass</span>
+<span class="k">class</span> <span class="nc">JavaRunnable</span><span class="p">(</span><span class="n">PythonJavaClass</span><span class="p">):</span>
+    <span class="n">__javainterfaces__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;java/lang/Runnable&#39;</span><span class="p">]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">JavaRunnable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_f</span> <span class="o">=</span> <span class="n">f</span>
+
+    <span class="nd">@java_method</span><span class="p">(</span><span class="s1">&#39;()V&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_f</span><span class="p">()</span>
+
+<span class="n">EventQueue</span> <span class="o">=</span> <span class="n">autoclass</span><span class="p">(</span><span class="s1">&#39;java.awt.EventQueue&#39;</span><span class="p">)</span>
+<span class="n">EventQueue</span><span class="o">.</span><span class="n">invokeLater</span><span class="p">(</span><span class="n">JavaRunnable</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">ij</span><span class="o">.</span><span class="n">ui</span><span class="p">()</span><span class="o">.</span><span class="n">showDialog</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)))</span>
+</pre></div>
+</div>
+</li>
+<li><p>Use the SciJava ScriptService:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ij</span><span class="o">.</span><span class="n">script</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;.groovy&#39;</span><span class="p">,</span> <span class="s2">&quot;#@ ImageJ ij</span><span class="se">\n</span><span class="s2">ij.ui().showDialog(&#39;hello&#39;)&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Using ImageJ’s <a class="reference external" href="https://imagej.net/Using_the_Script_Editor">Script Editor</a></p></li>
+</ol>
+</div>
+<div class="section" id="starting-napari-imagej-from-plain-python-without-napari-s-qt-console">
+<h4>2. Starting napari + ImageJ from plain Python (without napari’s Qt Console)<a class="headerlink" href="#starting-napari-imagej-from-plain-python-without-napari-s-qt-console" title="Permalink to this headline">¶</a></h4>
+<p>Here is a plain Python script that starts up Qt and spins up ImageJ without use of napari’s Qt Console.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">setQuitOnLastWindowClosed</span><span class="p">(</span> <span class="kc">True</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">start_imagej</span><span class="p">():</span>
+        <span class="kn">import</span> <span class="nn">imagej</span>
+        <span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ij</span><span class="o">.</span><span class="n">getVersion</span><span class="p">())</span>
+        <span class="n">ij</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Launched ImageJ&quot;</span><span class="p">)</span>
+
+    <span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_imagej</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that the app.exec_() call blocks the main thread, because Qt takes it over as its GUI/main thread. On macOS, the main thread is the only thread that works for Qt to use as its GUI/main thread.</p>
+</div>
+<div class="section" id="starting-napari-imagej-from-ipython">
+<h4>3. Starting napari+ImageJ from IPython<a class="headerlink" href="#starting-napari-imagej-from-ipython" title="Permalink to this headline">¶</a></h4>
+<p>A code that successfully starts ImageJ from IPython
+**NOTE: First initialize Qt using %gui qt or at launch via ipython –gui=qt</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">start_imagej</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">imagej</span>
+    <span class="k">global</span> <span class="n">ij</span>
+    <span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ij</span><span class="o">.</span><span class="n">ui</span><span class="p">()</span><span class="o">.</span><span class="n">showUI</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ij</span><span class="o">.</span><span class="n">getVersion</span><span class="p">())</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span>
+<span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_imagej</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This how-to-guide is an adaptation of demos provided by <a class="reference external" href="https://forum.image.sc/u/ctrueden">Curtis Rueden</a> on <a class="reference external" href="https://forum.image.sc/t/read-images-with-imagej-display-them-with-napari/32156">https://forum.image.sc/</a> platform.</p>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./applications"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="dask.html" title="previous page">using dask and napari to process &amp; view large datasets</a>
+    <a class='right-next' id="next-link" href="cell_tracking.html" title="next page">single cell tracking with napari</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

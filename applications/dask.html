@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>using dask and napari to process &amp; view large datasets &#8212; napari tutorials</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Napari + ImageJ How-to-Guide" href="napari_imageJ.html" />
+    <link rel="prev" title="annotating videos with napari" href="annotate_points.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.ico" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">napari tutorials</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   napari tutorials
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gallery.html">
+   napari gallery
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../fundamentals/README.html">
+   Fundamentals
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="README.html">
+   Applications
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="annotate_segmentation.html">
+     annotating segmentation with text and bounding boxes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="annotate_points.html">
+     annotating videos with napari
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     using dask and napari to process &amp; view large datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="napari_imageJ.html">
+     Napari + ImageJ How-to-Guide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cell_tracking.html">
+     single cell tracking with napari
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/applications/dask.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-dask-delayed-to-load-images">
+   using dask.delayed to load images
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#make-your-life-easier-with-dask-image">
+   make your life easier with
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     dask-image
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#side-note-regarding-higher-dimensional-datasets">
+     <strong>
+      side note regarding higher-dimensional datasets
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#processing-data-with-dask-array-map-blocks">
+   processing data with
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     dask.array.map_blocks
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-reading">
+   Further Reading
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="using-dask-and-napari-to-process-view-large-datasets">
+<h1>using dask and napari to process &amp; view large datasets<a class="headerlink" href="#using-dask-and-napari-to-process-view-large-datasets" title="Permalink to this headline">¶</a></h1>
+<p>Often in microscopy, multidimensional data is acquired and written to disk in many small files,
+each of which contain a subset of one or more dimensions from the complete dataset.
+For example, in a 5-dimensional experiment
+(e.g. 3D z-stacks acquired for multiple channels at various moments over time),
+each file on disk might be a 3D TIFF stack from a single channel at a single timepoint.
+Data may also be stored in some proprietary format.
+As the size of the dataset grows,
+viewing arbitrary slices (in time, channel, z) of these datasets can become cumbersome.</p>
+<p>Chunked file formats exist (such as <a class="reference external" href="https://support.hdfgroup.org/HDF5/">hdf5</a> and <a class="reference external" href="https://zarr.readthedocs.io/en/stable/">zarr</a>) that store data in a way that makes it easier to retrieve arbitrary subsets of the dataset, but they require either data duplication, or “committing” to a new file standard.</p>
+<blockquote>
+<div><p><strong>Note</strong>: This tutorial is not meant to promote a folder of TIFFs as a “good way” to store large datasets on disk;
+but it is undoubtedly a common scenario in microscopy.
+Chunked formats such as <code class="docutils literal notranslate"><span class="pre">hdf5</span></code> or <code class="docutils literal notranslate"><span class="pre">zarr</span></code> are superior in many ways,
+but they do require the user to either duplicate their data
+or go “all in” and delete the original data after conversion.
+And while <code class="docutils literal notranslate"><span class="pre">napari</span></code> can easily handle something like a <code class="docutils literal notranslate"><span class="pre">zarr</span></code> store,
+it can be a bit more limiting inasmuch as it requires programs that are capable of viewing it (i.e. you can’t necessarily just drag it into Fiji …)</p>
+</div></blockquote>
+<p>The first part of this tutorial demonstrates how to use <a class="reference external" href="https://docs.dask.org/en/latest/"><code class="docutils literal notranslate"><span class="pre">Dask</span></code></a>
+and <a class="reference external" href="https://docs.dask.org/en/latest/delayed.html"><code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code></a>
+(or <a class="reference external" href="https://github.com/dask/dask-image"><code class="docutils literal notranslate"><span class="pre">dask_image</span></code></a>) to feed <code class="docutils literal notranslate"><span class="pre">napari</span></code> image data “<a class="reference external" href="https://en.wikipedia.org/wiki/Lazy_evaluation">lazily</a>”:
+that is, the specific image file corresponding to the requested timepoint/channel
+is only read from disk at the moment it is required
+(based on the current position of the dimension sliders in <code class="docutils literal notranslate"><span class="pre">napari</span></code>).
+Additionally, we will see that <em>any</em> function that takes a filepath
+and returns a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array can be used to lazily read image data.
+This can be useful if you have a proprietary format that is not immediately recognized by <code class="docutils literal notranslate"><span class="pre">napari</span></code>
+(but for which you have at least some way of reading into a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array)</p>
+<p>In some cases, data must be further processed prior to viewing,
+such as a deskewing step for images acquired on a stage-scanning light sheet microscope.
+Or perhaps you’d like to apply some basic image corrections or ratiometry prior to viewing.
+The second part of this tutorial demonstrates the use of the <a class="reference external" href="https://docs.dask.org/en/latest/array-api.html#dask.array.map_blocks"><code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code></a> function
+to describe an arbitrary sequence of functions in a declarative manner
+that will be performed <em>on demand</em> as you explore the data (i.e. move the sliders) in <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p>
+<div class="section" id="using-dask-delayed-to-load-images">
+<h2>using dask.delayed to load images<a class="headerlink" href="#using-dask-delayed-to-load-images" title="Permalink to this headline">¶</a></h2>
+<p>If you have a function that can take a filename and return a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array,
+such as <code class="docutils literal notranslate"><span class="pre">skimage.io.imread</span></code>,
+you can create a “lazy” version of that function by calling <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code> on the function itself.
+This <em>new</em> function, when handed a filename,
+will not actually read the file until explicitly asked with the <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">from</span> <span class="nn">dask</span> <span class="kn">import</span> <span class="n">delayed</span>
+
+<span class="n">lazy_imread</span> <span class="o">=</span> <span class="n">delayed</span><span class="p">(</span><span class="n">imread</span><span class="p">)</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">lazy_imread</span><span class="p">(</span><span class="s1">&#39;/path/to/file.tif&#39;</span><span class="p">)</span>  <span class="c1"># doesn&#39;t actually read the file</span>
+<span class="n">array</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>  <span class="c1"># *now* it reads.</span>
+</pre></div>
+</div>
+<p>(If you have an unusual image format,
+but you <em>do</em> have a python function that returns a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array,
+simply substitute it for <code class="docutils literal notranslate"><span class="pre">skimage.io.imread</span></code> in the example above).</p>
+<p>We can create a <a class="reference external" href="https://docs.dask.org/en/latest/array.html">Dask array</a> of delayed file-readers
+for <em>all</em> of the files in our multidimensional experiment using the <code class="docutils literal notranslate"><span class="pre">dask.array.from_delayed</span></code> function
+and a <a class="reference external" href="https://docs.python.org/3/library/glob.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code></a> filename pattern
+(<em>this example assumes that all files are of the same <code class="docutils literal notranslate"><span class="pre">shape</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code>!</em>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">from</span> <span class="nn">skimage.io.collection</span> <span class="kn">import</span> <span class="n">alphanumeric_key</span>
+<span class="kn">from</span> <span class="nn">dask</span> <span class="kn">import</span> <span class="n">delayed</span>
+<span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+
+<span class="n">filenames</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/path/to/experiment/*.tif&quot;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">alphanumeric_key</span><span class="p">)</span>
+<span class="c1"># read the first file to get the shape and dtype</span>
+<span class="c1"># ASSUMES THAT ALL FILES SHARE THE SAME SHAPE/TYPE</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">lazy_imread</span> <span class="o">=</span> <span class="n">delayed</span><span class="p">(</span><span class="n">imread</span><span class="p">)</span>  <span class="c1"># lazy reader</span>
+<span class="n">lazy_arrays</span> <span class="o">=</span> <span class="p">[</span><span class="n">lazy_imread</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+<span class="n">dask_arrays</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">da</span><span class="o">.</span><span class="n">from_delayed</span><span class="p">(</span><span class="n">delayed_reader</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">sample</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">delayed_reader</span> <span class="ow">in</span> <span class="n">lazy_arrays</span>
+<span class="p">]</span>
+<span class="c1"># Stack into one large dask.array</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">dask_arrays</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># (nfiles, nz, ny, nx)</span>
+
+<span class="c1"># in jupyter notebook the repr of a dask stack provides a useful visual:</span>
+<span class="n">stack</span>
+</pre></div>
+</div>
+<p>![image]({{ ‘/assets/tutorials/dask_repr.png’ | relative_url }})</p>
+<p><em>No data has been read from disk yet!</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> is capable of consuming Dask arrays,
+so you can simply call <code class="docutils literal notranslate"><span class="pre">napari.view_image</span></code> on this <code class="docutils literal notranslate"><span class="pre">stack</span></code> and behind the scenes,
+Dask will take care of reading the data from disk
+and handing a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array to <code class="docutils literal notranslate"><span class="pre">napari</span></code> each time a new timepoint or channel is requested.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="c1"># specify contrast_limits and is_pyramid=False with big data</span>
+    <span class="c1"># to avoid unnecessary computations</span>
+    <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Note: providing the</em> <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">multiscale</span></code> <em>arguments prevents</em> <code class="docutils literal notranslate"><span class="pre">napari</span></code> <em>from trying to calculate the data min/max, which can take an extremely long time with big data.
+See <a class="reference external" href="https://github.com/napari/napari/issues/736">napari issue #736</a> for further discussion.</em></p>
+</div>
+<div class="section" id="make-your-life-easier-with-dask-image">
+<h2>make your life easier with <code class="docutils literal notranslate"><span class="pre">dask-image</span></code><a class="headerlink" href="#make-your-life-easier-with-dask-image" title="Permalink to this headline">¶</a></h2>
+<p>This pattern for creating a <code class="docutils literal notranslate"><span class="pre">dask.array</span></code> from image data
+has been previously described in an <a class="reference external" href="https://blog.dask.org/2019/06/20/load-image-data">excellent blog post</a> by John Kirkham.
+It is a common-enough pattern that John created a useful library (<a class="reference external" href="https://github.com/dask/dask-image"><code class="docutils literal notranslate"><span class="pre">dask-image</span></code></a>)
+that does all this for you,
+provided your image format can be read by the <a class="reference external" href="https://github.com/soft-matter/pims"><code class="docutils literal notranslate"><span class="pre">pims</span></code></a> (Python Image Sequence) reader
+(if not, see note above about providing your own reader function with <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code>).</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">dask-image</span></code>, <em>all</em> of the above code can be simplified to 5 lines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">dask_image.imread</span> <span class="kn">import</span> <span class="n">imread</span>
+
+<span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/path/to/experiment/*.tif&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">is_pyramid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>{% include image.html url=”/assets/tutorials/dask1.gif” description=”mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope” %}</p>
+<div class="section" id="side-note-regarding-higher-dimensional-datasets">
+<h3><strong>side note regarding higher-dimensional datasets</strong><a class="headerlink" href="#side-note-regarding-higher-dimensional-datasets" title="Permalink to this headline">¶</a></h3>
+<p>In the above example, it would be quite common to have a 5+ dimensional dataset
+(e.g. different timepoints <em>and</em> channels represented among the 3D TIFF files in a folder).
+A standard approach to deal with that sort of thing in <code class="docutils literal notranslate"><span class="pre">numpy</span></code> would be to <code class="docutils literal notranslate"><span class="pre">reshape</span></code> the array after instantiation.
+With Dask, reshaping arrays can <em>sometimes</em> lead to unexpected read events if you’re not careful.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask_image.imread</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/path/to/experiment/*.tif&#39;</span><span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># -&gt; something like (1200, 64, 256, 280)</span>
+<span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>  <span class="c1"># incurs a single file read</span>
+
+<span class="c1"># if there were two channels in that folder you might try to do this:</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">280</span><span class="p">)</span>
+<span class="c1"># but now trying to read just the first timepoint in the first channel:</span>
+<span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>  <span class="c1"># incurs 600 read events!</span>
+</pre></div>
+</div>
+<p>We will update this post as best-practices emerge,
+but one possible solution to this is to avoid reshaping
+Dask arrays altogether, by constructing multiple Dask arrays using <code class="docutils literal notranslate"><span class="pre">dask-image</span></code>, and then using
+<code class="docutils literal notranslate"><span class="pre">da.stack</span></code> to combine them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask_image.imread</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
+
+<span class="c1"># # instead of this</span>
+<span class="c1"># stack = imread(&#39;/path/to/experiment/*.tif&#39;)</span>
+<span class="c1"># stack = stack.reshape(2, 600, 64, 256, 280)</span>
+<span class="c1"># stack[0, 0].compute()  # incurs 600 read events!</span>
+
+<span class="c1"># do something like this:</span>
+<span class="n">file_pattern</span> <span class="o">=</span> <span class="s2">&quot;/path/to/experiment/*ch</span><span class="si">{}</span><span class="s2">*.tif&quot;</span>
+<span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="n">imread</span><span class="p">(</span><span class="n">file_pattern</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nchannels</span><span class="p">)]</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># (2, 600, 64, 256, 280)</span>
+<span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>  <span class="c1"># incurs a single file read</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="processing-data-with-dask-array-map-blocks">
+<h2>processing data with <code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code><a class="headerlink" href="#processing-data-with-dask-array-map-blocks" title="Permalink to this headline">¶</a></h2>
+<p>As previously mentioned,
+sometimes it is desirable to process data prior to viewing.
+We’ll take as an example
+a series of TIFF files acquired on a lattice-light-sheet microscope.
+A typical workflow might be to deskew, deconvolve, and perhaps crop
+or apply some channel registration prior to viewing.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code> we can apply any function that accepts a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array
+and returns a modified array to all the images in our <code class="docutils literal notranslate"><span class="pre">dask.array</span></code>.
+It will be evaluated lazily, when requested (in this case, by <code class="docutils literal notranslate"><span class="pre">napari</span></code>);
+we do not have to wait for it to process the entire dataset.</p>
+<p>Here is an example of a script that will take a folder of raw tiff files,
+and lazily read, deskew, deconvolve, crop,
+and display them, <em>on demand</em> as you move the <code class="docutils literal notranslate"><span class="pre">napari</span></code> dimensions sliders around.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">import</span> <span class="nn">pycudadecon</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">io</span>
+<span class="kn">from</span> <span class="nn">dask_image.imread</span> <span class="kn">import</span> <span class="n">imread</span>
+
+<span class="c1"># load stacks with dask_image, and psf with skimage</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/path/to/experiment/*.tif&quot;</span><span class="p">)</span>
+<span class="n">psf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;/path/to/psf.tif&quot;</span><span class="p">)</span>
+
+<span class="c1"># prepare some functions that accept a numpy array</span>
+<span class="c1"># and return a processed array</span>
+
+<span class="k">def</span> <span class="nf">last3dims</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="c1"># this is just a wrapper because the pycudadecon function</span>
+    <span class="c1"># expects ndims==3 but our blocks will have ndim==4</span>
+    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">func</span>
+
+
+<span class="k">def</span> <span class="nf">crop</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+    <span class="c1"># simple cropping function</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:,</span> <span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="p">:</span><span class="mi">500</span><span class="p">]</span>
+
+<span class="c1"># https://docs.python.org/3.8/library/functools.html#functools.partial</span>
+<span class="n">deskew</span> <span class="o">=</span> <span class="n">last3dims</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">pycudadecon</span><span class="o">.</span><span class="n">deskew_gpu</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mf">31.5</span><span class="p">))</span>
+<span class="n">deconv</span> <span class="o">=</span> <span class="n">last3dims</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">pycudadecon</span><span class="o">.</span><span class="n">decon</span><span class="p">,</span> <span class="n">psf</span><span class="o">=</span><span class="n">psf</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="c1"># note: this is done in two steps just as an example...</span>
+<span class="c1"># in reality pycudadecon.decon also has a deskew argument</span>
+
+<span class="c1"># map and chain those functions across all dask blocks</span>
+<span class="n">deskewed</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">deskew</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;uint16&quot;</span><span class="p">)</span>
+<span class="n">deconvolved</span> <span class="o">=</span> <span class="n">deskewed</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">deconv</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="n">cropped</span> <span class="o">=</span> <span class="n">deconvolved</span><span class="o">.</span><span class="n">map_blocks</span><span class="p">(</span><span class="n">crop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+<span class="c1"># put the resulting dask array into napari.</span>
+<span class="c1"># (don&#39;t forget the contrast limits and is_pyramid==False !)</span>
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span>
+        <span class="n">cropped</span><span class="p">,</span>
+        <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span>
+        <span class="n">is_pyramid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">)</span>
+
+</pre></div>
+</div>
+<p>Of course, the GUI isn’t as responsive as it would be if you had processed the data up front
+and loaded the results into RAM and viewed them in <code class="docutils literal notranslate"><span class="pre">napari</span></code> (it’s doing a lot of work after all!),
+but it’s surprisingly usable,
+and allows you to preview the result of a relatively complex processing pipeline <em>on-the-fly</em>,
+for arbitrary timepoints/channels, while storing <em>only</em> the raw data on disk.</p>
+<p>{% include image.html url=”/assets/tutorials/dask2.gif” description=”same dataset, demonstrating on-the-fly read → deskew → deconvolve → crop” %}</p>
+<p>This workflow is very much patterned after <a class="reference external" href="https://blog.dask.org/2019/08/09/image-itk">another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick</a>
+that describes a similar image processing pipeline using <a class="reference external" href="https://itk.org/">ITK</a>.
+<code class="docutils literal notranslate"><span class="pre">napari</span></code> simply sits at the end of this lazy processing chain,
+ready to show you the result on demand!</p>
+</div>
+<div class="section" id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://docs.dask.org/en/latest/delayed.html">Documentation on dask.delayed</a></p>
+<p><a class="reference external" href="https://blog.dask.org/2019/06/20/load-image-data">Dask working notes on dask-image</a></p>
+<p><a class="reference external" href="https://blog.dask.org/2019/08/09/image-itk">Dask working notes on image processing with <code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code></a></p>
+<p>{% include footer.md %}</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./applications"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="annotate_points.html" title="previous page">annotating videos with napari</a>
+    <a class='right-next' id="next-link" href="napari_imageJ.html" title="next page">Napari + ImageJ How-to-Guide</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

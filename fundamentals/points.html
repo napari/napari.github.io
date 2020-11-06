@@ -1,0 +1,833 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>points layer tutorial &#8212; napari tutorials</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="shapes layer tutorial" href="shapes.html" />
+    <link rel="prev" title="labels layer tutorial" href="labels.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.ico" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">napari tutorials</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   napari tutorials
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gallery.html">
+   napari gallery
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="README.html">
+   Fundamentals
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="installation.html">
+     napari installation tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="getting_started.html">
+     getting started with napari
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="viewer.html">
+     napari viewer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="image.html">
+     image layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="labels.html">
+     labels layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     points layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="shapes.html">
+     shapes layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="surface.html">
+     surface layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tracks.html">
+     tracks layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="vectors.html">
+     vectors layer tutorial
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../applications/README.html">
+   Applications
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/fundamentals/points.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-example">
+   a simple example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#arguments-of-view-points-and-add-points">
+   arguments of view_points and add_points
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#points-data">
+   points data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-points-properties-dictionary">
+   using the points properties dictionary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-a-new-points-layer">
+   creating a new points layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-editable-mode">
+   non-editable mode
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-rendering-of-points">
+   3D rendering of points
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pan-and-zoom-mode">
+   pan and zoom mode
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-deleting-and-selecting-points">
+   adding, deleting, and selecting points
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#changing-points-size">
+   changing points size
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#changing-points-edge-and-face-color">
+   changing points edge and face color
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setting-point-edge-and-face-color-with-properties">
+   setting point edge and face color with properties
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setting-edge-or-face-color-with-a-color-cycle">
+     setting edge or face color with a color cycle
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setting-edge-or-face-color-with-a-colormap">
+     setting edge or face color with a colormap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#changing-the-points-symbol">
+   changing the points symbol
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#copying-and-pasting-points">
+   copying and pasting points
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer-visibility">
+   layer visibility
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer-opacity">
+   layer opacity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#blending-layers">
+   blending layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naming-layers">
+   naming layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scaling-layers">
+   scaling layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#translating-layers">
+   translating layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer-metadata">
+   layer metadata
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#putting-it-all-together">
+   putting it all together
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   next steps
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="points-layer-tutorial">
+<h1>points layer tutorial<a class="headerlink" href="#points-layer-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to the tutorial on the <strong>napari</strong> <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer!</p>
+<p>This tutorial assumes you have already installed <strong>napari</strong>,
+know how to launch the viewer,
+and are familiar with its layout.
+For help with installation see our <a class="reference internal" href="installation.html"><span class="doc std std-doc">installation</span></a> tutorial.
+For help getting started with the viewer see our <a class="reference internal" href="getting_started.html"><span class="doc std std-doc">getting started</span></a> tutorial.
+For help understanding the organisation of the viewer,
+including things like the layers list,
+the layer properties widgets,
+the layer control panels,
+and the dimension sliders
+see our <a class="reference internal" href="viewer.html"><span class="doc std std-doc">napari viewer</span></a> tutorial.</p>
+<p>This tutorial will teach you about the <strong>napari</strong> <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer,
+including displays spots over an image that have been found in an automated fashion,
+or manually annotating an image with points.
+At the end of the tutorial you should understand how to add a points layer
+and edit it from the GUI and from the console.</p>
+<p>The points layer allows you to display an NxD array of N points in D coordinates.
+You can adjust the size, face color, and edge color of all the points independently.
+You can also adjust the opactiy, edge width, and symbol representing all the points simultaneously.</p>
+<p>Each data point can have annotations associated with it using the <code class="docutils literal notranslate"><span class="pre">Points.properties</span></code> dictionary.
+These properties can be used to set the face and edge colors of the points.
+For example, when displaying points of different classes/types,
+one could automatically set color the individual points by their respective class/type.
+For more details on point properties,
+see the “setting point edge and face color with properties” below
+or the <a class="reference internal" href="../applications/annotate_points.html"><span class="doc std std-doc">point annotation tutorial</span></a>.</p>
+<div class="section" id="a-simple-example">
+<h2>a simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>You can create a new viewer and add a set of points in one go using the <code class="docutils literal notranslate"><span class="pre">napari.view_points</span></code> method,
+or if you already have an existing viewer,
+you can add points to it using <code class="docutils literal notranslate"><span class="pre">viewer.add_points</span></code>.
+The api of both methods is the same.
+In these examples we’ll mainly use <code class="docutils literal notranslate"><span class="pre">add_points</span></code> to overlay points onto on an existing image.</p>
+<p>In this example of we will overlay some points on the image of an astronaut:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>![image]({{ ‘/assets/tutorials/add_points.png’ | relative_url }})</p>
+</div>
+<div class="section" id="arguments-of-view-points-and-add-points">
+<h2>arguments of view_points and add_points<a class="headerlink" href="#arguments-of-view-points-and-add-points" title="Permalink to this headline">¶</a></h2>
+<p>Both <code class="docutils literal notranslate"><span class="pre">view_points</span></code> and <code class="docutils literal notranslate"><span class="pre">add_points</span></code> have the following doc strings:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Parameters</span>
+<span class="sd">----------</span>
+<span class="sd">data : array (N, D)</span>
+<span class="sd">    Coordinates for N points in D dimensions.</span>
+<span class="sd">properties : dict {str: array (N,)}, DataFrame</span>
+<span class="sd">    Properties for each point. Each property should be an array of length N,</span>
+<span class="sd">    where N is the number of points.</span>
+<span class="sd">symbol : str</span>
+<span class="sd">    Symbol to be used for the point markers. Must be one of the</span>
+<span class="sd">    following: arrow, clobber, cross, diamond, disc, hbar, ring,</span>
+<span class="sd">    square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</span>
+<span class="sd">size : float, array</span>
+<span class="sd">    Size of the point marker. If given as a scalar, all points are made</span>
+<span class="sd">    the same size. If given as an array, size must be the same</span>
+<span class="sd">    broadcastable to the same shape as the data.</span>
+<span class="sd">edge_width : float</span>
+<span class="sd">    Width of the symbol edge in pixels.</span>
+<span class="sd">edge_color : str, array-like</span>
+<span class="sd">    Color of the point marker border. Numeric color values should be RGB(A).</span>
+<span class="sd">edge_color_cycle : np.ndarray, list</span>
+<span class="sd">    Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a</span>
+<span class="sd">    categorical attribute is used color the vectors.</span>
+<span class="sd">edge_colormap : str, vispy.color.colormap.Colormap</span>
+<span class="sd">    Colormap to set edge_color if a continuous attribute is used to set face_color.</span>
+<span class="sd">    See vispy docs for details: http://vispy.org/color.html#vispy.color.Colormap</span>
+<span class="sd">edge_contrast_limits : None, (float, float)</span>
+<span class="sd">    clims for mapping the property to a color map. These are the min and max value</span>
+<span class="sd">    of the specified property that are mapped to 0 and 1, respectively.</span>
+<span class="sd">    The default value is None. If set the none, the clims will be set to</span>
+<span class="sd">    (property.min(), property.max())</span>
+<span class="sd">face_color : str, array-like</span>
+<span class="sd">    Color of the point marker body. Numeric color values should be RGB(A).</span>
+<span class="sd">face_color_cycle : np.ndarray, list</span>
+<span class="sd">    Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a</span>
+<span class="sd">    categorical attribute is used color the vectors.</span>
+<span class="sd">face_colormap : str, vispy.color.colormap.Colormap</span>
+<span class="sd">    Colormap to set face_color if a continuous attribute is used to set face_color.</span>
+<span class="sd">    See vispy docs for details: http://vispy.org/color.html#vispy.color.Colormap</span>
+<span class="sd">face_contrast_limits : None, (float, float)</span>
+<span class="sd">    clims for mapping the property to a color map. These are the min and max value</span>
+<span class="sd">    of the specified property that are mapped to 0 and 1, respectively.</span>
+<span class="sd">    The default value is None. If set the none, the clims will be set to</span>
+<span class="sd">    (property.min(), property.max())</span>
+<span class="sd">n_dimensional : bool</span>
+<span class="sd">    If True, renders points not just in central plane but also in all</span>
+<span class="sd">    n-dimensions according to specified point marker size.</span>
+<span class="sd">name : str</span>
+<span class="sd">    Name of the layer.</span>
+<span class="sd">metadata : dict</span>
+<span class="sd">    Layer metadata.</span>
+<span class="sd">scale : tuple of float</span>
+<span class="sd">    Scale factors for the layer.</span>
+<span class="sd">translate : tuple of float</span>
+<span class="sd">    Translation values for the layer.</span>
+<span class="sd">opacity : float</span>
+<span class="sd">    Opacity of the layer visual, between 0.0 and 1.0.</span>
+<span class="sd">blending : str</span>
+<span class="sd">    One of a list of preset blending modes that determines how RGB and</span>
+<span class="sd">    alpha values of the layer visual get mixed. Allowed values are</span>
+<span class="sd">    {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
+<span class="sd">visible : bool</span>
+<span class="sd">    Whether the layer visual is currently being displayed.</span>
+
+<span class="sd">Returns</span>
+<span class="sd">-------</span>
+<span class="sd">layer : napari.layers.Points</span>
+<span class="sd">    The newly-created points layer.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="points-data">
+<h2>points data<a class="headerlink" href="#points-data" title="Permalink to this headline">¶</a></h2>
+<p>The input data to the points layer must be an NxD numpy array
+containing the coordinates of N points in D dimensions.
+The ordering of these dimensions is the same as the ordering of the dimensions for image layers.
+This array is always accessible through the <code class="docutils literal notranslate"><span class="pre">layer.data</span></code> property
+and will grow or shrink as new points are either added or deleted.</p>
+</div>
+<div class="section" id="using-the-points-properties-dictionary">
+<h2>using the points properties dictionary<a class="headerlink" href="#using-the-points-properties-dictionary" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer can contain properties that annotate each point.
+<code class="docutils literal notranslate"><span class="pre">Points.properties</span></code> stores the properties in a dictionary
+where each key is the name of the property
+and the values are numpy arrays with a value for each point (i.e., length N for N points in <code class="docutils literal notranslate"><span class="pre">Points.data</span></code>).
+As we will see below, we can use the values in a property to set the display properties of the points (e.g., face color or edge color).
+To see the points properties in action,
+please see the <a class="reference internal" href="../applications/annotate_points.html"><span class="doc std std-doc">point annotation tutorial</span></a>.</p>
+</div>
+<div class="section" id="creating-a-new-points-layer">
+<h2>creating a new points layer<a class="headerlink" href="#creating-a-new-points-layer" title="Permalink to this headline">¶</a></h2>
+<p>As you can add new points to a points layer using the add points tool,
+it is possible to create a brand new empty points layers
+by clicking the new points layer button above the layers list.
+The shape of the points layer is defined by the points inside it,
+and so as you add new points the shape will adjust as needed.
+The dimension of the new points layer will default to the largest dimension of any layer currently in the viewer,
+or to 2 if no other layers are present in the viewer.</p>
+</div>
+<div class="section" id="non-editable-mode">
+<h2>non-editable mode<a class="headerlink" href="#non-editable-mode" title="Permalink to this headline">¶</a></h2>
+<p>If you want to disable editing of the points layer
+you can set the <code class="docutils literal notranslate"><span class="pre">editable</span></code> property of the layer to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>As note in the section on 3D rendering, when using 3D rendering the points layer is not editable.</p>
+</div>
+<div class="section" id="d-rendering-of-points">
+<h2>3D rendering of points<a class="headerlink" href="#d-rendering-of-points" title="Permalink to this headline">¶</a></h2>
+<p>All our layers can be rendered in both 2D and 3D mode,
+and one of our viewer buttons can toggle between each mode.
+The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
+See for example these points overlaid on an image in both 2D and 3D:</p>
+<p>![image]({{ ‘/assets/tutorials/smFISH.gif’ | relative_url }})</p>
+<p>Note though that when entering 3D rendering mode
+the point add, delete, and select tools are all disabled.
+Those options are only supported when viewing a layer using 2D rendering.</p>
+</div>
+<div class="section" id="pan-and-zoom-mode">
+<h2>pan and zoom mode<a class="headerlink" href="#pan-and-zoom-mode" title="Permalink to this headline">¶</a></h2>
+<p>The default mode of the points layer is to support panning and zooming, as in the image layer.
+This mode is represented by the magnifying glass in the layers control panel,
+and while it is selected editing the layer is not possible.
+Continue reading to learn how to use some of the editing modes.
+You can always return to pan and zoom mode by pressing the <code class="docutils literal notranslate"><span class="pre">Z</span></code> key when the points layer is selected.</p>
+</div>
+<div class="section" id="adding-deleting-and-selecting-points">
+<h2>adding, deleting, and selecting points<a class="headerlink" href="#adding-deleting-and-selecting-points" title="Permalink to this headline">¶</a></h2>
+<p>New points can be added using the point adding tool.
+This tool can be selected from layer controls panel.
+Points can then be added by clicking in the canvas.
+If you have a multidimensional points layer
+then the coordinates of the new point will keep track of the currently viewed slice that you added the point too.
+You can quickly select the add points tool by pressing the <code class="docutils literal notranslate"><span class="pre">P</span></code> key when the points layer is selected.</p>
+<p>You can select a point by selecting the select points tool and then clicking on that point.
+You can select multiple points by continuing to shift click on additional points,
+or by dragging a bounding box around the points you want to select.
+You can quickly select the select points tool by pressing the <code class="docutils literal notranslate"><span class="pre">S</span></code> key when the points layer is selected.</p>
+<p>You can select all the points in the currently viewed slice by clicking the <code class="docutils literal notranslate"><span class="pre">A</span></code> key if you are in select mode.</p>
+<p>Once selected you can delete the selected points by clicking on the delete button in the layer controls panel or pressing the delete key.</p>
+<p>When using these point editing tools
+the pan and zoom functionality of the viewer canvas is disabled and you are able to edit the layer.
+You can temporarily re-enable pan and zoom by pressing and holding the spacebar.
+This feature can be useful if you want to move around the points layer as you edit it.</p>
+</div>
+<div class="section" id="changing-points-size">
+<h2>changing points size<a class="headerlink" href="#changing-points-size" title="Permalink to this headline">¶</a></h2>
+<p>Each point can have a different size.
+You can pass a list or 1-dimensional array of points through the size keyword argument
+to initialize the layer with points of different sizes.
+These sizes are then accessible through the <code class="docutils literal notranslate"><span class="pre">sizes</span></code> property.
+If you pass a single size then all points will get initialized with that size.
+Points can be pseduo-visualized as n-dimensionsal if the <code class="docutils literal notranslate"><span class="pre">n-dimensional</span></code> property is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>
+or the <code class="docutils literal notranslate"><span class="pre">n-dimensional</span></code> checkbox is checked.
+In this setting when viewing different slices of the layer
+points will appear in the neighbouring slices to the ones in which they are located
+with a size scaled by the distance from their center to that slice.
+This feature can be especially useful when visualizing 2D slices of points that are located in a 3D volume.</p>
+<p>Points can also be resized within the GUI by first selecting them and then adjusting the point size slider.
+If no points are selected, then adjusting the slider value will only serve to initialize the size for new points that are about to be added.
+The value of the size of the next point to be added can be found in the <code class="docutils literal notranslate"><span class="pre">layer.size</span></code> property.
+Note this property is different from <code class="docutils literal notranslate"><span class="pre">layer.sizes</span></code> which contains the current sizes of all the points.</p>
+</div>
+<div class="section" id="changing-points-edge-and-face-color">
+<h2>changing points edge and face color<a class="headerlink" href="#changing-points-edge-and-face-color" title="Permalink to this headline">¶</a></h2>
+<p>Individual points can each have different edge and face colors.
+You can initially set these colors by providing a list of colors to the <code class="docutils literal notranslate"><span class="pre">edge_color</span></code> or <code class="docutils literal notranslate"><span class="pre">face_color</span></code> keyword arguments respectively,
+or you can edit them from the GUI.
+The colors of each of the points are available as lists under the <code class="docutils literal notranslate"><span class="pre">layer.edge_colors</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.face_colors</span></code> properties.
+Similar to the <code class="docutils literal notranslate"><span class="pre">sizes</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code> properties
+these properties are different from the <code class="docutils literal notranslate"><span class="pre">layer.edge_color</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.face_color</span></code> properties
+that will determine the color of the next point to be added or any currently selected points.</p>
+<p>To change the point color properties from the GUI
+you must first select the points whose properties you want to change,
+otherwise you will just be initializing the property for the next point you add.</p>
+</div>
+<div class="section" id="setting-point-edge-and-face-color-with-properties">
+<h2>setting point edge and face color with properties<a class="headerlink" href="#setting-point-edge-and-face-color-with-properties" title="Permalink to this headline">¶</a></h2>
+<p>Point edge and face colors can be set as a function of a property in <code class="docutils literal notranslate"><span class="pre">Points.properties</span></code>.
+There are two ways that the values in properties can be mapped to colors: (1) color cycles and (2) colormaps.</p>
+<p>Color cycles are sets of colors that are mapped to categorical properties.
+The colors are repeated if the number of unique property values is greater than the number of colors in the color cycle.</p>
+<p>Colormaps are a continuum of colors that are mapped to a continuous property value.
+The available colormaps are listed below (colormaps are from <a class="reference external" href="http://vispy.org/color.html#vispy.color.Colormap">vispy</a>).
+For some guidance on choosing colormaps, see the <a class="reference external" href="https://matplotlib.org/3.2.0/tutorials/colors/colormaps.html">matplotlib colormap docs</a>.</p>
+<ul class="simple">
+<li><p>autumn</p></li>
+<li><p>blues</p></li>
+<li><p>cool</p></li>
+<li><p>greens</p></li>
+<li><p>reds</p></li>
+<li><p>spring</p></li>
+<li><p>summer</p></li>
+<li><p>fire</p></li>
+<li><p>grays</p></li>
+<li><p>hot</p></li>
+<li><p>ice</p></li>
+<li><p>winter</p></li>
+<li><p>light_blues</p></li>
+<li><p>orange</p></li>
+<li><p>viridis</p></li>
+<li><p>coolwarm</p></li>
+<li><p>PuGr</p></li>
+<li><p>GrBu</p></li>
+<li><p>GrBu_d</p></li>
+<li><p>RdBu</p></li>
+</ul>
+<div class="section" id="setting-edge-or-face-color-with-a-color-cycle">
+<h3>setting edge or face color with a color cycle<a class="headerlink" href="#setting-edge-or-face-color-with-a-color-cycle" title="Permalink to this headline">¶</a></h3>
+<p>Here we will set the edge color of the markers with a color cycle on a property.
+To do the same for a face color, substitute <code class="docutils literal notranslate"><span class="pre">face_color</span></code> for <code class="docutils literal notranslate"><span class="pre">edge_color</span></code> in the example snippet below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
+    <span class="n">point_properties</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;good_point&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]),</span>
+        <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]),</span>
+    <span class="p">}</span>
+    <span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
+        <span class="n">points</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="n">point_properties</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;good_point&#39;</span><span class="p">,</span>
+        <span class="n">edge_color_cycle</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">],</span>
+        <span class="n">edge_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>![image]({{ ‘/assets/tutorials/points_edge_color_cycle.png’ | relative_url }})</p>
+<p>In the example above, the properties (<code class="docutils literal notranslate"><span class="pre">point_properties</span></code>) were provided as a dictionary with two properties: <code class="docutils literal notranslate"><span class="pre">good_point</span></code> and <code class="docutils literal notranslate"><span class="pre">confidence</span></code>.
+The values of each property are stored in a numpy ndarray with length 3
+since there were three coordinates provided in <code class="docutils literal notranslate"><span class="pre">points</span></code>.
+We set the edge color as a function of the <code class="docutils literal notranslate"><span class="pre">good_point</span></code> property
+by providing the keyword argument <code class="docutils literal notranslate"><span class="pre">edge_color='good_point'</span></code> to the <code class="docutils literal notranslate"><span class="pre">viewer.add_points()</span></code> method.
+We set the color cycle via the <code class="docutils literal notranslate"><span class="pre">edge_color_cycle</span></code> keyword argument (<code class="docutils literal notranslate"><span class="pre">edge_color_cycle=['magenta',</span> <span class="pre">'green']</span></code>).
+The color cycle can be provided as a list of colors (a list of strings or a (M x 4) array of M RGBA colors).</p>
+</div>
+<div class="section" id="setting-edge-or-face-color-with-a-colormap">
+<h3>setting edge or face color with a colormap<a class="headerlink" href="#setting-edge-or-face-color-with-a-colormap" title="Permalink to this headline">¶</a></h3>
+<p>Here we will set the face color of the markers with a color cycle on a property.
+To do the same for a face color, substitute <code class="docutils literal notranslate"><span class="pre">edge_color</span></code> for <code class="docutils literal notranslate"><span class="pre">face_color</span></code> in the example snippet below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
+    <span class="n">point_properties</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;good_point&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]),</span>
+        <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]),</span>
+    <span class="p">}</span>
+    <span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
+        <span class="n">points</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="n">point_properties</span><span class="p">,</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;confidence&#39;</span><span class="p">,</span>
+        <span class="n">face_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>![image]({{ ‘/assets/tutorials/points_face_colormap.png’ | relative_url }})</p>
+<p>In the example above, the properties (<code class="docutils literal notranslate"><span class="pre">point_properties</span></code>) were provided as a dictionary with two properties: <code class="docutils literal notranslate"><span class="pre">good_point</span></code> and <code class="docutils literal notranslate"><span class="pre">confidence</span></code>.
+The values of each property are stored in a numpy ndarray with length 3
+since there were three coordinates provided in <code class="docutils literal notranslate"><span class="pre">points</span></code>.
+We set the face color as a function of the <code class="docutils literal notranslate"><span class="pre">confidence</span></code> property
+by providing the keyword argument <code class="docutils literal notranslate"><span class="pre">face_color='confidence'</span></code> to the <code class="docutils literal notranslate"><span class="pre">viewer.add_points()</span></code> method.
+We set the colormap to viridis using the <code class="docutils literal notranslate"><span class="pre">face_colormap</span></code> keyword argument (<code class="docutils literal notranslate"><span class="pre">face_colormap='viridis'</span></code>).</p>
+</div>
+</div>
+<div class="section" id="changing-the-points-symbol">
+<h2>changing the points symbol<a class="headerlink" href="#changing-the-points-symbol" title="Permalink to this headline">¶</a></h2>
+<p>The symbol for the points layer is a global property for the layer.
+All points must have the same symbol.
+You can set the symbol on the loading of the layer using the <code class="docutils literal notranslate"><span class="pre">symbol</span></code> keyword argument,
+or you can change it from the the GUI using the symbol dropdown menu.
+Since the symbol property applies to all the points
+you don’t need to have any points selected for it to have an effect.</p>
+</div>
+<div class="section" id="copying-and-pasting-points">
+<h2>copying and pasting points<a class="headerlink" href="#copying-and-pasting-points" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to copy and paste any selected points using the <code class="docutils literal notranslate"><span class="pre">ctrl-C</span></code> and <code class="docutils literal notranslate"><span class="pre">ctrl-V</span></code> keybindings, respectively.
+If you have a multidimensional <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer you can copy points from one slice to another by pasting them into the new slice.
+The coordinates of the points in the visible dimensions will be in the same place on the new slice as in the old slice,
+but the rest of the coordinates will be updated with the new slice values.</p>
+</div>
+<div class="section" id="layer-visibility">
+<h2>layer visibility<a class="headerlink" href="#layer-visibility" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support a visibility toggle that allows you to set the <code class="docutils literal notranslate"><span class="pre">visible</span></code> property of each layer.
+This property is located inside the layer widget in the layers list and is represented by an eye icon.</p>
+</div>
+<div class="section" id="layer-opacity">
+<h2>layer opacity<a class="headerlink" href="#layer-opacity" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support an opacity slider and <code class="docutils literal notranslate"><span class="pre">opacity</span></code> property
+that allow you to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
+The opacity value applies globally to all the points in the layer,
+and so you don’t need to have any points selected for it to have an effect.</p>
+</div>
+<div class="section" id="blending-layers">
+<h2>blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support three blending modes <code class="docutils literal notranslate"><span class="pre">translucent</span></code>, <code class="docutils literal notranslate"><span class="pre">additive</span></code>, and <code class="docutils literal notranslate"><span class="pre">opaque</span></code>
+that determine how the visuals for this layer get mixed with the visuals from the other layers.</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">opaque</span></code> layer renders all the other layers below it invisible
+and will fade to black as you decrease its opacity.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">translucent</span></code> setting will cause the layer to blend with the layers below it if you decrease its opacity
+but will fully block those layers if its opacity is 1.
+This is a reasonable default, useful for many applications.</p>
+<p>The final blending mode <code class="docutils literal notranslate"><span class="pre">additive</span></code> will cause the layer to blend with the layers below even when it has full opacity.
+This mode is especially useful for visualizing multiple layers at the same time.</p>
+</div>
+<div class="section" id="naming-layers">
+<h2>naming layers<a class="headerlink" href="#naming-layers" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support a <code class="docutils literal notranslate"><span class="pre">name</span></code> property that can be set inside a text box inside the layer widget in the layers list.
+The name of each layer is forced into being unique
+so that you can use the name to index into <code class="docutils literal notranslate"><span class="pre">viewer.layers</span></code> to retrieve the layer object.</p>
+</div>
+<div class="section" id="scaling-layers">
+<h2>scaling layers<a class="headerlink" href="#scaling-layers" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support a <code class="docutils literal notranslate"><span class="pre">scale</span></code> property and keyword argument
+that will rescale the layer multiplicatively according to the scale values (one for each dimension).
+This property can be particularly useful for viewing anisotropic data
+where the size of the voxel in the z dimension might be different then the size in the x and y dimensions.</p>
+</div>
+<div class="section" id="translating-layers">
+<h2>translating layers<a class="headerlink" href="#translating-layers" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support a <code class="docutils literal notranslate"><span class="pre">translate</span></code> property and keyword argument
+that you can use to offset a layer relative to the other layers,
+which could be useful if you are trying to overlay two layers for image registration purposes.</p>
+</div>
+<div class="section" id="layer-metadata">
+<h2>layer metadata<a class="headerlink" href="#layer-metadata" title="Permalink to this headline">¶</a></h2>
+<p>All our layers also support a <code class="docutils literal notranslate"><span class="pre">metadata</span></code> property and keyword argument
+that you can use to store an arbitrary metadata dictionary on the layer.</p>
+</div>
+<div class="section" id="putting-it-all-together">
+<h2>putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
+<p>Here you can see an example of adding, selecting, deleting points and change their properties:</p>
+<p>![image]({{ ‘/assets/tutorials/editing_points.gif’ | relative_url }})</p>
+</div>
+<div class="section" id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Hopefully, this tutorial has given you a detailed understanding of the <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer,
+including how to create one and control its properties.
+To learn more about some of the other layer types that <strong>napari</strong> supports
+checkout some more of our tutorials listed below.
+The <a class="reference internal" href="shapes.html"><span class="doc std std-doc">shapes layer</span></a> tutorial is a great one to try next
+as it describes more complex shapes and interactivity.</p>
+<p>{% include footer.md %}</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./fundamentals"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="labels.html" title="previous page">labels layer tutorial</a>
+    <a class='right-next' id="next-link" href="shapes.html" title="next page">shapes layer tutorial</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

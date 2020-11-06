@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>image layer tutorial &#8212; napari tutorials</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="labels layer tutorial" href="labels.html" />
+    <link rel="prev" title="napari viewer tutorial" href="viewer.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.ico" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">napari tutorials</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   napari tutorials
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gallery.html">
+   napari gallery
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="README.html">
+   Fundamentals
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="installation.html">
+     napari installation tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="getting_started.html">
+     getting started with napari
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="viewer.html">
+     napari viewer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     image layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="labels.html">
+     labels layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="points.html">
+     points layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="shapes.html">
+     shapes layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="surface.html">
+     surface layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tracks.html">
+     tracks layer tutorial
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="vectors.html">
+     vectors layer tutorial
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../applications/README.html">
+   Applications
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/fundamentals/image.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-example">
+   a simple example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#arguments-of-view-image-and-add-image">
+   arguments of view_image and add_image
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#image-data-and-numpy-like-arrays">
+   image data and numpy-like arrays
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#image-pyramids">
+   image pyramids
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-rendering-of-images">
+   3D rendering of images
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#viewing-rgb-vs-luminance-grayscale-images">
+   viewing rgb vs luminance (grayscale) images
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-colormaps">
+   working with colormaps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adjusting-contrast-limits">
+   adjusting contrast limits
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer-visibility">
+   layer visibility
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer-opacity">
+   layer opacity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#blending-layers">
+   blending layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer-interpolation">
+   layer interpolation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer-rendering">
+   layer rendering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naming-layers">
+   naming layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scaling-layers">
+   scaling layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#translating-layers">
+   translating layers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer-metadata">
+   layer metadata
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   next steps
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="image-layer-tutorial">
+<h1>image layer tutorial<a class="headerlink" href="#image-layer-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to the tutorial on the <strong>napari</strong> <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer!</p>
+<p>This tutorial assumes you have already installed <strong>napari</strong>, know how to launch the viewer, and are familiar with its layout.
+For help with installation see our <a class="reference internal" href="installation.html"><span class="doc std std-doc">installation</span></a> tutorial.
+For help getting started with the viewer see our <a class="reference internal" href="getting_started.html"><span class="doc std std-doc">getting started</span></a> tutorial.
+For help understanding the organisation of the viewer,
+including things like the layers list,
+the layer properties widgets,
+the layer control panels,
+and the dimension sliders
+see our <a class="reference internal" href="viewer.html"><span class="doc std std-doc">napari viewer</span></a> tutorial.</p>
+<p>This tutorial will teach you about the <strong>napari</strong> <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer,
+including the types of images that can be displayed,
+and how to set properties like the contrast, opacity, colormaps and blending mode.
+At the end of the tutorial you should understand how to add and manipulate a variety of different types of images both from the GUI and from the console.</p>
+<div class="section" id="a-simple-example">
+<h2>a simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>You can create a new viewer and add an image in one go using the <code class="docutils literal notranslate"><span class="pre">napari.view_image</span></code> method,
+or if you already have an existing viewer, you can add an image to it using <code class="docutils literal notranslate"><span class="pre">viewer.add_image</span></code>.
+The api of both methods is the same.
+In these examples we’ll mainly use <code class="docutils literal notranslate"><span class="pre">view_image</span></code>.</p>
+<p>A simple example of viewing an image is as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>![image]({{ ‘/assets/tutorials/viewer_astronaut.png’ | relative_url }})</p>
+</div>
+<div class="section" id="arguments-of-view-image-and-add-image">
+<h2>arguments of view_image and add_image<a class="headerlink" href="#arguments-of-view-image-and-add-image" title="Permalink to this headline">¶</a></h2>
+<p>Both <code class="docutils literal notranslate"><span class="pre">view_image</span></code> and <code class="docutils literal notranslate"><span class="pre">add_image</span></code> have the following doc strings:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Parameters</span>
+<span class="sd">----------</span>
+<span class="sd">image : np.ndarray</span>
+<span class="sd">    Image data.</span>
+<span class="sd">metadata : dict, optional</span>
+<span class="sd">    Image metadata.</span>
+<span class="sd">rgb : bool, optional</span>
+<span class="sd">    Whether the image is rgb. Guesses if None.</span>
+<span class="sd">name : str, keyword-only</span>
+<span class="sd">    Name of the layer.</span>
+<span class="sd">contrast_limits : list | array | None</span>
+<span class="sd">    Length two list or array with the default color limit range for the</span>
+<span class="sd">    image. If not passed will be calculated as the min and max of the</span>
+<span class="sd">    image. Passing a value prevents this calculation which can be</span>
+<span class="sd">    useful when working with very large datasets that are dynamically</span>
+<span class="sd">    loaded.</span>
+<span class="sd">**kwargs : dict</span>
+<span class="sd">    Parameters that will be translated to metadata.</span>
+
+<span class="sd">Returns</span>
+<span class="sd">-------</span>
+<span class="sd">layer : napari.layers.Image</span>
+<span class="sd">    The newly-created image layer.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="image-data-and-numpy-like-arrays">
+<h2>image data and numpy-like arrays<a class="headerlink" href="#image-data-and-numpy-like-arrays" title="Permalink to this headline">¶</a></h2>
+<p>napari can take any numpy-like array as input for its image layer.
+A numpy-like array can just be a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html">numpy array</a>,
+a <a class="reference external" href="https://docs.dask.org/en/stable/array.html">dask array</a>,
+an <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html">xarray</a>,
+a <a class="reference external" href="https://zarr.readthedocs.io/en/stable/api/core.html">zarr array</a>,
+or any other object that you can index into
+and when you call <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.asarray.html"><code class="docutils literal notranslate"><span class="pre">np.asarray</span></code></a> on it you get back a numpy array.</p>
+<p>The great thing about napari support array-like objects is that you get to keep on using your favorite array libraries
+without worrying about any conversions as we’ll handle all of that for you.</p>
+<p>napari will also wait until just before it displays data onto the screen to actually generate a numpy array from your data,
+and so if you’re using a library like <code class="docutils literal notranslate"><span class="pre">dask</span></code> or <code class="docutils literal notranslate"><span class="pre">zarr</span></code> that supports lazy loading and lazy evaluation,
+we won’t force you load or compute on data that you’re not looking at.
+This enables napari to seamlessly browse enormous datasets that are loaded in the right way.
+For example, here we are browsing over 100GB of lattice lightsheet data stored in a zarr file:</p>
+<p>![image]({{ ‘/assets/tutorials/LLSM.gif’ | relative_url }})</p>
+</div>
+<div class="section" id="image-pyramids">
+<h2>image pyramids<a class="headerlink" href="#image-pyramids" title="Permalink to this headline">¶</a></h2>
+<p>For exceptionally large datasets napari supports image pyramids.
+An image pyramid is a list of arrays, where each array is downsampling of the previous array in the list,
+so that you end up with images of successively smaller and smaller shapes.
+A standard image pyramid might have a 2x downsampling at each level,
+but napari can support any type of pyramid as long as the shapes are getting smaller each time.</p>
+<p>Image pyramids are especially useful for incredibly large 2D images when viewed in 2D or incredibly large 3D images when viewed in 3D.
+For example this ~100k x 200k pixel pathology image consists of 10 pyramid levels
+and can be easily browsed as at each moment in time
+we only load the level of the pyramid and the part of the image that needs to be displayed:</p>
+<p>![image]({{ ‘/assets/tutorials/pathology.gif’ | relative_url }})</p>
+<p>This example had precomputed image pyramids stored in a zarr file, which is best for performance.
+If, however you don’t have a precomputed pyramid but try and show a exceptionally large image
+napari will try and compute pyramids for you unless you tell it not too.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">is_pyramid</span></code> keyword argument to specify if your data is an image pyramid or not.
+If you don’t provide this value, then will try and guess whether your data is or needs to be an image pyramid.</p>
+</div>
+<div class="section" id="d-rendering-of-images">
+<h2>3D rendering of images<a class="headerlink" href="#d-rendering-of-images" title="Permalink to this headline">¶</a></h2>
+<p>All our layers can be rendered in both 2D and 3D mode, and one of our viewer buttons can toggle between each mode.
+The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer,
+allowing you to browse volumetric timeseries data and other high dimensional data.
+See for example these cells undergoing mitosis in this volumetric timeseries:</p>
+<p>![image]({{ ‘/assets/tutorials/mitosis.gif’ | relative_url }})</p>
+</div>
+<div class="section" id="viewing-rgb-vs-luminance-grayscale-images">
+<h2>viewing rgb vs luminance (grayscale) images<a class="headerlink" href="#viewing-rgb-vs-luminance-grayscale-images" title="Permalink to this headline">¶</a></h2>
+<p>In the above example we explicitly set the <code class="docutils literal notranslate"><span class="pre">rgb</span></code> keyword to be <code class="docutils literal notranslate"><span class="pre">True</span></code>
+because we knew we were working with an <code class="docutils literal notranslate"><span class="pre">rgb</span></code> image.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If we had left that keyword argument out
+napari would have successfully guessed that we were trying to show an <code class="docutils literal notranslate"><span class="pre">rgb</span></code> or <code class="docutils literal notranslate"><span class="pre">rgba</span></code> image
+because the final dimension was 3 or 4.
+If you have a luminance image where the last dimension is 3 or 4
+you can set the <code class="docutils literal notranslate"><span class="pre">rgb</span></code> property to <code class="docutils literal notranslate"><span class="pre">False</span></code> so napari handles the image correctly.</p>
+<p><code class="docutils literal notranslate"><span class="pre">rgb</span></code> data must either be <code class="docutils literal notranslate"><span class="pre">uint8</span></code>, corresponding to values between 0 and 255, or <code class="docutils literal notranslate"><span class="pre">float</span></code> and between 0 and 1.
+If the values are <code class="docutils literal notranslate"><span class="pre">float</span></code> and outside the 0 to 1 range they will be clipped.</p>
+</div>
+<div class="section" id="working-with-colormaps">
+<h2>working with colormaps<a class="headerlink" href="#working-with-colormaps" title="Permalink to this headline">¶</a></h2>
+<p>napari supports any colormap that is created with <code class="docutils literal notranslate"><span class="pre">vispy.color.Colormap</span></code>.
+We provide access to some standard colormaps that you can set using a string of their name.
+These include:</p>
+<ul class="simple">
+<li><p>PiYG</p></li>
+<li><p>blue</p></li>
+<li><p>cyan</p></li>
+<li><p>gist_earth</p></li>
+<li><p>gray</p></li>
+<li><p>green</p></li>
+<li><p>hsv</p></li>
+<li><p>inferno</p></li>
+<li><p>magma</p></li>
+<li><p>magenta</p></li>
+<li><p>plasma</p></li>
+<li><p>red</p></li>
+<li><p>turbo</p></li>
+<li><p>twilight</p></li>
+<li><p>twilight_shifted</p></li>
+<li><p>yellow</p></li>
+<li><p>viridis</p></li>
+</ul>
+<p>Passing any of these as follows</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will set the colormap of that image.
+You can also access the current colormap through the <code class="docutils literal notranslate"><span class="pre">layer.colormap</span></code> property
+which returns a tuple of the colormap name followed by the vispy colormap object.
+You can list all the available colormaps using <code class="docutils literal notranslate"><span class="pre">layer.colormaps</span></code>.</p>
+<p>It is also possible to create your own colormaps using vispy’s <code class="docutils literal notranslate"><span class="pre">vispy.color.Colormap</span></code> object,
+see it’s full <a class="reference external" href="http://vispy.org/color.html#vispy.color.Colormap">documentation here</a>.
+Briefly, you can pass <code class="docutils literal notranslate"><span class="pre">Colormap</span></code> a list of length 3 or length 4 lists,
+corresponding to the <code class="docutils literal notranslate"><span class="pre">rgb</span></code> or <code class="docutils literal notranslate"><span class="pre">rgba</span></code> values at different points along the colormap.
+For example, to make a diverging colormap that goes from red to blue through black,
+and color a random array you can do the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">vispy.color</span> <span class="kn">import</span> <span class="n">Colormap</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">Colormap</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;diverging&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>![image]({{ ‘/assets/tutorials/diverging_colormap.png’ | relative_url }})</p>
+<p>Note in this example how we passed the colormap keyword argument as a tuple containing both a name for our new custom colormap and the colormap itself.
+If we had only passed the colormap it would have been given a default name.</p>
+<p>The named colormap now appears in the dropdown menu alongside a little thumbnail of the full range of the colormap.</p>
+</div>
+<div class="section" id="adjusting-contrast-limits">
+<h2>adjusting contrast limits<a class="headerlink" href="#adjusting-contrast-limits" title="Permalink to this headline">¶</a></h2>
+<p>Each image layer gets mapped through its colormap according to values called contrast limits.
+The contrast limits are a 2-tuple where the second value is larger than the first.
+The smaller contrast limit corresponds to the value of the image data that will get mapped to the color defined by 0 in the colormap.
+All values of image data smaller than this value will also get mapped to this color.
+The larger contrast limit corresponds to the value of the image data that will get mapped to the color defined by 1 in the colormap.
+All values of image data larger than this value will also get mapped to this color.</p>
+<p>For example, you are looking at an image that has values between 0 and 100 with a standard <code class="docutils literal notranslate"><span class="pre">gray</span></code> colormap,
+and you set the contrast limits to <code class="docutils literal notranslate"><span class="pre">(20,</span> <span class="pre">75)</span></code>.
+Then all the pixels with values less than 20 will get mapped to black, the color corresponding to 0 in the colormap,
+and all pixels with values greater than 75 will get mapped to white, the color corresponding to 1 in the colormap.
+All other pixel values between 20 and 75 will get linearly mapped onto the range of colors between black and white.</p>
+<p>In napari you can set the contrast limits when creating an <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer
+or on an existing layer using the <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> keyword argument or property, respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;moon&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;moon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">175</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>![image]({{ ‘/assets/tutorials/contrast_limits.png’ | relative_url }})</p>
+<p>Because the contrast limits are defined by two values
+the corresponding slider has two handles,
+one the adjusts the smaller value,
+one that adjusts the larger value.</p>
+<p>As of right now adjusting the contras limits has no effect for <code class="docutils literal notranslate"><span class="pre">rgb</span></code> data.</p>
+<p>If no contrast limits are passed, then napari will compute them.
+If your data is small, then napari will just take the minimum and maximum values across your entire image.
+If your data is exceptionally large, this operation can be very time consuming
+and so if you have passed an image pyramid then napari will just use the top level of that pyramid,
+or it will use the minimum and maximum values across the top, middle, and bottom slices of your image.
+In general, if working with big images it is recommended you explicitly set the contrast limits if you can.</p>
+<p>Currently if you pass contrast limits as a keyword argument to a layer
+then full extent of the contrast limits range slider will be set to those values.</p>
+</div>
+<div class="section" id="layer-visibility">
+<h2>layer visibility<a class="headerlink" href="#layer-visibility" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support a visibility toggle that allows you to set the <code class="docutils literal notranslate"><span class="pre">visible</span></code> property of each layer.
+This property is located inside the layer widget in the layers list and is represented by an eye icon.</p>
+</div>
+<div class="section" id="layer-opacity">
+<h2>layer opacity<a class="headerlink" href="#layer-opacity" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support an opacity slider and <code class="docutils literal notranslate"><span class="pre">opacity</span></code> property
+that allow you to adjust the layer opacity between 0, fully invisible and 1, fully visible.</p>
+</div>
+<div class="section" id="blending-layers">
+<h2>blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support three blending modes <code class="docutils literal notranslate"><span class="pre">translucent</span></code>, <code class="docutils literal notranslate"><span class="pre">additive</span></code>, and <code class="docutils literal notranslate"><span class="pre">opaque</span></code>
+that determine how the visuals for this layer get mixed with the visuals from the other layers.</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">opaque</span></code> layer renders all the other layers below it invisible
+and will fade to black as you decrease its opacity.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">translucent</span></code> setting will cause the layer to blend with the layers below it if you decrease its opacity
+but will fully block those layers if its opacity is 1.
+This is a reasonable default, useful for many applications.</p>
+<p>The final blending mode <code class="docutils literal notranslate"><span class="pre">additive</span></code> will cause the layer to blend with the layers below even when it has full opacity.
+This mode is especially useful for many cell biology applications
+where you have multiple different components of a cell labeled in different colors.
+For example:</p>
+<p>![image]({{ ‘/assets/tutorials/blending.png’ | relative_url }})</p>
+</div>
+<div class="section" id="layer-interpolation">
+<h2>layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this headline">¶</a></h2>
+<p>We support a variety of interpolation modes when viewing 2D slices.
+In the default mode <code class="docutils literal notranslate"><span class="pre">nearest</span></code> each pixel is represented as a small square of specified size.
+As you zoom in you will eventually see each pixel.
+In other modes neighbouring pixels are blended together according to different functions,
+for example <code class="docutils literal notranslate"><span class="pre">bicubic</span></code>, which can lead to smoother looking images.
+For most scientific use-cases <code class="docutils literal notranslate"><span class="pre">nearest</span></code> is recommended because it does not introduce more artificial blurring.
+These modes have no effect when viewing 3D slices.</p>
+</div>
+<div class="section" id="layer-rendering">
+<h2>layer rendering<a class="headerlink" href="#layer-rendering" title="Permalink to this headline">¶</a></h2>
+<p>When viewing 3D slices, we support a variety of rendering modes.
+The default mode <code class="docutils literal notranslate"><span class="pre">mip</span></code>, or maximum intensity projection,
+will combine voxels at different distances from the camera according to a maximum intensity projection
+to create the 2D image that is then displayed on the screen.
+This mode works well for many biological images such as these cells growing in culture:</p>
+<p>![image]({{ ‘/assets/tutorials/rendering.png’ | relative_url }})</p>
+<p>When viewing 2D slices the rendering mode has no effect.</p>
+</div>
+<div class="section" id="naming-layers">
+<h2>naming layers<a class="headerlink" href="#naming-layers" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support a <code class="docutils literal notranslate"><span class="pre">name</span></code> property that can be set inside a text box inside the layer widget in the layers list.
+The name of each layer is forced into being unique
+so that you can use the name to index into <code class="docutils literal notranslate"><span class="pre">viewer.layers</span></code> to retrieve the layer object.</p>
+</div>
+<div class="section" id="scaling-layers">
+<h2>scaling layers<a class="headerlink" href="#scaling-layers" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support a <code class="docutils literal notranslate"><span class="pre">scale</span></code> property and keyword argument that will rescale the layer multiplicatively
+according to the scale values (one for each dimension).
+This property can be particularly useful for viewing anisotropic volumes
+where the size of the voxel in the z dimension might be different then the size in the x and y dimensions.</p>
+</div>
+<div class="section" id="translating-layers">
+<h2>translating layers<a class="headerlink" href="#translating-layers" title="Permalink to this headline">¶</a></h2>
+<p>All our layers support a <code class="docutils literal notranslate"><span class="pre">translate</span></code> property and keyword argument
+that you can use to offset a layer relative to the other layers,
+which could be useful if you are trying to overlay two layers for image registration purposes.</p>
+</div>
+<div class="section" id="layer-metadata">
+<h2>layer metadata<a class="headerlink" href="#layer-metadata" title="Permalink to this headline">¶</a></h2>
+<p>All our layers also support a <code class="docutils literal notranslate"><span class="pre">metadata</span></code> property and keyword argument
+that you can use to store an arbitrary metadata dictionary on the layer.</p>
+</div>
+<div class="section" id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Hopefully, this tutorial has given you a detailed understanding of the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer,
+including how to create one and control its properties.
+To learn more about some of the other layer types that <strong>napari</strong> supports
+checkout some more of our tutorials listed below.
+The <a class="reference internal" href="labels.html"><span class="doc std std-doc">labels layer</span></a> tutorial is a great one to try next
+as labels layers are an extension of our image layers used for labeling regions of images.</p>
+<p>{% include footer.md %}</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./fundamentals"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="viewer.html" title="previous page">napari viewer tutorial</a>
+    <a class='right-next' id="next-link" href="labels.html" title="next page">labels layer tutorial</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

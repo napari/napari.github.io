@@ -242,6 +242,11 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#which-distribution-to-install">
+     which distribution to install
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#from-pip-with-batteries-included">
      from pip, with “batteries included”
     </a>
@@ -337,9 +342,20 @@ At the end of the tutorial you should have napari successfully installed on your
 and be able to make the napari viewer appear.</p>
 <div class="section" id="installation">
 <h2>installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="which-distribution-to-install">
+<h3>which distribution to install<a class="headerlink" href="#which-distribution-to-install" title="Permalink to this headline">¶</a></h3>
+<p>If you are using napari from Python to programmatically interact with the app, you can install via pip, conda-forge, or from source.
+We recommend that you use conda to help manage the virtual environment. Otherwise you may see compilation issues that are specific to your particular machine, which is difficult for us to debug.</p>
+<p>If you do not want to use napari as python code and only use it as GUI app, the bundled app is the easiest way to install.
+This is also the only method that does not require python knowledge to work with napari, see the <a class="reference external" href="https://napari.org/tutorials/fundamentals/installation#installing-as-a-bundled-app">from bundled app</a> section.</p>
+<p>If you want to contribute back to napari codebase, you need to install from source code: see the <a class="reference external" href="#from-source">from source</a> section.</p>
+</div>
 <div class="section" id="from-pip-with-batteries-included">
 <h3>from pip, with “batteries included”<a class="headerlink" href="#from-pip-with-batteries-included" title="Permalink to this headline">¶</a></h3>
-<p>napari can be installed on most macOS, Linux, and Windows systems with Python 3.6 and later using pip:</p>
+<p>napari can be installed on most macOS, Linux, and Windows systems with
+Python 3.7 and 3.8 using pip. However, for Windows users, you need to preinstall <a class="reference external" href="https://visualstudio.microsoft.com/downloads/">Microsoft Visual C++ Build Tools</a>
+in order to install VisPy (one of the packages we depend on) on Windows machines. If you run into encoding issues, you need to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0540/">UTF8 encoding on windows</a></p>
+<p>The simplest command to install with pip is:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install napari<span class="o">[</span>all<span class="o">]</span>
 </pre></div>
 </div>

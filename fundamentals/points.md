@@ -193,6 +193,7 @@ Points can then be added by clicking in the canvas.
 If you have a multidimensional points layer
 then the coordinates of the new point will keep track of the currently viewed slice that you added the point too.
 You can quickly select the add points tool by pressing the `P` key when the points layer is selected.
+The point adding tool also supports panning and zooming. 
 
 You can select a point by selecting the select points tool and then clicking on that point.
 You can select multiple points by continuing to shift click on additional points,
@@ -203,10 +204,10 @@ You can select all the points in the currently viewed slice by clicking the `A` 
 
 Once selected you can delete the selected points by clicking on the delete button in the layer controls panel or pressing the delete key.
 
-When using these point editing tools
-the pan and zoom functionality of the viewer canvas is disabled and you are able to edit the layer.
+When using the point selection tool
+the pan and zoom functionality of the viewer canvas is disabled and you are able to select points the layer.
 You can temporarily re-enable pan and zoom by pressing and holding the spacebar.
-This feature can be useful if you want to move around the points layer as you edit it.
+This feature can be useful if you want to move around the points layer as you create your selection.
 
 ## changing points size
 

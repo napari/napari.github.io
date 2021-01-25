@@ -12,8 +12,13 @@
 - [points layer tutorial]({{ '/fundamentals/points' | relative_url }})
 - [shapes layer tutorial]({{ '/fundamentals/shapes' | relative_url }})
 - [surface layer tutorial]({{ '/fundamentals/surface' | relative_url }})
+- [tracks layer tutorial]({{ '/fundamentals/tracks' | relative_url }})
 - [vectors layer tutorial]({{ '/fundamentals/vectors' | relative_url }})
 
 ### applications
 
+- [annotating a segmentation with text and bounding boxes]({{ '/applications/annotate_segmentation' | relative_url }})
+- [making a simple application to annotate points in a time series]({{ '/applications/annotate_points' | relative_url }})
 - [using dask & dask_image to view and process large datasets with arbitrary formats]({{ '/applications/dask' | relative_url }})
+- [running imagej and napari side by side]({{ '/applications/napari_imageJ' | relative_url }})
+- [single cell tracking with napari]({{ '/applications/cell_tracking' | relative_url }})

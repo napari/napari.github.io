@@ -1,0 +1,55 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+  - cron: "0 0 * * SUN"
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
+jobs:
+  build-and-deploy-book:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.8]
+    env:
+      DISPLAY: ':99.0'
+    steps:
+    - uses: actions/checkout@v2
+
+    # Install dependencies
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        sudo apt install libxkbcommon-x11-0
+        /sbin/start-stop-daemon --start --quiet \
+          --pidfile /tmp/custom_xvfb_99.pid --make-pidfile \
+          --background --exec /usr/bin/Xvfb \
+          -- :99 -screen 0 1920x1200x24 -ac +extension GLX
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Test the notebooks
+    - name: Test notebooks
+      run: py.test --nbval-lax -n auto --dist loadscope
+
+    # Build the book
+    - name: Build the book
+      run: |
+        jupyter-book build .
+
+    # Deploy the book's HTML to gh-pages branch
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: _build/html

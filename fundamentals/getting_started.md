@@ -30,7 +30,7 @@ napari
 
 This command will launch an empty viewer:
 
-![image]({{ '/assets/tutorials/launch_cli_empty.png' | relative_url }})
+![image](../assets/tutorials/launch_cli_empty.png)
 
 Once you have the viewer open you can add images through the `File/Open` dropdown menu
 or by dragging and dropping images directly on the viewer.
@@ -47,7 +47,7 @@ napari my_image.png
 
 If the image is `RGB` or `RGBA` use the `-r` or `--rgb` flag.
 
-![image]({{ '/assets/tutorials/launch_cli_image.png' | relative_url }})
+![image](../assets/tutorials/launch_cli_image.png)
 
 Launching napari directly from the command line is the simplest and fastest way to open the viewer,
 but it doesn't allow you to preprocess your images before opening them.
@@ -81,7 +81,7 @@ python my_example_script.py
 
 See the scripts inside the [`examples`](https://github.com/napari/napari/tree/master/examples) in the main repository for examples of using napari this way.
 
-![image]({{ '/assets/tutorials/launch_script.png' | relative_url }})
+![image](../assets/tutorials/launch_script.png)
 
 An advantage of launching napari from a python script
 is that you can preprocess your images and add multiple layers before displaying the viewer.
@@ -112,7 +112,7 @@ If you did not launch IPython with the GUI already then you can set it from with
 but be warned that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished,
 the kernel will die, and the viewer will not launch.
 
-![image]({{ '/assets/tutorials/launch_ipython.png' | relative_url }})
+![image](../assets/tutorials/launch_ipython.png)
 
 An advantage of launching napari from an IPython console
 is that the you can continue to programmatically interact with the viewer from the IPython console,
@@ -124,7 +124,7 @@ and where data changed in the GUI will be accessible in the console.
 You can also launch napari from a jupyter notebook,
 such as [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master/examples/notebook.ipynb)
 
-![image]({{ '/assets/tutorials/launch_jupyter.png' | relative_url }})
+![image](../assets/tutorials/launch_jupyter.png)
 
 As in the case of the IPython console though you must wait for the Qt GUI to instantiate following the `%gui qt` magic command.
 Instantiating the Qt GUI can take a few seconds and if you create the `Viewer` before it is finished,

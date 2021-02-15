@@ -58,7 +58,7 @@ but doesn't create a `Viewer`, as you must already have one to use it.
 After running either of those two commands
 you should now be able to see the photograph of the astronaut in the **napari** viewer as shown below
 
-![image]({{ '/assets/tutorials/viewer_astronaut.png' | relative_url }})
+![image](../assets/tutorials/viewer_astronaut.png)
 
 Both the `view_image` and the `add_image` methods accept any numpy-array like object as an input,
 including n-dimensional arrays.
@@ -91,7 +91,7 @@ which has built-in support for features such as zooming and panning.
 As `vispy` uses `OpenGL` and your graphics card, panning and zooming are highly performant.
 You can also return to the original zoom level by clicking the `home` button in the viewer buttons panel.
 
-![image]({{ '/assets/tutorials/viewer_pan_zoom.gif' | relative_url }})
+![image](../assets/tutorials/viewer_pan_zoom.gif)
 
 ### layer list
 
@@ -119,7 +119,7 @@ with napari.gui_qt():
     viewer.add_image(data.camera(), name='camera')
 ```
 
-![image]({{ '/assets/tutorials/layerlist.png' | relative_url }})
+![image](../assets/tutorials/layerlist.png)
 
 Note that we've also also named each of the layers using the `name` keyword argument in `add_image`,
 and that name has appeared as a string in the layer widget.
@@ -175,7 +175,7 @@ points = np.array([[100, 100], [200, 200], [300, 100]])
 viewer.add_points(points, size=30)
 ```
 
-![image]({{ '/assets/tutorials/add_points.png' | relative_url }})
+![image](../assets/tutorials/add_points.png)
 
 Adjusting these properties in the GUI will cause corresponding changes to properties on the individual layers that are accessible in the console through `viewer.layers`.
 
@@ -256,7 +256,7 @@ blobs = np.stack(
 viewer.add_image(blobs, name='blobs', opacity=0.5, colormap='red')
 ```
 
-![image]({{ '/assets/tutorials/multidimensional.png' | relative_url }})
+![image](../assets/tutorials/multidimensional.png)
 
 ### viewer buttons
 
@@ -267,13 +267,13 @@ Inside the console you can access the viewer using the `viewer` argument.
 When the console button is clicked,
 the console will appear at the bottom of the viewer as follows:
 
-![image]({{ '/assets/tutorials/console.png' | relative_url }})
+![image](../assets/tutorials/console.png)
 
 We then have a button that switches between `2D` and `3D` rendering.
 Running the `examples/nD_labels.py`
 and clicking on the 3D button gives the following view:
 
-![image]({{ '/assets/tutorials/nD_labels.png' | relative_url }})
+![image](../assets/tutorials/nD_labels.png)
 
 Next to the 2D / 3D button is a button to roll the dimensions that are currently being displayed in the viewer -
 for example if you have a `ZYX` volume
@@ -304,7 +304,7 @@ To change the theme just update `theme` property of the viewer, for example
 viewer.theme = 'light'
 ```
 
-![image]({{ '/assets/tutorials/viewer_theme_light.png' | relative_url }})
+![image](../assets/tutorials/viewer_theme_light.png)
 
 Adding your own custom theme isn't too hard either
 but does require creating your own color `palette` and rebuilding the icons.

@@ -34,7 +34,7 @@ with napari.gui_qt():
     viewer = napari.view_image(data.astronaut(), rgb=True)
 ```
 
-![image]({{ '/assets/tutorials/viewer_astronaut.png' | relative_url }})
+![image](../assets/tutorials/viewer_astronaut.png)
 
 ## arguments of view_image and add_image
 
@@ -87,7 +87,7 @@ we won't force you load or compute on data that you're not looking at.
 This enables napari to seamlessly browse enormous datasets that are loaded in the right way.
 For example, here we are browsing over 100GB of lattice lightsheet data stored in a zarr file:
 
-![image]({{ '/assets/tutorials/LLSM.gif' | relative_url }})
+![image](../assets/tutorials/LLSM.gif)
 
 ## image pyramids
 
@@ -102,7 +102,7 @@ For example this ~100k x 200k pixel pathology image consists of 10 pyramid level
 and can be easily browsed as at each moment in time
 we only load the level of the pyramid and the part of the image that needs to be displayed:
 
-![image]({{ '/assets/tutorials/pathology.gif' | relative_url }})
+![image](../assets/tutorials/pathology.gif)
 
 This example had precomputed image pyramids stored in a zarr file, which is best for performance.
 If, however you don't have a precomputed pyramid but try and show a exceptionally large image
@@ -118,7 +118,7 @@ The number of dimensions sliders will be 2 or 3 less than the total number of di
 allowing you to browse volumetric timeseries data and other high dimensional data.
 See for example these cells undergoing mitosis in this volumetric timeseries:
 
-![image]({{ '/assets/tutorials/mitosis.gif' | relative_url }})
+![image](../assets/tutorials/mitosis.gif)
 
 ## viewing rgb vs luminance (grayscale) images
 
@@ -193,7 +193,7 @@ with napari.gui_qt():
     viewer = napari.view_image(image, colormap=('diverging', cmap))
 ```
 
-![image]({{ '/assets/tutorials/diverging_colormap.png' | relative_url }})
+![image](../assets/tutorials/diverging_colormap.png)
 
 Note in this example how we passed the colormap keyword argument as a tuple containing both a name for our new custom colormap and the colormap itself.
 If we had only passed the colormap it would have been given a default name.
@@ -223,7 +223,7 @@ viewer = napari.view_image(data.moon(), name='moon')
 viewer.layers['moon'].contrast_limits=(100, 175)
 ```
 
-![image]({{ '/assets/tutorials/contrast_limits.png' | relative_url }})
+![image](../assets/tutorials/contrast_limits.png)
 
 Because the contrast limits are defined by two values
 the corresponding slider has two handles,
@@ -269,7 +269,7 @@ This mode is especially useful for many cell biology applications
 where you have multiple different components of a cell labeled in different colors.
 For example:
 
-![image]({{ '/assets/tutorials/blending.png' | relative_url }})
+![image](../assets/tutorials/blending.png)
 
 ## layer interpolation
 
@@ -289,7 +289,7 @@ will combine voxels at different distances from the camera according to a maximu
 to create the 2D image that is then displayed on the screen.
 This mode works well for many biological images such as these cells growing in culture:
 
-![image]({{ '/assets/tutorials/rendering.png' | relative_url }})
+![image](../assets/tutorials/rendering.png)
 
 When viewing 2D slices the rendering mode has no effect.
 

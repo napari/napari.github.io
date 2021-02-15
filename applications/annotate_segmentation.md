@@ -2,7 +2,7 @@
 
 In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu's method, but this same approach could also be used to visualize the results of other image processing algorithms such as [object detection with neural networks](https://www.tensorflow.org/lite/models/object_detection/overview).
 
-![image]({{ '/assets/tutorials/annotated_bbox.png' | relative_url }})
+![image](../assets/tutorials/annotated_bbox.png)
 
 The completed code is shown below and also can be found in the napari examples directory ([`annotate_segmentation_with_text.py`](https://github.com/napari/napari/blob/master/examples/annotate_segmentation_with_text.py)).
 
@@ -187,7 +187,7 @@ with napari.gui_qt():
 
 ```
 
-![image]({{ '/assets/tutorials/segmentation_labels.png' | relative_url }})
+![image](../assets/tutorials/segmentation_labels.png)
 
 ## analyzing the segmentation
 Next, we use [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table) from skimage to quantify some parameters of each detection object (e.g., area and perimeter).
@@ -207,7 +207,7 @@ Conveniently, `regionprops_table()` returns a dictionary in the same format as t
 	'bbox-1': array([195, 136,  34,  84, 139, 201,  30,  85]),
 	'bbox-2': array([ 94,  94,  95,  95, 166, 166, 167, 167]),
 	'bbox-3': array([246, 177,  72, 124, 187, 247,  74, 124]),
-	'perimeter': 
+	'perimeter':
 		array(
 			[
 				165.88225099, 129.05382387, 123.98275606, 121.98275606,
@@ -314,7 +314,7 @@ Next, we will use the Shapes layer to overlay the bounding boxes for each detect
     )
 ```
 
-![image]({{ '/assets/tutorials/segmentation_bbox.png' | relative_url }})
+![image](../assets/tutorials/segmentation_bbox.png)
 
 The first positional argument (`bbox_rects`) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (`face_color='transparent'`) and the edges of the bounding box are green (`edge_color='green'`). Finally, the name of the layer displayed in the layer list in the napari GUI is `bounding box` (`name='bounding box'`).
 
@@ -355,7 +355,7 @@ text_parameters = {
 }
 ```
 
-The `text` key specifies pattern for the text to be displayed. If `text` is set to the name of a `properties` key, the value for that property will be displayed. napari text also accepts f-string-like syntax, as used here. napari will substitute each pair of curly braces(`{}`) with the values from the property specified inside of the curley braces. For numbers, the precision can be specified in the same style as f-strings. Additionally, napari recognizes standard special characters such as `\n` for new line. 
+The `text` key specifies pattern for the text to be displayed. If `text` is set to the name of a `properties` key, the value for that property will be displayed. napari text also accepts f-string-like syntax, as used here. napari will substitute each pair of curly braces(`{}`) with the values from the property specified inside of the curley braces. For numbers, the precision can be specified in the same style as f-strings. Additionally, napari recognizes standard special characters such as `\n` for new line.
 
 As an example, if a given object has a `label=1` and `circularity=0.8322940`, the resulting text string would be:
 
@@ -406,4 +406,4 @@ with napari.gui_qt():
 ## summary
 In this tutorial, we have used napari to view and annotate segmentation results.
 
-![image]({{ '/assets/tutorials/annotated_bbox.png' | relative_url }})
+![image](../assets/tutorials/annotated_bbox.png)

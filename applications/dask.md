@@ -13,7 +13,7 @@ Chunked file formats exist (such as [hdf5](https://support.hdfgroup.org/HDF5/) a
 
 > **Note**: This tutorial is not meant to promote a folder of TIFFs as a "good way" to store large datasets on disk;
 > but it is undoubtedly a common scenario in microscopy.
-> Chunked formats such as `hdf5` or `zarr` are superior in many ways, 
+> Chunked formats such as `hdf5` or `zarr` are superior in many ways,
 > but they do require the user to either duplicate their data
 > or go "all in" and delete the original data after conversion.
 > And while `napari` can easily handle something like a `zarr` store,
@@ -89,7 +89,7 @@ stack.shape  # (nfiles, nz, ny, nx)
 stack
 ```
 
-![image]({{ '/assets/tutorials/dask_repr.png' | relative_url }})
+![image](../assets/tutorials/dask_repr.png)
 
 *No data has been read from disk yet!*
 

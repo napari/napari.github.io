@@ -33,7 +33,7 @@ To checkout some cool example uses of **napari** with scientific data see our [g
 ## getting started
 
 These tutorials target people who want to use napari as a user.
-If you are also interested in contributing to napari then please check out [contributing guidelines](https://github.com/napari/napari/blob/master/docs/developers/CONTRIBUTING.md).
+If you are also interested in contributing to napari then please check out [contributing guidelines](https://github.com/napari/napari/blob/master/docs/developers/contributing.md).
 
 If you've already got napari installed,
 then begin with our [getting started](./fundamentals/getting_started) tutorial.

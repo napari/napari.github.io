@@ -51,7 +51,7 @@ points = np.array([[100, 100], [200, 200], [300, 100]])
 viewer.add_points(points, size=30)
 ```
 
-![image](../assets/tutorials/add_points.png)
+![image: add points](../assets/tutorials/add_points.png)
 
 ## arguments of view_points and add_points
 
@@ -171,7 +171,7 @@ and one of our viewer buttons can toggle between each mode.
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 See for example these points overlaid on an image in both 2D and 3D:
 
-![image](../assets/tutorials/smFISH.gif)
+![image: smFISH with points overlaid](../assets/tutorials/smFISH.gif)
 
 Note though that when entering 3D rendering mode
 the point add, delete, and select tools are all disabled.
@@ -301,7 +301,7 @@ with napari.gui_qt():
     )
 ```
 
-![image](../assets/tutorials/points_edge_color_cycle.png)
+![image: points edge color cycle](../assets/tutorials/points_edge_color_cycle.png)
 
 In the example above, the properties (`point_properties`) were provided as a dictionary with two properties: `good_point` and `confidence`.
 The values of each property are stored in a numpy ndarray with length 3
@@ -336,7 +336,7 @@ with napari.gui_qt():
     )
 ```
 
-![image](../assets/tutorials/points_face_colormap.png)
+![image: points face colormap](../assets/tutorials/points_face_colormap.png)
 
 In the example above, the properties (`point_properties`) were provided as a dictionary with two properties: `good_point` and `confidence`.
 The values of each property are stored in a numpy ndarray with length 3
@@ -416,7 +416,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 
 Here you can see an example of adding, selecting, deleting points and change their properties:
 
-![image](../assets/tutorials/editing_points.gif)
+![image: editing points](../assets/tutorials/editing_points.gif)
 
 ## next steps
 

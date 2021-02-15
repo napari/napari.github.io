@@ -17,7 +17,7 @@ By integrating closely with the Python ecosystem,
 **napari** can be easily coupled to leading machine learning and image analysis tools (e.g. `scikit-image`, `scikit-learn`, `TensorFlow`, `PyTorch`),
 enabling more user-friendly automated analysis.
 
-![image](./assets/tutorials/napari_overview.png)
+![image: Overview of the napari viewer](./assets/tutorials/napari_overview.png)
 
 We're developing **napari** in the open!
 But the project is in an **alpha** stage,

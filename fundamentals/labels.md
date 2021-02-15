@@ -61,7 +61,7 @@ with napari.gui_qt():
     viewer.add_labels(label_image, name='segmentation')
 ```
 
-![image](../assets/tutorials/coins.png)
+![image: coins image](../assets/tutorials/coins.png)
 
 ## arguments of view_labels and add_labels
 
@@ -127,7 +127,7 @@ The number of dimensions sliders will be 2 or 3 less than the total number of di
 allowing you to browse volumetric timeseries data and other high dimensional data.
 See for example the labeled blobs in 3D in the `examples/nD_labels.py`:
 
-![image](../assets/tutorials/nD_labels.png)
+![image: nD labels](../assets/tutorials/nD_labels.png)
 
 Note though that when entering 3D rendering mode
 the colorpicker, paintbrush, and fill bucket options which allow for layer editing are all disabled.
@@ -223,7 +223,7 @@ Below we show how to use these tools to by perform common editing tasks on conne
 
 **drawing a connected component**:
 
-![image](../assets/tutorials/draw_component.gif)
+![image: draw component](../assets/tutorials/draw_component.gif)
 
 Press `M` to select a new label color.
 Select the `paintbrush` tool and draw a closed contour around the object.
@@ -231,20 +231,20 @@ Select the `fill bucket` tool and click inside the contour to assign the label t
 
 **selecting a connected component**:
 
-![image](../assets/tutorials/delete_label.gif)
+![image: delete label](../assets/tutorials/delete_label.gif)
 
 select the background label with the `color picker` (alternative: press keyboard shortcut `E`),
 then use the `fill bucket` to set all pixels of the connected component to background.
 
 **merging connected components**:
 
-![image](../assets/tutorials/merge_labels.gif)
+![image: merge labels](../assets/tutorials/merge_labels.gif)
 
 select the label of one of the components with the `color picker` tool and then filling the components to be merged with the fill bucket.
 
 **splitting a connected component**:
 
-![image](../assets/tutorials/split_label.gif)
+![image: split label](../assets/tutorials/split_label.gif)
 
 splitting a connected component will introduce an additional object,
 therefore press `M` to select a label number that is not already in use.

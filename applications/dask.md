@@ -89,7 +89,7 @@ stack.shape  # (nfiles, nz, ny, nx)
 stack
 ```
 
-![image](../assets/tutorials/dask_repr.png)
+![image: dask array html representation](../assets/tutorials/dask_repr.png)
 
 *No data has been read from disk yet!*
 

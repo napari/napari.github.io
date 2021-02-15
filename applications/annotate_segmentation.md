@@ -2,7 +2,7 @@
 
 In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu's method, but this same approach could also be used to visualize the results of other image processing algorithms such as [object detection with neural networks](https://www.tensorflow.org/lite/models/object_detection/overview).
 
-![image](../assets/tutorials/annotated_bbox.png)
+![image: annotated bounding box](../assets/tutorials/annotated_bbox.png)
 
 The completed code is shown below and also can be found in the napari examples directory ([`annotate_segmentation_with_text.py`](https://github.com/napari/napari/blob/master/examples/annotate_segmentation_with_text.py)).
 
@@ -187,7 +187,7 @@ with napari.gui_qt():
 
 ```
 
-![image](../assets/tutorials/segmentation_labels.png)
+![image: segmentation labels](../assets/tutorials/segmentation_labels.png)
 
 ## analyzing the segmentation
 Next, we use [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table) from skimage to quantify some parameters of each detection object (e.g., area and perimeter).
@@ -314,7 +314,7 @@ Next, we will use the Shapes layer to overlay the bounding boxes for each detect
     )
 ```
 
-![image](../assets/tutorials/segmentation_bbox.png)
+![image: segmentation bounding box](../assets/tutorials/segmentation_bbox.png)
 
 The first positional argument (`bbox_rects`) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (`face_color='transparent'`) and the edges of the bounding box are green (`edge_color='green'`). Finally, the name of the layer displayed in the layer list in the napari GUI is `bounding box` (`name='bounding box'`).
 
@@ -406,4 +406,4 @@ with napari.gui_qt():
 ## summary
 In this tutorial, we have used napari to view and annotate segmentation results.
 
-![image](../assets/tutorials/annotated_bbox.png)
+![image: annotated bounding box](../assets/tutorials/annotated_bbox.png)

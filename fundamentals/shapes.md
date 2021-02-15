@@ -57,7 +57,7 @@ with napari.gui_qt():
                               edge_color='coral', face_color='royalblue')
 ```
 
-![image](../assets/tutorials/add_shapes.png)
+![image: add shapes](../assets/tutorials/add_shapes.png)
 
 ## arguments of view_shapes and add_shapes
 
@@ -222,7 +222,7 @@ and one of our viewer buttons can toggle between each mode.
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 See for example the `examples/nD_shapes.py` to see shapes in both 2D and 3D:
 
-![image](../assets/tutorials/nD_shapes.gif)
+![image: nD shapes](../assets/tutorials/nD_shapes.gif)
 
 Note though that when entering 3D rendering mode
 the shape editing tools are all disabled.
@@ -235,7 +235,7 @@ i.e. the shape must be entirely defined within that plane.
 For paths that are defined by coordinates spanning more than two dimensions,
 it is possible to visualize them as 3D cylinders, see for example the `examples/3D_paths.py`
 
-![image](../assets/tutorials/3D_paths.png)
+![image: 3D paths](../assets/tutorials/3D_paths.png)
 
 Right now, it is not possible to display 3D cuboids or 3D spheroids,
 but will be supporting those options soon.
@@ -273,7 +273,7 @@ You can select all the shapes in the currently viewed slice by clicking the `A` 
 Once selected you can delete the selected shapes by clicking on the delete button in the layer controls panel or pressing the delete key.
 
 For example see below:
-![image](../assets/tutorials/shape_resizing.gif)
+![image: shape resizing](../assets/tutorials/shape_resizing.gif)
 
 ## adding, moving, and deleting individual vertices
 
@@ -291,7 +291,7 @@ which can be selected either clicking on the vertex deletion tool in the layer c
 or pressing the `X` key while the shapes layer is selected.
 
 For example see below:
-![image](../assets/tutorials/shape_vertex_editing.gif)
+![image: shape vertex editing](../assets/tutorials/shape_vertex_editing.gif)
 
 ## changing shape edge and face colors
 
@@ -397,7 +397,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 
 Here you can see an example of adding, selecting, and editing shapes and change their properties:
 
-![image](../assets/tutorials/editing_shapes.gif)
+![image: editing shapes](../assets/tutorials/editing_shapes.gif)
 
 ## next steps
 

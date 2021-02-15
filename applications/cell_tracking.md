@@ -179,7 +179,7 @@ with napari.gui_qt():
     viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE, name='tracks')
 ```
 
-![image](../assets/tutorials/tracks_isbi.gif)
+![image: tracks isbi](../assets/tutorials/tracks_isbi.gif)
 
 ---
 
@@ -231,7 +231,7 @@ with napari.gui_qt():
     viewer.add_tracks(data, properties=properties, graph=graph)
 ```
 
-![image](../assets/tutorials/tracks_btrack.png)
+![image: tracks btrack](../assets/tutorials/tracks_btrack.png)
 
 A notebook for this example can be found in the btrack examples directory ([`napari_btrack.ipynb`](https://github.com/quantumjot/BayesianTracker/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb))
 

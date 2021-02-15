@@ -12,7 +12,7 @@ but all these functionalities and more are still supported.
 
 ### pathology data
 
-![image](./assets/gallery/pathology.gif)
+![image: pathology](./assets/gallery/pathology.gif)
 
 This example shows an ~100k x 200k pixel pathology slide from the [camelyon 16 challenge](https://camelyon17.grand-challenge.org/Data/) for cancer detection in pathology images.
 We converted the multiresolution image pyramid data into a [zarr](https://zarr.readthedocs.io) file,
@@ -28,7 +28,7 @@ During the gif you can see us add a new `Shapes` layer and start drawing shapes 
 
 ### lattice light-sheet data
 
-![image](./assets/gallery/LLSM.gif)
+![image: lattice light sheet microscopy](./assets/gallery/LLSM.gif)
 
 This example browses over 100GB of [lattice lightsheet](https://science.sciencemag.org/content/360/6386/eaaq1392) data, representing a volumetric timeseries.
 Using the sliders, we can move through both the `z` dimension and the `time` dimension.
@@ -37,13 +37,13 @@ which are lazily reading using [dask](https://dask.readthedocs.io/en/latest/).
 
 Or rendered in 3D as a volumetric timeseries.
 
-![image](./assets/gallery/LLSM_3D.gif)
+![image: 3D lattice light sheet microscopy](./assets/gallery/LLSM_3D.gif)
 
 Note that the volume has been downsampled in each spatial axis by a factor of four before displaying it.
 
 ### neural calcium imaging data
 
-![image](./assets/gallery/calcium_imaging.gif)
+![image: calcium imaging](./assets/gallery/calcium_imaging.gif)
 
 This example shows calcium imaging of neurons to record neural activity
 and is one of the example datasets in the [neurofinder](http://neurofinder.codeneuro.org/) image segmentation challenge.
@@ -57,7 +57,7 @@ to separate two regions that were incorrectly merged and two add two regions tha
 
 ### mesoscope neural imaging data
 
-![image](./assets/gallery/mesoscope.gif)
+![image: mesoscope](./assets/gallery/mesoscope.gif)
 
 This example shows neural activity recorded with the [2-photon random access mesoscope](https://elifesciences.org/articles/14472).
 The bottom `Image` layer contains the underlying timeseries of neural activity.
@@ -66,7 +66,7 @@ such as the mean, local correlation or colored correlations with other timeserie
 
 ### electron microscopy data
 
-![image](./assets/gallery/CREMI.gif)
+![image: CREMI electron microscopy](./assets/gallery/CREMI.gif)
 
 This example shows 3D electron microscopy data from the [CREMI](https://cremi.org/) circuit reconstruction challenge.
 The bottom `Image` layer contains the underlying electron microscopy image.
@@ -76,7 +76,7 @@ Pre- and post-synaptic sites are marked with `Points` layers.
 
 ### allen brain reference atlas
 
-![image](./assets/gallery/allen_brain.gif)
+![image: Allen brain reference atlas](./assets/gallery/allen_brain.gif)
 
 This example shows the [allen brain reference atlas](https://mouse.brain-map.org/static/atlas),
 a 3D map of the mouse brain, including its division into different brain areas.
@@ -86,7 +86,7 @@ where each colored region corresponds to a different part of the brain.
 
 ### image-based transcriptomic data
 
-![image](./assets/gallery/smFISH.gif)
+![image: smFISH transcriptomic data](./assets/gallery/smFISH.gif)
 
 This example shows some image-based transcriptomics data analyzed with the [starfish tool](https://spacetx-starfish.readthedocs.io/en/latest/).
 Each spot in the image corresponds to an mRNA molecule.
@@ -96,7 +96,7 @@ and the top `Points` layer corresponds to the detected mRNA spots.
 
 We can also visualize the raw and deconvolved layers as 3D volumes using the `Volume` layer.
 
-![image](./assets/gallery/smFISH_3D.gif)
+![image: 3D smFISH transcriptomic data](./assets/gallery/smFISH_3D.gif)
 
 Here the raw volume is shown in a `red` colormap,
 and the deconvolved volume is shown in a `green` colormap.
@@ -105,7 +105,7 @@ Data courtesy of Tim Wang, Svoboda Lab.
 
 ### cell biology data
 
-![image](./assets/gallery/allen_cell.gif)
+![image: Allen cell data](./assets/gallery/allen_cell.gif)
 
 This example shows images of cells under brightfield and fluorescent imaging.
 There are four color channels of flourescently label data all blended together,
@@ -115,13 +115,13 @@ which can be seen in blue.
 
 We can also visualize the flourescent data as `Volume` layers too.
 
-![image](./assets/gallery/allen_cell_3D.gif)
+![image: Allen cell 3D data](./assets/gallery/allen_cell_3D.gif)
 
 Data from Allen Cell.
 
 ### more cell biology data
 
-![image](./assets/gallery/cells.gif)
+![image: Fluorescent cells (nuclei, membranes, and cytoplasm)](./assets/gallery/cells.gif)
 
 This example shows 3 color channels of data of cell nuclei, membranes, and cytoplasm
 represented using three different `Image` layers with different colormaps, blended together.
@@ -135,7 +135,7 @@ including deleting existing ones and adding new ones.
 
 ### volumetric rendering data
 
-![image](./assets/gallery/stent.gif)
+![image: 3D rendering of a stent](./assets/gallery/stent.gif)
 
 This example shows 3D rendering of a stent
 and includes the changing of colormaps and color limits.
@@ -143,13 +143,13 @@ Data from vispy examples.
 
 ### geospatial data
 
-![image](./assets/gallery/geospatial.gif)
+![image: Geospatial data from the landsat survey](./assets/gallery/geospatial.gif)
 
 This example shows data from the [landsat-8](https://landsat.gsfc.nasa.gov/landsat-8/mission-details/) survey.
 
 ### kaggle nuclei segmentation data
 
-![image](./assets/gallery/DSB2018_browse.gif)
+![image: Kaggle nuclei segmentation data](./assets/gallery/DSB2018_browse.gif)
 
 This example browses data from the [2018 kaggle data science bowl](https://www.kaggle.com/c/data-science-bowl-2018) on nuclei segmentation.
 The raw images are visualized using an `Image` layer
@@ -163,11 +163,11 @@ Note that not all images need to be the same size either.
 
 We can also edit or create our own segmentations using the paintbrush and fill bucket tool in the `Labels` layer.
 
-![image](./assets/gallery/DSB2018_edit.gif)
+![image: Editing the Kaggle nuclei segmentation data](./assets/gallery/DSB2018_edit.gif)
 
 ### machine learning data
 
-![image](./assets/gallery/ants_bees.gif)
+![image: Ants vs Bees machine learning classification](./assets/gallery/ants_bees.gif)
 
 This example shows data from a [hymenoptera classification task](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html)
 where the goal is to separate the images of the ants and bees.

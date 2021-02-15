@@ -12,10 +12,10 @@ At the end of the tutorial you should be able to launch napari and see the viewe
 
 There are four ways to launch the **napari** viewer:
 
-- command line
-- python script
 - IPython console
 - jupyter notebook
+- python script
+- command line
 
 All four of these methods will launch the same napari viewer
 but depending on your use-case different ones may be preferable.

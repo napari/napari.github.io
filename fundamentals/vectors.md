@@ -186,4 +186,4 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 Hopefully, this tutorial has given you a detailed understanding of the `Vectors` layer,
 including how to create one and control its properties.
 If you've explored all the other layer types that **napari** supports
-maybe checkout our [gallery]('../gallery') for some cool examples of using napari with scientific data.
+maybe checkout our [gallery](../gallery) for some cool examples of using napari with scientific data.

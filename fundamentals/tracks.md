@@ -329,6 +329,3 @@ Hopefully, this tutorial has given you a detailed understanding of the `Tracks` 
 including how to create one and control its properties.
 To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.
-
-
-{% include footer.md %}

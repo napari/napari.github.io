@@ -141,5 +141,3 @@ and where data changed in the GUI will be accessible in the notebook.
 
 To learn more about how to use the napari viewer with different types of napari layers
 checkout the [viewer tutorial](./viewer) and more of our tutorials listed below.
-
-{% include footer.md %}

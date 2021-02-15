@@ -176,5 +176,3 @@ and lazily load each image when requested by the slider.
 This method can support easy browsing of training datasets with many images
 as we never need to load all the images into memory.
 Note that not all images need to be the same size either.
-
-{% include footer.md %}

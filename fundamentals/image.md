@@ -325,5 +325,3 @@ To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.
 The [labels layer](./labels) tutorial is a great one to try next
 as labels layers are an extension of our image layers used for labeling regions of images.
-
-{% include footer.md %}

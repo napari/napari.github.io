@@ -226,5 +226,3 @@ We look forward to interacting with you there.
 
 Now that you've got napari installed,
 checkout our [getting started](./getting_started) tutorial to start learning how to use it!
-
-{% include footer.md %}

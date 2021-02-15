@@ -317,4 +317,3 @@ To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.
 The [points layer](./points) tutorial is a great one to try next
 as points are one of our simplest shape-like layers.
-{% include footer.md %}

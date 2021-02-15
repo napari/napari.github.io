@@ -213,5 +213,3 @@ including how to create one and control its properties.
 To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.
 The [vectors layer](./vectors) tutorial is a great one to try next as it describes rendering lots of lines.
-
-{% include footer.md %}

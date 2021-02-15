@@ -248,5 +248,3 @@ References for cell tracking challenge:
 For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:
 + [btrack](https://github.com/quantumjot/BayesianTracker)
 + [arboretum](https://github.com/quantumjot/arboretum)
-
-{% include footer.md %}

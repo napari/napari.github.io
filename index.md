@@ -52,5 +52,3 @@ please raise an issue on the repository or make a PR,
 we'd love to have the community help make them better for everyone.
 
 [napari tutorials home page](http://www.napari.org/tutorials)
-
-{% include footer.md %}

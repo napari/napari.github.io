@@ -377,5 +377,3 @@ To learn more about the different layer types that **napari** supports
 checkout some more of our tutorials listed below.
 The [image layer](./image) tutorial is a great one to try next
 as viewing images is a fundamental part of what **napari** is about.
-
-{% include footer.md %}

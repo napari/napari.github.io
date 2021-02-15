@@ -8,13 +8,6 @@ before the UI upgraded in the 0.2 release,
 so they layout might look a little different in your version of napari,
 but all these functionalities and more are still supported.
 
-| | | | |
-|---|---|---|---|
-|<a href="#pathology-data"><img src="./assets/gallery/pathology.gif" width="130"/><a>| <a href="#lattice-light-sheet-data"><img src="./assets/gallery/LLSM.gif" width="130"/><a> | <a href="#neural-calcium-imaging-data"><img src="./assets/gallery/calcium_imaging.gif" width="130"/><a> | <a href="#mesoscope-neural-imaging-data"><img src="./assets/gallery/mesoscope.gif" width="130"/><a> |
-|<a href="#electron-microscopy-data"><img src="./assets/gallery/CREMI.gif" width="130"/><a>| <a href="#allen-brain-reference-atlas"><img src="./assets/gallery/allen_brain.gif" width="130"/><a> | <a href="#image-based-transcriptomic-data"><img src="./assets/gallery/smFISH.gif" width="130"/><a> | <a href="#image-based-transcriptomic-data"><img src="./assets/gallery/smFISH_3D.gif" width="130"/><a> |
-| <a href="#cell-biology-data"><img src="./assets/gallery/allen_cell.gif" width="130"/><a> | <a href="#cell-biology-data"><img src="./assets/gallery/allen_cell_3D.gif" width="130"/><a> | <a href="#more-cell-biology-data"><img src="./assets/gallery/cells.gif" width="130"/><a> | <a href="#volumetric-rendering-data"><img src="./assets/gallery/stent.gif" width="130"/><a> |
-| <a href="#geospatial-data"><img src="./assets/gallery/geospatial.gif" width="130"/><a> | <a href="#kaggle-nuclei-segmentation-data"><img src="./assets/gallery/DSB2018_browse.gif" width="130"/><a> | <a href="#kaggle-nuclei-segmentation-data"><img src="./assets/gallery/DSB2018_edit.gif" width="130"/><a> | <a href="#machine-learning-data"><img src="./assets/gallery/ants_bees.gif" width="130"/><a> |
-
 ## Examples
 
 ### pathology data
@@ -22,7 +15,7 @@ but all these functionalities and more are still supported.
 ![image](./assets/gallery/pathology.gif)
 
 This example shows an ~100k x 200k pixel pathology slide from the [camelyon 16 challenge](https://camelyon17.grand-challenge.org/Data/) for cancer detection in pathology images.
-We converted the multiresolution image pyramid data into a [zarr](https://zarr.readthedocs.io) file, 
+We converted the multiresolution image pyramid data into a [zarr](https://zarr.readthedocs.io) file,
 which we could lazily read using [dask](https://dask.readthedocs.io/en/latest/),
 a python library for flexible parallel computation.
 

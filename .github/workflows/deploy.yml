@@ -45,12 +45,11 @@ jobs:
 
       # Build the book
       - name: Build the book
-        run: |
-          jupyter-book build .
+        run: jupyter-book build docs
 
-      # Deploy the book's HTML to gh-pages branch
+      # Deploy the book's HTML to github pages
       - name: GitHub Pages action
-        uses: peaceiris/actions-gh-pages@v3.7.3
+        uses: peaceiris/actions-gh-pages@v3.6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/html
+          publish_dir: docs/_build/html

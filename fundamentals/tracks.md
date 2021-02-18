@@ -1,6 +1,6 @@
 # tracks layer tutorial
 
-Welcome to the tutorial on the **napari** `Tracks` layer! Please note that `Tracks` layer is a new layer type that will be released in `napari 0.4.0`, but it is available for preview on the [master branch](https://github.com/napari/napari). 
+Welcome to the tutorial on the **napari** `Tracks` layer! Please note that `Tracks` layer is a new layer type that will be released in `napari 0.4.0`, but it is available for preview on the [master branch](https://github.com/napari/napari).
 
 This tutorial assumes you have already installed **napari**,
 know how to launch the viewer,
@@ -64,7 +64,7 @@ with napari.gui_qt():
 
 ```
 
-![image]({{ '/assets/tutorials/tracks_simple_demo.gif' | relative_url }})
+![image: tracks simple demo](../assets/tutorials/tracks_simple_demo.gif)
 
 ## arguments of view_tracks and add_tracks
 
@@ -176,7 +176,7 @@ If later tracks 1 and 2 merge into track 3 (i.e,. tracks 1 and 2 are the parent 
 graph = {
     1: [0],
     2: [0],
-    3: [1, 2]  
+    3: [1, 2]
 }
 ```
 For a full example of 3d+t tracks data with a parent graph, please see our [`tracks_3d_with_graph.py` example](https://github.com/napari/napari/blob/master/examples/tracks_3d_with_graph.py).
@@ -210,7 +210,7 @@ viewer.layers["my_tracks"].tail_width = 3
 
 Additionally, we can adjust the width of the track in the GUI using the "tail width" slider in the Tracks layer controls.
 
-![image]({{ '/assets/tutorials/tracks_tail_width.gif' | relative_url }})
+![image: tracks tail width](../assets/tutorials/tracks_tail_width.gif)
 
 ## changing tail length
 We can specify the length of the tails of the tracks in time units. The tail is the portion of the track displayed from previous time steps. The track tail length can be specified via the `tail_length ` keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that as already been constructed, we can set the track width via the `tail_length ` property.
@@ -226,7 +226,7 @@ viewer.layers["my_tracks"].tail_length = 3
 
 Additionally, we can adjust the width of the track in the GUI using the "tail length" slider in the Tracks layer controls.
 
-![image]({{ '/assets/tutorials/tracks_tail_length.gif' | relative_url }})
+![image: tracks tail length](../assets/tutorials/tracks_tail_length.gif)
 
 ## setting the track color with properties
 We can color the tracks by mapping colors to the track properties defined in `Tracks.properties`. If we define properties and pass them via the properties keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods, we can then select the property we would like to color the tracks by in the "color by" dropdown menu in the `Tracks` layer controls. We can additionally specify the colormap used to map the property value to color via the "colormap" dropdown menu.
@@ -265,7 +265,7 @@ with napari.gui_qt():
     viewer.add_tracks(tracks_data, properties=properties)
 ```
 
-![image]({{ '/assets/tutorials/tracks_color_by.gif' | relative_url }})
+![image: tracks colored by properties](../assets/tutorials/tracks_color_by.gif)
 
 ## layer visibility
 
@@ -321,7 +321,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 
 Here you can see an example of 3D+t tracks. You can view the source code for this example [here](https://github.com/napari/napari/blob/master/examples/tracks_3d.py)
 
-![image]({{ '/assets/tutorials/tracks_3d_t.gif' | relative_url }})
+![image: tracks 3D plus time](../assets/tutorials/tracks_3d_t.gif)
 
 ## next steps
 
@@ -329,6 +329,3 @@ Hopefully, this tutorial has given you a detailed understanding of the `Tracks` 
 including how to create one and control its properties.
 To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.
-
-
-{% include footer.md %}

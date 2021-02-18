@@ -1,6 +1,6 @@
 # single cell tracking with napari
 
-In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the `Tracks` layer. For an overview of the `Tracks` layer, please see the [tracks layer fundamentals tutorial]({{ '/fundamentals/tracks' | relative_url }}).
+In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the `Tracks` layer. For an overview of the `Tracks` layer, please see the [tracks layer fundamentals tutorial](../fundamentals/tracks).
 
 This application note covers two examples:
 1. Visualization of a cell tracking challenge dataset
@@ -50,7 +50,7 @@ def load_image(idx: int):
 stack = np.asarray([load_image(i) for i in range(NUM_IMAGES)])
 ```
 
-For each image in the time-lapse sequence, we will now extract the unique track label (`track_id`), centroid and timestamp in order to create the track data we will pass to the `Tracks` layer. For more information on the format of the track data, please see the "tracks data" section of the [tracks layer fundamentals tutorial]({{ '/fundamentals/tracks' | relative_url }}).
+For each image in the time-lapse sequence, we will now extract the unique track label (`track_id`), centroid and timestamp in order to create the track data we will pass to the `Tracks` layer. For more information on the format of the track data, please see the "tracks data" section of the [tracks layer fundamentals tutorial](../fundamentals/tracks).
 
 ```python
 def regionprops_plus_time(idx):
@@ -94,16 +94,16 @@ with napari.gui_qt():
 ### calculating the graph using the lineage information
 
 The `Tracks` layer can also be used to visualize a track 'graph' using the additional keyword argument `graph`. The `graph`  represents associations between tracks, by defining the
-mapping between a `track_id` and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track `graph`, please see the "tracks graph" section of the [tracks layer fundamentals tutorial]({{ '/fundamentals/tracks' | relative_url }}).
+mapping between a `track_id` and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track `graph`, please see the "tracks graph" section of the [tracks layer fundamentals tutorial](../fundamentals/tracks).
 
 In the cell tracking challenge dataset, cell lineage information is stored in a text file `man_track.txt` in the following format:
 
 > A text file representing an acyclic graph for the whole video. Every line corresponds
-to a single track that is encoded by four numbers separated by a space:  
-> L - a unique label of the track (label of markers, 16-bit positive value)  
-> B - a zero-based temporal index of the frame in which the track begins  
-> E - a zero-based temporal index of the frame in which the track ends  
-> P - label of the parent track (0 is used when no parent is defined)  
+to a single track that is encoded by four numbers separated by a space:
+> L - a unique label of the track (label of markers, 16-bit positive value)
+> B - a zero-based temporal index of the frame in which the track begins
+> E - a zero-based temporal index of the frame in which the track ends
+> P - label of the parent track (0 is used when no parent is defined)
 
 To extract the graph, we load the text file and convert it to a Nx4 integer numpy array, where the rows represent individual tracks and the columns represent L, B, E and P:
 ```python
@@ -179,7 +179,7 @@ with napari.gui_qt():
     viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE, name='tracks')
 ```
 
-![image]({{ '/assets/tutorials/tracks_isbi.gif' | relative_url }})
+![image: tracks isbi](../assets/tutorials/tracks_isbi.gif)
 
 ---
 
@@ -231,7 +231,7 @@ with napari.gui_qt():
     viewer.add_tracks(data, properties=properties, graph=graph)
 ```
 
-![image]({{ '/assets/tutorials/tracks_btrack.png' | relative_url }})
+![image: tracks btrack](../assets/tutorials/tracks_btrack.png)
 
 A notebook for this example can be found in the btrack examples directory ([`napari_btrack.ipynb`](https://github.com/quantumjot/BayesianTracker/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb))
 
@@ -240,13 +240,11 @@ In this application note, we have used napari to track and visualize single cell
 
 ## further reading
 
-References for cell tracking challenge:  
+References for cell tracking challenge:
 + https://www.nature.com/articles/nmeth.1228
-+ http://dx.doi.org/10.1093/bioinformatics/btu080  
-+ http://dx.doi.org/10.1038/nmeth.4473  
++ http://dx.doi.org/10.1093/bioinformatics/btu080
++ http://dx.doi.org/10.1038/nmeth.4473
 
 For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:
 + [btrack](https://github.com/quantumjot/BayesianTracker)
 + [arboretum](https://github.com/quantumjot/arboretum)
-
-{% include footer.md %}

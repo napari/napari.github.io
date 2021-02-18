@@ -51,7 +51,7 @@ points = np.array([[100, 100], [200, 200], [300, 100]])
 viewer.add_points(points, size=30)
 ```
 
-![image]({{ '/assets/tutorials/add_points.png' | relative_url }})
+![image: add points](../assets/tutorials/add_points.png)
 
 ## arguments of view_points and add_points
 
@@ -171,7 +171,7 @@ and one of our viewer buttons can toggle between each mode.
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 See for example these points overlaid on an image in both 2D and 3D:
 
-![image]({{ '/assets/tutorials/smFISH.gif' | relative_url }})
+![image: smFISH with points overlaid](../assets/tutorials/smFISH.gif)
 
 Note though that when entering 3D rendering mode
 the point add, delete, and select tools are all disabled.
@@ -193,6 +193,7 @@ Points can then be added by clicking in the canvas.
 If you have a multidimensional points layer
 then the coordinates of the new point will keep track of the currently viewed slice that you added the point too.
 You can quickly select the add points tool by pressing the `P` key when the points layer is selected.
+The point adding tool also supports panning and zooming.
 
 You can select a point by selecting the select points tool and then clicking on that point.
 You can select multiple points by continuing to shift click on additional points,
@@ -203,10 +204,10 @@ You can select all the points in the currently viewed slice by clicking the `A` 
 
 Once selected you can delete the selected points by clicking on the delete button in the layer controls panel or pressing the delete key.
 
-When using these point editing tools
-the pan and zoom functionality of the viewer canvas is disabled and you are able to edit the layer.
+When using the point selection tool
+the pan and zoom functionality of the viewer canvas is disabled and you are able to select points the layer.
 You can temporarily re-enable pan and zoom by pressing and holding the spacebar.
-This feature can be useful if you want to move around the points layer as you edit it.
+This feature can be useful if you want to move around the points layer as you create your selection.
 
 ## changing points size
 
@@ -300,7 +301,7 @@ with napari.gui_qt():
     )
 ```
 
-![image]({{ '/assets/tutorials/points_edge_color_cycle.png' | relative_url }})
+![image: points edge color cycle](../assets/tutorials/points_edge_color_cycle.png)
 
 In the example above, the properties (`point_properties`) were provided as a dictionary with two properties: `good_point` and `confidence`.
 The values of each property are stored in a numpy ndarray with length 3
@@ -335,7 +336,7 @@ with napari.gui_qt():
     )
 ```
 
-![image]({{ '/assets/tutorials/points_face_colormap.png' | relative_url }})
+![image: points face colormap](../assets/tutorials/points_face_colormap.png)
 
 In the example above, the properties (`point_properties`) were provided as a dictionary with two properties: `good_point` and `confidence`.
 The values of each property are stored in a numpy ndarray with length 3
@@ -415,7 +416,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 
 Here you can see an example of adding, selecting, deleting points and change their properties:
 
-![image]({{ '/assets/tutorials/editing_points.gif' | relative_url }})
+![image: editing points](../assets/tutorials/editing_points.gif)
 
 ## next steps
 
@@ -425,5 +426,3 @@ To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.
 The [shapes layer](./shapes) tutorial is a great one to try next
 as it describes more complex shapes and interactivity.
-
-{% include footer.md %}

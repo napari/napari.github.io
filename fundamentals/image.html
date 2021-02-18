@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>image layer tutorial &#8212; napari tutorials</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,13 +34,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -393,7 +392,7 @@ In these examples we’ll mainly use <code class="docutils literal notranslate">
     <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/viewer_astronaut.png’ | relative_url }})</p>
+<p><img alt="image: napari viewer displaying image of an astronaut" src="../_images/viewer_astronaut.png" /></p>
 </div>
 <div class="section" id="arguments-of-view-image-and-add-image">
 <h2>arguments of view_image and add_image<a class="headerlink" href="#arguments-of-view-image-and-add-image" title="Permalink to this headline">¶</a></h2>
@@ -442,7 +441,7 @@ and so if you’re using a library like <code class="docutils literal notranslat
 we won’t force you load or compute on data that you’re not looking at.
 This enables napari to seamlessly browse enormous datasets that are loaded in the right way.
 For example, here we are browsing over 100GB of lattice lightsheet data stored in a zarr file:</p>
-<p>![image]({{ ‘/assets/tutorials/LLSM.gif’ | relative_url }})</p>
+<p><img alt="image: lattice light sheet microscopy" src="../_images/LLSM.gif" /></p>
 </div>
 <div class="section" id="image-pyramids">
 <h2>image pyramids<a class="headerlink" href="#image-pyramids" title="Permalink to this headline">¶</a></h2>
@@ -455,7 +454,7 @@ but napari can support any type of pyramid as long as the shapes are getting sma
 For example this ~100k x 200k pixel pathology image consists of 10 pyramid levels
 and can be easily browsed as at each moment in time
 we only load the level of the pyramid and the part of the image that needs to be displayed:</p>
-<p>![image]({{ ‘/assets/tutorials/pathology.gif’ | relative_url }})</p>
+<p><img alt="image: pathology" src="../_images/pathology.gif" /></p>
 <p>This example had precomputed image pyramids stored in a zarr file, which is best for performance.
 If, however you don’t have a precomputed pyramid but try and show a exceptionally large image
 napari will try and compute pyramids for you unless you tell it not too.</p>
@@ -468,7 +467,7 @@ If you don’t provide this value, then will try and guess whether your data is 
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer,
 allowing you to browse volumetric timeseries data and other high dimensional data.
 See for example these cells undergoing mitosis in this volumetric timeseries:</p>
-<p>![image]({{ ‘/assets/tutorials/mitosis.gif’ | relative_url }})</p>
+<p><img alt="image: mitorsis" src="../_images/mitosis.gif" /></p>
 </div>
 <div class="section" id="viewing-rgb-vs-luminance-grayscale-images">
 <h2>viewing rgb vs luminance (grayscale) images<a class="headerlink" href="#viewing-rgb-vs-luminance-grayscale-images" title="Permalink to this headline">¶</a></h2>
@@ -535,7 +534,7 @@ and color a random array you can do the following:</p>
     <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;diverging&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/diverging_colormap.png’ | relative_url }})</p>
+<p><img alt="image: diverging colormap" src="../_images/diverging_colormap.png" /></p>
 <p>Note in this example how we passed the colormap keyword argument as a tuple containing both a name for our new custom colormap and the colormap itself.
 If we had only passed the colormap it would have been given a default name.</p>
 <p>The named colormap now appears in the dropdown menu alongside a little thumbnail of the full range of the colormap.</p>
@@ -559,7 +558,7 @@ or on an existing layer using the <code class="docutils literal notranslate"><sp
 <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;moon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">175</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/contrast_limits.png’ | relative_url }})</p>
+<p><img alt="image: contrast limits" src="../_images/contrast_limits.png" /></p>
 <p>Because the contrast limits are defined by two values
 the corresponding slider has two handles,
 one the adjusts the smaller value,
@@ -597,7 +596,7 @@ This is a reasonable default, useful for many applications.</p>
 This mode is especially useful for many cell biology applications
 where you have multiple different components of a cell labeled in different colors.
 For example:</p>
-<p>![image]({{ ‘/assets/tutorials/blending.png’ | relative_url }})</p>
+<p><img alt="image: blending" src="../_images/blending.png" /></p>
 </div>
 <div class="section" id="layer-interpolation">
 <h2>layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this headline">¶</a></h2>
@@ -616,7 +615,7 @@ The default mode <code class="docutils literal notranslate"><span class="pre">mi
 will combine voxels at different distances from the camera according to a maximum intensity projection
 to create the 2D image that is then displayed on the screen.
 This mode works well for many biological images such as these cells growing in culture:</p>
-<p>![image]({{ ‘/assets/tutorials/rendering.png’ | relative_url }})</p>
+<p><img alt="image: rendering" src="../_images/rendering.png" /></p>
 <p>When viewing 2D slices the rendering mode has no effect.</p>
 </div>
 <div class="section" id="naming-layers">
@@ -651,7 +650,6 @@ To learn more about some of the other layer types that <strong>napari</strong> s
 checkout some more of our tutorials listed below.
 The <a class="reference internal" href="labels.html"><span class="doc std std-doc">labels layer</span></a> tutorial is a great one to try next
 as labels layers are an extension of our image layers used for labeling regions of images.</p>
-<p>{% include footer.md %}</p>
 </div>
 </div>
 
@@ -704,7 +702,7 @@ as labels layers are an extension of our image layers used for labeling regions 
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

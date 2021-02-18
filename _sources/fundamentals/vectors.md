@@ -58,7 +58,7 @@ with napari.gui_qt():
 
 ```
 
-![image]({{ '/assets/tutorials/add_vectors.png' | relative_url }})
+![image: add vectors](../assets/tutorials/add_vectors.png)
 
 ## arguments of view_vectors and add_vectors
 
@@ -104,7 +104,7 @@ and you have one vector per grid.
 
 See here for the example from `examples/add_vectors_image.py` of a grid of vectors defined over a random image:
 
-![image]({{ '/assets/tutorials/add_vectors_image.png' | relative_url }})
+![image: add vectors overlaid on an image](../assets/tutorials/add_vectors_image.png)
 
 Regardless of how the data is passed, we convert it to the Nx2xD representation internally.
 This representation is  accessible through the `layer.data` property.
@@ -120,7 +120,7 @@ and one of our viewer buttons can toggle between each mode.
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 See for example the `examples/nD_vectors.py` to see shapes in both 2D and 3D:
 
-![image]({{ '/assets/tutorials/nD_vectors.gif' | relative_url }})
+![image: nD vectors](../assets/tutorials/nD_vectors.gif)
 
 ## changing vector length, width, and color
 
@@ -186,6 +186,4 @@ that you can use to store an arbitrary metadata dictionary on the layer.
 Hopefully, this tutorial has given you a detailed understanding of the `Vectors` layer,
 including how to create one and control its properties.
 If you've explored all the other layer types that **napari** supports
-maybe checkout our [gallery]({{ '/gallery' | relative_url }}) for some cool examples of using napari with scientific data.
-
-{% include footer.md %}
+maybe checkout our [gallery](../gallery) for some cool examples of using napari with scientific data.

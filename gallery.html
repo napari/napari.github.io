@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>napari gallery &#8212; napari tutorials</title>
     
-  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,13 +34,12 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -353,42 +352,11 @@ Note that some of these examples were made with napari 0.1,
 before the UI upgraded in the 0.2 release,
 so they layout might look a little different in your version of napari,
 but all these functionalities and more are still supported.</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="head"><p></p></th>
-<th class="head"><p></p></th>
-<th class="head"><p></p></th>
-<th class="head"><p></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><a href="#pathology-data"><img src="./assets/gallery/pathology.gif" width="130"/><a></p></td>
-<td><p><a href="#lattice-light-sheet-data"><img src="./assets/gallery/LLSM.gif" width="130"/><a></p></td>
-<td><p><a href="#neural-calcium-imaging-data"><img src="./assets/gallery/calcium_imaging.gif" width="130"/><a></p></td>
-<td><p><a href="#mesoscope-neural-imaging-data"><img src="./assets/gallery/mesoscope.gif" width="130"/><a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a href="#electron-microscopy-data"><img src="./assets/gallery/CREMI.gif" width="130"/><a></p></td>
-<td><p><a href="#allen-brain-reference-atlas"><img src="./assets/gallery/allen_brain.gif" width="130"/><a></p></td>
-<td><p><a href="#image-based-transcriptomic-data"><img src="./assets/gallery/smFISH.gif" width="130"/><a></p></td>
-<td><p><a href="#image-based-transcriptomic-data"><img src="./assets/gallery/smFISH_3D.gif" width="130"/><a></p></td>
-</tr>
-<tr class="row-even"><td><p><a href="#cell-biology-data"><img src="./assets/gallery/allen_cell.gif" width="130"/><a></p></td>
-<td><p><a href="#cell-biology-data"><img src="./assets/gallery/allen_cell_3D.gif" width="130"/><a></p></td>
-<td><p><a href="#more-cell-biology-data"><img src="./assets/gallery/cells.gif" width="130"/><a></p></td>
-<td><p><a href="#volumetric-rendering-data"><img src="./assets/gallery/stent.gif" width="130"/><a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a href="#geospatial-data"><img src="./assets/gallery/geospatial.gif" width="130"/><a></p></td>
-<td><p><a href="#kaggle-nuclei-segmentation-data"><img src="./assets/gallery/DSB2018_browse.gif" width="130"/><a></p></td>
-<td><p><a href="#kaggle-nuclei-segmentation-data"><img src="./assets/gallery/DSB2018_edit.gif" width="130"/><a></p></td>
-<td><p><a href="#machine-learning-data"><img src="./assets/gallery/ants_bees.gif" width="130"/><a></p></td>
-</tr>
-</tbody>
-</table>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="pathology-data">
 <h3>pathology data<a class="headerlink" href="#pathology-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/pathology.gif" /></p>
+<p><img alt="image: pathology" src="_images/pathology1.gif" /></p>
 <p>This example shows an ~100k x 200k pixel pathology slide from the <a class="reference external" href="https://camelyon17.grand-challenge.org/Data/">camelyon 16 challenge</a> for cancer detection in pathology images.
 We converted the multiresolution image pyramid data into a <a class="reference external" href="https://zarr.readthedocs.io">zarr</a> file,
 which we could lazily read using <a class="reference external" href="https://dask.readthedocs.io/en/latest/">dask</a>,
@@ -401,18 +369,18 @@ During the gif you can see us add a new <code class="docutils literal notranslat
 </div>
 <div class="section" id="lattice-light-sheet-data">
 <h3>lattice light-sheet data<a class="headerlink" href="#lattice-light-sheet-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/LLSM.gif" /></p>
+<p><img alt="image: lattice light sheet microscopy" src="_images/LLSM1.gif" /></p>
 <p>This example browses over 100GB of <a class="reference external" href="https://science.sciencemag.org/content/360/6386/eaaq1392">lattice lightsheet</a> data, representing a volumetric timeseries.
 Using the sliders, we can move through both the <code class="docutils literal notranslate"><span class="pre">z</span></code> dimension and the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension.
 The data is stored on disk as a <a class="reference external" href="https://zarr.readthedocs.io">zarr</a> file,
 which are lazily reading using <a class="reference external" href="https://dask.readthedocs.io/en/latest/">dask</a>.</p>
 <p>Or rendered in 3D as a volumetric timeseries.</p>
-<p><img alt="image" src="_images/LLSM_3D.gif" /></p>
+<p><img alt="image: 3D lattice light sheet microscopy" src="_images/LLSM_3D.gif" /></p>
 <p>Note that the volume has been downsampled in each spatial axis by a factor of four before displaying it.</p>
 </div>
 <div class="section" id="neural-calcium-imaging-data">
 <h3>neural calcium imaging data<a class="headerlink" href="#neural-calcium-imaging-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/calcium_imaging.gif" /></p>
+<p><img alt="image: calcium imaging" src="_images/calcium_imaging.gif" /></p>
 <p>This example shows calcium imaging of neurons to record neural activity
 and is one of the example datasets in the <a class="reference external" href="http://neurofinder.codeneuro.org/">neurofinder</a> image segmentation challenge.
 The bottom <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer contains timeseries of the neural activity.
@@ -424,7 +392,7 @@ to separate two regions that were incorrectly merged and two add two regions tha
 </div>
 <div class="section" id="mesoscope-neural-imaging-data">
 <h3>mesoscope neural imaging data<a class="headerlink" href="#mesoscope-neural-imaging-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/mesoscope.gif" /></p>
+<p><img alt="image: mesoscope" src="_images/mesoscope.gif" /></p>
 <p>This example shows neural activity recorded with the <a class="reference external" href="https://elifesciences.org/articles/14472">2-photon random access mesoscope</a>.
 The bottom <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer contains the underlying timeseries of neural activity.
 The subsequent <code class="docutils literal notranslate"><span class="pre">Image</span></code> layers contain processed maps,
@@ -432,7 +400,7 @@ such as the mean, local correlation or colored correlations with other timeserie
 </div>
 <div class="section" id="electron-microscopy-data">
 <h3>electron microscopy data<a class="headerlink" href="#electron-microscopy-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/CREMI.gif" /></p>
+<p><img alt="image: CREMI electron microscopy" src="_images/CREMI.gif" /></p>
 <p>This example shows 3D electron microscopy data from the <a class="reference external" href="https://cremi.org/">CREMI</a> circuit reconstruction challenge.
 The bottom <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer contains the underlying electron microscopy image.
 The <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer immediately above it contains the segmentation mask,
@@ -441,7 +409,7 @@ Pre- and post-synaptic sites are marked with <code class="docutils literal notra
 </div>
 <div class="section" id="allen-brain-reference-atlas">
 <h3>allen brain reference atlas<a class="headerlink" href="#allen-brain-reference-atlas" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/allen_brain.gif" /></p>
+<p><img alt="image: Allen brain reference atlas" src="_images/allen_brain.gif" /></p>
 <p>This example shows the <a class="reference external" href="https://mouse.brain-map.org/static/atlas">allen brain reference atlas</a>,
 a 3D map of the mouse brain, including its division into different brain areas.
 The bottom <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer contains the underlying grayscale representation of the reference brain,
@@ -450,33 +418,33 @@ where each colored region corresponds to a different part of the brain.</p>
 </div>
 <div class="section" id="image-based-transcriptomic-data">
 <h3>image-based transcriptomic data<a class="headerlink" href="#image-based-transcriptomic-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/smFISH.gif" /></p>
+<p><img alt="image: smFISH transcriptomic data" src="_images/smFISH1.gif" /></p>
 <p>This example shows some image-based transcriptomics data analyzed with the <a class="reference external" href="https://spacetx-starfish.readthedocs.io/en/latest/">starfish tool</a>.
 Each spot in the image corresponds to an mRNA molecule.
 The bottom <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer is the raw image data.
 The middle <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer is the raw data after a learnt deconvolution,
 and the top <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer corresponds to the detected mRNA spots.</p>
 <p>We can also visualize the raw and deconvolved layers as 3D volumes using the <code class="docutils literal notranslate"><span class="pre">Volume</span></code> layer.</p>
-<p><img alt="image" src="_images/smFISH_3D.gif" /></p>
+<p><img alt="image: 3D smFISH transcriptomic data" src="_images/smFISH_3D.gif" /></p>
 <p>Here the raw volume is shown in a <code class="docutils literal notranslate"><span class="pre">red</span></code> colormap,
 and the deconvolved volume is shown in a <code class="docutils literal notranslate"><span class="pre">green</span></code> colormap.</p>
 <p>Data courtesy of Tim Wang, Svoboda Lab.</p>
 </div>
 <div class="section" id="cell-biology-data">
 <h3>cell biology data<a class="headerlink" href="#cell-biology-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/allen_cell.gif" /></p>
+<p><img alt="image: Allen cell data" src="_images/allen_cell.gif" /></p>
 <p>This example shows images of cells under brightfield and fluorescent imaging.
 There are four color channels of flourescently label data all blended together,
 showing the cell nuclei and the distribution of targets of interest.
 The top <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer shows some hand drawn regions around the nuclei,
 which can be seen in blue.</p>
 <p>We can also visualize the flourescent data as <code class="docutils literal notranslate"><span class="pre">Volume</span></code> layers too.</p>
-<p><img alt="image" src="_images/allen_cell_3D.gif" /></p>
+<p><img alt="image: Allen cell 3D data" src="_images/allen_cell_3D.gif" /></p>
 <p>Data from Allen Cell.</p>
 </div>
 <div class="section" id="more-cell-biology-data">
 <h3>more cell biology data<a class="headerlink" href="#more-cell-biology-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/cells.gif" /></p>
+<p><img alt="image: Fluorescent cells (nuclei, membranes, and cytoplasm)" src="_images/cells.gif" /></p>
 <p>This example shows 3 color channels of data of cell nuclei, membranes, and cytoplasm
 represented using three different <code class="docutils literal notranslate"><span class="pre">Image</span></code> layers with different colormaps, blended together.
 The top <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer contains markers over the centers of the cell nuclei.
@@ -488,19 +456,19 @@ including deleting existing ones and adding new ones.</p>
 </div>
 <div class="section" id="volumetric-rendering-data">
 <h3>volumetric rendering data<a class="headerlink" href="#volumetric-rendering-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/stent.gif" /></p>
+<p><img alt="image: 3D rendering of a stent" src="_images/stent.gif" /></p>
 <p>This example shows 3D rendering of a stent
 and includes the changing of colormaps and color limits.
 Data from vispy examples.</p>
 </div>
 <div class="section" id="geospatial-data">
 <h3>geospatial data<a class="headerlink" href="#geospatial-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/geospatial.gif" /></p>
+<p><img alt="image: Geospatial data from the landsat survey" src="_images/geospatial.gif" /></p>
 <p>This example shows data from the <a class="reference external" href="https://landsat.gsfc.nasa.gov/landsat-8/mission-details/">landsat-8</a> survey.</p>
 </div>
 <div class="section" id="kaggle-nuclei-segmentation-data">
 <h3>kaggle nuclei segmentation data<a class="headerlink" href="#kaggle-nuclei-segmentation-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/DSB2018_browse.gif" /></p>
+<p><img alt="image: Kaggle nuclei segmentation data" src="_images/DSB2018_browse.gif" /></p>
 <p>This example browses data from the <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018">2018 kaggle data science bowl</a> on nuclei segmentation.
 The raw images are visualized using an <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer
 and the segmentations are visualized using a <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer.</p>
@@ -510,11 +478,11 @@ This method can support easy browsing of training datasets with many examples
 as we never need to load all the images into memory.
 Note that not all images need to be the same size either.</p>
 <p>We can also edit or create our own segmentations using the paintbrush and fill bucket tool in the <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer.</p>
-<p><img alt="image" src="_images/DSB2018_edit.gif" /></p>
+<p><img alt="image: Editing the Kaggle nuclei segmentation data" src="_images/DSB2018_edit.gif" /></p>
 </div>
 <div class="section" id="machine-learning-data">
 <h3>machine learning data<a class="headerlink" href="#machine-learning-data" title="Permalink to this headline">¶</a></h3>
-<p><img alt="image" src="_images/ants_bees.gif" /></p>
+<p><img alt="image: Ants vs Bees machine learning classification" src="_images/ants_bees.gif" /></p>
 <p>This example shows data from a <a class="reference external" href="https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html">hymenoptera classification task</a>
 where the goal is to separate the images of the ants and bees.
 Here we are using <a class="reference external" href="https://dask-image.readthedocs.io">dask-image</a> to look at two directories of images
@@ -522,7 +490,6 @@ and lazily load each image when requested by the slider.
 This method can support easy browsing of training datasets with many images
 as we never need to load all the images into memory.
 Note that not all images need to be the same size either.</p>
-<p>{% include footer.md %}</p>
 </div>
 </div>
 </div>
@@ -576,7 +543,7 @@ Note that not all images need to be the same size either.</p>
     </div>
 
     
-  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

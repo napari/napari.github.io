@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>single cell tracking with napari &#8212; napari tutorials</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,13 +34,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -322,7 +321,7 @@
                 
   <div class="section" id="single-cell-tracking-with-napari">
 <h1>single cell tracking with napari<a class="headerlink" href="#single-cell-tracking-with-napari" title="Permalink to this headline">¶</a></h1>
-<p>In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For an overview of the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer, please see the [tracks layer fundamentals tutorial]({{ ‘/fundamentals/tracks’ | relative_url }}).</p>
+<p>In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For an overview of the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer, please see the <a class="reference internal" href="../fundamentals/tracks.html"><span class="doc std std-doc">tracks layer fundamentals tutorial</span></a>.</p>
 <p>This application note covers two examples:</p>
 <ol class="simple">
 <li><p>Visualization of a cell tracking challenge dataset</p></li>
@@ -366,7 +365,7 @@
 <span class="n">stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">load_image</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_IMAGES</span><span class="p">)])</span>
 </pre></div>
 </div>
-<p>For each image in the time-lapse sequence, we will now extract the unique track label (<code class="docutils literal notranslate"><span class="pre">track_id</span></code>), centroid and timestamp in order to create the track data we will pass to the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For more information on the format of the track data, please see the “tracks data” section of the [tracks layer fundamentals tutorial]({{ ‘/fundamentals/tracks’ | relative_url }}).</p>
+<p>For each image in the time-lapse sequence, we will now extract the unique track label (<code class="docutils literal notranslate"><span class="pre">track_id</span></code>), centroid and timestamp in order to create the track data we will pass to the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For more information on the format of the track data, please see the “tracks data” section of the <a class="reference internal" href="../fundamentals/tracks.html"><span class="doc std std-doc">tracks layer fundamentals tutorial</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">regionprops_plus_time</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return the unique track label, centroid and time for each track vertex.</span>
 
@@ -407,14 +406,14 @@ These single tracks are sometimes known as tracklets:</p>
 <div class="section" id="calculating-the-graph-using-the-lineage-information">
 <h3>calculating the graph using the lineage information<a class="headerlink" href="#calculating-the-graph-using-the-lineage-information" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer can also be used to visualize a track ‘graph’ using the additional keyword argument <code class="docutils literal notranslate"><span class="pre">graph</span></code>. The <code class="docutils literal notranslate"><span class="pre">graph</span></code>  represents associations between tracks, by defining the
-mapping between a <code class="docutils literal notranslate"><span class="pre">track_id</span></code> and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track <code class="docutils literal notranslate"><span class="pre">graph</span></code>, please see the “tracks graph” section of the [tracks layer fundamentals tutorial]({{ ‘/fundamentals/tracks’ | relative_url }}).</p>
+mapping between a <code class="docutils literal notranslate"><span class="pre">track_id</span></code> and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track <code class="docutils literal notranslate"><span class="pre">graph</span></code>, please see the “tracks graph” section of the <a class="reference internal" href="../fundamentals/tracks.html"><span class="doc std std-doc">tracks layer fundamentals tutorial</span></a>.</p>
 <p>In the cell tracking challenge dataset, cell lineage information is stored in a text file <code class="docutils literal notranslate"><span class="pre">man_track.txt</span></code> in the following format:</p>
 <blockquote>
 <div><p>A text file representing an acyclic graph for the whole video. Every line corresponds
-to a single track that is encoded by four numbers separated by a space:<br />
-L - a unique label of the track (label of markers, 16-bit positive value)<br />
-B - a zero-based temporal index of the frame in which the track begins<br />
-E - a zero-based temporal index of the frame in which the track ends<br />
+to a single track that is encoded by four numbers separated by a space:
+L - a unique label of the track (label of markers, 16-bit positive value)
+B - a zero-based temporal index of the frame in which the track begins
+E - a zero-based temporal index of the frame in which the track ends
 P - label of the parent track (0 is used when no parent is defined)</p>
 </div></blockquote>
 <p>To extract the graph, we load the text file and convert it to a Nx4 integer numpy array, where the rows represent individual tracks and the columns represent L, B, E and P:</p>
@@ -480,7 +479,7 @@ Remember that we need to initialize and interact with the napari viewer in the <
     <span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;tracks&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/tracks_isbi.gif’ | relative_url }})</p>
+<p><img alt="image: tracks isbi" src="../_images/tracks_isbi.gif" /></p>
 </div>
 </div>
 <hr class="docutils" />
@@ -520,7 +519,7 @@ Remember that we need to initialize and interact with the napari viewer in the <
     <span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/tracks_btrack.png’ | relative_url }})</p>
+<p><img alt="image: tracks btrack" src="../_images/tracks_btrack.png" /></p>
 <p>A notebook for this example can be found in the btrack examples directory (<a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb"><code class="docutils literal notranslate"><span class="pre">napari_btrack.ipynb</span></code></a>)</p>
 </div>
 <div class="section" id="summary">
@@ -531,16 +530,15 @@ Remember that we need to initialize and interact with the napari viewer in the <
 <h2>further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <p>References for cell tracking challenge:</p>
 <ul class="simple">
-<li><p>https://www.nature.com/articles/nmeth.1228</p></li>
-<li><p>http://dx.doi.org/10.1093/bioinformatics/btu080</p></li>
-<li><p>http://dx.doi.org/10.1038/nmeth.4473</p></li>
+<li><p><a class="reference external" href="https://www.nature.com/articles/nmeth.1228">https://www.nature.com/articles/nmeth.1228</a></p></li>
+<li><p><a class="reference external" href="http://dx.doi.org/10.1093/bioinformatics/btu080">http://dx.doi.org/10.1093/bioinformatics/btu080</a></p></li>
+<li><p><a class="reference external" href="http://dx.doi.org/10.1038/nmeth.4473">http://dx.doi.org/10.1038/nmeth.4473</a></p></li>
 </ul>
 <p>For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/quantumjot/BayesianTracker">btrack</a></p></li>
 <li><p><a class="reference external" href="https://github.com/quantumjot/arboretum">arboretum</a></p></li>
 </ul>
-<p>{% include footer.md %}</p>
 </div>
 </div>
 
@@ -592,7 +590,7 @@ Remember that we need to initialize and interact with the napari viewer in the <
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

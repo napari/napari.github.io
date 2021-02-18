@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>getting started with napari &#8212; napari tutorials</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,13 +34,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -330,7 +329,7 @@ but depending on your use-case different ones may be preferable.</p>
 </pre></div>
 </div>
 <p>This command will launch an empty viewer:</p>
-<p>![image]({{ ‘/assets/tutorials/launch_cli_empty.png’ | relative_url }})</p>
+<p><img alt="image: an empty napari viewer" src="../_images/launch_cli_empty.png" /></p>
 <p>Once you have the viewer open you can add images through the <code class="docutils literal notranslate"><span class="pre">File/Open</span></code> dropdown menu
 or by dragging and dropping images directly on the viewer.
 We currently only support files that can be read with <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.io.html#skimage.io.imread"><code class="docutils literal notranslate"><span class="pre">skimage.io.imread</span></code></a>,
@@ -342,7 +341,7 @@ You can also create new empty <code class="docutils literal notranslate"><span c
 </pre></div>
 </div>
 <p>If the image is <code class="docutils literal notranslate"><span class="pre">RGB</span></code> or <code class="docutils literal notranslate"><span class="pre">RGBA</span></code> use the <code class="docutils literal notranslate"><span class="pre">-r</span></code> or <code class="docutils literal notranslate"><span class="pre">--rgb</span></code> flag.</p>
-<p>![image]({{ ‘/assets/tutorials/launch_cli_image.png’ | relative_url }})</p>
+<p><img alt="image: napari viewer displaying an image layer" src="../_images/launch_cli_image.png" /></p>
 <p>Launching napari directly from the command line is the simplest and fastest way to open the viewer,
 but it doesn’t allow you to preprocess your images before opening them.
 It is also currently not possible to save images or other layer types directly from the viewer,
@@ -369,7 +368,7 @@ create a Qt GUI context, and then create the <code class="docutils literal notra
 </pre></div>
 </div>
 <p>See the scripts inside the <a class="reference external" href="https://github.com/napari/napari/tree/master/examples"><code class="docutils literal notranslate"><span class="pre">examples</span></code></a> in the main repository for examples of using napari this way.</p>
-<p>![image]({{ ‘/assets/tutorials/launch_script.png’ | relative_url }})</p>
+<p><img alt="image: napari launched from a python script" src="../_images/launch_script.png" /></p>
 <p>An advantage of launching napari from a python script
 is that you can preprocess your images and add multiple layers before displaying the viewer.</p>
 </div>
@@ -393,7 +392,7 @@ first instantiate a Qt GUI and then import <code class="docutils literal notrans
 <p>If you did not launch IPython with the GUI already then you can set it from within IPython using <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code>,
 but be warned that the Qt GUI can take a few seconds to be created and if you create the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> before it is finished,
 the kernel will die, and the viewer will not launch.</p>
-<p>![image]({{ ‘/assets/tutorials/launch_ipython.png’ | relative_url }})</p>
+<p><img alt="image: napari launched from ipython" src="../_images/launch_ipython.png" /></p>
 <p>An advantage of launching napari from an IPython console
 is that the you can continue to programmatically interact with the viewer from the IPython console,
 including bidirectional communication, where code run in the console will update the current viewer
@@ -403,7 +402,7 @@ and where data changed in the GUI will be accessible in the console.</p>
 <h3>jupyter notebook usage<a class="headerlink" href="#jupyter-notebook-usage" title="Permalink to this headline">¶</a></h3>
 <p>You can also launch napari from a jupyter notebook,
 such as <a class="reference external" href="https://github.com/napari/napari/tree/master/examples/notebook.ipynb"><code class="docutils literal notranslate"><span class="pre">examples/notebook.ipynb</span></code></a></p>
-<p>![image]({{ ‘/assets/tutorials/launch_jupyter.png’ | relative_url }})</p>
+<p><img alt="image: napari launched from a jupyter notebook" src="../_images/launch_jupyter.png" /></p>
 <p>As in the case of the IPython console though you must wait for the Qt GUI to instantiate following the <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code> magic command.
 Instantiating the Qt GUI can take a few seconds and if you create the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> before it is finished,
 the kernel will die and the viewer will not launch.
@@ -419,7 +418,6 @@ and where data changed in the GUI will be accessible in the notebook.</p>
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
 <p>To learn more about how to use the napari viewer with different types of napari layers
 checkout the <a class="reference internal" href="viewer.html"><span class="doc std std-doc">viewer tutorial</span></a> and more of our tutorials listed below.</p>
-<p>{% include footer.md %}</p>
 </div>
 </div>
 
@@ -472,7 +470,7 @@ checkout the <a class="reference internal" href="viewer.html"><span class="doc s
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

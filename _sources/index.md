@@ -17,7 +17,7 @@ By integrating closely with the Python ecosystem,
 **napari** can be easily coupled to leading machine learning and image analysis tools (e.g. `scikit-image`, `scikit-learn`, `TensorFlow`, `PyTorch`),
 enabling more user-friendly automated analysis.
 
-![image](./assets/tutorials/napari_overview.png)
+![image: Overview of the napari viewer](./assets/tutorials/napari_overview.png)
 
 We're developing **napari** in the open!
 But the project is in an **alpha** stage,
@@ -33,7 +33,7 @@ To checkout some cool example uses of **napari** with scientific data see our [g
 ## getting started
 
 These tutorials target people who want to use napari as a user.
-If you are also interested in contributing to napari then please check out [contributing guidelines](https://github.com/napari/napari/blob/master/docs/developers/CONTRIBUTING.md).
+If you are also interested in contributing to napari then please check out [contributing guidelines](https://github.com/napari/napari/blob/master/docs/developers/contributing.md).
 
 If you've already got napari installed,
 then begin with our [getting started](./fundamentals/getting_started) tutorial.
@@ -52,5 +52,3 @@ please raise an issue on the repository or make a PR,
 we'd love to have the community help make them better for everyone.
 
 [napari tutorials home page](http://www.napari.org/tutorials)
-
-{% include footer.md %}

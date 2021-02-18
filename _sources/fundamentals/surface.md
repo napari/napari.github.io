@@ -48,7 +48,7 @@ with napari.gui_qt():
     viewer = napari.view_surface(surface)
 ```
 
-![image]({{ '/assets/tutorials/add_surface.png' | relative_url }})
+![image: add surfaces](../assets/tutorials/add_surface.png)
 
 ## arguments of view_surface and add_surface
 
@@ -114,7 +114,7 @@ and one of our viewer buttons can toggle between each mode.
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 See for example these brain surfaces rendered in 3D:
 
-![image]({{ '/assets/tutorials/brain_surface.gif' | relative_url }})
+![image: brain surface](../assets/tutorials/brain_surface.gif)
 
 ## working with colormaps
 
@@ -213,5 +213,3 @@ including how to create one and control its properties.
 To learn more about some of the other layer types that **napari** supports
 checkout some more of our tutorials listed below.
 The [vectors layer](./vectors) tutorial is a great one to try next as it describes rendering lots of lines.
-
-{% include footer.md %}

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>annotating segmentation with text and bounding boxes &#8212; napari tutorials</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,13 +34,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -301,7 +300,7 @@
   <div class="section" id="annotating-segmentation-with-text-and-bounding-boxes">
 <h1>annotating segmentation with text and bounding boxes<a class="headerlink" href="#annotating-segmentation-with-text-and-bounding-boxes" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu’s method, but this same approach could also be used to visualize the results of other image processing algorithms such as <a class="reference external" href="https://www.tensorflow.org/lite/models/object_detection/overview">object detection with neural networks</a>.</p>
-<p>![image]({{ ‘/assets/tutorials/annotated_bbox.png’ | relative_url }})</p>
+<p><img alt="image: annotated bounding box" src="../_images/annotated_bbox.png" /></p>
 <p>The completed code is shown below and also can be found in the napari examples directory (<a class="reference external" href="https://github.com/napari/napari/blob/master/examples/annotate_segmentation_with_text.py"><code class="docutils literal notranslate"><span class="pre">annotate_segmentation_with_text.py</span></code></a>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Perform a segmentation and annotate the results with</span>
@@ -480,7 +479,7 @@
 
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/segmentation_labels.png’ | relative_url }})</p>
+<p><img alt="image: segmentation labels" src="../_images/segmentation_labels.png" /></p>
 </div>
 <div class="section" id="analyzing-the-segmentation">
 <h2>analyzing the segmentation<a class="headerlink" href="#analyzing-the-segmentation" title="Permalink to this headline">¶</a></h2>
@@ -498,7 +497,7 @@
 	<span class="s1">&#39;bbox-1&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">195</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span>  <span class="mi">34</span><span class="p">,</span>  <span class="mi">84</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span>  <span class="mi">30</span><span class="p">,</span>  <span class="mi">85</span><span class="p">]),</span>
 	<span class="s1">&#39;bbox-2&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span> <span class="mi">94</span><span class="p">,</span>  <span class="mi">94</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">167</span><span class="p">,</span> <span class="mi">167</span><span class="p">]),</span>
 	<span class="s1">&#39;bbox-3&#39;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">246</span><span class="p">,</span> <span class="mi">177</span><span class="p">,</span>  <span class="mi">72</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span>  <span class="mi">74</span><span class="p">,</span> <span class="mi">124</span><span class="p">]),</span>
-	<span class="s1">&#39;perimeter&#39;</span><span class="p">:</span> 
+	<span class="s1">&#39;perimeter&#39;</span><span class="p">:</span>
 		<span class="n">array</span><span class="p">(</span>
 			<span class="p">[</span>
 				<span class="mf">165.88225099</span><span class="p">,</span> <span class="mf">129.05382387</span><span class="p">,</span> <span class="mf">123.98275606</span><span class="p">,</span> <span class="mf">121.98275606</span><span class="p">,</span>
@@ -593,7 +592,7 @@
     <span class="p">)</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/segmentation_bbox.png’ | relative_url }})</p>
+<p><img alt="image: segmentation bounding box" src="../_images/segmentation_bbox.png" /></p>
 <p>The first positional argument (<code class="docutils literal notranslate"><span class="pre">bbox_rects</span></code>) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (<code class="docutils literal notranslate"><span class="pre">face_color='transparent'</span></code>) and the edges of the bounding box are green (<code class="docutils literal notranslate"><span class="pre">edge_color='green'</span></code>). Finally, the name of the layer displayed in the layer list in the napari GUI is <code class="docutils literal notranslate"><span class="pre">bounding</span> <span class="pre">box</span></code> (<code class="docutils literal notranslate"><span class="pre">name='bounding</span> <span class="pre">box'</span></code>).</p>
 </div>
 <div class="section" id="annotating-shapes-with-text">
@@ -672,7 +671,7 @@
 <div class="section" id="summary">
 <h2>summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>In this tutorial, we have used napari to view and annotate segmentation results.</p>
-<p>![image]({{ ‘/assets/tutorials/annotated_bbox.png’ | relative_url }})</p>
+<p><img alt="image: annotated bounding box" src="../_images/annotated_bbox.png" /></p>
 </div>
 </div>
 
@@ -725,7 +724,7 @@
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

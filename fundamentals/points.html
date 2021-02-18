@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>points layer tutorial &#8212; napari tutorials</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,13 +34,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -445,7 +444,7 @@ In these examples we’ll mainly use <code class="docutils literal notranslate">
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/add_points.png’ | relative_url }})</p>
+<p><img alt="image: add points" src="../_images/add_points.png" /></p>
 </div>
 <div class="section" id="arguments-of-view-points-and-add-points">
 <h2>arguments of view_points and add_points<a class="headerlink" href="#arguments-of-view-points-and-add-points" title="Permalink to this headline">¶</a></h2>
@@ -562,7 +561,7 @@ you can set the <code class="docutils literal notranslate"><span class="pre">edi
 and one of our viewer buttons can toggle between each mode.
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 See for example these points overlaid on an image in both 2D and 3D:</p>
-<p>![image]({{ ‘/assets/tutorials/smFISH.gif’ | relative_url }})</p>
+<p><img alt="image: smFISH with points overlaid" src="../_images/smFISH.gif" /></p>
 <p>Note though that when entering 3D rendering mode
 the point add, delete, and select tools are all disabled.
 Those options are only supported when viewing a layer using 2D rendering.</p>
@@ -582,17 +581,18 @@ This tool can be selected from layer controls panel.
 Points can then be added by clicking in the canvas.
 If you have a multidimensional points layer
 then the coordinates of the new point will keep track of the currently viewed slice that you added the point too.
-You can quickly select the add points tool by pressing the <code class="docutils literal notranslate"><span class="pre">P</span></code> key when the points layer is selected.</p>
+You can quickly select the add points tool by pressing the <code class="docutils literal notranslate"><span class="pre">P</span></code> key when the points layer is selected.
+The point adding tool also supports panning and zooming.</p>
 <p>You can select a point by selecting the select points tool and then clicking on that point.
 You can select multiple points by continuing to shift click on additional points,
 or by dragging a bounding box around the points you want to select.
 You can quickly select the select points tool by pressing the <code class="docutils literal notranslate"><span class="pre">S</span></code> key when the points layer is selected.</p>
 <p>You can select all the points in the currently viewed slice by clicking the <code class="docutils literal notranslate"><span class="pre">A</span></code> key if you are in select mode.</p>
 <p>Once selected you can delete the selected points by clicking on the delete button in the layer controls panel or pressing the delete key.</p>
-<p>When using these point editing tools
-the pan and zoom functionality of the viewer canvas is disabled and you are able to edit the layer.
+<p>When using the point selection tool
+the pan and zoom functionality of the viewer canvas is disabled and you are able to select points the layer.
 You can temporarily re-enable pan and zoom by pressing and holding the spacebar.
-This feature can be useful if you want to move around the points layer as you edit it.</p>
+This feature can be useful if you want to move around the points layer as you create your selection.</p>
 </div>
 <div class="section" id="changing-points-size">
 <h2>changing points size<a class="headerlink" href="#changing-points-size" title="Permalink to this headline">¶</a></h2>
@@ -680,7 +680,7 @@ To do the same for a face color, substitute <code class="docutils literal notran
     <span class="p">)</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/points_edge_color_cycle.png’ | relative_url }})</p>
+<p><img alt="image: points edge color cycle" src="../_images/points_edge_color_cycle.png" /></p>
 <p>In the example above, the properties (<code class="docutils literal notranslate"><span class="pre">point_properties</span></code>) were provided as a dictionary with two properties: <code class="docutils literal notranslate"><span class="pre">good_point</span></code> and <code class="docutils literal notranslate"><span class="pre">confidence</span></code>.
 The values of each property are stored in a numpy ndarray with length 3
 since there were three coordinates provided in <code class="docutils literal notranslate"><span class="pre">points</span></code>.
@@ -712,7 +712,7 @@ To do the same for a face color, substitute <code class="docutils literal notran
     <span class="p">)</span>
 </pre></div>
 </div>
-<p>![image]({{ ‘/assets/tutorials/points_face_colormap.png’ | relative_url }})</p>
+<p><img alt="image: points face colormap" src="../_images/points_face_colormap.png" /></p>
 <p>In the example above, the properties (<code class="docutils literal notranslate"><span class="pre">point_properties</span></code>) were provided as a dictionary with two properties: <code class="docutils literal notranslate"><span class="pre">good_point</span></code> and <code class="docutils literal notranslate"><span class="pre">confidence</span></code>.
 The values of each property are stored in a numpy ndarray with length 3
 since there were three coordinates provided in <code class="docutils literal notranslate"><span class="pre">points</span></code>.
@@ -788,7 +788,7 @@ that you can use to store an arbitrary metadata dictionary on the layer.</p>
 <div class="section" id="putting-it-all-together">
 <h2>putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
 <p>Here you can see an example of adding, selecting, deleting points and change their properties:</p>
-<p>![image]({{ ‘/assets/tutorials/editing_points.gif’ | relative_url }})</p>
+<p><img alt="image: editing points" src="../_images/editing_points.gif" /></p>
 </div>
 <div class="section" id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
@@ -798,7 +798,6 @@ To learn more about some of the other layer types that <strong>napari</strong> s
 checkout some more of our tutorials listed below.
 The <a class="reference internal" href="shapes.html"><span class="doc std std-doc">shapes layer</span></a> tutorial is a great one to try next
 as it describes more complex shapes and interactivity.</p>
-<p>{% include footer.md %}</p>
 </div>
 </div>
 
@@ -851,7 +850,7 @@ as it describes more complex shapes and interactivity.</p>
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

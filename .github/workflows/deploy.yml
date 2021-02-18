@@ -48,6 +48,8 @@ jobs:
 
       # Build the book
       - name: Build the book
+        env:
+          DISPLAY: ":99.0"
         run: jupyter-book build .
 
       # Deploy the book's HTML to github pages

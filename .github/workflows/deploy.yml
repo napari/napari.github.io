@@ -9,17 +9,18 @@ on:
       - master
   schedule:
     - cron: "0 0 * * SUN"
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
   build-and-deploy-book:
+    if: (github.event_name == 'schedule' && github.repository == 'napari/tutorials') || (github.event_name != 'schedule')
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         python-version: [3.8]
-    env:
-      DISPLAY: ":99.0"
     steps:
       - uses: actions/checkout@v2.3.3
 
@@ -41,6 +42,8 @@ jobs:
 
       # Test the notebooks
       - name: Test notebooks
+        env:
+          DISPLAY: ":99.0"
         run: py.test --nbval-lax -n auto --dist loadscope
 
       # Build the book
@@ -49,6 +52,7 @@ jobs:
 
       # Deploy the book's HTML to github pages
       - name: GitHub Pages action
+        if: github.repository == 'napari/tutorials' && github.ref == 'refs/heads/master' && github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v3.6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

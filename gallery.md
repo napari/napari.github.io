@@ -10,6 +10,20 @@ but all these functionalities and more are still supported.
 
 ## Examples
 
+- [pathology data](#pathology-data)
+- [lattice light-sheet data](#lattice-light-sheet-data)
+- [neural calcium imaging data](#neural-calcium-imaging-data)
+- [mesoscope neural imaging data](#mesoscope-neural-imaging-data)
+- [electron microscopy data](#electron-microscopy-data)
+- [allen brain reference atlas](#allen-brain-reference-atlas)
+- [image-based transcriptomic data](#image-based-transcriptomic-data)
+- [cell biology data](#cell-biology-data)
+- [more cell biology data](#more-cell-biology-data)
+- [volumetric rendering data](#volumetric-rendering-data)
+- [geospatial data](#geospatial-data)
+- [kaggle nuclei segmentation data](#kaggle-nuclei-segmentation-data)
+- [machine learning data](#machine-learning-data)
+
 ### pathology data
 
 ![image: pathology](./assets/gallery/pathology.gif)

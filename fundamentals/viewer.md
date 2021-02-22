@@ -270,7 +270,7 @@ the console will appear at the bottom of the viewer as follows:
 ![image: console within napari](../assets/tutorials/console.png)
 
 We then have a button that switches between `2D` and `3D` rendering.
-Running the `examples/nD_labels.py`
+Running the [`examples/nD_labels.py`](https://github.com/napari/napari/blob/master/examples/nD_labels.py)
 and clicking on the 3D button gives the following view:
 
 ![image: nD labels](../assets/tutorials/nD_labels.png)

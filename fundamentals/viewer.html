@@ -231,9 +231,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/fundamentals/viewer.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/fundamentals/viewer.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -250,6 +250,23 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/fundamentals/viewer.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
 
     </div>
 
@@ -360,31 +377,73 @@ so you can copy and paste these examples into scripts and run them.
 If you are using as IPython console (launched with <code class="docutils literal notranslate"><span class="pre">IPython</span> <span class="pre">--gui=qt</span></code>) then you won’t need to use the <code class="docutils literal notranslate"><span class="pre">napari.gui_qt</span></code> context.</p>
 <p>Let’s get stated by launching a viewer with a simple 2D image.</p>
 <p>The fastest way to get the viewer open and throw an image up on the screen is using the <code class="docutils literal notranslate"><span class="pre">napari.view_image</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
-<span class="kn">import</span> <span class="nn">napari</span>
-
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">gui</span> qt  # we need to start the Qt event loop before importing napari
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR:root:Invalid GUI request &#39;qt # we need to start the Qt event loop before importing napari&#39;, valid ones are:dict_keys([&#39;inline&#39;, &#39;nbagg&#39;, &#39;notebook&#39;, &#39;ipympl&#39;, &#39;widget&#39;, None, &#39;qt4&#39;, &#39;qt&#39;, &#39;qt5&#39;, &#39;wx&#39;, &#39;tk&#39;, &#39;gtk&#39;, &#39;gtk3&#39;, &#39;osx&#39;, &#39;asyncio&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to &#39;/tmp/runtime-runner&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:vispy:QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to &#39;/tmp/runtime-runner&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>Calling <code class="docutils literal notranslate"><span class="pre">napari.view_image</span></code> will return a <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> object that is the main object inside <strong>napari</strong>.
 All the data you add to <strong>napari</strong> will be stored inside the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> object and will be accessible from it.
 This command will also open the viewer to create a GUI that you can interact with.</p>
 <p>You can also create an empty <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> directly and then start adding images to it.
 For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
-<span class="kn">import</span> <span class="nn">napari</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer &#39;Image&#39; at 0x7fb10838fcd0&gt;
+</pre></div>
+</div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">add_image</span></code> accepts the same arguments as <code class="docutils literal notranslate"><span class="pre">view_image</span></code>
 but doesn’t create a <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>, as you must already have one to use it.</p>
 <p>After running either of those two commands
 you should now be able to see the photograph of the astronaut in the <strong>napari</strong> viewer as shown below</p>
-<p><img alt="image: napari viewer displaying image of an astronaut" src="../_images/viewer_astronaut.png" /></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/viewer_10_0.png" src="../_images/viewer_10_0.png" />
+</div>
+</div>
 <p>Both the <code class="docutils literal notranslate"><span class="pre">view_image</span></code> and the <code class="docutils literal notranslate"><span class="pre">add_image</span></code> methods accept any numpy-array like object as an input,
 including n-dimensional arrays.
 For more information on adding images to the viewer
@@ -428,17 +487,33 @@ a <code class="docutils literal notranslate"><span class="pre">name</span></code
 <code class="docutils literal notranslate"><span class="pre">visibility</span></code> button that can be toggled on or off to show or hide the layer,
 and an <code class="docutils literal notranslate"><span class="pre">icon</span></code> for the layer type.</p>
 <p>Adding the following three image layers using the code below adds three-layer widgets to the layer list as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
-<span class="kn">import</span> <span class="nn">napari</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;astronaut&#39;</span><span class="p">)</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;moon&#39;</span><span class="p">)</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;camera&#39;</span><span class="p">)</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;astronaut&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;moon&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;camera&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer &#39;camera&#39; at 0x7fb0f9c23190&gt;
+</pre></div>
+</div>
+</div>
+</div>
 <p><img alt="image: layerlist" src="../_images/layerlist.png" /></p>
+<p>When the problem with nbscreenshot and the layerlist is resolved, we should replace the PNG image in the cell above with a call to <code class="docutils literal notranslate"><span class="pre">nbscreenshot</span></code>.</p>
+<p><a class="reference external" href="https://github.com/napari/napari/issues/1596">https://github.com/napari/napari/issues/1596</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Remember to use the <code class="docutils literal notranslate"><span class="pre">hide-input</span></code> tag for screenshot cells in the notebook.</p>
 <p>Note that we’ve also also named each of the layers using the <code class="docutils literal notranslate"><span class="pre">name</span></code> keyword argument in <code class="docutils literal notranslate"><span class="pre">add_image</span></code>,
 and that name has appeared as a string in the layer widget.
 The layer name is coerced into being unique so that it can be used to index into the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code>.</p>
@@ -448,45 +523,86 @@ to select either all the layers in between clicked-on layers or just the clicked
 <p>You can rearrange the order of the layers by dragging them,
 including dragging multiple layers at the same time.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> object also contains our <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> object that allows you to access the data of all the layers by</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;Image layer &#39;astronaut&#39; at 0x7fb1080c4e50&gt;, &lt;Image layer &#39;moon&#39; at 0x7fb0f9cf7b80&gt;, &lt;Image layer &#39;camera&#39; at 0x7fb0f9c23190&gt;]
+</pre></div>
+</div>
+</div>
 </div>
 <p>This object can be indexed like a normal list using an <code class="docutils literal notranslate"><span class="pre">int</span></code>
 or using the <code class="docutils literal notranslate"><span class="pre">str</span></code> name of the layer as follows</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;astronaut&#39;</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>When you rearrange layers in the viewer you also rearrange them in the list.
-Similarly, rearranging layers in the list rearranges them in the viewer.
-For example, calling</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;astronaut&#39;</span><span class="p">,</span> <span class="s1">&#39;moon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;moon&#39;</span><span class="p">,</span> <span class="s1">&#39;astronaut&#39;</span><span class="p">]</span>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer &#39;astronaut&#39; at 0x7fb1080c4e50&gt;
 </pre></div>
 </div>
-<p>from the console will swap the positions of the <code class="docutils literal notranslate"><span class="pre">moon</span></code> and <code class="docutils literal notranslate"><span class="pre">astronaut</span></code> layers in the viewer.</p>
-<p>When you select a layer, you will notice that layer controls box above the layers list
-becomes populated with options that depend on the layer type that you have selected.</p>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;astronaut&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer &#39;astronaut&#39; at 0x7fb1080c4e50&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can rearrange layers by clicking and dragging them.</p>
 </div>
 <div class="section" id="layer-controls">
 <h3>layer controls<a class="headerlink" href="#layer-controls" title="Permalink to this headline">¶</a></h3>
 <p>Above the layers list in the top left corner of the viewer there is a box that contains the layer controls.
 The controls that you have available to you depend on the layer type that you have selected.</p>
 <p>For example, if you add a <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer after adding an <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer you will now see different controls present.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
-<span class="kn">import</span> <span class="nn">napari</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Points layer &#39;points&#39; at 0x7fb0f9c95a60&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/viewer_29_0.png" src="../_images/viewer_29_0.png" />
+</div>
+</div>
 <p><img alt="image: add points" src="../_images/add_points.png" /></p>
 <p>Adjusting these properties in the GUI will cause corresponding changes to properties on the individual layers that are accessible in the console through <code class="docutils literal notranslate"><span class="pre">viewer.layers</span></code>.</p>
 <p>For example, the name and opacity of a layer can be changed within the console as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;astronaut&#39;</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.7</span>
-</pre></div>
-</div>
+<p>viewer.layers[0].name = ‘astronaut’
+viewer.layers[0].opacity = 0.7</p>
 <p>and these changes will instantly propagate to the GUI.
 For more information about the different properties for different layer types
 please see our layer specific tutorials listed at the bottom of this tutorial.</p>
@@ -530,9 +646,11 @@ If a 2D and 4D dataset are both added to the viewer
 then the sliders will only affect the 4D dataset and the 2D dataset will be remain the same.
 Effectively, the two datasets are broadcast together using <a class="reference external" href="https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html">NumPy broadcasting rules</a>.</p>
 <p>For example, the following commands from the console will add a both 2D and 3D datasets to the same viewer:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
-<span class="kn">import</span> <span class="nn">napari</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;moon&#39;</span><span class="p">)</span>
@@ -548,7 +666,25 @@ Effectively, the two datasets are broadcast together using <a class="reference e
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">blobs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;blobs&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><img alt="image: multidimensional" src="../_images/multidimensional.png" /></p>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer &#39;blobs&#39; at 0x7fb0f91b4160&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/viewer_38_0.png" src="../_images/viewer_38_0.png" />
+</div>
+</div>
 <div class="section" id="viewer-buttons">
 <h3>viewer buttons<a class="headerlink" href="#viewer-buttons" title="Permalink to this headline">¶</a></h3>
 <p>Underneath the layers list there is a row of buttons that includes the <code class="docutils literal notranslate"><span class="pre">Console</span></code> button
@@ -558,7 +694,7 @@ Inside the console you can access the viewer using the <code class="docutils lit
 the console will appear at the bottom of the viewer as follows:</p>
 <p><img alt="image: console within napari" src="../_images/console.png" /></p>
 <p>We then have a button that switches between <code class="docutils literal notranslate"><span class="pre">2D</span></code> and <code class="docutils literal notranslate"><span class="pre">3D</span></code> rendering.
-Running the <code class="docutils literal notranslate"><span class="pre">examples/nD_labels.py</span></code>
+Running the <a class="reference external" href="https://github.com/napari/napari/blob/master/examples/nD_labels.py"><code class="docutils literal notranslate"><span class="pre">examples/nD_labels.py</span></code></a>
 and clicking on the 3D button gives the following view:</p>
 <p><img alt="image: nD labels" src="../_images/nD_labels.png" /></p>
 <p>Next to the 2D / 3D button is a button to roll the dimensions that are currently being displayed in the viewer -
@@ -582,10 +718,32 @@ depending on which layer and tools are currently selected.</p>
 <h2>changing viewer theme<a class="headerlink" href="#changing-viewer-theme" title="Permalink to this headline">¶</a></h2>
 <p>Currently, <strong>napari</strong> comes with two different themes <code class="docutils literal notranslate"><span class="pre">light</span></code> and <code class="docutils literal notranslate"><span class="pre">dark</span></code>, which is the default.
 To change the theme just update <code class="docutils literal notranslate"><span class="pre">theme</span></code> property of the viewer, for example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;light&#39;</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;astronaut&#39;</span><span class="p">)</span>
+
+<span class="c1"># change the viewer theme</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;light&#39;</span>
 </pre></div>
 </div>
-<p><img alt="image: viewer theme light" src="../_images/viewer_theme_light.png" /></p>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/viewer_47_0.png" src="../_images/viewer_47_0.png" />
+</div>
+</div>
 <p>Adding your own custom theme isn’t too hard either
 but does require creating your own color <code class="docutils literal notranslate"><span class="pre">palette</span></code> and rebuilding the icons.
 If people want more themes, we’re happy to add them
@@ -605,7 +763,9 @@ Depending on which object you bind your key to,
 your function will either get access to the state of the entire <code class="docutils literal notranslate"><span class="pre">viewer</span></code> or <code class="docutils literal notranslate"><span class="pre">layer</span></code> object.</p>
 <p>For example, to bind function that loops through all layers in the viewer
 and prints their names to your console when you press the <code class="docutils literal notranslate"><span class="pre">p</span></code> key you can do the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;astronaut&#39;</span><span class="p">)</span>
@@ -615,13 +775,17 @@ and prints their names to your console when you press the <code class="docutils 
     <span class="nb">print</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">])</span>
 </pre></div>
 </div>
+</div>
+</div>
 <p>By default, your key will bind to the key press event,
 but it is also possible to bind to the key release event by including a <code class="docutils literal notranslate"><span class="pre">yield</span></code> inside your function.
 All code before the <code class="docutils literal notranslate"><span class="pre">yield</span></code> will get executed on key press
 and all code after the <code class="docutils literal notranslate"><span class="pre">yield</span></code> will get executed on key release.
 The following example will print <code class="docutils literal notranslate"><span class="pre">hello</span></code> when you start to press the <code class="docutils literal notranslate"><span class="pre">m</span></code> key
 and print <code class="docutils literal notranslate"><span class="pre">goodbye</span></code> when you release it.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
@@ -633,6 +797,15 @@ and print <code class="docutils literal notranslate"><span class="pre">goodbye</
     <span class="k">yield</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;goodbye&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>Keys can be bound both to the object class or a particular instance
 depending on if you want the keybinding to apply to all instances of the class

@@ -327,7 +327,12 @@ By integrating closely with the Python ecosystem,
 enabling more user-friendly automated analysis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">gui</span> qt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">gui</span> qt  # we need to start the Qt event loop before importing napari
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR:root:Invalid GUI request &#39;qt # we need to start the Qt event loop before importing napari&#39;, valid ones are:dict_keys([&#39;inline&#39;, &#39;nbagg&#39;, &#39;notebook&#39;, &#39;ipympl&#39;, &#39;widget&#39;, None, &#39;qt4&#39;, &#39;qt&#39;, &#39;qt5&#39;, &#39;wx&#39;, &#39;tk&#39;, &#39;gtk&#39;, &#39;gtk3&#39;, &#39;osx&#39;, &#39;asyncio&#39;])
 </pre></div>
 </div>
 </div>
@@ -335,18 +340,32 @@ enabling more user-friendly automated analysis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
-<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 <span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">cells3d</span>
 
 <span class="n">cells</span> <span class="o">=</span> <span class="n">cells3d</span><span class="p">()[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># get some data</span>
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to &#39;/tmp/runtime-runner&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:vispy:QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to &#39;/tmp/runtime-runner&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/index_5_0.png" src="_images/index_5_0.png" />
+<img alt="_images/index_6_0.png" src="_images/index_6_0.png" />
 </div>
 </div>
 <p>We’re developing <strong>napari</strong> in the open!

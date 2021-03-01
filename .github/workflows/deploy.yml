@@ -44,12 +44,14 @@ jobs:
       - name: Test notebooks
         env:
           DISPLAY: ":99.0"
+          XDG_RUNTIME_DIR: "/tmp/runtime-runner"
         run: py.test --nbval-lax -n auto --dist loadscope
 
       # Build the book
       - name: Build the book
         env:
           DISPLAY: ":99.0"
+          XDG_RUNTIME_DIR: "/tmp/runtime-runner"
         run: jupyter-book build .
 
       # Deploy the book's HTML to github pages

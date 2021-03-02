@@ -20,6 +20,11 @@ You can explore the project in [this repository](https://github.com/kevinyamauch
 We will walk through the code in the following sections.
 
 ```python
+from dask_image.imread import imread
+import napari
+from magicgui.widgets import ComboBox, Container
+import numpy as np
+
 def create_label_menu(points_layer, labels):
     """Create a label menu widget that can be added to the napari viewer dock
 
@@ -29,30 +34,34 @@ def create_label_menu(points_layer, labels):
         a napari points layer
     labels : List[str]
         list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).
+
+    Returns:
+    --------
+    label_menu : Container
+        the magicgui Container with our dropdown menu widget
     """
     # Create the label selection menu
-    @magicgui(label={'choices': labels})
-    def label_selection(label):
-        return label
-
-    label_menu = label_selection.Gui()
+    label_menu = ComboBox(label='feature_label', choices=labels)
+    label_widget = Container(widgets=[label_menu])
 
     def update_label_menu(event):
         """Update the label menu when the point selection changes"""
-        label_menu.label = points_layer.current_properties['label'][0]
+        new_label = str(points_layer.current_properties['label'][0])
+        if new_label != label_menu.value:
+            label_menu.value = new_label
 
     points_layer.events.current_properties.connect(update_label_menu)
 
-    def label_changed(result):
+    def label_changed(event):
         """Update the Points layer when the label menu selection changes"""
-        selected_label = result
+        selected_label = event.value
         current_properties = points_layer.current_properties
         current_properties['label'] = np.asarray([selected_label])
         points_layer.current_properties = current_properties
 
-    label_menu.label_changed.connect(label_changed)
+    label_menu.changed.connect(label_changed)
 
-    return label_menu
+    return label_widget
 
 
 def point_annotator(
@@ -83,8 +92,8 @@ def point_annotator(
         points_layer.edge_color_mode = 'cycle'
 
         # add the label menu widget to the viewer
-        label_menu = create_label_menu(points_layer, labels)
-        viewer.window.add_dock_widget(label_menu)
+        label_widget = create_label_menu(points_layer, labels)
+        viewer.window.add_dock_widget(label_widget)
 
         @viewer.bind_key('.')
         def next_label(event=None):
@@ -237,27 +246,22 @@ def create_label_menu(points_layer, labels):
 
     Returns:
     --------
-    label_menu : QComboBox
-        the label menu qt widget
+    label_menu : Container
+        the magicgui Container with our dropdown menu widget
     """
 ```
 
 Within `create_label_menu()`, we will use magicgui to add a dropdown menu for selecting which the label for the point we are about to add or the point we have selected.
 [magicgui](https://github.com/napari/magicgui) is a library from the napari team for building GUIs from functions and works by applying function decorators.
-To make the a dropdown menu populated with the valid point labels, we simply define the function with the label as an input argument and then decorate it with the `magicgui()` decorator, passing the labels choice as `label={'choices': labels}` (recall that labels was passed to `point_annotator() as a list of the allowable labels).
+To make the a dropdown menu populated with the valid point labels, we simply create a magicgui `ComboBox`. We set the label (title) for the `ComboBox` with the `label` keyword argument and we set the dropdown menu options via the `choices` keyword argument. Recall that the labels names are passed to the `create_label_menu()` function as a list via the `labels` parameter. Next, we wrap the `label_menu` in a magicgui `Container` to finish our GUI widget.
 
 ```python
-@magicgui(label={'choices': labels})
-def label_selection(label):
-    return label
+# Create the label selection menu
+label_menu = ComboBox(label='feature_label', choices=labels)
+label_widget = Container(widgets=[label_menu])
 ```
 
-To create the GUI, we call the label_selection.
-Gui() method.
 
-```python
-label_menu = label_selection.Gui()
-```
 
 We then need to connect the dropdown menu (`label_menu`) to the points layer to ensure the menu selection is always synchronized to the `Points` layer model.
 
@@ -269,32 +273,34 @@ We connect the function we created to the event so that `update_label_menu()` is
 ```python
 def update_label_menu(event):
     """Update the label menu when the point selection changes"""
-    label_menu.label = points_layer.current_properties['label'][0]
+    new_label = str(points_layer.current_properties['label'][0])
+    if new_label != label_menu.value:
+        label_menu.value = new_label
 
 points_layer.events.current_properties.connect(update_label_menu)
 ```
 
 Next, we define a function to update the points layer if the selection in the labels dropdown menu is changed.
-Similar to the points layer, the magicgui object has an event that gets emitted whenever the selected label is changed (`label_menu.label_changed`).
-To ensure the points layer is updated whenever the GUI selection is changed, we connect `label_changed()` to the `label_menu.label_changed` event.
+Similar to the points layer, the magicgui object has an event that gets emitted whenever the selected label is changed (`label_menu.changed`).
+To ensure the points layer is updated whenever the GUI selection is changed, we connect `label_changed()` to the `label_menu.changed` event.
 
 ```python
-def label_changed(result):
+def label_changed(event):
     """Update the Points layer when the label menu selection changes"""
-    selected_label = result
+    selected_label = event.value
     current_properties = points_layer.current_properties
     current_properties['label'] = np.asarray([selected_label])
     points_layer.current_properties = current_properties
 
-label_menu.label_changed.connect(label_changed)
+label_menu.changed.connect(label_changed)
 ```
 
 Finally, we add the GUI created by magicgui to the napari viewer dock.
 
 ```python
- # add the label menu widget to the viewer
-label_menu = create_label_menu(points_layer, labels)
-viewer.window.add_dock_widget(label_menu)
+# add the label menu widget to the viewer
+label_widget = create_label_menu(points_layer, labels)
+viewer.window.add_dock_widget(label_widget)
 ```
 
 ## Keybindings for switching labels

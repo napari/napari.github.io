@@ -1,5 +1,7 @@
 # annotating videos with napari
 
+**Note**: this tutorial has been updated and is now compatible with napari > 0.4.5 and magicgui > 0.2.5. For details, see [this pull request](https://github.com/napari/tutorials/pull/114). 
+
 In this tutorial, we will use napari (requires version 0.3.2 or greater) to make a simple GUI application for annotating points in videos.
 This GUI could be useful for making annotations required to train algorithms for markless tracking of animals (e.g., [DeepLabCut](http://www.mousemotorlab.org/deeplabcut)).
 In this tutorial, we will cover creating and interacting with a Points layer with properties (i.e., labels for the points), connecting custom UI elements to events, and creating custom keybindings.

@@ -20,10 +20,27 @@ You can explore the project in [this repository](https://github.com/kevinyamauch
 We will walk through the code in the following sections.
 
 ```python
+from typing import List
+
 from dask_image.imread import imread
 import napari
 from magicgui.widgets import ComboBox, Container
 import numpy as np
+
+
+COLOR_CYCLE = [
+    '#1f77b4',
+    '#ff7f0e',
+    '#2ca02c',
+    '#d62728',
+    '#9467bd',
+    '#8c564b',
+    '#e377c2',
+    '#7f7f7f',
+    '#bcbd22',
+    '#17becf'
+]
+
 
 def create_label_menu(points_layer, labels):
     """Create a label menu widget that can be added to the napari viewer dock
@@ -88,6 +105,7 @@ def point_annotator(
             face_color='transparent',
             edge_width=8,
             size=12,
+			ndim=3
         )
         points_layer.edge_color_mode = 'cycle'
 
@@ -197,7 +215,8 @@ points_layer = viewer.add_points(
     symbol='o',
     face_color='transparent',
     edge_width=8,
-    size=12
+    size=12,
+    ndim=3
 )
 ```
 
@@ -220,6 +239,8 @@ COLOR_CYCLE = [
     '#17becf'
 ]
 ```
+
+We set the points `ndim` to 3 so that the coordinates for the point annotations we add will be 3 dimensional (time + 2D).
 
 Finally, we set the edge color to a color cycle:
 
@@ -387,8 +408,8 @@ Now that you've put it all together, you should be ready to test! You can call t
 
 ```python
 im_path = '<path to directory with data>/*.png'
-output = '<path to directory with data>/annotations.csv'
-point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'], output_path=output)
+
+point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'])
 
 ```
 

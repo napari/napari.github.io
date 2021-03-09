@@ -26,7 +26,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.37f24b989f4638ff9c27c22dc7559d4f.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.c441f2ba0852f4cabcb80105e3a46ae6.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -257,7 +257,8 @@
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i>
+            Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
@@ -322,6 +323,7 @@
                 
   <div class="section" id="annotating-videos-with-napari">
 <h1>annotating videos with napari<a class="headerlink" href="#annotating-videos-with-napari" title="Permalink to this headline">¶</a></h1>
+<p><strong>Note</strong>: this tutorial has been updated and is now compatible with napari &gt; 0.4.5 and magicgui &gt; 0.2.5. For details, see <a class="reference external" href="https://github.com/napari/tutorials/pull/114">this pull request</a>.</p>
 <p>In this tutorial, we will use napari (requires version 0.3.2 or greater) to make a simple GUI application for annotating points in videos.
 This GUI could be useful for making annotations required to train algorithms for markless tracking of animals (e.g., <a class="reference external" href="http://www.mousemotorlab.org/deeplabcut">DeepLabCut</a>).
 In this tutorial, we will cover creating and interacting with a Points layer with properties (i.e., labels for the points), connecting custom UI elements to events, and creating custom keybindings.</p>
@@ -335,7 +337,29 @@ In this tutorial, we will cover creating and interacting with a Points layer wit
 <p><img alt="image: point annotator demo" src="../_images/point_annotator_demo.gif" /></p>
 <p>You can explore the project in <a class="reference external" href="https://github.com/kevinyamauchi/PointAnnotator">this repository</a> or check out the main function below.
 We will walk through the code in the following sections.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">dask_image.imread</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">magicgui.widgets</span> <span class="kn">import</span> <span class="n">ComboBox</span><span class="p">,</span> <span class="n">Container</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">COLOR_CYCLE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#d62728&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#8c564b&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#17becf&#39;</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a label menu widget that can be added to the napari viewer dock</span>
 
 <span class="sd">    Parameters:</span>
@@ -344,30 +368,34 @@ We will walk through the code in the following sections.</p>
 <span class="sd">        a napari points layer</span>
 <span class="sd">    labels : List[str]</span>
 <span class="sd">        list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    label_menu : Container</span>
+<span class="sd">        the magicgui Container with our dropdown menu widget</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create the label selection menu</span>
-    <span class="nd">@magicgui</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;choices&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">})</span>
-    <span class="k">def</span> <span class="nf">label_selection</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">label</span>
-
-    <span class="n">label_menu</span> <span class="o">=</span> <span class="n">label_selection</span><span class="o">.</span><span class="n">Gui</span><span class="p">()</span>
+    <span class="n">label_menu</span> <span class="o">=</span> <span class="n">ComboBox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;feature_label&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">label_widget</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="n">widgets</span><span class="o">=</span><span class="p">[</span><span class="n">label_menu</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">update_label_menu</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update the label menu when the point selection changes&quot;&quot;&quot;</span>
-        <span class="n">label_menu</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">new_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">new_label</span> <span class="o">!=</span> <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_label</span>
 
     <span class="n">points_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_properties</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">update_label_menu</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">label_changed</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">label_changed</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update the Points layer when the label menu selection changes&quot;&quot;&quot;</span>
-        <span class="n">selected_label</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="n">selected_label</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="n">current_properties</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span>
         <span class="n">current_properties</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">selected_label</span><span class="p">])</span>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
 
-    <span class="n">label_menu</span><span class="o">.</span><span class="n">label_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">label_changed</span><span class="p">)</span>
+    <span class="n">label_menu</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">label_changed</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">label_menu</span>
+    <span class="k">return</span> <span class="n">label_widget</span>
 
 
 <span class="k">def</span> <span class="nf">point_annotator</span><span class="p">(</span>
@@ -394,12 +422,13 @@ We will walk through the code in the following sections.</p>
             <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
             <span class="n">edge_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+			<span class="n">ndim</span><span class="o">=</span><span class="mi">3</span>
         <span class="p">)</span>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
 
         <span class="c1"># add the label menu widget to the viewer</span>
-        <span class="n">label_menu</span> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_menu</span><span class="p">)</span>
+        <span class="n">label_widget</span> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
 
         <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">next_label</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -496,7 +525,8 @@ To visualize the feature each point represents, we set the edge color as a color
     <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
     <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
     <span class="n">edge_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
-    <span class="n">size</span><span class="o">=</span><span class="mi">12</span>
+    <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -518,6 +548,7 @@ For example, the <a class="reference external" href="https://github.com/d3/d3-3.
 <span class="p">]</span>
 </pre></div>
 </div>
+<p>We set the points <code class="docutils literal notranslate"><span class="pre">ndim</span></code> to 3 so that the coordinates for the point annotations we add will be 3 dimensional (time + 2D).</p>
 <p>Finally, we set the edge color to a color cycle:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
 </pre></div>
@@ -540,22 +571,17 @@ Additionally, we will create and connect all the required callbacks to make the 
 
 <span class="sd">    Returns:</span>
 <span class="sd">    --------</span>
-<span class="sd">    label_menu : QComboBox</span>
-<span class="sd">        the label menu qt widget</span>
+<span class="sd">    label_menu : Container</span>
+<span class="sd">        the magicgui Container with our dropdown menu widget</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 </pre></div>
 </div>
 <p>Within <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code>, we will use magicgui to add a dropdown menu for selecting which the label for the point we are about to add or the point we have selected.
 <a class="reference external" href="https://github.com/napari/magicgui">magicgui</a> is a library from the napari team for building GUIs from functions and works by applying function decorators.
-To make the a dropdown menu populated with the valid point labels, we simply define the function with the label as an input argument and then decorate it with the <code class="docutils literal notranslate"><span class="pre">magicgui()</span></code> decorator, passing the labels choice as <code class="docutils literal notranslate"><span class="pre">label={'choices':</span> <span class="pre">labels}</span></code> (recall that labels was passed to `point_annotator() as a list of the allowable labels).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;choices&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">})</span>
-<span class="k">def</span> <span class="nf">label_selection</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">label</span>
-</pre></div>
-</div>
-<p>To create the GUI, we call the label_selection.
-Gui() method.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">label_menu</span> <span class="o">=</span> <span class="n">label_selection</span><span class="o">.</span><span class="n">Gui</span><span class="p">()</span>
+To make the a dropdown menu populated with the valid point labels, we simply create a magicgui <code class="docutils literal notranslate"><span class="pre">ComboBox</span></code>. We set the label (title) for the <code class="docutils literal notranslate"><span class="pre">ComboBox</span></code> with the <code class="docutils literal notranslate"><span class="pre">label</span></code> keyword argument and we set the dropdown menu options via the <code class="docutils literal notranslate"><span class="pre">choices</span></code> keyword argument. Recall that the labels names are passed to the <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code> function as a list via the <code class="docutils literal notranslate"><span class="pre">labels</span></code> parameter. Next, we wrap the <code class="docutils literal notranslate"><span class="pre">label_menu</span></code> in a magicgui <code class="docutils literal notranslate"><span class="pre">Container</span></code> to finish our GUI widget.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the label selection menu</span>
+<span class="n">label_menu</span> <span class="o">=</span> <span class="n">ComboBox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;feature_label&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">label_widget</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="n">widgets</span><span class="o">=</span><span class="p">[</span><span class="n">label_menu</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>We then need to connect the dropdown menu (<code class="docutils literal notranslate"><span class="pre">label_menu</span></code>) to the points layer to ensure the menu selection is always synchronized to the <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer model.</p>
@@ -565,28 +591,30 @@ The points layer has an event that gets emitted when the <code class="docutils l
 We connect the function we created to the event so that <code class="docutils literal notranslate"><span class="pre">update_label_menu()</span></code> is called whenever <code class="docutils literal notranslate"><span class="pre">Points.current_property</span></code> is changed.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_label_menu</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Update the label menu when the point selection changes&quot;&quot;&quot;</span>
-    <span class="n">label_menu</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">new_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">new_label</span> <span class="o">!=</span> <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+        <span class="n">label_menu</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_label</span>
 
 <span class="n">points_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_properties</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">update_label_menu</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Next, we define a function to update the points layer if the selection in the labels dropdown menu is changed.
-Similar to the points layer, the magicgui object has an event that gets emitted whenever the selected label is changed (<code class="docutils literal notranslate"><span class="pre">label_menu.label_changed</span></code>).
-To ensure the points layer is updated whenever the GUI selection is changed, we connect <code class="docutils literal notranslate"><span class="pre">label_changed()</span></code> to the <code class="docutils literal notranslate"><span class="pre">label_menu.label_changed</span></code> event.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">label_changed</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+Similar to the points layer, the magicgui object has an event that gets emitted whenever the selected label is changed (<code class="docutils literal notranslate"><span class="pre">label_menu.changed</span></code>).
+To ensure the points layer is updated whenever the GUI selection is changed, we connect <code class="docutils literal notranslate"><span class="pre">label_changed()</span></code> to the <code class="docutils literal notranslate"><span class="pre">label_menu.changed</span></code> event.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">label_changed</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Update the Points layer when the label menu selection changes&quot;&quot;&quot;</span>
-    <span class="n">selected_label</span> <span class="o">=</span> <span class="n">result</span>
+    <span class="n">selected_label</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
     <span class="n">current_properties</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span>
     <span class="n">current_properties</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">selected_label</span><span class="p">])</span>
     <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
 
-<span class="n">label_menu</span><span class="o">.</span><span class="n">label_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">label_changed</span><span class="p">)</span>
+<span class="n">label_menu</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">label_changed</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Finally, we add the GUI created by magicgui to the napari viewer dock.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># add the label menu widget to the viewer</span>
-<span class="n">label_menu</span> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_menu</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># add the label menu widget to the viewer</span>
+<span class="n">label_widget</span> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -665,8 +693,8 @@ see the examples [<a class="reference external" href="https://github.com/napari/
 <h3>Launching the GUI<a class="headerlink" href="#launching-the-gui" title="Permalink to this headline">¶</a></h3>
 <p>Now that you’ve put it all together, you should be ready to test! You can call the function as shown below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im_path</span> <span class="o">=</span> <span class="s1">&#39;&lt;path to directory with data&gt;/*.png&#39;</span>
-<span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;&lt;path to directory with data&gt;/annotations.csv&#39;</span>
-<span class="n">point_annotator</span><span class="p">(</span><span class="n">im_path</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ear_l&#39;</span><span class="p">,</span> <span class="s1">&#39;ear_r&#39;</span><span class="p">,</span> <span class="s1">&#39;tail&#39;</span><span class="p">],</span> <span class="n">output_path</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+
+<span class="n">point_annotator</span><span class="p">(</span><span class="n">im_path</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ear_l&#39;</span><span class="p">,</span> <span class="s1">&#39;ear_r&#39;</span><span class="p">,</span> <span class="s1">&#39;tail&#39;</span><span class="p">])</span>
 
 </pre></div>
 </div>

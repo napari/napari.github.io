@@ -131,7 +131,7 @@ with napari.gui_qt():
 
 ```
 
-{% include image.html url="/assets/tutorials/dask1.gif" description="mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope" %}
+![image: mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope](../assets/tutorials/dask1.gif)
 
 ### **side note regarding higher-dimensional datasets**
 
@@ -251,7 +251,7 @@ but it's surprisingly usable,
 and allows you to preview the result of a relatively complex processing pipeline *on-the-fly*,
 for arbitrary timepoints/channels, while storing *only* the raw data on disk.
 
-{% include image.html url="/assets/tutorials/dask2.gif" description="same dataset, demonstrating on-the-fly read → deskew → deconvolve → crop" %}
+![image: same dataset, demonstrating on-the-fly read → deskew → deconvolve → crop](../assets/tutorials/dask2.gif)
 
 This workflow is very much patterned after [another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick](https://blog.dask.org/2019/08/09/image-itk)
 that describes a similar image processing pipeline using [ITK](https://itk.org/).

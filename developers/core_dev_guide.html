@@ -1,0 +1,582 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Profiling" href="profiling.html" /><link rel="prev" title="Contributing Guide" href="contributing.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>Core Developer Guide - napari</title>
+      <link rel="stylesheet" href="../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/applications/index.html">Applications</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Developer resources</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="core-developer-guide">
+<h1>Core Developer Guide<a class="headerlink" href="#core-developer-guide" title="Permalink to this headline">¶</a></h1>
+<p>Welcome, new core developer!  The core team appreciate the quality of
+your work, and enjoy working with you; we have therefore invited you
+to join us.  Thank you for your numerous contributions to the project
+so far.</p>
+<p>You can see a list of all the current core developers on our
+<a class="reference external" href="https://github.com/orgs/napari/teams/core-devs">@napari/core-devs</a>
+GitHub team. You should now be on that list too.</p>
+<p>This document offers guidelines for your new role.  First and
+foremost, you should familiarize yourself with the project’s
+<span class="xref myst">mission and values</span>.  When in
+doubt, always refer back there.</p>
+<p>As a core team member, you gain the responsibility of shepherding
+other contributors through the review process; here are some
+guidelines for how to do that.</p>
+<div class="section" id="all-contributors-are-treated-the-same">
+<h2>All Contributors Are Treated The Same<a class="headerlink" href="#all-contributors-are-treated-the-same" title="Permalink to this headline">¶</a></h2>
+<p>As a core developer, you gain the ability to merge or approve
+other contributors’ pull requests.  Much like nuclear launch keys, it
+is a shared power: you must merge <em>only after</em> another core has
+approved the pull request, <em>and</em> after you yourself have carefully
+reviewed it.  (See <a class="reference external" href="#reviewing">Reviewing</a> and especially
+<a class="reference external" href="#merge-only-changes-you-understand">Merge Only Changes You Understand</a> below.)
+It should also be considered best practice to leave a reasonable (24hr) time window
+after approval before merge to ensure that other core developers have a reasonable
+chance to weigh in.</p>
+<p>We are also an international community, with contributors from many different time zones,
+some of whom will only contribute during their working hours, others who might only be able
+to contribute during nights and weekends. It is important to be respectful of other peoples
+schedules and working habits, even if it slows the project down slightly - we are in this
+for the long run. In the same vein you also shouldn’t feel pressured to be constantly
+available or online, and users or contributors who are overly demanding and unreasonable
+to the point of harassment will be directed to our <span class="xref myst">Code of Conduct</span>.
+We value sustainable development practices over mad rushes.</p>
+<p>When merging, use GitHub’s
+<a class="reference external" href="https://help.github.com/articles/merging-a-pull-request/#merging-a-pull-request-on-github">Squash and Merge</a>
+to ensure a clean git history.</p>
+<p>You should also continue to make your own pull requests as before and in accordance
+with the <span class="xref myst">general contributor guide</span>. These pull requests still
+require the approval of another core developer before they can be merged.</p>
+</div>
+<div class="section" id="reviewing">
+<h2>Reviewing<a class="headerlink" href="#reviewing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-to-conduct-a-good-review">
+<h3>How to Conduct A Good Review<a class="headerlink" href="#how-to-conduct-a-good-review" title="Permalink to this headline">¶</a></h3>
+<p><em>Always</em> be kind to contributors. Contributors are often doing
+volunteer work, for which we are tremendously grateful. Provide
+constructive criticism on ideas and implementations, and remind
+yourself of how it felt when your own work was being evaluated as a
+novice.</p>
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> strongly values mentorship in code review.  New users
+often need more handholding, having little to no git
+experience. Repeat yourself liberally, and, if you don’t recognize a
+contributor, point them to our development guide, or other GitHub
+workflow tutorials around the web. Do not assume that they know how
+GitHub works (many don’t realize that adding a commit
+automatically updates a pull request, for example). Gentle, polite, kind
+encouragement can make the difference between a new core developer and
+an abandoned pull request.</p>
+<p>When reviewing, focus on the following:</p>
+<ol class="simple">
+<li><p><strong>Usability and generality:</strong> <code class="docutils literal notranslate"><span class="pre">napari</span></code> is a GUI application that strives to be accessible
+to both coding and non-coding users, and new features should ultimately be
+accessible to everyone using the app. <code class="docutils literal notranslate"><span class="pre">napari</span></code> targets the scientific user
+community broadly, and core features should be domain-agnostic and general purpose.
+Custom functionality is meant to be provided through our plugin ecosystem. If in doubt,
+consult back with our <span class="xref myst">mission and values</span>.</p></li>
+<li><p><strong>Performance and benchmarks:</strong> As <code class="docutils literal notranslate"><span class="pre">napari</span></code> targets scientific applications that often involve
+large multidimensional datasets, high performance is a key value of <code class="docutils literal notranslate"><span class="pre">napari</span></code>. While
+every new feature won’t scale equally to all sizes of data, keeping in mind performance
+and our <span class="xref myst">benchmarks</span> during a review may be important, and you may
+need to ask for benchmarks to be run and reported or new benchmarks to be added.</p></li>
+<li><p><strong>APIs and stability:</strong> Coding users and plugin developers will make
+extensive use of our APIs. The foundation of a healthy plugin ecosystem will be
+a fully capable and stable set of APIs, so as <code class="docutils literal notranslate"><span class="pre">napari</span></code> matures it will
+very important to ensure our APIs are stable. For now, while the project is still
+in an earlier stage, spending the extra time to consider names of public facing
+variables and methods, along side function signatures, could save us considerable
+trouble in the future. Right now we are still making breaking changes with minor
+version numbers <code class="docutils literal notranslate"><span class="pre">0.x</span></code> and do not have a deprecation policy, but we will work to add one soon.</p></li>
+<li><p><strong>Documentation and tutorials:</strong> All new methods should have appropriate doc
+strings following <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">PEP257</a> and the
+<a class="reference external" href="https://docs.scipy.org/doc/numpy/docs/howto_document.html">NumPy documentation guide</a>.
+For any major new features, accompanying changes should be made to our
+<a class="reference external" href="https://github.com/napari/napari-tutorials">tutorials repository</a>, that not only
+illustrates the new feature, but explains it.</p></li>
+<li><p><strong>Implementations and algorithms:</strong> You should understand the code being modified
+or added before approving it.  (See <a class="reference external" href="#merge-only-changes-you-understand">Merge Only Changes You Understand</a>
+below.) Implementations should do what they claim and be simple, readable, and efficient
+in that order.</p></li>
+<li><p><strong>Tests:</strong> All contributions <em>must</em> be tested, and each added line of code
+should be covered by at least one test. Good tests not only execute the code,
+but explore corner cases.  It can be tempting not to review tests, but please
+do so.</p></li>
+</ol>
+<p>Other changes may be <em>nitpicky</em>: spelling mistakes, formatting,
+etc. Do not insist contributors make these changes, but instead you should offer
+to make these changes by <a class="reference external" href="https://help.github.com/articles/committing-changes-to-a-pull-request-branch-created-from-a-fork/">pushing to their branch</a>, or using GitHub’s <a class="reference external" href="https://help.github.com/articles/commenting-on-a-pull-request/">suggestion</a>
+<a class="reference external" href="https://help.github.com/articles/incorporating-feedback-in-your-pull-request/">feature</a>, and
+be prepared to make them yourself if needed. Using the suggestion feature is preferred because
+it gives the contributor a choice in whether to accept the changes.</p>
+<p>Unless you know that a contributor is experienced with git, don’t
+ask for a rebase when merge conflicts arise. Instead, rebase the
+branch yourself, force-push to their branch, and advise the contributor to force-pull.  If the contributor is
+no longer active, you may take over their branch by submitting a new pull
+request and closing the original, including a reference to the original pull
+request. In doing so, ensure you communicate that you are not throwing the
+contributor’s work away!</p>
+</div>
+<div class="section" id="merge-only-changes-you-understand">
+<h3>Merge Only Changes You Understand<a class="headerlink" href="#merge-only-changes-you-understand" title="Permalink to this headline">¶</a></h3>
+<p><em>Long-term maintainability</em> is an important concern.  Code doesn’t
+merely have to <em>work</em>, but should be <em>understood</em> by multiple core
+developers.  Changes will have to be made in the future, and the
+original contributor may have moved on.</p>
+<p>Therefore, <em>do not merge a code change unless you understand it</em>. Ask
+for help freely: we can consult community members, or even external developers,
+for added insight where needed, and see this as a great learning opportunity.</p>
+<p>While we collectively “own” any patches (and bugs!) that become part
+of the code base, you are vouching for changes you merge.  Please take
+that responsibility seriously.</p>
+</div>
+</div>
+<div class="section" id="further-resources">
+<h2>Further resources<a class="headerlink" href="#further-resources" title="Permalink to this headline">¶</a></h2>
+<p>As a core member, you should be familiar with community and developer
+resources such as:</p>
+<ul class="simple">
+<li><p>Our <span class="xref myst">contributor guide</span>.</p></li>
+<li><p>Our <span class="xref myst">code of conduct</span>.</p></li>
+<li><p>Our <span class="xref myst">governance</span>.</p></li>
+<li><p>Our <span class="xref myst">mission and values</span>.</p></li>
+<li><p>Our <span class="xref myst">benchmarking guide</span>.</p></li>
+<li><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> for Python style.</p></li>
+<li><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">PEP257</a> and the
+<a class="reference external" href="https://docs.scipy.org/doc/numpy/docs/howto_document.html">NumPy documentation guide</a>
+for docstring conventions.</p></li>
+<li><p><a class="reference external" href="https://pre-commit.com"><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></a> hooks for autoformatting.</p></li>
+<li><p><a class="reference external" href="https://github.com/psf/black"><code class="docutils literal notranslate"><span class="pre">black</span></code></a> autoformatting.</p></li>
+<li><p><a class="reference external" href="https://github.com/PyCQA/flake8"><code class="docutils literal notranslate"><span class="pre">flake8</span></code></a> linting.</p></li>
+<li><p><a class="reference external" href="https://forum.image.sc/tags/napari">#napari on image.sc</a>.</p></li>
+<li><p><a class="reference external" href="https://twitter.com/search?q=%23napari&amp;f=live">#napari</a> and <a class="reference external" href="https://twitter.com/napari_imaging">@napari_imaging</a> on twitter.</p></li>
+<li><p><a class="reference external" href="https://napari.zulipchat.com/">napari zulip</a> community chat channel.</p></li>
+</ul>
+<p>You are not required to monitor the social resources.</p>
+<p>Where possible we prefer to point people towards asynchronous forms of communication
+like forum posts and github issues instead of realtime chat options as they are easier
+for a global community to consume.</p>
+<p>We also have a private mailing list for core developers
+<code class="docutils literal notranslate"><span class="pre">napari-core-devs@googlegroups.com</span></code> which is sparingly used for discussions
+that are required to be private, such as voting on new core members.</p>
+</div>
+<div class="section" id="inviting-new-core-members">
+<h2>Inviting New Core Members<a class="headerlink" href="#inviting-new-core-members" title="Permalink to this headline">¶</a></h2>
+<p>Any core member may nominate other contributors to join the core team.
+While there is no hard-and-fast rule about who can be nominated, ideally,
+they should have: been part of the project for at least two months, contributed
+significant changes of their own, contributed to the discussion and
+review of others’ work, and collaborated in a way befitting our
+community values. After nomination voting will happen on a private mailing list.
+While it is expected that most votes will be unanimous, a two-thirds majority of
+the cast votes is enough.</p>
+<p>Core developers can choose to become emeritus core developers and suspend
+their approval and voting rights until they become active again.</p>
+</div>
+<div class="section" id="contribute-to-this-guide">
+<h2>Contribute To This Guide (!)<a class="headerlink" href="#contribute-to-this-guide" title="Permalink to this headline">¶</a></h2>
+<p>This guide reflects the experience of the current core developers.  We
+may well have missed things that, by now, have become second
+nature—things that you, as a new team member, will spot more easily.
+Please ask the other core developers if you have any questions, and
+submit a pull request with insights gained.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>We are excited to have you on board!  We look forward to your
+contributions to the code base and the community.  Thank you in
+advance!</p>
+</div>
+</div>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./developers"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="profiling.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Profiling</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="contributing.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Contributing Guide</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="../_sources/developers/core_dev_guide.md"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Core Developer Guide</a><ul>
+<li><a class="reference internal" href="#all-contributors-are-treated-the-same">All Contributors Are Treated The Same</a></li>
+<li><a class="reference internal" href="#reviewing">Reviewing</a><ul>
+<li><a class="reference internal" href="#how-to-conduct-a-good-review">How to Conduct A Good Review</a></li>
+<li><a class="reference internal" href="#merge-only-changes-you-understand">Merge Only Changes You Understand</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#further-resources">Further resources</a></li>
+<li><a class="reference internal" href="#inviting-new-core-members">Inviting New Core Members</a></li>
+<li><a class="reference internal" href="#contribute-to-this-guide">Contribute To This Guide (!)</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

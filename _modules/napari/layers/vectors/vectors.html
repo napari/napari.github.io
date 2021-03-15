@@ -1,0 +1,1065 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>napari.layers.vectors.vectors - napari</title>
+      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tutorials/fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../tutorials/applications/index.html">Applications</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/applications/annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/applications/annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/applications/dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/applications/napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/applications/cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developers/testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <h1>Source code for napari.layers.vectors.vectors</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span><span class="p">,</span> <span class="n">ensure_colormap</span>
+<span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Layer</span>
+<span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">normalize_and_broadcast_colors</span><span class="p">,</span>
+    <span class="n">transform_color_cycle</span><span class="p">,</span>
+    <span class="n">transform_color_with_defaults</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">dataframe_to_properties</span><span class="p">,</span>
+    <span class="n">guess_continuous</span><span class="p">,</span>
+    <span class="n">map_property</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">._vector_utils</span> <span class="kn">import</span> <span class="n">generate_vector_meshes</span><span class="p">,</span> <span class="n">vectors_to_coordinates</span>
+<span class="kn">from</span> <span class="nn">._vectors_constants</span> <span class="kn">import</span> <span class="n">DEFAULT_COLOR_CYCLE</span><span class="p">,</span> <span class="n">ColorMode</span>
+
+
+<div class="viewcode-block" id="Vectors"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Vectors.html#napari.layers.Vectors">[docs]</a><span class="k">class</span> <span class="nc">Vectors</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Vectors layer renders lines onto the canvas.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : (N, 2, D) or (N1, N2, ..., ND, D) array</span>
+<span class="sd">        An (N, 2, D) array is interpreted as "coordinate-like" data and a</span>
+<span class="sd">        list of N vectors with start point and projections of the vector in</span>
+<span class="sd">        D dimensions. An (N1, N2, ..., ND, D) array is interpreted as</span>
+<span class="sd">        "image-like" data where there is a length D vector of the</span>
+<span class="sd">        projections at each pixel.</span>
+<span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
+<span class="sd">        Properties for each vector. Each property should be an array of length N,</span>
+<span class="sd">        where N is the number of vectors.</span>
+<span class="sd">    edge_width : float</span>
+<span class="sd">        Width for all vectors in pixels.</span>
+<span class="sd">    length : float</span>
+<span class="sd">         Multiplicative factor on projections for length of all vectors.</span>
+<span class="sd">    edge_color : str</span>
+<span class="sd">        Color of all of the vectors.</span>
+<span class="sd">    edge_color_cycle : np.ndarray, list</span>
+<span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a</span>
+<span class="sd">        categorical attribute is used color the vectors.</span>
+<span class="sd">    edge_colormap : str, napari.utils.Colormap</span>
+<span class="sd">        Colormap to set vector color if a continuous attribute is used to set edge_color.</span>
+<span class="sd">    edge_contrast_limits : None, (float, float)</span>
+<span class="sd">        clims for mapping the property to a color map. These are the min and max value</span>
+<span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
+<span class="sd">        The default value is None. If set the none, the clims will be set to</span>
+<span class="sd">        (property.min(), property.max())</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the layer.</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">        Layer metadata.</span>
+<span class="sd">    scale : tuple of float</span>
+<span class="sd">        Scale factors for the layer.</span>
+<span class="sd">    translate : tuple of float</span>
+<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
+<span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
+<span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
+<span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
+<span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
+<span class="sd">        np.degrees if needed.</span>
+<span class="sd">    shear : 1-D array or n-D array</span>
+<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
+<span class="sd">        ones along the main diagonal.</span>
+<span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
+<span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
+<span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
+<span class="sd">        the final column is a lenght N translation vector and a 1 or a napari</span>
+<span class="sd">        AffineTransform object. If provided then translate, scale, rotate, and</span>
+<span class="sd">        shear values are ignored.</span>
+<span class="sd">    opacity : float</span>
+<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
+<span class="sd">    blending : str</span>
+<span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
+<span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
+<span class="sd">        {'opaque', 'translucent', and 'additive'}.</span>
+<span class="sd">    visible : bool</span>
+<span class="sd">        Whether the layer visual is currently being displayed.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : (N, 2, D) array</span>
+<span class="sd">        The start point and projections of N vectors in D dimensions.</span>
+<span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
+<span class="sd">        Properties for each vector. Each property should be an array of length N,</span>
+<span class="sd">        where N is the number of vectors.</span>
+<span class="sd">    edge_width : float</span>
+<span class="sd">        Width for all vectors in pixels.</span>
+<span class="sd">    length : float</span>
+<span class="sd">         Multiplicative factor on projections for length of all vectors.</span>
+<span class="sd">    edge_color : str</span>
+<span class="sd">        Color of all of the vectors.</span>
+<span class="sd">    edge_color_cycle : np.ndarray, list</span>
+<span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a</span>
+<span class="sd">        categorical attribute is used color the vectors.</span>
+<span class="sd">    edge_colormap : str, napari.utils.Colormap</span>
+<span class="sd">        Colormap to set vector color if a continuous attribute is used to set edge_color.</span>
+<span class="sd">    edge_contrast_limits : None, (float, float)</span>
+<span class="sd">        clims for mapping the property to a color map. These are the min and max value</span>
+<span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
+<span class="sd">        The default value is None. If set the none, the clims will be set to</span>
+<span class="sd">        (property.min(), property.max())</span>
+
+<span class="sd">    Extended Summary</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _view_data : (M, 2, 2) array</span>
+<span class="sd">        The start point and projections of N vectors in 2D for vectors whose</span>
+<span class="sd">        start point is in the currently viewed slice.</span>
+<span class="sd">    _view_face_color : (M, 4) np.ndarray</span>
+<span class="sd">        colors for the M in view vectors</span>
+<span class="sd">    _view_indices : (1, M) array</span>
+<span class="sd">        indices for the M in view vectors</span>
+<span class="sd">    _view_vertices : (4M, 2) or (8M, 2) np.ndarray</span>
+<span class="sd">        the corner points for the M in view faces. Shape is (4M, 2) for 2D and (8M, 2) for 3D.</span>
+<span class="sd">    _view_faces : (2M, 3) or (4M, 3) np.ndarray</span>
+<span class="sd">        indices of the _mesh_vertices that form the faces of the M in view vectors.</span>
+<span class="sd">        Shape is (2M, 2) for 2D and (4M, 2) for 3D.</span>
+<span class="sd">    _property_choices : dict {str: array (N,)}</span>
+<span class="sd">        Possible values for the properties in Vectors.properties.</span>
+<span class="sd">        If properties is not provided, it will be {} (empty dictionary).</span>
+<span class="sd">    _mesh_vertices : (4N, 2) array</span>
+<span class="sd">        The four corner points for the mesh representation of each vector as as</span>
+<span class="sd">        rectangle in the slice that it starts in.</span>
+<span class="sd">    _mesh_triangles : (2N, 3) array</span>
+<span class="sd">        The integer indices of the `_mesh_vertices` that form the two triangles</span>
+<span class="sd">        for the mesh representation of the vectors.</span>
+<span class="sd">    _max_vectors_thumbnail : int</span>
+<span class="sd">        The maximum number of vectors that will ever be used to render the</span>
+<span class="sd">        thumbnail. If more vectors are present then they are randomly</span>
+<span class="sd">        subsampled.</span>
+<span class="sd">    """</span>
+
+    <span class="c1"># The max number of vectors that will ever be used to render the thumbnail</span>
+    <span class="c1"># If more vectors are present then they are randomly subsampled</span>
+    <span class="n">_max_vectors_thumbnail</span> <span class="o">=</span> <span class="mi">1024</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">edge_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span>
+        <span class="n">edge_color_cycle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">edge_colormap</span><span class="o">=</span><span class="s1">'viridis'</span><span class="p">,</span>
+        <span class="n">edge_contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+        <span class="n">blending</span><span class="o">=</span><span class="s1">'translucent'</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="mi">2</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+            <span class="n">translate</span><span class="o">=</span><span class="n">translate</span><span class="p">,</span>
+            <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
+            <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
+            <span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
+            <span class="n">blending</span><span class="o">=</span><span class="n">blending</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># events for non-napari calculations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">length</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">edge_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">edge_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">edge_color_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Save the vector style params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
+
+        <span class="c1"># length attribute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">length</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="c1"># Save the properties</span>
+        <span class="k">if</span> <span class="n">properties</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">properties</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="n">empty_properties</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">empty_properties</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="o">=</span> <span class="s1">''</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span> <span class="o">=</span> <span class="n">edge_color</span>
+            <span class="k">if</span> <span class="n">edge_color_cycle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">edge_color_cycle</span> <span class="o">=</span> <span class="n">DEFAULT_COLOR_CYCLE</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle</span> <span class="o">=</span> <span class="n">edge_color_cycle</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle_map</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span> <span class="o">=</span> <span class="n">edge_colormap</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_contrast_limits</span> <span class="o">=</span> <span class="n">edge_contrast_limits</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
+
+        <span class="c1"># Data containing vectors in the currently viewed slice</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># now that everything is set up, make the layer visible (if set to visible)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">visible</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">"""(N, 2, D) array: start point and projections of vectors."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+
+    <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vectors</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">vectors_to_coordinates</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
+
+        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_editable</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sd">"""dict {str: array (N,)}, DataFrame: Annotations for each point"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
+
+    <span class="nd">@properties</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">properties</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="o">=</span> <span class="s1">''</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'property used for edge_color dropped'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_validate_properties</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sd">"""Validates the type and size of the properties"""</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s1">'the number of properties must equal the number of points'</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">properties</span>
+
+    <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Get dictionary of layer state.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        state : dict</span>
+<span class="sd">            Dictionary of layer state.</span>
+<span class="sd">        """</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_base_state</span><span class="p">()</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s1">'length'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+                <span class="s1">'edge_width'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
+                <span class="s1">'edge_color'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">,</span>
+                <span class="s1">'edge_color_cycle'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle</span><span class="p">,</span>
+                <span class="s1">'edge_colormap'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s1">'edge_contrast_limits'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
+                <span class="s1">'data'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                <span class="s1">'properties'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">"""Determine number of dimensions of the layer."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_extent_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">"""Extent of layer in data coordinates.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        extent_data : array, shape (2, D)</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">extrema</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Convert from projections to endpoints using the current length</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">maxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">mins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">extrema</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">mins</span><span class="p">,</span> <span class="n">maxs</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">extrema</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">"""float: Width for all vectors in pixels."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span>
+
+    <span class="nd">@edge_width</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
+
+        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_width</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">"""float: Multiplicative factor for length of all vectors."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+
+    <span class="nd">@length</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="n">length</span>
+
+        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_length</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">"""(1 x 4) np.ndarray: Array of RGBA edge colors (applied to all vectors)"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span>
+
+    <span class="nd">@edge_color</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># save the old mode, we will emit an event if the mode has changed</span>
+        <span class="n">old_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span>
+
+        <span class="c1"># if the provided face color is a string, first check if it is a key in the properties.</span>
+        <span class="c1"># otherwise, assume it is the name of a color</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_color_mapped</span><span class="p">(</span><span class="n">edge_color</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">guess_continuous</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">edge_color</span><span class="p">]):</span>
+                <span class="n">new_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">=</span> <span class="n">new_mode</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">=</span> <span class="n">new_mode</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="o">=</span> <span class="n">edge_color</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">transformed_color</span> <span class="o">=</span> <span class="n">transform_color_with_defaults</span><span class="p">(</span>
+                <span class="n">num_entries</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+                <span class="n">colors</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
+                <span class="n">elem_name</span><span class="o">=</span><span class="s2">"edge_color"</span><span class="p">,</span>
+                <span class="n">default</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span> <span class="o">=</span> <span class="n">normalize_and_broadcast_colors</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="n">transformed_color</span>
+            <span class="p">)</span>
+            <span class="n">new_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">=</span> <span class="n">new_mode</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="o">=</span> <span class="s1">''</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">new_mode</span> <span class="o">!=</span> <span class="n">old_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color_mode</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Vectors.refresh_colors"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Vectors.html#napari.layers.Vectors.refresh_colors">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">"""Calculate and update edge colors if using a cycle or color map</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        update_color_mapping : bool</span>
+<span class="sd">            If set to True, the function will recalculate the color cycle map</span>
+<span class="sd">            or colormap (whichever is being used). If set to False, the function</span>
+<span class="sd">            will use the current color cycle map or color map. For example, if you</span>
+<span class="sd">            are adding/modifying vectors and want them to be colored with the same</span>
+<span class="sd">            mapping as the other vectors (i.e., the new vectors shouldn't affect</span>
+<span class="sd">            the color cycle map or colormap), set update_color_mapping=False.</span>
+<span class="sd">            Default value is False.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">:</span>
+                <span class="n">edge_color_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="n">update_color_mapping</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle_map</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="n">k</span><span class="p">:</span> <span class="n">c</span>
+                        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">edge_color_properties</span><span class="p">),</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_cycle</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">}</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># add properties if they are not in the colormap</span>
+                    <span class="c1"># and update_color_mapping==False</span>
+                    <span class="n">edge_color_cycle_keys</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle_map</span><span class="p">]</span>
+                    <span class="n">props_in_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span>
+                        <span class="n">edge_color_properties</span><span class="p">,</span> <span class="n">edge_color_cycle_keys</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">props_in_map</span><span class="p">):</span>
+                        <span class="n">props_to_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+                            <span class="n">edge_color_properties</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">props_in_map</span><span class="p">)]</span>
+                        <span class="p">)</span>
+                        <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">props_to_add</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle_map</span><span class="p">[</span><span class="n">prop</span><span class="p">]</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_cycle</span>
+                            <span class="p">)</span>
+                <span class="n">edge_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+                        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">edge_color_properties</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">edge_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span> <span class="o">=</span> <span class="n">edge_colors</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">:</span>
+                <span class="n">edge_color_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_color_properties</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">update_color_mapping</span>
+                        <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span> <span class="ow">is</span> <span class="kc">None</span>
+                    <span class="p">):</span>
+                        <span class="n">edge_colors</span><span class="p">,</span> <span class="n">contrast_limits</span> <span class="o">=</span> <span class="n">map_property</span><span class="p">(</span>
+                            <span class="n">prop</span><span class="o">=</span><span class="n">edge_color_properties</span><span class="p">,</span>
+                            <span class="n">colormap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span> <span class="o">=</span> <span class="n">contrast_limits</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">edge_colors</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">map_property</span><span class="p">(</span>
+                            <span class="n">prop</span><span class="o">=</span><span class="n">edge_color_properties</span><span class="p">,</span>
+                            <span class="n">colormap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="p">,</span>
+                            <span class="n">contrast_limits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
+                        <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">edge_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span> <span class="o">=</span> <span class="n">edge_colors</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_is_color_mapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">""" determines if the new color argument is for directly setting or cycle/colormap"""</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">color</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">'edge_color should be the name of a color, an array of colors, or the name of an property'</span>
+            <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">edge_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ColorMode</span><span class="p">:</span>
+        <span class="sd">"""str: Edge color setting mode</span>
+
+<span class="sd">        DIRECT (default mode) allows each vector to be set arbitrarily</span>
+
+<span class="sd">        CYCLE allows the color to be set via a color cycle over an attribute</span>
+
+<span class="sd">        COLORMAP allows color to be set via a color map over an attribute</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span><span class="p">)</span>
+
+    <span class="nd">@edge_color_mode</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">edge_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ColorMode</span><span class="p">]):</span>
+        <span class="n">edge_color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="p">(</span><span class="n">edge_color_mode</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">edge_color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">=</span> <span class="n">edge_color_mode</span>
+        <span class="k">elif</span> <span class="n">edge_color_mode</span> <span class="ow">in</span> <span class="p">(</span><span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">))</span>
+                    <span class="n">warning_msg</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="s1">'edge_color_property was not set, setting to: </span><span class="si">%s</span><span class="s1">'</span>
+                        <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span>
+                    <span class="p">)</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warning_msg</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s1">'There must valid properties to use </span><span class="si">%s</span><span class="s1"> color mode'</span>
+                        <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">edge_color_mode</span><span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="c1"># ColorMode.COLORMAP can only be applied to numeric properties</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">edge_color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s1">'selected property must be numeric to use ColorMode.COLORMAP'</span>
+                <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">=</span> <span class="n">edge_color_mode</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color_mode</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">"""list, np.ndarray :  Color cycle for edge_color.</span>
+<span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_cycle_values</span>
+
+    <span class="nd">@edge_color_cycle</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_cycle</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
+        <span class="n">transformed_color_cycle</span><span class="p">,</span> <span class="n">transformed_colors</span> <span class="o">=</span> <span class="n">transform_color_cycle</span><span class="p">(</span>
+            <span class="n">color_cycle</span><span class="o">=</span><span class="n">edge_color_cycle</span><span class="p">,</span>
+            <span class="n">elem_name</span><span class="o">=</span><span class="s1">'edge_color_cycle'</span><span class="p">,</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_cycle_values</span> <span class="o">=</span> <span class="n">transformed_colors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_cycle</span> <span class="o">=</span> <span class="n">transformed_color_cycle</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">(</span><span class="n">update_color_mapping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Colormap</span><span class="p">]:</span>
+        <span class="sd">"""Return the colormap to be applied to a property to get the edge color.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        colormap : napari.utils.Colormap</span>
+<span class="sd">            The Colormap object.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_colormap</span>
+
+    <span class="nd">@edge_colormap</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">edge_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">"""None, (float, float): contrast limits for mapping</span>
+<span class="sd">        the edge_color colormap property to 0 and 1</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_contrast_limits</span>
+
+    <span class="nd">@edge_contrast_limits</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">edge_contrast_limits</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_contrast_limits</span> <span class="o">=</span> <span class="n">contrast_limits</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_view_face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">"""" (Mx4) np.ndarray : colors for the M in view vectors"""</span>
+        <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">face_color</span><span class="p">,</span> <span class="n">face_color</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">face_color</span>
+
+    <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Sets the view given the indices to slice with."""</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span><span class="p">:</span>
+            <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span>
+        <span class="n">not_disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">)</span>
+        <span class="n">disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">faces</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">not_disp</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int'</span><span class="p">)</span>
+            <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">data</span> <span class="o">==</span> <span class="n">indices</span><span class="p">[</span><span class="n">not_disp</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="n">matches</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">disp</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">faces</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">keep_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">matches</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">keep_inds</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">keep_inds</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">keep_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                        <span class="p">[</span>
+                            <span class="n">keep_inds</span><span class="p">,</span>
+                            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">keep_inds</span><span class="p">,</span>
+                        <span class="p">],</span>
+                        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="n">faces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span><span class="p">[</span><span class="n">keep_inds</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">faces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">disp</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">faces</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertices</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="n">faces</span>
+
+    <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Update thumbnail with current vectors and colors."""</span>
+        <span class="c1"># calculate min vals for the vertices and pad with 0.5</span>
+        <span class="c1"># the offset is needed to ensure that the top left corner of the</span>
+        <span class="c1"># vectors corresponds to the top left corner of the thumbnail</span>
+        <span class="n">de</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)[</span>
+            <span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+        <span class="p">]</span>
+        <span class="c1"># calculate range of values for the vertices and pad with 1</span>
+        <span class="c1"># padding ensures the entire vector can be represented in the thumbnail</span>
+        <span class="c1"># without getting clipped</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">de</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">zoom_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+        <span class="c1"># vectors = copy(self._data_view[:, :, -2:])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_vectors_thumbnail</span><span class="p">:</span>
+            <span class="n">thumbnail_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_vectors_thumbnail</span>
+            <span class="p">)</span>
+            <span class="n">vectors</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span><span class="p">[</span><span class="n">thumbnail_indices</span><span class="p">,</span> <span class="p">:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+            <span class="n">thumbnail_color_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">[</span><span class="n">thumbnail_indices</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vectors</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+            <span class="n">thumbnail_color_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span>
+        <span class="n">vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+        <span class="n">downsampled</span> <span class="o">=</span> <span class="p">(</span><span class="n">vectors</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">zoom_factor</span>
+        <span class="n">downsampled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">downsampled</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">)</span>
+        <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">edge_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">thumbnail_color_indices</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">ec</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">downsampled</span><span class="p">,</span> <span class="n">edge_colors</span><span class="p">):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">))))</span>
+            <span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">stop</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">step</span><span class="p">)</span>
+            <span class="n">y_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">stop</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">step</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">):</span>
+                <span class="n">colormapped</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ec</span>
+        <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
+
+    <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="sd">"""Value of the data at a position in data coordinates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position : tuple</span>
+<span class="sd">            Position in data coordinates.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        value : None</span>
+<span class="sd">            Value of the data at the coord.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
+    <script src="../../../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

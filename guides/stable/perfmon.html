@@ -1,0 +1,637 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Asynchronous Rendering" href="rendering.html" /><link rel="prev" title="Multithreading in napari" href="threading.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>Performance Monitoring - napari</title>
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/applications/index.html">Applications</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Developer guides</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="performance-monitoring">
+<span id="perfmon"></span><h1>Performance Monitoring<a class="headerlink" href="#performance-monitoring" title="Permalink to this headline">¶</a></h1>
+<p>If napari is not performing well, you can use the
+<a class="reference internal" href="../../api/stable/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> to help
+diagnose the problem.</p>
+<p>The module can do several things:</p>
+<ol class="simple">
+<li><p>Time Qt Events</p></li>
+<li><p>Display a dockable <strong>performance</strong> widget.</p></li>
+<li><p>Write JSON trace files viewable with <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>.</p></li>
+<li><p>Time any function that you specify in the config file.</p></li>
+</ol>
+<div class="section" id="monitoring-vs-profiling">
+<h2>Monitoring vs. Profiling<a class="headerlink" href="#monitoring-vs-profiling" title="Permalink to this headline">¶</a></h2>
+<p>Profiling is similar to performance monitoring. However profiling usually
+involves running an external tool to acquire timing data on every function
+in the program. Sometimes this will cause the program to run so slowly it’s
+hard to use the program interactively.</p>
+<p>Performance monitoring does not require running a separate tool to collect
+the timing information, however we do use Chrome to view the trace files.
+With performance monitoring napari can run at close to full speed in many
+cases. This document discusses only napari’s performance monitoring
+features. Profiling napari might be useful as well, but it is not discussed
+here.</p>
+</div>
+<div class="section" id="enabling-perfmon">
+<h2>Enabling perfmon<a class="headerlink" href="#enabling-perfmon" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways to enable performance monitoring. Set the environment
+variable <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON=1</span></code> or set <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON</span></code> to the path of
+a JSON configuration file, for example <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON=/tmp/perfmon.json</span></code>.</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON=1</span></code> does three things:</p>
+<ol class="simple">
+<li><p>Times Qt Events</p></li>
+<li><p>Shows the dockable <strong>performance</strong> widget.</p></li>
+<li><p>Reveals the <strong>Debug</strong> menu which you can use to create a trace file.</p></li>
+</ol>
+</div>
+<div class="section" id="configuration-file-format">
+<h2>Configuration File Format<a class="headerlink" href="#configuration-file-format" title="Permalink to this headline">¶</a></h2>
+<p>Example configuration file:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">"trace_qt_events"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">"trace_file_on_start"</span><span class="p">:</span> <span class="s2">"/tmp/latest.json"</span><span class="p">,</span>
+    <span class="nt">"trace_callables"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"chunk_loader"</span>
+    <span class="p">],</span>
+    <span class="nt">"callable_lists"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"chunk_loader"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"napari.components.chunk._loader.ChunkLoader.load_chunk"</span><span class="p">,</span>
+            <span class="s2">"napari.components.chunk._loader.ChunkLoader._done"</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration-options">
+<h2>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="trace-qt-events">
+<h3><code class="docutils literal notranslate"><span class="pre">trace_qt_events</span></code><a class="headerlink" href="#trace-qt-events" title="Permalink to this headline">¶</a></h3>
+<p>If true perfmon will time the duration of all Qt Events. You might
+want to turn this off if the overhead is noticeable, or if you want
+your trace file to be less cluttered.</p>
+</div>
+<div class="section" id="trace-file-on-start">
+<h3><code class="docutils literal notranslate"><span class="pre">trace_file_on_start</span></code><a class="headerlink" href="#trace-file-on-start" title="Permalink to this headline">¶</a></h3>
+<p>If a path is given, napari will start tracing immediately on start. In many
+cases this is much more convenient than using the <strong>Debug</strong> Menu. Be sure to
+exit napari using the <strong>Quit</strong> command. The trace file will be written on
+exit.</p>
+</div>
+<div class="section" id="trace-callables">
+<h3><code class="docutils literal notranslate"><span class="pre">trace_callables</span></code><a class="headerlink" href="#trace-callables" title="Permalink to this headline">¶</a></h3>
+<p>Specify which <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> you want to trace. You can have many
+<code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> defined, but this setting says which should be traced.</p>
+</div>
+<div class="section" id="callable-lists">
+<h3><code class="docutils literal notranslate"><span class="pre">callable_lists</span></code><a class="headerlink" href="#callable-lists" title="Permalink to this headline">¶</a></h3>
+<p>These lists can be referenced by the <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> option. You might
+want multiple lists so they can be enabled separately.</p>
+</div>
+</div>
+<div class="section" id="trace-file">
+<h2>Trace File<a class="headerlink" href="#trace-file" title="Permalink to this headline">¶</a></h2>
+<p>The trace file that napari produces is viewable in Chrome. Go to the
+special URL <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>. Use the <strong>Load</strong> button inside the Chrome
+window, or just drag-n-drop your JSON trace file into the Chrome window.
+You can also view trace files using the
+<a class="reference external" href="https://www.speedscope.app/">Speedscope website</a>.
+It is similar to <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code> but has some different features.</p>
+<p>The trace file format is specified in the
+<a class="reference external" href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/preview%3E">Trace File Format</a>
+Google Doc. The format is well-documented, but there are no pictures so
+it’s not always clear how a given feature actually looks in the Chrome
+Tracing GUI.</p>
+</div>
+<div class="section" id="example-investigation">
+<h2>Example Investigation<a class="headerlink" href="#example-investigation" title="Permalink to this headline">¶</a></h2>
+<p>This is an example showing how you might use the
+<a class="reference internal" href="../../api/stable/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> module.</p>
+<div class="section" id="add-a-sleep">
+<h3>Add a Sleep<a class="headerlink" href="#add-a-sleep" title="Permalink to this headline">¶</a></h3>
+<p>To simulate a performance problem in napari, add a <code class="docutils literal notranslate"><span class="pre">sleep()</span></code> call to the
+:meth:<code class="docutils literal notranslate"><span class="pre">Labels.paint&lt;napari.layer.labels.Label.paint&gt;</span></code> method, this
+will make the method take at least 100ms:</p>
+</div>
+<div class="section" id="create-a-perfmon-config-file">
+<h3>Create a Perfmon Config File<a class="headerlink" href="#create-a-perfmon-config-file" title="Permalink to this headline">¶</a></h3>
+<p>Create a minimal perfmon config file <code class="docutils literal notranslate"><span class="pre">/tmp/perfmon.json</span></code> that looks like this:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">"trace_qt_events"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">"trace_file_on_start"</span><span class="p">:</span> <span class="s2">"/tmp/latest.json"</span><span class="p">,</span>
+    <span class="nt">"trace_callables"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will write <code class="docutils literal notranslate"><span class="pre">/tmp/latest.json</span></code> every time we run napari. This file is
+only written on exit, and you must exit with the <strong>Quit</strong> commmand. Using
+<code class="docutils literal notranslate"><span class="pre">trace_file_on_start</span></code> is often easier than manually starting a trace using
+the <strong>Debug</strong> menu.</p>
+</div>
+<div class="section" id="run-napari">
+<h3>Run napari<a class="headerlink" href="#run-napari" title="Permalink to this headline">¶</a></h3>
+<p>Now run napari’s <code class="docutils literal notranslate"><span class="pre">add_labels</span></code> example like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>    <span class="nv">NAPARI_PERFMON</span><span class="o">=</span>/tmp/perfmon.json python examples/add_labels.py
+</pre></div>
+</div>
+<p>Use the paint tool and single-click once or twice on the labels layer. Look
+at the <strong>performance</strong> widget, it should show that some events took over
+100ms. The <strong>performance</strong> widget is just to give you a quick idea of what
+is running slow:</p>
+<p><img alt="example widget output" src="https://user-images.githubusercontent.com/4163446/94198620-898c4c00-fe85-11ea-8769-83f52c0a1aad.png"/></p>
+<p>The trace file will give you much more information than the <strong>performance</strong>
+widget. Exit napari using the <strong>Quit</strong> command so that it writes the trace
+file on exit.</p>
+</div>
+<div class="section" id="view-trace-in-chrome">
+<h3>View Trace in Chrome<a class="headerlink" href="#view-trace-in-chrome" title="Permalink to this headline">¶</a></h3>
+<p>Run Chrome and go to the URL <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>. Drag and drop
+<code class="docutils literal notranslate"><span class="pre">/temp/latest.json</span></code> into the Chrome window, or use the <strong>Load</strong> button to
+load the JSON file. You will usually need to pan and zoom the trace to
+explore it, to figure out what is going on.</p>
+<p>You can navigate with the mouse, but using the keyboard might be easier.
+Press the <code class="docutils literal notranslate"><span class="pre">AD</span></code> keys to move left and right, and press the <code class="docutils literal notranslate"><span class="pre">WS</span></code> keys to zoom
+in or out. Both the <code class="docutils literal notranslate"><span class="pre">MouseButtonPress</span></code> and <code class="docutils literal notranslate"><span class="pre">MouseMove</span></code> events are slow. In
+the lower pane the <code class="docutils literal notranslate"><span class="pre">Wall</span> <span class="pre">Duration</span></code> field says it took over 100ms:</p>
+<p><img alt="example chrome output" src="https://user-images.githubusercontent.com/4163446/94200256-1fc17180-fe88-11ea-9935-bef4f818407d.png"/></p>
+<p>So we can see that some events are running slow. The next questions is
+why are <code class="docutils literal notranslate"><span class="pre">MouseButtonPress</span></code> or <code class="docutils literal notranslate"><span class="pre">MouseMove</span></code> is running slow? To answer this
+question we can add more timers. In this case we know the answer, but often
+you will have to guess or experiment. You might add some timers and then
+find out they actually runs fast, so you can remove them.</p>
+</div>
+<div class="section" id="add-paint-method">
+<h3>Add Paint Method<a class="headerlink" href="#add-paint-method" title="Permalink to this headline">¶</a></h3>
+<p>To add the <a class="reference internal" href="../../api/stable/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> method to
+the trace, create a new list of callables named <code class="docutils literal notranslate"><span class="pre">labels</span></code> and put the
+<a class="reference internal" href="../../api/stable/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> method into
+that list.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">"trace_qt_events"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">"trace_file_on_start"</span><span class="p">:</span> <span class="s2">"/tmp/latest.json"</span><span class="p">,</span>
+    <span class="nt">"trace_callables"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"labels"</span>
+    <span class="p">],</span>
+    <span class="nt">"callable_lists"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"labels"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"napari.layers.labels.Labels.paint"</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-the-new-trace-file">
+<h3>Create the new Trace File<a class="headerlink" href="#create-the-new-trace-file" title="Permalink to this headline">¶</a></h3>
+<p>Run <code class="docutils literal notranslate"><span class="pre">add_labels</span></code> as before, click with the paint tool, exit with the <strong>Quit</strong>
+command.</p>
+</div>
+<div class="section" id="view-the-new-trace-file">
+<h3>View the new Trace File<a class="headerlink" href="#view-the-new-trace-file" title="Permalink to this headline">¶</a></h3>
+<p>Drop <code class="docutils literal notranslate"><span class="pre">/tmp/latest.json</span></code> into Chrome again. Now we can see that
+<code class="docutils literal notranslate"><span class="pre">MouseButtonPress</span></code> calls
+<a class="reference internal" href="../../api/stable/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> and that
+<a class="reference internal" href="../../api/stable/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> is really responsible
+for most of the time. After clicking on the event press the <code class="docutils literal notranslate"><span class="pre">m</span></code> key, that
+will highlight the event duration with arrows and print the duration right
+on the timeline, in this case it says the even took  106.597ms:</p>
+<p><img alt="highlighted event duration showing Labels.paint took 106.597ms to run" src="https://user-images.githubusercontent.com/4163446/94201049-66fc3200-fe89-11ea-9720-6a7ff3c7361a.png"/></p>
+<p>When investigating a real problem we might have to add many functions to
+the config file. It’s best to add timers that take a lot of time. If you
+add a timer that’s called thousands of times, it will add overhead and will
+clutter the trace file. In general we want to trace important and
+interesting functions. If we create a large <code class="docutils literal notranslate"><span class="pre">callable_list</span></code> we can save it
+for future use.</p>
+</div>
+<div class="section" id="advanced">
+<h3>Advanced<a class="headerlink" href="#advanced" title="Permalink to this headline">¶</a></h3>
+<p>Experiment with the <a class="reference internal" href="../../api/stable/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> features and
+you will find your own tricks and techniques.</p>
+<p>Create multiple <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> and toggle them on or off depending on
+what you are investigating. The perfmon overhead is low, but tracing only
+what you care about will yield the best performance and lead to trace files
+that are easier to understand.</p>
+<p>Use the <a class="reference internal" href="../../api/stable/napari.utils.perf.html#napari.utils.perf.perf_timer" title="napari.utils.perf.perf_timer"><code class="xref py py-func docutils literal notranslate"><span class="pre">perf_timer</span></code></a> context object to
+time only a block of code, or even a single line, if you don’t want to time
+an entire function.</p>
+<p>Use <a class="reference internal" href="../../api/stable/napari.utils.perf.html#napari.utils.perf.add_instant_event" title="napari.utils.perf.add_instant_event"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_instant_event</span></code></a> and
+<a class="reference internal" href="../../api/stable/napari.utils.perf.html#napari.utils.perf.add_counter_event" title="napari.utils.perf.add_counter_event"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_counter_event</span></code></a> to annotate
+your trace file with additional information beyond just timing events. The
+<code class="docutils literal notranslate"><span class="pre">add_instant_event</span></code> function draws a vertical line on the trace in Chrome,
+to show when something happened like a click. The <code class="docutils literal notranslate"><span class="pre">add_counter_event</span></code>
+function creates a bar graph on the trace showing the value of some counter
+at every point in time. For example you could record the length of a queue,
+and see the queue grow and shrink over time.</p>
+<p>Calls to <code class="docutils literal notranslate"><span class="pre">perf_timer</span></code>, <code class="docutils literal notranslate"><span class="pre">add_instant_event</span></code> and <code class="docutils literal notranslate"><span class="pre">add_counter_event</span></code> should
+be removed before merging code into master. Think of them like “debug
+prints”, things you add while investigating a problem, but you do not leave
+them in the code permanently.</p>
+<p>You can save JSON files so that you can compare how things looked
+before and after your changes.</p>
+</div>
+</div>
+</div>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./guides/stable"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="rendering.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Asynchronous Rendering</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="threading.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Multithreading in napari</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="../../_sources/guides/stable/perfmon.md"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Performance Monitoring</a><ul>
+<li><a class="reference internal" href="#monitoring-vs-profiling">Monitoring vs. Profiling</a></li>
+<li><a class="reference internal" href="#enabling-perfmon">Enabling perfmon</a></li>
+<li><a class="reference internal" href="#configuration-file-format">Configuration File Format</a></li>
+<li><a class="reference internal" href="#configuration-options">Configuration Options</a><ul>
+<li><a class="reference internal" href="#trace-qt-events"><code class="docutils literal notranslate"><span class="pre">trace_qt_events</span></code></a></li>
+<li><a class="reference internal" href="#trace-file-on-start"><code class="docutils literal notranslate"><span class="pre">trace_file_on_start</span></code></a></li>
+<li><a class="reference internal" href="#trace-callables"><code class="docutils literal notranslate"><span class="pre">trace_callables</span></code></a></li>
+<li><a class="reference internal" href="#callable-lists"><code class="docutils literal notranslate"><span class="pre">callable_lists</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#trace-file">Trace File</a></li>
+<li><a class="reference internal" href="#example-investigation">Example Investigation</a><ul>
+<li><a class="reference internal" href="#add-a-sleep">Add a Sleep</a></li>
+<li><a class="reference internal" href="#create-a-perfmon-config-file">Create a Perfmon Config File</a></li>
+<li><a class="reference internal" href="#run-napari">Run napari</a></li>
+<li><a class="reference internal" href="#view-trace-in-chrome">View Trace in Chrome</a></li>
+<li><a class="reference internal" href="#add-paint-method">Add Paint Method</a></li>
+<li><a class="reference internal" href="#create-the-new-trace-file">Create the new Trace File</a></li>
+<li><a class="reference internal" href="#view-the-new-trace-file">View the new Trace File</a></li>
+<li><a class="reference internal" href="#advanced">Advanced</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

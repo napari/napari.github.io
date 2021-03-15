@@ -1,0 +1,1400 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>napari.components.viewer_model - napari</title>
+      <link rel="stylesheet" href="../../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../tutorials/fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../tutorials/applications/index.html">Applications</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <h1>Source code for napari.components.viewer_model</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Set</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">validator</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">from</span> <span class="nn">..layers</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Layer</span>
+<span class="kn">from</span> <span class="nn">..layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
+<span class="kn">from</span> <span class="nn">..layers.utils.stack_utils</span> <span class="kn">import</span> <span class="n">split_channels</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">..utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
+<span class="kn">from</span> <span class="nn">..utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
+<span class="kn">from</span> <span class="nn">..utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">,</span> <span class="n">disconnect_events</span>
+<span class="kn">from</span> <span class="nn">..utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
+<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">is_sequence</span>
+<span class="kn">from</span> <span class="nn">..utils.mouse_bindings</span> <span class="kn">import</span> <span class="n">MousemapProvider</span>
+<span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">available_themes</span>
+<span class="kn">from</span> <span class="nn">._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
+<span class="kn">from</span> <span class="nn">.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
+<span class="kn">from</span> <span class="nn">.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+<span class="kn">from</span> <span class="nn">.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span>
+<span class="kn">from</span> <span class="nn">.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
+<span class="kn">from</span> <span class="nn">.grid</span> <span class="kn">import</span> <span class="n">GridCanvas</span>
+<span class="kn">from</span> <span class="nn">.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
+<span class="kn">from</span> <span class="nn">.scale_bar</span> <span class="kn">import</span> <span class="n">ScaleBar</span>
+
+<span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">'dark'</span>
+<span class="n">EXCLUDE_DICT</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'keymap'</span><span class="p">,</span>
+    <span class="s1">'_mouse_wheel_gen'</span><span class="p">,</span>
+    <span class="s1">'_mouse_drag_gen'</span><span class="p">,</span>
+    <span class="s1">'_persisted_mouse_event'</span><span class="p">,</span>
+    <span class="s1">'mouse_move_callbacks'</span><span class="p">,</span>
+    <span class="s1">'mouse_drag_callbacks'</span><span class="p">,</span>
+    <span class="s1">'mouse_wheel_callbacks'</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">EXCLUDE_JSON</span> <span class="o">=</span> <span class="n">EXCLUDE_DICT</span><span class="o">.</span><span class="n">union</span><span class="p">({</span><span class="s1">'layers'</span><span class="p">,</span> <span class="s1">'active_layer'</span><span class="p">})</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">FullLayerData</span><span class="p">,</span> <span class="n">LayerData</span>
+
+
+<span class="c1"># KeymapProvider &amp; MousemapProvider should eventually be moved off the ViewerModel</span>
+<div class="viewcode-block" id="ViewerModel"><a class="viewcode-back" href="../../../api/stable/napari.components.ViewerModel.html#napari.components.ViewerModel">[docs]</a><span class="k">class</span> <span class="nc">ViewerModel</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProvider</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
+    <span class="sd">"""Viewer containing the rendered scene, layers, and controlling elements</span>
+<span class="sd">    including dimension sliders, and control bars for color limits.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    title : string</span>
+<span class="sd">        The title of the viewer window.</span>
+<span class="sd">    ndisplay : {2, 3}</span>
+<span class="sd">        Number of displayed dimensions.</span>
+<span class="sd">    order : tuple of int</span>
+<span class="sd">        Order in which dimensions are displayed where the last two or last</span>
+<span class="sd">        three dimensions correspond to row x column or plane x row x column if</span>
+<span class="sd">        ndisplay is 2 or 3.</span>
+<span class="sd">    axis_labels : list of str</span>
+<span class="sd">        Dimension names.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    window : Window</span>
+<span class="sd">        Parent window.</span>
+<span class="sd">    layers : LayerList</span>
+<span class="sd">        List of contained layers.</span>
+<span class="sd">    dims : Dimensions</span>
+<span class="sd">        Contains axes, indices, dimensions and sliders.</span>
+<span class="sd">    """</span>
+
+    <span class="c1"># After https://github.com/samuelcolvin/pydantic/pull/2196 is released</span>
+    <span class="c1"># make all of these fields with allow_mutation=False</span>
+    <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="n">Axes</span><span class="p">()</span>
+    <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Cursor</span><span class="p">()</span>
+    <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Dims</span><span class="p">()</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">GridCanvas</span> <span class="o">=</span> <span class="n">GridCanvas</span><span class="p">()</span>
+    <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span>
+    <span class="p">)</span>  <span class="c1"># Need to create custom JSON encoder for layer!</span>
+    <span class="n">scale_bar</span><span class="p">:</span> <span class="n">ScaleBar</span> <span class="o">=</span> <span class="n">ScaleBar</span><span class="p">()</span>
+
+    <span class="n">active_layer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Layer</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Would be nice to remove this/ make it layer name instead of layer?</span>
+    <span class="n">help</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span>
+    <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'Ready'</span>
+    <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_THEME</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'napari'</span>
+
+    <span class="c1"># 2-tuple indicating height and width</span>
+    <span class="n">_canvas_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'napari'</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()):</span>
+        <span class="c1"># allow extra attributes during model initialization, useful for mixins</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">allow</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">dims</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">'axis_labels'</span><span class="p">:</span> <span class="n">axis_labels</span><span class="p">,</span>
+                <span class="s1">'ndisplay'</span><span class="p">:</span> <span class="n">ndisplay</span><span class="p">,</span>
+                <span class="s1">'order'</span><span class="p">:</span> <span class="n">order</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">ignore</span>
+
+        <span class="c1"># Add extra events - ideally these will be removed too!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers_change</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span> <span class="n">reset_view</span><span class="o">=</span><span class="n">Event</span><span class="p">)</span>
+
+        <span class="c1"># Connect events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_grid_change</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_cursor_position_change</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_add_layer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_remove_layer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reordered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_grid_change</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reordered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
+
+        <span class="c1"># Add mouse callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_wheel_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dims_scroll</span><span class="p">)</span>
+
+    <span class="nd">@validator</span><span class="p">(</span><span class="s1">'theme'</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_valid_theme</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">themes</span> <span class="o">=</span> <span class="n">available_themes</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">available_themes</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Theme '</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">' not found; "</span> <span class="sa">f</span><span class="s2">"options are </span><span class="si">{</span><span class="n">themes</span><span class="si">}</span><span class="s2">."</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+<div class="viewcode-block" id="ViewerModel.json"><a class="viewcode-back" href="../../../api/stable/napari.components.ViewerModel.html#napari.components.ViewerModel.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""Serialize to json."""</span>
+        <span class="c1"># Manually exclude the layer list and active layer which cannot be serialized at this point</span>
+        <span class="c1"># and mouse and keybindings don't belong on model</span>
+        <span class="c1"># https://github.com/samuelcolvin/pydantic/pull/2231</span>
+        <span class="c1"># https://github.com/samuelcolvin/pydantic/issues/660#issuecomment-642211017</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'exclude'</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">EXCLUDE_JSON</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ViewerModel.dict"><a class="viewcode-back" href="../../../api/stable/napari.components.ViewerModel.html#napari.components.ViewerModel.dict">[docs]</a>    <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""Convert to a dictionaty."""</span>
+        <span class="c1"># Manually exclude the layer list and active layer which cannot be serialized at this point</span>
+        <span class="c1"># and mouse and keybindings don't belong on model</span>
+        <span class="c1"># https://github.com/samuelcolvin/pydantic/pull/2231</span>
+        <span class="c1"># https://github.com/samuelcolvin/pydantic/issues/660#issuecomment-642211017</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'exclude'</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">EXCLUDE_DICT</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Simple string representation"""</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'napari.Viewer: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1">'</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_sliced_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">"""Extent of layers in world coordinates after slicing.</span>
+
+<span class="sd">        D is either 2 or 3 depending on if the displayed data is 2D or 3D.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sliced_extent_world : array, shape (2, D)</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># If no data is present and dims model has not been reset to 0</span>
+            <span class="c1"># than someone has passed more than two axis labels which are</span>
+            <span class="c1"># being saved and so default values are used.</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">)]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ViewerModel.reset_view"><a class="viewcode-back" href="../../../api/stable/napari.components.ViewerModel.html#napari.components.ViewerModel.reset_view">[docs]</a>    <span class="k">def</span> <span class="nf">reset_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""Reset the camera view."""</span>
+
+        <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sliced_extent_world</span>
+        <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">corner</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">grid_size</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">actual_shape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scene_size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_size</span><span class="p">):</span>
+            <span class="n">grid_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scene_size</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_size</span><span class="p">))</span> <span class="o">+</span> <span class="n">grid_size</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">)</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mi">2</span><span class="p">))[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="p">:]</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">center</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span>
+        <span class="c1"># zoom is definied as the number of canvas pixels per world pixel</span>
+        <span class="c1"># The default value used below will zoom such that the whole field</span>
+        <span class="c1"># of view will occupy 95% of the canvas on the most filled axis</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mf">0.95</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="mf">0.95</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+
+        <span class="c1"># Emit a reset view event, which is no longer used internally, but</span>
+        <span class="c1"># which maybe useful for building on napari.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reset_view</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
+            <span class="n">zoom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
+            <span class="n">angles</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_new_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Create new labels layer filling full world coordinates space."""</span>
+        <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span>
+        <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">corner</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">s</span> <span class="o">/</span> <span class="n">sc</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">sc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">scene_size</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">empty_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">empty_labels</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corner</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""Updates the contained layers.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layers : list of napari.layers.Layer, optional</span>
+<span class="sd">            List of layers to update. If none provided updates all.</span>
+<span class="sd">        """</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">_slice_dims</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_toggle_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Switch to next theme in list of themes"""</span>
+        <span class="n">theme_names</span> <span class="o">=</span> <span class="n">available_themes</span><span class="p">()</span>
+        <span class="n">cur_theme</span> <span class="o">=</span> <span class="n">theme_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme_names</span><span class="p">[(</span><span class="n">cur_theme</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">theme_names</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">_update_active_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Set the active layer by iterating over the layers list and</span>
+<span class="sd">        finding the first selected layer. If multiple layers are selected the</span>
+<span class="sd">        iteration stops and the active layer is set to be None</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : Event</span>
+<span class="sd">            No Event parameters are used</span>
+<span class="sd">        """</span>
+        <span class="c1"># iteration goes backwards to find top most selected layer if any</span>
+        <span class="c1"># if multiple layers are selected sets the active layer to None</span>
+
+        <span class="n">active_layer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">active_layer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">layer</span><span class="o">.</span><span class="n">selected</span><span class="p">:</span>
+                <span class="n">active_layer</span> <span class="o">=</span> <span class="n">layer</span>
+            <span class="k">elif</span> <span class="n">active_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">layer</span><span class="o">.</span><span class="n">selected</span><span class="p">:</span>
+                <span class="n">active_layer</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">active_layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">''</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s1">'standard'</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_layer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">help</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor_size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">interactive</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_layer</span> <span class="o">=</span> <span class="n">active_layer</span>
+
+    <span class="k">def</span> <span class="nf">_on_layers_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span>
+            <span class="n">world</span> <span class="o">=</span> <span class="n">extent</span><span class="o">.</span><span class="n">world</span>
+            <span class="n">ss</span> <span class="o">=</span> <span class="n">extent</span><span class="o">.</span><span class="n">step</span>
+            <span class="n">ndim</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="n">ndim</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">set_range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">world</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">ss</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">layers_change</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_active_layer</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Set the viewer interactivity with the `event.interactive` bool."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">interactive</span>
+
+    <span class="k">def</span> <span class="nf">_update_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Set the viewer cursor with the `event.cursor` string."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">cursor</span>
+
+    <span class="k">def</span> <span class="nf">_update_cursor_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Set the viewer cursor_size with the `event.cursor_size` int."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">cursor_size</span>
+
+    <span class="k">def</span> <span class="nf">_on_cursor_position_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Set the layer cursor position."""</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span>
+
+        <span class="c1"># Update status and help bar based on active layer</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_layer</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_layer</span><span class="o">.</span><span class="n">help</span>
+
+    <span class="k">def</span> <span class="nf">_on_grid_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Arrange the current layers is a 2D grid."""</span>
+        <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sliced_extent_world</span>
+        <span class="n">n_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
+            <span class="n">i_row</span><span class="p">,</span> <span class="n">i_column</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">n_layers</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_subplot</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="p">(</span><span class="n">i_row</span><span class="p">,</span> <span class="n">i_column</span><span class="p">),</span> <span class="n">extent</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_subplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">extent</span><span class="p">):</span>
+        <span class="sd">"""Shift a layer to a specified position in a 2D grid.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layer : napari.layers.Layer</span>
+<span class="sd">            Layer that is to be moved.</span>
+<span class="sd">        position : 2-tuple of int</span>
+<span class="sd">            New position of layer in grid.</span>
+<span class="sd">        extent : array, shape (2, D)</span>
+<span class="sd">            Extent of the world.</span>
+<span class="sd">        """</span>
+        <span class="n">scene_shift</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">translate_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">scene_shift</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:],</span> <span class="n">position</span><span class="p">)</span>
+        <span class="n">translate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">layer</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="n">translate</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="n">translate_2d</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">translate_grid</span> <span class="o">=</span> <span class="n">translate</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">experimental</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Experimental commands for IPython console.</span>
+
+<span class="sd">        For example run "viewer.experimental.cmds.loader.help".</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">.experimental.commands</span> <span class="kn">import</span> <span class="n">ExperimentalNamespace</span>
+
+        <span class="k">return</span> <span class="n">ExperimentalNamespace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Connect new layer events.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : :class:`napari.layers.Layer`</span>
+<span class="sd">            Layer to add.</span>
+<span class="sd">        """</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="c1"># Connect individual layer events to viewer events</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">select</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_active_layer</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">deselect</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_active_layer</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interactive</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_interactive</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">cursor_size</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor_size</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">scale</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">translate</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rotate</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shear</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_update_name</span><span class="p">)</span>
+
+        <span class="c1"># For the labels layer we need to reset the undo/ redo</span>
+        <span class="c1"># history whenever the displayed slice changes. Once</span>
+        <span class="c1"># we have full undo/ redo functionality, this can be</span>
+        <span class="c1"># dropped.</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">'_reset_history'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
+
+        <span class="c1"># Make layer selected and unselect all others</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">unselect_all</span><span class="p">(</span><span class="n">ignore</span><span class="o">=</span><span class="n">layer</span><span class="p">)</span>
+
+        <span class="c1"># Update dims and grid model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_grid_change</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Slice current layer based on dims</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="n">layer</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_on_remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Disconnect old layer events.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : napari.utils.event.Event</span>
+<span class="sd">            Event which will remove a layer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        layer : :class:`napari.layers.Layer` or list</span>
+<span class="sd">            The layer that was added (same as input).</span>
+<span class="sd">        """</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="c1"># Disconnect all connections from layer</span>
+        <span class="n">disconnect_events</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">disconnect_events</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
+
+        <span class="c1"># For the labels layer disconnect history resets</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">'_reset_history'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_grid_change</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ViewerModel.add_layer"><a class="viewcode-back" href="../../../api/stable/napari.components.ViewerModel.html#napari.components.ViewerModel.add_layer">[docs]</a>    <span class="k">def</span> <span class="nf">add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Layer</span><span class="p">:</span>
+        <span class="sd">"""Add a layer to the viewer.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layer : :class:`napari.layers.Layer`</span>
+<span class="sd">            Layer to add.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        layer : :class:`napari.layers.Layer` or list</span>
+<span class="sd">            The layer that was added (same as input).</span>
+<span class="sd">        """</span>
+        <span class="c1"># Adding additional functionality inside `add_layer`</span>
+        <span class="c1"># should be avoided to keep full functionality</span>
+        <span class="c1"># from adding a layer through the `layers.append`</span>
+        <span class="c1"># method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">layer</span></div>
+
+<div class="viewcode-block" id="ViewerModel.add_image"><a class="viewcode-back" href="../../../api/stable/napari.components.ViewerModel.html#napari.components.ViewerModel.add_image">[docs]</a>    <span class="k">def</span> <span class="nf">add_image</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">channel_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rgb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">interpolation</span><span class="o">=</span><span class="s1">'nearest'</span><span class="p">,</span>
+        <span class="n">rendering</span><span class="o">=</span><span class="s1">'mip'</span><span class="p">,</span>
+        <span class="n">iso_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">attenuation</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">blending</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]:</span>
+        <span class="sd">"""Add an image layer to the layer list.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : array or list of array</span>
+<span class="sd">            Image data. Can be N dimensional. If the last dimension has length</span>
+<span class="sd">            3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a</span>
+<span class="sd">            list and arrays are decreasing in shape then the data is treated as</span>
+<span class="sd">            a multiscale image.</span>
+<span class="sd">        channel_axis : int, optional</span>
+<span class="sd">            Axis to expand image along.  If provided, each channel in the data</span>
+<span class="sd">            will be added as an individual image layer.  In channel_axis mode,</span>
+<span class="sd">            all other parameters MAY be provided as lists, and the Nth value</span>
+<span class="sd">            will be applied to the Nth channel in the data.  If a single value</span>
+<span class="sd">            is provided, it will be broadcast to all Layers.</span>
+<span class="sd">        rgb : bool or list</span>
+<span class="sd">            Whether the image is rgb RGB or RGBA. If not specified by user and</span>
+<span class="sd">            the last dimension of the data has length 3 or 4 it will be set as</span>
+<span class="sd">            `True`. If `False` the image is interpreted as a luminance image.</span>
+<span class="sd">            If a list then must be same length as the axis that is being</span>
+<span class="sd">            expanded as channels.</span>
+<span class="sd">        colormap : str, napari.utils.Colormap, tuple, dict, list</span>
+<span class="sd">            Colormaps to use for luminance images. If a string must be the name</span>
+<span class="sd">            of a supported colormap from vispy or matplotlib. If a tuple the</span>
+<span class="sd">            first value must be a string to assign as a name to a colormap and</span>
+<span class="sd">            the second item must be a Colormap. If a dict the key must be a</span>
+<span class="sd">            string to assign as a name to a colormap and the value must be a</span>
+<span class="sd">            Colormap. If a list then must be same length as the axis that is</span>
+<span class="sd">            being expanded as channels, and each colormap is applied to each</span>
+<span class="sd">            new image layer.</span>
+<span class="sd">        contrast_limits : list (2,)</span>
+<span class="sd">            Color limits to be used for determining the colormap bounds for</span>
+<span class="sd">            luminance images. If not passed is calculated as the min and max of</span>
+<span class="sd">            the image. If list of lists then must be same length as the axis</span>
+<span class="sd">            that is being expanded and then each colormap is applied to each</span>
+<span class="sd">            image.</span>
+<span class="sd">        gamma : list, float</span>
+<span class="sd">            Gamma correction for determining colormap linearity. Defaults to 1.</span>
+<span class="sd">            If a list then must be same length as the axis that is being</span>
+<span class="sd">            expanded as channels.</span>
+<span class="sd">        interpolation : str or list</span>
+<span class="sd">            Interpolation mode used by vispy. Must be one of our supported</span>
+<span class="sd">            modes. If a list then must be same length as the axis that is being</span>
+<span class="sd">            expanded as channels.</span>
+<span class="sd">        rendering : str or list</span>
+<span class="sd">            Rendering mode used by vispy. Must be one of our supported</span>
+<span class="sd">            modes. If a list then must be same length as the axis that is being</span>
+<span class="sd">            expanded as channels.</span>
+<span class="sd">        iso_threshold : float or list</span>
+<span class="sd">            Threshold for isosurface. If a list then must be same length as the</span>
+<span class="sd">            axis that is being expanded as channels.</span>
+<span class="sd">        attenuation : float or list</span>
+<span class="sd">            Attenuation rate for attenuated maximum intensity projection. If a</span>
+<span class="sd">            list then must be same length as the axis that is being expanded as</span>
+<span class="sd">            channels.</span>
+<span class="sd">        name : str or list of str</span>
+<span class="sd">            Name of the layer.  If a list then must be same length as the axis</span>
+<span class="sd">            that is being expanded as channels.</span>
+<span class="sd">        metadata : dict or list of dict</span>
+<span class="sd">            Layer metadata. If a list then must be a list of dicts with the</span>
+<span class="sd">            same length as the axis that is being expanded as channels.</span>
+<span class="sd">        scale : tuple of float or list</span>
+<span class="sd">            Scale factors for the layer. If a list then must be a list of</span>
+<span class="sd">            tuples of float with the same length as the axis that is being</span>
+<span class="sd">            expanded as channels.</span>
+<span class="sd">        translate : tuple of float or list</span>
+<span class="sd">            Translation values for the layer. If a list then must be a list of</span>
+<span class="sd">            tuples of float with the same length as the axis that is being</span>
+<span class="sd">            expanded as channels.</span>
+<span class="sd">        rotate : float, 3-tuple of float, n-D array or list.</span>
+<span class="sd">            If a float convert into a 2D rotation matrix using that value as an</span>
+<span class="sd">            angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
+<span class="sd">            pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
+<span class="sd">            assumed to be in degrees. They can be converted from radians with</span>
+<span class="sd">            np.degrees if needed. If a list then must have same length as</span>
+<span class="sd">            the axis that is being expanded as channels.</span>
+<span class="sd">        shear : 1-D array or list.</span>
+<span class="sd">            A vector of shear values for an upper triangular n-D shear matrix.</span>
+<span class="sd">            If a list then must have same length as the axis that is being</span>
+<span class="sd">            expanded as channels.</span>
+<span class="sd">        affine : n-D array or napari.utils.transforms.Affine</span>
+<span class="sd">            (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
+<span class="sd">            The first (N, N) entries correspond to a linear transform and</span>
+<span class="sd">            the final column is a lenght N translation vector and a 1 or a napari</span>
+<span class="sd">            AffineTransform object. If provided then translate, scale, rotate, and</span>
+<span class="sd">            shear values are ignored.</span>
+<span class="sd">        opacity : float or list</span>
+<span class="sd">            Opacity of the layer visual, between 0.0 and 1.0.  If a list then</span>
+<span class="sd">            must be same length as the axis that is being expanded as channels.</span>
+<span class="sd">        blending : str or list</span>
+<span class="sd">            One of a list of preset blending modes that determines how RGB and</span>
+<span class="sd">            alpha values of the layer visual get mixed. Allowed values are</span>
+<span class="sd">            {'opaque', 'translucent', and 'additive'}. If a list then</span>
+<span class="sd">            must be same length as the axis that is being expanded as channels.</span>
+<span class="sd">        visible : bool or list of bool</span>
+<span class="sd">            Whether the layer visual is currently being displayed.</span>
+<span class="sd">            If a list then must be same length as the axis that is</span>
+<span class="sd">            being expanded as channels.</span>
+<span class="sd">        multiscale : bool</span>
+<span class="sd">            Whether the data is a multiscale image or not. Multiscale data is</span>
+<span class="sd">            represented by a list of array like image data. If not specified by</span>
+<span class="sd">            the user and if the data is a list of arrays that decrease in shape</span>
+<span class="sd">            then it will be taken to be multiscale. The first image in the list</span>
+<span class="sd">            should be the largest.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        layer : :class:`napari.layers.Image` or list</span>
+<span class="sd">            The newly-created image layer or list of image layers.</span>
+<span class="sd">        """</span>
+
+        <span class="k">if</span> <span class="n">colormap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># standardize colormap argument(s) to Colormaps, and make sure they</span>
+            <span class="c1"># are in AVAILABLE_COLORMAPS.  This will raise one of many various</span>
+            <span class="c1"># errors if the colormap argument is invalid.  See</span>
+            <span class="c1"># ensure_colormap for details</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colormap</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">colormap</span> <span class="o">=</span> <span class="p">[</span><span class="n">ensure_colormap</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">colormap</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+
+        <span class="c1"># doing this here for IDE/console autocompletion in add_image function.</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'rgb'</span><span class="p">:</span> <span class="n">rgb</span><span class="p">,</span>
+            <span class="s1">'colormap'</span><span class="p">:</span> <span class="n">colormap</span><span class="p">,</span>
+            <span class="s1">'contrast_limits'</span><span class="p">:</span> <span class="n">contrast_limits</span><span class="p">,</span>
+            <span class="s1">'gamma'</span><span class="p">:</span> <span class="n">gamma</span><span class="p">,</span>
+            <span class="s1">'interpolation'</span><span class="p">:</span> <span class="n">interpolation</span><span class="p">,</span>
+            <span class="s1">'rendering'</span><span class="p">:</span> <span class="n">rendering</span><span class="p">,</span>
+            <span class="s1">'iso_threshold'</span><span class="p">:</span> <span class="n">iso_threshold</span><span class="p">,</span>
+            <span class="s1">'attenuation'</span><span class="p">:</span> <span class="n">attenuation</span><span class="p">,</span>
+            <span class="s1">'name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">'metadata'</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
+            <span class="s1">'scale'</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span>
+            <span class="s1">'translate'</span><span class="p">:</span> <span class="n">translate</span><span class="p">,</span>
+            <span class="s1">'rotate'</span><span class="p">:</span> <span class="n">rotate</span><span class="p">,</span>
+            <span class="s1">'shear'</span><span class="p">:</span> <span class="n">shear</span><span class="p">,</span>
+            <span class="s1">'affine'</span><span class="p">:</span> <span class="n">affine</span><span class="p">,</span>
+            <span class="s1">'opacity'</span><span class="p">:</span> <span class="n">opacity</span><span class="p">,</span>
+            <span class="s1">'blending'</span><span class="p">:</span> <span class="n">blending</span><span class="p">,</span>
+            <span class="s1">'visible'</span><span class="p">:</span> <span class="n">visible</span><span class="p">,</span>
+            <span class="s1">'multiscale'</span><span class="p">:</span> <span class="n">multiscale</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># these arguments are *already* iterables in the single-channel case.</span>
+        <span class="n">iterable_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'scale'</span><span class="p">,</span>
+            <span class="s1">'translate'</span><span class="p">,</span>
+            <span class="s1">'rotate'</span><span class="p">,</span>
+            <span class="s1">'shear'</span><span class="p">,</span>
+            <span class="s1">'affine'</span><span class="p">,</span>
+            <span class="s1">'contrast_limits'</span><span class="p">,</span>
+            <span class="s1">'metadata'</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Image or OctreeImage.</span>
+        <span class="n">image_class</span> <span class="o">=</span> <span class="n">_get_image_class</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">channel_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'colormap'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">'colormap'</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'gray'</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'blending'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">'blending'</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'translucent'</span>
+            <span class="c1"># Helpful message if someone tries to add mulit-channel kwargs,</span>
+            <span class="c1"># but forget the channel_axis arg</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">iterable_kwargs</span> <span class="ow">and</span> <span class="n">is_sequence</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"Received sequence for argument '</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">', "</span>
+                        <span class="s2">"did you mean to specify a 'channel_axis'? "</span>
+                    <span class="p">)</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">image_class</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">layer</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">layerdata_list</span> <span class="o">=</span> <span class="n">split_channels</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">channel_axis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="n">layer_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">i_kwargs</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">layerdata_list</span><span class="p">:</span>
+                <span class="n">layer</span> <span class="o">=</span> <span class="n">image_class</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">i_kwargs</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+                <span class="n">layer_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">layer_list</span></div>
+
+<div class="viewcode-block" id="ViewerModel.open"><a class="viewcode-back" href="../../../api/stable/napari.components.ViewerModel.html#napari.components.ViewerModel.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
+        <span class="sd">"""Open a path or list of paths with plugins, and add layers to viewer.</span>
+
+<span class="sd">        A list of paths will be handed one-by-one to the napari_get_reader hook</span>
+<span class="sd">        if stack is False, otherwise the full list is passed to each plugin</span>
+<span class="sd">        hook.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str or list of str</span>
+<span class="sd">            A filepath, directory, or URL (or a list of any) to open.</span>
+<span class="sd">        stack : bool, optional</span>
+<span class="sd">            If a list of strings is passed and ``stack`` is ``True``, then the</span>
+<span class="sd">            entire list will be passed to plugins.  It is then up to individual</span>
+<span class="sd">            plugins to know how to handle a list of paths.  If ``stack`` is</span>
+<span class="sd">            ``False``, then the ``path`` list is broken up and passed to plugin</span>
+<span class="sd">            readers one by one.  by default False.</span>
+<span class="sd">        plugin : str, optional</span>
+<span class="sd">            Name of a plugin to use.  If provided, will force ``path`` to be</span>
+<span class="sd">            read with the specified ``plugin``.  If the requested plugin cannot</span>
+<span class="sd">            read ``path``, an exception will be raised.</span>
+<span class="sd">        layer_type : str, optional</span>
+<span class="sd">            If provided, will force data read from ``path`` to be passed to the</span>
+<span class="sd">            corresponding ``add_&lt;layer_type&gt;`` method (along with any</span>
+<span class="sd">            additional) ``kwargs`` provided to this function.  This *may*</span>
+<span class="sd">            result in exceptions if the data returned from the path is not</span>
+<span class="sd">            compatible with the layer_type.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            All other keyword arguments will be passed on to the respective</span>
+<span class="sd">            ``add_layer`` method.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        layers : list</span>
+<span class="sd">            A list of any layers that were added to the viewer.</span>
+<span class="sd">        """</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">path</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>  <span class="c1"># PathObjects -&gt; str</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"'path' argument must be a string, list, or tuple"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
+                <span class="n">paths</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span>
+            <span class="p">)</span>
+
+        <span class="n">added</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
+        <span class="k">for</span> <span class="n">_path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
+                    <span class="n">_path</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">added</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_layers_with_plugins</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">path_or_paths</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
+        <span class="sd">"""Load a path or a list of paths into the viewer using plugins.</span>
+
+<span class="sd">        This function is mostly called from self.open_path, where the ``stack``</span>
+<span class="sd">        argument determines whether a list of strings is handed to plugins one</span>
+<span class="sd">        at a time, or en-masse.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path_or_paths : str or list of str</span>
+<span class="sd">            A filepath, directory, or URL (or a list of any) to open. If a</span>
+<span class="sd">            list, the assumption is that the list is to be treated as a stack.</span>
+<span class="sd">        kwargs : dict, optional</span>
+<span class="sd">            keyword arguments that will be used to overwrite any of those that</span>
+<span class="sd">            are returned in the meta dict from plugins.</span>
+<span class="sd">        plugin : str, optional</span>
+<span class="sd">            Name of a plugin to use.  If provided, will force ``path`` to be</span>
+<span class="sd">            read with the specified ``plugin``.  If the requested plugin cannot</span>
+<span class="sd">            read ``path``, an exception will be raised.</span>
+<span class="sd">        layer_type : str, optional</span>
+<span class="sd">            If provided, will force data read from ``path`` to be passed to the</span>
+<span class="sd">            corresponding ``add_&lt;layer_type&gt;`` method (along with any</span>
+<span class="sd">            additional) ``kwargs`` provided to this function.  This *may*</span>
+<span class="sd">            result in exceptions if the data returned from the path is not</span>
+<span class="sd">            compatible with the layer_type.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List[Layer]</span>
+<span class="sd">            A list of any layers that were added to the viewer.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">..plugins.io</span> <span class="kn">import</span> <span class="n">read_data_with_plugins</span>
+
+        <span class="n">layer_data</span> <span class="o">=</span> <span class="n">read_data_with_plugins</span><span class="p">(</span><span class="n">path_or_paths</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+
+        <span class="c1"># glean layer names from filename. These will be used as *fallback*</span>
+        <span class="c1"># names, if the plugin does not return a name kwarg in their meta dict.</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_or_paths</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filenames</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">path_or_paths</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">is_sequence</span><span class="p">(</span><span class="n">path_or_paths</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path_or_paths</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data</span><span class="p">):</span>
+                <span class="n">filenames</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">path_or_paths</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># if a list of paths has been returned as a list of layer data</span>
+                <span class="c1"># without a 1:1 relationship between the two lists we iterate</span>
+                <span class="c1"># over the first name</span>
+                <span class="n">filenames</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">path_or_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># add each layer to the viewer</span>
+        <span class="n">added</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
+        <span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="n">filenames</span><span class="p">):</span>
+            <span class="n">basename</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="n">_unify_data_and_user_kwargs</span><span class="p">(</span>
+                <span class="n">data</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">,</span> <span class="n">fallback_name</span><span class="o">=</span><span class="n">basename</span>
+            <span class="p">)</span>
+            <span class="c1"># actually add the layer</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer_from_data</span><span class="p">(</span><span class="o">*</span><span class="n">_data</span><span class="p">)</span>
+            <span class="c1"># some add_* methods return a List[Layer], others just a Layer</span>
+            <span class="c1"># we want to always return a list</span>
+            <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">new</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">added</span>
+
+    <span class="k">def</span> <span class="nf">_add_layer_from_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Layer</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]]:</span>
+        <span class="sd">"""Add arbitrary layer data to the viewer.</span>
+
+<span class="sd">        Primarily intended for usage by reader plugin hooks.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : Any</span>
+<span class="sd">            Data in a format that is valid for the corresponding `add_*` method</span>
+<span class="sd">            of the specified ``layer_type``.</span>
+<span class="sd">        meta : dict, optional</span>
+<span class="sd">            Dict of keyword arguments that will be passed to the corresponding</span>
+<span class="sd">            `add_*` method.  MUST NOT contain any keyword arguments that are</span>
+<span class="sd">            not valid for the corresponding method.</span>
+<span class="sd">        layer_type : str</span>
+<span class="sd">            Type of layer to add.  MUST have a corresponding add_* method on</span>
+<span class="sd">            on the viewer instance.  If not provided, the layer is assumed to</span>
+<span class="sd">            be "image", unless data.dtype is one of (np.int32, np.uint32,</span>
+<span class="sd">            np.int64, np.uint64), in which case it is assumed to be "labels".</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If ``layer_type`` is not one of the recognized layer types.</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If any keyword arguments in ``meta`` are unexpected for the</span>
+<span class="sd">            corresponding `add_*` method for this layer_type.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        A typical use case might be to upack a tuple of layer data with a</span>
+<span class="sd">        specified layer_type.</span>
+
+<span class="sd">        &gt;&gt;&gt; viewer = napari.Viewer()</span>
+<span class="sd">        &gt;&gt;&gt; data = (</span>
+<span class="sd">        ...     np.random.random((10, 2)) * 20,</span>
+<span class="sd">        ...     {'face_color': 'blue'},</span>
+<span class="sd">        ...     'points',</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; viewer._add_layer_from_data(*data)</span>
+
+<span class="sd">        """</span>
+
+        <span class="n">layer_type</span> <span class="o">=</span> <span class="p">(</span><span class="n">layer_type</span> <span class="ow">or</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="c1"># assumes that big integer type arrays are likely labels.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_type</span><span class="p">:</span>
+            <span class="n">layer_type</span> <span class="o">=</span> <span class="n">guess_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Unrecognized layer_type: '</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">'. "</span>
+                <span class="sa">f</span><span class="s2">"Must be one of: </span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">}</span><span class="s2">."</span>
+            <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'add_'</span> <span class="o">+</span> <span class="n">layer_type</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Sorry! </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2"> is a valid layer type, but there is no "</span>
+                <span class="sa">f</span><span class="s2">"viewer.add_</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2"> available yet."</span>
+            <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">add_method</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">meta</span> <span class="ow">or</span> <span class="p">{}))</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'unexpected keyword argument'</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">):</span>
+                <span class="n">bad_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'keyword argument '</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s2">"_add_layer_from_data received an unexpected keyword "</span>
+                    <span class="sa">f</span><span class="s2">"argument (</span><span class="si">{</span><span class="n">bad_key</span><span class="si">}</span><span class="s2">) for layer type </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">exc</span>
+
+        <span class="k">return</span> <span class="n">layer</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_image_class</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Image</span><span class="p">:</span>
+    <span class="sd">"""Return Image or OctreeImage based config settings."""</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">..layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">OctreeImage</span>
+
+        <span class="k">return</span> <span class="n">OctreeImage</span>
+
+    <span class="k">return</span> <span class="n">Image</span>
+
+
+<span class="k">def</span> <span class="nf">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="s1">'LayerData'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'FullLayerData'</span><span class="p">:</span>
+    <span class="sd">"""Accepts any layerdata tuple, and returns a fully qualified tuple.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : LayerData</span>
+<span class="sd">        1-, 2-, or 3-tuple with (data, meta, layer_type).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    FullLayerData</span>
+<span class="sd">        3-tuple with (data, meta, layer_type)</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If data has len &lt; 1 or len &gt; 3, or if the second item in ``data`` is</span>
+<span class="sd">        not a ``dict``, or the third item is not a valid layer_type ``str``</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"LayerData must be a 1-, 2-, or 3-tuple"</span><span class="p">)</span>
+    <span class="n">_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"The second item in a LayerData tuple must be a dict"</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"The third item in a LayerData tuple must be one of: "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">!r}</span><span class="s2">."</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">guess_labels</span><span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+
+<span class="k">def</span> <span class="nf">_unify_data_and_user_kwargs</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="s1">'LayerData'</span><span class="p">,</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fallback_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'FullLayerData'</span><span class="p">:</span>
+    <span class="sd">"""Merge data returned from plugins with options specified by user.</span>
+
+<span class="sd">    If ``data == (_data, _meta, _type)``.  Then:</span>
+
+<span class="sd">    - ``kwargs`` will be used to update ``_meta``</span>
+<span class="sd">    - ``layer_type`` will replace ``_type`` and, if provided, ``_meta`` keys</span>
+<span class="sd">        will be pruned to layer_type-appropriate kwargs</span>
+<span class="sd">    - ``fallback_name`` is used if ``not _meta.get('name')``</span>
+
+<span class="sd">    .. note:</span>
+
+<span class="sd">        If a user specified both layer_type and additional keyword arguments</span>
+<span class="sd">        to viewer.open(), it is their responsibility to make sure the kwargs</span>
+<span class="sd">        match the layer_type.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : LayerData</span>
+<span class="sd">        1-, 2-, or 3-tuple with (data, meta, layer_type) returned from plugin.</span>
+<span class="sd">    kwargs : dict, optional</span>
+<span class="sd">        User-supplied keyword arguments, to override those in ``meta`` supplied</span>
+<span class="sd">        by plugins.</span>
+<span class="sd">    layer_type : str, optional</span>
+<span class="sd">        A user-supplied layer_type string, to override the ``layer_type``</span>
+<span class="sd">        declared by the plugin.</span>
+<span class="sd">    fallback_name : str, optional</span>
+<span class="sd">        A name for the layer, to override any name in ``meta`` supplied by the</span>
+<span class="sd">        plugin.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    FullLayerData</span>
+<span class="sd">        Fully qualified LayerData tuple with user-provided overrides.</span>
+<span class="sd">    """</span>
+    <span class="n">_data</span><span class="p">,</span> <span class="n">_meta</span><span class="p">,</span> <span class="n">_type</span> <span class="o">=</span> <span class="n">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">layer_type</span><span class="p">:</span>
+        <span class="c1"># the user has explicitly requested this be a certain layer type</span>
+        <span class="c1"># strip any kwargs from the plugin that are no longer relevant</span>
+        <span class="n">_meta</span> <span class="o">=</span> <span class="n">prune_kwargs</span><span class="p">(</span><span class="n">_meta</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">)</span>
+        <span class="n">_type</span> <span class="o">=</span> <span class="n">layer_type</span>
+
+    <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="c1"># if user provided kwargs, use to override any meta dict values that</span>
+        <span class="c1"># were returned by the plugin. We only prune kwargs if the user did</span>
+        <span class="c1"># *not* specify the layer_type. This means that if a user specified</span>
+        <span class="c1"># both layer_type and additional keyword arguments to viewer.open(),</span>
+        <span class="c1"># it is their responsibility to make sure the kwargs match the</span>
+        <span class="c1"># layer_type.</span>
+        <span class="n">_meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">_type</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_type</span> <span class="k">else</span> <span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span> <span class="ow">and</span> <span class="n">fallback_name</span><span class="p">:</span>
+        <span class="n">_meta</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">fallback_name</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="n">_meta</span><span class="p">,</span> <span class="n">_type</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">"""Return copy of ``kwargs`` with only keys valid for ``add_&lt;layer_type&gt;``</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    kwargs : dict</span>
+<span class="sd">        A key: value mapping where some or all of the keys are parameter names</span>
+<span class="sd">        for the corresponding ``Viewer.add_&lt;layer_type&gt;`` method.</span>
+<span class="sd">    layer_type : str</span>
+<span class="sd">        The type of layer that is going to be added with these ``kwargs``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pruned_kwargs : dict</span>
+<span class="sd">        A key: value mapping where all of the keys are valid parameter names</span>
+<span class="sd">        for the corresponding ``Viewer.add_&lt;layer_type&gt;`` method.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If ``ViewerModel`` does not provide an ``add_&lt;layer_type&gt;`` method</span>
+<span class="sd">        for the provided ``layer_type``.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; test_kwargs = {</span>
+<span class="sd">    ...     'scale': (0.75, 1),</span>
+<span class="sd">    ...     'blending': 'additive',</span>
+<span class="sd">    ...     'num_colors': 10,</span>
+<span class="sd">    ... }</span>
+<span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, 'image')</span>
+<span class="sd">    {'scale': (0.75, 1), 'blending': 'additive'}</span>
+
+<span class="sd">    &gt;&gt;&gt; # only labels has the ``num_colors`` argument</span>
+<span class="sd">    &gt;&gt;&gt; prune_kwargs(test_kwargs, 'labels')</span>
+<span class="sd">    {'scale': (0.75, 1), 'blending': 'additive', 'num_colors': 10}</span>
+<span class="sd">    """</span>
+    <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="s1">'add_'</span> <span class="o">+</span> <span class="n">layer_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">add_method</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="o">==</span> <span class="s1">'layer'</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid layer_type: </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># get valid params for the corresponding add_&lt;layer_type&gt; method</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">valid_add_kwargs</span><span class="p">()[</span><span class="n">layer_type</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid</span><span class="p">}</span>
+
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">valid_add_kwargs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="sd">"""Return a dict where keys are layer types &amp; values are valid kwargs."""</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">meth</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">meth</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'add_'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">'layer'</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="n">meth</span><span class="p">))</span><span class="o">.</span><span class="n">parameters</span>
+        <span class="n">valid</span><span class="p">[</span><span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s1">'self'</span><span class="p">,</span> <span class="s1">'kwargs'</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">valid</span>
+
+
+<span class="k">for</span> <span class="n">_layer</span> <span class="ow">in</span> <span class="p">(</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Labels</span><span class="p">,</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Points</span><span class="p">,</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Shapes</span><span class="p">,</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Tracks</span><span class="p">,</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Vectors</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="n">create_add_method</span><span class="p">(</span><span class="n">_layer</span><span class="p">)</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script src="../../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

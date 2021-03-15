@@ -1,0 +1,623 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Plugins" href="../../plugins/stable/index.html" /><link rel="prev" title="Napari + ImageJ How-to-Guide" href="napari_imageJ.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>single cell tracking with napari - napari</title>
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Applications</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="single-cell-tracking-with-napari">
+<h1>single cell tracking with napari<a class="headerlink" href="#single-cell-tracking-with-napari" title="Permalink to this headline">¶</a></h1>
+<p>In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For an overview of the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer, please see the <a class="reference internal" href="../fundamentals/tracks.html"><span class="doc std std-doc">tracks layer fundamentals tutorial</span></a>.</p>
+<p>This application note covers two examples:</p>
+<ol class="simple">
+<li><p>Visualization of a cell tracking challenge dataset</p></li>
+<li><p>Single cell tracking using btrack and napari</p></li>
+</ol>
+<div class="section" id="cell-tracking-challenge-data">
+<h2>1. cell tracking challenge data<a class="headerlink" href="#cell-tracking-challenge-data" title="Permalink to this headline">¶</a></h2>
+<p>The first example of track visualization uses data from the <a class="reference external" href="http://celltrackingchallenge.net/3d-datasets/">cell tracking challenge</a>. We will use the <em>C. elegans</em> developing embryo <a class="reference external" href="http://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip">dataset</a> which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.</p>
+<p>A full description of the data format can be found <a class="reference external" href="https://public.celltrackingchallenge.net/documents/Naming%20and%20file%20content%20conventions.pdf">here</a>.</p>
+<div class="section" id="extracting-the-tracks-from-the-dataset">
+<h3>extracting the tracks from the dataset<a class="headerlink" href="#extracting-the-tracks-from-the-dataset" title="Permalink to this headline">¶</a></h3>
+<p>We need to extract the centroids of each cell and their associated track labels from the annotated dataset. We start by loading the images containing the centroids and unique track labels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">skimage.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="kn">import</span> <span class="n">regionprops_table</span>
+
+<span class="n">PATH</span> <span class="o">=</span> <span class="s1">'/path/to/Fluo-N3DH-CE/'</span>
+<span class="n">NUM_IMAGES</span> <span class="o">=</span> <span class="mi">195</span>
+
+<span class="k">def</span> <span class="nf">load_image</span><span class="p">(</span><span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">"""Load an image from the sequence.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    idx : int</span>
+<span class="sd">        Index of the image to load.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    image : np.ndarray</span>
+<span class="sd">       The image specified by the index, idx</span>
+<span class="sd">    """</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'01_GT/TRA'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'man_track</span><span class="si">{</span><span class="n">idx</span><span class="si">:</span><span class="s1">0&gt;3</span><span class="si">}</span><span class="s1">.tif'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">imread</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="n">stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">load_image</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_IMAGES</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>For each image in the time-lapse sequence, we will now extract the unique track label (<code class="docutils literal notranslate"><span class="pre">track_id</span></code>), centroid and timestamp in order to create the track data we will pass to the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer. For more information on the format of the track data, please see the “tracks data” section of the <a class="reference internal" href="../fundamentals/tracks.html"><span class="doc std std-doc">tracks layer fundamentals tutorial</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">regionprops_plus_time</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
+    <span class="sd">"""Return the unique track label, centroid and time for each track vertex.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    idx : int</span>
+<span class="sd">        Index of the image to calculate the centroids and track labels.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data_df : pd.DataFrame</span>
+<span class="sd">       The dataframe of track data for one time step (specified by idx).</span>
+<span class="sd">    """</span>
+    <span class="n">props</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span><span class="n">stack</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'centroid'</span><span class="p">))</span>
+    <span class="n">props</span><span class="p">[</span><span class="s1">'frame'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">props</span><span class="p">)</span>
+
+<span class="n">data_df_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">regionprops_plus_time</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_IMAGES</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># sort the data lexicographically by track_id and time</span>
+<span class="n">data_df</span> <span class="o">=</span> <span class="n">data_df_raw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'frame'</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># create the final data array: track_id, T, Z, Y, X</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="p">:,</span> <span class="p">[</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'frame'</span><span class="p">,</span> <span class="s1">'centroid-0'</span><span class="p">,</span> <span class="s1">'centroid-1'</span><span class="p">,</span> <span class="s1">'centroid-2'</span><span class="p">]</span>
+<span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This represents the minimum amount of information to display tracks in napari, and can already be visualised.
+At this point, there is no concept of track <em>links</em>, lineages, or tracks splitting or merging.
+These single tracks are sometimes known as tracklets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">napari</span><span class="o">.</span><span class="n">view_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tracklets'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculating-the-graph-using-the-lineage-information">
+<h3>calculating the graph using the lineage information<a class="headerlink" href="#calculating-the-graph-using-the-lineage-information" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer can also be used to visualize a track ‘graph’ using the additional keyword argument <code class="docutils literal notranslate"><span class="pre">graph</span></code>. The <code class="docutils literal notranslate"><span class="pre">graph</span></code>  represents associations between tracks, by defining the
+mapping between a <code class="docutils literal notranslate"><span class="pre">track_id</span></code> and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track <code class="docutils literal notranslate"><span class="pre">graph</span></code>, please see the “tracks graph” section of the <a class="reference internal" href="../fundamentals/tracks.html"><span class="doc std std-doc">tracks layer fundamentals tutorial</span></a>.</p>
+<p>In the cell tracking challenge dataset, cell lineage information is stored in a text file <code class="docutils literal notranslate"><span class="pre">man_track.txt</span></code> in the following format:</p>
+<blockquote>
+<div><p>A text file representing an acyclic graph for the whole video. Every line corresponds
+to a single track that is encoded by four numbers separated by a space:
+L - a unique label of the track (label of markers, 16-bit positive value)
+B - a zero-based temporal index of the frame in which the track begins
+E - a zero-based temporal index of the frame in which the track ends
+P - label of the parent track (0 is used when no parent is defined)</p>
+</div></blockquote>
+<p>To extract the graph, we load the text file and convert it to a Nx4 integer numpy array, where the rows represent individual tracks and the columns represent L, B, E and P:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lbep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'01_GT/TRA'</span><span class="p">,</span> <span class="s1">'man_track.txt'</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can then create a dictionary representing the graph, where the key is the unique track label (L) and the value is the label of the parent track (P).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">full_graph</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lbep</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>Finally, we remove the root nodes (<em>i.e.</em> cells without a parent) for visualization with the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">full_graph</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="traversing-the-lineage-trees-to-identify-the-root-nodes">
+<h3>traversing the lineage trees to identify the root nodes<a class="headerlink" href="#traversing-the-lineage-trees-to-identify-the-root-nodes" title="Permalink to this headline">¶</a></h3>
+<p>One property that is useful to visualize in single cell tracking is the <code class="docutils literal notranslate"><span class="pre">track_id</span></code> of the root node of the lineage trees, <em>i.e.</em> the founder cell.
+We create it with the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">"""Recursive function to determine the root node of each subgraph.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    node : int</span>
+<span class="sd">        the track_id of the starting graph node.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    root_id : int</span>
+<span class="sd">       The track_id of the root of the track specified by node.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">full_graph</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># we found the root</span>
+        <span class="k">return</span> <span class="n">node</span>
+    <span class="k">return</span> <span class="n">root</span><span class="p">(</span><span class="n">full_graph</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+
+<span class="n">roots</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">root</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">full_graph</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer enables the vertices of the tracks to be colored by user specified properties. Here, we will create a property which represents the <code class="docutils literal notranslate"><span class="pre">root_id</span></code> of each tree, so that cells with a common ancestor are colored the same:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'root_id'</span><span class="p">:</span> <span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="visualizing-the-tracks-with-napari">
+<h3>visualizing the tracks with napari<a class="headerlink" href="#visualizing-the-tracks-with-napari" title="Permalink to this headline">¶</a></h3>
+<p>Alongside the tracks, we can also visualize the fluorescence imaging data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">timelapse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">'01'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'t</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s1">0&gt;3</span><span class="si">}</span><span class="s1">.tif'</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_IMAGES</span><span class="p">)]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we need to adjust the scaling of the data to account for the anisotropic nature of the images. We can use the <code class="docutils literal notranslate"><span class="pre">scale</span></code> feature of napari layers to set the voxel size where the z dimension is different to the size in the x and y dimensions. From the dataset, the voxel size (XYZ) in microns is 0.09 x 0.09 x 1.0. Therefore we can set the scale for the layers as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># scale factor for dimensions in TZYX order</span>
+<span class="n">SCALE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can now visualize the full, linked tracks in napari!
+Remember that we need to initialize and interact with the napari viewer in the <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">napari.gui_qt()</span></code> context manager in order to ensure the GUI is properly initialized.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">timelapse</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Fluo-N3DH-CE'</span><span class="p">)</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tracks'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="image: tracks isbi" src="../../_images/tracks_isbi.gif"/></p>
+</div>
+</div>
+<hr class="docutils"/>
+<div class="section" id="using-btrack-to-track-cells">
+<h2>2. using <code class="docutils literal notranslate"><span class="pre">btrack</span></code> to track cells<a class="headerlink" href="#using-btrack-to-track-cells" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library can be used for cell tracking. It provides a convenient <code class="docutils literal notranslate"><span class="pre">to_napari()</span></code> function to enable rapid visualization of the tracking results. You can learn more about the <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library <a class="reference external" href="https://github.com/quantumjot/BayesianTracker">here</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">btrack</span>
+</pre></div>
+</div>
+<p>We start by loading a file containing the centroids of all the found cells in each frame of the source movie. Note that this file only contains the locations of cells in the movie, there are no tracks yet. We can use the <code class="docutils literal notranslate"><span class="pre">btrack</span></code> library to load this file as a list of <code class="docutils literal notranslate"><span class="pre">objects</span></code> that contain information about each found cell, including the TZYX position.  The example dataset can be downloaded <a class="reference external" href="https://raw.githubusercontent.com/quantumjot/BayesianTracker/master/examples/napari_example.csv">here</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">objects</span> <span class="o">=</span> <span class="n">btrack</span><span class="o">.</span><span class="n">dataio</span><span class="o">.</span><span class="n">import_CSV</span><span class="p">(</span><span class="s1">'napari_example.csv'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, we set up a <code class="docutils literal notranslate"><span class="pre">btrack.BayesianTracker</span></code> instance using a context manager to ensure the library is properly initialized. The <code class="docutils literal notranslate"><span class="pre">objects</span></code> are added to the tracker using the <code class="docutils literal notranslate"><span class="pre">.append()</span></code> method. We also set the imaging volume using the <code class="docutils literal notranslate"><span class="pre">volume</span></code> property. As this is a 2D dataset, the limits of the volume are set to the XY dimensions of the image dataset, while the Z dimension is set to be very large (±1e5). In this case, setting the Z limits of the volume to be very large penalises tracks which initialize or terminate in the centre of the XY plane, unless they can be explained by corresponding cell division or death events.</p>
+<p>The tracker performs the process of linking individual cell observations into tracks and the generating the associated track graph:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">btrack</span><span class="o">.</span><span class="n">BayesianTracker</span><span class="p">()</span> <span class="k">as</span> <span class="n">tracker</span><span class="p">:</span>
+
+    <span class="c1"># configure the tracker using a config file</span>
+    <span class="n">tracker</span><span class="o">.</span><span class="n">configure_from_file</span><span class="p">(</span><span class="s1">'cell_config.json'</span><span class="p">)</span>
+
+    <span class="n">tracker</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
+    <span class="n">tracker</span><span class="o">.</span><span class="n">volume</span><span class="o">=</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1600</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1200</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">1e5</span><span class="p">,</span><span class="mf">1e5</span><span class="p">))</span>
+
+    <span class="c1"># track and optimize</span>
+    <span class="n">tracker</span><span class="o">.</span><span class="n">track_interactive</span><span class="p">(</span><span class="n">step_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">tracker</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+
+    <span class="c1"># get the tracks in a format for napari visualization</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">to_napari</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We set the configuration of the tracker using a configuration file using the <code class="docutils literal notranslate"><span class="pre">.configure_from_file()</span></code> method. An example configuration file can be found <a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/master/models/cell_config.json">here</a>.</p>
+<p>Next, the objects are linked into tracks using the <code class="docutils literal notranslate"><span class="pre">.track_interactive()</span></code> method. The <code class="docutils literal notranslate"><span class="pre">step_size</span></code> argument specifies how many steps are taken before reporting the tracking statistics. The <code class="docutils literal notranslate"><span class="pre">.optimize()</span></code> method then performs a global optimization on the dataset and creates lineage trees automatically.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">.to_napari()</span></code> method returns the track vertices, track properties and graph in a format that can be directly visualized using the napari <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="image: tracks btrack" src="../../_images/tracks_btrack.png"/></p>
+<p>A notebook for this example can be found in the btrack examples directory (<a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb"><code class="docutils literal notranslate"><span class="pre">napari_btrack.ipynb</span></code></a>)</p>
+</div>
+<div class="section" id="summary">
+<h2>summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>In this application note, we have used napari to track and visualize single cells.</p>
+</div>
+<div class="section" id="further-reading">
+<h2>further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>References for cell tracking challenge:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.nature.com/articles/nmeth.1228">https://www.nature.com/articles/nmeth.1228</a></p></li>
+<li><p><a class="reference external" href="http://dx.doi.org/10.1093/bioinformatics/btu080">http://dx.doi.org/10.1093/bioinformatics/btu080</a></p></li>
+<li><p><a class="reference external" href="http://dx.doi.org/10.1038/nmeth.4473">http://dx.doi.org/10.1038/nmeth.4473</a></p></li>
+</ul>
+<p>For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/quantumjot/BayesianTracker">btrack</a></p></li>
+<li><p><a class="reference external" href="https://github.com/quantumjot/arboretum">arboretum</a></p></li>
+</ul>
+</div>
+</div>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./tutorials/applications"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../../plugins/stable/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Plugins</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="napari_imageJ.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Napari + ImageJ How-to-Guide</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="../../_sources/tutorials/applications/cell_tracking.md"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">single cell tracking with napari</a><ul>
+<li><a class="reference internal" href="#cell-tracking-challenge-data">1. cell tracking challenge data</a><ul>
+<li><a class="reference internal" href="#extracting-the-tracks-from-the-dataset">extracting the tracks from the dataset</a></li>
+<li><a class="reference internal" href="#calculating-the-graph-using-the-lineage-information">calculating the graph using the lineage information</a></li>
+<li><a class="reference internal" href="#traversing-the-lineage-trees-to-identify-the-root-nodes">traversing the lineage trees to identify the root nodes</a></li>
+<li><a class="reference internal" href="#visualizing-the-tracks-with-napari">visualizing the tracks with napari</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-btrack-to-track-cells">2. using <code class="docutils literal notranslate"><span class="pre">btrack</span></code> to track cells</a></li>
+<li><a class="reference internal" href="#summary">summary</a></li>
+<li><a class="reference internal" href="#further-reading">further reading</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

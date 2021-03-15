@@ -1,0 +1,734 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="napari.components" href="napari.components.html" /><link rel="prev" title="napari.plugins.HookImplementation" href="napari.plugins.HookImplementation.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>napari.plugins.PluginManager - napari</title>
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/applications/index.html">Applications</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="napari.plugins.html">napari.plugins</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="napari-plugins-pluginmanager">
+<h1>napari.plugins.PluginManager<a class="headerlink" href="#napari-plugins-pluginmanager" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="napari.plugins.PluginManager">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">napari.plugins.</span></code><code class="sig-name descname"><span class="pre">PluginManager</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discover_entry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discover_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discover_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Core class which manages registration of plugin objects and hook calls.</p>
+<p>You can register new hooks by calling <a class="reference internal" href="#napari.plugins.PluginManager.add_hookspecs" title="napari.plugins.PluginManager.add_hookspecs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_hookspecs()</span></code></a>.
+You can register plugin objects (which contain hooks) by calling
+<a class="reference internal" href="#napari.plugins.PluginManager.register" title="napari.plugins.PluginManager.register"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register()</span></code></a>.  The <code class="docutils literal notranslate"><span class="pre">PluginManager</span></code> is initialized with
+a <code class="docutils literal notranslate"><span class="pre">project_name</span></code> that is used when discovering <em>hook specifications</em> and
+<em>hook implementations</em>.</p>
+<p>For debugging purposes you may call <a class="reference internal" href="#napari.plugins.PluginManager.enable_tracing" title="napari.plugins.PluginManager.enable_tracing"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PluginManager.enable_tracing()</span></code></a>
+which will subsequently send debug information to the trace helper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the host project.  All <code class="xref py py-class docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code>
+and <code class="xref py py-class docutils literal notranslate"><span class="pre">HookSpecificationMarker</span></code> instances must be created using
+the same <code class="docutils literal notranslate"><span class="pre">project_name</span></code> to be detected by this plugin manager.</p></li>
+<li><p><strong>discover_entry_point</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – The default entry_point group to search when discovering plugins with
+<a class="reference internal" href="#napari.plugins.PluginManager.discover" title="napari.plugins.PluginManager.discover"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PluginManager.discover()</span></code></a>, by default None</p></li>
+<li><p><strong>discover_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – The default module prefix to use when discovering plugins with
+<a class="reference internal" href="#napari.plugins.PluginManager.discover" title="napari.plugins.PluginManager.discover"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PluginManager.discover()</span></code></a>, by default None</p></li>
+<li><p><strong>discover_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>list of str</em><em>, </em><em>optional</em>) – A path or paths to include when discovering plugins with
+<a class="reference internal" href="#napari.plugins.PluginManager.discover" title="napari.plugins.PluginManager.discover"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PluginManager.discover()</span></code></a>, by default None</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">PluginManager</span>
+<span class="kn">import</span> <span class="nn">my_hookspecs</span>
+
+<span class="n">plugin_manager</span> <span class="o">=</span> <span class="n">PluginManager</span><span class="p">(</span>
+    <span class="s1">'my_project'</span><span class="p">,</span>
+    <span class="n">discover_entry_point</span><span class="o">=</span><span class="s1">'app.plugin'</span><span class="p">,</span>
+    <span class="n">discover_prefix</span><span class="o">=</span><span class="s1">'app_'</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plugin_manager</span><span class="o">.</span><span class="n">add_hookspecs</span><span class="p">(</span><span class="n">my_hookspecs</span><span class="p">)</span>
+<span class="n">plugin_manager</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
+
+<span class="c1"># hooks now live in plugin_manager.hook</span>
+<span class="c1"># plugin dict is at plugin_manager.plugins</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<p class="rubric">Attributes</p>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.add_hookcall_monitoring">
+<code class="sig-name descname"><span class="pre">add_hookcall_monitoring</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.add_hookcall_monitoring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.add_hookcall_monitoring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add before/after tracing functions for all hooks.</p>
+<p>return an undo function which, when called, will remove the added
+tracers.</p>
+<p><code class="docutils literal notranslate"><span class="pre">before(hook_name,</span> <span class="pre">hook_impls,</span> <span class="pre">kwargs)</span></code> will be called ahead of all
+hook calls and receive a hookcaller instance, a list of HookImplementation
+instances and the keyword arguments for the hook call.</p>
+<p><code class="docutils literal notranslate"><span class="pre">after(outcome,</span> <span class="pre">hook_name,</span> <span class="pre">hook_impls,</span> <span class="pre">kwargs)</span></code> receives the same
+arguments as <code class="docutils literal notranslate"><span class="pre">before</span></code> but also a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">napari_plugin_engine.callers._Result</span></code> object which
+represents the result of the overall hook call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[], <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.add_hookspecs">
+<code class="sig-name descname"><span class="pre">add_hookspecs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.add_hookspecs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.add_hookspecs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new hook specifications defined in the given <code class="docutils literal notranslate"><span class="pre">namespace</span></code>.</p>
+<p>Functions are recognized if they have been decorated accordingly.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.check_pending">
+<code class="sig-name descname"><span class="pre">check_pending</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.check_pending"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.check_pending" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure all hooks have a specification, or are optional.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>PluginValidationError</strong> – If a hook implementation that was <em>not</em> marked as <code class="docutils literal notranslate"><span class="pre">optionalhook</span></code>
+    has been registered for a non-existent hook specification.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.discover">
+<code class="sig-name descname"><span class="pre">discover</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.discover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.discover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discover and load plugins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – If a string is provided, it is added to <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> (and
+<code class="docutils literal notranslate"><span class="pre">self.discover_path</span></code>) before importing, and removed at the end.</p></li>
+<li><p><strong>entry_point</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – An entry_point group to search for, by default
+<code class="docutils literal notranslate"><span class="pre">self.discover_entry_point</span></code> is used</p></li>
+<li><p><strong>prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">provided</span></code>, modules in the environment starting with
+<code class="docutils literal notranslate"><span class="pre">prefix</span></code> will be imported and searched for hook implementations
+by default <code class="docutils literal notranslate"><span class="pre">self.discover_prefix</span></code> is used</p></li>
+<li><p><strong>ignore_errors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, errors will be gathered and returned at the end.
+Otherwise, they will be raised immediately. by default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>(count, errs)</strong> – The number of succefully loaded modules, and a list of errors that
+occurred (if <code class="docutils literal notranslate"><span class="pre">ignore_errors</span></code> was <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a>, List[PluginError]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.discovery_blocked">
+<code class="sig-name descname"><span class="pre">discovery_blocked</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.discovery_blocked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.discovery_blocked" title="Permalink to this definition">¶</a></dt>
+<dd><p>A context manager that temporarily blocks discovery of new plugins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generator" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.enable_tracing">
+<code class="sig-name descname"><span class="pre">enable_tracing</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.enable_tracing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.enable_tracing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable tracing of hook calls and return an undo function.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.get_errors">
+<code class="sig-name descname"><span class="pre">get_errors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">plugin=&lt;Empty.token:</span> <span class="pre">0&gt;</span></em>, <em class="sig-param"><span class="pre">error_type=&lt;Empty.token:</span> <span class="pre">0&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_errors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of PluginErrors associated with <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin</strong> (<em>Any</em>) – If provided, will restrict errors to those that were raised by
+<code class="docutils literal notranslate"><span class="pre">plugin</span></code>.  If a string is provided, it will be interpreted as the
+name of the plugin, otherwise it is assumed to be the actual plugin
+object itself.</p></li>
+<li><p><strong>error_type</strong> (<em>PluginError</em>) – If provided, will restrict errors to instances of <code class="docutils literal notranslate"><span class="pre">error_type</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PluginError</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.get_hookcallers">
+<code class="sig-name descname"><span class="pre">get_hookcallers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_hookcallers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_hookcallers" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all hook callers for the specified plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">HookCaller</span></code>]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.get_metadata">
+<code class="sig-name descname"><span class="pre">get_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return metadata values for a given plugin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin</strong> (<em>Any</em>) – Either a string (in which case it is interpreted as a plugin name),
+or a non-string object (in which case it is assumed to be a plugin
+module or class).</p></li>
+<li><p><strong>*values</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – key(s) to lookup in the plugin object distribution metadata.  At
+least one value must be supplied.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.9)"><strong>TypeError</strong></a> – If no values are supplied.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.9)"><strong>KeyError</strong></a> – If the plugin does not exist.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]], <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.get_name">
+<code class="sig-name descname"><span class="pre">get_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return name for registered plugin or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not registered.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.get_standard_metadata">
+<code class="sig-name descname"><span class="pre">get_standard_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_standard_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_standard_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a standard metadata dict for <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>plugin</strong> (<em>Any</em>) – A plugin name or any object.  If it is a plugin name, it
+<em>must</em> be a registered plugin.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>metadata</strong> – A  dicts with plugin metadata. The dict is guaranteed to have the
+following keys:</p>
+<ul class="simple">
+<li><p><strong>plugin_name</strong>: The name of the plugin as registered</p></li>
+<li><p><strong>package</strong>: The name of the package</p></li>
+<li><p><strong>version</strong>: The version of the plugin package</p></li>
+<li><p><strong>summary</strong>: A one-line summary of what the distribution does</p></li>
+<li><p><strong>author</strong>: The author’s name</p></li>
+<li><p><strong>email</strong>: The author’s (or maintainer’s) e-mail address.</p></li>
+<li><p><strong>license</strong>: The license covering the distribution</p></li>
+<li><p><strong>url</strong>: The home page for the package, or dowload url if N/A.</p></li>
+<li><p><strong>hooks</strong>: A list of hookspec names that this plugin implements.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.9)"><strong>KeyError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is a string, but is not a registered plugin_name.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.hooks">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hooks</span></code><a class="headerlink" href="#napari.plugins.PluginManager.hooks" title="Permalink to this definition">¶</a></dt>
+<dd><p>An alias for PluginManager.hook</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">_HookRelay</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.is_blocked">
+<code class="sig-name descname"><span class="pre">is_blocked</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.is_blocked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.is_blocked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the given plugin name is blocked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.is_registered">
+<code class="sig-name descname"><span class="pre">is_registered</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.is_registered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.is_registered" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the plugin is already registered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.iter_available">
+<code class="sig-name descname"><span class="pre">iter_available</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.iter_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.iter_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over available plugins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – If a string is provided, it is added to <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> (and
+<code class="docutils literal notranslate"><span class="pre">self.discover_path</span></code>) before importing, and removed at the end.</p></li>
+<li><p><strong>entry_point</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – An entry_point group to search for, by default
+<code class="docutils literal notranslate"><span class="pre">self.discover_entry_point</span></code> is used</p></li>
+<li><p><strong>prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">provided</span></code>, modules in the environment starting with
+<code class="docutils literal notranslate"><span class="pre">prefix</span></code> will be imported and searched for hook implementations
+by default <code class="docutils literal notranslate"><span class="pre">self.discover_prefix</span></code> is used</p></li>
+</ul>
+</dd>
+</dl>
+<p>:param See docstring of <code class="xref py py-func docutils literal notranslate"><span class="pre">iter_available_plugins()</span></code> for details.:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generator" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]], <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.list_plugin_metadata">
+<code class="sig-name descname"><span class="pre">list_plugin_metadata</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.list_plugin_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.list_plugin_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of standard metadata dicts for every registered plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>metadata</strong> – A list of dicts with plugin metadata. Every dict in the list is
+guaranteed to have the following keys mentioned in
+<a class="reference internal" href="#napari.plugins.PluginManager.get_standard_metadata" title="napari.plugins.PluginManager.get_standard_metadata"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_standard_metadata()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt id="napari.plugins.PluginManager.plugins">
+<code class="sig-name descname"><span class="pre">plugins</span></code><em class="property"><span class="pre">:</span> <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.plugins.PluginManager.plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>mapping of <code class="docutils literal notranslate"><span class="pre">plugin_name</span></code> → <code class="docutils literal notranslate"><span class="pre">plugin</span></code> (object)</p>
+<p>Plugins get added to this dict in <a class="reference internal" href="#napari.plugins.PluginManager.register" title="napari.plugins.PluginManager.register"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.prune">
+<code class="sig-name descname"><span class="pre">prune</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.prune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.prune" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregister modules that can no longer be imported.</p>
+<p>Useful if pip uninstall has been run during the session.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.register">
+<code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a plugin and return its canonical name or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin</strong> (<em>Any</em>) – The namespace (class, module, dict, etc…) to register</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Optional name for plugin, by default <code class="docutils literal notranslate"><span class="pre">get_canonical_name(plugin)</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>canonical plugin name, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the name is blocked from
+registering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.9)"><strong>TypeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">namespace</span></code> is a string.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the plugin <code class="docutils literal notranslate"><span class="pre">name</span></code> or <code class="docutils literal notranslate"><span class="pre">namespace</span></code> is already registered.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.set_blocked">
+<code class="sig-name descname"><span class="pre">set_blocked</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.set_blocked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.set_blocked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block registrations of <code class="docutils literal notranslate"><span class="pre">plugin_name</span></code>, unregister if registered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A plugin name to block.</p></li>
+<li><p><strong>blocked</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to block the plugin.  If <code class="docutils literal notranslate"><span class="pre">False</span></code> will “unblock”
+<code class="docutils literal notranslate"><span class="pre">plugin_name</span></code>.  by default True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.PluginManager.unregister">
+<code class="sig-name descname"><span class="pre">unregister</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_or_object</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.unregister"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.unregister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregister a plugin object or <code class="docutils literal notranslate"><span class="pre">plugin_name</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name_or_object</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>Any</em>) – A module/class object or a plugin name (string).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>module</strong> – The module object, or None if the <code class="docutils literal notranslate"><span class="pre">name_or_object</span></code> was not found.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</div>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./api/stable"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="napari.components.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">napari.components</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="napari.plugins.HookImplementation.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">napari.plugins.HookImplementation</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="../../_sources/api/stable/napari.plugins.PluginManager.rst"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

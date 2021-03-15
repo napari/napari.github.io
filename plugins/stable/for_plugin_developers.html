@@ -1,0 +1,630 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="napari hook specification reference" href="hook_specifications.html" /><link rel="prev" title="napari plugin architecture" href="for_napari_developers.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>creating a napari plugin - napari</title>
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/applications/index.html">Applications</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/applications/cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Plugins</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="creating-a-napari-plugin">
+<span id="plugins-for-plugin-developers"></span><h1>creating a napari plugin<a class="headerlink" href="#creating-a-napari-plugin" title="Permalink to this headline">¶</a></h1>
+<p>This document explains how to extend napari’s functionality by writing a plugin
+that can be installed with <code class="docutils literal notranslate"><span class="pre">pip</span></code> and autodetected by napari.  For more
+information on how plugins are implemented internally in napari, see
+<a class="reference internal" href="for_napari_developers.html#plugins-for-napari-developers"><span class="std std-ref">napari plugin architecture</span></a>.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> supports plugin development through <strong>hooks</strong>:
+specific places in the napari
+codebase where functionality can be extended.
+For example, when a user tries to open a filepath in napari, we
+might want to enable plugins to extend the file formats that can be handled.  A
+<em>hook</em>, then, is the place within napari where we
+“promise” to call functions created by external developers &amp; installed by the user.</p>
+<p>1. <strong>Hook Specifications</strong>:  For each supported hook, we have created
+“<em>hook specifications</em>”, which are
+well-documented function signatures that define the API (or
+“contract”) that a plugin developer must adhere to when writing their function
+that we promise to call somewhere in the napari codebase.
+See <a class="reference internal" href="#plugins-hook-spec"><span class="std std-ref">Step 1: Choose a hook specification to implement</span></a>.</p>
+<p>2. <strong>Hook Implementations</strong>: To make a plugin, plugin developers then write functions (“<em>hook
+implementations</em>”) and mark that function as meeting the requirements of a
+specific <em>hook specification</em> offered by napari.
+See <a class="reference internal" href="#plugins-hook-implement"><span class="std std-ref">Step 2: Write your hook implementation</span></a>.</p>
+<p>3. <strong>Plugin discovery</strong>: Plugins that are installed in the same python
+environment as napari can make themselves known to napari. <code class="docutils literal notranslate"><span class="pre">napari</span></code> will then
+scan plugin modules for <em>hook implementations</em> that will then be called at the
+appropriate time place during the execution of <code class="docutils literal notranslate"><span class="pre">napari</span></code>.
+See <a class="reference internal" href="#plugin-discovery"><span class="std std-ref">Step 3: Make your plugin discoverable</span></a>.</p>
+<p>4. <strong>Plugin sharing</strong>: When you are ready to share your plugin, tag your repo
+with <cite>napari-plugin</cite>, push a release to pypi, and announce it on Image.sc.
+See <a class="reference internal" href="#plugin-sharing"><span class="std std-ref">Step 4: Share your plugin with the world</span></a>.</p>
+</div>
+<div class="section" id="step-1-choose-a-hook-specification-to-implement">
+<span id="plugins-hook-spec"></span><h2>Step 1: Choose a hook specification to implement<a class="headerlink" href="#step-1-choose-a-hook-specification-to-implement" title="Permalink to this headline">¶</a></h2>
+<p>The functionality of plugins, as currently designed and implemented in
+<code class="docutils literal notranslate"><span class="pre">napari</span></code>, is rather specific in scope: They are <em>not</em> just independent code
+blocks with their own GUIs that show up next to the main napari window. Rather,
+plugin developers must decide which of the current <em>hook specifications</em>
+defined by napari that they would like to implement.</p>
+<p>For a complete list of <em>hook specifications</em> that developers can implement, see
+the <a class="reference internal" href="hook_specifications.html#hook-specifications-reference"><span class="std std-ref">napari hook specification reference</span></a>.</p>
+<p>A single plugin package may implement more than one <em>hook specification</em>, but
+may not declare more the one <em>hook implementation</em> for any given specification.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>One of the primary ways that we will extend the functionality of napari over
+time is by identifying new ideas for <em>hook specifications</em> that developers
+can implement.  If you have a plugin idea that requires napari to create a
+new hook specification, we’d love to hear about it!  Please think about what
+the signature of your proposed hook specification would look like, and where
+within the napari codebase you’d like your hook implementation to be called,
+and <a class="reference external" href="https://github.com/napari/napari/issues/new?template=feature_request.md">open a feature request</a>
+in the napari issue tracker with your proposal.</p>
+</div>
+<p>Let’s take the <a class="reference internal" href="hook_specifications.html#napari.plugins.hook_specifications.napari_get_reader" title="napari.plugins.hook_specifications.napari_get_reader"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari_get_reader()</span></code></a>
+hook (our primary “reader plugin” hook) as an example.  It is defined as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LayerData</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+<span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
+
+<span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Note that it takes a <code class="docutils literal notranslate"><span class="pre">str</span></code> or a <code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">str</span></code> and either returns
+<code class="docutils literal notranslate"><span class="pre">None</span></code> or a function.  From the <a class="reference internal" href="hook_specifications.html#napari.plugins.hook_specifications.napari_get_reader" title="napari.plugins.hook_specifications.napari_get_reader"><code class="xref py py-func docutils literal notranslate"><span class="pre">docstring</span></code></a> of the hook
+specification, we see that the implementation should return <code class="docutils literal notranslate"><span class="pre">None</span></code> if the
+path is of an unrecognized format, otherwise it should return a
+<code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code>, which is a function that takes a <code class="docutils literal notranslate"><span class="pre">str</span></code> (the filepath to
+read) and returns a <code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">LayerData</span></code>, where <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> is any one
+of <code class="docutils literal notranslate"><span class="pre">(data,)</span></code>, <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta)</span></code>, or <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta,</span> <span class="pre">layer_type)</span></code>.</p>
+<p>That seems like a bit of a mouthful!  But it’s a precise (though flexible)
+contract that you can follow, and know that napari will handle the rest.</p>
+</div>
+<div class="section" id="step-2-write-your-hook-implementation">
+<span id="plugins-hook-implement"></span><h2>Step 2: Write your hook implementation<a class="headerlink" href="#step-2-write-your-hook-implementation" title="Permalink to this headline">¶</a></h2>
+<p>Once you have identified the <a class="reference internal" href="hook_specifications.html#hook-specifications-reference"><span class="std std-ref">hook specification</span></a> that you want to implement, you have to create
+a <em>hook implementation</em>: a function that accepts the arguments specified by the
+hook specification signature and returns a value with the expected return type.</p>
+<p>Here’s an example hook implementation for
+<a class="reference internal" href="hook_specifications.html#napari.plugins.hook_specifications.napari_get_reader" title="napari.plugins.hook_specifications.napari_get_reader"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari_get_reader()</span></code></a> that enables
+napari to open a numpy binary file with a <code class="docutils literal notranslate"><span class="pre">.npy</span></code> extension (previously saved
+with <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.save.html#numpy.save" title="(in NumPy v1.20)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save()</span></code></a>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
+
+
+<span class="k">def</span> <span class="nf">npy_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+   <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+   <span class="c1"># return it as a list of LayerData tuples,</span>
+   <span class="c1"># here with no optional metadata</span>
+   <span class="k">return</span> <span class="p">[(</span><span class="n">array</span><span class="p">,)]</span>
+
+
+<span class="c1"># this line is explained below in "Decorating your function..."</span>
+<span class="nd">@napari_hook_implementation</span>
+<span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+   <span class="c1"># remember, path can be a list, so we check it's type first...</span>
+   <span class="c1"># (this example plugin doesn't handle lists)</span>
+   <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".npy"</span><span class="p">):</span>
+      <span class="c1"># If we recognize the format, we return the actual reader function</span>
+      <span class="k">return</span> <span class="n">npy_file_reader</span>
+   <span class="c1"># otherwise we return None.</span>
+   <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<div class="section" id="decorating-your-function-with-hookimplementationmarker">
+<span id="hookimplementation-decorator"></span><h3>Decorating your function with <code class="docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code><a class="headerlink" href="#decorating-your-function-with-hookimplementationmarker" title="Permalink to this headline">¶</a></h3>
+<p>In order to let <code class="docutils literal notranslate"><span class="pre">napari</span></code> know that one of your functions satisfies the API of
+one of the napari <em>hook specifications</em>, you must decorate your function with
+an instance of <a class="reference external" href="https://napari-plugin-engine.readthedocs.io/en/latest/api.html#napari_plugin_engine.HookImplementationMarker" title="(in napari-plugin-engine)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code></a>,
+initialized with the name <code class="docutils literal notranslate"><span class="pre">"napari"</span></code>.  As a convenience, napari provides this
+decorator at <code class="docutils literal notranslate"><span class="pre">napari_plugin_engine.napari_hook_implementation</span></code> as shown in
+the example above.</p>
+<p>However, it’s not required to import from or depend on napari <em>at all</em> when
+writing a plugin. You can import a <code class="docutils literal notranslate"><span class="pre">napari_hook_implementation</span></code> decorator
+directly from <code class="docutils literal notranslate"><span class="pre">napari_plugin_engine</span></code> (a very lightweight dependency that uses
+only standard lib python).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
+</pre></div>
+</div>
+<div class="section" id="matching-hook-implementations-to-specifications">
+<h4>Matching hook implementations to specifications<a class="headerlink" href="#matching-hook-implementations-to-specifications" title="Permalink to this headline">¶</a></h4>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">napari</span></code> matches your implementation to one of our hook
+specifications by looking at the <em>name</em> of your decorated function.  So in the
+example above, because hook implementation was literally
+named <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>, it gets interpreted as an implementation for the
+hook specification of the same name.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@napari_hook_implementation</span>
+<span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+<p>However, you may also mark <em>any</em> function as satisfying a particular napari
+hook specification (regardless of the function’s name) by providing the name of
+the target hook specification to the <code class="docutils literal notranslate"><span class="pre">specname</span></code> argument in your
+implementation decorator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@napari_hook_implementation</span><span class="p">(</span><span class="n">specname</span><span class="o">=</span><span class="s2">"napari_get_reader"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">whatever_name_you_want</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+<p>This allows you to specify multiple hook implementations of the same hook
+specification in the same module or class, without needing a separate entry point.</p>
+</div>
+</div>
+</div>
+<div class="section" id="step-3-make-your-plugin-discoverable">
+<span id="plugin-discovery"></span><h2>Step 3: Make your plugin discoverable<a class="headerlink" href="#step-3-make-your-plugin-discoverable" title="Permalink to this headline">¶</a></h2>
+<p>Packages and modules installed in the same environment as <code class="docutils literal notranslate"><span class="pre">napari</span></code> may make
+themselves “discoverable” to napari using package metadata, as outlined in the
+<a class="reference external" href="https://packaging.python.org/guides/creating-and-discovering-plugins/#using-package-metadata">Python Packaging Authority guide</a>.</p>
+<p>By providing an <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> argument with the key <code class="docutils literal notranslate"><span class="pre">napari.plugin</span></code> to
+<code class="docutils literal notranslate"><span class="pre">setup()</span></code> in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, plugins can register themselves for discovery.</p>
+<p>For example if you have a package named <code class="docutils literal notranslate"><span class="pre">mypackage</span></code> with a submodule
+<code class="docutils literal notranslate"><span class="pre">napari_plugin</span></code> where you have decorated one or more napari hook
+implementations, then if you include in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup.py</span>
+
+<span class="n">setup</span><span class="p">(</span>
+   <span class="o">...</span>
+   <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span><span class="s1">'napari.plugin'</span><span class="p">:</span> <span class="s1">'plugin_name = mypackage.napari_plugin'</span><span class="p">},</span>
+   <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>… then napari will search the <code class="docutils literal notranslate"><span class="pre">mypackage.napari_plugin</span></code> module for
+functions decorated with the <code class="docutils literal notranslate"><span class="pre">HookImplementationMarker("napari")</span></code> decorator
+and register them the plugin name <code class="docutils literal notranslate"><span class="pre">"plugin_name"</span></code>.</p>
+<p>A user would then be able to use <code class="docutils literal notranslate"><span class="pre">napari</span></code>, extended with your package’s
+functionality by simply installing your package along with napari:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install napari mypackage
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-4-share-your-plugin-with-the-world">
+<span id="plugin-sharing"></span><h2>Step 4: Share your plugin with the world<a class="headerlink" href="#step-4-share-your-plugin-with-the-world" title="Permalink to this headline">¶</a></h2>
+<p>Once you are ready to share your plugin, <a class="reference external" href="https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives">upload the Python package to PyPI</a>
+and it can then be installed with a simple <cite>pip install mypackage</cite>.
+If you used the <a class="reference internal" href="#plugin-cookiecutter-template"><span class="std std-ref">Cookiecutter template</span></a>, you can also <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin#set-up-automatic-deployments">setup automated deployments</a>.</p>
+<p>Be sure to use the <cite>‘Framework :: napari’</cite>
+[classifier](<a class="reference external" href="https://pypi.org/classifiers/">https://pypi.org/classifiers/</a>) in your <cite>setup.py</cite> file, which will
+allow your package to be [easily searched on
+PyPI](<a class="reference external" href="https://pypi.org/search/?c=Framework+%3A%3A+napari">https://pypi.org/search/?c=Framework+%3A%3A+napari</a>) as offering
+functionality for napari.</p>
+<p>If you are using Github, add the <a class="reference external" href="https://github.com/topics/napari-plugin">“napari-plugin” topic</a> to your repo so other developers can
+see your work.</p>
+<p>When you are ready for users, announce your plugin on the <a class="reference external" href="https://forum.image.sc/tag/napari">Image.sc Forum</a>.</p>
+</div>
+<div class="section" id="cookiecutter-template">
+<span id="plugin-cookiecutter-template"></span><h2>Cookiecutter template<a class="headerlink" href="#cookiecutter-template" title="Permalink to this headline">¶</a></h2>
+<p>To quickly generate a new napari plugin project, you may wish to use the
+<a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.  This uses
+the <a class="reference external" href="https://github.com/cookiecutter/cookiecutter">cookiecutter</a> command line
+utility, which will ask you a few questions about your project and get you
+started with a ready-to-go package layout where you can begin implementing your
+plugin.</p>
+<p>Install cookiecutter and use the template as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install cookiecutter
+cookiecutter https://github.com/napari/cookiecutter-napari-plugin
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-plugins">
+<h2>Example Plugins<a class="headerlink" href="#example-plugins" title="Permalink to this headline">¶</a></h2>
+<p>For a minimal working plugin example, see the <a class="reference external" href="https://github.com/tlambert03/napari-dv">napari-dv</a> plugin, which allows <code class="docutils literal notranslate"><span class="pre">napari</span></code> to
+read the <a class="reference external" href="https://github.com/tlambert03/mrc">Priism/MRC/Deltavision image file format</a>.</p>
+<p>For a more thorough plugin see <a class="reference external" href="https://github.com/AllenCellModeling/napari-aicsimageio">napari-aicsimageio</a>, one of the first
+community plugins developed for napari.  This plugin takes advantage of
+<a class="reference internal" href="#plugin-discovery"><span class="std std-ref">entry_point discovery</span></a> to offer multiple
+readers for both in-memory and lazy-loading of image files.</p>
+<p>More examples of plugins can be found on the <a class="reference external" href="https://github.com/topics/napari-plugin">“napari-plugin” Github topic</a>.</p>
+</div>
+<div class="section" id="help">
+<h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
+<p>If you run into trouble creating your plugin, please don’t hesitate to reach
+out for help in the <a class="reference external" href="https://forum.image.sc/tag/napari">Image.sc Forum</a>.
+Alternatively, if you find a bug or have a specific feature request for plugin
+support, please open an issue at our <a class="reference external" href="https://github.com/napari/napari/issues/new/choose">github issue tracker</a>.</p>
+</div>
+</div>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./plugins/stable"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="hook_specifications.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">napari hook specification reference</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="for_napari_developers.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">napari plugin architecture</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="../../_sources/plugins/stable/for_plugin_developers.rst"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">creating a napari plugin</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#step-1-choose-a-hook-specification-to-implement">Step 1: Choose a hook specification to implement</a></li>
+<li><a class="reference internal" href="#step-2-write-your-hook-implementation">Step 2: Write your hook implementation</a><ul>
+<li><a class="reference internal" href="#decorating-your-function-with-hookimplementationmarker">Decorating your function with <code class="docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code></a><ul>
+<li><a class="reference internal" href="#matching-hook-implementations-to-specifications">Matching hook implementations to specifications</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#step-3-make-your-plugin-discoverable">Step 3: Make your plugin discoverable</a></li>
+<li><a class="reference internal" href="#step-4-share-your-plugin-with-the-world">Step 4: Share your plugin with the world</a></li>
+<li><a class="reference internal" href="#cookiecutter-template">Cookiecutter template</a></li>
+<li><a class="reference internal" href="#example-plugins">Example Plugins</a></li>
+<li><a class="reference internal" href="#help">Help</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

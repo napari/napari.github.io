@@ -1,0 +1,773 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="annotating videos with napari" href="annotate_points.html" /><link rel="prev" title="Applications" href="index.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>annotating segmentation with text and bounding boxes - napari</title>
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Applications</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developers/testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="annotating-segmentation-with-text-and-bounding-boxes">
+<h1>annotating segmentation with text and bounding boxes<a class="headerlink" href="#annotating-segmentation-with-text-and-bounding-boxes" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu’s method, but this same approach could also be used to visualize the results of other image processing algorithms such as <a class="reference external" href="https://www.tensorflow.org/lite/models/object_detection/overview">object detection with neural networks</a>.</p>
+<p><img alt="image: annotated bounding box" src="../../_images/annotated_bbox.png"/></p>
+<p>The completed code is shown below and also can be found in the napari examples directory (<a class="reference external" href="https://github.com/napari/napari/blob/master/examples/annotate_segmentation_with_text.py"><code class="docutils literal notranslate"><span class="pre">annotate_segmentation_with_text.py</span></code></a>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">"""</span>
+<span class="sd">Perform a segmentation and annotate the results with</span>
+<span class="sd">bounding boxes and text</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="kn">from</span> <span class="nn">skimage.filters</span> <span class="kn">import</span> <span class="n">threshold_otsu</span>
+<span class="kn">from</span> <span class="nn">skimage.segmentation</span> <span class="kn">import</span> <span class="n">clear_border</span>
+<span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="kn">import</span> <span class="n">label</span><span class="p">,</span> <span class="n">regionprops_table</span>
+<span class="kn">from</span> <span class="nn">skimage.morphology</span> <span class="kn">import</span> <span class="n">closing</span><span class="p">,</span> <span class="n">square</span><span class="p">,</span> <span class="n">remove_small_objects</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+
+<span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="sd">"""Segment an image using an intensity threshold determined via</span>
+<span class="sd">    Otsu's method.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image : np.ndarray</span>
+<span class="sd">        The image to be segmented</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    label_image : np.ndarray</span>
+<span class="sd">        The resulting image where each detected object labeled with a unique integer.</span>
+<span class="sd">    """</span>
+    <span class="c1"># apply threshold</span>
+    <span class="n">thresh</span> <span class="o">=</span> <span class="n">threshold_otsu</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">bw</span> <span class="o">=</span> <span class="n">closing</span><span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+
+    <span class="c1"># remove artifacts connected to image border</span>
+    <span class="n">cleared</span> <span class="o">=</span> <span class="n">remove_small_objects</span><span class="p">(</span><span class="n">clear_border</span><span class="p">(</span><span class="n">bw</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>
+
+    <span class="c1"># label image regions</span>
+    <span class="n">label_image</span> <span class="o">=</span> <span class="n">label</span><span class="p">(</span><span class="n">cleared</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">label_image</span>
+
+
+<span class="k">def</span> <span class="nf">make_bbox</span><span class="p">(</span><span class="n">bbox_extents</span><span class="p">):</span>
+    <span class="sd">"""Get the coordinates of the corners of a</span>
+<span class="sd">    bounding box from the extents</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bbox_extents : list (4xN)</span>
+<span class="sd">        List of the extents of the bounding boxes for each of the N regions.</span>
+<span class="sd">        Should be ordered: [min_row, min_column, max_row, max_column]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bbox_rect : np.ndarray</span>
+<span class="sd">        The corners of the bounding box. Can be input directly into a</span>
+<span class="sd">        napari Shapes layer.</span>
+<span class="sd">    """</span>
+    <span class="n">minr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">minc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">maxr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">maxc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[[</span><span class="n">minr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">],</span> <span class="p">[</span><span class="n">minr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">]]</span>
+    <span class="p">)</span>
+    <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">bbox_rect</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">bbox_rect</span>
+
+
+<span class="k">def</span> <span class="nf">circularity</span><span class="p">(</span><span class="n">perimeter</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
+    <span class="sd">"""Calculate the circularity of the region</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    perimeter : float</span>
+<span class="sd">        the perimeter of the region</span>
+<span class="sd">    area : float</span>
+<span class="sd">        the area of the region</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    circularity : float</span>
+<span class="sd">        The circularity of the region as defined by 4*pi*area / perimeter^2</span>
+<span class="sd">    """</span>
+    <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">circularity</span>
+
+
+<span class="c1"># load the image and segment it</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">coins</span><span class="p">()[</span><span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">label_image</span> <span class="o">=</span> <span class="n">segment</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="c1"># create the properties dictionary</span>
+<span class="n">properties</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
+    <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'bbox'</span><span class="p">,</span> <span class="s1">'perimeter'</span><span class="p">,</span> <span class="s1">'area'</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">properties</span><span class="p">[</span><span class="s1">'circularity'</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
+    <span class="n">properties</span><span class="p">[</span><span class="s1">'perimeter'</span><span class="p">],</span> <span class="n">properties</span><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># create the bounding box rectangles</span>
+<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">properties</span><span class="p">[</span><span class="sa">f</span><span class="s1">'bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+
+<span class="c1"># specify the display parameters for the text</span>
+<span class="n">text_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'text'</span><span class="p">:</span> <span class="s1">'label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'upper_left'</span><span class="p">,</span>
+    <span class="s1">'translation'</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="c1"># initialise viewer with coins image</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># add the labels</span>
+    <span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
+
+    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
+        <span class="n">bbox_rects</span><span class="p">,</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span><span class="p">,</span>
+    <span class="p">)</span>
+
+</pre></div>
+</div>
+<div class="section" id="segmentation">
+<h2>segmentation<a class="headerlink" href="#segmentation" title="Permalink to this headline">¶</a></h2>
+<p>We start by defining a function to perform segmentation of an image based on intensity. Based on the <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding.html">skimage segmentation example</a>, we determine the threshold intensity that separates the foreground and background pixels using <a class="reference external" href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu’s method</a>. We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="sd">"""Segment an image using an intensity threshold</span>
+<span class="sd">    determined via Otsu's method.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image : np.ndarray</span>
+<span class="sd">        The image to be segmented</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    label_image : np.ndarray</span>
+<span class="sd">        The resulting image where each detected object</span>
+<span class="sd">        is labeled with a unique integer.</span>
+<span class="sd">    """</span>
+    <span class="c1"># apply threshold</span>
+    <span class="n">thresh</span> <span class="o">=</span> <span class="n">threshold_otsu</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">bw</span> <span class="o">=</span> <span class="n">closing</span><span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+
+    <span class="c1"># remove artifacts connected to image border</span>
+    <span class="n">cleared</span> <span class="o">=</span> <span class="n">remove_small_objects</span><span class="p">(</span><span class="n">clear_border</span><span class="p">(</span><span class="n">bw</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>
+
+    <span class="c1"># label image regions</span>
+    <span class="n">label_image</span> <span class="o">=</span> <span class="n">label</span><span class="p">(</span><span class="n">cleared</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">label_image</span>
+
+</pre></div>
+</div>
+<p>We can test the segmentation and view it in napari. Note that we need to initialize and interact with the napari view in the <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">napari.gui_qt()</span></code> context manager in order to ensure the GUI is property initialized.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the image and segment it</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">coins</span><span class="p">()[</span><span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">label_image</span> <span class="o">=</span> <span class="n">segment</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="c1"># initialize viewer with coins image</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># add the labels</span>
+    <span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p><img alt="image: segmentation labels" src="../../_images/segmentation_labels.png"/></p>
+</div>
+<div class="section" id="analyzing-the-segmentation">
+<h2>analyzing the segmentation<a class="headerlink" href="#analyzing-the-segmentation" title="Permalink to this headline">¶</a></h2>
+<p>Next, we use <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table"><code class="docutils literal notranslate"><span class="pre">regionprops_table</span></code></a> from skimage to quantify some parameters of each detection object (e.g., area and perimeter).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the properties dictionary</span>
+<span class="n">properties</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
+    <span class="n">label_image</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s1">'label'</span><span class="p">,</span> <span class="s1">'bbox'</span><span class="p">,</span> <span class="s1">'perimeter'</span><span class="p">,</span> <span class="s1">'area'</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Conveniently, <code class="docutils literal notranslate"><span class="pre">regionprops_table()</span></code> returns a dictionary in the same format as the napari layer properties dictionary, so we will be able to use it directly. If we inspect the values of properties, we see each key is the name of the properties and the values are arrays with an element containing the property value for each shape. Note that the bounding boxes have been output as <code class="docutils literal notranslate"><span class="pre">bbox-0</span></code>,  <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-1</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-2</span></code>, <code class="docutils literal notranslate"><span class="pre">bbox-3</span></code> which correspond with the min_row, min_column, max_row, amnd max_column of each bounding box, respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+	<span class="s1">'label'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]),</span>
+	<span class="s1">'bbox-0'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span> <span class="mi">46</span><span class="p">,</span>  <span class="mi">55</span><span class="p">,</span>  <span class="mi">57</span><span class="p">,</span>  <span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">129</span><span class="p">]),</span>
+	<span class="s1">'bbox-1'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">195</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span>  <span class="mi">34</span><span class="p">,</span>  <span class="mi">84</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span>  <span class="mi">30</span><span class="p">,</span>  <span class="mi">85</span><span class="p">]),</span>
+	<span class="s1">'bbox-2'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span> <span class="mi">94</span><span class="p">,</span>  <span class="mi">94</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">167</span><span class="p">,</span> <span class="mi">167</span><span class="p">]),</span>
+	<span class="s1">'bbox-3'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">246</span><span class="p">,</span> <span class="mi">177</span><span class="p">,</span>  <span class="mi">72</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span>  <span class="mi">74</span><span class="p">,</span> <span class="mi">124</span><span class="p">]),</span>
+	<span class="s1">'perimeter'</span><span class="p">:</span>
+		<span class="n">array</span><span class="p">(</span>
+			<span class="p">[</span>
+				<span class="mf">165.88225099</span><span class="p">,</span> <span class="mf">129.05382387</span><span class="p">,</span> <span class="mf">123.98275606</span><span class="p">,</span> <span class="mf">121.98275606</span><span class="p">,</span>
+       			<span class="mf">155.88225099</span><span class="p">,</span> <span class="mf">149.05382387</span><span class="p">,</span> <span class="mf">140.46803743</span><span class="p">,</span> <span class="mf">125.39696962</span>
+       		<span class="p">]</span>
+   		<span class="p">),</span>
+   	<span class="s1">'area'</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mi">1895</span><span class="p">,</span> <span class="mi">1212</span><span class="p">,</span> <span class="mi">1124</span><span class="p">,</span> <span class="mi">1102</span><span class="p">,</span> <span class="mi">1720</span><span class="p">,</span> <span class="mi">1519</span><span class="p">,</span> <span class="mi">1475</span><span class="p">,</span> <span class="mi">1155</span><span class="p">])</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since we know the coins are circular, we want to calculate the circularity of each detected region. We define a function <code class="docutils literal notranslate"><span class="pre">circularity()</span></code> to determine the circularity of each region.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">circularity</span><span class="p">(</span><span class="n">perimeter</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
+    <span class="sd">"""Calculate the circularity of the region</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    perimeter : float</span>
+<span class="sd">        the perimeter of the region</span>
+<span class="sd">    area : float</span>
+<span class="sd">        the area of the region</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    circularity : float</span>
+<span class="sd">        The circularity of the region as defined by 4*pi*area / perimeter^2</span>
+<span class="sd">    """</span>
+    <span class="n">circularity</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="n">perimeter</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">circularity</span>
+</pre></div>
+</div>
+<p>We can then calculate the circularity of each region and save it as a property.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">properties</span><span class="p">[</span><span class="s1">'circularity'</span><span class="p">]</span> <span class="o">=</span> <span class="n">circularity</span><span class="p">(</span>
+    <span class="n">properties</span><span class="p">[</span><span class="s1">'perimeter'</span><span class="p">],</span> <span class="n">properties</span><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>We will use a napari shapes layer to visualize the bounding box of the segmentation. The napari shapes layer requires each shape to be defined by the coordinates of corner. Since regionprops returns the bounding box as a tuple of <code class="docutils literal notranslate"><span class="pre">(min_row,</span> <span class="pre">min_column,</span> <span class="pre">max_row,</span> <span class="pre">max_column)</span></code> we define a function <code class="docutils literal notranslate"><span class="pre">make_bbox()</span></code> to convert the regionprops bounding box to the napari shapes format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_bbox</span><span class="p">(</span><span class="n">bbox_extents</span><span class="p">):</span>
+    <span class="sd">"""Get the coordinates of the corners of a</span>
+<span class="sd">    bounding box from the extents</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bbox_extents : list (4xN)</span>
+<span class="sd">        List of the extents of the bounding boxes for each of the N regions.</span>
+<span class="sd">        Should be ordered: [min_row, min_column, max_row, max_column]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bbox_rect : np.ndarray</span>
+<span class="sd">        The corners of the bounding box. Can be input directly into a</span>
+<span class="sd">        napari Shapes layer.</span>
+<span class="sd">    """</span>
+    <span class="n">minr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">minc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">maxr</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">maxc</span> <span class="o">=</span> <span class="n">bbox_extents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[[</span><span class="n">minr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">minc</span><span class="p">],</span> <span class="p">[</span><span class="n">maxr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">],</span> <span class="p">[</span><span class="n">minr</span><span class="p">,</span> <span class="n">maxc</span><span class="p">]]</span>
+    <span class="p">)</span>
+    <span class="n">bbox_rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">bbox_rect</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">bbox_rect</span>
+</pre></div>
+</div>
+<p>Finally, we can use an list comprension to pass the bounding box extents to <code class="docutils literal notranslate"><span class="pre">make_bbox()</span></code> and calculate the bounding box corners required by the <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the bounding box rectangles</span>
+<span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">properties</span><span class="p">[</span><span class="sa">f</span><span class="s1">'bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="visualizing-the-segmentation-results">
+<h2>visualizing the segmentation results<a class="headerlink" href="#visualizing-the-segmentation-results" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have performed out analysis, we can visualize the results in napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels, and (3) Shapes.</p>
+<p>As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows, again noting that we use the <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">napari.gui_qt():</span></code> context manager to ensure the GUI is initialized properly.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="c1"># initialise viewer with coins image</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># add the labels</span>
+    <span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, we will use the Shapes layer to overlay the bounding boxes for each detected object as well as display the calculated circularity. The code for creating the Shapes layer is listed here and each keyword argument is explained below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
+        <span class="n">bbox_rects</span><span class="p">,</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="image: segmentation bounding box" src="../../_images/segmentation_bbox.png"/></p>
+<p>The first positional argument (<code class="docutils literal notranslate"><span class="pre">bbox_rects</span></code>) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (<code class="docutils literal notranslate"><span class="pre">face_color='transparent'</span></code>) and the edges of the bounding box are green (<code class="docutils literal notranslate"><span class="pre">edge_color='green'</span></code>). Finally, the name of the layer displayed in the layer list in the napari GUI is <code class="docutils literal notranslate"><span class="pre">bounding</span> <span class="pre">box</span></code> (<code class="docutils literal notranslate"><span class="pre">name='bounding</span> <span class="pre">box'</span></code>).</p>
+</div>
+<div class="section" id="annotating-shapes-with-text">
+<h2>annotating shapes with text<a class="headerlink" href="#annotating-shapes-with-text" title="Permalink to this headline">¶</a></h2>
+<p>We can further annotate our analysis by using text to display properties of each segmentation. The code to create a shapes layer with text is pasted here and explained below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
+        <span class="n">bbox_rects</span><span class="p">,</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>We will use <code class="docutils literal notranslate"><span class="pre">Shapes.properties</span></code> to store the annotations for each bounding box. The properties are definined as a dictionary where each key is the name of the property (i.e., label, circularity) and the values are arrays where each element contains the value for the corresponding shape (i.e., index matched to the Shape data). As a reminder, we created <code class="docutils literal notranslate"><span class="pre">labels</span></code> and <code class="docutils literal notranslate"><span class="pre">circularity</span></code> above and each is a list containing where each element is property value for the corresponding (i.e., index matched) shape.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the properties dictionary</span>
+<span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'label'</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
+    <span class="s1">'circularity'</span><span class="p">:</span> <span class="n">circularity</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Each bounding box can be annotated with text drawn from the layer <code class="docutils literal notranslate"><span class="pre">properties</span></code>. To specity the text and display properties of the text, we pass a dictionary with the text parameters (<code class="docutils literal notranslate"><span class="pre">text_parameters</span></code>). We define <code class="docutils literal notranslate"><span class="pre">text_parameters</span></code> as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'text'</span><span class="p">:</span> <span class="s1">'label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'upper_left'</span><span class="p">,</span>
+    <span class="s1">'translation'</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">text</span></code> key specifies pattern for the text to be displayed. If <code class="docutils literal notranslate"><span class="pre">text</span></code> is set to the name of a <code class="docutils literal notranslate"><span class="pre">properties</span></code> key, the value for that property will be displayed. napari text also accepts f-string-like syntax, as used here. napari will substitute each pair of curly braces(<code class="docutils literal notranslate"><span class="pre">{}</span></code>) with the values from the property specified inside of the curley braces. For numbers, the precision can be specified in the same style as f-strings. Additionally, napari recognizes standard special characters such as <code class="docutils literal notranslate"><span class="pre">\n</span></code> for new line.</p>
+<p>As an example, if a given object has a <code class="docutils literal notranslate"><span class="pre">label=1</span></code> and <code class="docutils literal notranslate"><span class="pre">circularity=0.8322940</span></code>, the resulting text string would be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">circ</span><span class="p">:</span> <span class="mf">0.83</span>
+</pre></div>
+</div>
+<p>We set the text to green (<code class="docutils literal notranslate"><span class="pre">'color':</span> <span class="pre">'green'</span></code>) with a font size of 12 (<code class="docutils literal notranslate"><span class="pre">'size':</span> <span class="pre">12</span></code>). We specify that the text will be anchored in the upper left hand corner of the bounding box (<code class="docutils literal notranslate"><span class="pre">'anchor':</span> <span class="pre">'upper_left'</span></code>). The valid anchors are: <code class="docutils literal notranslate"><span class="pre">'upper_right'</span></code>, <code class="docutils literal notranslate"><span class="pre">'upper_left'</span></code>, <code class="docutils literal notranslate"><span class="pre">'lower_right'</span></code>, <code class="docutils literal notranslate"><span class="pre">'lower_left'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'center'</span></code>. We then offset the text from the anchor in order to make sure it does not overlap with the bounding box edge (<code class="docutils literal notranslate"><span class="pre">'translation':</span> <span class="pre">[-3,</span> <span class="pre">0]</span></code>). The translation is relative to the anchor point. The first dimension is the vertical axis on the canvas (negative is “up”) and the second dimension is along the horizontal axis of the canvas.</p>
+<p>All together, the visualization code is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the properties dictionary</span>
+<span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'label'</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
+    <span class="s1">'circularity'</span><span class="p">:</span> <span class="n">circularity</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># specify the display parameters for the text</span>
+<span class="n">text_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'text'</span><span class="p">:</span> <span class="s1">'label: </span><span class="si">{label}</span><span class="se">\n</span><span class="s1">circ: </span><span class="si">{circularity:.2f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'anchor'</span><span class="p">:</span> <span class="s1">'upper_left'</span><span class="p">,</span>
+    <span class="s1">'translation'</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="c1"># initialise viewer with coins image</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'coins'</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># add the labels</span>
+    <span class="n">label_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">label_image</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'segmentation'</span><span class="p">)</span>
+
+    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
+        <span class="n">bbox_rects</span><span class="p">,</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">text_parameters</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'bounding box'</span>
+    <span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial, we have used napari to view and annotate segmentation results.</p>
+<p><img alt="image: annotated bounding box" src="../../_images/annotated_bbox.png"/></p>
+</div>
+</div>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./tutorials/applications"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="annotate_points.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">annotating videos with napari</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Applications</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="../../_sources/tutorials/applications/annotate_segmentation.md"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">annotating segmentation with text and bounding boxes</a><ul>
+<li><a class="reference internal" href="#segmentation">segmentation</a></li>
+<li><a class="reference internal" href="#analyzing-the-segmentation">analyzing the segmentation</a></li>
+<li><a class="reference internal" href="#visualizing-the-segmentation-results">visualizing the segmentation results</a></li>
+<li><a class="reference internal" href="#annotating-shapes-with-text">annotating shapes with text</a></li>
+<li><a class="reference internal" href="#summary">summary</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

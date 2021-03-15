@@ -1,0 +1,770 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>napari.plugins.hook_specifications - napari</title>
+      <link rel="stylesheet" href="../../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../tutorials/fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../tutorials/applications/index.html">Applications</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/applications/cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/testing.html">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <h1>Source code for napari.plugins.hook_specifications</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">All napari hook specifications for pluggable functionality are defined here.</span>
+
+<span class="sd">A *hook specification* is a function signature (with documentation) that</span>
+<span class="sd">declares an API that plugin developers must adhere to when providing hook</span>
+<span class="sd">implementations.  *Hook implementations* provided by plugins (and internally by</span>
+<span class="sd">napari) will then be invoked in various places throughout the code base.</span>
+
+<span class="sd">When implementing a hook specification, pay particular attention to the number</span>
+<span class="sd">and types of the arguments in the specification signature, as well as the</span>
+<span class="sd">expected return type.</span>
+
+<span class="sd">To allow for hook specifications to evolve over the lifetime of napari,</span>
+<span class="sd">hook implementations may accept *fewer* arguments than defined in the</span>
+<span class="sd">specification. (This allows for extending existing hook arguments without</span>
+<span class="sd">breaking existing implementations). However, implementations must not require</span>
+<span class="sd">*more* arguments than defined in the spec.</span>
+
+<span class="sd">For more general background on the plugin hook calling mechanism, see the</span>
+<span class="sd">`napari-plugin-manager documentation</span>
+<span class="sd">&lt;https://napari-plugin-engine.readthedocs.io/en/latest/&gt;`_.</span>
+
+<span class="sd">.. NOTE::</span>
+<span class="sd">    Hook specifications are a feature borrowed from `pluggy</span>
+<span class="sd">    &lt;https://pluggy.readthedocs.io/en/latest/#specs&gt;`_. In the `pluggy</span>
+<span class="sd">    documentation &lt;https://pluggy.readthedocs.io/en/latest/&gt;`_, hook</span>
+<span class="sd">    specification marker instances are named ``hookspec`` by convention, and</span>
+<span class="sd">    hook implementation marker instances are named ``hookimpl``.  The</span>
+<span class="sd">    convention in napari is to name them more explicitly:</span>
+<span class="sd">    ``napari_hook_specification`` and ``napari_hook_implementation``,</span>
+<span class="sd">    respectively.</span>
+<span class="sd">"""</span>
+
+<span class="c1"># These hook specifications also serve as the API reference for plugin</span>
+<span class="c1"># developers, so comprehensive documentation with complete type annotations is</span>
+<span class="c1"># imperative!</span>
+
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_specification</span>
+
+<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">AugmentedWidget</span><span class="p">,</span> <span class="n">ReaderFunction</span><span class="p">,</span> <span class="n">WriterFunction</span>
+
+<span class="c1"># -------------------------------------------------------------------------- #</span>
+<span class="c1">#                                 IO Hooks                                   #</span>
+<span class="c1"># -------------------------------------------------------------------------- #</span>
+
+
+<div class="viewcode-block" id="napari_get_reader"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_get_reader">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
+    <span class="sd">"""Return a function capable of loading ``path`` into napari, or ``None``.</span>
+
+<span class="sd">    This is the primary "**reader plugin**" function.  It accepts a path or</span>
+<span class="sd">    list of paths, and returns a list of data to be added to the ``Viewer``.</span>
+<span class="sd">    The function may return ``[(None, )]`` to indicate that the file was read</span>
+<span class="sd">    successfully, but did not contain any data.</span>
+
+<span class="sd">    The main place this hook is used is in :func:`Viewer.open()</span>
+<span class="sd">    &lt;napari.components.viewer_model.ViewerModel.open&gt;`, via the</span>
+<span class="sd">    :func:`~napari.plugins.io.read_data_with_plugins` function.</span>
+
+<span class="sd">    It will also be called on ``File -&gt; Open...`` or when a user drops a file</span>
+<span class="sd">    or folder onto the viewer. This function must execute **quickly**, and</span>
+<span class="sd">    should return ``None`` if the filepath is of an unrecognized format for</span>
+<span class="sd">    this reader plugin.  If ``path`` is determined to be recognized format,</span>
+<span class="sd">    this function should return a *new* function that accepts the same filepath</span>
+<span class="sd">    (or list of paths), and returns a list of ``LayerData`` tuples, where each</span>
+<span class="sd">    tuple is a 1-, 2-, or 3-tuple of ``(data,)``, ``(data, meta)``, or ``(data,</span>
+<span class="sd">    meta, layer_type)``.</span>
+
+<span class="sd">    ``napari`` will then use each tuple in the returned list to generate a new</span>
+<span class="sd">    layer in the viewer using the :func:`Viewer._add_layer_from_data()</span>
+<span class="sd">    &lt;napari.components.viewer_model.ViewerModel._add_layer_from_data&gt;`</span>
+<span class="sd">    method.  The first, (optional) second, and (optional) third items in each</span>
+<span class="sd">    tuple in the returned layer_data list, therefore correspond to the</span>
+<span class="sd">    ``data``, ``meta``, and ``layer_type`` arguments of the</span>
+<span class="sd">    :func:`Viewer._add_layer_from_data()</span>
+<span class="sd">    &lt;napari.components.viewer_model.ViewerModel._add_layer_from_data&gt;`</span>
+<span class="sd">    method, respectively.</span>
+
+<span class="sd">    .. important::</span>
+
+<span class="sd">       ``path`` may be either a ``str`` or a ``list`` of ``str``.  If a</span>
+<span class="sd">       ``list``, then each path in the list can be assumed to be one part of a</span>
+<span class="sd">       larger multi-dimensional stack (for instance: a list of 2D image files</span>
+<span class="sd">       that should be stacked along a third axis). Implementations should do</span>
+<span class="sd">       their own checking for ``list`` or ``str``, and handle each case as</span>
+<span class="sd">       desired.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str or list of str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL), or a list of paths.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Callable or None</span>
+<span class="sd">        A function that accepts the path, and returns a list of ``layer_data``,</span>
+<span class="sd">        where ``layer_data`` is one of ``(data,)``, ``(data, meta)``, or</span>
+<span class="sd">        ``(data, meta, layer_type)``.</span>
+<span class="sd">        If unable to read the path, must return ``None`` (not ``False``!).</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_get_writer"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_get_writer">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_get_writer</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterFunction</span><span class="p">]:</span>
+    <span class="sd">"""Return function capable of writing napari layer data to ``path``.</span>
+
+<span class="sd">    This function will be called whenever the user attempts to save multiple</span>
+<span class="sd">    layers (e.g. via ``File -&gt; Save Layers``, or</span>
+<span class="sd">    :func:`~napari.plugins.io.save_layers`).</span>
+<span class="sd">    This function must execute **quickly**, and should return ``None`` if</span>
+<span class="sd">    ``path`` has an unrecognized extension for the reader plugin or the list of</span>
+<span class="sd">    layer types are incompatible with what the plugin can write. If ``path`` is</span>
+<span class="sd">    a recognized format, this function should return a *function* that accepts</span>
+<span class="sd">    the same ``path``, and a list of tuples containing the data for each layer</span>
+<span class="sd">    being saved in the form of ``(Layer.data, Layer._get_state(),</span>
+<span class="sd">    Layer._type_string)``. The writer function should return a list of strings</span>
+<span class="sd">    (the actual filepath(s) that were written).</span>
+
+<span class="sd">    .. important::</span>
+
+<span class="sd">        It is up to plugins to inspect and obey any extension in ``path``</span>
+<span class="sd">        (and return ``None`` if it is an unsupported extension).</span>
+
+<span class="sd">    An example function signature for a ``WriterFunction`` that might be</span>
+<span class="sd">    returned by this hook specification is as follows:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        def writer_function(</span>
+<span class="sd">            path: str, layer_data: List[Tuple[Any, Dict, str]]</span>
+<span class="sd">        ) -&gt; List[str]:</span>
+<span class="sd">            ...</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL).  Any extensions in</span>
+<span class="sd">        the path should be examined and obeyed.  (i.e. if the plugin is</span>
+<span class="sd">        incapable of returning a requested extension, it should return</span>
+<span class="sd">        ``None``).</span>
+<span class="sd">    layer_types : list of str</span>
+<span class="sd">        List of layer types (e.g. "image", "labels") that will be provided to</span>
+<span class="sd">        the writer function.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Callable or None</span>
+<span class="sd">        A function that accepts the path, a list of layer_data (where</span>
+<span class="sd">        layer_data is ``(data, meta, layer_type)``). If unable to write to the</span>
+<span class="sd">        path or write the layer_data, must return ``None`` (not ``False``).</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_write_image"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_write_image">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_write_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">"""Write image data and metadata into a path.</span>
+
+<span class="sd">    It is the responsibility of the implementation to check any extension on</span>
+<span class="sd">    ``path`` and return ``None`` if it is an unsupported extension.  If</span>
+<span class="sd">    ``path`` has no extension, implementations may append their preferred</span>
+<span class="sd">    extension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL).</span>
+<span class="sd">    data : array or list of array</span>
+<span class="sd">        Image data. Can be N dimensional. If meta['rgb'] is ``True`` then the</span>
+<span class="sd">        data should be interpreted as RGB or RGBA. If meta['multiscale'] is</span>
+<span class="sd">        True, then the data should be interpreted as a multiscale image.</span>
+<span class="sd">    meta : dict</span>
+<span class="sd">        Image metadata.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : str or None</span>
+<span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
+<span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_write_labels"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_write_labels">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_write_labels</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">"""Write labels data and metadata into a path.</span>
+
+<span class="sd">    It is the responsibility of the implementation to check any extension on</span>
+<span class="sd">    ``path`` and return ``None`` if it is an unsupported extension.  If</span>
+<span class="sd">    ``path`` has no extension, implementations may append their preferred</span>
+<span class="sd">    extension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL).</span>
+<span class="sd">    data : array or list of array</span>
+<span class="sd">        Integer valued label data. Can be N dimensional. Every pixel contains</span>
+<span class="sd">        an integer ID corresponding to the region it belongs to. The label 0 is</span>
+<span class="sd">        rendered as transparent. If a list and arrays are decreasing in shape</span>
+<span class="sd">        then the data is from a multiscale image.</span>
+<span class="sd">    meta : dict</span>
+<span class="sd">        Labels metadata.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : str or None</span>
+<span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
+<span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_write_points"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_write_points">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">"""Write points data and metadata into a path.</span>
+
+<span class="sd">    It is the responsibility of the implementation to check any extension on</span>
+<span class="sd">    ``path`` and return ``None`` if it is an unsupported extension.  If</span>
+<span class="sd">    ``path`` has no extension, implementations may append their preferred</span>
+<span class="sd">    extension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL).</span>
+<span class="sd">    data : array (N, D)</span>
+<span class="sd">        Coordinates for N points in D dimensions.</span>
+<span class="sd">    meta : dict</span>
+<span class="sd">        Points metadata.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : str or None</span>
+<span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
+<span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_write_shapes"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_write_shapes">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_write_shapes</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">"""Write shapes data and metadata into a path.</span>
+
+<span class="sd">    It is the responsibility of the implementation to check any extension on</span>
+<span class="sd">    ``path`` and return ``None`` if it is an unsupported extension.  If</span>
+<span class="sd">    ``path`` has no extension, implementations may append their preferred</span>
+<span class="sd">    extension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL).</span>
+<span class="sd">    data : list</span>
+<span class="sd">        List of shape data, where each element is an (N, D) array of the</span>
+<span class="sd">        N vertices of a shape in D dimensions.</span>
+<span class="sd">    meta : dict</span>
+<span class="sd">        Shapes metadata.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : str or None</span>
+<span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
+<span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_write_surface"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_write_surface">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_write_surface</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">"""Write surface data and metadata into a path.</span>
+
+<span class="sd">    It is the responsibility of the implementation to check any extension on</span>
+<span class="sd">    ``path`` and return ``None`` if it is an unsupported extension.  If</span>
+<span class="sd">    ``path`` has no extension, implementations may append their preferred</span>
+<span class="sd">    extension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL).</span>
+<span class="sd">    data : 3-tuple of array</span>
+<span class="sd">        The first element of the tuple is an (N, D) array of vertices of</span>
+<span class="sd">        mesh triangles. The second is an (M, 3) array of int of indices</span>
+<span class="sd">        of the mesh triangles. The third element is the (K0, ..., KL, N)</span>
+<span class="sd">        array of values used to color vertices where the additional L</span>
+<span class="sd">        dimensions are used to color the same mesh with different values.</span>
+<span class="sd">    meta : dict</span>
+<span class="sd">        Surface metadata.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : str or None</span>
+<span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
+<span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_write_vectors"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_write_vectors">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_write_vectors</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">"""Write vectors data and metadata into a path.</span>
+
+<span class="sd">    It is the responsibility of the implementation to check any extension on</span>
+<span class="sd">    ``path`` and return ``None`` if it is an unsupported extension.  If</span>
+<span class="sd">    ``path`` has no extension, implementations may append their preferred</span>
+<span class="sd">    extension.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL).</span>
+<span class="sd">    data : (N, 2, D) array</span>
+<span class="sd">        The start point and projections of N vectors in D dimensions.</span>
+<span class="sd">    meta : dict</span>
+<span class="sd">        Vectors metadata.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : str or None</span>
+<span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
+<span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
+<span class="sd">    """</span></div>
+
+
+<span class="c1"># -------------------------------------------------------------------------- #</span>
+<span class="c1">#                                 GUI Hooks                                  #</span>
+<span class="c1"># -------------------------------------------------------------------------- #</span>
+
+
+<div class="viewcode-block" id="napari_experimental_provide_function"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_experimental_provide_function">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_experimental_provide_function</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">FunctionType</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">]</span>
+<span class="p">]:</span>
+    <span class="sd">"""Provide function(s) that can be passed to magicgui.</span>
+
+<span class="sd">    This hook specification is marked as experimental as the API or how the</span>
+<span class="sd">    returned value is handled may change here more frequently then the</span>
+<span class="sd">    rest of the codebase.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    function(s) : FunctionType or list of FunctionType</span>
+<span class="sd">        Implementations should provide either a single function, or a list of</span>
+<span class="sd">        functions. Note that this does not preclude specifying multiple</span>
+<span class="sd">        separate implementations in the same module or class.</span>
+<span class="sd">        The functions should have Python type annotations so that</span>
+<span class="sd">        `magicgui &lt;https://napari.org/magicgui&gt;`_ can generate a widget from</span>
+<span class="sd">        them.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from napari.types import ImageData, LayerDataTuple</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; def my_function(image : ImageData) -&gt; LayerDataTuple:</span>
+<span class="sd">    &gt;&gt;&gt;     # process the image</span>
+<span class="sd">    &gt;&gt;&gt;     result = -image</span>
+<span class="sd">    &gt;&gt;&gt;     # return it + some layer properties</span>
+<span class="sd">    &gt;&gt;&gt;     return result, {'colormap':'turbo'}</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; @napari_hook_implementation</span>
+<span class="sd">    &gt;&gt;&gt; def napari_experimental_provide_function():</span>
+<span class="sd">    &gt;&gt;&gt;     return my_function</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_experimental_provide_dock_widget"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_experimental_provide_dock_widget">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_experimental_provide_dock_widget</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">AugmentedWidget</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">]</span>
+<span class="p">]:</span>
+    <span class="sd">"""Provide functions that return widgets to be docked in the viewer.</span>
+
+<span class="sd">    This hook specification is marked as experimental as the API or how the</span>
+<span class="sd">    returned value is handled may change here more frequently then the</span>
+<span class="sd">    rest of the codebase.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    result : callable or tuple or list of callables or list of tuples</span>
+<span class="sd">        A "callable" in this context is a class or function that, when</span>
+<span class="sd">        called, returns an instance of either a</span>
+<span class="sd">        :class:`~qtpy.QtWidgets.QWidget` or a</span>
+<span class="sd">        :class:`~magicgui.widgets.FunctionGui`.</span>
+
+<span class="sd">        Implementations of this hook specification must return a callable, or a</span>
+<span class="sd">        tuple of ``(callable, dict)``, where the dict contains keyword</span>
+<span class="sd">        arguments for :meth:`napari.qt.Window.add_dock_widget`. (note, however,</span>
+<span class="sd">        that ``shortcut=`` keyword is not yet supported).</span>
+
+<span class="sd">        Implementations may also return a list, in which each item must be a</span>
+<span class="sd">        callable or ``(callable, dict)`` tuple. Note that this does not</span>
+<span class="sd">        preclude specifying multiple separate implementations in the same module</span>
+<span class="sd">        or class.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    An example with a QtWidget:</span>
+
+<span class="sd">    &gt;&gt;&gt; from qtpy.QtWidgets import QWidget</span>
+<span class="sd">    &gt;&gt;&gt; from napari_plugin_engine import napari_hook_implementation</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; class MyWidget(QWidget):</span>
+<span class="sd">    ...     def __init__(self, napari_viewer):</span>
+<span class="sd">    ...         self.viewer = napari_viewer</span>
+<span class="sd">    ...         super().__init__()</span>
+<span class="sd">    ...</span>
+<span class="sd">    ...         # initialize layout</span>
+<span class="sd">    ...         layout = QGridLayout()</span>
+<span class="sd">    ...</span>
+<span class="sd">    ...         # add a button</span>
+<span class="sd">    ...         btn = QPushButton('Click me!', self)</span>
+<span class="sd">    ...         def trigger():</span>
+<span class="sd">    ...             print("napari has", len(napari_viewer.layers), "layers")</span>
+<span class="sd">    ...         btn.clicked.connect(trigger)</span>
+<span class="sd">    ...         layout.addWidget(btn)</span>
+<span class="sd">    ...</span>
+<span class="sd">    ...         # activate layout</span>
+<span class="sd">    ...         self.setLayout(layout)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; @napari_hook_implementation</span>
+<span class="sd">    &gt;&gt;&gt; def napari_experimental_provide_dock_widget():</span>
+<span class="sd">    ...     return MyWidget</span>
+
+<span class="sd">    An example using magicgui:</span>
+
+<span class="sd">    &gt;&gt;&gt; from magicgui import magic_factory</span>
+<span class="sd">    &gt;&gt;&gt; from napari_plugin_engine import napari_hook_implementation</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; @magic_factory(auto_call=True, threshold={'max': 2 ** 16})</span>
+<span class="sd">    &gt;&gt;&gt; def threshold(</span>
+<span class="sd">    ...     data: 'napari.types.ImageData', threshold: int</span>
+<span class="sd">    ... ) -&gt; 'napari.types.LabelsData':</span>
+<span class="sd">    ...     return (data &gt; threshold).astype(int)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; @napari_hook_implementation</span>
+<span class="sd">    &gt;&gt;&gt; def napari_experimental_provide_dock_widget():</span>
+<span class="sd">    ...     return threshold</span>
+<span class="sd">    """</span></div>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script src="../../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

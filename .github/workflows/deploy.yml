@@ -15,7 +15,7 @@ on:
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
   build-and-deploy-book:
-    if: (github.event_name == 'schedule' && github.repository == 'napari-staging-site/napari-staging-site.github.io') || (github.event_name != 'schedule')
+    if: (github.event_name == 'schedule' && github.repository == 'napari/napari.github.io') || (github.event_name != 'schedule')
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -54,7 +54,7 @@ jobs:
 
       # Deploy the book's HTML to github pages
       - name: GitHub Pages action
-        if: github.repository == 'napari-staging-site/napari-staging-site.github.io' && github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.repository == 'napari/napari.github.io' && github.ref == 'refs/heads/master' && github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v3.6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

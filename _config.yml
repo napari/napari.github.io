@@ -6,10 +6,11 @@ author: The napari team
 logo: assets/logo.ico
 # only_build_toc_files: true
 
-# Force re-execution of notebooks on each build.
+# Cache notebook execution for each build. This is useful for speeding up
+# subsequent builds during deveopment.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: force
+  execute_notebooks: cache
 
 # Information about where the book exists on the web
 repository:
@@ -34,10 +35,18 @@ sphinx:
   config:
     autosummary_generate: True
     autosummary_imported_members: True
+    # Skip checking these files because they slow down the overall build time
+    exclude_patterns:
+      - _build
+      - node_modules
     html_theme: furo
+    # (WIP) Napari theme
+    # html_theme: napari
+    # html_theme_path:
+    #   - theme
     pygments_style: solarized-dark
     templates_path:
-        - '_templates'
+      - '_templates'
     intersphinx_mapping:
       python:
         - "https://docs.python.org/3"

@@ -30,7 +30,7 @@ yarn
 
 ### Dev Server
 
-The Dev Server is thin wrapper over `express` and `jupyter-book` to live
+The Dev Server a is thin wrapper over `express` and `jupyter-book` to live
 reload the browser whenever the theme or documentation is modified. To use
 the Dev Server, run the following commands:
 
@@ -64,7 +64,7 @@ The following outlines the current behavior of the dev server:
 
 Because of how long `jupyter-book build` can take, the dev server will
 automatically cancel the existing build process in case files are modified
-during the build
+during the build.
 
 When the documentation is finished building, the dev server sends a reload
 event over WebSocket to refresh the browser when a new build is available.

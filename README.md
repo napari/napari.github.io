@@ -40,7 +40,7 @@ yarn
 # Recommended to remove cached files
 make clean
 # Run dev server
-make dev
+yarn dev
 ```
 
 After the build is complete, you should be able to access the documentation

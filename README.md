@@ -62,7 +62,7 @@ The following outlines the current behavior of the dev server:
   3. Dev Server is notified file has been created/modified
   4. `jupyter-book build`
 
-Because of how long `jupyter-notebook build` can take, the dev server will
+Because of how long `jupyter-book build` can take, the dev server will
 automatically cancel the existing build process in case files are modified
 during the build
 
@@ -104,13 +104,13 @@ If you'd like to develop on and build the tutorials book, you should:
 
 A fully-rendered HTML version of the book will be built in `_build/html/`.
 
-### Working on the Napari Theme
+### Working on the napari Theme
 
-The Napari theme is currently work-in-progress and is stored under
+The napari theme is currently work-in-progress and is stored under
 [theme/](theme/). By default, the documentation is still using
 [Furo](https://github.com/pradyunsg/furo).
 
-To enable the Napari theme, you'll need to update [\_config.yml](_config.yml):
+To enable the napari theme, you'll need to update [\_config.yml](_config.yml):
 
 <details>
 <summary>_config.yml patch</summary>
@@ -126,7 +126,7 @@ index 0df4bfc..1388a45 100644
        - node_modules
 -    html_theme: furo
 +    # html_theme: furo
-     # (WIP) Napari theme
+     # (WIP) napari theme
 -    # html_theme: napari
 -    # html_theme_path:
 -    #   - theme
@@ -140,7 +140,7 @@ index 0df4bfc..1388a45 100644
 
 </details>
 
-To deploy with the Napari theme, you'll need to uncommend the steps in the
+To deploy with the napari theme, you'll need to uncomment the steps in the
 [deploy.yml](.github/workflows/deploy.yml) workflow:
 
 <details>

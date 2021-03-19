@@ -4,7 +4,18 @@ Source for [napari.org](https://napari.org) website.
 
 ## Usage
 
-### Setup Node.js Environment
+### Setup Dev Environment
+
+#### Python
+
+The documentation is built using `jupyter-book` and various other Python dependencies. You'll need to run the following:
+
+```sh
+# it is recommended you do this within a virtual environment
+pip install -r requirements.txt
+```
+
+#### Node.js
 
 The napari theme is built using HTML, JS, and SCSS. The JS and SCSS files are
 processed using Gulp to compile SCSS to CSS, add vendor prefixes, and minify
@@ -35,10 +46,8 @@ reload the browser whenever the theme or documentation is modified. To use
 the Dev Server, run the following commands:
 
 ```sh
-pip install -r requirements.txt
-yarn
 # Recommended to remove cached files
-make clean
+yarn clean
 # Run dev server
 yarn dev
 ```
@@ -94,13 +103,15 @@ live editing, we added the following:
 
 ### Building the book for production
 
-If you'd like to develop on and build the tutorials book, you should:
+If you'd like to develop on and build the tutorials book, you should clone
+this repository and run:
 
-- Clone this repository
-- Run `pip install -r requirements.txt` (it is recommended you do this within a virtual environment)
-- Run `yarn` or `yarn install`
-- (Recommended) Run `make clean` to remove cached files.
-- Run `make build`
+```sh
+# Recommended to remove cached files
+yarn clean
+# Build theme in production mode and run `jupyter-book build .`
+yarn build
+```
 
 A fully-rendered HTML version of the book will be built in `_build/html/`.
 

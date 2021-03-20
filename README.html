@@ -1,11 +1,12 @@
 <!doctype html>
 <html class="no-js">
   <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.03.19.beta29"/>
         <title>napari.org - napari</title>
-      <link rel="stylesheet" href="_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+      <link rel="stylesheet" href="_static/styles/furo.css?digest=ca8f8ad188754d6c0133301b749e93f9e95aff28">
     <link rel="stylesheet" href="_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
     
@@ -293,16 +294,215 @@
 <p>Source for <a class="reference external" href="https://napari.org">napari.org</a> website.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="building-the-book">
-<h3>Building the book<a class="headerlink" href="#building-the-book" title="Permalink to this headline">¶</a></h3>
-<p>If you’d like to develop on and build the tutorials book, you should:</p>
+<div class="section" id="setup-dev-environment">
+<h3>Setup Dev Environment<a class="headerlink" href="#setup-dev-environment" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="python">
+<h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
+<p>The documentation is built using <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code> and various other Python dependencies. You’ll need to run the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># it is recommended you do this within a virtual environment</span>
+pip install -r requirements.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="node-js">
+<h4>Node.js<a class="headerlink" href="#node-js" title="Permalink to this headline">¶</a></h4>
+<p>The napari theme is built using HTML, JS, and SCSS. The JS and SCSS files are
+processed using Gulp to compile SCSS to CSS, add vendor prefixes, and minify
+the result.</p>
+<p>You will need to setup Node.js and Yarn to work with the theme and run the
+dev server:</p>
 <ul class="simple">
-<li><p>Clone this repository</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> (it is recommended you do this within a virtual environment)</p></li>
-<li><p>(Recommended) Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> to remove cached files.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code></p></li>
+<li><p>Install nvm</p>
+<ul>
+<li><p>Bash: <a class="reference external" href="https://github.com/nvm-sh/nvm">nvm</a></p></li>
+<li><p>Fish: <a class="reference external" href="https://github.com/jorgebucaran/nvm.fish">nvm.fish</a></p></li>
+<li><p>Zsh: <a class="reference external" href="https://github.com/lukechilds/zsh-nvm">zsh-nvm</a></p></li>
 </ul>
+</li>
+<li><p>Then run:</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install and use Node.js version defined in .nvmrc</span>
+nvm install <span class="o">&amp;&amp;</span> nvm use
+<span class="c1"># Install yarn for installing dependencies</span>
+npm install -g yarn
+<span class="c1"># Install dependencies</span>
+yarn
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="dev-server">
+<h3>Dev Server<a class="headerlink" href="#dev-server" title="Permalink to this headline">¶</a></h3>
+<p>The Dev Server a is thin wrapper over <code class="docutils literal notranslate"><span class="pre">express</span></code> and <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code> to live
+reload the browser whenever the theme or documentation is modified. To use
+the Dev Server, run the following commands:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recommended to remove cached files</span>
+yarn clean
+<span class="c1"># Run dev server</span>
+yarn dev
+</pre></div>
+</div>
+<p>After the build is complete, you should be able to access the documentation
+at <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>.</p>
+<div class="section" id="live-reloading">
+<h4>Live Reloading<a class="headerlink" href="#live-reloading" title="Permalink to this headline">¶</a></h4>
+<p>The following outlines the current behavior of the dev server:</p>
+<ul class="simple">
+<li><p>Update documentation content: Markdown file, Jupyter notebook file, etc.</p>
+<ol class="simple">
+<li><p>Dev Server is notified file has been modified</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code></p></li>
+</ol>
+</li>
+<li><p>Update the theme’s HTML layouts</p>
+<ol class="simple">
+<li><p>Dev Server is notified file has been modified</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code></p></li>
+</ol>
+</li>
+<li><p>Update the theme’s JS/SCSS</p>
+<ol class="simple">
+<li><p>Gulp is notified file has been modified</p></li>
+<li><p>Gulp processes files to JS/CSS and outputs it to <code class="docutils literal notranslate"><span class="pre">theme/napari/static/dist</span></code></p></li>
+<li><p>Dev Server is notified file has been created/modified</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code></p></li>
+</ol>
+</li>
+</ul>
+<p>Because of how long <code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code> can take, the dev server will
+automatically cancel the existing build process in case files are modified
+during the build.</p>
+<p>When the documentation is finished building, the dev server sends a reload
+event over WebSocket to refresh the browser when a new build is available.</p>
+</div>
+<div class="section" id="background">
+<h4>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h4>
+<p>Currently, there isn’t a builtin mechanism for re-building the Jupyter book
+on file changes. There are a couple of issues with relevant discussion in
+both
+<a class="reference external" href="https://github.com/executablebooks/jupyter-book">jupyter-book</a>
+and
+<a class="reference external" href="https://github.com/executablebooks/sphinx-autobuild">sphinx-autobuild</a>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/executablebooks/jupyter-book/issues/213">https://github.com/executablebooks/jupyter-book/issues/213</a></p></li>
+<li><p><a class="reference external" href="https://github.com/executablebooks/sphinx-autobuild/issues/99">https://github.com/executablebooks/sphinx-autobuild/issues/99</a></p></li>
+</ul>
+<p>So far, not much has been done in pushing this effort forward. To achieve
+live editing, we added the following:</p>
+<ul class="simple">
+<li><p>Gulp <code class="docutils literal notranslate"><span class="pre">watch</span></code> task for processing the JS and SCSS files when they are modified</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DevServer</span></code> class in <code class="docutils literal notranslate"><span class="pre">dev-server.js</span></code> that:</p>
+<ul>
+<li><p>Sets up an <a class="reference external" href="https://expressjs.com/">express</a> server for local hosting</p></li>
+<li><p>Builds the docs with <code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code> when files are modified</p></li>
+<li><p>Reloads the browser when the build is complete using <a class="reference external" href="https://github.com/alallier/reload">reload</a></p></li>
+</ul>
+</li>
+<li><p>NPM <code class="docutils literal notranslate"><span class="pre">dev</span></code> script that runs Gulp and the dev server concurrently using <a class="reference external" href="https://github.com/mysticatea/npm-run-all">npm-run-all</a></p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">execute_notebooks:</span> <span class="pre">cache</span></code> in <span class="xref myst">_config.yml</span> to speed up subsequent builds</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="building-the-book-for-production">
+<h3>Building the book for production<a class="headerlink" href="#building-the-book-for-production" title="Permalink to this headline">¶</a></h3>
+<p>If you’d like to develop on and build the tutorials book, you should clone
+this repository and run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recommended to remove cached files</span>
+yarn clean
+<span class="c1"># Build theme in production mode and run `jupyter-book build .`</span>
+yarn build
+</pre></div>
+</div>
 <p>A fully-rendered HTML version of the book will be built in <code class="docutils literal notranslate"><span class="pre">_build/html/</span></code>.</p>
+</div>
+<div class="section" id="working-on-the-napari-theme">
+<h3>Working on the napari Theme<a class="headerlink" href="#working-on-the-napari-theme" title="Permalink to this headline">¶</a></h3>
+<p>The napari theme is currently work-in-progress and is stored under
+<span class="xref myst">theme/</span>. By default, the documentation is still using
+<a class="reference external" href="https://github.com/pradyunsg/furo">Furo</a>.</p>
+<p>To enable the napari theme, you’ll need to update <span class="xref myst">_config.yml</span>:</p>
+<details>
+<summary>_config.yml patch</summary>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gh">diff --git a/_config.yml b/_config.yml</span>
+<span class="gh">index 0df4bfc..1388a45 100644</span>
+<span class="gd">--- a/_config.yml</span>
+<span class="gi">+++ b/_config.yml</span>
+<span class="gu">@@ -39,11 +39,11 @@ sphinx:</span>
+     exclude_patterns:
+       - _build
+       - node_modules
+<span class="gd">-    html_theme: furo</span>
+<span class="gi">+    # html_theme: furo</span>
+     # (WIP) napari theme
+<span class="gd">-    # html_theme: napari</span>
+<span class="gd">-    # html_theme_path:</span>
+<span class="gd">-    #   - theme</span>
+<span class="gi">+    html_theme: napari</span>
+<span class="gi">+    html_theme_path:</span>
+<span class="gi">+      - theme</span>
+     pygments_style: solarized-dark
+     templates_path:
+       - '_templates'
+</pre></div>
+</div>
+</details>
+<p>To deploy with the napari theme, you’ll need to uncomment the steps in the
+<span class="xref myst">deploy.yml</span> workflow:</p>
+<details>
+<summary>.github/workflows/deploy.yml patch</summary>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gh">diff --git a/.github/workflows/deploy.yml b/.github/workflows/deploy.yml</span>
+<span class="gh">index c131bd6..7f826ad 100644</span>
+<span class="gd">--- a/.github/workflows/deploy.yml</span>
+<span class="gi">+++ b/.github/workflows/deploy.yml</span>
+<span class="gu">@@ -22,7 +22,7 @@ jobs:</span>
+         os: [ubuntu-latest]
+         python-version: [3.8]
+         # TODO Uncomment when napari theme is ready
+<span class="gd">-        # node-version: [15]</span>
+<span class="gi">+        node-version: [15]</span>
+     steps:
+       - uses: actions/checkout@v2.3.3
+
+<span class="gu">@@ -32,10 +32,10 @@ jobs:</span>
+           python-version: ${{ matrix.python-version }}
+
+       # TODO Uncomment when napari theme is ready
+<span class="gd">-      # - name: Set up Node.js ${{ matrix.node-version }}</span>
+<span class="gd">-      #   uses: actions/setup-node@v2</span>
+<span class="gd">-      #   with:</span>
+<span class="gd">-      #     node-version: ${{ matrix.node-version }}</span>
+<span class="gi">+      - name: Set up Node.js ${{ matrix.node-version }}</span>
+<span class="gi">+        uses: actions/setup-node@v2</span>
+<span class="gi">+        with:</span>
+<span class="gi">+          node-version: ${{ matrix.node-version }}</span>
+
+       # Install dependencies
+       - name: Install dependencies
+<span class="gu">@@ -56,8 +56,8 @@ jobs:</span>
+
+           # Install Node.js dependencies
+           # TODO Uncomment when napari theme is ready
+<span class="gd">-          # npm install -g npm</span>
+<span class="gd">-          # yarn install</span>
+<span class="gi">+          npm install -g npm</span>
+<span class="gi">+          yarn install</span>
+
+       # Test the notebooks
+       - name: Test notebooks
+<span class="gu">@@ -67,8 +67,8 @@ jobs:</span>
+
+       # TODO Uncomment when napari theme is ready
+       # Build the theme
+<span class="gd">-      # - name: Build the theme</span>
+<span class="gd">-      #   run: yarn build:prod</span>
+<span class="gi">+      - name: Build the theme</span>
+<span class="gi">+        run: yarn build:prod</span>
+
+       # Build the book
+       - name: Build the book
+</pre></div>
+</div>
+</details>
 </div>
 <div class="section" id="adding-a-new-tutorial">
 <h3>Adding a new tutorial<a class="headerlink" href="#adding-a-new-tutorial" title="Permalink to this headline">¶</a></h3>
@@ -390,7 +590,18 @@
             <ul>
 <li><a class="reference internal" href="#">napari.org</a><ul>
 <li><a class="reference internal" href="#usage">Usage</a><ul>
-<li><a class="reference internal" href="#building-the-book">Building the book</a></li>
+<li><a class="reference internal" href="#setup-dev-environment">Setup Dev Environment</a><ul>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#node-js">Node.js</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dev-server">Dev Server</a><ul>
+<li><a class="reference internal" href="#live-reloading">Live Reloading</a></li>
+<li><a class="reference internal" href="#background">Background</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-the-book-for-production">Building the book for production</a></li>
+<li><a class="reference internal" href="#working-on-the-napari-theme">Working on the napari Theme</a></li>
 <li><a class="reference internal" href="#adding-a-new-tutorial">Adding a new tutorial</a></li>
 <li><a class="reference internal" href="#hosting-the-book">Hosting the book</a></li>
 </ul>

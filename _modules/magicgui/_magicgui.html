@@ -310,7 +310,7 @@
     <span class="n">layout</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">tooltips</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">call_button</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">call_button</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">auto_call</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">result_widget</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">main_window</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -333,8 +333,10 @@
 <span class="sd">    tooltips : bool, optional</span>
 <span class="sd">        Whether tooltips are shown when hovering over widgets. by default True</span>
 <span class="sd">    call_button : bool or str, optional</span>
-<span class="sd">        If ``True``, create an additional button that calls the original function when</span>
-<span class="sd">        clicked.  If a ``str``, set the button text. by default False</span>
+<span class="sd">        If ``True``, create an additional button that calls the original</span>
+<span class="sd">        function when clicked.  If a ``str``, set the button text. If None (the</span>
+<span class="sd">        default), it defaults to True when ``auto_call`` is False, and False</span>
+<span class="sd">        otherwise.</span>
 <span class="sd">    auto_call : bool, optional</span>
 <span class="sd">        If ``True``, changing any parameter in either the GUI or the widget attributes</span>
 <span class="sd">        will call the original function with the current settings. by default False</span>
@@ -343,13 +345,13 @@
 <span class="sd">        by default False</span>
 <span class="sd">    main_window : bool</span>
 <span class="sd">        Whether this widget should be treated as the main app window, with menu bar,</span>
-<span class="sd">        by default True.</span>
+<span class="sd">        by default False.</span>
 <span class="sd">    app : magicgui.Application or str, optional</span>
 <span class="sd">        A backend to use, by default ``None`` (use the default backend.)</span>
 <span class="sd">    persist : bool, optional</span>
 <span class="sd">        If `True`, when parameter values change in the widget, they will be stored to</span>
 <span class="sd">        disk (in `~/.config/magicgui/cache`) and restored when the widget is loaded</span>
-<span class="sd">        again with ``persist = True``.  By default, `False`.</span>
+<span class="sd">        again with ``persist = True``.  By default False.</span>
 
 <span class="sd">    **param_options : dict of dict</span>
 <span class="sd">        Any additional keyword arguments will be used as parameter-specific options.</span>
@@ -385,7 +387,7 @@
     <span class="n">layout</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"vertical"</span><span class="p">,</span>
     <span class="n">labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">tooltips</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">call_button</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">call_button</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">auto_call</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">result_widget</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">main_window</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>

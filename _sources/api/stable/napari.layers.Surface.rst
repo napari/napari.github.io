@@ -27,9 +27,6 @@ napari.layers.Surface
       ~Surface.block_update_properties
    
    
-      ~Surface.get_message
-   
-   
       ~Surface.get_status
    
    
@@ -49,6 +46,9 @@ napari.layers.Surface
    
    
       ~Surface.set_view_slice
+   
+   
+      ~Surface.world_to_data
    
    
    
@@ -88,7 +88,6 @@ napari.layers.Surface
       ~Surface.scale
       ~Surface.selected
       ~Surface.shear
-      ~Surface.status
       ~Surface.thumbnail
       ~Surface.translate
       ~Surface.translate_grid

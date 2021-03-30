@@ -30,9 +30,6 @@ napari.layers.Points
       ~Points.block_update_properties
    
    
-      ~Points.get_message
-   
-   
       ~Points.get_status
    
    
@@ -58,6 +55,9 @@ napari.layers.Points
    
    
       ~Points.set_view_slice
+   
+   
+      ~Points.world_to_data
    
    
    
@@ -110,7 +110,6 @@ napari.layers.Points
       ~Points.selected_data
       ~Points.shear
       ~Points.size
-      ~Points.status
       ~Points.symbol
       ~Points.text
       ~Points.thumbnail

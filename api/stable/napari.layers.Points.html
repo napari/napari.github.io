@@ -158,6 +158,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_7.html">napari 0.4.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
@@ -881,6 +882,10 @@ blend_func=(‘src_alpha’, ‘one’).</p>
 <dt id="napari.layers.Points.displayed_coordinates">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">displayed_coordinates</span></code><a class="headerlink" href="#napari.layers.Points.displayed_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of currently displayed coordinates.</p>
+<p>displayed_coordinates is deprecated and will be removed in version 0.4.9.
+It should no longer be used as layers should will soon not know
+which dimensions are displayed. Instead you should use
+<a href="#id4"><span class="problematic" id="id5">`</span></a>[layer.coordinates[d] for d in viewer.dims.displayed]</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
@@ -888,8 +893,8 @@ blend_func=(‘src_alpha’, ‘one’).</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id4">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_color</span></code><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dt id="id6">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_color</span></code><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
 <dd><p>Array of RGBA edge colors for each point</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -901,8 +906,8 @@ blend_func=(‘src_alpha’, ‘one’).</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id5">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_color_cycle</span></code><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dt id="id7">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_color_cycle</span></code><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
 <dd><p>Color cycle for edge_color.
 Can be a list of colors defined by name, RGB or RGBA</p>
 <dl class="field-list simple">
@@ -915,8 +920,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id6">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_color_mode</span></code><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dt id="id8">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_color_mode</span></code><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
 <dd><p>Edge color setting mode</p>
 <p>DIRECT (default mode) allows each point to be set arbitrarily</p>
 <p>CYCLE allows the color to be set via a color cycle over an attribute</p>
@@ -931,8 +936,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id7">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_colormap</span></code><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dt id="id9">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_colormap</span></code><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the colormap to be applied to a property to get the edge color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -944,8 +949,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id8">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_contrast_limits</span></code><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dt id="id10">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_contrast_limits</span></code><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
 <dd><p>contrast limits for mapping
 the edge_color colormap property to 0 and 1</p>
 <dl class="field-list simple">
@@ -958,8 +963,8 @@ the edge_color colormap property to 0 and 1</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id9">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_width</span></code><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
+<dt id="id11">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edge_width</span></code><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
 <dd><p>width used for all point markers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -991,8 +996,8 @@ the edge_color colormap property to 0 and 1</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id10">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_color</span></code><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
+<dt id="id12">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_color</span></code><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
 <dd><p>Array of RGBA face colors for each point</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1004,8 +1009,8 @@ the edge_color colormap property to 0 and 1</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id11">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_color_cycle</span></code><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
+<dt id="id13">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_color_cycle</span></code><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
 <dd><p>Color cycle for face_color
 Can be a list of colors defined by name, RGB or RGBA</p>
 <dl class="field-list simple">
@@ -1018,8 +1023,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id12">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_color_mode</span></code><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
+<dt id="id14">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_color_mode</span></code><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
 <dd><p>Face color setting mode</p>
 <p>DIRECT (default mode) allows each point to be set arbitrarily</p>
 <p>CYCLE allows the color to be set via a color cycle over an attribute</p>
@@ -1034,8 +1039,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id13">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_colormap</span></code><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
+<dt id="id15">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_colormap</span></code><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the colormap to be applied to a property to get the face color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1047,8 +1052,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id14">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_contrast_limits</span></code><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
+<dt id="id16">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">face_contrast_limits</span></code><a class="headerlink" href="#id16" title="Permalink to this definition">¶</a></dt>
 <dd><p>clims for mapping the face_color
 colormap property to 0 and 1</p>
 <dl class="field-list simple">
@@ -1061,21 +1066,8 @@ colormap property to 0 and 1</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.layers.Points.get_message">
-<code class="sig-name descname"><span class="pre">get_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Points.get_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a status message based on the coordinates and value</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>msg</strong> – String containing a message that can be used as a status update.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>string</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
 <dt id="napari.layers.Points.get_status">
-<code class="sig-name descname"><span class="pre">get_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Points.get_status" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Points.get_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Status message of the data at a coordinate position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1095,8 +1087,9 @@ and converted into data coordinates. False by default.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt id="napari.layers.Points.get_value">
-<code class="sig-name descname"><span class="pre">get_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Points.get_value" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Points.get_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value of the data at a position.</p>
+<p>If the layer is not visible, return None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1106,7 +1099,7 @@ and converted into data coordinates. False by default.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>value</strong> – Value of the data.</p>
+<dd class="field-even"><p><strong>value</strong> – Value of the data. If the layer is not visible return None.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
@@ -1163,8 +1156,8 @@ Derived classes that do asynchronous loading can override this.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id15">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">mode</span></code><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
+<dt id="id17">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">mode</span></code><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interactive mode</p>
 <p>Interactive mode. The normal, default mode is PAN_ZOOM, which
 allows for normal interactivity with the canvas.</p>
@@ -1182,8 +1175,8 @@ have their properties edited, or be deleted.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id16">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">n_dimensional</span></code><a class="headerlink" href="#id16" title="Permalink to this definition">¶</a></dt>
+<dt id="id18">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">n_dimensional</span></code><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
 <dd><p>renders points as n-dimensionsal.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1235,8 +1228,8 @@ have their properties edited, or be deleted.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id17">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">properties</span></code><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
+<dt id="id19">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">properties</span></code><a class="headerlink" href="#id19" title="Permalink to this definition">¶</a></dt>
 <dd><p>Annotations for each point</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1258,17 +1251,18 @@ have their properties edited, or be deleted.</p>
 <dl class="py method">
 <dt id="napari.layers.Points.refresh_colors">
 <code class="sig-name descname"><span class="pre">refresh_colors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_color_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/layers/points/points.html#Points.refresh_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Points.refresh_colors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate and update face and edge colors if using a cycle or color map</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>update_color_mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If set to True, the function will recalculate the color cycle map
-or colormap (whichever is being used). If set to False, the function
+<dd><p>Calculate and update face and edge colors if using a cycle or color map
+:type update_color_mapping: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>
+:param update_color_mapping: If set to True, the function will recalculate the color cycle map</p>
+<blockquote>
+<div><p>or colormap (whichever is being used). If set to False, the function
 will use the current color cycle map or color map. For example, if you
 are adding/modifying points and want them to be colored with the same
 mapping as the other points (i.e., the new points shouldn’t affect
 the color cycle map or colormap), set update_color_mapping=False.
 Default value is False.</p>
-</dd>
+</div></blockquote>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 <dl class="py method">
@@ -1336,8 +1330,8 @@ through to find the first one that can save the data.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id18">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">selected_data</span></code><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
+<dt id="id20">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">selected_data</span></code><a class="headerlink" href="#id20" title="Permalink to this definition">¶</a></dt>
 <dd><p>set of currently selected points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1359,8 +1353,8 @@ through to find the first one that can save the data.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id19">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">size</span></code><a class="headerlink" href="#id19" title="Permalink to this definition">¶</a></dt>
+<dt id="id21">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">size</span></code><a class="headerlink" href="#id21" title="Permalink to this definition">¶</a></dt>
 <dd><p>size of all N points in D dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1372,18 +1366,8 @@ through to find the first one that can save the data.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.layers.Points.status">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">status</span></code><a class="headerlink" href="#napari.layers.Points.status" title="Permalink to this definition">¶</a></dt>
-<dd><p>displayed in status bar bottom left.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt id="id20">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">symbol</span></code><a class="headerlink" href="#id20" title="Permalink to this definition">¶</a></dt>
+<dt id="id22">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">symbol</span></code><a class="headerlink" href="#id22" title="Permalink to this definition">¶</a></dt>
 <dd><p>symbol used for all point markers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1395,8 +1379,8 @@ through to find the first one that can save the data.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id21">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">text</span></code><a class="headerlink" href="#id21" title="Permalink to this definition">¶</a></dt>
+<dt id="id23">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">text</span></code><a class="headerlink" href="#id23" title="Permalink to this definition">¶</a></dt>
 <dd><p>the TextManager object containing containing the text properties</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1444,6 +1428,24 @@ through to find the first one that can save the data.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.layers.Points.world_to_data">
+<code class="sig-name descname"><span class="pre">world_to_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Points.world_to_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert from world coordinates to data coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, </em><em>1D array</em>) – Position in world coorindates. If longer then the
+number of dimensions of the layer, the later
+dimensions will be used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Position in data coordinates.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>

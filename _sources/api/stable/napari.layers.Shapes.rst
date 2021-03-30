@@ -36,9 +36,6 @@ napari.layers.Shapes
       ~Shapes.expand_shape
    
    
-      ~Shapes.get_message
-   
-   
       ~Shapes.get_status
    
    
@@ -76,6 +73,9 @@ napari.layers.Shapes
    
    
       ~Shapes.to_masks
+   
+   
+      ~Shapes.world_to_data
    
    
    
@@ -128,7 +128,6 @@ napari.layers.Shapes
       ~Shapes.selected_data
       ~Shapes.shape_type
       ~Shapes.shear
-      ~Shapes.status
       ~Shapes.text
       ~Shapes.thumbnail
       ~Shapes.translate

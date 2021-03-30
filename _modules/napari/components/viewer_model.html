@@ -158,6 +158,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_7.html">napari 0.4.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_6.html">napari 0.4.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_5.html">napari 0.4.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_4.html">napari 0.4.4</a></li>
@@ -293,6 +294,7 @@
 <span></span><span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
@@ -313,7 +315,6 @@
 <span class="kn">from</span> <span class="nn">..layers</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">..layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
 <span class="kn">from</span> <span class="nn">..layers.utils.stack_utils</span> <span class="kn">import</span> <span class="n">split_channels</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">config</span>
 <span class="kn">from</span> <span class="nn">..utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
 <span class="kn">from</span> <span class="nn">..utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
 <span class="kn">from</span> <span class="nn">..utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">,</span> <span class="n">disconnect_events</span>
@@ -374,17 +375,17 @@
 <span class="sd">        Contains axes, indices, dimensions and sliders.</span>
 <span class="sd">    """</span>
 
-    <span class="c1"># After https://github.com/samuelcolvin/pydantic/pull/2196 is released</span>
-    <span class="c1"># make all of these fields with allow_mutation=False</span>
-    <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="n">Axes</span><span class="p">()</span>
-    <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span>
-    <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Cursor</span><span class="p">()</span>
-    <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Dims</span><span class="p">()</span>
-    <span class="n">grid</span><span class="p">:</span> <span class="n">GridCanvas</span> <span class="o">=</span> <span class="n">GridCanvas</span><span class="p">()</span>
+    <span class="c1"># Using allow_mutation=False means these attributes aren't settable and don't</span>
+    <span class="c1"># have an event emitter associated with them</span>
+    <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Axes</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Dims</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">GridCanvas</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">GridCanvas</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>  <span class="c1"># Need to create custom JSON encoder for layer!</span>
-    <span class="n">scale_bar</span><span class="p">:</span> <span class="n">ScaleBar</span> <span class="o">=</span> <span class="n">ScaleBar</span><span class="p">()</span>
+    <span class="n">scale_bar</span><span class="p">:</span> <span class="n">ScaleBar</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ScaleBar</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="n">active_layer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
         <span class="n">Layer</span>
@@ -614,8 +615,13 @@
 
     <span class="k">def</span> <span class="nf">_on_cursor_position_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">"""Set the layer cursor position."""</span>
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-            <span class="n">layer</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="c1"># Catch the deprecation warning on layer.position</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
+                <span class="s1">'ignore'</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">'layer.position is deprecated'</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+                <span class="n">layer</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span>
 
         <span class="c1"># Update status and help bar based on active layer</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -684,15 +690,6 @@
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_update_name</span><span class="p">)</span>
 
-        <span class="c1"># For the labels layer we need to reset the undo/ redo</span>
-        <span class="c1"># history whenever the displayed slice changes. Once</span>
-        <span class="c1"># we have full undo/ redo functionality, this can be</span>
-        <span class="c1"># dropped.</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">'_reset_history'</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
-
         <span class="c1"># Make layer selected and unselect all others</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">unselect_all</span><span class="p">(</span><span class="n">ignore</span><span class="o">=</span><span class="n">layer</span><span class="p">)</span>
@@ -725,11 +722,6 @@
         <span class="n">disconnect_events</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="n">disconnect_events</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 
-        <span class="c1"># For the labels layer disconnect history resets</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">'_reset_history'</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_grid_change</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
@@ -933,9 +925,6 @@
             <span class="s1">'metadata'</span><span class="p">,</span>
         <span class="p">}</span>
 
-        <span class="c1"># Image or OctreeImage.</span>
-        <span class="n">image_class</span> <span class="o">=</span> <span class="n">_get_image_class</span><span class="p">()</span>
-
         <span class="k">if</span> <span class="n">channel_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">'colormap'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">'colormap'</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'gray'</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">'blending'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">'blending'</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'translucent'</span>
@@ -947,7 +936,7 @@
                         <span class="sa">f</span><span class="s2">"Received sequence for argument '</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">', "</span>
                         <span class="s2">"did you mean to specify a 'channel_axis'? "</span>
                     <span class="p">)</span>
-            <span class="n">layer</span> <span class="o">=</span> <span class="n">image_class</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">layer</span>
@@ -956,7 +945,7 @@
 
             <span class="n">layer_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">i_kwargs</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">layerdata_list</span><span class="p">:</span>
-                <span class="n">layer</span> <span class="o">=</span> <span class="n">image_class</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">i_kwargs</span><span class="p">)</span>
+                <span class="n">layer</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">i_kwargs</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
                 <span class="n">layer_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
@@ -1025,7 +1014,6 @@
                     <span class="n">_path</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-
         <span class="k">return</span> <span class="n">added</span></div>
 
     <span class="k">def</span> <span class="nf">_add_layers_with_plugins</span><span class="p">(</span>
@@ -1175,16 +1163,6 @@
                 <span class="k">raise</span> <span class="n">exc</span>
 
         <span class="k">return</span> <span class="n">layer</span></div>
-
-
-<span class="k">def</span> <span class="nf">_get_image_class</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Image</span><span class="p">:</span>
-    <span class="sd">"""Return Image or OctreeImage based config settings."""</span>
-    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">..layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">OctreeImage</span>
-
-        <span class="k">return</span> <span class="n">OctreeImage</span>
-
-    <span class="k">return</span> <span class="n">Image</span>
 
 
 <span class="k">def</span> <span class="nf">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="s1">'LayerData'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'FullLayerData'</span><span class="p">:</span>

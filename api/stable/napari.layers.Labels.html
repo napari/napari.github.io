@@ -158,6 +158,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_7.html">napari 0.4.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
@@ -775,6 +776,10 @@ blend_func=(‘src_alpha’, ‘one’).</p>
 <dt id="napari.layers.Labels.displayed_coordinates">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">displayed_coordinates</span></code><a class="headerlink" href="#napari.layers.Labels.displayed_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of currently displayed coordinates.</p>
+<p>displayed_coordinates is deprecated and will be removed in version 0.4.9.
+It should no longer be used as layers should will soon not know
+which dimensions are displayed. Instead you should use
+<a href="#id5"><span class="problematic" id="id6">`</span></a>[layer.coordinates[d] for d in viewer.dims.displayed]</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
@@ -836,19 +841,6 @@ calls.</p></li>
 <dd><p>Return the color corresponding to a specific label.</p>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.layers.Labels.get_message">
-<code class="sig-name descname"><span class="pre">get_message</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Labels.get_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a status message based on the coordinates and value</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>msg</strong> – String containing a message that can be used as a status update.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>string</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
 <dt id="napari.layers.Labels.get_status">
 <code class="sig-name descname"><span class="pre">get_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/layers/labels/labels.html#Labels.get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels.get_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Status message of the data at a coordinate position.</p>
@@ -870,8 +862,9 @@ and converted into data coordinates. False by default.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt id="napari.layers.Labels.get_value">
-<code class="sig-name descname"><span class="pre">get_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Labels.get_value" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Labels.get_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value of the data at a position.</p>
+<p>If the layer is not visible, return None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -881,7 +874,7 @@ and converted into data coordinates. False by default.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>value</strong> – Value of the data.</p>
+<dd class="field-even"><p><strong>value</strong> – Value of the data. If the layer is not visible return None.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
@@ -957,8 +950,8 @@ vispy/gloo/glsl/misc/spatial_filters.frag</p>
 for the current slice has not been loaded.</p>
 </dd></dl>
 <dl class="py method">
-<dt id="id5">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">mode</span></code><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dt id="id7">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">mode</span></code><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interactive mode. The normal, default mode is PAN_ZOOM, which
 allows for normal interactivity with the canvas.</p>
 <p>In PICK mode the cursor functions like a color picker, setting the
@@ -984,8 +977,8 @@ paint with background label, which effectively removes the label.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id6">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">n_dimensional</span></code><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dt id="id8">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">n_dimensional</span></code><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
 <dd><p>paint and fill edits labels across all dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1014,8 +1007,8 @@ paint with background label, which effectively removes the label.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id7">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">num_colors</span></code><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dt id="id9">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">num_colors</span></code><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of unique colors to use in colormap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1024,8 +1017,8 @@ paint with background label, which effectively removes the label.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id8">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">opacity</span></code><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dt id="id10">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">opacity</span></code><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
 <dd><p>Opacity value between 0.0 and 1.0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1068,8 +1061,8 @@ calls.</p></li>
 set to true, existing labels will be preserved during painting.</p>
 </dd></dl>
 <dl class="py method">
-<dt id="id9">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">properties</span></code><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
+<dt id="id11">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">properties</span></code><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
 <dd><p>Properties for each label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1174,8 +1167,8 @@ through to find the first one that can save the data.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id10">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">seed</span></code><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
+<dt id="id12">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">seed</span></code><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
 <dd><p>Seed for colormap random generator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1194,8 +1187,8 @@ through to find the first one that can save the data.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="id11">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">selected_label</span></code><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
+<dt id="id13">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">selected_label</span></code><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
 <dd><p>Index of selected label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1217,16 +1210,6 @@ through to find the first one that can save the data.</p></li>
 <dt id="napari.layers.Labels.show_selected_label">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">show_selected_label</span></code><a class="headerlink" href="#napari.layers.Labels.show_selected_label" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether to filter displayed labels to only the selected label or not</p>
-</dd></dl>
-<dl class="py method">
-<dt id="napari.layers.Labels.status">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">status</span></code><a class="headerlink" href="#napari.layers.Labels.status" title="Permalink to this definition">¶</a></dt>
-<dd><p>displayed in status bar bottom left.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt id="napari.layers.Labels.thumbnail">
@@ -1265,6 +1248,24 @@ through to find the first one that can save the data.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.layers.Labels.world_to_data">
+<code class="sig-name descname"><span class="pre">world_to_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Labels.world_to_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert from world coordinates to data coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, </em><em>1D array</em>) – Position in world coorindates. If longer then the
+number of dimensions of the layer, the later
+dimensions will be used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Position in data coordinates.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>

@@ -158,6 +158,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_7.html">napari 0.4.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_6.html">napari 0.4.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_5.html">napari 0.4.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_4.html">napari 0.4.4</a></li>
@@ -293,34 +294,26 @@
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span><span class="p">,</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">cycle</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span><span class="p">,</span> <span class="n">ensure_colormap</span>
+<span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span>
 <span class="kn">from</span> <span class="nn">...utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_color_namelist</span><span class="p">,</span>
     <span class="n">hex_to_name</span><span class="p">,</span>
     <span class="n">rgb_to_hex</span><span class="p">,</span>
-    <span class="n">transform_color</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Layer</span>
-<span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ColorType</span><span class="p">,</span>
-    <span class="n">normalize_and_broadcast_colors</span><span class="p">,</span>
-    <span class="n">transform_color_cycle</span><span class="p">,</span>
-    <span class="n">transform_color_with_defaults</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">dataframe_to_properties</span><span class="p">,</span>
-    <span class="n">guess_continuous</span><span class="p">,</span>
-    <span class="n">map_property</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..utils._color_manager_constants</span> <span class="kn">import</span> <span class="n">ColorMode</span>
+<span class="kn">from</span> <span class="nn">..utils.color_manager</span> <span class="kn">import</span> <span class="n">ColorManager</span>
+<span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
+<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">dataframe_to_properties</span>
 <span class="kn">from</span> <span class="nn">..utils.text</span> <span class="kn">import</span> <span class="n">TextManager</span>
-<span class="kn">from</span> <span class="nn">._points_constants</span> <span class="kn">import</span> <span class="n">SYMBOL_ALIAS</span><span class="p">,</span> <span class="n">ColorMode</span><span class="p">,</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">Symbol</span>
+<span class="kn">from</span> <span class="nn">._points_constants</span> <span class="kn">import</span> <span class="n">SYMBOL_ALIAS</span><span class="p">,</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">Symbol</span>
 <span class="kn">from</span> <span class="nn">._points_mouse_bindings</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">highlight</span><span class="p">,</span> <span class="n">select</span>
-<span class="kn">from</span> <span class="nn">._points_utils</span> <span class="kn">import</span> <span class="n">create_box</span><span class="p">,</span> <span class="n">points_to_squares</span>
+<span class="kn">from</span> <span class="nn">._points_utils</span> <span class="kn">import</span> <span class="n">create_box</span><span class="p">,</span> <span class="n">fix_data_points</span><span class="p">,</span> <span class="n">points_to_squares</span>
 
 <span class="n">DEFAULT_COLOR_CYCLE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 
@@ -554,16 +547,10 @@
         <span class="n">blending</span><span class="o">=</span><span class="s1">'translucent'</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">ndim</span> <span class="o">=</span> <span class="mi">2</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">ndim</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-            <span class="n">data_ndim</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ndim</span> <span class="o">!=</span> <span class="n">data_ndim</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Points dimensions must be equal to ndim"</span><span class="p">)</span>
-            <span class="n">ndim</span> <span class="o">=</span> <span class="n">data_ndim</span>
+        <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+
+        <span class="n">data</span><span class="p">,</span> <span class="n">ndim</span> <span class="o">=</span> <span class="n">fix_data_points</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
@@ -602,8 +589,9 @@
 
         <span class="c1"># Save the properties</span>
         <span class="k">if</span> <span class="n">properties</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">properties</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="n">properties</span>
         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">properties</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
@@ -672,32 +660,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_round_index</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="o">=</span> <span class="s1">''</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span> <span class="o">=</span> <span class="n">edge_color</span>
-            <span class="k">if</span> <span class="n">edge_color_cycle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">edge_color_cycle</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">DEFAULT_COLOR_CYCLE</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle</span> <span class="o">=</span> <span class="n">edge_color_cycle</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle_map</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span> <span class="o">=</span> <span class="n">edge_colormap</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_contrast_limits</span> <span class="o">=</span> <span class="n">edge_contrast_limits</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_face_color_property</span> <span class="o">=</span> <span class="s1">''</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span> <span class="o">=</span> <span class="n">face_color</span>
-            <span class="k">if</span> <span class="n">face_color_cycle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">face_color_cycle</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">DEFAULT_COLOR_CYCLE</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">face_color_cycle</span> <span class="o">=</span> <span class="n">face_color_cycle</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">face_color_cycle_map</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">face_colormap</span> <span class="o">=</span> <span class="n">face_colormap</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_face_contrast_limits</span> <span class="o">=</span> <span class="n">face_contrast_limits</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span> <span class="o">=</span> <span class="n">ColorManager</span><span class="o">.</span><span class="n">_from_layer_kwargs</span><span class="p">(</span>
+            <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+            <span class="n">colors</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
+            <span class="n">continuous_colormap</span><span class="o">=</span><span class="n">edge_colormap</span><span class="p">,</span>
+            <span class="n">contrast_limits</span><span class="o">=</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
+            <span class="n">categorical_colormap</span><span class="o">=</span><span class="n">edge_color_cycle</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span> <span class="o">=</span> <span class="n">ColorManager</span><span class="o">.</span><span class="n">_from_layer_kwargs</span><span class="p">(</span>
+            <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+            <span class="n">colors</span><span class="o">=</span><span class="n">face_color</span><span class="p">,</span>
+            <span class="n">continuous_colormap</span><span class="o">=</span><span class="n">face_colormap</span><span class="p">,</span>
+            <span class="n">contrast_limits</span><span class="o">=</span><span class="n">face_contrast_limits</span><span class="p">,</span>
+            <span class="n">categorical_colormap</span><span class="o">=</span><span class="n">face_color_cycle</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-        <span class="c1"># set the current_* properties</span>
+
+        <span class="c1"># set the current_properties</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_current_face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
             <span class="p">}</span>
@@ -706,62 +689,11 @@
                 <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
                 <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
             <span class="p">}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_current_color_for_empty_layer</span><span class="p">(</span><span class="n">edge_color</span><span class="p">,</span> <span class="s1">'edge'</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_current_color_for_empty_layer</span><span class="p">(</span><span class="n">face_color</span><span class="p">,</span> <span class="s1">'face'</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_current_face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_initialize_current_color_for_empty_layer</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">ColorType</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="p">):</span>
-        <span class="sd">"""Initialize current_{edge,face}_color when starting with empty layer.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        color : (N, 4) array or str</span>
-<span class="sd">            The value for setting edge or face_color</span>
-<span class="sd">        attribute : str in {'edge', 'face'}</span>
-<span class="sd">            The name of the attribute to set the color of.</span>
-<span class="sd">            Should be 'edge' for edge_color or 'face' for face_color.</span>
-<span class="sd">        """</span>
-        <span class="n">color_mode</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span>
-            <span class="n">curr_color</span> <span class="o">=</span> <span class="n">transform_color_with_defaults</span><span class="p">(</span>
-                <span class="n">num_entries</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="n">colors</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
-                <span class="n">elem_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">,</span>
-                <span class="n">default</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
-            <span class="p">)</span>
-
-        <span class="k">elif</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">:</span>
-            <span class="n">color_cycle</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle'</span><span class="p">)</span>
-            <span class="n">curr_color</span> <span class="o">=</span> <span class="n">transform_color</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">))</span>
-
-            <span class="c1"># add the new color cycle mapping</span>
-            <span class="n">color_property</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">)</span>
-            <span class="n">prop_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span><span class="p">[</span><span class="n">color_property</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">color_cycle_map</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_map'</span><span class="p">)</span>
-            <span class="n">color_cycle_map</span><span class="p">[</span><span class="n">prop_value</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">curr_color</span><span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_map'</span><span class="p">,</span> <span class="n">color_cycle_map</span><span class="p">)</span>
-
-        <span class="k">elif</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">:</span>
-            <span class="n">color_property</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">)</span>
-            <span class="n">prop_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span><span class="p">[</span><span class="n">color_property</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">colormap</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_colormap'</span><span class="p">)</span>
-            <span class="n">contrast_limits</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_contrast_limits'</span><span class="p">)</span>
-            <span class="n">curr_color</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">map_property</span><span class="p">(</span>
-                <span class="n">prop</span><span class="o">=</span><span class="n">prop_value</span><span class="p">,</span>
-                <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span>
-                <span class="n">contrast_limits</span><span class="o">=</span><span class="n">contrast_limits</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_current_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">,</span> <span class="n">curr_color</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -769,56 +701,66 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
 
     <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fix_data_points</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
         <span class="n">cur_npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
 
         <span class="c1"># Adjust the size array when the number of points has changed</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">cur_npoints</span><span class="p">:</span>
-            <span class="c1"># If there are now fewer points, remove the size and colors of the</span>
-            <span class="c1"># extra ones</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="o">.</span><span class="n">blocker</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">cur_npoints</span><span class="p">:</span>
+                        <span class="c1"># If there are now fewer points, remove the size and colors of the</span>
+                        <span class="c1"># extra ones</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span>
+                                <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+                            <span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span>
+                                <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+                            <span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
 
-                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">][:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
+                        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">][</span>
+                                <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                            <span class="p">]</span>
 
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">cur_npoints</span><span class="p">:</span>
-            <span class="c1"># If there are now more points, add the size and colors of the</span>
-            <span class="c1"># new ones</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="o">.</span><span class="n">blocker</span><span class="p">():</span>
-                <span class="n">adding</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">cur_npoints</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">new_size</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">:</span>
-                        <span class="n">new_size</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># Add the default size, with a value for each dimension</span>
-                    <span class="n">new_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="p">)</span>
-                <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">new_size</span><span class="p">],</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">cur_npoints</span><span class="p">:</span>
+                        <span class="c1"># If there are now more points, add the size and colors of the</span>
+                        <span class="c1"># new ones</span>
+                        <span class="n">adding</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">cur_npoints</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">new_size</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">:</span>
+                                <span class="n">new_size</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># Add the default size, with a value for each dimension</span>
+                            <span class="n">new_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="p">)</span>
+                        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">new_size</span><span class="p">],</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
-                    <span class="n">new_property</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
-                    <span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">new_property</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
-                    <span class="p">)</span>
+                        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+                            <span class="n">new_property</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+                            <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">new_property</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+                            <span class="p">)</span>
 
-                <span class="c1"># add new edge colors</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_add_point_color</span><span class="p">(</span><span class="n">adding</span><span class="p">,</span> <span class="s1">'edge'</span><span class="p">)</span>
+                        <span class="c1"># add new colors</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="n">adding</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="n">adding</span><span class="p">)</span>
 
-                <span class="c1"># add new face colors</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_add_point_color</span><span class="p">(</span><span class="n">adding</span><span class="p">,</span> <span class="s1">'face'</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cur_npoints</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+                        <span class="p">)</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cur_npoints</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">,</span> <span class="n">adding</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">,</span> <span class="n">adding</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
@@ -841,61 +783,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">deselect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_add_point_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adding</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">"""Add the edge or face colors for new points.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        adding : int</span>
-<span class="sd">            the number of points that were added</span>
-<span class="sd">            (and thus the number of color entries to add)</span>
-<span class="sd">        attribute : str in {'edge', 'face'}</span>
-<span class="sd">            The name of the attribute to set the color of.</span>
-<span class="sd">            Should be 'edge' for edge_colo_moder or 'face' for face_color_mode.</span>
-<span class="sd">        """</span>
-        <span class="n">color_mode</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span>
-            <span class="n">current_face_color</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_current_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">)</span>
-            <span class="n">new_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">current_face_color</span><span class="p">,</span> <span class="p">(</span><span class="n">adding</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">:</span>
-            <span class="n">property_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">)</span>
-            <span class="n">color_property_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">property_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="c1"># check if the new color property is in the cycle map</span>
-            <span class="c1"># and add it if it is not</span>
-            <span class="n">color_cycle_map</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_map'</span><span class="p">)</span>
-            <span class="n">color_cycle_keys</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">color_cycle_map</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">color_property_value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">color_cycle_keys</span><span class="p">:</span>
-                <span class="n">color_cycle</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle'</span><span class="p">)</span>
-                <span class="n">color_cycle_map</span><span class="p">[</span><span class="n">color_property_value</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span>
-                    <span class="n">transform_color</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">))</span>
-                <span class="p">)</span>
-
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_map'</span><span class="p">,</span> <span class="n">color_cycle_map</span><span class="p">)</span>
-
-            <span class="n">new_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span>
-                <span class="n">color_cycle_map</span><span class="p">[</span><span class="n">color_property_value</span><span class="p">],</span> <span class="p">(</span><span class="n">adding</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">:</span>
-            <span class="n">property_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">)</span>
-            <span class="n">color_property_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">property_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">colormap</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_colormap'</span><span class="p">)</span>
-            <span class="n">contrast_limits</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_contrast_limits'</span><span class="p">)</span>
-
-            <span class="n">fc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">map_property</span><span class="p">(</span>
-                <span class="n">prop</span><span class="o">=</span><span class="n">color_property_value</span><span class="p">,</span>
-                <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span>
-                <span class="n">contrast_limits</span><span class="o">=</span><span class="n">contrast_limits</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">new_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">fc</span><span class="p">,</span> <span class="p">(</span><span class="n">adding</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="n">colors</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">,</span> <span class="n">new_colors</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">setattr</span><span class="p">(</span>
-                <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">colors</span><span class="p">,</span> <span class="n">new_colors</span><span class="p">))</span>
-            <span class="p">)</span>
-
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">"""dict {str: np.ndarray (N,)}, DataFrame: Annotations for each point"""</span>
@@ -906,21 +793,35 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">properties</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_color_property</span> <span class="ow">and</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_face_color_property</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
-        <span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_face_color_property</span> <span class="o">=</span> <span class="s1">''</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">'property used for face_color dropped'</span><span class="p">,</span> <span class="ne">RuntimeWarning</span>
-            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s1">'property used for face_color dropped'</span><span class="p">,</span> <span class="ne">RuntimeWarning</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">face_color_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">'name'</span><span class="p">:</span> <span class="n">face_color_name</span><span class="p">,</span>
+                    <span class="s1">'values'</span><span class="p">:</span> <span class="n">properties</span><span class="p">[</span><span class="n">face_color_name</span><span class="p">],</span>
+                    <span class="s1">'current_value'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">face_color_name</span><span class="p">],</span>
+                <span class="p">}</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="ow">and</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
-        <span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_property</span> <span class="o">=</span> <span class="s1">''</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">'property used for edge_color dropped'</span><span class="p">,</span> <span class="ne">RuntimeWarning</span>
-            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s1">'property used for edge_color dropped'</span><span class="p">,</span> <span class="ne">RuntimeWarning</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">edge_color_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">'name'</span><span class="p">:</span> <span class="n">edge_color_name</span><span class="p">,</span>
+                    <span class="s1">'values'</span><span class="p">:</span> <span class="n">properties</span><span class="p">[</span><span class="n">edge_color_name</span><span class="p">],</span>
+                    <span class="s1">'current_value'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">edge_color_name</span><span class="p">],</span>
+                <span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_text</span><span class="p">()</span>
@@ -945,7 +846,8 @@
                 <span class="n">props</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)]</span> <span class="o">=</span> <span class="n">current_properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">props</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_properties</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_validate_properties</span><span class="p">(</span>
@@ -1079,25 +981,31 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">"""(N x 4) np.ndarray: Array of RGBA edge colors for each point"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span>
 
     <span class="nd">@edge_color</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_color</span><span class="p">(</span><span class="n">edge_color</span><span class="p">,</span> <span class="s1">'edge'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_set_color</span><span class="p">(</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
+            <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+            <span class="n">current_properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">"""Union[list, np.ndarray] :  Color cycle for edge_color.</span>
 <span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_cycle_values</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">categorical_colormap</span><span class="o">.</span><span class="n">fallback_color</span><span class="o">.</span><span class="n">values</span>
 
     <span class="nd">@edge_color_cycle</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_cycle</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_color_cycle</span><span class="p">(</span><span class="n">edge_color_cycle</span><span class="p">,</span> <span class="s1">'edge'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">categorical_colormap</span> <span class="o">=</span> <span class="n">edge_color_cycle</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Colormap</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Colormap</span><span class="p">:</span>
         <span class="sd">"""Return the colormap to be applied to a property to get the edge color.</span>
 
 <span class="sd">        Returns</span>
@@ -1105,43 +1013,44 @@
 <span class="sd">        colormap : napari.utils.Colormap</span>
 <span class="sd">            The Colormap object.</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_colormap</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">continuous_colormap</span>
 
     <span class="nd">@edge_colormap</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">continuous_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">"""None, (float, float): contrast limits for mapping</span>
 <span class="sd">        the edge_color colormap property to 0 and 1</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_contrast_limits</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">contrast_limits</span>
 
     <span class="nd">@edge_contrast_limits</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">edge_contrast_limits</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
     <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_edge_contrast_limits</span> <span class="o">=</span> <span class="n">contrast_limits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="n">contrast_limits</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">"""str: Edge color of marker for the next added point or the selected point(s)."""</span>
-        <span class="n">hex_</span> <span class="o">=</span> <span class="n">rgb_to_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_color</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">hex_</span> <span class="o">=</span> <span class="n">rgb_to_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">current_color</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">hex_to_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hex_</span><span class="p">,</span> <span class="n">hex_</span><span class="p">)</span>
 
     <span class="nd">@current_edge_color</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">current_edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color</span><span class="p">:</span> <span class="n">ColorType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_color</span> <span class="o">=</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">edge_color</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span>
             <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">!=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span>
         <span class="p">):</span>
-            <span class="n">cur_colors</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
-            <span class="n">cur_colors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_color</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span> <span class="o">=</span> <span class="n">cur_colors</span>
+            <span class="n">update_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">update_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_update_current_color</span><span class="p">(</span>
+            <span class="n">edge_color</span><span class="p">,</span> <span class="n">update_indices</span><span class="o">=</span><span class="n">update_indices</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_edge_color</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -1154,7 +1063,7 @@
 
 <span class="sd">        COLORMAP allows color to be set via a color map over an attribute</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_color_mode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span>
 
     <span class="nd">@edge_color_mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">edge_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ColorMode</span><span class="p">]):</span>
@@ -1163,25 +1072,31 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">"""(N x 4) np.ndarray: Array of RGBA face colors for each point"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_color</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">colors</span>
 
     <span class="nd">@face_color</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face_color</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_color</span><span class="p">(</span><span class="n">face_color</span><span class="p">,</span> <span class="s1">'face'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_set_color</span><span class="p">(</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">face_color</span><span class="p">,</span>
+            <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+            <span class="n">current_properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">face_color</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">"""Union[np.ndarray, cycle]:  Color cycle for face_color</span>
 <span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_color_cycle_values</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">categorical_colormap</span><span class="o">.</span><span class="n">fallback_color</span><span class="o">.</span><span class="n">values</span>
 
     <span class="nd">@face_color_cycle</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">face_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face_color_cycle</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">cycle</span><span class="p">]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_set_color_cycle</span><span class="p">(</span><span class="n">face_color_cycle</span><span class="p">,</span> <span class="s1">'face'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">categorical_colormap</span> <span class="o">=</span> <span class="n">face_color_cycle</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">face_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Colormap</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">face_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Colormap</span><span class="p">:</span>
         <span class="sd">"""Return the colormap to be applied to a property to get the face color.</span>
 
 <span class="sd">        Returns</span>
@@ -1189,44 +1104,45 @@
 <span class="sd">        colormap : napari.utils.Colormap</span>
 <span class="sd">            The Colormap object.</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_colormap</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">continuous_colormap</span>
 
     <span class="nd">@face_colormap</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">face_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_face_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">continuous_colormap</span> <span class="o">=</span> <span class="n">colormap</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
         <span class="sd">"""None, (float, float) : clims for mapping the face_color</span>
 <span class="sd">        colormap property to 0 and 1</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_contrast_limits</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">contrast_limits</span>
 
     <span class="nd">@face_contrast_limits</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">face_contrast_limits</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
     <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_face_contrast_limits</span> <span class="o">=</span> <span class="n">contrast_limits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="n">contrast_limits</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">"""Face color of marker for the next added point or the selected point(s)."""</span>
-        <span class="n">hex_</span> <span class="o">=</span> <span class="n">rgb_to_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_face_color</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">hex_</span> <span class="o">=</span> <span class="n">rgb_to_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">current_color</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">hex_to_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hex_</span><span class="p">,</span> <span class="n">hex_</span><span class="p">)</span>
 
     <span class="nd">@current_face_color</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">current_face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face_color</span><span class="p">:</span> <span class="n">ColorType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_face_color</span> <span class="o">=</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">face_color</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span>
             <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">!=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span>
         <span class="p">):</span>
-            <span class="n">cur_colors</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
-            <span class="n">cur_colors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_face_color</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span> <span class="o">=</span> <span class="n">cur_colors</span>
-
+            <span class="n">update_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">update_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_update_current_color</span><span class="p">(</span>
+            <span class="n">face_color</span><span class="p">,</span> <span class="n">update_indices</span><span class="o">=</span><span class="n">update_indices</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_face_color</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -1239,7 +1155,7 @@
 
 <span class="sd">        COLORMAP allows color to be set via a color map over an attribute</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_face_color_mode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_mode</span>
 
     <span class="nd">@face_color_mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">face_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face_color_mode</span><span class="p">):</span>
@@ -1260,19 +1176,25 @@
 <span class="sd">            Should be 'edge' for edge_colo_moder or 'face' for face_color_mode.</span>
 <span class="sd">        """</span>
         <span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="p">(</span><span class="n">color_mode</span><span class="p">)</span>
+        <span class="n">color_manager</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">,</span> <span class="n">color_mode</span><span class="p">)</span>
+            <span class="n">color_manager</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
         <span class="k">elif</span> <span class="n">color_mode</span> <span class="ow">in</span> <span class="p">(</span><span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">):</span>
-            <span class="n">color_property</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">color_property</span> <span class="o">=</span> <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">color_property</span> <span class="o">=</span> <span class="s1">''</span>
             <span class="k">if</span> <span class="n">color_property</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
                     <span class="n">new_color_property</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">))</span>
-                    <span class="nb">setattr</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="p">,</span>
-                        <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">,</span>
-                        <span class="n">new_color_property</span><span class="p">,</span>
-                    <span class="p">)</span>
+                    <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s1">'name'</span><span class="p">:</span> <span class="n">new_color_property</span><span class="p">,</span>
+                        <span class="s1">'values'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">new_color_property</span><span class="p">],</span>
+                        <span class="s1">'current_value'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">new_color_property</span><span class="p">]</span>
+                        <span class="p">),</span>
+                    <span class="p">}</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property was not set, '</span>
                         <span class="sa">f</span><span class="s1">'setting to: </span><span class="si">{</span><span class="n">new_color_property</span><span class="si">}</span><span class="s1">'</span>
@@ -1284,92 +1206,17 @@
                     <span class="p">)</span>
 
             <span class="c1"># ColorMode.COLORMAP can only be applied to numeric properties</span>
-            <span class="n">color_property</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">)</span>
+            <span class="n">color_property</span> <span class="o">=</span> <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">color_property</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                     <span class="s1">'selected property must be numeric to use ColorMode.COLORMAP'</span>
                 <span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">,</span> <span class="n">color_mode</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">ColorType</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">"""Set the face_color or edge_color property</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        color : (N, 4) array or str</span>
-<span class="sd">            The value for setting edge or face_color</span>
-<span class="sd">        attribute : str in {'edge', 'face'}</span>
-<span class="sd">            The name of the attribute to set the color of.</span>
-<span class="sd">            Should be 'edge' for edge_color or 'face' for face_color.</span>
-<span class="sd">        """</span>
-        <span class="c1"># if the provided color is a string, first check if it is a key in the properties.</span>
-        <span class="c1"># otherwise, assume it is the name of a color</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_color_mapped</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">guess_continuous</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">color</span><span class="p">]):</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">transformed_color</span> <span class="o">=</span> <span class="n">transform_color_with_defaults</span><span class="p">(</span>
-                <span class="n">num_entries</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
-                <span class="n">colors</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
-                <span class="n">elem_name</span><span class="o">=</span><span class="s2">"face_color"</span><span class="p">,</span>
-                <span class="n">default</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">colors</span> <span class="o">=</span> <span class="n">normalize_and_broadcast_colors</span><span class="p">(</span>
-                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="n">transformed_color</span>
-            <span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">)</span>
-
-            <span class="n">color_event</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">)</span>
-            <span class="n">color_event</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_set_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_cycle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">"""Set the face_color_cycle or edge_color_cycle property</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        color_cycle : (N, 4) or (N, 1) array</span>
-<span class="sd">            The value for setting edge or face_color_cycle</span>
-<span class="sd">        attribute : str in {'edge', 'face'}</span>
-<span class="sd">            The name of the attribute to set the color of.</span>
-<span class="sd">            Should be 'edge' for edge_color or 'face' for face_color.</span>
-<span class="sd">        """</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">if</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">color_cycle</span><span class="p">:</span>
-                <span class="n">color_cycle</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'white'</span>
-            <span class="n">transformed_colors</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">key</span><span class="p">:</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">color_cycle</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">}</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle'</span><span class="p">,</span> <span class="n">transformed_colors</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="p">(</span>
-                <span class="n">transformed_color_cycle</span><span class="p">,</span>
-                <span class="n">transformed_colors</span><span class="p">,</span>
-            <span class="p">)</span> <span class="o">=</span> <span class="n">transform_color_cycle</span><span class="p">(</span>
-                <span class="n">color_cycle</span><span class="o">=</span><span class="n">color_cycle</span><span class="p">,</span>
-                <span class="n">elem_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle'</span><span class="p">,</span>
-                <span class="n">default</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span>
-                <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_values'</span><span class="p">,</span> <span class="n">transformed_colors</span>
-            <span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle'</span><span class="p">,</span> <span class="n">transformed_color_cycle</span><span class="p">)</span>
-        <span class="n">color_mode</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">(</span><span class="n">update_color_mapping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">color_manager</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
 
 <div class="viewcode-block" id="Points.refresh_colors"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Points.html#napari.layers.Points.refresh_colors">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">"""Calculate and update face and edge colors if using a cycle or color map</span>
-
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        update_color_mapping : bool</span>
@@ -1381,132 +1228,8 @@
 <span class="sd">            the color cycle map or colormap), set update_color_mapping=False.</span>
 <span class="sd">            Default value is False.</span>
 <span class="sd">        """</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_color</span><span class="p">(</span><span class="s1">'face'</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_color</span><span class="p">(</span><span class="s1">'edge'</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">_refresh_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="sd">"""Calculate and update face or edge colors if using a cycle or color map</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        attribute : str  in {'edge', 'face'}</span>
-<span class="sd">            The name of the attribute to set the color of.</span>
-<span class="sd">            Should be 'edge' for edge_color or 'face' for face_color.</span>
-<span class="sd">        update_color_mapping : bool</span>
-<span class="sd">            If set to True, the function will recalculate the color cycle map</span>
-<span class="sd">            or colormap (whichever is being used). If set to False, the function</span>
-<span class="sd">            will use the current color cycle map or color map. For example, if you</span>
-<span class="sd">            are adding/modifying points and want them to be colored with the same</span>
-<span class="sd">            mapping as the other points (i.e., the new points shouldn't affect</span>
-<span class="sd">            the color cycle map or colormap), set update_color_mapping=False.</span>
-<span class="sd">            Default value is False.</span>
-<span class="sd">        """</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span><span class="p">:</span>
-            <span class="n">color_mode</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_mode'</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">:</span>
-                <span class="n">color_property</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">)</span>
-                <span class="n">color_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">color_property</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">update_color_mapping</span><span class="p">:</span>
-                    <span class="n">color_cycle</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle'</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                        <span class="n">color_cycle_map</span> <span class="o">=</span> <span class="n">color_cycle</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">color_cycle_map</span> <span class="o">=</span> <span class="p">{</span>
-                            <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">transform_color</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
-                            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-                                <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">color_properties</span><span class="p">),</span> <span class="n">color_cycle</span>
-                            <span class="p">)</span>
-                        <span class="p">}</span>
-                    <span class="nb">setattr</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_map'</span><span class="p">,</span> <span class="n">color_cycle_map</span>
-                    <span class="p">)</span>
-
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># add properties if they are not in the colormap</span>
-                    <span class="c1"># and update_color_mapping==False</span>
-                    <span class="n">color_cycle_map</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_map'</span>
-                    <span class="p">)</span>
-                    <span class="n">color_cycle_keys</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">color_cycle_map</span><span class="p">]</span>
-                    <span class="n">props_in_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">color_properties</span><span class="p">,</span> <span class="n">color_cycle_keys</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">props_in_map</span><span class="p">):</span>
-                        <span class="n">props_to_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
-                            <span class="n">color_properties</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">props_in_map</span><span class="p">)]</span>
-                        <span class="p">)</span>
-                        <span class="n">color_cycle</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle'</span>
-                        <span class="p">)</span>
-                        <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">props_to_add</span><span class="p">:</span>
-                            <span class="n">color_cycle_map</span><span class="p">[</span><span class="n">prop</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span>
-                                <span class="n">transform_color</span><span class="p">(</span>
-                                    <span class="n">color_cycle</span><span class="p">[</span><span class="n">prop</span><span class="p">]</span>
-                                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-                                    <span class="ow">and</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">color_cycle</span>
-                                    <span class="k">else</span> <span class="n">color_cycle</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
-                                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-                                    <span class="k">else</span> <span class="nb">next</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">)</span>
-                                <span class="p">)</span>
-                            <span class="p">)</span>
-                        <span class="nb">setattr</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="p">,</span>
-                            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_cycle_map'</span><span class="p">,</span>
-                            <span class="n">color_cycle_map</span><span class="p">,</span>
-                        <span class="p">)</span>
-                <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                    <span class="p">[</span><span class="n">color_cycle_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">color_properties</span><span class="p">]</span>
-                <span class="p">)</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">:</span>
-                <span class="n">color_property</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color_property'</span><span class="p">)</span>
-                <span class="n">color_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">color_property</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_properties</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">contrast_limits</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_contrast_limits'</span>
-                    <span class="p">)</span>
-                    <span class="n">colormap</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_colormap'</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">update_color_mapping</span> <span class="ow">or</span> <span class="n">contrast_limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-
-                        <span class="n">colors</span><span class="p">,</span> <span class="n">contrast_limits</span> <span class="o">=</span> <span class="n">map_property</span><span class="p">(</span>
-                            <span class="n">prop</span><span class="o">=</span><span class="n">color_properties</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span>
-                        <span class="p">)</span>
-                        <span class="nb">setattr</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="p">,</span>
-                            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_contrast_limits'</span><span class="p">,</span>
-                            <span class="n">contrast_limits</span><span class="p">,</span>
-                        <span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-
-                        <span class="n">colors</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">map_property</span><span class="p">(</span>
-                            <span class="n">prop</span><span class="o">=</span><span class="n">color_properties</span><span class="p">,</span>
-                            <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span>
-                            <span class="n">contrast_limits</span><span class="o">=</span><span class="n">contrast_limits</span><span class="p">,</span>
-                        <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'_</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
-
-            <span class="n">color_event</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color'</span><span class="p">)</span>
-            <span class="n">color_event</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_is_color_mapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
-        <span class="sd">""" determines if the new color argument is for directly setting or cycle/colormap"""</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">color</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">True</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">'face_color should be the name of a color, an array of colors, or the name of an property'</span>
-            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""Get dictionary of layer state.</span>
@@ -1964,7 +1687,7 @@
             <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
                 <span class="n">coords</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
             <span class="p">)</span>
-            <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="n">thumbnail_indices</span><span class="p">]</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">thumbnail_indices</span><span class="p">]</span>
             <span class="n">colormapped</span><span class="p">[</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colors</span>
 
         <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
@@ -1985,8 +1708,10 @@
         <span class="n">index</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span><span class="n">indices_to_remove</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span><span class="n">indices_to_remove</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
@@ -2037,18 +1762,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'size'</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">,</span>
-                    <span class="n">transform_color</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'edge_color'</span><span class="p">])),</span>
-                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_paste</span><span class="p">(</span>
+                <span class="n">colors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'edge_color'</span><span class="p">],</span>
+                <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">],</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">,</span>
-                    <span class="n">transform_color</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'face_color'</span><span class="p">])),</span>
-                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_paste</span><span class="p">(</span>
+                <span class="n">colors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'face_color'</span><span class="p">],</span>
+                <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">],</span>
             <span class="p">)</span>
+
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">][</span><span class="n">k</span><span class="p">]),</span>
@@ -2061,7 +1783,7 @@
                 <span class="nb">range</span><span class="p">(</span><span class="n">totpoints</span><span class="p">,</span> <span class="n">totpoints</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]))</span>
             <span class="p">)</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'text'</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
                 <span class="p">)</span>
@@ -2083,8 +1805,8 @@
                 <span class="s1">'indices'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">,</span>
             <span class="p">}</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>

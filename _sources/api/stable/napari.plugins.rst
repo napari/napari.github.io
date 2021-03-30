@@ -33,7 +33,7 @@
    
    .. autofunction:: camel_to_spaces
    .. autofunction:: discover_dock_widgets
-   .. autofunction:: isclass
+   .. autofunction:: get_plugin_widget
    .. autofunction:: magicgui
    .. autofunction:: register_dock_widget
    .. autofunction:: register_function_widget

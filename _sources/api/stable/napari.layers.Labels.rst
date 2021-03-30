@@ -33,9 +33,6 @@ napari.layers.Labels
       ~Labels.get_color
    
    
-      ~Labels.get_message
-   
-   
       ~Labels.get_status
    
    
@@ -67,6 +64,9 @@ napari.layers.Labels
    
    
       ~Labels.undo
+   
+   
+      ~Labels.world_to_data
    
    
    
@@ -126,7 +126,6 @@ napari.layers.Labels
       ~Labels.selected_label
       ~Labels.shear
       ~Labels.show_selected_label
-      ~Labels.status
       ~Labels.thumbnail
       ~Labels.translate
       ~Labels.translate_grid

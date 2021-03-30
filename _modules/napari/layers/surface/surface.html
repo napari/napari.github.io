@@ -158,6 +158,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_7.html">napari 0.4.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_6.html">napari 0.4.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_5.html">napari 0.4.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_4.html">napari 0.4.4</a></li>
@@ -308,12 +309,13 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    data : 3-tuple of array</span>
+<span class="sd">    data : 2-tuple or 3-tuple of array</span>
 <span class="sd">        The first element of the tuple is an (N, D) array of vertices of</span>
 <span class="sd">        mesh triangles. The second is an (M, 3) array of int of indices</span>
-<span class="sd">        of the mesh triangles. The third element is the (K0, ..., KL, N)</span>
-<span class="sd">        array of values used to color vertices where the additional L</span>
-<span class="sd">        dimensions are used to color the same mesh with different values.</span>
+<span class="sd">        of the mesh triangles. The optional third element is the</span>
+<span class="sd">        (K0, ..., KL, N) array of values used to color vertices where the</span>
+<span class="sd">        additional L dimensions are used to color the same mesh with</span>
+<span class="sd">        different values. If not provided, it defaults to ones.</span>
 <span class="sd">    colormap : str, napari.utils.Colormap, tuple, dict</span>
 <span class="sd">        Colormap to use for luminance images. If a string must be the name</span>
 <span class="sd">        of a supported colormap from vispy or matplotlib. If a tuple the</span>
@@ -438,10 +440,24 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">interpolation</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span> <span class="n">rendering</span><span class="o">=</span><span class="n">Event</span><span class="p">)</span>
 
+        <span class="c1"># assign mesh data and establish default behavior</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">'Surface data tuple must be 2 or 3, specifying'</span>
+                <span class="s1">'verictes, faces, and optionally vertex values,'</span>
+                <span class="sa">f</span><span class="s1">'instead got length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">.'</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_faces</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span><span class="p">))</span>
+
         <span class="c1"># Set contrast_limits and colormaps</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gamma</span> <span class="o">=</span> <span class="n">gamma</span>
         <span class="k">if</span> <span class="n">contrast_limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span> <span class="o">=</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span> <span class="o">=</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span> <span class="o">=</span> <span class="n">contrast_limits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits_range</span><span class="p">)</span>
@@ -452,11 +468,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># assign mesh data and establish default behavior</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_faces</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>

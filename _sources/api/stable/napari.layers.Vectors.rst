@@ -27,9 +27,6 @@ napari.layers.Vectors
       ~Vectors.block_update_properties
    
    
-      ~Vectors.get_message
-   
-   
       ~Vectors.get_status
    
    
@@ -46,6 +43,9 @@ napari.layers.Vectors
    
    
       ~Vectors.set_view_slice
+   
+   
+      ~Vectors.world_to_data
    
    
    
@@ -86,7 +86,6 @@ napari.layers.Vectors
       ~Vectors.scale
       ~Vectors.selected
       ~Vectors.shear
-      ~Vectors.status
       ~Vectors.thumbnail
       ~Vectors.translate
       ~Vectors.translate_grid

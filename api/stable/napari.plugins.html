@@ -158,6 +158,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_7.html">napari 0.4.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
@@ -321,12 +322,34 @@
 <dd><p>Trigger discovery of dock_widgets plugins</p>
 </dd></dl>
 <dl class="py function">
-<dt id="napari.plugins.isclass">
-<code class="sig-prename descclassname"><span class="pre">napari.plugins.</span></code><code class="sig-name descname"><span class="pre">isclass</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/inspect.html#isclass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.isclass" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return true if the object is a class.</p>
-<dl class="simple">
-<dt>Class objects provide these attributes:</dt><dd><p>__doc__         documentation string
-__module__      name of module in which this class was defined</p>
+<dt id="napari.plugins.get_plugin_widget">
+<code class="sig-prename descclassname"><span class="pre">napari.plugins.</span></code><code class="sig-name descname"><span class="pre">get_plugin_widget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins.html#get_plugin_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.get_plugin_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get widget <cite>widget_name</cite> provided by plugin <cite>plugin_name</cite>.</p>
+<p>Note: it’s important that <a class="reference internal" href="#napari.plugins.discover_dock_widgets" title="napari.plugins.discover_dock_widgets"><code class="xref py py-func docutils literal notranslate"><span class="pre">discover_dock_widgets()</span></code></a> has been called
+first, otherwise plugins may not be found yet.  (Typically, that is done
+in qt_main_window)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of a plugin providing a widget</p></li>
+<li><p><strong>widget_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Name of a widget provided by <cite>plugin_name</cite>. If <cite>None</cite>, and the
+specified plugin provides only a single widget, that widget will be
+returned, otherwise a ValueError will be raised, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>plugin_widget</strong> – Tuple of (widget_class, options).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[Callable, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.9)"><strong>KeyError</strong></a> – If plugin <cite>plugin_name</cite> does not provide any widgets</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.9)"><strong>KeyError</strong></a> – If plugin does not provide a widget named <cite>widget_name</cite>.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – If <cite>widget_name</cite> is not provided, but <cite>plugin_name</cite> provides more than
+    one widget</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

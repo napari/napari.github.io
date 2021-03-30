@@ -158,6 +158,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../release/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_7.html">napari 0.4.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_6.html">napari 0.4.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_5.html">napari 0.4.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
@@ -290,18 +291,17 @@
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
         <h1>Source code for napari.plugins</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">isclass</span><span class="p">,</span> <span class="n">signature</span>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">signature</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
-    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">Type</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
@@ -329,12 +329,11 @@
     <span class="n">plugin_manager</span><span class="o">.</span><span class="n">add_hookspecs</span><span class="p">(</span><span class="n">hook_specifications</span><span class="p">)</span>
     <span class="n">plugin_manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_builtins</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'builtins'</span><span class="p">)</span>
 
-
+<span class="n">WidgetCallable</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="s1">'FunctionGui'</span><span class="p">,</span> <span class="s1">'QWidget'</span><span class="p">]]</span>
 <span class="n">dock_widgets</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
-    <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-    <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="s1">'FunctionGui'</span><span class="p">,</span> <span class="s1">'QWidget'</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">],</span>
+    <span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">WidgetCallable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span>
 <span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="n">function_widgets</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">function_widgets</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="register_dock_widget"><a class="viewcode-back" href="../../api/stable/napari.plugins.html#napari.plugins.register_dock_widget">[docs]</a><span class="k">def</span> <span class="nf">register_dock_widget</span><span class="p">(</span>
@@ -375,13 +374,71 @@
         <span class="c1"># Get widget name</span>
         <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">''</span><span class="p">))</span> <span class="ow">or</span> <span class="n">camel_to_spaces</span><span class="p">(</span><span class="n">_cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
-        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dock_widgets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dock_widgets</span><span class="p">:</span>
+            <span class="c1"># tried defaultdict(dict) but got odd KeyErrors...</span>
+            <span class="n">dock_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">dock_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">]:</span>
             <span class="n">warn</span><span class="p">(</span>
                 <span class="s2">"Plugin '</span><span class="si">{}</span><span class="s2">' has already registered a dock widget '</span><span class="si">{}</span><span class="s2">' "</span>
-                <span class="s1">'which has now been overwritten'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">)</span>
+                <span class="s1">'which has now been overwritten'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
             <span class="p">)</span>
-        <span class="n">dock_widgets</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_cls</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+        <span class="n">dock_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_cls</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_plugin_widget"><a class="viewcode-back" href="../../api/stable/napari.plugins.html#napari.plugins.get_plugin_widget">[docs]</a><span class="k">def</span> <span class="nf">get_plugin_widget</span><span class="p">(</span>
+    <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">WidgetCallable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="sd">"""Get widget `widget_name` provided by plugin `plugin_name`.</span>
+
+<span class="sd">    Note: it's important that :func:`discover_dock_widgets` has been called</span>
+<span class="sd">    first, otherwise plugins may not be found yet.  (Typically, that is done</span>
+<span class="sd">    in qt_main_window)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    plugin_name : str</span>
+<span class="sd">        Name of a plugin providing a widget</span>
+<span class="sd">    widget_name : str, optional</span>
+<span class="sd">        Name of a widget provided by `plugin_name`. If `None`, and the</span>
+<span class="sd">        specified plugin provides only a single widget, that widget will be</span>
+<span class="sd">        returned, otherwise a ValueError will be raised, by default None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    plugin_widget : Tuple[Callable, dict]</span>
+<span class="sd">        Tuple of (widget_class, options).</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    KeyError</span>
+<span class="sd">        If plugin `plugin_name` does not provide any widgets</span>
+<span class="sd">    KeyError</span>
+<span class="sd">        If plugin does not provide a widget named `widget_name`.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If `widget_name` is not provided, but `plugin_name` provides more than</span>
+<span class="sd">        one widget</span>
+<span class="sd">    """</span>
+    <span class="n">plg_wdgs</span> <span class="o">=</span> <span class="n">dock_widgets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">plg_wdgs</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">'Plugin </span><span class="si">{</span><span class="n">plugin_name</span><span class="si">!r}</span><span class="s1"> does not provide any dock widgets'</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">widget_name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">plg_wdgs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Plugin </span><span class="si">{</span><span class="n">plugin_name</span><span class="si">!r}</span><span class="s1"> provides more than 1 dock_widget. '</span>
+                <span class="sa">f</span><span class="s1">'Must also provide "widget_name" from </span><span class="si">{</span><span class="nb">set</span><span class="p">(</span><span class="n">plg_wdgs</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
+            <span class="p">)</span>
+        <span class="n">widget_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">plg_wdgs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">widget_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">plg_wdgs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Plugin </span><span class="si">{</span><span class="n">plugin_name</span><span class="si">!r}</span><span class="s1"> does not provide '</span>
+                <span class="sa">f</span><span class="s1">'a widget named </span><span class="si">{</span><span class="n">widget_name</span><span class="si">!r}</span><span class="s1">'</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">plg_wdgs</span><span class="p">[</span><span class="n">widget_name</span><span class="p">]</span></div>
 
 
 <span class="n">_magicgui_sig</span> <span class="o">=</span> <span class="p">{</span>
@@ -414,14 +471,16 @@
         <span class="c1"># Get function name</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">)</span>
 
-        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">function_widgets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">function_widgets</span><span class="p">:</span>
+            <span class="c1"># tried defaultdict(dict) but got odd KeyErrors...</span>
+            <span class="n">function_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">function_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">]:</span>
             <span class="n">warn</span><span class="p">(</span>
                 <span class="s2">"Plugin '</span><span class="si">{}</span><span class="s2">' has already registered a function widget '</span><span class="si">{}</span><span class="s2">' "</span>
-                <span class="s1">'which has now been overwritten'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">)</span>
+                <span class="s1">'which has now been overwritten'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="n">function_widgets</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span></div>
+        <span class="n">function_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span></div>
 
 
 <div class="viewcode-block" id="discover_dock_widgets"><a class="viewcode-back" href="../../api/stable/napari.plugins.html#napari.plugins.discover_dock_widgets">[docs]</a><span class="k">def</span> <span class="nf">discover_dock_widgets</span><span class="p">():</span>

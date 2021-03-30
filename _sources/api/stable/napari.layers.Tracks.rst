@@ -27,9 +27,6 @@ napari.layers.Tracks
       ~Tracks.block_update_properties
    
    
-      ~Tracks.get_message
-   
-   
       ~Tracks.get_status
    
    
@@ -43,6 +40,9 @@ napari.layers.Tracks
    
    
       ~Tracks.set_view_slice
+   
+   
+      ~Tracks.world_to_data
    
    
    
@@ -88,7 +88,6 @@ napari.layers.Tracks
       ~Tracks.scale
       ~Tracks.selected
       ~Tracks.shear
-      ~Tracks.status
       ~Tracks.tail_length
       ~Tracks.tail_width
       ~Tracks.thumbnail

@@ -27,9 +27,6 @@ napari.layers.Image
       ~Image.block_update_properties
    
    
-      ~Image.get_message
-   
-   
       ~Image.get_status
    
    
@@ -49,6 +46,9 @@ napari.layers.Image
    
    
       ~Image.set_view_slice
+   
+   
+      ~Image.world_to_data
    
    
    
@@ -94,7 +94,6 @@ napari.layers.Image
       ~Image.scale
       ~Image.selected
       ~Image.shear
-      ~Image.status
       ~Image.thumbnail
       ~Image.translate
       ~Image.translate_grid

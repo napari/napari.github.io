@@ -361,6 +361,11 @@ package name, url, or local file (#2319).</p>
 <li><p>The ViewerModel is now a Pydantic BaseModel and so subclassing the Viewer might require
 reading some of the <a class="reference external" href="https://pydantic-docs.helpmanual.io/usage/models/">Pydantic BaseModel documentation</a>.
 Otherwise the API of the ViewerModel is unchanged.</p></li>
+<li><p>Because <code class="docutils literal notranslate"><span class="pre">Labels</span></code> no longer inherit from <code class="docutils literal notranslate"><span class="pre">Image</span></code> (#2307), magicgui function
+parameters annotated as <code class="docutils literal notranslate"><span class="pre">napari.layers.Image</span></code> will no longer include
+<code class="docutils literal notranslate"><span class="pre">napari.layers.Labels</span></code> layer types in the dropdown menu. (<code class="docutils literal notranslate"><span class="pre">napari.layers.Layer</span></code>
+may still be used to show all layer types in the magicgui-generated dropdown
+menu.)</p></li>
 </ul>
 </div>
 <div class="section" id="build-tools-and-support">

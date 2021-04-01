@@ -17,7 +17,13 @@ const reload = require('reload');
 
 const PUBLIC_DIR = '_build/html';
 const DEFAULT_PORT = 8080;
-const IGNORED_FILES = ['.github', '_build', 'node_modules'];
+const IGNORED_FILES = [
+  '.github',
+  '_build',
+  'node_modules',
+  'theme/js',
+  'theme/scss',
+];
 
 class DevServer {
   app = null;

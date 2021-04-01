@@ -3,10 +3,6 @@
 .app-bar {
   --font-size: 0.7rem;
 
-  @include breakpoint('md') {
-    --font-size: 1rem;
-  }
-
   // App Bar styles.
   background: #80d1ff;
   display: grid;
@@ -17,15 +13,17 @@
   position: sticky;
   top: 0;
 
+  @include breakpoint('md') {
+    --font-size: 1rem;
+  }
+
   @include breakpoint('lg') {
-    grid-template-columns: var(--napari-columns);
     column-gap: var(--col-margin);
+    grid-template-columns: var(--napari-columns);
   }
 
   // Home section styles. This includes the napari logo and text.
   &__home {
-    --image-width: 16px;
-
     align-items: center;
     display: flex;
 
@@ -40,17 +38,17 @@
     }
 
     h1 {
-      margin-left: 3px;
       font-size: var(--font-size);
       font-weight: 700;
+      margin-left: 3px;
     }
 
     img {
-      width: var(--image-width);
-    }
+      width: 16px;
 
-    @include breakpoint('sm') {
-      --image-width: 24px;
+      @include breakpoint('sm') {
+        width: 24px;
+      }
     }
   }
 

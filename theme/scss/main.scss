@@ -1,6 +1,7 @@
 // CSS Reset for better defaults
 // https://github.com/sindresorhus/modern-normalize
 @import 'modern-normalize/modern-normalize.css';
+@import './app-bar.scss';
 @import './breakpoints.scss';
 
 // Variables
@@ -8,19 +9,15 @@
   --main-col-width: 775px;
   --side-col-width: 225px;
   --col-margin: 25px;
+  --napari-columns: var(--side-col-width) var(--main-col-width);
 
   @include breakpoint('sm') {
     --col-margin: 50px;
   }
 
-  --container-width: calc(
-    var(--main-col-width) + var(--side-col-width) + var(--col-margin)
-  );
-
   @include breakpoint('xl') {
-    --container-width: calc(
-      var(--main-col-width) + var(--side-col-width) * 2 + var(--col-margin) * 2
-    );
+    --napari-columns: var(--side-col-width) var(--main-col-width)
+      var(--side-col-width);
   }
 }
 

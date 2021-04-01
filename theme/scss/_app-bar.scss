@@ -1,0 +1,114 @@
+@import './breakpoints.scss';
+
+.app-bar {
+  --font-size: 0.7rem;
+
+  @include breakpoint('md') {
+    --font-size: 1rem;
+  }
+
+  // App Bar styles.
+  background: #80d1ff;
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  height: 75px;
+  justify-content: center;
+  padding: 0 var(--col-margin);
+  position: sticky;
+  top: 0;
+
+  @include breakpoint('lg') {
+    grid-template-columns: var(--napari-columns);
+    column-gap: var(--col-margin);
+  }
+
+  // Home section styles. This includes the napari logo and text.
+  &__home {
+    --image-width: 16px;
+
+    align-items: center;
+    display: flex;
+
+    a {
+      align-items: center;
+      display: flex;
+      text-decoration: none;
+
+      &:not(:hover) {
+        color: #000;
+      }
+    }
+
+    h1 {
+      margin-left: 3px;
+      font-size: var(--font-size);
+      font-weight: 700;
+    }
+
+    img {
+      width: var(--image-width);
+    }
+
+    @include breakpoint('sm') {
+      --image-width: 24px;
+    }
+  }
+
+  // Search container styles. This is used for centering the search bar
+  // vertically and pushing the search bar to the right on smaller layouts.
+  &__search {
+    align-items: center;
+    display: flex;
+    flex: auto;
+    justify-content: flex-end;
+    // Padding is needed for smaller layouts < 457px because the underline will
+    // touch the logo without it.
+    padding-left: 25px;
+
+    // Search form styles used for creating the underline effect, aligning the
+    // search logo and input field, and limiting the max width.
+    form {
+      border-bottom: solid 1px #000;
+      display: flex;
+      flex: auto;
+      max-width: 457px;
+      padding-bottom: 5px;
+
+      @include breakpoint('lg') {
+        max-width: initial;
+      }
+    }
+
+    input {
+      background: none;
+      border: none;
+      display: flex;
+      flex: auto;
+      font-size: var(--font-size);
+      outline: none;
+      // Inputs have a default width defined by the browser, so we have to
+      // set this explicitly to make the input flexible:
+      // https://stackoverflow.com/a/42421490
+      width: 0;
+    }
+
+    img {
+      width: 14px;
+    }
+
+    @include breakpoint('md') {
+      padding: 0;
+    }
+  }
+
+  // Menu button styles.
+  &__menu-button {
+    background: none;
+    border: none;
+    margin-left: 15px;
+
+    @include breakpoint('lg') {
+      display: none;
+    }
+  }
+}

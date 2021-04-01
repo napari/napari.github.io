@@ -1,11 +1,27 @@
 // CSS Reset for better defaults
 // https://github.com/sindresorhus/modern-normalize
 @import 'modern-normalize/modern-normalize.css';
+@import './breakpoints.scss';
 
-html,
-body {
-  height: 100vh;
-  width: 100vw;
+// Variables
+:root {
+  --main-col-width: 775px;
+  --side-col-width: 225px;
+  --col-margin: 25px;
+
+  @include breakpoint('sm') {
+    --col-margin: 50px;
+  }
+
+  --container-width: calc(
+    var(--main-col-width) + var(--side-col-width) + var(--col-margin)
+  );
+
+  @include breakpoint('xl') {
+    --container-width: calc(
+      var(--main-col-width) + var(--side-col-width) * 2 + var(--col-margin) * 2
+    );
+  }
 }
 
 .page {

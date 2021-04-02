@@ -1,7 +1,7 @@
 @import './breakpoints.scss';
 
 .app-bar {
-  --font-size: 0.7rem;
+  --font-size: clamp(11px, 3.5vw, 17px);
 
   // App Bar styles.
   background: #80d1ff;
@@ -12,10 +12,6 @@
   padding: 0 var(--col-margin);
   position: sticky;
   top: 0;
-
-  @include breakpoint('md') {
-    --font-size: 1rem;
-  }
 
   @include breakpoint('lg') {
     column-gap: var(--col-margin);

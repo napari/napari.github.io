@@ -12,6 +12,9 @@
   --col-margin: clamp(25px, 8vw, 50px);
   --napari-columns: var(--side-col-width) var(--main-col-width);
 
+  // The `--col-margin` needs to be set to `50px` at the `sm` breakpoint
+  // explicitly because the preferred value `8vw` doesn't scale to `50px` by
+  // the time the viewport hits the `sm` breakpoint.
   @include breakpoint('sm') {
     --col-margin: 50px;
   }

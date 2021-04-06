@@ -1,0 +1,105 @@
+@import './breakpoints.scss';
+
+.app-bar {
+  --font-size: clamp(11px, 3.5vw, 17px);
+
+  // App Bar styles.
+  background: #80d1ff;
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  height: var(--app-bar-height);
+  justify-content: center;
+  padding: 0 var(--col-margin);
+  position: fixed;
+  top: 0;
+  width: 100vw;
+
+  @include breakpoint('lg') {
+    column-gap: var(--col-margin);
+    grid-template-columns: var(--napari-columns);
+  }
+
+  // Home section styles. This includes the napari logo and text.
+  &__home {
+    align-items: center;
+    display: flex;
+
+    a {
+      align-items: center;
+      display: flex;
+      text-decoration: none;
+
+      &:not(:hover) {
+        color: #000;
+      }
+    }
+
+    h1 {
+      font-size: var(--font-size);
+      font-weight: 700;
+      margin-left: 3px;
+    }
+
+    img {
+      width: clamp(16px, 5vw, 24px);
+    }
+  }
+
+  // Search container styles. This is used for centering the search bar
+  // vertically and pushing the search bar to the right on smaller layouts.
+  &__search {
+    align-items: center;
+    display: flex;
+    flex: auto;
+    justify-content: flex-end;
+    // Padding is needed for smaller layouts < 457px because the underline will
+    // touch the logo without it.
+    padding-left: 25px;
+
+    // Search form styles used for creating the underline effect, aligning the
+    // search logo and input field, and limiting the max width.
+    form {
+      border-bottom: solid 1px #000;
+      display: flex;
+      flex: auto;
+      max-width: 457px;
+      padding-bottom: 5px;
+
+      @include breakpoint('lg') {
+        max-width: initial;
+      }
+    }
+
+    input {
+      background: none;
+      border: none;
+      display: flex;
+      flex: auto;
+      font-size: var(--font-size);
+      outline: none;
+      // Inputs have a default width defined by the browser, so we have to
+      // set this explicitly to make the input flexible:
+      // https://stackoverflow.com/a/42421490
+      width: 0;
+    }
+
+    img {
+      width: 14px;
+    }
+
+    @include breakpoint('md') {
+      padding: 0;
+    }
+  }
+
+  // Menu button styles.
+  &__menu-button {
+    background: none;
+    border: none;
+    margin-left: clamp(15px, 3vw, 30px);
+
+    @include breakpoint('lg') {
+      display: none;
+    }
+  }
+}

@@ -320,11 +320,6 @@ If you are using as IPython console (launched with <code class="docutils literal
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR:root:Invalid GUI request 'qt # we need to start the Qt event loop before importing napari', valid ones are:dict_keys(['inline', 'nbagg', 'notebook', 'ipympl', 'widget', None, 'qt4', 'qt', 'qt5', 'wx', 'tk', 'gtk', 'gtk3', 'osx', 'asyncio'])
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -332,14 +327,6 @@ If you are using as IPython console (launched with <code class="docutils literal
 <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-runner'
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:vispy:QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-runner'
 </pre></div>
 </div>
 </div>
@@ -359,11 +346,6 @@ For example:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer 'Image' at 0x7f44a5754310&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">add_image</span></code> accepts the same arguments as <code class="docutils literal notranslate"><span class="pre">view_image</span></code>
 but doesn’t create a <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>, as you must already have one to use it.</p>
@@ -376,9 +358,6 @@ you should now be able to see the photograph of the astronaut in the <strong>nap
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/viewer_10_0.png" src="../../_images/viewer_10_0.png"/>
 </div>
 </div>
 <p>Both the <code class="docutils literal notranslate"><span class="pre">view_image</span></code> and the <code class="docutils literal notranslate"><span class="pre">add_image</span></code> methods accept any numpy-array like object as an input,
@@ -436,11 +415,6 @@ and an <code class="docutils literal notranslate"><span class="pre">icon</span><
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer 'camera' at 0x7f44a53b1e50&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p><img alt="image: layerlist" src="../../_images/layerlist.png"/></p>
 <p>When the problem with nbscreenshot and the layerlist is resolved, we should replace the PNG image in the cell above with a call to <code class="docutils literal notranslate"><span class="pre">nbscreenshot</span></code>.</p>
@@ -466,11 +440,6 @@ including dragging multiple layers at the same time.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;Image layer 'astronaut' at 0x7f44a5405c10&gt;, &lt;Image layer 'moon' at 0x7f44a53929a0&gt;, &lt;Image layer 'camera' at 0x7f44a53b1e50&gt;]
-</pre></div>
-</div>
-</div>
 </div>
 <p>This object can be indexed like a normal list using an <code class="docutils literal notranslate"><span class="pre">int</span></code>
 or using the <code class="docutils literal notranslate"><span class="pre">str</span></code> name of the layer as follows</p>
@@ -480,20 +449,10 @@ or using the <code class="docutils literal notranslate"><span class="pre">str</s
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer 'astronaut' at 0x7f44a5405c10&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">'astronaut'</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer 'astronaut' at 0x7f44a5405c10&gt;
 </pre></div>
 </div>
 </div>
@@ -517,11 +476,6 @@ The controls that you have available to you depend on the layer type that you ha
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Points layer 'points' at 0x7f44a581af70&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -530,9 +484,6 @@ The controls that you have available to you depend on the layer type that you ha
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/viewer_29_0.png" src="../../_images/viewer_29_0.png"/>
 </div>
 </div>
 <p><img alt="image: add points" src="../../_images/add_points.png"/></p>
@@ -604,11 +555,6 @@ Effectively, the two datasets are broadcast together using <a class="reference e
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Image layer 'blobs' at 0x7f44a5fcb1f0&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -617,9 +563,6 @@ Effectively, the two datasets are broadcast together using <a class="reference e
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/viewer_38_0.png" src="../../_images/viewer_38_0.png"/>
 </div>
 </div>
 <div class="section" id="viewer-buttons">
@@ -676,9 +619,6 @@ To change the theme just update <code class="docutils literal notranslate"><span
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/viewer_47_0.png" src="../../_images/viewer_47_0.png"/>
 </div>
 </div>
 <p>Adding your own custom theme isn’t too hard either

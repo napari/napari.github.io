@@ -41,11 +41,7 @@
     }
 
     img {
-      width: 16px;
-
-      @include breakpoint('sm') {
-        width: 24px;
-      }
+      width: clamp(16px, 3vw, 24px);
     }
   }
 
@@ -100,7 +96,7 @@
   &__menu-button {
     background: none;
     border: none;
-    margin-left: 15px;
+    margin-left: clamp(15px, 3vw, 30px);
 
     @include breakpoint('lg') {
       display: none;

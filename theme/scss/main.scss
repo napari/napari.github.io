@@ -6,14 +6,15 @@
 
 // Variables
 :root {
-  --app-bar-height: 75px;
+  --app-bar-height: 67px;
   --main-col-width: 775px;
   --side-col-width: 225px;
   --col-margin: 25px;
   --napari-columns: var(--side-col-width) var(--main-col-width);
 
-  @include breakpoint('sm') {
-    --col-margin: 50px;
+  @include breakpoint('xs') {
+    --app-bar-height: clamp(67px, 5vw, 75px);
+    --col-margin: clamp(25px, 11vw, 50px);
   }
 
   @include breakpoint('xl') {

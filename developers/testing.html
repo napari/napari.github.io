@@ -122,6 +122,7 @@
   <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/team.html">About Team</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct.html">Code of Conduct</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/governance.html">Governance Model</a></li>
@@ -264,6 +265,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/performance.html">Napari Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/translations.html">Translations</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Developer resources</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -308,7 +310,7 @@ intended in the whole system.</p></li>
 much as we can with unit tests, requiring fewer integration tests, and the least number
 of functional tests as depicted in the test pyramid below from
 <a class="reference external" href="https://www.softwaretestinghelp.com/the-difference-between-unit-integration-and-functional-testing/">softwaretestinghelp.com</a>:</p>
-<p><img alt="tests" src="images/tests.png"/></p>
+<p><img alt="tests" src="../_images/tests.png"/></p>
 <p>Unit tests are at the base of the pyramid because they are the easiest to write and
 the quickest to run. The time and effort to implement and maintain tests increases
 from unit tests to integration and functional tests.</p>
@@ -371,6 +373,20 @@ open htmlcov/index.html  <span class="c1"># look at the report</span>
 <p>Writing tests for new code is a critical part of keeping napari maintainable as
 it grows. Tests are written in files whose names
 begin with <code class="docutils literal notranslate"><span class="pre">test_*</span></code> and which are contained in one of the <code class="docutils literal notranslate"><span class="pre">_tests</span></code> directories.</p>
+<div class="section" id="property-based-testing-with-hypothesis">
+<h3>Property-based testing with Hypothesis<a class="headerlink" href="#property-based-testing-with-hypothesis" title="Permalink to this headline">¶</a></h3>
+<p>Property-based tests allow you to test that “for any X, …” - with a much nicer
+developer experience than using truly random data.  We use Hypothesis for unit or
+integration tests where there are simple properties like <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">load(save(x))</span></code> or
+when Napari implements a function we can check against the equivalent in a trusted
+library for at least some inputs.</p>
+<p>See also <a class="reference external" href="http://conference.scipy.org/proceedings/scipy2020/zac_hatfield-dodds.html">this paper on property-based testing in science</a>,
+<a class="reference external" href="https://github.com/napari/napari/issues/2444">issue #2444</a>, and
+<a class="reference external" href="https://hypothesis.readthedocs.io/en/latest/">the Hypothesis documentation</a>
+(including <a class="reference external" href="https://hypothesis.readthedocs.io/en/latest/numpy.html">Numpy support</a>).</p>
+</div>
+<div class="section" id="testing-with-qt-and-napari-viewer">
+<h3>Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code><a class="headerlink" href="#testing-with-qt-and-napari-viewer" title="Permalink to this headline">¶</a></h3>
 <p>There are a couple things to keep in mind when writing a test where a <code class="docutils literal notranslate"><span class="pre">Qt</span></code> event
 loop or a <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code> is required.  The important thing is that any widgets
 you create during testing are cleaned up at the end of each test:</p>
@@ -424,6 +440,7 @@ Duplicate cleanup may cause an error.  Use the fixture as follows:</p>
 <div><p>If you’re curious to see the actual <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture definition, it’s
 in <code class="docutils literal notranslate"><span class="pre">napari/conftest.py</span></code></p>
 </div></blockquote>
+</div>
 <div class="section" id="mocking-fake-it-till-you-make-it">
 <h3>Mocking: “Fake it till you make it”<a class="headerlink" href="#mocking-fake-it-till-you-make-it" title="Permalink to this headline">¶</a></h3>
 <p>It can be confusing to write unit tests for individual functions, when the
@@ -519,6 +536,8 @@ so certain tests have been disabled from windows in CI, see
 </ul>
 </li>
 <li><a class="reference internal" href="#writing-tests">Writing Tests</a><ul>
+<li><a class="reference internal" href="#property-based-testing-with-hypothesis">Property-based testing with Hypothesis</a></li>
+<li><a class="reference internal" href="#testing-with-qt-and-napari-viewer">Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code></a></li>
 <li><a class="reference internal" href="#mocking-fake-it-till-you-make-it">Mocking: “Fake it till you make it”</a></li>
 </ul>
 </li>

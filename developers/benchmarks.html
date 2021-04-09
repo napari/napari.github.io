@@ -122,6 +122,7 @@
   <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/team.html">About Team</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct.html">Code of Conduct</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/governance.html">Governance Model</a></li>
@@ -264,6 +265,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/performance.html">Napari Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/translations.html">Translations</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Developer resources</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -359,10 +361,10 @@ more about the features of <code class="docutils literal notranslate"><span clas
 <h2>Testing the benchmarks locally<a class="headerlink" href="#testing-the-benchmarks-locally" title="Permalink to this headline">¶</a></h2>
 <p>Prior to running the true benchmark, it is often worthwhile to test that the
 code is free of typos. To do so, you may use the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv dev -b TransformSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv dev -b ViewImageSuite
 </pre></div>
 </div>
-<p>Where the <code class="docutils literal notranslate"><span class="pre">TransformSuite</span></code> above will be run once in your current environment
+<p>Where the <code class="docutils literal notranslate"><span class="pre">ViewImageSuite</span></code> above will be run once in your current environment
 to test that everything is in order.</p>
 </div>
 <div class="section" id="running-your-benchmark">
@@ -373,23 +375,23 @@ environment to see the performance of your change as you are developing new
 features. The command <code class="docutils literal notranslate"><span class="pre">asv</span> <span class="pre">run</span> <span class="pre">-E</span> <span class="pre">existing</span></code> will specify that you wish to run
 the benchmark in your existing environment. This will save a significant amount
 of time since building napari can be a time consuming task:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv run -E existing -b TransformSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv run -E existing -b ViewImageSuite
 </pre></div>
 </div>
 </div>
 <div class="section" id="comparing-results-to-master">
 <h2>Comparing results to master<a class="headerlink" href="#comparing-results-to-master" title="Permalink to this headline">¶</a></h2>
 <p>Often, the goal of a PR is to compare the results of the modifications in terms
-speed to a snapshot of the code that is in the master branch of the
+of speed to a snapshot of the code that is in the master branch of the
 <code class="docutils literal notranslate"><span class="pre">napari</span></code> repository. The command <code class="docutils literal notranslate"><span class="pre">asv</span> <span class="pre">continuous</span></code> is of help here:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv continuous master -b TransformSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv continuous master your-current-branch -b ViewImageSuite
 </pre></div>
 </div>
 <p>This call will build out the environments specified in the <code class="docutils literal notranslate"><span class="pre">asv.conf.json</span></code>
 file and compare the performance of the benchmark between your current commit
 and the code in the master branch.</p>
 <p>The output may look something like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ asv continuous master -b TransformSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ asv continuous master your-current-branch -b ViewImageSuite
 · Creating environments
 · Discovering benchmarks
 ·· Uninstalling from conda-py3.7-cython-numpy1.15-scipy
@@ -397,12 +399,12 @@ and the code in the master branch.</p>
 · Running <span class="m">4</span> total benchmarks <span class="o">(</span><span class="m">2</span> commits * <span class="m">2</span> environments * <span class="m">1</span> benchmarks<span class="o">)</span>
 <span class="o">[</span>  <span class="m">0</span>.00%<span class="o">]</span> · For napari commit 37c764cb &lt;benchmark_docs~1&gt; <span class="o">(</span>round <span class="m">1</span>/2<span class="o">)</span>:
 <span class="o">[</span>...<span class="o">]</span>
-<span class="o">[</span><span class="m">100</span>.00%<span class="o">]</span> ··· ...ansform.TransformSuite.time_hough_line           <span class="m">33</span>.2±2ms
+<span class="o">[</span><span class="m">100</span>.00%<span class="o">]</span> ··· ...Image.ViewImageSuite.time_view_image           <span class="m">33</span>.2±2ms
 
 BENCHMARKS NOT SIGNIFICANTLY CHANGED.
 </pre></div>
 </div>
-<p>In this case, the differences between HEAD and master are not significant
+<p>In this case, the differences between HEAD on your-current-branch and master are not significant
 enough for airspeed velocity to report.</p>
 </div>
 <div class="section" id="profiling">

@@ -122,6 +122,7 @@
   <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/team.html">About Team</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct.html">Code of Conduct</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../community/governance.html">Governance Model</a></li>
@@ -264,6 +265,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/performance.html">Napari Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/translations.html">Translations</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Developer resources</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -389,6 +391,23 @@ replace the values with your new colors.  For example</p>
 </div>
 <p>(providing no arguments will show all themes in <code class="docutils literal notranslate"><span class="pre">theme.py</span></code>)</p>
 </div>
+</div>
+<div class="section" id="translations">
+<h2>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">¶</a></h2>
+<p>Starting with version 0.4.7, napari codebase include internationalization
+(i18n) and now offers the possibility of installing language packs, which
+provide localization (l10n) enabling the user interface to be displayed in
+different languages.</p>
+<p>To learn more about the current languages that are in the process of
+translation, visit the <a class="reference external" href="https://github.com/napari/napari-language-packs">language packs repository</a></p>
+<p>To make your code translatable (localizable), please use the <code class="docutils literal notranslate"><span class="pre">trans</span></code> helper
+provided by the napari utilities.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+
+<span class="n">some_string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">"Localizable string"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To learn more, please see the <span class="xref myst">translations guide</span>.</p>
 </div>
 <div class="section" id="making-changes">
 <h2>Making changes<a class="headerlink" href="#making-changes" title="Permalink to this headline">¶</a></h2>
@@ -550,6 +569,7 @@ regarding the project, feel free to open an <a class="reference external" href="
 <li><a class="reference internal" href="#creating-and-testing-themes">Creating and testing themes</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#translations">Translations</a></li>
 <li><a class="reference internal" href="#making-changes">Making changes</a></li>
 <li><a class="reference internal" href="#tests">Tests</a><ul>
 <li><a class="reference internal" href="#help-us-make-sure-it-s-you">Help us make sure it’s you</a></li>

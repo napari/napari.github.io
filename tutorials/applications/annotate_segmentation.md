@@ -120,21 +120,21 @@ text_parameters = {
     'translation': [-3, 0],
 }
 
-with napari.gui_qt():
-    # initialise viewer with coins image
-    viewer = napari.view_image(image, name='coins', rgb=False)
+# initialise viewer with coins image
+viewer = napari.view_image(image, name='coins', rgb=False)
 
-    # add the labels
-    label_layer = viewer.add_labels(label_image, name='segmentation')
+# add the labels
+label_layer = viewer.add_labels(label_image, name='segmentation')
 
-    shapes_layer = viewer.add_shapes(
-        bbox_rects,
-        face_color='transparent',
-        edge_color='green',
-        properties=properties,
-        text=text_parameters,
-        name='bounding box',
-    )
+shapes_layer = viewer.add_shapes(
+    bbox_rects,
+    face_color='transparent',
+    edge_color='green',
+    properties=properties,
+    text=text_parameters,
+    name='bounding box',
+)
+napari.run()
 
 ```
 
@@ -171,25 +171,26 @@ def segment(image):
 
 ```
 
-We can test the segmentation and view it in napari. Note that we need to initialize and interact with the napari view in the `with napari.gui_qt()` context manager in order to ensure the GUI is property initialized.
+We can test the segmentation and view it in napari.
 
 ```python
 # load the image and segment it
 image = data.coins()[50:-50, 50:-50]
 label_image = segment(image)
 
-with napari.gui_qt():
-    # initialize viewer with coins image
-    viewer = napari.view_image(image, name='coins', rgb=False)
+# initialize viewer with coins image
+viewer = napari.view_image(image, name='coins', rgb=False)
 
-    # add the labels
-    label_layer = viewer.add_labels(label_image, name='segmentation')
+# add the labels
+label_layer = viewer.add_labels(label_image, name='segmentation')
 
+napari.run()
 ```
 
 ![image: segmentation labels](../assets/tutorials/segmentation_labels.png)
 
 ## analyzing the segmentation
+
 Next, we use [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table) from skimage to quantify some parameters of each detection object (e.g., area and perimeter).
 
 ```python
@@ -198,6 +199,7 @@ properties = regionprops_table(
     label_image, properties=('label', 'bbox', 'perimeter', 'area')
 )
 ```
+
 Conveniently, `regionprops_table()` returns a dictionary in the same format as the napari layer properties dictionary, so we will be able to use it directly. If we inspect the values of properties, we see each key is the name of the properties and the values are arrays with an element containing the property value for each shape. Note that the bounding boxes have been output as `bbox-0`,  `bbox-1`, `bbox-1`, `bbox-2`, `bbox-3` which correspond with the min_row, min_column, max_row, amnd max_column of each bounding box, respectively.
 
 ```python
@@ -292,15 +294,16 @@ bbox_rects = make_bbox([properties[f'bbox-{i}'] for i in range(4)])
 ## visualizing the segmentation results
 Now that we have performed out analysis, we can visualize the results in napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels, and (3) Shapes.
 
-As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows, again noting that we use the `with napari.gui_qt():` context manager to ensure the GUI is initialized properly.
+As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows:
 
 ```python
-with napari.gui_qt():
-    # initialise viewer with coins image
-    viewer = napari.view_image(image, name='coins', rgb=False)
+# initialise viewer with coins image
+viewer = napari.view_image(image, name='coins', rgb=False)
 
-    # add the labels
-    label_layer = viewer.add_labels(label_image, name='segmentation')
+# add the labels
+label_layer = viewer.add_labels(label_image, name='segmentation')
+
+napari.run()
 ```
 
 Next, we will use the Shapes layer to overlay the bounding boxes for each detected object as well as display the calculated circularity. The code for creating the Shapes layer is listed here and each keyword argument is explained below.
@@ -385,22 +388,22 @@ text_kwargs = {
     'translation': [-3, 0]
 }
 
-with napari.gui_qt():
-    # initialise viewer with coins image
-    viewer = napari.view_image(image, name='coins', rgb=False)
+# initialise viewer with coins image
+viewer = napari.view_image(image, name='coins', rgb=False)
 
-    # add the labels
-    label_layer = viewer.add_labels(label_image, name='segmentation')
+# add the labels
+label_layer = viewer.add_labels(label_image, name='segmentation')
 
-    shapes_layer = viewer.add_shapes(
-        bbox_rects,
-        face_color='transparent',
-        edge_color='green',
-        properties=properties,
-        text=text_parameters,
-        name='bounding box'
-    )
+shapes_layer = viewer.add_shapes(
+    bbox_rects,
+    face_color='transparent',
+    edge_color='green',
+    properties=properties,
+    text=text_parameters,
+    name='bounding box'
+)
 
+napari.run()
 ```
 
 ## summary

@@ -20,26 +20,26 @@ except ImportError:
     raise ImportError("""This example uses ImageJ but pyimagej is not
     installed. To install try 'conda install pyimagej'.""")
 
-with napari.gui_qt():
 
-    print('--> Initializing imagej')
-    ij = imagej.init('sc.fiji:fiji') # Fiji includes Bio-Formats.
+print('--> Initializing imagej')
+ij = imagej.init('sc.fiji:fiji') # Fiji includes Bio-Formats.
 
-    for i in range(1, len(sys.argv)):
-        path = sys.argv[i]
-        print('--> Reading {}'.format(path))
+for i in range(1, len(sys.argv)):
+    path = sys.argv[i]
+    print('--> Reading {}'.format(path))
 
-        dataset = ij.io().open(path)
-        image = ij.py.from_java(dataset)
+    dataset = ij.io().open(path)
+    image = ij.py.from_java(dataset)
 
-        if i == 1:
-            viewer = napari.view_image(image)
-        else:
-            viewer.add_image(image)
+    if i == 1:
+        viewer = napari.view_image(image)
+    else:
+        viewer.add_image(image)
 
-    ij.getContext().dispose()
+ij.getContext().dispose()
 
-    viewer.grid_view()
+viewer.grid_view()
+napari.run()
 ```
 
 ### Using ImageJ and Napari side-by-side 
@@ -57,8 +57,7 @@ Due to behavioural differences between plain Python and IPython we use slightly 
 Firstly import napari
 ```python
 import napari
-with napari.gui_qt():
-    napari.Viewer()
+viewer = napari.Viewer()
 ```
 When napari comes up, open the Jupyter Qt console and type:
 ```python

@@ -188,7 +188,7 @@ You can rearrange layers by clicking and dragging them.
 ```{code-cell} python
 :tags: [remove-cell]
 
-viewer.close
+viewer.close()
 ```
 
 ### layer controls

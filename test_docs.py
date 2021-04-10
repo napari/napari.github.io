@@ -33,3 +33,8 @@ def test_doc_code_cells(fname, qapp, globalns=globals()):
                     exec(cell, globalns)
                 continue
         exec(cell, globalns)
+    for window in qapp.topLevelWindows():
+        try:
+            window.close()
+        except Exception:
+            pass

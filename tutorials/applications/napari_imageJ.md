@@ -24,17 +24,14 @@ except ImportError:
 print('--> Initializing imagej')
 ij = imagej.init('sc.fiji:fiji') # Fiji includes Bio-Formats.
 
-for i in range(1, len(sys.argv)):
-    path = sys.argv[i]
+viewer = napari.Viewer()
+for path in sys.argv[1:]:
     print('--> Reading {}'.format(path))
 
     dataset = ij.io().open(path)
     image = ij.py.from_java(dataset)
 
-    if i == 1:
-        viewer = napari.view_image(image)
-    else:
-        viewer.add_image(image)
+    viewer.add_image(image)
 
 ij.getContext().dispose()
 

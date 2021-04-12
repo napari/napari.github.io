@@ -195,19 +195,13 @@ their name. These include:
 list(napari.utils.colormaps.AVAILABLE_COLORMAPS)
 ```
 
-Passing any of these as follows:
+Passing any of these strings as follows to set the image colormap:
 
 ```{code-cell} python
 viewer = napari.view_image(data.moon(), colormap='red')
 ```
 
-+++ {"tags": ["remove-cell"]}
-
-viewer.close()
-
-+++
-
-... will set the colormap of that image. You can also access the current
+You can also access the current
 colormap through the `layer.colormap` property which returns a tuple of the
 colormap name followed by the vispy colormap object. You can list all the
 available colormaps using `layer.colormaps`.

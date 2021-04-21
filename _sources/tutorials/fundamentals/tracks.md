@@ -58,10 +58,10 @@ tracks_data = [
     [3, 4, 636, 1000]
 ]
 
-with napari.gui_qt():
-    viewer = napari.view_image(test_im, name='image')
-    viewer.add_tracks(tracks_data, name='tracks')
+viewer = napari.view_image(test_im, name='image')
+viewer.add_tracks(tracks_data, name='tracks')
 
+napari.run()
 ```
 
 ![image: tracks simple demo](../assets/tutorials/tracks_simple_demo.gif)
@@ -152,9 +152,8 @@ tracks_data = [
     [1, 1, 10, 8, 7]
 ]
 
-with napari.gui_qt():
-    viewer = napari.view_tracks(tracks_data)
-
+viewer = napari.view_tracks(tracks_data)
+napari.run()
 ```
 
 
@@ -260,9 +259,9 @@ properties = {
     'confidence': track_confidence
 }
 
-with napari.gui_qt():
-    viewer = napari.view_image(hubble_image)
-    viewer.add_tracks(tracks_data, properties=properties)
+viewer = napari.view_image(hubble_image)
+viewer.add_tracks(tracks_data, properties=properties)
+napari.run()
 ```
 
 ![image: tracks colored by properties](../assets/tutorials/tracks_color_by.gif)

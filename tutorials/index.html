@@ -46,6 +46,15 @@
     <link rel="stylesheet" href="../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
+    <style>
+    /* All of this is for the download button which is 
+    declared in download_button.html and included in page: .html
+    
+    This is temporary, and should definitely be replaced with something better
+    when we move to the napari theme.
+    */
+    article{position:relative}.download.icon{color:#000;position:absolute;margin-left:3px;margin-top:12px;width:13px;height:4px;border-radius:1px;border:solid 1px currentColor;border-top:none;top:42px;right:15%}.download.icon:before{content:'';position:absolute;left:6px;top:-9px;width:1px;height:10px;background-color:currentColor}.download.icon:after{content:'';position:absolute;left:4px;top:-4px;width:4px;height:4px;border-top:solid 1px currentColor;border-right:solid 1px currentColor;-webkit-transform:rotate(135deg);transform:rotate(135deg)}.download.icon>span{display:none}.download.icon:hover>span{display:inline;position:absolute;top:1em;left:-3.4em;width:8em;font-size:small;color:#999}
+    </style>
 </head>
   <body dir="">
     
@@ -294,35 +303,32 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="napari-tutorials">
+        
+
+
+<a class="dropdown-buttons" href="../_sources/tutorials/index.ipynb" download>
+    <div class="download icon"><span>download .ipynb</span></div>
+</a>
+
+
+<div class="section" id="napari-tutorials">
 <h1>napari tutorials<a class="headerlink" href="#napari-tutorials" title="Permalink to this headline">¶</a></h1>
-<p>Welcome to the <strong>napari</strong> tutorials!
-Our main development occurs on the <a class="reference external" href="https://github.com/napari/napari">napari/napari</a> repository.
-Here we’ve provided a few tutorials to explore the main usage modes and methods of napari.
-Before we dive in, let’s talk a bit about what napari actually is and why we’re developing it.</p>
+<p>Welcome to the napari tutorials! Our main development occurs on the
+<a class="reference external" href="https://github.com/napari/napari">napari/napari</a> repository. Here we’ve
+provided a few tutorials to explore the main usage modes and methods of napari.
+Before we dive in, let’s talk a bit about what napari actually is and why we’re
+developing it.</p>
 <div class="section" id="what-is-napari">
 <h2>what is napari?<a class="headerlink" href="#what-is-napari" title="Permalink to this headline">¶</a></h2>
 <p><strong>napari</strong> is a fast, interactive, multi-dimensional image viewer for Python.
-It’s designed for browsing, annotating, and analyzing large multi-dimensional images.
-It’s built on top of <code class="docutils literal notranslate"><span class="pre">Qt</span></code> (for the GUI), <code class="docutils literal notranslate"><span class="pre">vispy</span></code> (for performant GPU-based rendering),
-and the scientific Python stack (e.g. <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>).
-It includes critical viewer features out-of-the-box,
-such as support for large multi-dimensional data, and layering and annotation.
-By integrating closely with the Python ecosystem,
-<strong>napari</strong> can be easily coupled to leading machine learning and image analysis tools (e.g. <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code>, <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, <code class="docutils literal notranslate"><span class="pre">TensorFlow</span></code>, <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code>),
-enabling more user-friendly automated analysis.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">gui</span> qt  # we need to start the Qt event loop before importing napari
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR:root:Invalid GUI request 'qt # we need to start the Qt event loop before importing napari', valid ones are:dict_keys(['inline', 'nbagg', 'notebook', 'ipympl', 'widget', None, 'qt4', 'qt', 'qt5', 'wx', 'tk', 'gtk', 'gtk3', 'osx', 'asyncio'])
-</pre></div>
-</div>
-</div>
-</div>
+It’s designed for browsing, annotating, and analyzing large multi-dimensional
+images. It’s built on top of <code class="docutils literal notranslate"><span class="pre">Qt</span></code> (for the GUI), <code class="docutils literal notranslate"><span class="pre">vispy</span></code> (for performant
+GPU-based rendering), and the scientific Python stack (e.g. <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>).
+It includes critical viewer features out-of-the-box, such as support for large
+multi-dimensional data, and layering and annotation. By integrating closely with
+the Python ecosystem, <strong>napari</strong> can be easily coupled to leading machine
+learning and image analysis tools (e.g. <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code>, <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>,
+<code class="docutils literal notranslate"><span class="pre">TensorFlow</span></code>, <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code>), enabling more user-friendly automated analysis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
@@ -337,9 +343,6 @@ enabling more user-friendly automated analysis.</p>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-runner'
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:vispy:QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-runner'
-</pre></div>
-</div>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -351,37 +354,43 @@ enabling more user-friendly automated analysis.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/index_6_0.png" src="../_images/index_6_0.png"/>
+<img alt="../_images/index_4_0.png" src="../_images/index_4_0.png"/>
 </div>
 </div>
-<p>We’re developing <strong>napari</strong> in the open!
-But the project is in an <strong>alpha</strong> stage,
-and there will still likely be <strong>breaking changes</strong> with each release.
-You can follow progress on this repository,
-test out new versions as we release them,
-and contribute ideas and code.</p>
-<p>To get a sense of our current plans checkout and contribute to the discussion on some of our <a class="reference external" href="https://github.com/napari/napari/issues?q=is%3Aissue+is%3Aopen+label%3A%22long-term+feature%22">long-term feature issues</a> on Github.</p>
-<p>To checkout some cool example uses of <strong>napari</strong> with scientific data see our <span class="xref myst">gallery</span>.</p>
+<p>We’re developing <strong>napari</strong> in the open! But the project is in an <strong>alpha</strong>
+stage, and there will still likely be <strong>breaking changes</strong> with each release.
+You can follow progress on this repository, test out new versions as we release
+them, and contribute ideas and code.</p>
+<p>To get a sense of our current plans checkout and contribute to the discussion on
+some of our <a class="reference external" href="https://github.com/napari/napari/issues?q=is%3Aissue+is%3Aopen+label%3A%22long-term+feature%22">long-term feature
+issues</a>
+on Github.</p>
+<p>To checkout some cool example uses of <strong>napari</strong> with scientific data see our
+<span class="xref myst">gallery</span>.</p>
 </div>
 <div class="section" id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>These tutorials target people who want to use napari as a user.
-If you are also interested in contributing to napari then please check out <a class="reference external" href="https://github.com/napari/napari/blob/master/docs/developers/contributing.md">contributing guidelines</a>.</p>
-<p>If you’ve already got napari installed,
-then begin with our <a class="reference internal" href="fundamentals/getting_started.html"><span class="doc std std-doc">getting started</span></a> tutorial.
-For help installing napari checkout our <a class="reference internal" href="fundamentals/installation.html"><span class="doc std std-doc">installing napari</span></a> tutorial.</p>
+<p>These tutorials target people who want to use napari as a user. If you are also
+interested in contributing to napari then please check out <a class="reference external" href="https://github.com/napari/napari/blob/master/docs/developers/contributing.md">contributing
+guidelines</a>.</p>
+<p>If you’ve already got napari installed, then begin with our <a class="reference internal" href="fundamentals/getting_started.html"><span class="doc std std-doc">getting
+started</span></a> tutorial. For help installing napari
+checkout our <a class="reference internal" href="fundamentals/installation.html"><span class="doc std std-doc">installing napari</span></a> tutorial.</p>
 </div>
 <div class="section" id="help">
 <h2>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
-<p>We’re a community partner on the <a class="reference external" href="https://forum.image.sc/tags/napari">imagesc forum</a> and all help and support requests should be posted on the forum with the tag <code class="docutils literal notranslate"><span class="pre">napari</span></code>.
-We look forward to interacting with you there.</p>
+<p>We’re a community partner on the <a class="reference external" href="https://forum.image.sc/tags/napari">imagesc
+forum</a> and all help and support requests
+should be posted on the forum with the tag <code class="docutils literal notranslate"><span class="pre">napari</span></code>. We look forward to
+interacting with you there.</p>
 </div>
 <div class="section" id="improving-the-tutorials">
 <h2>improving the tutorials<a class="headerlink" href="#improving-the-tutorials" title="Permalink to this headline">¶</a></h2>
-<p>Our tutorials are hosted on Github at <a class="reference external" href="https://github.com/napari/tutorials">napari/tutorials</a>.
-If as you’re going through the tutorials you spot any errors or can think of ways to improve them
-please raise an issue on the repository or make a PR,
-we’d love to have the community help make them better for everyone.</p>
+<p>Our tutorials are hosted on Github at
+<a class="reference external" href="https://github.com/napari/tutorials">napari/tutorials</a>. If as you’re going
+through the tutorials you spot any errors or can think of ways to improve them
+please raise an issue on the repository or make a PR, we’d love to have the
+community help make them better for everyone.</p>
 <p><a class="reference external" href="http://www.napari.org/tutorials">napari tutorials home page</a></p>
 <div class="toctree-wrapper compound">
 </div>
@@ -406,6 +415,8 @@ we’d love to have the community help make them better for everyone.</p>
     }
     </script>
 <script>kernelName = 'python3'</script>
+
+
       </article>
       <footer>
         
@@ -440,7 +451,7 @@ we’d love to have the community help make them better for everyone.</p>
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
             |
-            <a class="muted-link" href="../_sources/tutorials/index.ipynb"
+            <a class="muted-link" href="../_sources/tutorials/index.md"
                rel="nofollow">
               Show Source
             </a>

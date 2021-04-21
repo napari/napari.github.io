@@ -46,6 +46,15 @@
     <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
+    <style>
+    /* All of this is for the download button which is 
+    declared in download_button.html and included in page: .html
+    
+    This is temporary, and should definitely be replaced with something better
+    when we move to the napari theme.
+    */
+    article{position:relative}.download.icon{color:#000;position:absolute;margin-left:3px;margin-top:12px;width:13px;height:4px;border-radius:1px;border:solid 1px currentColor;border-top:none;top:42px;right:15%}.download.icon:before{content:'';position:absolute;left:6px;top:-9px;width:1px;height:10px;background-color:currentColor}.download.icon:after{content:'';position:absolute;left:4px;top:-4px;width:4px;height:4px;border-top:solid 1px currentColor;border-right:solid 1px currentColor;-webkit-transform:rotate(135deg);transform:rotate(135deg)}.download.icon>span{display:none}.download.icon:hover>span{display:inline;position:absolute;top:1em;left:-3.4em;width:8em;font-size:small;color:#999}
+    </style>
 </head>
   <body dir="">
     
@@ -294,7 +303,11 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="annotating-videos-with-napari">
+        
+
+
+
+<div class="section" id="annotating-videos-with-napari">
 <h1>annotating videos with napari<a class="headerlink" href="#annotating-videos-with-napari" title="Permalink to this headline">¶</a></h1>
 <p><strong>Note</strong>: this tutorial has been updated and is now compatible with napari &gt; 0.4.5 and magicgui &gt; 0.2.5. For details, see <a class="reference external" href="https://github.com/napari/tutorials/pull/114">this pull request</a>.</p>
 <p>In this tutorial, we will use napari (requires version 0.3.2 or greater) to make a simple GUI application for annotating points in videos.
@@ -385,58 +398,58 @@ We will walk through the code in the following sections.</p>
 <span class="sd">        list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).</span>
 <span class="sd">    """</span>
     <span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">im_path</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-        <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
-        <span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
-            <span class="n">properties</span><span class="o">=</span><span class="p">{</span><span class="s1">'label'</span><span class="p">:</span> <span class="n">labels</span><span class="p">},</span>
-            <span class="n">edge_color</span><span class="o">=</span><span class="s1">'label'</span><span class="p">,</span>
-            <span class="n">edge_color_cycle</span><span class="o">=</span><span class="n">COLOR_CYCLE</span><span class="p">,</span>
-            <span class="n">symbol</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span>
-            <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
-            <span class="n">edge_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
-            <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-			<span class="n">ndim</span><span class="o">=</span><span class="mi">3</span>
-        <span class="p">)</span>
-        <span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span> <span class="o">=</span> <span class="s1">'cycle'</span>
 
-        <span class="c1"># add the label menu widget to the viewer</span>
-        <span class="n">label_widget</span> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+    <span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
+        <span class="n">properties</span><span class="o">=</span><span class="p">{</span><span class="s1">'label'</span><span class="p">:</span> <span class="n">labels</span><span class="p">},</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s1">'label'</span><span class="p">,</span>
+        <span class="n">edge_color_cycle</span><span class="o">=</span><span class="n">COLOR_CYCLE</span><span class="p">,</span>
+        <span class="n">symbol</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span>
+        <span class="n">face_color</span><span class="o">=</span><span class="s1">'transparent'</span><span class="p">,</span>
+        <span class="n">edge_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+        <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span>
+    <span class="p">)</span>
+    <span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span> <span class="o">=</span> <span class="s1">'cycle'</span>
 
-        <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">next_label</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-            <span class="sd">"""Keybinding to advance to the next label with wraparound"""</span>
-            <span class="n">current_properties</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span>
-            <span class="n">current_label</span> <span class="o">=</span> <span class="n">current_properties</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">current_label</span><span class="p">)</span>
-            <span class="n">new_ind</span> <span class="o">=</span> <span class="p">(</span><span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-            <span class="n">new_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
-            <span class="n">current_properties</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">new_label</span><span class="p">])</span>
-            <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
+    <span class="c1"># add the label menu widget to the viewer</span>
+    <span class="n">label_widget</span> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">next_on_click</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-            <span class="sd">"""Mouse click binding to advance the label when a point is added"""</span>
-            <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">'add'</span><span class="p">:</span>
-                <span class="n">next_label</span><span class="p">()</span>
+    <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">next_label</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""Keybinding to advance to the next label with wraparound"""</span>
+        <span class="n">current_properties</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span>
+        <span class="n">current_label</span> <span class="o">=</span> <span class="n">current_properties</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">current_label</span><span class="p">)</span>
+        <span class="n">new_ind</span> <span class="o">=</span> <span class="p">(</span><span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="n">new_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
+        <span class="n">current_properties</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">new_label</span><span class="p">])</span>
+        <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
 
-                <span class="c1"># by default, napari selects the point that was just added</span>
-                <span class="c1"># disable that behavior, as the highlight gets in the way</span>
-                <span class="n">layer</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">next_on_click</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Mouse click binding to advance the label when a point is added"""</span>
+        <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">'add'</span><span class="p">:</span>
+            <span class="n">next_label</span><span class="p">()</span>
 
-        <span class="n">points_layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">'add'</span>
-        <span class="n">points_layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_on_click</span><span class="p">)</span>
+            <span class="c1"># by default, napari selects the point that was just added</span>
+            <span class="c1"># disable that behavior, as the highlight gets in the way</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">prev_label</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-            <span class="sd">"""Keybinding to decrement to the previous label with wraparound"""</span>
-            <span class="n">current_properties</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span>
-            <span class="n">current_label</span> <span class="o">=</span> <span class="n">current_properties</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">current_label</span><span class="p">)</span>
-            <span class="n">n_labels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-            <span class="n">new_ind</span> <span class="o">=</span> <span class="p">((</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_labels</span><span class="p">)</span> <span class="o">%</span> <span class="n">n_labels</span>
-            <span class="n">new_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
-            <span class="n">current_properties</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">new_label</span><span class="p">])</span>
-            <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
+    <span class="n">points_layer</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">'add'</span>
+    <span class="n">points_layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_on_click</span><span class="p">)</span>
+
+    <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">prev_label</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""Keybinding to decrement to the previous label with wraparound"""</span>
+        <span class="n">current_properties</span> <span class="o">=</span> <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span>
+        <span class="n">current_label</span> <span class="o">=</span> <span class="n">current_properties</span><span class="p">[</span><span class="s1">'label'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">current_label</span><span class="p">)</span>
+        <span class="n">n_labels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="n">new_ind</span> <span class="o">=</span> <span class="p">((</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_labels</span><span class="p">)</span> <span class="o">%</span> <span class="n">n_labels</span>
+        <span class="n">new_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">new_ind</span><span class="p">]</span>
+        <span class="n">current_properties</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">new_label</span><span class="p">])</span>
+        <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
 </pre></div>
 </div>
 <div class="section" id="point-annotator">
@@ -470,10 +483,9 @@ For more explanation on using dask to lazily load images in napari, see <a class
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">im_path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can then start the viewer Note that we use the <code class="docutils literal notranslate"><span class="pre">napari.gui_qt()</span></code> context manager to start and manage Qt event loop.
-All of the following GUI code should be within the <code class="docutils literal notranslate"><span class="pre">napari.gui_qt()</span></code> context manager.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+<p>We can then start the viewer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -529,9 +541,11 @@ For example, the <a class="reference external" href="https://github.com/d3/d3-3.
 </div>
 <div class="section" id="adding-a-gui-for-selecting-points">
 <h2>Adding a GUI for selecting points<a class="headerlink" href="#adding-a-gui-for-selecting-points" title="Permalink to this headline">¶</a></h2>
-<p>First, we will define a function outside of the <code class="docutils literal notranslate"><span class="pre">napari.gui_qt()</span></code> context to create a GUI for select the labels for points.
-The function <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code> will take the points layer we created and the list of labels we will annotate with and return the label menu GUI.
-Additionally, we will create and connect all the required callbacks to make the GUI interactive.</p>
+<p>First, we will define a function  to create a GUI for select the labels for
+points. The function <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code> will take the points layer we created
+and the list of labels we will annotate with and return the label menu GUI.
+Additionally, we will create and connect all the required callbacks to make the
+GUI interactive.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_label_menu</span><span class="p">(</span><span class="n">points_layer</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
     <span class="sd">"""Create a label menu widget that can be added to the napari viewer dock</span>
 
@@ -705,6 +719,8 @@ We can enter the command either in the script (e.g., bind a save function to a h
     }
     </script>
 <script>kernelName = 'python3'</script>
+
+
       </article>
       <footer>
         

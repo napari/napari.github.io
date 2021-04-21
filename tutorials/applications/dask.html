@@ -46,6 +46,15 @@
     <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
+    <style>
+    /* All of this is for the download button which is 
+    declared in download_button.html and included in page: .html
+    
+    This is temporary, and should definitely be replaced with something better
+    when we move to the napari theme.
+    */
+    article{position:relative}.download.icon{color:#000;position:absolute;margin-left:3px;margin-top:12px;width:13px;height:4px;border-radius:1px;border:solid 1px currentColor;border-top:none;top:42px;right:15%}.download.icon:before{content:'';position:absolute;left:6px;top:-9px;width:1px;height:10px;background-color:currentColor}.download.icon:after{content:'';position:absolute;left:4px;top:-4px;width:4px;height:4px;border-top:solid 1px currentColor;border-right:solid 1px currentColor;-webkit-transform:rotate(135deg);transform:rotate(135deg)}.download.icon>span{display:none}.download.icon:hover>span{display:inline;position:absolute;top:1em;left:-3.4em;width:8em;font-size:small;color:#999}
+    </style>
 </head>
   <body dir="">
     
@@ -294,7 +303,11 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="using-dask-and-napari-to-process-view-large-datasets">
+        
+
+
+
+<div class="section" id="using-dask-and-napari-to-process-view-large-datasets">
 <h1>using dask and napari to process &amp; view large datasets<a class="headerlink" href="#using-dask-and-napari-to-process-view-large-datasets" title="Permalink to this headline">¶</a></h1>
 <p>Often in microscopy, multidimensional data is acquired and written to disk in many small files,
 each of which contain a subset of one or more dimensions from the complete dataset.
@@ -385,10 +398,9 @@ Dask will take care of reading the data from disk
 and handing a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array to <code class="docutils literal notranslate"><span class="pre">napari</span></code> each time a new timepoint or channel is requested.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="c1"># specify contrast_limits and is_pyramid=False with big data</span>
-    <span class="c1"># to avoid unnecessary computations</span>
-    <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># specify contrast_limits and is_pyramid=False with big data</span>
+<span class="c1"># to avoid unnecessary computations</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><em>Note: providing the</em> <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">multiscale</span></code> <em>arguments prevents</em> <code class="docutils literal notranslate"><span class="pre">napari</span></code> <em>from trying to calculate the data min/max, which can take an extremely long time with big data.
@@ -407,9 +419,7 @@ provided your image format can be read by the <a class="reference external" href
 <span class="kn">from</span> <span class="nn">dask_image.imread</span> <span class="kn">import</span> <span class="n">imread</span>
 
 <span class="n">stack</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s2">"/path/to/experiment/*.tif"</span><span class="p">)</span>
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">is_pyramid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
+<span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">is_pyramid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><img alt="image: mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope" src="../../_images/dask1.gif"/></p>
@@ -507,15 +517,15 @@ and display them, <em>on demand</em> as you move the <code class="docutils liter
 
 <span class="c1"># put the resulting dask array into napari.</span>
 <span class="c1"># (don't forget the contrast limits and is_pyramid==False !)</span>
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span>
-        <span class="n">cropped</span><span class="p">,</span>
-        <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span>
-        <span class="n">is_pyramid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-        <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-    <span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span>
+    <span class="n">cropped</span><span class="p">,</span>
+    <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span>
+    <span class="n">is_pyramid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Of course, the GUI isn’t as responsive as it would be if you had processed the data up front
@@ -555,6 +565,8 @@ ready to show you the result on demand!</p>
     }
     </script>
 <script>kernelName = 'python3'</script>
+
+
       </article>
       <footer>
         

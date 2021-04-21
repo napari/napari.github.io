@@ -87,8 +87,8 @@ At this point, there is no concept of track *links*, lineages, or tracks splitti
 These single tracks are sometimes known as tracklets:
 
 ```python
-with napari.gui_qt():
-    napari.view_tracks(data, name='tracklets')
+napari.view_tracks(data, name='tracklets')
+napari.run()
 ```
 
 ### calculating the graph using the lineage information
@@ -170,13 +170,12 @@ SCALE = (1.0, 1.0, 0.09, 0.09)
 ```
 
 We can now visualize the full, linked tracks in napari!
-Remember that we need to initialize and interact with the napari viewer in the `with napari.gui_qt()` context manager in order to ensure the GUI is properly initialized.
 
 ```python
-with napari.gui_qt():
-    viewer = napari.Viewer()
-    viewer.add_image(timelapse, scale=SCALE, name='Fluo-N3DH-CE')
-    viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE, name='tracks')
+viewer = napari.Viewer()
+viewer.add_image(timelapse, scale=SCALE, name='Fluo-N3DH-CE')
+viewer.add_tracks(data, properties=properties, graph=graph, scale=SCALE, name='tracks')
+napari.run()
 ```
 
 ![image: tracks isbi](../assets/tutorials/tracks_isbi.gif)
@@ -226,9 +225,9 @@ Next, the objects are linked into tracks using the `.track_interactive()` method
 Finally, the `.to_napari()` method returns the track vertices, track properties and graph in a format that can be directly visualized using the napari `Tracks` layer:
 
 ```python
-with napari.gui_qt():
-    viewer = napari.Viewer()
-    viewer.add_tracks(data, properties=properties, graph=graph)
+viewer = napari.Viewer()
+viewer.add_tracks(data, properties=properties, graph=graph)
+napari.run()
 ```
 
 ![image: tracks btrack](../assets/tutorials/tracks_btrack.png)

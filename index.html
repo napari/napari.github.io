@@ -46,6 +46,15 @@
     <link rel="stylesheet" href="_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
+    <style>
+    /* All of this is for the download button which is 
+    declared in download_button.html and included in page: .html
+    
+    This is temporary, and should definitely be replaced with something better
+    when we move to the napari theme.
+    */
+    article{position:relative}.download.icon{color:#000;position:absolute;margin-left:3px;margin-top:12px;width:13px;height:4px;border-radius:1px;border:solid 1px currentColor;border-top:none;top:42px;right:15%}.download.icon:before{content:'';position:absolute;left:6px;top:-9px;width:1px;height:10px;background-color:currentColor}.download.icon:after{content:'';position:absolute;left:4px;top:-4px;width:4px;height:4px;border-top:solid 1px currentColor;border-right:solid 1px currentColor;-webkit-transform:rotate(135deg);transform:rotate(135deg)}.download.icon>span{display:none}.download.icon:hover>span{display:inline;position:absolute;top:1em;left:-3.4em;width:8em;font-size:small;color:#999}
+    </style>
 </head>
   <body dir="">
     
@@ -294,7 +303,11 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="napari">
+        
+
+
+
+<div class="section" id="napari">
 <h1>napari<a class="headerlink" href="#napari" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="multi-dimensional-image-viewer-for-python">
 <h2>multi-dimensional image viewer for python<a class="headerlink" href="#multi-dimensional-image-viewer-for-python" title="Permalink to this headline">¶</a></h2>
@@ -308,31 +321,41 @@
 <a class="reference external" href="https://github.com/napari/napari"><img alt="Development Status" src="https://img.shields.io/pypi/status/napari.svg"/></a>
 <a class="reference external" href="https://github.com/python/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/></a>
 <a class="reference external" href="https://zenodo.org/badge/latestdoi/144513571"><img alt="DOI" src="https://zenodo.org/badge/144513571.svg"/></a></p>
-<p><strong>napari</strong> is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of <code class="docutils literal notranslate"><span class="pre">Qt</span></code> (for the GUI), <code class="docutils literal notranslate"><span class="pre">vispy</span></code> (for performant GPU-based rendering), and the scientific Python stack (<code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>).</p>
-<p>We’re developing <strong>napari</strong> in the open! But the project is in an <strong>alpha</strong> stage, and there will still likely be <strong>breaking changes</strong> with each release. You can follow progress on this repository, test out new versions as we release them, and contribute ideas and code.</p>
-<p>We’re working on <span class="xref myst">tutorials</span>, but you can also quickly get started by looking below.</p>
+<hr class="docutils"/>
+<p><strong>napari</strong> is a fast, interactive, multi-dimensional image viewer for Python.
+It’s designed for browsing, annotating, and analyzing large multi-dimensional
+images. It’s built on top of <code class="docutils literal notranslate"><span class="pre">Qt</span></code> (for the GUI), <code class="docutils literal notranslate"><span class="pre">vispy</span></code> (for performant
+GPU-based rendering), and the scientific Python stack (<code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>).</p>
+<p>We’re developing <strong>napari</strong> in the open! But the project is in an <strong>alpha</strong>
+stage, and there will still likely be <strong>breaking changes</strong> with each release.
+You can follow progress on this repository, test out new versions as we release
+them, and contribute ideas and code.</p>
+<p>We’re working on <span class="xref myst">tutorials</span>, but you can also quickly get started
+by looking below.</p>
 </div>
 <div class="section" id="installation">
 <h2>installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="which-distribution-to-install">
 <h3>which distribution to install<a class="headerlink" href="#which-distribution-to-install" title="Permalink to this headline">¶</a></h3>
-<p>If you want to contribute back to napari codebase, you need to install from source code: see the <a class="reference external" href="#from-source">from source</a> section.</p>
-<p>If you do not want to use napari as python code and only use it as GUI app, the bundled app is the easiest way to install.
-This is also the only method that does not require python knowledge to work with napari, see the <a class="reference external" href="./tutorials/fundamentals/installation#installing-as-a-bundled-app">from bundled app</a> section.</p>
-<p>If you are using napari from Python to programmatically interact with the app, you can install via pip, conda-forge, or from source.
-We recommend that you use conda to help manage the virtual environment. Otherwise you may see compilation issues that are specific to your particular machine, which is difficult for us to debug.</p>
+<p>If you want to contribute back to the napari codebase, you should install from
+source code: see the <a class="reference external" href="#from-source">from source</a> section.</p>
+<p>If you only wish to use napari as GUI app (and not from python code), the
+<a class="reference external" href="./tutorials/fundamentals/installation#installing-as-a-bundled-app">bundled app</a>
+is the easiest way to install, it does not require having python pre-installed.</p>
+<p>If you are using napari from Python to programmatically interact with the app,
+you can install via pip, conda-forge, or from source.</p>
 </div>
 <div class="section" id="from-pip-with-batteries-included">
 <h3>from pip, with “batteries included”<a class="headerlink" href="#from-pip-with-batteries-included" title="Permalink to this headline">¶</a></h3>
-<p>napari can be installed on most macOS, Linux, and Windows systems with
-Python 3.7, 3.8, and 3.9 using pip. However, for Windows users, you need to preinstall <a class="reference external" href="https://visualstudio.microsoft.com/downloads/">Microsoft Visual C++ Build Tools</a>
-in order to install VisPy (one of the packages we depend on) on Windows machines.</p>
-<p>The simplest command to install with pip is:</p>
+<p>napari can be installed on most macOS, Linux, and Windows systems with Python
+3.7, 3.8, and 3.9 using pip:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install <span class="s1">'napari[all]'</span>
 </pre></div>
 </div>
-<p>(See <code class="docutils literal notranslate"><span class="pre">Specifying</span> <span class="pre">a</span> <span class="pre">GUI</span> <span class="pre">Backend</span></code> below for an explanation of the <code class="docutils literal notranslate"><span class="pre">[all]</span></code> notation.)
-Note: while not strictly required, it is <em>highly</em> recommended to install
+<p><em>(See <code class="docutils literal notranslate"><span class="pre">Specifying</span> <span class="pre">a</span> <span class="pre">GUI</span> <span class="pre">Backend</span></code> below for an explanation of the <code class="docutils literal notranslate"><span class="pre">[all]</span></code> notation.)</em></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>While not strictly required, it is <em>highly</em> recommended to install
 napari into a clean virtual environment using an environment manager like
 <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda</a> or
 <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a>.  For example, with <code class="docutils literal notranslate"><span class="pre">conda</span></code>:</p>
@@ -340,6 +363,7 @@ napari into a clean virtual environment using an environment manager like
 conda activate napari-env
 pip install <span class="s1">'napari[all]'</span>
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="from-source">
@@ -354,8 +378,9 @@ pip install -e <span class="s1">'.[all]'</span>
 pip install -r requirements.txt
 </pre></div>
 </div>
-<p>For more information or troubleshooting see our <a class="reference internal" href="tutorials/fundamentals/installation.html"><span class="doc std std-doc">installation tutorial</span></a></p>
-<div class="admonition-specifying-a-gui-backend admonition">
+<p>For more information or troubleshooting see our <a class="reference internal" href="tutorials/fundamentals/installation.html"><span class="doc std std-doc">installation
+tutorial</span></a></p>
+<div class="tip admonition">
 <p class="admonition-title">Specifying a GUI Backend</p>
 <p>napari needs a library called <a class="reference external" href="https://www.qt.io/">Qt</a> to run its user interface
 (UI). In Python, there are two alternative libraries to run this, called
@@ -380,65 +405,100 @@ pip install <span class="s1">'napari[pyside2]'</span>  <span class="c1"># for Py
 </div>
 <div class="section" id="simple-example">
 <h2>simple example<a class="headerlink" href="#simple-example" title="Permalink to this headline">¶</a></h2>
-<p>(The examples below require the <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> package to run. We just use data samples from this package for demonstration purposes. If you change the examples to use your own dataset, you may not need to install this package.)</p>
-<p>From inside an IPython shell (started with <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>) or jupyter notebook (after running a cell with magic command <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code>) you can open up an interactive viewer by calling</p>
+<p>(The examples below require the <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> package to run. We just use data
+samples from this package for demonstration purposes. If you change the examples
+to use your own dataset, you may not need to install this package.)</p>
+<p>From inside an IPython shell or jupyter notebook you can open up an interactive
+viewer by calling:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 <span class="kn">import</span> <span class="nn">napari</span>
+
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><img alt="image" src="_images/screenshot-add-image.png"/></p>
-<p>To do the same thing inside a script call</p>
+<p>To do the same thing inside a script call (note the call to <a class="reference internal" href="api/stable/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a> at
+the end)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 <span class="kn">import</span> <span class="nn">napari</span>
 
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># start the event loop and show viewer</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="features">
 <h2>features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
-<p>Check out the scripts in our <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder to see some of the functionality we’re developing!</p>
-<p><strong>napari</strong> supports six main different layer types, <code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code>, <code class="docutils literal notranslate"><span class="pre">Points</span></code>, <code class="docutils literal notranslate"><span class="pre">Vectors</span></code>, <code class="docutils literal notranslate"><span class="pre">Shapes</span></code>, and <code class="docutils literal notranslate"><span class="pre">Surface</span></code>, each corresponding to a different data type, visualization, and interactivity. You can add multiple layers of different types into the viewer and then start working with them, adjusting their properties.</p>
-<p>All our layer types support n-dimensional data and the viewer provides the ability to quickly browse and visualize either 2D or 3D slices of the data.</p>
-<p><strong>napari</strong> also supports bidirectional communication between the viewer and the Python kernel, which is especially useful when launching from jupyter notebooks or when using our built-in console. Using the console allows you to interactively load and save data from the viewer and control all the features of the viewer programmatically.</p>
-<p>You can extend <strong>napari</strong> using custom shortcuts, key bindings, and mouse functions.</p>
+<p>Check out the scripts in our <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder to see some of the functionality
+we’re developing!</p>
+<p><strong>napari</strong> supports six main different layer types, <code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code>, <code class="docutils literal notranslate"><span class="pre">Points</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Vectors</span></code>, <code class="docutils literal notranslate"><span class="pre">Shapes</span></code>, and <code class="docutils literal notranslate"><span class="pre">Surface</span></code>, each corresponding to a different data type,
+visualization, and interactivity. You can add multiple layers of different types
+into the viewer and then start working with them, adjusting their properties.</p>
+<p>All our layer types support n-dimensional data and the viewer provides the
+ability to quickly browse and visualize either 2D or 3D slices of the data.</p>
+<p><strong>napari</strong> also supports bidirectional communication between the viewer and the
+Python kernel, which is especially useful when launching from jupyter notebooks
+or when using our built-in console. Using the console allows you to
+interactively load and save data from the viewer and control all the features of
+the viewer programmatically.</p>
+<p>You can extend <strong>napari</strong> using custom shortcuts, key bindings, and mouse
+functions.</p>
 </div>
 <div class="section" id="tutorials">
 <h2>tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h2>
-<p>For more details on how to use <code class="docutils literal notranslate"><span class="pre">napari</span></code> checkout our <span class="xref myst">tutorials</span>. These are still a work in progress, but we’ll be updating them regularly.</p>
+<p>For more details on how to use <code class="docutils literal notranslate"><span class="pre">napari</span></code> checkout our <a class="reference internal" href="tutorials/index.html"><span class="doc std std-doc">tutorials</span></a>.
+These are still a work in progress, but we’ll be updating them regularly.</p>
 </div>
 <div class="section" id="mission-values-and-roadmap">
 <h2>mission, values, and roadmap<a class="headerlink" href="#mission-values-and-roadmap" title="Permalink to this headline">¶</a></h2>
-<p>For more information about our plans for <code class="docutils literal notranslate"><span class="pre">napari</span></code> you can read our <span class="xref myst">mission and values statement</span>, which includes more details on our vision for supporting a plugin ecosystem around napari.</p>
+<p>For more information about our plans for <code class="docutils literal notranslate"><span class="pre">napari</span></code> you can read our <a class="reference internal" href="community/mission_and_values.html"><span class="doc std std-doc">mission and
+values statement</span></a>, which includes more
+details on our vision for supporting a plugin ecosystem around napari.</p>
 </div>
 <div class="section" id="contributing">
 <h2>contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
-<p>Contributions are encouraged! Please read our <span class="xref myst">contributing guide</span> to get started. Given that we’re in an early stage, you may want to reach out on our <a class="reference external" href="https://github.com/napari/napari/issues">Github Issues</a> before jumping in.</p>
+<p>Contributions are encouraged! Please read our <a class="reference internal" href="developers/contributing.html"><span class="doc std std-doc">contributing
+guide</span></a> to get started. Given that we’re in an
+early stage, you may want to reach out on our <a class="reference external" href="https://github.com/napari/napari/issues">Github
+Issues</a> before jumping in.</p>
 </div>
 <div class="section" id="code-of-conduct">
 <h2>code of conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> has a <span class="xref myst">Code of Conduct</span> that should be honored by everyone who participates in the <code class="docutils literal notranslate"><span class="pre">napari</span></code> community.</p>
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> has a <span class="xref myst">Code of Conduct</span> that should
+be honored by everyone who participates in the <code class="docutils literal notranslate"><span class="pre">napari</span></code> community.</p>
 </div>
 <div class="section" id="governance">
 <h2>governance<a class="headerlink" href="#governance" title="Permalink to this headline">¶</a></h2>
-<p>You can learn more about how the <code class="docutils literal notranslate"><span class="pre">napari</span></code> project is organized and managed from our <span class="xref myst">governance model</span>, which includes information about, and ways to contact, the <a class="reference external" href="https://github.com/orgs/napari/teams/steering-council">@napari/steering-council</a> and <a class="reference external" href="https://github.com/orgs/napari/teams/core-devs">@napari/core-devs</a>.</p>
+<p>You can learn more about how the <code class="docutils literal notranslate"><span class="pre">napari</span></code> project is organized and managed from
+our <span class="xref myst">governance model</span>, which includes information
+about, and ways to contact, the
+<a class="reference external" href="https://github.com/orgs/napari/teams/steering-council">@napari/steering-council</a>
+and <a class="reference external" href="https://github.com/orgs/napari/teams/core-devs">@napari/core-devs</a>.</p>
 </div>
 <div class="section" id="citing-napari">
 <h2>citing napari<a class="headerlink" href="#citing-napari" title="Permalink to this headline">¶</a></h2>
-<p>If you find <code class="docutils literal notranslate"><span class="pre">napari</span></code> useful please cite this repository using its DOI as follows:</p>
+<p>If you find <code class="docutils literal notranslate"><span class="pre">napari</span></code> useful please cite this repository using its DOI as
+follows:</p>
 <blockquote>
-<div><p>napari contributors (2019). napari: a multi-dimensional image viewer for python. <a class="reference external" href="https://zenodo.org/record/3555620">doi:10.5281/zenodo.3555620</a></p>
+<div><p>napari contributors (2019). napari: a multi-dimensional image viewer for
+python. <a class="reference external" href="https://zenodo.org/record/3555620">doi:10.5281/zenodo.3555620</a></p>
 </div></blockquote>
-<p>Note this DOI will resolve to all versions of napari. To cite a specific version please find the
-DOI of that version on our <a class="reference external" href="https://zenodo.org/record/3555620">zenodo page</a>. The DOI of the latest version is in the badge at the top of this page.</p>
+<p>Note this DOI will resolve to all versions of napari. To cite a specific version
+please find the DOI of that version on our <a class="reference external" href="https://zenodo.org/record/3555620">zenodo
+page</a>. The DOI of the latest version is in
+the badge at the top of this page.</p>
 </div>
 <div class="section" id="help">
 <h2>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
-<p>We’re a community partner on the <a class="reference external" href="https://forum.image.sc/tags/napari">image.sc forum</a> and all help and support requests should be posted on the forum with the tag <code class="docutils literal notranslate"><span class="pre">napari</span></code>. We look forward to interacting with you there.</p>
-<p>Bug reports should be made on our <a class="reference external" href="https://github.com/napari/napari/issues/new?template=bug_report.md">github issues</a> using
-the bug report template. If you think something isn’t working, don’t hesitate to reach out - it is probably us and not you!</p>
+<p>We’re a community partner on the <a class="reference external" href="https://forum.image.sc/tags/napari">image.sc
+forum</a> and all help and support requests
+should be posted on the forum with the tag <code class="docutils literal notranslate"><span class="pre">napari</span></code>. We look forward to
+interacting with you there.</p>
+<p>Bug reports should be made on our <a class="reference external" href="https://github.com/napari/napari/issues/new?template=bug_report.md">github
+issues</a>
+using the bug report template. If you think something isn’t working, don’t
+hesitate to reach out - it is probably us and not you!</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -462,6 +522,8 @@ the bug report template. If you think something isn’t working, don’t hesitat
     }
     </script>
 <script>kernelName = 'python3'</script>
+
+
       </article>
       <footer>
         

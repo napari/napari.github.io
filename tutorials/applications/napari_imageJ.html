@@ -46,6 +46,15 @@
     <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
+    <style>
+    /* All of this is for the download button which is 
+    declared in download_button.html and included in page: .html
+    
+    This is temporary, and should definitely be replaced with something better
+    when we move to the napari theme.
+    */
+    article{position:relative}.download.icon{color:#000;position:absolute;margin-left:3px;margin-top:12px;width:13px;height:4px;border-radius:1px;border:solid 1px currentColor;border-top:none;top:42px;right:15%}.download.icon:before{content:'';position:absolute;left:6px;top:-9px;width:1px;height:10px;background-color:currentColor}.download.icon:after{content:'';position:absolute;left:4px;top:-4px;width:4px;height:4px;border-top:solid 1px currentColor;border-right:solid 1px currentColor;-webkit-transform:rotate(135deg);transform:rotate(135deg)}.download.icon>span{display:none}.download.icon:hover>span{display:inline;position:absolute;top:1em;left:-3.4em;width:8em;font-size:small;color:#999}
+    </style>
 </head>
   <body dir="">
     
@@ -294,7 +303,11 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="napari-imagej-how-to-guide">
+        
+
+
+
+<div class="section" id="napari-imagej-how-to-guide">
 <h1>Napari + ImageJ How-to-Guide<a class="headerlink" href="#napari-imagej-how-to-guide" title="Permalink to this headline">¶</a></h1>
 <p>ImageJ is a Java-based image processing program that provides extensibility via Java plugins and recordable macros. It can display, edit, analyze, process, save, and print 8-bit color and grayscale, 16-bit integer, and 32-bit floating point images. It can read many image file formats, including TIFF, PNG, GIF, JPEG, BMP, DICOM, and FITS, as well as raw formats. It has a plethora of features that can be checked out <a class="reference external" href="https://en.wikipedia.org/wiki/ImageJ#Features">here</a>.</p>
 <p>People who wish to try their hands on ImageJ can do so by downloading and installing it using this <a class="reference external" href="https://imagej.net/Fiji/Downloads">link</a></p>
@@ -314,26 +327,23 @@ and then display them with Napari.</p>
     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">"""This example uses ImageJ but pyimagej is not</span>
 <span class="s2">    installed. To install try 'conda install pyimagej'."""</span><span class="p">)</span>
 
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'--&gt; Initializing imagej'</span><span class="p">)</span>
-    <span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s1">'sc.fiji:fiji'</span><span class="p">)</span> <span class="c1"># Fiji includes Bio-Formats.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'--&gt; Initializing imagej'</span><span class="p">)</span>
+<span class="n">ij</span> <span class="o">=</span> <span class="n">imagej</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s1">'sc.fiji:fiji'</span><span class="p">)</span> <span class="c1"># Fiji includes Bio-Formats.</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)):</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">'--&gt; Reading </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'--&gt; Reading </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
-        <span class="n">dataset</span> <span class="o">=</span> <span class="n">ij</span><span class="o">.</span><span class="n">io</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ij</span><span class="o">.</span><span class="n">py</span><span class="o">.</span><span class="n">from_java</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">ij</span><span class="o">.</span><span class="n">io</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">ij</span><span class="o">.</span><span class="n">py</span><span class="o">.</span><span class="n">from_java</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
-    <span class="n">ij</span><span class="o">.</span><span class="n">getContext</span><span class="p">()</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+<span class="n">ij</span><span class="o">.</span><span class="n">getContext</span><span class="p">()</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
 
-    <span class="n">viewer</span><span class="o">.</span><span class="n">grid_view</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">grid_view</span><span class="p">()</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -359,8 +369,7 @@ and then display them with Napari.</p>
 <h4>1. Running napari+ImageJ from plain Python<a class="headerlink" href="#running-napari-imagej-from-plain-python" title="Permalink to this headline">¶</a></h4>
 <p>Firstly import napari</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>When napari comes up, open the Jupyter Qt console and type:</p>
@@ -463,6 +472,8 @@ and then display them with Napari.</p>
     }
     </script>
 <script>kernelName = 'python3'</script>
+
+
       </article>
       <footer>
         

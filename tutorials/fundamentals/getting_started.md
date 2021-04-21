@@ -57,20 +57,21 @@ but we'll be adding support for this functionality soon as discussed in [#379](h
 ### python script usage
 
 To launch napari from a python script, inside your script you should import `napari`,
-create a Qt GUI context, and then create the `Viewer` by adding some data.
+and then create the `Viewer` by adding some data.
 
 For example, to add an image and some points inside your script you should include:
 
 ```python
 import napari
 
-# create Qt GUI context
-with napari.gui_qt():
-    # create a Viewer and add an image here
-    viewer = napari.view_image(my_image_data)
+# create a Viewer and add an image here
+viewer = napari.view_image(my_image_data)
 
-    # custom code to add data here
-    viewer.add_points(my_points_data)
+# custom code to add data here
+viewer.add_points(my_points_data)
+
+# start the event loop and show the viewer
+napari.run()
 ```
 
 then run your script from the command line to launch the viewer with your data:
@@ -88,19 +89,9 @@ is that you can preprocess your images and add multiple layers before displaying
 
 ### IPython console usage
 
-To launch napari from an IPython console,
-first instantiate a Qt GUI and then import `napari` and create a `Viewer` object.
-
-It is best to launch the viewer with the GUI already set to be Qt by
-
-```sh
-IPython --gui=qt
-```
-
-Then inside IPython
+To launch napari from an IPython console import `napari` and create a `Viewer` object.
 
 ```python
-# instantiate Qt GUI
 import napari
 from skimage.data import astronaut
 
@@ -108,9 +99,9 @@ from skimage.data import astronaut
 viewer = napari.view_image(astronaut(), rgb=True)
 ```
 
-If you did not launch IPython with the GUI already then you can set it from within IPython using `%gui qt`,
-but be warned that the Qt GUI can take a few seconds to be created and if you create the `Viewer` before it is finished,
-the kernel will die, and the viewer will not launch.
+Napari will automatically use the interactive [`%gui qt` event
+loop](https://ipython.readthedocs.io/en/stable/config/eventloops.html#integrating-with-gui-event-loops)
+from IPython
 
 ![image: napari launched from ipython](../assets/tutorials/launch_ipython.png)
 
@@ -125,11 +116,6 @@ You can also launch napari from a jupyter notebook,
 such as [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master/examples/notebook.ipynb)
 
 ![image: napari launched from a jupyter notebook](../assets/tutorials/launch_jupyter.png)
-
-As in the case of the IPython console though you must wait for the Qt GUI to instantiate following the `%gui qt` magic command.
-Instantiating the Qt GUI can take a few seconds and if you create the `Viewer` before it is finished,
-the kernel will die and the viewer will not launch.
-For this reason, the `%gui qt` magic command should always be run in a separate cell from creating the viewer.
 
 Similar to launching from the IPython console,
 an advantage of launching napari from a jupyter notebook

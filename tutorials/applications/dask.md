@@ -101,10 +101,9 @@ and handing a `numpy` array to `napari` each time a new timepoint or channel is 
 ```python
 import napari
 
-with napari.gui_qt():
-    # specify contrast_limits and is_pyramid=False with big data
-    # to avoid unnecessary computations
-    napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
+# specify contrast_limits and is_pyramid=False with big data
+# to avoid unnecessary computations
+napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
 ```
 
 *Note: providing the* `contrast_limits` *and* `multiscale` *arguments prevents* `napari` *from trying to calculate the data min/max, which can take an extremely long time with big data.
@@ -126,9 +125,7 @@ import napari
 from dask_image.imread import imread
 
 stack = imread("/path/to/experiment/*.tif")
-with napari.gui_qt():
-    napari.view_image(stack, contrast_limits=[0,2000], is_pyramid=False)
-
+napari.view_image(stack, contrast_limits=[0,2000], is_pyramid=False)
 ```
 
 ![image: mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope](../assets/tutorials/dask1.gif)
@@ -234,15 +231,15 @@ cropped = deconvolved.map_blocks(crop, dtype="float32")
 
 # put the resulting dask array into napari.
 # (don't forget the contrast limits and is_pyramid==False !)
-with napari.gui_qt():
-    v = napari.view_image(
-        cropped,
-        contrast_limits=[90, 1500],
-        is_pyramid=False,
-        ndisplay=3,
-        scale=(3, 1, 1),
-    )
+v = napari.view_image(
+    cropped,
+    contrast_limits=[90, 1500],
+    is_pyramid=False,
+    ndisplay=3,
+    scale=(3, 1, 1),
+)
 
+napari.run()
 ```
 
 Of course, the GUI isn't as responsive as it would be if you had processed the data up front

@@ -46,15 +46,6 @@
     <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
-    <style>
-    /* All of this is for the download button which is 
-    declared in download_button.html and included in page: .html
-    
-    This is temporary, and should definitely be replaced with something better
-    when we move to the napari theme.
-    */
-    article{position:relative}.download.icon{color:#000;position:absolute;margin-left:3px;margin-top:12px;width:13px;height:4px;border-radius:1px;border:solid 1px currentColor;border-top:none;top:42px;right:15%}.download.icon:before{content:'';position:absolute;left:6px;top:-9px;width:1px;height:10px;background-color:currentColor}.download.icon:after{content:'';position:absolute;left:4px;top:-4px;width:4px;height:4px;border-top:solid 1px currentColor;border-right:solid 1px currentColor;-webkit-transform:rotate(135deg);transform:rotate(135deg)}.download.icon>span{display:none}.download.icon:hover>span{display:inline;position:absolute;top:1em;left:-3.4em;width:8em;font-size:small;color:#999}
-    </style>
 </head>
   <body dir="">
     
@@ -303,15 +294,7 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        
-
-
-<a class="dropdown-buttons" href="../../_sources/tutorials/fundamentals/points.ipynb" download>
-    <div class="download icon"><span>download .ipynb</span></div>
-</a>
-
-
-<div class="section" id="points-layer-tutorial">
+        <div class="section" id="points-layer-tutorial">
 <h1>points layer tutorial<a class="headerlink" href="#points-layer-tutorial" title="Permalink to this headline">¶</a></h1>
 <p>Welcome to the tutorial on the <strong>napari</strong> <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer!</p>
 <p>This tutorial assumes you have already installed <strong>napari</strong>, know how to launch
@@ -347,7 +330,7 @@ existing image.</p>
 <p>In this example of we will overlay some points on the image of an astronaut:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
@@ -358,14 +341,22 @@ existing image.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-runner'
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/points_4_0.png" src="../../_images/points_4_0.png"/>
 </div>
 </div>
 </div>
@@ -375,7 +366,118 @@ existing image.</p>
 accept the same layer-creation parameters.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_points</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_points</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function view_points:
+
+view_points(data=None, *, ndim=None, properties=None, text=None, symbol='o', size=10, edge_width=1, edge_color='black', edge_color_cycle=None, edge_colormap='viridis', edge_contrast_limits=None, face_color='white', face_color_cycle=None, face_colormap='viridis', face_contrast_limits=None, n_dimensional=False, name=None, metadata=None, scale=None, translate=None, rotate=None, shear=None, affine=None, opacity=1, blending='translucent', visible=True, title='napari', ndisplay=2, order=(), axis_labels=(), show=True)
+    Create a viewer and add a points layer.
+    
+    Parameters
+    ----------
+    data : array (N, D)
+        Coordinates for N points in D dimensions.
+    ndim : int
+        Number of dimensions for shapes. When data is not None, ndim must be D.
+        An empty points layer can be instantiated with arbitrary ndim.
+    properties : dict {str: array (N,)}, DataFrame
+        Properties for each point. Each property should be an array of length N,
+        where N is the number of points.
+    text : str, dict
+        Text to be displayed with the points. If text is set to a key in properties,
+        the value of that property will be displayed. Multiple properties can be
+        composed using f-string-like syntax (e.g., '{property_1}, {float_property:.2f}).
+        A dictionary can be provided with keyword arguments to set the text values
+        and display properties. See TextManager.__init__() for the valid keyword arguments.
+        For example usage, see /napari/examples/add_points_with_text.py.
+    symbol : str
+        Symbol to be used for the point markers. Must be one of the
+        following: arrow, clobber, cross, diamond, disc, hbar, ring,
+        square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.
+    size : float, array
+        Size of the point marker. If given as a scalar, all points are made
+        the same size. If given as an array, size must be the same
+        broadcastable to the same shape as the data.
+    edge_width : float
+        Width of the symbol edge in pixels.
+    edge_color : str, array-like
+        Color of the point marker border. Numeric color values should be RGB(A).
+    edge_color_cycle : np.ndarray, list
+        Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
+        categorical attribute is used color the vectors.
+    edge_colormap : str, napari.utils.Colormap
+        Colormap to set edge_color if a continuous attribute is used to set face_color.
+    edge_contrast_limits : None, (float, float)
+        clims for mapping the property to a color map. These are the min and max value
+        of the specified property that are mapped to 0 and 1, respectively.
+        The default value is None. If set the none, the clims will be set to
+        (property.min(), property.max())
+    face_color : str, array-like
+        Color of the point marker body. Numeric color values should be RGB(A).
+    face_color_cycle : np.ndarray, list
+        Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
+        categorical attribute is used color the vectors.
+    face_colormap : str, napari.utils.Colormap
+        Colormap to set face_color if a continuous attribute is used to set face_color.
+    face_contrast_limits : None, (float, float)
+        clims for mapping the property to a color map. These are the min and max value
+        of the specified property that are mapped to 0 and 1, respectively.
+        The default value is None. If set the none, the clims will be set to
+        (property.min(), property.max())
+    n_dimensional : bool
+        If True, renders points not just in central plane but also in all
+        n-dimensions according to specified point marker size.
+    name : str
+        Name of the layer.
+    metadata : dict
+        Layer metadata.
+    scale : tuple of float
+        Scale factors for the layer.
+    translate : tuple of float
+        Translation values for the layer.
+    rotate : float, 3-tuple of float, or n-D array.
+        If a float convert into a 2D rotation matrix using that value as an
+        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
+        pitch, roll convention. Otherwise assume an nD rotation. Angles are
+        assumed to be in degrees. They can be converted from radians with
+        np.degrees if needed.
+    shear : 1-D array or n-D array
+        Either a vector of upper triangular values, or an nD shear matrix with
+        ones along the main diagonal.
+    affine : n-D array or napari.utils.transforms.Affine
+        (N+1, N+1) affine transformation matrix in homogeneous coordinates.
+        The first (N, N) entries correspond to a linear transform and
+        the final column is a lenght N translation vector and a 1 or a napari
+        AffineTransform object. If provided then translate, scale, rotate, and
+        shear values are ignored.
+    opacity : float
+        Opacity of the layer visual, between 0.0 and 1.0.
+    blending : str
+        One of a list of preset blending modes that determines how RGB and
+        alpha values of the layer visual get mixed. Allowed values are
+        {'opaque', 'translucent', and 'additive'}.
+    visible : bool
+        Whether the layer visual is currently being displayed.
+        title : string, optional
+            The title of the viewer window. by default 'napari'.
+        ndisplay : {2, 3}, optional
+            Number of displayed dimensions. by default 2.
+        order : tuple of int, optional
+            Order in which dimensions are displayed where the last two or last
+            three dimensions correspond to row x column or plane x row x column if
+            ndisplay is 2 or 3. by default None
+        axis_labels : list of str, optional
+            Dimension names. by default they are labeled with sequential numbers
+        show : bool, optional
+            Whether to show the viewer after instantiation. by default True.
+    
+    Returns
+    -------
+    viewer : :class:`napari.Viewer`
+        The newly-created viewer.
 </pre></div>
 </div>
 </div>
@@ -509,7 +611,32 @@ choosing colormaps, see the <a class="reference external" href="https://matplotl
 docs</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">AVAILABLE_COLORMAPS</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">AVAILABLE_COLORMAPS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['PiYG',
+ 'blue',
+ 'bop blue',
+ 'bop orange',
+ 'bop purple',
+ 'cyan',
+ 'gist_earth',
+ 'gray',
+ 'gray_r',
+ 'green',
+ 'hsv',
+ 'inferno',
+ 'magenta',
+ 'magma',
+ 'plasma',
+ 'red',
+ 'turbo',
+ 'twilight',
+ 'twilight_shifted',
+ 'viridis',
+ 'yellow']
 </pre></div>
 </div>
 </div>
@@ -521,7 +648,7 @@ To do the same for a face color, substitute <code class="docutils literal notran
 example snippet below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
 <span class="n">point_properties</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">'good_point'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]),</span>
@@ -541,9 +668,12 @@ example snippet below.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/points_23_0.png" src="../../_images/points_23_0.png"/>
 </div>
 </div>
 <p>In the example above, the properties (<code class="docutils literal notranslate"><span class="pre">point_properties</span></code>) were provided as a
@@ -562,7 +692,7 @@ To do the same for a face color, substitute <code class="docutils literal notran
 example snippet below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
 <span class="n">point_properties</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">'good_point'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]),</span>
@@ -581,9 +711,12 @@ example snippet below.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/points_28_0.png" src="../../_images/points_28_0.png"/>
 </div>
 </div>
 <p>In the example above, the properties (<code class="docutils literal notranslate"><span class="pre">point_properties</span></code>) were provided as a
@@ -702,8 +835,6 @@ one to try next as it describes more complex shapes and interactivity.</p>
     }
     </script>
 <script>kernelName = 'python3'</script>
-
-
       </article>
       <footer>
         

@@ -1,0 +1,176 @@
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/nbclient/client.py", line 1112, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/nbclient/client.py", line 553, in async_execute
+    await self.async_execute_cell(
+  File "/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/nbclient/client.py", line 857, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/nbclient/client.py", line 760, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+viewer = napari.Viewer()
+viewer.add_image(data.astronaut(), name='astronaut')
+
+# change the viewer theme
+viewer.theme = 'light'
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mRuntimeError[0m                              Traceback (most recent call last)
+[0;32m<ipython-input-19-28be325e77c5>[0m in [0;36m<module>[0;34m[0m
+[1;32m      3[0m [0;34m[0m[0m
+[1;32m      4[0m [0;31m# change the viewer theme[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 5[0;31m [0mviewer[0m[0;34m.[0m[0mtheme[0m [0;34m=[0m [0;34m'light'[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/evented_model.py[0m in [0;36m__setattr__[0;34m(self, name, value)[0m
+[1;32m    152[0m         [0mare_equal[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m__eq_operators__[0m[0;34m.[0m[0mget[0m[0;34m([0m[0mname[0m[0;34m,[0m [0moperator[0m[0;34m.[0m[0meq[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    153[0m         [0;32mif[0m [0;32mnot[0m [0mare_equal[0m[0;34m([0m[0mafter[0m[0;34m,[0m [0mbefore[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 154[0;31m             [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mevents[0m[0;34m,[0m [0mname[0m[0;34m)[0m[0;34m([0m[0mvalue[0m[0;34m=[0m[0mafter[0m[0;34m)[0m  [0;31m# emit event[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    155[0m [0;34m[0m[0m
+[1;32m    156[0m     [0;31m# expose the private EmitterGroup publically[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m__call__[0;34m(self, *args, **kwargs)[0m
+[1;32m    548[0m                     [0;32mcontinue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    549[0m [0;34m[0m[0m
+[0;32m--> 550[0;31m                 [0mself[0m[0;34m.[0m[0m_invoke_callback[0m[0;34m([0m[0mcb[0m[0;34m,[0m [0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    551[0m                 [0;32mif[0m [0mevent[0m[0;34m.[0m[0mblocked[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    552[0m                     [0;32mbreak[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m_invoke_callback[0;34m(self, cb, event)[0m
+[1;32m    565[0m             [0mcb[0m[0;34m([0m[0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    566[0m         [0;32mexcept[0m [0mException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 567[0;31m             _handle_exception(
+[0m[1;32m    568[0m                 [0mself[0m[0;34m.[0m[0mignore_callback_errors[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    569[0m                 [0mself[0m[0;34m.[0m[0mprint_callback_errors[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m_invoke_callback[0;34m(self, cb, event)[0m
+[1;32m    563[0m     [0;32mdef[0m [0m_invoke_callback[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mcb[0m[0;34m:[0m [0mCallback[0m[0;34m,[0m [0mevent[0m[0;34m:[0m [0mEvent[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    564[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 565[0;31m             [0mcb[0m[0;34m([0m[0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    566[0m         [0;32mexcept[0m [0mException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    567[0m             _handle_exception(
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/_qt/qt_main_window.py[0m in [0;36m_update_theme[0;34m(self, event)[0m
+[1;32m   1104[0m         [0;32mif[0m [0mevent[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1105[0m             [0mvalue[0m [0;34m=[0m [0mevent[0m[0;34m.[0m[0mvalue[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1106[0;31m             [0mSETTINGS[0m[0;34m.[0m[0mappearance[0m[0;34m.[0m[0mtheme[0m [0;34m=[0m [0mvalue[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1107[0m             [0mself[0m[0;34m.[0m[0mqt_viewer[0m[0;34m.[0m[0mviewer[0m[0;34m.[0m[0mtheme[0m [0;34m=[0m [0mvalue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1108[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/evented_model.py[0m in [0;36m__setattr__[0;34m(self, name, value)[0m
+[1;32m    152[0m         [0mare_equal[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m__eq_operators__[0m[0;34m.[0m[0mget[0m[0;34m([0m[0mname[0m[0;34m,[0m [0moperator[0m[0;34m.[0m[0meq[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    153[0m         [0;32mif[0m [0;32mnot[0m [0mare_equal[0m[0;34m([0m[0mafter[0m[0;34m,[0m [0mbefore[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 154[0;31m             [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mevents[0m[0;34m,[0m [0mname[0m[0;34m)[0m[0;34m([0m[0mvalue[0m[0;34m=[0m[0mafter[0m[0;34m)[0m  [0;31m# emit event[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    155[0m [0;34m[0m[0m
+[1;32m    156[0m     [0;31m# expose the private EmitterGroup publically[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m__call__[0;34m(self, *args, **kwargs)[0m
+[1;32m    548[0m                     [0;32mcontinue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    549[0m [0;34m[0m[0m
+[0;32m--> 550[0;31m                 [0mself[0m[0;34m.[0m[0m_invoke_callback[0m[0;34m([0m[0mcb[0m[0;34m,[0m [0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    551[0m                 [0;32mif[0m [0mevent[0m[0;34m.[0m[0mblocked[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    552[0m                     [0;32mbreak[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m_invoke_callback[0;34m(self, cb, event)[0m
+[1;32m    565[0m             [0mcb[0m[0;34m([0m[0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    566[0m         [0;32mexcept[0m [0mException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 567[0;31m             _handle_exception(
+[0m[1;32m    568[0m                 [0mself[0m[0;34m.[0m[0mignore_callback_errors[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    569[0m                 [0mself[0m[0;34m.[0m[0mprint_callback_errors[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m_invoke_callback[0;34m(self, cb, event)[0m
+[1;32m    563[0m     [0;32mdef[0m [0m_invoke_callback[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mcb[0m[0;34m:[0m [0mCallback[0m[0;34m,[0m [0mevent[0m[0;34m:[0m [0mEvent[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    564[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 565[0;31m             [0mcb[0m[0;34m([0m[0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    566[0m         [0;32mexcept[0m [0mException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    567[0m             _handle_exception(
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/_qt/qt_main_window.py[0m in [0;36m_update_theme[0;34m(self, event)[0m
+[1;32m   1105[0m             [0mvalue[0m [0;34m=[0m [0mevent[0m[0;34m.[0m[0mvalue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1106[0m             [0mSETTINGS[0m[0;34m.[0m[0mappearance[0m[0;34m.[0m[0mtheme[0m [0;34m=[0m [0mvalue[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1107[0;31m             [0mself[0m[0;34m.[0m[0mqt_viewer[0m[0;34m.[0m[0mviewer[0m[0;34m.[0m[0mtheme[0m [0;34m=[0m [0mvalue[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1108[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1109[0m             [0mvalue[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mqt_viewer[0m[0;34m.[0m[0mviewer[0m[0;34m.[0m[0mtheme[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/evented_model.py[0m in [0;36m__setattr__[0;34m(self, name, value)[0m
+[1;32m    152[0m         [0mare_equal[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m__eq_operators__[0m[0;34m.[0m[0mget[0m[0;34m([0m[0mname[0m[0;34m,[0m [0moperator[0m[0;34m.[0m[0meq[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    153[0m         [0;32mif[0m [0;32mnot[0m [0mare_equal[0m[0;34m([0m[0mafter[0m[0;34m,[0m [0mbefore[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 154[0;31m             [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mevents[0m[0;34m,[0m [0mname[0m[0;34m)[0m[0;34m([0m[0mvalue[0m[0;34m=[0m[0mafter[0m[0;34m)[0m  [0;31m# emit event[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    155[0m [0;34m[0m[0m
+[1;32m    156[0m     [0;31m# expose the private EmitterGroup publically[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m__call__[0;34m(self, *args, **kwargs)[0m
+[1;32m    548[0m                     [0;32mcontinue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    549[0m [0;34m[0m[0m
+[0;32m--> 550[0;31m                 [0mself[0m[0;34m.[0m[0m_invoke_callback[0m[0;34m([0m[0mcb[0m[0;34m,[0m [0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    551[0m                 [0;32mif[0m [0mevent[0m[0;34m.[0m[0mblocked[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    552[0m                     [0;32mbreak[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m_invoke_callback[0;34m(self, cb, event)[0m
+[1;32m    565[0m             [0mcb[0m[0;34m([0m[0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    566[0m         [0;32mexcept[0m [0mException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 567[0;31m             _handle_exception(
+[0m[1;32m    568[0m                 [0mself[0m[0;34m.[0m[0mignore_callback_errors[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    569[0m                 [0mself[0m[0;34m.[0m[0mprint_callback_errors[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/utils/events/event.py[0m in [0;36m_invoke_callback[0;34m(self, cb, event)[0m
+[1;32m    563[0m     [0;32mdef[0m [0m_invoke_callback[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mcb[0m[0;34m:[0m [0mCallback[0m[0;34m,[0m [0mevent[0m[0;34m:[0m [0mEvent[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    564[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 565[0;31m             [0mcb[0m[0;34m([0m[0mevent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    566[0m         [0;32mexcept[0m [0mException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    567[0m             _handle_exception(
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/napari/_vispy/vispy_scale_bar_visual.py[0m in [0;36m_on_data_change[0;34m(self, event)[0m
+[1;32m    114[0m             [0mdata[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_data[0m[0;34m[[0m[0;34m:[0m[0;36m2[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[1;32m    115[0m [0;34m[0m[0m
+[0;32m--> 116[0;31m         [0mself[0m[0;34m.[0m[0mnode[0m[0;34m.[0m[0mset_data[0m[0;34m([0m[0mdata[0m[0;34m,[0m [0mcolor[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    117[0m         [0mself[0m[0;34m.[0m[0mtext_node[0m[0;34m.[0m[0mcolor[0m [0;34m=[0m [0mcolor[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    118[0m [0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/vispy/visuals/line/line.py[0m in [0;36mset_data[0;34m(self, pos, color, width, connect)[0m
+[1;32m    190[0m             [0mself[0m[0;34m.[0m[0m_changed[0m[0;34m[[0m[0;34m'connect'[0m[0;34m][0m [0;34m=[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    191[0m [0;34m[0m[0m
+[0;32m--> 192[0;31m         [0mself[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    193[0m [0;34m[0m[0m
+[1;32m    194[0m     [0;34m@[0m[0mproperty[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/vispy/scene/node.py[0m in [0;36mupdate[0;34m(self)[0m
+[1;32m    331[0m         [0mc[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0;34m'canvas'[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    332[0m         [0;32mif[0m [0mc[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 333[0;31m             [0mc[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0mnode[0m[0;34m=[0m[0mself[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    334[0m [0;34m[0m[0m
+[1;32m    335[0m     [0;34m@[0m[0mproperty[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/vispy/scene/canvas.py[0m in [0;36mupdate[0;34m(self, node)[0m
+[1;32m    198[0m         [0;32mif[0m [0;32mnot[0m [0mself[0m[0;34m.[0m[0m_update_pending[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    199[0m             [0mself[0m[0;34m.[0m[0m_update_pending[0m [0;34m=[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 200[0;31m             [0msuper[0m[0;34m([0m[0mSceneCanvas[0m[0;34m,[0m [0mself[0m[0;34m)[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    201[0m [0;34m[0m[0m
+[1;32m    202[0m     [0;32mdef[0m [0mon_draw[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mevent[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/vispy/app/canvas.py[0m in [0;36mupdate[0;34m(self, event)[0m
+[1;32m    440[0m         """
+[1;32m    441[0m         [0;32mif[0m [0mself[0m[0;34m.[0m[0m_backend[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 442[0;31m             [0mself[0m[0;34m.[0m[0m_backend[0m[0;34m.[0m[0m_vispy_update[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    443[0m [0;34m[0m[0m
+[1;32m    444[0m     [0;32mdef[0m [0mclose[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.8.9/x64/lib/python3.8/site-packages/vispy/app/backends/_qt.py[0m in [0;36m_vispy_update[0;34m(self)[0m
+[1;32m    425[0m             [0;32mreturn[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    426[0m         [0;31m# Invoke a redraw[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 427[0;31m         [0mself[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    428[0m [0;34m[0m[0m
+[1;32m    429[0m     [0;32mdef[0m [0m_vispy_get_position[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mRuntimeError[0m: wrapped C/C++ object of type CanvasBackendDesktop has been deleted
+RuntimeError: wrapped C/C++ object of type CanvasBackendDesktop has been deleted
+

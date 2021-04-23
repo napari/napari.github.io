@@ -355,6 +355,28 @@ consequences. If possible, organize semantically close PRs in groups.</p></li>
 <li><p>Make and merge a PR with these release notes before moving onto the next steps.</p></li>
 </ol>
 </div>
+<div class="section" id="update-translation-strings">
+<h2>update translation strings<a class="headerlink" href="#update-translation-strings" title="Permalink to this headline">¶</a></h2>
+<p>As new code is included in the codebase, some of the strings that need to be translated might
+not yet be using the <code class="docutils literal notranslate"><span class="pre">trans</span></code> methods. To help keep the codebase up to date in terms
+of translations we added a test script that
+<a class="reference external" href="https://github.com/napari/napari/actions/workflows/test_translations.yml">runs daily on CI</a>
+and can be also run locally to ensure that a release includes the most up to date translatable
+strings.</p>
+<p>The test script is available on the <code class="docutils literal notranslate"><span class="pre">/tools/test_strings.py</span></code> file and it relies on an additional
+file <code class="docutils literal notranslate"><span class="pre">/tools/strings_list.py</span></code> to include strings to skip safely from translation.</p>
+<p>The test checks:</p>
+<ol class="simple">
+<li><p><strong>Untranslated strings</strong>: not using the <code class="docutils literal notranslate"><span class="pre">trans</span></code> methods.</p></li>
+<li><p><strong>Outdated skip strings</strong>: should no longer be included in the <code class="docutils literal notranslate"><span class="pre">/tools/strings_list.py</span></code> file.</p></li>
+<li><p><strong>Translation usage errors</strong>: where translation strings may be missing interpolation variables.</p></li>
+</ol>
+<p>You can execute tests locally from the repository root, and follow the instructions printed
+on the <code class="docutils literal notranslate"><span class="pre">stdout</span></code> if any test fails.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest tools/ --tb<span class="o">=</span>short
+</pre></div>
+</div>
+</div>
 <div class="section" id="tagging-the-new-release-candidate">
 <h2>tagging the new release candidate<a class="headerlink" href="#tagging-the-new-release-candidate" title="Permalink to this headline">¶</a></h2>
 <p>First we will generate a release candidate, which will contain the letters <code class="docutils literal notranslate"><span class="pre">rc</span></code>.
@@ -476,6 +498,7 @@ git push upstream --tags
 <li><a class="reference internal" href="#">Release Guide</a><ul>
 <li><a class="reference internal" href="#determining-the-version">determining the version</a></li>
 <li><a class="reference internal" href="#generating-release-notes">generating release notes</a></li>
+<li><a class="reference internal" href="#update-translation-strings">update translation strings</a></li>
 <li><a class="reference internal" href="#tagging-the-new-release-candidate">tagging the new release candidate</a></li>
 <li><a class="reference internal" href="#testing-the-release-candidate">testing the release candidate</a></li>
 <li><a class="reference internal" href="#generating-the-actual-release">generating the actual release</a></li>
@@ -499,7 +522,7 @@ git push upstream --tags
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"

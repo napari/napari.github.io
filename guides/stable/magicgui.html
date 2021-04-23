@@ -322,7 +322,7 @@ python types to widgets.  In particular, it makes building widgets to represent
 function inputs easy:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">magicgui</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">magicgui</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 
@@ -346,6 +346,9 @@ function inputs easy:</p>
 <span class="n">widget_demo</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/magicgui_1_0.png" src="../../_images/magicgui_1_0.png"/>
 </div>
 </div>
 <p>For more information on the features and usage of <code class="docutils literal notranslate"><span class="pre">magicgui</span></code>, see the <a class="reference external" href="https://napari.org/magicgui">magicgui
@@ -404,7 +407,7 @@ in the viewer.</p>
 <p>Here’s a complete example:</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">napari.layers</span> <span class="kn">import</span> <span class="n">Image</span>
 
@@ -420,6 +423,9 @@ in the viewer.</p>
 </div>
 <p><em>Note the widget at the bottom with “My Image” as the currently selected option</em></p>
 <div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/magicgui_5_0.png" src="../../_images/magicgui_5_0.png"/>
+</div>
 </div>
 </div>
 <div class="section" id="annotating-as-layer">
@@ -512,7 +518,7 @@ function must be an actual <a class="reference internal" href="../../api/stable/
 <p>Here’s a complete example</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span><span class="p">(</span><span class="n">call_button</span><span class="o">=</span><span class="s1">'Add Image'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span><span class="p">(</span><span class="n">call_button</span><span class="o">=</span><span class="s1">'Add Image'</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">my_widget</span><span class="p">(</span><span class="n">ny</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">nx</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Image</span><span class="p">:</span>
   <span class="k">return</span> <span class="n">Image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'My Image'</span><span class="p">)</span>
 
@@ -526,6 +532,9 @@ function must be an actual <a class="reference internal" href="../../api/stable/
 </div>
 <p><em>Note the new “My Image” layer in the viewer as a result of having called the widget function.</em></p>
 <div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/magicgui_9_0.png" src="../../_images/magicgui_9_0.png"/>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -549,7 +558,7 @@ returned by your function to be turned into the corresponding
 annotation <a class="reference external" href="#annotating-as-napari-types-data">described above</a>:</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="n">LabelsData</span><span class="p">,</span> <span class="n">ImageData</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="n">LabelsData</span><span class="p">,</span> <span class="n">ImageData</span>
 
 <span class="nd">@magicgui</span><span class="p">(</span><span class="n">call_button</span><span class="o">=</span><span class="s1">'Run Threshold'</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">ImageData</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">75</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LabelsData</span><span class="p">:</span>
@@ -565,6 +574,9 @@ annotation <a class="reference external" href="#annotating-as-napari-types-data"
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/magicgui_12_0.png" src="../../_images/magicgui_12_0.png"/>
+</div>
 </div>
 </div>
 <div class="section" id="returning-napari-types-layerdatatuple">
@@ -614,7 +626,7 @@ lowercase string form of one of the layer types (like <code class="docutils lite
 a <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> function:</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari.types</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari.types</span>
 
 <span class="nd">@magicgui</span><span class="p">(</span><span class="n">call_button</span><span class="o">=</span><span class="s1">'Make Points'</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">make_points</span><span class="p">(</span><span class="n">n_points</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">napari</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">LayerDataTuple</span><span class="p">:</span>
@@ -631,6 +643,9 @@ a <code class="docutils literal notranslate"><span class="pre">magicgui</span></
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/magicgui_15_0.png" src="../../_images/magicgui_15_0.png"/>
+</div>
 </div>
 </div>
 <div class="section" id="returning-list-napari-types-layerdatatuple">
@@ -662,7 +677,7 @@ update an existing layer, rather than creating a new layer each time the
 function is called:</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span><span class="p">(</span><span class="n">call_button</span><span class="o">=</span><span class="s1">'Make Points'</span><span class="p">,</span> <span class="n">n_points</span><span class="o">=</span><span class="p">{</span><span class="s1">'maximum'</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@magicgui</span><span class="p">(</span><span class="n">call_button</span><span class="o">=</span><span class="s1">'Make Points'</span><span class="p">,</span> <span class="n">n_points</span><span class="o">=</span><span class="p">{</span><span class="s1">'maximum'</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span>
 <span class="k">def</span> <span class="nf">make_points</span><span class="p">(</span><span class="n">n_points</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">napari</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">LayerDataTuple</span><span class="p">:</span>
   <span class="n">data</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_points</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
   <span class="k">return</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'My Points'</span><span class="p">},</span> <span class="s1">'points'</span><span class="p">)</span>
@@ -680,6 +695,9 @@ function is called:</p>
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/magicgui_18_0.png" src="../../_images/magicgui_18_0.png"/>
+</div>
 </div>
 </div>
 </div>
@@ -913,7 +931,7 @@ by the <code class="xref py py-func docutils literal notranslate"><span class="p
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"

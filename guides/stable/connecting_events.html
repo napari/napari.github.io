@@ -2,10 +2,10 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Rendering in napari" href="rendering-explanation.html" /><link rel="prev" title="Using magicgui in napari" href="magicgui.html" />
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Developer Resources" href="../../developers/index.html" /><link rel="prev" title="Rendering in napari" href="rendering-explanation.html" />
 
     <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
-        <title>Translations - napari</title>
+        <title>Hooking up your own events - napari</title>
       <link rel="stylesheet" href="../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
     <link rel="stylesheet" href="../../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
@@ -274,10 +274,10 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Napari in Docker (WIP)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="performance.html">Napari Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rendering-explanation.html">Rendering in napari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Hooking up your own events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#long-running-blocking-functions">Long-running, blocking functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -309,214 +309,125 @@
 
 
 
-<div class="section" id="translations">
-<span id="id1"></span><h1>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">¶</a></h1>
-<p>Starting with version 0.4.7, napari codebase include internationalization
-(i18n) and now offers the possibility of installing language packs, which
-provide localization (l10n) enabling the user interface to be displayed in
-different languages.</p>
-<p>To learn more about the current languages that are in the process of
-translation, visit the <a class="reference external" href="https://github.com/napari/napari-language-packs">language packs repository</a></p>
-<p>This guide is limited to providing translations to the napari core codebase.
-We will soon provide more information on how to make your napari plugins
-localizable.</p>
-<div class="section" id="how-to-make-strings-translatable">
-<h2>How to make strings translatable?<a class="headerlink" href="#how-to-make-strings-translatable" title="Permalink to this headline">¶</a></h2>
-<p>To make your code translatable (localizable), please use the <code class="docutils literal notranslate"><span class="pre">trans</span></code> helper
-provided by the napari utilities.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+<div class="section" id="hooking-up-your-own-events">
+<h1>Hooking up your own events<a class="headerlink" href="#hooking-up-your-own-events" title="Permalink to this headline">¶</a></h1>
+<p>If you’re coming from a background of scripting or working with python in an
+interactive console, thinking in terms of the “event loop” can feel a bit
+strange at times. Often we write code in a very procedural way: “do this …
+then do that, etc…”. With napari and other GUI programs however, usually you
+hook up a bunch of conditions to callback functions (e.g. “If this event
+happens, then call this function”) and <em>then</em> start the loop and hope you hooked
+everything up correctly!  Indeed, much of the <code class="docutils literal notranslate"><span class="pre">napari</span></code> source code is
+dedicated to creating and handling events: search the codebase for
+<a class="reference external" href="https://github.com/napari/napari/search?q=%22.emit%28%22&amp;type=code"><code class="docutils literal notranslate"><span class="pre">.emit(</span></code></a>
+and
+<a class="reference external" href="https://github.com/napari/napari/search?q=%22.connect%28%22&amp;type=code"><code class="docutils literal notranslate"><span class="pre">.connect(</span></code></a>
+to find examples of creating and handling internal events, respectively.</p>
+<p>If you would like to set up a custom event listener then you need to hook into
+the napari event loop. We offer a couple of convenience decorators to easily
+connect functions to key and mouse events.</p>
+<div class="section" id="listening-for-keypress-events">
+<h2>Listening for keypress events<a class="headerlink" href="#listening-for-keypress-events" title="Permalink to this headline">¶</a></h2>
+<p>One option is to use keybindings, that will listen for keypresses and then call
+some callback whenever pressed, with the viewer instance passed as an argument
+to that function. As a basic example, to add a random image to the viewer every
+time the <code class="docutils literal notranslate"><span class="pre">i</span></code> key is pressed, and delete the last layer when the <code class="docutils literal notranslate"><span class="pre">k</span></code> key is
+pressed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+
+<span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'i'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">add_layer</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
+
+<span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">delete_layer</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">trans</span></code> is a convenience wrapper on top of the <code class="docutils literal notranslate"><span class="pre">gettext</span></code> module of the
-standard library, which provides the l10n and i18n facilities in Python. To
-learn more about <code class="docutils literal notranslate"><span class="pre">gettext</span></code> visit the <a class="reference external" href="https://docs.python.org/3/library/gettext.html">Python documentation</a>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">trans</span></code> provides 4 methods that can be used to handle localization.</p>
-<p>The following examples make use of a widget to illustrate the workflow, but
-this also applies to other strings that may be surfaced to the user, e.g.
-custom exceptions.</p>
-<p><code class="docutils literal notranslate"><span class="pre">f-strings</span></code> do not work with localizable strings, so any strings that use them
-need to be converted. The <a class="reference external" href="#plural-strings">Plural strings section</a>
-below explains this in more detail.</p>
-<div class="section" id="singular-strings">
-<h3>Singular strings<a class="headerlink" href="#singular-strings" title="Permalink to this headline">¶</a></h3>
-<p>Strings that need to provide a 1:1 translation, can use the <code class="docutils literal notranslate"><span class="pre">trans._</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QWidget</span>
+<p>See also this <a class="reference external" href="https://github.com/napari/napari/blob/master/examples/custom_key_bindings.py">custom key bindings
+example</a>.</p>
+</div>
+<div class="section" id="listening-for-mouse-events">
+<h2>Listening for mouse events<a class="headerlink" href="#listening-for-mouse-events" title="Permalink to this headline">¶</a></h2>
+<p>You can also listen for and react to mouse events, like a click or drag event,
+as shown here where we update the image with random data every time it is
+clicked.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">napari</span>
 
-<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
 
+<span class="nd">@layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span>
+<span class="k">def</span> <span class="nf">update_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
 
-<span class="k">class</span> <span class="nc">SomeWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>        
-        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">"red"</span><span class="p">),</span> <span class="s2">"red"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">"green"</span><span class="p">),</span> <span class="s2">"green"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channel_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">"blue"</span><span class="p">),</span> <span class="s2">"blue"</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>On this example, we add a RGB channel combo box selector. The first argument of
-<code class="docutils literal notranslate"><span class="pre">addItem</span></code> is the actual display name of that combobox item, whereas the second
-argument is the data associated to that item, in this case the original channel
-name.</p>
-<p>For the <code class="docutils literal notranslate"><span class="pre">English</span> <span class="pre">(US)</span></code> translation the options displayed would be the same,
-since <code class="docutils literal notranslate"><span class="pre">gettext</span></code> uses the source language as the key to find translations.
-In this case:</p>
-<ul class="simple">
-<li><p>red</p></li>
-<li><p>green</p></li>
-<li><p>blue</p></li>
-</ul>
-<p>For the <code class="docutils literal notranslate"><span class="pre">Spanish</span> <span class="pre">(Spain)</span></code> translation the options displayed would be:</p>
-<ul class="simple">
-<li><p>rojo</p></li>
-<li><p>verde</p></li>
-<li><p>azul</p></li>
-</ul>
-<p><code class="docutils literal notranslate"><span class="pre">trans._</span></code> is a wrapper on top of <a class="reference external" href="https://docs.python.org/3/library/gettext.html#gettext.gettext">gettext.gettext</a> with enhanced functionality.</p>
+<p>See also the <a class="reference external" href="https://github.com/napari/napari/blob/master/examples/custom_mouse_functions.py">custom mouse
+functions</a>
+and <a class="reference external" href="https://github.com/napari/napari/blob/master/examples/mouse_drag_callback.py">mouse drag
+callback</a>
+examples.</p>
 </div>
-<div class="section" id="singular-strings-with-context">
-<h3>Singular strings with context<a class="headerlink" href="#singular-strings-with-context" title="Permalink to this headline">¶</a></h3>
-<p>Strings that need some additional context to disambiguate the source string,
-can use the <code class="docutils literal notranslate"><span class="pre">trans._p</span></code> method:</p>
-<p>The word <strong>Tab</strong> can mean different things in the english language:</p>
-<ul class="simple">
-<li><p>A spacer, when the <code class="docutils literal notranslate"><span class="pre">Tab</span></code> key of a keyboard is used inside a text editor.</p></li>
-<li><p>A tablature, a simplified version of sheet music used for stringed
-insruments.</p></li>
-<li><p>A user interface graphical element, like the one provide by <code class="docutils literal notranslate"><span class="pre">QTabWidget</span></code>.</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QWidget</span>
-
-<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-
-
-<span class="k">class</span> <span class="nc">SomeWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>        
-        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span> <span class="s2">"tab"</span><span class="p">,</span> <span class="p">),</span> <span class="s2">"tab"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span><span class="s2">"music"</span><span class="p">,</span> <span class="s2">"tab"</span><span class="p">),</span> <span class="s2">"tab"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">context_combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_p</span><span class="p">(</span><span class="s2">"ui-element"</span><span class="p">,</span> <span class="s2">"tab"</span><span class="p">),</span> <span class="s2">"tab"</span><span class="p">)</span>
+<div class="section" id="connection-functions-to-native-napari-events">
+<h2>Connection functions to native napari events<a class="headerlink" href="#connection-functions-to-native-napari-events" title="Permalink to this headline">¶</a></h2>
+<p>If you want something to happen following some event that happens <em>within</em>
+napari, the trick becomes knowing which native signals any given napari object
+provides for you to “connect” to.  Until we have centralized documentation for
+all of the events offered by napari objects, the best way to find these is to
+browse the source code.  Take for instance, the base
+<a class="reference internal" href="../../api/stable/napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a> class: you’ll find in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method a
+<code class="docutils literal notranslate"><span class="pre">self.events</span></code> section that looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<p>On this example, we add the word <code class="docutils literal notranslate"><span class="pre">tab</span></code> three time to a combo box selector.
-The first argument of <code class="docutils literal notranslate"><span class="pre">trans._p</span></code> provides the context string that will help
-to disambiguate the translation.</p>
-<p>For the <code class="docutils literal notranslate"><span class="pre">English</span> <span class="pre">(US)</span></code> translation the options displayed would be the same,
-since <code class="docutils literal notranslate"><span class="pre">gettext</span></code> uses the source language as the key to find translations. In
-this case:</p>
-<ul class="simple">
-<li><p>tab</p></li>
-<li><p>tab</p></li>
-<li><p>tab</p></li>
-</ul>
-<p>For the <code class="docutils literal notranslate"><span class="pre">Spanish</span> <span class="pre">(Spain)</span></code> translation the options displayted would be:</p>
-<ul class="simple">
-<li><p>tabulación</p></li>
-<li><p>tablatura</p></li>
-<li><p>pestaña</p></li>
-</ul>
-<p><code class="docutils literal notranslate"><span class="pre">trans._p</span></code> is a wrapper on top of <a class="reference external" href="https://docs.python.org/3/library/gettext.html#gettext.pgettext">gettext.pgettext</a> with enhanced functionality.</p>
-</div>
-<div class="section" id="plural-strings">
-<h3>Plural strings<a class="headerlink" href="#plural-strings" title="Permalink to this headline">¶</a></h3>
-<p>Some strings or sentences might need to be handled differently when needing
-pluralization, that is depending on the amount of items included in the
-string.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QWidget</span>
+<p>That tells you that all layers are capable of emitting events called <code class="docutils literal notranslate"><span class="pre">data</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">name</span></code> (among many others) that will (presumably) be emitted when that property
+changes. To provide your own response to that change, you can hook up a callback
+function that accepts the event object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_layer_name</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> changed its data!"</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-
-
-<span class="k">class</span> <span class="nc">SomeWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_n</span><span class="p">(</span><span class="s2">"</span><span class="si">{n}</span><span class="s2"> item"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{n}</span><span class="s2"> items"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">amount</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>On this example, the label string depends on the <code class="docutils literal notranslate"><span class="pre">n</span></code> parameter. The
-first argument of <code class="docutils literal notranslate"><span class="pre">trans._n</span></code> provides the singular version of the string.
-The second argument provides the plural version of the string. The third
-argument provides the quantity that will allow to know which string should
-be used, in this case <code class="docutils literal notranslate"><span class="pre">amount</span></code>. Notice that by default <code class="docutils literal notranslate"><span class="pre">trans._n</span></code> will try to
-interpolate the value of <code class="docutils literal notranslate"><span class="pre">n</span></code> in the string, if found.</p>
-<p>For the <code class="docutils literal notranslate"><span class="pre">English</span> <span class="pre">(US)</span></code> translation the string displayed for different values
-of <code class="docutils literal notranslate"><span class="pre">amount</span></code> would be:</p>
-<ul class="simple">
-<li><p>For <code class="docutils literal notranslate"><span class="pre">amount=0</span></code>, <code class="docutils literal notranslate"><span class="pre">"0</span> <span class="pre">items"</span></code></p></li>
-<li><p>For <code class="docutils literal notranslate"><span class="pre">amount=1</span></code>, <code class="docutils literal notranslate"><span class="pre">"1</span> <span class="pre">item"</span></code></p></li>
-<li><p>For <code class="docutils literal notranslate"><span class="pre">amount=2</span></code>, <code class="docutils literal notranslate"><span class="pre">"2</span> <span class="pre">items"</span></code></p></li>
-</ul>
-<p>For the <code class="docutils literal notranslate"><span class="pre">Spanish</span> <span class="pre">(Spain)</span></code> translation the options displayted would be:</p>
-<ul class="simple">
-<li><p>For <code class="docutils literal notranslate"><span class="pre">amount=0</span></code>, <code class="docutils literal notranslate"><span class="pre">"0</span> <span class="pre">ítems"</span></code></p></li>
-<li><p>For <code class="docutils literal notranslate"><span class="pre">amount=1</span></code>, <code class="docutils literal notranslate"><span class="pre">"1</span> <span class="pre">ítem"</span></code></p></li>
-<li><p>For <code class="docutils literal notranslate"><span class="pre">amount=2</span></code>, <code class="docutils literal notranslate"><span class="pre">"2</span> <span class="pre">ítems"</span></code></p></li>
-</ul>
-<p>Take into account that different languages will handle pluralization
-differently. Having clear variable names within strings (e.g. <code class="docutils literal notranslate"><span class="pre">{amount}</span></code>) of
-what the variable represents makes the internationalization process much
-easier and pleasant for translators.</p>
-<p><code class="docutils literal notranslate"><span class="pre">trans._n</span></code> is a wrapper on top of <a class="reference external" href="https://docs.python.org/3/library/gettext.html#gettext.ngettext">gettext.ngettext</a> with enhanced functionality.</p>
-</div>
-<div class="section" id="plural-strings-with-context">
-<h3>Plural strings with context<a class="headerlink" href="#plural-strings-with-context" title="Permalink to this headline">¶</a></h3>
-<p>This is similar to plural strings, but an additional context can be supplied
-as explained in the <a class="reference external" href="#singular-strings-with-context">Singular strings with context</a> section.</p>
-</div>
-</div>
-<div class="section" id="deferred-translations">
-<h2>Deferred translations<a class="headerlink" href="#deferred-translations" title="Permalink to this headline">¶</a></h2>
-<p>For some strings we might not want to provide a translation right away. This
-could be the case of running napari in scripts, where providing the original
-english error messages might provide a better experience for users and
-developers.</p>
-<p>For these case, all the <code class="docutils literal notranslate"><span class="pre">trans._*</span></code> methods provide an extra parameter
-<code class="docutils literal notranslate"><span class="pre">deferred</span></code>. When used and set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the methods will return an instance
-of a <code class="docutils literal notranslate"><span class="pre">TranslationString</span></code> which provides two methods, <code class="docutils literal notranslate"><span class="pre">TranslationString.value()</span></code>
-and <code class="docutils literal notranslate"><span class="pre">TranslationString.translation()</span></code>. The former provides the original
-untranslated string and the later provides the translated string.
-Additionally, the <code class="docutils literal notranslate"><span class="pre">string</span></code> representation of this object will default to use
-the original string.</p>
-<p>With this, we can also provide the correct translations when using the napari
-application and displaying messages on the notifications manager in the
-language selected by the users.</p>
-</div>
-<div class="section" id="additional-arguments-inside-strings">
-<h2>Additional arguments inside strings<a class="headerlink" href="#additional-arguments-inside-strings" title="Permalink to this headline">¶</a></h2>
-<p>Since <code class="docutils literal notranslate"><span class="pre">f-strings</span></code> do not work with localizable strings, we loose their
-convenience and have to use <code class="docutils literal notranslate"><span class="pre">str.format</span></code>. However, when using deferred
-translations, we need to be able to use any variables the original string
-needs to be able to render itself. To handle this, the <code class="docutils literal notranslate"><span class="pre">trans</span></code> helpers
-provide the ability to receive any extra keyword arguments whcih will be
-used for rendering the deferred strings on demand.</p>
-<p>An example of how this works with Spanish and defered string yields:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-
-<span class="n">deferred_string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">"Hello </span><span class="si">{word}</span><span class="s2">"</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s2">"world!"</span><span class="p">)</span>
-
-<span class="nb">str</span><span class="p">(</span><span class="n">deferred_string</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"Hello world!"</span>  <span class="c1"># True</span>
-<span class="n">deferred_string</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"Hello world!"</span>  <span class="c1"># True</span>
-<span class="n">deferred_string</span><span class="o">.</span><span class="n">translation</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"¡Hola mundo!"</span>  <span class="c1"># True</span>
-</pre></div>
-</div>
-<p>An example of how this works for non-deferred string yields:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-
-<span class="n">normal_string</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">"Hello </span><span class="si">{word}</span><span class="s2">"</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s2">"world!"</span><span class="p">)</span>
-<span class="n">normal_string</span> <span class="o">==</span> <span class="s2">"¡Hola mundo!"</span>  <span class="c1"># True</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">print_layer_name</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="contributing-translations">
-<h2>Contributing translations<a class="headerlink" href="#contributing-translations" title="Permalink to this headline">¶</a></h2>
-<p>To be able to provide translations for different languages, the napari team
-chose to use the <code class="docutils literal notranslate"><span class="pre">Crowdin</span></code> which provides a simple web interface where the
-localizable strings can be translated one by one with the help of volunteers
-and the napari user community.</p>
-<p>To start translating, please visit the <a class="reference external" href="https://crowdin.com/project/napari">Crowdin project page</a>.</p>
 </div>
+<div class="section" id="long-running-blocking-functions">
+<h1>Long-running, blocking functions<a class="headerlink" href="#long-running-blocking-functions" title="Permalink to this headline">¶</a></h1>
+<p>An important detail here is that the napari event loop is running in a <em>single
+thread</em>.  This works just fine if the handling of each event is very short, as
+is usually the case with moving sliders, and pressing buttons.  However, if one
+of the events in the queue takes a long time to process, then every other event
+must wait!</p>
+<p>Take this example in napari:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="c1"># everything is fine so far... but if we trigger a long computation</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="c1"># the entire interface freezes!</span>
+</pre></div>
+</div>
+<p>Here we have a long computation (<code class="docutils literal notranslate"><span class="pre">np.random.rand(512,</span> <span class="pre">1024,</span> <span class="pre">1024).mean(0)</span></code>) that
+“blocks” the main thread, meaning <em>no button press, key press, or any other
+event can be processed until it’s done</em>.  In this scenario, it’s best to put
+your long-running function into another thread or process.  <code class="docutils literal notranslate"><span class="pre">napari</span></code> provides a
+convenience for that, described in <a class="reference internal" href="threading.html#multithreading-in-napari"><span class="std std-ref">Multithreading in napari</span></a>.</p>
 </div>
 <script type="text/x-thebe-config">
     {
@@ -543,23 +454,23 @@ and the napari user community.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="rendering-explanation.html">
+          <a class="next-page" href="../../developers/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Rendering in napari</div>
+                <div class="title">Developer Resources</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="magicgui.html">
+          <a class="prev-page" href="rendering-explanation.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</div>
+                <div class="title">Rendering in napari</div>
                 
               </div>
             </a>
@@ -573,7 +484,7 @@ and the napari user community.</p>
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
             |
-            <a class="muted-link" href="../../_sources/guides/stable/translations.md"
+            <a class="muted-link" href="../../_sources/guides/stable/connecting_events.md"
                rel="nofollow">
               Show Source
             </a>
@@ -593,19 +504,13 @@ and the napari user community.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Translations</a><ul>
-<li><a class="reference internal" href="#how-to-make-strings-translatable">How to make strings translatable?</a><ul>
-<li><a class="reference internal" href="#singular-strings">Singular strings</a></li>
-<li><a class="reference internal" href="#singular-strings-with-context">Singular strings with context</a></li>
-<li><a class="reference internal" href="#plural-strings">Plural strings</a></li>
-<li><a class="reference internal" href="#plural-strings-with-context">Plural strings with context</a></li>
+<li><a class="reference internal" href="#">Hooking up your own events</a><ul>
+<li><a class="reference internal" href="#listening-for-keypress-events">Listening for keypress events</a></li>
+<li><a class="reference internal" href="#listening-for-mouse-events">Listening for mouse events</a></li>
+<li><a class="reference internal" href="#connection-functions-to-native-napari-events">Connection functions to native napari events</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#deferred-translations">Deferred translations</a></li>
-<li><a class="reference internal" href="#additional-arguments-inside-strings">Additional arguments inside strings</a></li>
-<li><a class="reference internal" href="#contributing-translations">Contributing translations</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#long-running-blocking-functions">Long-running, blocking functions</a></li>
 </ul>
 
           </div>

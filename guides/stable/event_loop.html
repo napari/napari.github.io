@@ -276,6 +276,8 @@
 <li class="toctree-l2"><a class="reference internal" href="magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rendering-explanation.html">Rendering in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connecting_events.html">Hooking up your own events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -309,13 +311,66 @@
 
 <div class="section" id="an-introduction-to-the-event-loop-in-napari">
 <span id="intro-to-event-loop"></span><h1>An Introduction to the Event Loop in napari<a class="headerlink" href="#an-introduction-to-the-event-loop-in-napari" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="brief-summary">
+<h2>Brief summary<a class="headerlink" href="#brief-summary" title="Permalink to this headline">¶</a></h2>
+<p>It is not necessary to have a deep understanding of Qt or event loops to use
+napari. napari attempts to use “sane defaults” for most scenarios. Here are the
+most important details:</p>
+<div class="section" id="in-ipython-or-jupyter-notebook">
+<h3>In IPython or Jupyter Notebook<a class="headerlink" href="#in-ipython-or-jupyter-notebook" title="Permalink to this headline">¶</a></h3>
+<p>napari will detect if you are running an IPython or Jupyter shell, and will
+automatically use the <a class="reference external" href="https://ipython.readthedocs.io/en/stable/config/eventloops.html#integrating-with-gui-event-loops">IPython GUI event
+loop</a>.
+As of <a class="reference external" href="https://github.com/napari/napari/releases/tag/v0.4.7">version 0.4.7</a>, it is
+no longer necessary to call <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code> manually.  Just create a viewer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>  <span class="c1"># Viewer will show in a new window</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">...</span> <span class="c1"># Continue interactive usage</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you would prefer that napari did <em>not</em> start the interactive
+event loop for you in IPython, then you can disable it with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
+
+<span class="n">SETTINGS</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">ipy_interactive</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>… but then you will have to start the program yourself as described <a class="reference external" href="#in-a-script">below</a>.</p>
+</div>
+</div>
+<div class="section" id="in-a-script">
+<h3>In a script<a class="headerlink" href="#in-a-script" title="Permalink to this headline">¶</a></h3>
+<p>Outside of IPython, you must tell napari when to “start the program” using
+<a class="reference internal" href="../../api/stable/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a>.  This will <em>block</em> execution of your script at that point,
+show the viewer, and wait for any user interaction.  When the last viewer
+closes, execution of the script will proceed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="o">...</span>  <span class="c1"># Continue setting  up your program</span>
+
+<span class="c1"># Start the program, show the viewer, wait for GUI interaction.</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span> 
+
+<span class="c1"># Anything below here will execute only after the viewer is closed.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils"/>
+<div class="section" id="more-in-depth">
+<h2>More in depth…<a class="headerlink" href="#more-in-depth" title="Permalink to this headline">¶</a></h2>
 <p>Like most applications with a graphical user interface (GUI), napari operates
 within an <strong>event loop</strong> that waits for – and responds to – events triggered by
-the user interacting with the program.  These events might be something like a
-mouse click, or a keypress, and usually correspond to some specific action
-taken by the user (e.g. “user moved the gamma slider”).</p>
-<p>At its core, an event loop is rather simple.  It amounts to something
-that looks like this (in pseudo-code):</p>
+the user’s interactions with the interface.  These events might be something like a
+mouse click, or a keypress, and usually correspond to some specific action taken
+by the user (e.g. “user moved the gamma slider”).</p>
+<p>At its core, an event loop is rather simple.  It amounts to something that looks
+like this (in pseudo-code):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">event_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># infinite loop!</span>
@@ -327,145 +382,77 @@ that looks like this (in pseudo-code):</p>
             <span class="n">process_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Actions taken by the user add events to the queue (“button pressed”,
+<p>Actions taken by the user add events to the queue (e.g. “button pressed”,
 “slider moved”, etc…), and the event loop handles them one at a time.</p>
-<div class="section" id="the-qt-event-loop">
-<h2>The Qt Event Loop<a class="headerlink" href="#the-qt-event-loop" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="qt-applications-and-event-loops">
+<h2>Qt Applications and Event Loops<a class="headerlink" href="#qt-applications-and-event-loops" title="Permalink to this headline">¶</a></h2>
 <p>Currently, napari uses Qt as its GUI backend, and the main loop handling events
-in napari is the
-<a class="reference external" href="https://wiki.qt.io/Threads_Events_QObjects#Events_and_the_event_loop">Qt EventLoop</a>.
-When you use the following syntax:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+in napari is the <a class="reference external" href="https://wiki.qt.io/Threads_Events_QObjects#Events_and_the_event_loop">Qt
+EventLoop</a>.</p>
+<p>A deep dive into the Qt event loop is beyond the scope of this document, but
+it’s worth being aware of two critical steps in the “lifetime” of a Qt
+Application:</p>
+<ol>
+<li><p>Any program that would like to create a
+<a class="reference external" href="https://doc.qt.io/qt-5/qwidget.html"><code class="docutils literal notranslate"><span class="pre">QWidget</span></code></a> (the class from which all
+napari’s graphical elements are subclassed), must create a
+<a class="reference external" href="https://doc.qt.io/qt-5/qapplication.html"><code class="docutils literal notranslate"><span class="pre">QApplication</span></code></a> instance <em>before</em>
+instantiating any widgets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">([])</span>  <span class="c1"># where [] is a list of args passed to the App</span>
 </pre></div>
 </div>
-<p>… you are starting up the Qt event loop.  This also explains why the only
-wait to get <em>out</em> of that <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> context is to <em>stop</em> the Qt event loop
-(usually by quitting the napari viewer).  A deep dive into the Qt event loop is
-beyond the scope of this document, but it’s worth being aware of the central role
-that it plays in napari, and users interested in creating highly customized
-events and actions are advised to gain at least a little familiarity with the
-Qt event loop.</p>
-</div>
-<div class="section" id="hooking-up-your-own-events">
-<h2>Hooking up your own events<a class="headerlink" href="#hooking-up-your-own-events" title="Permalink to this headline">¶</a></h2>
-<p>If you’re coming from a background of scripting or working with python in an
-interactive console, thinking in terms of the “event loop” can feel a bit
-strange at time.  Often we write code in a very procedural way: “do this …
-then do that, etc…”. With napari and other GUI programs however, usually you
-hook up a bunch of conditions and to callback functions (e.g. “If this event
-happens, then call this function”) and <em>then</em> start the loop and hope you
-hooked everything up correctly!  Indeed, much of the <code class="docutils literal notranslate"><span class="pre">napari</span></code> source code is
-dedicated to creating and handling events: search the codebase for “<code class="docutils literal notranslate"><span class="pre">.emit(</span></code>“
-and “<code class="docutils literal notranslate"><span class="pre">.connect(</span></code>” to find examples of creating and handling internal events,
-respectively.</p>
-<p>If you would like to setup a custom event listener then you  need to hook into
-the napari event.  We offer a couple of convenience decorators to easily
-connect functions to key and mouse events.</p>
-<div class="section" id="listening-for-keypress-events">
-<h3>Listening for keypress events<a class="headerlink" href="#listening-for-keypress-events" title="Permalink to this headline">¶</a></h3>
-<p>One option is to use keybindings, that will listen for keypresses and then call
-some callback whenever pressed, with the viewer instance passed as an argument
-to that function. As a basic example, to add a random image to the viewer
-every time the <code class="docutils literal notranslate"><span class="pre">i</span></code> key is pressed, and delete the last layer when the <code class="docutils literal notranslate"><span class="pre">k</span></code>
-key is pressed:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">napari</span>
-
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-
-    <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'i'</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">add_layer</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
-
-    <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">'k'</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_layer</span><span class="p">(</span><span class="n">viewer</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-            <span class="k">pass</span>
+</li>
+<li><p>In order to actually show and interact with widgets, one must start the
+application’s event loop:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>See also this
-<a class="reference external" href="https://github.com/napari/napari/blob/master/examples/custom_key_bindings.py">custom key bindings example</a>.</p>
-</div>
-<div class="section" id="listening-for-mouse-events">
-<h3>Listening for mouse events<a class="headerlink" href="#listening-for-mouse-events" title="Permalink to this headline">¶</a></h3>
-<p>You can also listen for and react to mouse events, like a click or drag event,
-as show here where we update the image with random data every time it is
-clicked.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">napari</span>
-
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-    <span class="n">layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)))</span>
-
-    <span class="nd">@layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span>
-    <span class="k">def</span> <span class="nf">update_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="n">layer</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>See also the
-<a class="reference external" href="https://github.com/napari/napari/blob/master/examples/custom_mouse_functions.py">custom mouse functions</a>
-and
-<a class="reference external" href="https://github.com/napari/napari/blob/master/examples/mouse_drag_callback.py">mouse drag callback</a>
-examples.</p>
-</div>
-<div class="section" id="connection-functions-to-native-napari-events">
-<h3>Connection functions to native napari events<a class="headerlink" href="#connection-functions-to-native-napari-events" title="Permalink to this headline">¶</a></h3>
-<p>If you want something to happen following some event that happens <em>within</em>
-napari, then trick becomes knowing which native signals any given napari object
-provides for you to “connect” to.  Until we have centralized documentation for
-all of the events offered by napari objects, the best way to find these is to
-browse the source code.  Take for instance, the base
-<a class="reference internal" href="../../api/stable/napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a> class: you’ll find in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code>
-method a <code class="docutils literal notranslate"><span class="pre">self.events</span></code> section that looks like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
-    <span class="o">...</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-    <span class="o">...</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>That tells you that all layers are capable of emitting events called <code class="docutils literal notranslate"><span class="pre">data</span></code>,
-and <code class="docutils literal notranslate"><span class="pre">name</span></code> (among many others) that will (presumably) be emitted when that
-property changes. To provide your own response to that change, you can hook up
-a callback function that accepts the event object:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_layer_name</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> changed its data!"</span><span class="p">)</span>
-
-<span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">print_layer_name</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="long-running-blocking-functions">
-<h2>Long-running, blocking functions<a class="headerlink" href="#long-running-blocking-functions" title="Permalink to this headline">¶</a></h2>
-<p>An important detail here is that the napari event loop is running in a <em>single
-thread</em>.  This works just fine if the handling of each event is very short, as
-is usually the case with moving sliders, and pressing buttons.  However, if one
-of the events in the queue takes a long time to process, then every other event
-must wait!</p>
-<p>Take this example in napari:</p>
+</li>
+</ol>
+<div class="section" id="napari-s-qapplication">
+<h3>napari’s <code class="docutils literal notranslate"><span class="pre">QApplication</span></code><a class="headerlink" href="#napari-s-qapplication" title="Permalink to this headline">¶</a></h3>
+<p>In napari, the initial step of creating the <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> is handled by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">napari.qt.get_app()</span></code>.  (Note however, that napari will do this for you
+automatically behind the scenes when you create a viewer with
+<a class="reference internal" href="../../api/stable/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">napari.Viewer()</span></code></a>)</p>
+<p>The second step – starting the Qt event loop – is handled by <a class="reference internal" href="../../api/stable/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
-    <span class="c1"># everything is fine so far... but if we trigger a long computation</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="c1"># the entire interface freezes!</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>  <span class="c1"># This will create a Application if one doesn't exist</span>
+
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># This will call `app.exec_()` and start the event loop.</span>
 </pre></div>
 </div>
-<p>Here we have a long computation (<code class="docutils literal notranslate"><span class="pre">np.random.rand(512,</span> <span class="pre">1024,</span> <span class="pre">1024).mean(0)</span></code>)
-that “blocks” the main thread, meaning <em>no button press, key press, or any
-other event can be processed until it’s done</em>.  In this scenario, it’s best to
-put your long-running function into another thread or process.  <code class="docutils literal notranslate"><span class="pre">napari</span></code>
-provides a convenience for that, described in <a class="reference internal" href="threading.html#multithreading-in-napari"><span class="std std-ref">Multithreading in napari</span></a>.</p>
+<div class="caution admonition" id="gui-qt-deprecated">
+<p class="admonition-title">What about <code class="docutils literal notranslate"><span class="pre">napari.gui_qt</span></code>?</p>
+<p><strong><a class="reference internal" href="../../api/stable/napari.html#napari.gui_qt" title="napari.gui_qt"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.gui_qt()</span></code></a> was deprecated in version 0.4.8.</strong></p>
+<p>The autocreation of the <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> instance and the <a class="reference internal" href="../../api/stable/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a>
+function was introduced in
+<a class="reference external" href="https://github.com/napari/napari/pull/2056">PR#2056</a>, and released in <a class="reference external" href="https://github.com/napari/napari/releases/tag/v0.4.3">version
+0.4.3</a>.  Prior to that,
+all napari examples included this <code class="docutils literal notranslate"><span class="pre">gui_qt()</span></code> context manager:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># deprecated</span>
+<span class="k">with</span> <span class="n">napari</span><span class="o">.</span><span class="n">gui_qt</span><span class="p">():</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>On entering the context, <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> would create a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code>, and on exiting
+the context, it would start the event loop (the two critical steps <a class="reference external" href="#qt-applications-and-event-loops">mentioned
+above</a>).</p>
+<p>Unlike a typical context manager, however, it did not actually <em>destroy</em> the
+<code class="docutils literal notranslate"><span class="pre">QApplication</span></code> (since it may still be needed in the same session)… and future
+calls to <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> were only needed to start the event loop.  By auto-creating
+the <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> during <a class="reference internal" href="../../api/stable/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a> creation, introducing the
+explicit <a class="reference internal" href="../../api/stable/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a> function, and using the <a class="reference external" href="#in-ipython-or-jupyter-notebook">integrated IPython event
+loop</a> when applicable, we hope to simplify the
+usage of napari.</p>
+</div>
+<p>Now that you have an understanding of how napari creates the event loop, you may
+wish to learn more about <span class="xref std std-ref">hooking up your own actions</span> and callbacks to specific events.</p>
+</div>
 </div>
 </div>
 <script type="text/x-thebe-config">
@@ -544,14 +531,16 @@ provides a convenience for that, described in <a class="reference internal" href
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">An Introduction to the Event Loop in napari</a><ul>
-<li><a class="reference internal" href="#the-qt-event-loop">The Qt Event Loop</a></li>
-<li><a class="reference internal" href="#hooking-up-your-own-events">Hooking up your own events</a><ul>
-<li><a class="reference internal" href="#listening-for-keypress-events">Listening for keypress events</a></li>
-<li><a class="reference internal" href="#listening-for-mouse-events">Listening for mouse events</a></li>
-<li><a class="reference internal" href="#connection-functions-to-native-napari-events">Connection functions to native napari events</a></li>
+<li><a class="reference internal" href="#brief-summary">Brief summary</a><ul>
+<li><a class="reference internal" href="#in-ipython-or-jupyter-notebook">In IPython or Jupyter Notebook</a></li>
+<li><a class="reference internal" href="#in-a-script">In a script</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li><a class="reference internal" href="#more-in-depth">More in depth…</a></li>
+<li><a class="reference internal" href="#qt-applications-and-event-loops">Qt Applications and Event Loops</a><ul>
+<li><a class="reference internal" href="#napari-s-qapplication">napari’s <code class="docutils literal notranslate"><span class="pre">QApplication</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

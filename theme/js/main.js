@@ -1,3 +1,5 @@
+import '../scss/main.scss';
+
 function handleMenuClick(e) {
   // eslint-disable-next-line no-console
   console.log('Clicked on menu button:', e);

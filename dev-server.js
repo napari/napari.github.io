@@ -10,12 +10,14 @@
 
 const chokidar = require('chokidar');
 const { spawn } = require('child_process');
+const { resolve } = require('path');
 
 const express = require('express');
 const logger = require('morgan');
 const reload = require('reload');
 
-const PUBLIC_DIR = '_build/html';
+const PUBLIC_DIR = resolve(__dirname, '_build/html');
+const OUTPUT_DIR = resolve(__dirname, 'theme/napari/static/dist');
 const DEFAULT_PORT = 8080;
 const IGNORED_FILES = [
   '.github',
@@ -67,8 +69,15 @@ class DevServer {
     const watcher = chokidar.watch('.', { ignored: IGNORED_FILES });
 
     watcher.on('change', (path) => {
-      console.log(`${path} changed, re-building docs`);
-      this.buildDocs();
+      // If path is theme asset, we can reload the browser instead of
+      // re-building the docs.
+      if (path.includes(OUTPUT_DIR)) {
+        console.log(`${path} changed, reloading browser`);
+        this.reloadBrowser();
+      } else {
+        console.log(`${path} changed, re-building docs`);
+        this.buildDocs();
+      }
     });
 
     // Build docs on initial run
@@ -81,6 +90,12 @@ class DevServer {
   async startDevServer() {
     this.app = express();
     this.app.use(logger('dev'));
+
+    // Proxy static path used by sphinx to bypass having to rebuild the docs
+    // when the JS / SCSS changes.
+    this.app.use('/_static/dist', express.static(OUTPUT_DIR));
+
+    // Serve built docs if other proxy handler is a miss.
     this.app.use(express.static(PUBLIC_DIR));
 
     this.reloader = await reload(this.app);

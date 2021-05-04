@@ -71,7 +71,7 @@ class DevServer {
     watcher.on('change', (path) => {
       // If path is theme asset, we can reload the browser instead of
       // re-building the docs.
-      if (path.includes('theme/napari/static/dist')) {
+      if (path.includes(OUTPUT_DIR)) {
         console.log(`${path} changed, reloading browser`);
         this.reloadBrowser();
       } else {

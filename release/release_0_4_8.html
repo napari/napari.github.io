@@ -1,0 +1,682 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="napari 0.4.7" href="release_0_4_7.html" /><link rel="prev" title="Release Notes" href="index.html" />
+
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+        <title>napari 0.4.8 - napari</title>
+      <link rel="stylesheet" href="../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+    <link rel="stylesheet" href="../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #002b36;
+  --color-code-foreground: #839496;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
+    
+    <style>
+    /* All of this is for the download button which is 
+    declared in download_button.html and included in page: .html
+    
+    This is temporary, and should definitely be replaced with something better
+    when we move to the napari theme.
+    */
+    article{position:relative}.download.icon{color:#000;position:absolute;margin-left:3px;margin-top:12px;width:13px;height:4px;border-radius:1px;border:solid 1px currentColor;border-top:none;top:42px;right:15%}.download.icon:before{content:'';position:absolute;left:6px;top:-9px;width:1px;height:10px;background-color:currentColor}.download.icon:after{content:'';position:absolute;left:4px;top:-4px;width:4px;height:4px;border-top:solid 1px currentColor;border-right:solid 1px currentColor;-webkit-transform:rotate(135deg);transform:rotate(135deg)}.download.icon>span{display:none}.download.icon:hover>span{display:inline;position:absolute;top:1em;left:-3.4em;width:8em;font-size:small;color:#999}
+    </style>
+</head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">napari</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo.ico" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">napari</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../community/index.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../community/mission_and_values.html">Mission and Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/team.html">About Team</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/code_of_conduct_reporting.html">Handling Code of Conduct Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/governance.html">Governance Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/fundamentals/index.html">Fundamentals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/installation.html">napari installation tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/getting_started.html">getting started with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/viewer.html">napari viewer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/image.html">image layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/labels.html">labels layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/points.html">points layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/shapes.html">shapes layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/surface.html">surface layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/tracks.html">tracks layer tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/fundamentals/vectors.html">vectors layer tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/applications/index.html">Applications</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/annotate_segmentation.html">annotating segmentation with text and bounding boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/annotate_points.html">annotating videos with napari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/dask.html">using dask and napari to process &amp; view large datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/napari_imageJ.html">Napari + ImageJ How-to-Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/applications/cell_tracking.html">single cell tracking with napari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../plugins/stable/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/stable/for_napari_developers.html">napari plugin architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/stable/for_plugin_developers.html">creating a napari plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/stable/hook_specifications.html">napari hook specification reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Release notes</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">napari 0.4.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_7.html">napari 0.4.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_6.html">napari 0.4.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_5.html">napari 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_4.html">napari 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_3.html">napari 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_1.html">napari 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_4_0.html">napari 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_8.html">napari 0.3.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_7.html">napari 0.3.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_6.html">napari 0.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_5.html">napari 0.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_4.html">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_3.html">napari 0.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_2.html">napari 0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_1.html">napari 0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_0.html">napari 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_9.html">napari 0.2.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_8.html">napari 0.2.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_7.html">napari 0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_6.html">napari 0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_5.html">napari 0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_4.html">napari 0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_3.html">napari 0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_12.html">napari 0.2.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_11.html">napari 0.2.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_10.html">napari 0.2.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_1.html">napari 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_2_0.html">napari 0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_1_5.html">napari 0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_1_3.html">napari 0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_1_0.html">napari 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api/stable/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.layers.html">napari.layers</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Image.html">napari.layers.Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Labels.html">napari.layers.Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Layer.html">napari.layers.Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Points.html">napari.layers.Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Shapes.html">napari.layers.Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Surface.html">napari.layers.Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Tracks.html">napari.layers.Tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.layers.Vectors.html">napari.layers.Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.utils.Colormap.html">napari.utils.Colormap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.utils.nbscreenshot.html">napari.utils.nbscreenshot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.components.Camera.html">napari.components.Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.components.Dims.html">napari.components.Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.components.LayerList.html">napari.components.LayerList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.components.ViewerModel.html">napari.components.ViewerModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.qt.threading.html">napari.qt.threading</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.FunctionWorker.html">napari.qt.threading.FunctionWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.GeneratorWorker.html">napari.qt.threading.GeneratorWorker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.GeneratorWorkerSignals.html">napari.qt.threading.GeneratorWorkerSignals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.WorkerBase.html">napari.qt.threading.WorkerBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.qt.threading.WorkerBaseSignals.html">napari.qt.threading.WorkerBaseSignals</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.utils.perf.html">napari.utils.perf</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.utils.perf.PerfEvent.html">napari.utils.perf.PerfEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../api/stable/napari.html">napari</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/stable/napari.Viewer.html">napari.Viewer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../roadmaps/index.html">Roadmaps</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_4.html">Roadmap 0.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_3_retrospective.html">Roadmap 0.3 Retrospective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../roadmaps/0_3.html">Roadmap 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../guides/stable/index.html">Developer guides</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/event_loop.html">An Introduction to the Event Loop in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/threading.html">Multithreading in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/perfmon.html">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/rendering.html">Asynchronous Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/docker.html">Napari in Docker (WIP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/performance.html">Napari Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/magicgui.html">Using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/translations.html">Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/connecting_events.html">Hooking up your own events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developers/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/core_dev_guide.html">Core Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/release.html">Release Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/testing.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/docs.html">Organization of Documentation for napari</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/napari/napari">napari source code</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        
+
+
+
+<div class="section" id="napari-0-4-8">
+<h1>napari 0.4.8<a class="headerlink" href="#napari-0-4-8" title="Permalink to this headline">¶</a></h1>
+<p>We’re happy to announce the release of napari 0.4.8!
+napari is a fast, interactive, multi-dimensional image viewer for Python.
+It’s designed for browsing, annotating, and analyzing large multi-dimensional
+images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-based
+rendering), and the scientific Python stack (numpy, scipy).</p>
+<p>This release comes with a <strong>big</strong> change with how you use napari: you should no
+longer wrap viewer calls in the <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">napari.gui_qt():</span></code> context. Instead, when
+you want to block and call the viewer, use <code class="docutils literal notranslate"><span class="pre">napari.run()</span></code>. A minimal example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="n">camera</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">()</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">camera</span><span class="p">)</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In interactive workspaces such as IPython and Jupyter Notebook, you should no
+longer need to use <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code>, either: napari will enable it for you.</p>
+<p>For more information, examples, and documentation, please visit our website:
+<a class="reference external" href="https://napari.org">https://napari.org</a></p>
+<div class="section" id="highlights">
+<h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
+<p>This release adds a new plugin type (i.e. a hook specification) for plugins to
+provide sample data (#2483). No more demos with <code class="docutils literal notranslate"><span class="pre">np.random</span></code>! 🎉 We’ve added a
+built-in sample data plugin for this using the scikit-image data module.
+Use it with <code class="docutils literal notranslate"><span class="pre">viewer.open_sample(plugin_name,</span> <span class="pre">sample_name)</span></code>, for example,
+<code class="docutils literal notranslate"><span class="pre">viewer.open_sample('scikit-image',</span> <span class="pre">'camera')</span></code>. Or you can use the File
+menu at File -&gt; Open Sample. For more on how to provide your own sample
+datasets to napari, see <a class="reference external" href="https://napari.org/plugins/stable/for_plugin_developers.html">how to write a
+plugin</a> and the
+<a class="reference external" href="https://napari.org/plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_provide_sample_data">sample data
+specification</a>.</p>
+<p>The scale bar now has rudimentary support for physical units 📏 (#2617). To use
+it, set your scale numerically as before, then use <code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.unit</span> <span class="pre">=</span> <span class="pre">'um'</span></code>, for example.</p>
+<p>We have also added a text overlay, which you can use to display arbitrary text
+over the viewer (#2595). You can use this to display time series time stamps,
+for example. Access it at <code class="docutils literal notranslate"><span class="pre">viewer.text_overlay</span></code>.</p>
+<p>Editing segmentations with napari is easier than ever now with varying number
+of dimensions during painting/filling with labels (#2609). Previously, if you
+wanted to edit segmentations in a time series, you had to choose between
+painting 2D planes, or painting in 4D. Now you can edit individual volumes
+without affecting the others.</p>
+<p>If you launch a long running process from napari, you can now display a progress
+bar on the viewer (#2580). You can find usage examples in the repo
+<a class="reference external" href="https://github.com/napari/napari/blob/fa342dc399b636330afdb1b4cb58f919832651fd/examples/progress_bar_minimal.py">here</a>
+and
+<a class="reference external" href="https://github.com/napari/napari/blob/fa342dc399b636330afdb1b4cb58f919832651fd/examples/progress_bar_segmentation.py">here</a>.</p>
+</div>
+<div class="section" id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add highlight widget to preferences dialog (#2435)</p></li>
+<li><p>Add interface language selection to preferences (#2466)</p></li>
+<li><p>Add Hookspec for providing sample data (#2483)</p></li>
+<li><p>Add ability to run file as plugin (#2503)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">layer.source</span></code> attribute to track layer provenance (#2518)</p></li>
+<li><p>Add button to drop into debugger in the traceback viewer. (#2534)</p></li>
+<li><p>Add initial welcome screen on canvas (#2542)</p></li>
+<li><p>Text overlay visual (#2595)</p></li>
+<li><p>Add global progress wrapper and ProgressBar widget (#2580)</p></li>
+<li><p>Add FOV to camera model and slider popup (#2636). Right click on the 2D/3D
+display toggle button to get a perspective projection view in 3D.</p></li>
+</ul>
+</div>
+<div class="section" id="improvements">
+<h2>Improvements<a class="headerlink" href="#improvements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add stretch to vertical dock widgets (#2154)</p></li>
+<li><p>Use new selection model on existing <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> (#2441)</p></li>
+<li><p>Add bbox annotator example (#2446)</p></li>
+<li><p>Save last working directory (#2467)</p></li>
+<li><p>add name to dock widget titlebar (#2471)</p></li>
+<li><p>Add Qt<code class="docutils literal notranslate"><span class="pre">ListModel</span></code> and <code class="docutils literal notranslate"><span class="pre">ListView</span></code> for <code class="docutils literal notranslate"><span class="pre">EventedList</span></code> (#2486)</p></li>
+<li><p>New new qt layerlist (#2493)</p></li>
+<li><p>Move plugin sorter (#2501)</p></li>
+<li><p>Add support for passing <code class="docutils literal notranslate"><span class="pre">shape_type</span></code> through <code class="docutils literal notranslate"><span class="pre">data</span></code> attribute for <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layers (#2507)</p></li>
+<li><p>Add ColorManager to Vectors (#2512)</p></li>
+<li><p>Enhance translation methods (#2517)</p></li>
+<li><p>Cleanup plugins.<strong>init</strong>, better test isolation (#2535)</p></li>
+<li><p>Add typing to schema_version (#2536)</p></li>
+<li><p>Add initial restart implementation (#2540)</p></li>
+<li><p>Add data setter for <code class="docutils literal notranslate"><span class="pre">surface</span></code> layers (#2544)</p></li>
+<li><p>Extract shortcut into their own object. (#2554)</p></li>
+<li><p>Add example tying slider change to point properties change (#2582)</p></li>
+<li><p>Range of label spinbox is more dtype-aware (#2597)</p></li>
+<li><p>Add generic name to unnamed dockwidgets (#2604)</p></li>
+<li><p>Add option to save state separate from geometry (#2606)</p></li>
+<li><p>QtLargeIntSpinbox for label controls (#2608)</p></li>
+<li><p>Support varying number of dimensions during labels painting (#2609)</p></li>
+<li><p>Add units to the ScaleBar visual (#2617)</p></li>
+<li><p>Return widgets created by <code class="docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code> (#2635)</p></li>
+<li><p>Add _QtMainWindow.current (#2638)</p></li>
+<li><p>Relax dask test (#2641)</p></li>
+<li><p>Add table header style (#2645)</p></li>
+<li><p>QLargeIntSpinbox with QAbstractSpinbox and python model (#2648)</p></li>
+<li><p>Display file format options when saving layers (#2650)</p></li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Ensure Preferences dialog can only be opened once (#2457)</p></li>
+<li><p>Restore QtNDisplayButton (#2464)</p></li>
+<li><p>Fix label properties setter (issue #2477) (#2478)</p></li>
+<li><p>Fix labels data setter (#2496)</p></li>
+<li><p>Fix localization for colormaps (#2498)</p></li>
+<li><p>Small brackets fix for Perfmon (#2499)</p></li>
+<li><p>Add try except on safe load (#2505)</p></li>
+<li><p>Be cautious when checking a module’s <strong>package</strong> attribute (#2516)</p></li>
+<li><p>Trigger label colormap generation on seed change to fix shuffle bug, addresses #2523 (#2524)</p></li>
+<li><p>Modified quaternion2euler function to cap the arcsin’s argument by +-1 (#2530)</p></li>
+<li><p>Single line change to track recoloring function (#2532)</p></li>
+<li><p>Handle Escape on Preferences dialog (#2537)</p></li>
+<li><p>Fix close window handling for non-modals (#2538)</p></li>
+<li><p>Fix trans to use new API (#2539)</p></li>
+<li><p>Fix set_call_order with missing plugin (#2543)</p></li>
+<li><p>Update conditional to use new selection property (#2557)</p></li>
+<li><p>Fix visibility toggle (and other key events) in new qt layerlist (#2561)</p></li>
+<li><p>Delay importing plugins during settings registration (#2575)</p></li>
+<li><p>Don’t create a dask cache if it doesn’t exist (#2590)</p></li>
+<li><p>Update model and actions on menu (#2602)</p></li>
+<li><p>Fix z-index of notifications (hidden by welcome window) (#2611)</p></li>
+<li><p>Make sure Delete is a special key mapping (#2613)</p></li>
+<li><p>Disconnect some events on Canvas destruction (#2615)</p></li>
+<li><p>Add missing QSpinBox import in Labels layer controls (#2619)</p></li>
+<li><p>Use dtype.type when passing to downstream NumPy functions (#2632)</p></li>
+<li><p>Fix notifications when something other than napari or ipython creates QApp (#2633)</p></li>
+<li><p>Update missing translations for 0.4.8 (#2664)</p></li>
+</ul>
+</div>
+<div class="section" id="api-changes">
+<h2>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>By default, napari used to create a dask cache. This has caused unforeseen
+bugs, though, so it will no longer be done automatically. (#2590) If you
+notice a drop in performance for your dask+napari use case, you can restore
+the previous behaviour with
+<code class="docutils literal notranslate"><span class="pre">napari.utils.resize_dask_cache(memory_fraction=0.1)</span></code>. You can of course also
+experiment with other values!</p></li>
+</ul>
+</div>
+<div class="section" id="deprecations">
+<h2>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>As noted at the top of these notes, <code class="docutils literal notranslate"><span class="pre">napari.gui_qt()</span></code> is deprecated (#2533).
+Call <code class="docutils literal notranslate"><span class="pre">napari.run()</span></code> instead when you want to display the napari UI.</p></li>
+</ul>
+</div>
+<div class="section" id="ui-changes">
+<h2>UI changes<a class="headerlink" href="#ui-changes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Toggle theme has been removed from the menubar. (#2462) Instead, change the
+theme in the preferences panel.</p></li>
+<li><p>The number of 2D interpolation options available from the drop down menu has
+been reduced. (#2552)</p></li>
+<li><p>The ipy interactive setting has been removed from the preferences panel.
+(#2605) You can still turn it off from the API with
+<code class="docutils literal notranslate"><span class="pre">napari.utils.settings.SETTINGS.ipy_interactive</span> <span class="pre">=</span> <span class="pre">False</span></code>, but this is not
+recommended.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">n-dimensional</span></code> tick box in the Labels layer controls has been removed.
+(#2609) Use “n edit dims” instead.</p></li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Extend release notes: Add breaking API changes in 0.4.7 (#2494)</p></li>
+<li><p>Add about team page (#2508)</p></li>
+<li><p>Update translations guide (#2510)</p></li>
+<li><p>Misc Doc fixes. (#2515)</p></li>
+<li><p>Correct lenght for title underline. (#2541)</p></li>
+<li><p>Minor reformatting. (#2555)</p></li>
+<li><p>Automate doc copy (#2562)</p></li>
+<li><p>Pin docs dependencies (#2568)</p></li>
+<li><p>Example of using magicgui with thread_worker (#2577)</p></li>
+<li><p>Fix typo in docs CI (#2588)</p></li>
+<li><p>Only copy the autosummary templates (#2600)</p></li>
+<li><p>Documentation typos (#2614)</p></li>
+<li><p>Update event loop documentation for gui_qt deprecation (#2639)</p></li>
+<li><p>Example using matplotlib figure (#2668)</p></li>
+</ul>
+</div>
+<div class="section" id="build-tools-and-support">
+<h2>Build Tools and Support<a class="headerlink" href="#build-tools-and-support" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add a simple property-based test using Hypothesis (#2469)</p></li>
+<li><p>Add check for strings missing translations (#2521)</p></li>
+<li><p>Check if opengl file exists (#2630)</p></li>
+<li><p>Remove test warnings again, minimize output, hide more async stuff (#2642)</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">raw_stylesheet</span></code> (#2643)</p></li>
+<li><p>Add link to top level project roadmap page (#2652)</p></li>
+</ul>
+</div>
+<div class="section" id="other-pull-requests">
+<h2>Other Pull Requests<a class="headerlink" href="#other-pull-requests" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Update PULL_REQUEST_TEMPLATE.md (#2497)</p></li>
+<li><p>Non-dynamic base layer classes (#2624)</p></li>
+</ul>
+</div>
+<div class="section" id="authors-added-to-this-release-alphabetical">
+<h2>19 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">alisterburt</a> - @alisterburt</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=clbarnes">Chris Barnes</a> - @clbarnes</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> - @DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Fifourche">Fifourche</a> - @Fifourche</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - @GenevieveBuckley</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - @goanpeca</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - @Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=JoOkuma">Jordão Bragantini</a> - @JoOkuma</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - @jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kevinyamauchi">Kevin Yamauchi</a> - @kevinyamauchi</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - @kne42</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lukasz-migas">Lukasz Migas</a> - @lukasz-migas</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Carreau">Matthias Bussonnier</a> - @Carreau</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">Pam Wadhwa</a> - @ppwadhwa</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=haesleinhuepf">Robert Haase</a> - @haesleinhuepf</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - @tlambert03</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=VolkerH">Volker Hilsenstein</a> - @VolkerH</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=wadhikar">Wilson Adhikari</a> - @wadhikar</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Zac-HD">Zac Hatfield-Dodds</a> - @Zac-HD</p></li>
+</ul>
+</div>
+<div class="section" id="reviewers-added-to-this-release-alphabetical">
+<h2>20 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">alisterburt</a> - @alisterburt</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=clbarnes">Chris Barnes</a> - @clbarnes</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> - @DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=emilmelnikov">Emil Melnikov</a> - @emilmelnikov</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Fifourche">Fifourche</a> - @Fifourche</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - @GenevieveBuckley</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - @goanpeca</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - @Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=codemonkey800">Jeremy Asuncion</a> - @codemonkey800</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=JoOkuma">Jordão Bragantini</a> - @JoOkuma</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - @jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=justinelarsen">Justine Larsen</a> - @justinelarsen</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kevinyamauchi">Kevin Yamauchi</a> - @kevinyamauchi</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - @kne42</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lukasz-migas">Lukasz Migas</a> - @lukasz-migas</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Carreau">Matthias Bussonnier</a> - @Carreau</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=sofroniewn">Nicholas Sofroniew</a> - @sofroniewn</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">Pam</a> - @ppwadhwa</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=haesleinhuepf">Robert Haase</a> - @haesleinhuepf</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - @tlambert03</p></li>
+</ul>
+</div>
+</div>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./release"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+
+
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="release_0_4_7.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">napari 0.4.7</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Release Notes</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="../_sources/release/release_0_4_8.md"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">napari 0.4.8</a><ul>
+<li><a class="reference internal" href="#highlights">Highlights</a></li>
+<li><a class="reference internal" href="#new-features">New Features</a></li>
+<li><a class="reference internal" href="#improvements">Improvements</a></li>
+<li><a class="reference internal" href="#bug-fixes">Bug Fixes</a></li>
+<li><a class="reference internal" href="#api-changes">API Changes</a></li>
+<li><a class="reference internal" href="#deprecations">Deprecations</a></li>
+<li><a class="reference internal" href="#ui-changes">UI changes</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#build-tools-and-support">Build Tools and Support</a></li>
+<li><a class="reference internal" href="#other-pull-requests">Other Pull Requests</a></li>
+<li><a class="reference internal" href="#authors-added-to-this-release-alphabetical">19 authors added to this release (alphabetical)</a></li>
+<li><a class="reference internal" href="#reviewers-added-to-this-release-alphabetical">20 reviewers added to this release (alphabetical)</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

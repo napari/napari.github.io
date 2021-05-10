@@ -338,7 +338,7 @@ same. In these examples we’ll mainly use <code class="docutils literal notrans
 <p>A simple example of viewing an image is as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
 <span class="n">cells</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">cells3d</span><span class="p">()[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># grab some data</span>
@@ -346,14 +346,22 @@ same. In these examples we’ll mainly use <code class="docutils literal notrans
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-runner'
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/image_4_0.png" src="../../_images/image_4_0.png"/>
 </div>
 </div>
 </div>
@@ -363,7 +371,135 @@ same. In these examples we’ll mainly use <code class="docutils literal notrans
 accept the same layer-creation parameters.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function view_image:
+
+view_image(data=None, *, channel_axis=None, rgb=None, colormap=None, contrast_limits=None, gamma=1, interpolation='nearest', rendering='mip', iso_threshold=0.5, attenuation=0.05, name=None, metadata=None, scale=None, translate=None, rotate=None, shear=None, affine=None, opacity=1, blending=None, visible=True, multiscale=None, title='napari', ndisplay=2, order=(), axis_labels=(), show=True) -&gt; Union[napari.layers.image.image.Image, List[napari.layers.image.image.Image]]
+    Create a viewer and add an image layer.
+    
+    Parameters
+    ----------
+    data : array or list of array
+        Image data. Can be N dimensional. If the last dimension has length
+        3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a
+        list and arrays are decreasing in shape then the data is treated as
+        a multiscale image.
+    channel_axis : int, optional
+        Axis to expand image along.  If provided, each channel in the data
+        will be added as an individual image layer.  In channel_axis mode,
+        all other parameters MAY be provided as lists, and the Nth value
+        will be applied to the Nth channel in the data.  If a single value
+        is provided, it will be broadcast to all Layers.
+    rgb : bool or list
+        Whether the image is rgb RGB or RGBA. If not specified by user and
+        the last dimension of the data has length 3 or 4 it will be set as
+        `True`. If `False` the image is interpreted as a luminance image.
+        If a list then must be same length as the axis that is being
+        expanded as channels.
+    colormap : str, napari.utils.Colormap, tuple, dict, list
+        Colormaps to use for luminance images. If a string must be the name
+        of a supported colormap from vispy or matplotlib. If a tuple the
+        first value must be a string to assign as a name to a colormap and
+        the second item must be a Colormap. If a dict the key must be a
+        string to assign as a name to a colormap and the value must be a
+        Colormap. If a list then must be same length as the axis that is
+        being expanded as channels, and each colormap is applied to each
+        new image layer.
+    contrast_limits : list (2,)
+        Color limits to be used for determining the colormap bounds for
+        luminance images. If not passed is calculated as the min and max of
+        the image. If list of lists then must be same length as the axis
+        that is being expanded and then each colormap is applied to each
+        image.
+    gamma : list, float
+        Gamma correction for determining colormap linearity. Defaults to 1.
+        If a list then must be same length as the axis that is being
+        expanded as channels.
+    interpolation : str or list
+        Interpolation mode used by vispy. Must be one of our supported
+        modes. If a list then must be same length as the axis that is being
+        expanded as channels.
+    rendering : str or list
+        Rendering mode used by vispy. Must be one of our supported
+        modes. If a list then must be same length as the axis that is being
+        expanded as channels.
+    iso_threshold : float or list
+        Threshold for isosurface. If a list then must be same length as the
+        axis that is being expanded as channels.
+    attenuation : float or list
+        Attenuation rate for attenuated maximum intensity projection. If a
+        list then must be same length as the axis that is being expanded as
+        channels.
+    name : str or list of str
+        Name of the layer.  If a list then must be same length as the axis
+        that is being expanded as channels.
+    metadata : dict or list of dict
+        Layer metadata. If a list then must be a list of dicts with the
+        same length as the axis that is being expanded as channels.
+    scale : tuple of float or list
+        Scale factors for the layer. If a list then must be a list of
+        tuples of float with the same length as the axis that is being
+        expanded as channels.
+    translate : tuple of float or list
+        Translation values for the layer. If a list then must be a list of
+        tuples of float with the same length as the axis that is being
+        expanded as channels.
+    rotate : float, 3-tuple of float, n-D array or list.
+        If a float convert into a 2D rotation matrix using that value as an
+        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
+        pitch, roll convention. Otherwise assume an nD rotation. Angles are
+        assumed to be in degrees. They can be converted from radians with
+        np.degrees if needed. If a list then must have same length as
+        the axis that is being expanded as channels.
+    shear : 1-D array or list.
+        A vector of shear values for an upper triangular n-D shear matrix.
+        If a list then must have same length as the axis that is being
+        expanded as channels.
+    affine : n-D array or napari.utils.transforms.Affine
+        (N+1, N+1) affine transformation matrix in homogeneous coordinates.
+        The first (N, N) entries correspond to a linear transform and
+        the final column is a lenght N translation vector and a 1 or a napari
+        AffineTransform object. If provided then translate, scale, rotate, and
+        shear values are ignored.
+    opacity : float or list
+        Opacity of the layer visual, between 0.0 and 1.0.  If a list then
+        must be same length as the axis that is being expanded as channels.
+    blending : str or list
+        One of a list of preset blending modes that determines how RGB and
+        alpha values of the layer visual get mixed. Allowed values are
+        {'opaque', 'translucent', and 'additive'}. If a list then
+        must be same length as the axis that is being expanded as channels.
+    visible : bool or list of bool
+        Whether the layer visual is currently being displayed.
+        If a list then must be same length as the axis that is
+        being expanded as channels.
+    multiscale : bool
+        Whether the data is a multiscale image or not. Multiscale data is
+        represented by a list of array like image data. If not specified by
+        the user and if the data is a list of arrays that decrease in shape
+        then it will be taken to be multiscale. The first image in the list
+        should be the largest.
+    title : string, optional
+        The title of the viewer window. by default 'napari'.
+    ndisplay : {2, 3}, optional
+        Number of displayed dimensions. by default 2.
+    order : tuple of int, optional
+        Order in which dimensions are displayed where the last two or last
+        three dimensions correspond to row x column or plane x row x column if
+        ndisplay is 2 or 3. by default None
+    axis_labels : list of str, optional
+        Dimension names. by default they are labeled with sequential numbers
+    show : bool, optional
+        Whether to show the viewer after instantiation. by default True.
+    
+    Returns
+    -------
+    viewer : :class:`napari.Viewer`
+        The newly-created viewer.
 </pre></div>
 </div>
 </div>
@@ -429,18 +565,21 @@ example these cells undergoing mitosis in this volumetric timeseries:</p>
 because we know we are working with an <code class="docutils literal notranslate"><span class="pre">rgb</span></code> image:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/image_17_0.png" src="../../_images/image_17_0.png"/>
 </div>
 </div>
 <p>If we had left that keyword argument out napari would have successfully guessed
@@ -458,7 +597,32 @@ provide access to some standard colormaps that you can set using a string of
 their name. These include:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">AVAILABLE_COLORMAPS</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">AVAILABLE_COLORMAPS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['PiYG',
+ 'blue',
+ 'bop blue',
+ 'bop orange',
+ 'bop purple',
+ 'cyan',
+ 'gist_earth',
+ 'gray',
+ 'gray_r',
+ 'green',
+ 'hsv',
+ 'inferno',
+ 'magenta',
+ 'magma',
+ 'plasma',
+ 'red',
+ 'turbo',
+ 'twilight',
+ 'twilight_shifted',
+ 'viridis',
+ 'yellow']
 </pre></div>
 </div>
 </div>
@@ -466,7 +630,7 @@ their name. These include:</p>
 <p>Passing any of these strings as follows to set the image colormap:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -484,7 +648,7 @@ here</a>. Briefly, you can pass
 black, and color a random array you can do the following:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">vispy.color</span> <span class="kn">import</span> <span class="n">Colormap</span>
 
@@ -498,11 +662,14 @@ black, and color a random array you can do the following:</p>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/image_27_0.png" src="../../_images/image_27_0.png"/>
 </div>
 </div>
 <p>Note in this example how we passed the colormap keyword argument as a tuple
@@ -533,7 +700,7 @@ an existing layer using the <code class="docutils literal notranslate"><span cla
 respectively.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'moon'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moon</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'moon'</span><span class="p">)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">'moon'</span><span class="p">]</span><span class="o">.</span><span class="n">contrast_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">175</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -541,11 +708,14 @@ respectively.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/image_31_0.png" src="../../_images/image_31_0.png"/>
 </div>
 </div>
 <p>Because the contrast limits are defined by two values the corresponding slider

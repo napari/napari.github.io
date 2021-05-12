@@ -448,6 +448,7 @@ display toggle button to get a perspective projection view in 3D.</p></li>
 <li><p>Add missing setters for shape attributes (#2696)</p></li>
 <li><p>Add get_default_shape_type utility introspecting current shape type (#2701)</p></li>
 <li><p>Fix handling of exceptions and notifications of threading threads (#2703)</p></li>
+<li><p>Fix vertical_stretch injection and kwargs passing on DockWidget (#2705)</p></li>
 </ul>
 </div>
 <div class="section" id="api-changes">
@@ -459,6 +460,18 @@ notice a drop in performance for your dask+napari use case, you can restore
 the previous behaviour with
 <code class="docutils literal notranslate"><span class="pre">napari.utils.resize_dask_cache(memory_fraction=0.1)</span></code>. You can of course also
 experiment with other values!</p></li>
+<li><p>The default <code class="docutils literal notranslate"><span class="pre">area</span></code> for <code class="docutils literal notranslate"><span class="pre">add_dock_widget</span></code> is now <code class="docutils literal notranslate"><span class="pre">right</span></code>, and no longer <code class="docutils literal notranslate"><span class="pre">bottom</span></code>.</p></li>
+<li><p>To avoid oddly spaced sparse widgets, #2154 adds vertical stretch to the
+bottom of all dock widgets added (via plugins or manually) with an <code class="docutils literal notranslate"><span class="pre">area</span></code>
+of <code class="docutils literal notranslate"><span class="pre">left</span></code> or <code class="docutils literal notranslate"><span class="pre">right</span></code>, <em>unless:</em></p>
+<ol class="simple">
+<li><p>the widget, or any widget in its primary layout, has a vertical
+<a class="reference external" href="https://doc.qt.io/qt-5/qsizepolicy.html#Policy-enum"><code class="docutils literal notranslate"><span class="pre">QSizePolicy</span></code></a>
+of <code class="docutils literal notranslate"><span class="pre">Expanding</span></code>, <code class="docutils literal notranslate"><span class="pre">MinimumExpanding</span></code>, or <code class="docutils literal notranslate"><span class="pre">Ignored</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">add_vertical_stretch=False</span></code> is provided to <code class="docutils literal notranslate"><span class="pre">add_dock_widget</span></code>,
+or in the widget options provided with plugin dock widgets.</p></li>
+</ol>
+</li>
 </ul>
 </div>
 <div class="section" id="deprecations">

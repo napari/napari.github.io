@@ -48,7 +48,7 @@ napari can be installed on most macOS, Linux, and Windows systems with Python
 3.7, 3.8, and 3.9 using pip:
 
 ```sh
-pip install 'napari[all]'
+pip install "napari[all]"
 ```
 
 *(See `Specifying a GUI Backend` below for an explanation of the `[all]` notation.)*
@@ -62,7 +62,7 @@ napari into a clean virtual environment using an environment manager like
 ```sh
 conda create -y -n napari-env python=3.8
 conda activate napari-env
-pip install 'napari[all]'
+pip install "napari[all]"
 ```
 ````
 
@@ -73,7 +73,7 @@ To clone the repository locally and install in editable mode use
 ```sh
 git clone https://github.com/napari/napari.git
 cd napari
-pip install -e '.[all]'
+pip install -e ".[all]"
 
 # or, to install in editable mode AND grab all of the developer tools
 # (this is required if you want to contribute code back to napari)
@@ -96,16 +96,16 @@ scientific packages such as Spyder or matplotlib. If neither is available,
 running napari will result in an error message asking you to install one of
 them.
 
-Running `pip install 'napari[all]'` will install the default framework – currently
+Running `pip install "napari[all]"` will install the default framework – currently
 PyQt5, but this could change in the future.
 
 To install napari with a specific framework, you can use:
 
 ```sh
-pip install 'napari[pyqt5]'    # for PyQt5
+pip install "napari[pyqt5]"    # for PyQt5
 
 # OR
-pip install 'napari[pyside2]'  # for PySide2
+pip install "napari[pyside2]"  # for PySide2
 ```
 ````
 

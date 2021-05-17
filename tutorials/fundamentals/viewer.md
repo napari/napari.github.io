@@ -225,7 +225,10 @@ as follows:
 
 +++
 
-viewer.layers[0].name = 'astronaut' viewer.layers[0].opacity = 0.7
+```python
+viewer.layers[0].name = 'astronaut'
+viewer.layers[0].opacity = 0.7
+```
 
 ```{code-cell} python
 :tags: [remove-cell]

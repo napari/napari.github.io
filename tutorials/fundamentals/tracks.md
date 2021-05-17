@@ -58,7 +58,7 @@ tracks_data = [
     [3, 4, 636, 1000]
 ]
 
-viewer = napari.view_image(test_im, name='image')
+viewer = napari.view_image(hubble_image, name='image')
 viewer.add_tracks(tracks_data, name='tracks')
 
 napari.run()

@@ -291,7 +291,7 @@ Because the contrast limits are defined by two values the corresponding slider
 has two handles, one the adjusts the smaller value, one that adjusts the larger
 value.
 
-As of right now adjusting the contras limits has no effect for `rgb` data.
+As of right now adjusting the contrast limits has no effect for `rgb` data.
 
 If no contrast limits are passed, then napari will compute them. If your data is
 small, then napari will just take the minimum and maximum values across your
@@ -333,7 +333,7 @@ to black as you decrease its opacity.
 
 The `translucent` setting will cause the layer to blend with the layers below it
 if you decrease its opacity but will fully block those layers if its opacity is
-1. This is a reasonable default, useful for many applications.
+1\. This is a reasonable default, useful for many applications.
 
 The final blending mode `additive` will cause the layer to blend with the layers
 below even when it has full opacity. This mode is especially useful for many

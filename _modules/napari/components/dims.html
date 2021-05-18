@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.NapariPluginManager.html">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -318,6 +319,7 @@
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>  <span class="c1"># Added to typing in 3.8</span>
 
 <span class="kn">from</span> <span class="nn">..utils.events</span> <span class="kn">import</span> <span class="n">EventedModel</span>
+<span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 
 <div class="viewcode-block" id="Dims"><a class="viewcode-back" href="../../../api/stable/napari.components.Dims.html#napari.components.Dims">[docs]</a><span class="k">class</span> <span class="nc">Dims</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
@@ -435,7 +437,12 @@
         <span class="c1"># Check the order is a permutation of 0, ..., ndim - 1</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'order'</span><span class="p">])</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"Invalid ordering </span><span class="si">{</span><span class="n">values</span><span class="p">[</span><span class="s1">'order'</span><span class="p">]</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s2"> dimensions"</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"Invalid ordering </span><span class="si">{order}</span><span class="s2"> for </span><span class="si">{ndim}</span><span class="s2"> dimensions"</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">order</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'order'</span><span class="p">],</span>
+                    <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">)</span>
 
         <span class="c1"># Check the axis labels tuple has same number of elements as ndim</span>
@@ -664,9 +671,12 @@
 <span class="sd">        The given axis index is out of bounds.</span>
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="n">axis</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">ndim</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s1">'Axis </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1"> not defined for dimensionality </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1">. '</span>
-            <span class="sa">f</span><span class="s1">'Must be in [</span><span class="si">{</span><span class="o">-</span><span class="n">ndim</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1">).'</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+            <span class="s1">'Axis </span><span class="si">{axis}</span><span class="s1"> not defined for dimensionality </span><span class="si">{ndim}</span><span class="s1">. Must be in [</span><span class="si">{ndim_lower}</span><span class="s1">, </span><span class="si">{ndim}</span><span class="s1">).'</span><span class="p">,</span>
+            <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+            <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span>
+            <span class="n">ndim_lower</span><span class="o">=-</span><span class="n">ndim</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 

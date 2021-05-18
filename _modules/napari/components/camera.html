@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.NapariPluginManager.html">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -331,6 +332,10 @@
 <span class="sd">    angles : 3-tuple</span>
 <span class="sd">        Euler angles of camera in 3D viewing (rx, ry, rz), in degrees.</span>
 <span class="sd">        Only used during 3D viewing.</span>
+<span class="sd">        Note that Euler angles's intrinsic degeneracy means different</span>
+<span class="sd">        sets of Euler angles may lead to the same view.</span>
+<span class="sd">    perspective : float</span>
+<span class="sd">        Perspective (aka "field of view" in vispy) of the camera (if 3D).</span>
 <span class="sd">    interactive : bool</span>
 <span class="sd">        If the camera interactivity is enabled or not.</span>
 <span class="sd">    """</span>
@@ -339,6 +344,7 @@
     <span class="n">center</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="n">zoom</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="n">angles</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">)</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="c1"># validators</span>

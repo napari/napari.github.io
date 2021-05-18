@@ -75,6 +75,7 @@ napari.layers.Layer
       ~Layer.scale
       ~Layer.selected
       ~Layer.shear
+      ~Layer.source
       ~Layer.thumbnail
       ~Layer.translate
       ~Layer.translate_grid

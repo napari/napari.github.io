@@ -2,10 +2,10 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="napari.components" href="napari.components.html" /><link rel="prev" title="napari.plugins.HookImplementation" href="napari.plugins.HookImplementation.html" />
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="napari.components" href="napari.components.html" /><link rel="prev" title="napari.plugins" href="napari.plugins.html" />
 
     <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
-        <title>napari.plugins.PluginManager - napari</title>
+        <title>napari.plugins.NapariPluginManager - napari</title>
       <link rel="stylesheet" href="../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
     <link rel="stylesheet" href="../../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="napari.plugins.html">napari.plugins</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -310,56 +311,17 @@
 
 
 
-<div class="section" id="napari-plugins-pluginmanager">
-<h1>napari.plugins.PluginManager<a class="headerlink" href="#napari-plugins-pluginmanager" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="napari-plugins-naparipluginmanager">
+<h1>napari.plugins.NapariPluginManager<a class="headerlink" href="#napari-plugins-naparipluginmanager" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="napari.plugins.PluginManager">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">napari.plugins.</span></code><code class="sig-name descname"><span class="pre">PluginManager</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discover_entry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discover_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discover_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Core class which manages registration of plugin objects and hook calls.</p>
-<p>You can register new hooks by calling <a class="reference internal" href="#napari.plugins.PluginManager.add_hookspecs" title="napari.plugins.PluginManager.add_hookspecs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_hookspecs()</span></code></a>.
-You can register plugin objects (which contain hooks) by calling
-<a class="reference internal" href="#napari.plugins.PluginManager.register" title="napari.plugins.PluginManager.register"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register()</span></code></a>.  The <code class="docutils literal notranslate"><span class="pre">PluginManager</span></code> is initialized with
-a <code class="docutils literal notranslate"><span class="pre">project_name</span></code> that is used when discovering <em>hook specifications</em> and
-<em>hook implementations</em>.</p>
-<p>For debugging purposes you may call <a class="reference internal" href="#napari.plugins.PluginManager.enable_tracing" title="napari.plugins.PluginManager.enable_tracing"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PluginManager.enable_tracing()</span></code></a>
-which will subsequently send debug information to the trace helper.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>project_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the host project.  All <code class="xref py py-class docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code>
-and <code class="xref py py-class docutils literal notranslate"><span class="pre">HookSpecificationMarker</span></code> instances must be created using
-the same <code class="docutils literal notranslate"><span class="pre">project_name</span></code> to be detected by this plugin manager.</p></li>
-<li><p><strong>discover_entry_point</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – The default entry_point group to search when discovering plugins with
-<a class="reference internal" href="#napari.plugins.PluginManager.discover" title="napari.plugins.PluginManager.discover"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PluginManager.discover()</span></code></a>, by default None</p></li>
-<li><p><strong>discover_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – The default module prefix to use when discovering plugins with
-<a class="reference internal" href="#napari.plugins.PluginManager.discover" title="napari.plugins.PluginManager.discover"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PluginManager.discover()</span></code></a>, by default None</p></li>
-<li><p><strong>discover_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>list of str</em><em>, </em><em>optional</em>) – A path or paths to include when discovering plugins with
-<a class="reference internal" href="#napari.plugins.PluginManager.discover" title="napari.plugins.PluginManager.discover"><code class="xref py py-meth docutils literal notranslate"><span class="pre">PluginManager.discover()</span></code></a>, by default None</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">PluginManager</span>
-<span class="kn">import</span> <span class="nn">my_hookspecs</span>
-
-<span class="n">plugin_manager</span> <span class="o">=</span> <span class="n">PluginManager</span><span class="p">(</span>
-    <span class="s1">'my_project'</span><span class="p">,</span>
-    <span class="n">discover_entry_point</span><span class="o">=</span><span class="s1">'app.plugin'</span><span class="p">,</span>
-    <span class="n">discover_prefix</span><span class="o">=</span><span class="s1">'app_'</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">plugin_manager</span><span class="o">.</span><span class="n">add_hookspecs</span><span class="p">(</span><span class="n">my_hookspecs</span><span class="p">)</span>
-<span class="n">plugin_manager</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
-
-<span class="c1"># hooks now live in plugin_manager.hook</span>
-<span class="c1"># plugin dict is at plugin_manager.plugins</span>
-</pre></div>
-</div>
+<dt id="napari.plugins.NapariPluginManager">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">napari.plugins.</span></code><code class="sig-name descname"><span class="pre">NapariPluginManager</span></code><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">napari_plugin_engine.manager.PluginManager</span></code></p>
 <p class="rubric">Methods</p>
 <p class="rubric">Attributes</p>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.add_hookcall_monitoring">
-<code class="sig-name descname"><span class="pre">add_hookcall_monitoring</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.add_hookcall_monitoring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.add_hookcall_monitoring" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.add_hookcall_monitoring">
+<code class="sig-name descname"><span class="pre">add_hookcall_monitoring</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.add_hookcall_monitoring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add before/after tracing functions for all hooks.</p>
 <p>return an undo function which, when called, will remove the added
 tracers.</p>
@@ -377,14 +339,53 @@ represents the result of the overall hook call.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.add_hookspecs">
-<code class="sig-name descname"><span class="pre">add_hookspecs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.add_hookspecs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.add_hookspecs" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.add_hookspecs">
+<code class="sig-name descname"><span class="pre">add_hookspecs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.add_hookspecs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add new hook specifications defined in the given <code class="docutils literal notranslate"><span class="pre">namespace</span></code>.</p>
 <p>Functions are recognized if they have been decorated accordingly.</p>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.check_pending">
-<code class="sig-name descname"><span class="pre">check_pending</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.check_pending"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.check_pending" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.available_samples">
+<code class="sig-name descname"><span class="pre">available_samples</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.available_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.available_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple of sample data keys provided by plugins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>sample_keys</strong> – A sequence of 2-tuples <code class="docutils literal notranslate"><span class="pre">(plugin_name,</span> <span class="pre">sample_name)</span></code> showing available
+sample data provided by plugins.  To load sample data into the viewer,
+use <a class="reference internal" href="napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari.Viewer.open_sample()</span></code></a>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Tuple[Tuple[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>], ..]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">available_samples</span>
+
+<span class="n">sample_keys</span> <span class="o">=</span> <span class="n">available_samples</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">sample_keys</span><span class="p">:</span>
+    <span class="c1"># load first available sample</span>
+    <span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span><span class="p">(</span><span class="o">*</span><span class="n">sample_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.call_order">
+<code class="sig-name descname"><span class="pre">call_order</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first_result_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.call_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.call_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the call order from the plugin manager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>call_order</strong> – mapping of hook_specification name, to a list of dicts with keys:
+{‘plugin’, ‘enabled’}.  Plugins earlier in the dict are called
+sooner.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>CallOrderDict</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.check_pending">
+<code class="sig-name descname"><span class="pre">check_pending</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.check_pending" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make sure all hooks have a specification, or are optional.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -394,8 +395,8 @@ represents the result of the overall hook call.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.discover">
-<code class="sig-name descname"><span class="pre">discover</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.discover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.discover" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.discover">
+<code class="sig-name descname"><span class="pre">discover</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.discover" title="Permalink to this definition">¶</a></dt>
 <dd><p>Discover and load plugins.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -421,8 +422,16 @@ occurred (if <code class="docutils literal notranslate"><span class="pre">ignore
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.discovery_blocked">
-<code class="sig-name descname"><span class="pre">discovery_blocked</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.discovery_blocked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.discovery_blocked" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.discover_widgets">
+<code class="sig-name descname"><span class="pre">discover_widgets</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.discover_widgets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.discover_widgets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trigger discovery of dock_widgets plugins.</p>
+<p>As a “historic” hook, this should only need to be called once.
+(historic here means that even plugins that are discovered after this
+is called will be added.)</p>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.discovery_blocked">
+<code class="sig-name descname"><span class="pre">discovery_blocked</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.discovery_blocked" title="Permalink to this definition">¶</a></dt>
 <dd><p>A context manager that temporarily blocks discovery of new plugins.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -431,13 +440,13 @@ occurred (if <code class="docutils literal notranslate"><span class="pre">ignore
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.enable_tracing">
-<code class="sig-name descname"><span class="pre">enable_tracing</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.enable_tracing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.enable_tracing" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.enable_tracing">
+<code class="sig-name descname"><span class="pre">enable_tracing</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.enable_tracing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable tracing of hook calls and return an undo function.</p>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.get_errors">
-<code class="sig-name descname"><span class="pre">get_errors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">plugin=&lt;Empty.token:</span> <span class="pre">0&gt;</span></em>, <em class="sig-param"><span class="pre">error_type=&lt;Empty.token:</span> <span class="pre">0&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_errors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_errors" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.get_errors">
+<code class="sig-name descname"><span class="pre">get_errors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">plugin=&lt;Empty.token:</span> <span class="pre">0&gt;</span></em>, <em class="sig-param"><span class="pre">error_type=&lt;Empty.token:</span> <span class="pre">0&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of PluginErrors associated with <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -455,8 +464,8 @@ object itself.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.get_hookcallers">
-<code class="sig-name descname"><span class="pre">get_hookcallers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_hookcallers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_hookcallers" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.get_hookcallers">
+<code class="sig-name descname"><span class="pre">get_hookcallers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_hookcallers" title="Permalink to this definition">¶</a></dt>
 <dd><p>get all hook callers for the specified plugin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -465,8 +474,8 @@ object itself.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.get_metadata">
-<code class="sig-name descname"><span class="pre">get_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.get_metadata">
+<code class="sig-name descname"><span class="pre">get_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return metadata values for a given plugin</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -490,13 +499,13 @@ least one value must be supplied.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.get_name">
-<code class="sig-name descname"><span class="pre">get_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_name" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.get_name">
+<code class="sig-name descname"><span class="pre">get_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return name for registered plugin or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not registered.</p>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.get_standard_metadata">
-<code class="sig-name descname"><span class="pre">get_standard_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.get_standard_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.get_standard_metadata" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.get_standard_metadata">
+<code class="sig-name descname"><span class="pre">get_standard_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_standard_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a standard metadata dict for <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -528,8 +537,40 @@ following keys:</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.hooks">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hooks</span></code><a class="headerlink" href="#napari.plugins.PluginManager.hooks" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.get_widget">
+<code class="sig-name descname"><span class="pre">get_widget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.get_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get widget <cite>widget_name</cite> provided by plugin <cite>plugin_name</cite>.</p>
+<p>Note: it’s important that <code class="xref py py-func docutils literal notranslate"><span class="pre">discover_dock_widgets()</span></code> has been called
+first, otherwise plugins may not be found yet.  (Typically, that is done
+in qt_main_window)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of a plugin providing a widget</p></li>
+<li><p><strong>widget_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Name of a widget provided by <cite>plugin_name</cite>. If <cite>None</cite>, and the
+specified plugin provides only a single widget, that widget will be
+returned, otherwise a ValueError will be raised, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>plugin_widget</strong> – Tuple of (widget_class, options).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[Callable, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.9)"><strong>KeyError</strong></a> – If plugin <cite>plugin_name</cite> does not provide any widgets</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.9)"><strong>KeyError</strong></a> – If plugin does not provide a widget named <cite>widget_name</cite>.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – If <cite>widget_name</cite> is not provided, but <cite>plugin_name</cite> provides more than
+    one widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.hooks">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hooks</span></code><a class="headerlink" href="#napari.plugins.NapariPluginManager.hooks" title="Permalink to this definition">¶</a></dt>
 <dd><p>An alias for PluginManager.hook</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -538,8 +579,8 @@ following keys:</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.is_blocked">
-<code class="sig-name descname"><span class="pre">is_blocked</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.is_blocked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.is_blocked" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.is_blocked">
+<code class="sig-name descname"><span class="pre">is_blocked</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.is_blocked" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the given plugin name is blocked.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -548,8 +589,8 @@ following keys:</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.is_registered">
-<code class="sig-name descname"><span class="pre">is_registered</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.is_registered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.is_registered" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.is_registered">
+<code class="sig-name descname"><span class="pre">is_registered</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.is_registered" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the plugin is already registered.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -558,8 +599,8 @@ following keys:</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.iter_available">
-<code class="sig-name descname"><span class="pre">iter_available</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.iter_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.iter_available" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.iter_available">
+<code class="sig-name descname"><span class="pre">iter_available</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.iter_available" title="Permalink to this definition">¶</a></dt>
 <dd><p>Iterate over available plugins.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -582,14 +623,14 @@ by default <code class="docutils literal notranslate"><span class="pre">self.dis
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.list_plugin_metadata">
-<code class="sig-name descname"><span class="pre">list_plugin_metadata</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.list_plugin_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.list_plugin_metadata" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.list_plugin_metadata">
+<code class="sig-name descname"><span class="pre">list_plugin_metadata</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.list_plugin_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of standard metadata dicts for every registered plugin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><strong>metadata</strong> – A list of dicts with plugin metadata. Every dict in the list is
 guaranteed to have the following keys mentioned in
-<a class="reference internal" href="#napari.plugins.PluginManager.get_standard_metadata" title="napari.plugins.PluginManager.get_standard_metadata"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_standard_metadata()</span></code></a></p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_standard_metadata()</span></code></p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
@@ -597,10 +638,10 @@ guaranteed to have the following keys mentioned in
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt id="napari.plugins.PluginManager.plugins">
-<code class="sig-name descname"><span class="pre">plugins</span></code><em class="property"><span class="pre">:</span> <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.plugins.PluginManager.plugins" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.plugins">
+<code class="sig-name descname"><span class="pre">plugins</span></code><em class="property"><span class="pre">:</span> <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#napari.plugins.NapariPluginManager.plugins" title="Permalink to this definition">¶</a></dt>
 <dd><p>mapping of <code class="docutils literal notranslate"><span class="pre">plugin_name</span></code> → <code class="docutils literal notranslate"><span class="pre">plugin</span></code> (object)</p>
-<p>Plugins get added to this dict in <a class="reference internal" href="#napari.plugins.PluginManager.register" title="napari.plugins.PluginManager.register"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register()</span></code></a></p>
+<p>Plugins get added to this dict in <code class="xref py py-meth docutils literal notranslate"><span class="pre">register()</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
@@ -608,14 +649,14 @@ guaranteed to have the following keys mentioned in
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.prune">
-<code class="sig-name descname"><span class="pre">prune</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.prune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.prune" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.prune">
+<code class="sig-name descname"><span class="pre">prune</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.prune" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unregister modules that can no longer be imported.</p>
 <p>Useful if pip uninstall has been run during the session.</p>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.register">
-<code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.register" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.register">
+<code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a plugin and return its canonical name or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -640,8 +681,26 @@ registering.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.set_blocked">
-<code class="sig-name descname"><span class="pre">set_blocked</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.set_blocked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.set_blocked" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.register_sample_data">
+<code class="sig-name descname"><span class="pre">register_sample_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hookimpl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.register_sample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.register_sample_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register sample data dict returned by <cite>napari_provide_sample_data</cite>.</p>
+<p>Each key in <cite>data</cite> is a <cite>sample_name</cite> (the string that will appear in the
+<cite>Open Sample</cite> menu), and the value is either a string, or a callable that
+returns an iterable of <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuples, where each tuple is a 1-, 2-,
+or 3-tuple of <code class="docutils literal notranslate"><span class="pre">(data,)</span></code>, <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta)</span></code>, or <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta,</span>
+<span class="pre">layer_type)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Callable</em><em>[</em><em>..</em><em>, </em><em>Iterable</em><em>[</em><em>LayerData</em><em>]</em><em>]</em><em>]</em><em>]</em>) – A mapping of {sample_name-&gt;data}</p></li>
+<li><p><strong>hookimpl</strong> (<em>HookImplementation</em>) – The hook implementation that returned the dict</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.set_blocked">
+<code class="sig-name descname"><span class="pre">set_blocked</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.set_blocked" title="Permalink to this definition">¶</a></dt>
 <dd><p>Block registrations of <code class="docutils literal notranslate"><span class="pre">plugin_name</span></code>, unregister if registered.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -654,8 +713,22 @@ registering.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="napari.plugins.PluginManager.unregister">
-<code class="sig-name descname"><span class="pre">unregister</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_or_object</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari_plugin_engine/manager.html#PluginManager.unregister"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.PluginManager.unregister" title="Permalink to this definition">¶</a></dt>
+<dt id="napari.plugins.NapariPluginManager.set_call_order">
+<code class="sig-name descname"><span class="pre">set_call_order</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.set_call_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.set_call_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the plugin manager call order to match SETTINGS plugin values.</p>
+<p>Note: Run this after load_settings_plugin_defaults, which
+sets the default values in SETTINGS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>new_order</strong> (<em>CallOrderDict</em>) – mapping of hook_specification name, to a list of dicts with keys:
+{‘plugin’, ‘enabled’}.  Plugins earlier in the dict are called
+sooner.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.unregister">
+<code class="sig-name descname"><span class="pre">unregister</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_or_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.unregister" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unregister a plugin object or <code class="docutils literal notranslate"><span class="pre">plugin_name</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -705,14 +778,14 @@ registering.</p>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="napari.plugins.HookImplementation.html">
+          <a class="prev-page" href="napari.plugins.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">napari.plugins.HookImplementation</div>
+                <div class="title">napari.plugins</div>
                 
               </div>
             </a>
@@ -726,7 +799,7 @@ registering.</p>
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
             |
-            <a class="muted-link" href="../../_sources/api/stable/napari.plugins.PluginManager.rst"
+            <a class="muted-link" href="../../_sources/api/stable/napari.plugins.NapariPluginManager.rst"
                rel="nofollow">
               Show Source
             </a>

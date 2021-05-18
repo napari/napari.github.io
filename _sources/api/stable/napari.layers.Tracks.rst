@@ -88,6 +88,7 @@ napari.layers.Tracks
       ~Tracks.scale
       ~Tracks.selected
       ~Tracks.shear
+      ~Tracks.source
       ~Tracks.tail_length
       ~Tracks.tail_width
       ~Tracks.thumbnail

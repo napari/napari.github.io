@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.plugins.NapariPluginManager.html">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -339,6 +340,66 @@ respectively.</p>
 </div>
 <div class="section" id="io-hooks">
 <h2>IO hooks<a class="headerlink" href="#io-hooks" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="napari.plugins.hook_specifications.napari_provide_sample_data">
+<code class="sig-prename descclassname"><span class="pre">napari.plugins.hook_specifications.</span></code><code class="sig-name descname"><span class="pre">napari_provide_sample_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/hook_specifications.html#napari_provide_sample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.hook_specifications.napari_provide_sample_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide sample data.</p>
+<p>Plugins may implement this hook to provide sample data for use in napari.
+Sample data is accessible in the <cite>File &gt; Open Sample</cite> menu, or
+programmatically, with <a class="reference internal" href="../../api/stable/napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari.Viewer.open_sample()</span></code></a>.</p>
+<p>Plugins implementing this hook specification must return a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, where
+each key is a <cite>sample_key</cite> (the string that will appear in the
+<cite>Open Sample</cite> menu), and the value is either a string, or
+a callable that returns an iterable of <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuples, where each
+tuple is a 1-, 2-, or 3-tuple of <code class="docutils literal notranslate"><span class="pre">(data,)</span></code>, <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta)</span></code>, or <code class="docutils literal notranslate"><span class="pre">(data,</span>
+<span class="pre">meta,</span> <span class="pre">layer_type)</span></code> (thus, an individual sample-loader may provide multiple
+layers).  If the value is a string, it will be opened with
+<a class="reference internal" href="../../api/stable/napari.Viewer.html#napari.Viewer.open" title="napari.Viewer.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari.Viewer.open()</span></code></a>.</p>
+<p class="rubric">Examples</p>
+<p>Here’s a minimal example of a plugin that provides three samples:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>random data from numpy</p></li>
+<li><p>a random image pulled from the internet</p></li>
+<li><dl>
+<dt>random data from numpy, provided as a dict with the keys:</dt><dd><dl class="simple">
+<dt>‘display_name’: a string that will show in the menu (by default,</dt><dd><p>the <cite>sample_key</cite> will be shown)</p>
+</dd>
+</dl>
+<p>‘data’: a string or callable, as in 1/2.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
+
+<span class="k">def</span> <span class="nf">_generate_random_data</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'random data'</span><span class="p">})]</span>
+
+<span class="nd">@napari_hook_implementation</span>
+<span class="k">def</span> <span class="nf">napari_provide_sample_data</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">'random data'</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
+        <span class="s1">'random image'</span><span class="p">:</span> <span class="s1">'https://picsum.photos/1024'</span><span class="p">,</span>
+        <span class="s1">'sample_key'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'display_name'</span><span class="p">:</span> <span class="s1">'Some Random Data (512 x 512)'</span>
+            <span class="s1">'data'</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A mapping of <cite>sample_key</cite> to <cite>data_loader</cite></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[ <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, Callable[.., Iterable[LayerData]]] ]</p>
+</dd>
+</dl>
+</dd></dl>
 <dl class="py function">
 <dt id="napari.plugins.hook_specifications.napari_get_reader">
 <code class="sig-prename descclassname"><span class="pre">napari.plugins.hook_specifications.</span></code><code class="sig-name descname"><span class="pre">napari_get_reader</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/hook_specifications.html#napari_get_reader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.hook_specifications.napari_get_reader" title="Permalink to this definition">¶</a></dt>

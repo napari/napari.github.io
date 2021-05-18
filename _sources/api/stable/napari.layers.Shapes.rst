@@ -128,6 +128,7 @@ napari.layers.Shapes
       ~Shapes.selected_data
       ~Shapes.shape_type
       ~Shapes.shear
+      ~Shapes.source
       ~Shapes.text
       ~Shapes.thumbnail
       ~Shapes.translate

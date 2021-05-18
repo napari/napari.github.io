@@ -16,7 +16,10 @@
       :toctree:
    
       ArrayBase
+      Path
+      SampleDict
       TracebackType
+      TypedDict
    
    
 

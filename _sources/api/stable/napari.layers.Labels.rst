@@ -111,6 +111,7 @@ napari.layers.Labels
       ~Labels.loaded
       ~Labels.mode
       ~Labels.n_dimensional
+      ~Labels.n_edit_dimensions
       ~Labels.name
       ~Labels.ndim
       ~Labels.num_colors
@@ -126,6 +127,7 @@ napari.layers.Labels
       ~Labels.selected_label
       ~Labels.shear
       ~Labels.show_selected_label
+      ~Labels.source
       ~Labels.thumbnail
       ~Labels.translate
       ~Labels.translate_grid

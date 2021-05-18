@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.plugins.NapariPluginManager.html">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="napari.components.html">napari.components</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -465,7 +466,7 @@ should be the largest.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>array</em><em> or </em><em>list of array</em>) – Labels data as an array or multiscale.</p></li>
+<li><p><strong>data</strong> (<em>array</em><em> or </em><em>list of array</em>) – Labels data as an array or multiscale. Must be integer type or bools</p></li>
 <li><p><strong>num_colors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of unique colors to use in colormap.</p></li>
 <li><p><strong>properties</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em><em>, </em><em>DataFrame</em>) – Properties for each label. Each property should be an array of length
 N, where N is the number of labels, and the first property corresponds
@@ -505,7 +506,7 @@ should be the largest.</p></li>
 <dl class="py attribute">
 <dt id="napari.components.ViewerModel.data">
 <code class="sig-name descname"><span class="pre">data</span></code><a class="headerlink" href="#napari.components.ViewerModel.data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integer valued label data. Can be N dimensional. Every pixel contains
+<dd><p>Integer label data. Can be N dimensional. Every pixel contains
 an integer ID corresponding to the region it belongs to. The label 0 is
 rendered as transparent.</p>
 <dl class="field-list simple">
@@ -667,35 +668,14 @@ paint with background label, which effectively removes the label.</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">Extended</span> <span class="pre">Summary</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">----------</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._data_raw">
-<code class="sig-name descname"><span class="pre">_data_raw</span></code><a class="headerlink" href="#napari.components.ViewerModel._data_raw" title="Permalink to this definition">¶</a></dt>
-<dd><p>2D labels data for the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (N, M)</p>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>_data_raw<span class="classifier">array (N, M)</span></dt><dd><p>2D labels data for the currently viewed slice.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._selected_color">
-<code class="sig-name descname"><span class="pre">_selected_color</span></code><a class="headerlink" href="#napari.components.ViewerModel._selected_color" title="Permalink to this definition">¶</a></dt>
-<dd><p>RGBA tuple of the color of the selected label, or None if the
+<dt>_selected_color<span class="classifier">4-tuple or None</span></dt><dd><p>RGBA tuple of the color of the selected label, or None if the
 background label <cite>0</cite> is selected.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>4-tuple or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
 </dd>
 </dl>
-</dd></dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><strong>layer</strong> – The newly-created labels layer.</p>
@@ -1036,84 +1016,28 @@ have their properties edited, or be deleted.</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">Extended</span> <span class="pre">Summary</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">----------</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._property_choices">
-<code class="sig-name descname"><span class="pre">_property_choices</span></code><a class="headerlink" href="#napari.components.ViewerModel._property_choices" title="Permalink to this definition">¶</a></dt>
-<dd><p>Possible values for the properties in Points.properties.
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>_property_choices<span class="classifier">dict {str: array (N,)}</span></dt><dd><p>Possible values for the properties in Points.properties.
 If properties is not provided, it will be {} (empty dictionary).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dict {str: array (N,)}</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._view_data">
-<code class="sig-name descname"><span class="pre">_view_data</span></code><a class="headerlink" href="#napari.components.ViewerModel._view_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>2D coordinates of points in the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (M, 2)</p>
+<dt>_view_data<span class="classifier">array (M, 2)</span></dt><dd><p>2D coordinates of points in the currently viewed slice.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._view_size">
-<code class="sig-name descname"><span class="pre">_view_size</span></code><a class="headerlink" href="#napari.components.ViewerModel._view_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Size of the point markers in the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (M, )</p>
+<dt>_view_size<span class="classifier">array (M, )</span></dt><dd><p>Size of the point markers in the currently viewed slice.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._indices_view">
-<code class="sig-name descname"><span class="pre">_indices_view</span></code><a class="headerlink" href="#napari.components.ViewerModel._indices_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integer indices of the points in the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (M, )</p>
+<dt>_indices_view<span class="classifier">array (M, )</span></dt><dd><p>Integer indices of the points in the currently viewed slice.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._selected_view">
-<code class="sig-name descname"><span class="pre">_selected_view</span></code><a class="headerlink" href="#napari.components.ViewerModel._selected_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integer indices of selected points in the currently viewed slice within
+<dt>_selected_view :</dt><dd><p>Integer indices of selected points in the currently viewed slice within
 the <cite>_view_data</cite> array.</p>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._selected_box">
-<code class="sig-name descname"><span class="pre">_selected_box</span></code><a class="headerlink" href="#napari.components.ViewerModel._selected_box" title="Permalink to this definition">¶</a></dt>
-<dd><p>Four corners of any box either around currently selected points or
+</dd>
+<dt>_selected_box<span class="classifier">array (4, 2) or None</span></dt><dd><p>Four corners of any box either around currently selected points or
 being created during a drag action. Starting in the top left and
 going clockwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (4, 2) or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._drag_start">
-<code class="sig-name descname"><span class="pre">_drag_start</span></code><a class="headerlink" href="#napari.components.ViewerModel._drag_start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Coordinates of first cursor click during a drag action. Gets reset to
+<dt>_drag_start<span class="classifier">list or None</span></dt><dd><p>Coordinates of first cursor click during a drag action. Gets reset to
 None after dragging is done.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
 </dd>
 </dl>
-</dd></dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><strong>layer</strong> – The newly-created points layer.</p>
@@ -1363,276 +1287,79 @@ modes all allow for their corresponding shape type to be added.</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">Extended</span> <span class="pre">Summary</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">----------</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._data_dict">
-<code class="sig-name descname"><span class="pre">_data_dict</span></code><a class="headerlink" href="#napari.components.ViewerModel._data_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary containing all the shape data indexed by slice tuple</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Dict of ShapeList</p>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>_data_dict<span class="classifier">Dict of ShapeList</span></dt><dd><p>Dictionary containing all the shape data indexed by slice tuple</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._data_view">
-<code class="sig-name descname"><span class="pre">_data_view</span></code><a class="headerlink" href="#napari.components.ViewerModel._data_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Object containing the currently viewed shape data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>ShapeList</p>
+<dt>_data_view<span class="classifier">ShapeList</span></dt><dd><p>Object containing the currently viewed shape data.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._mode_history">
-<code class="sig-name descname"><span class="pre">_mode_history</span></code><a class="headerlink" href="#napari.components.ViewerModel._mode_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Interactive mode captured on press of &lt;space&gt;.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Mode</p>
+<dt>_mode_history<span class="classifier">Mode</span></dt><dd><p>Interactive mode captured on press of &lt;space&gt;.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._selected_data_history">
-<code class="sig-name descname"><span class="pre">_selected_data_history</span></code><a class="headerlink" href="#napari.components.ViewerModel._selected_data_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set of currently selected captured on press of &lt;space&gt;.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.9)">set</a></p>
+<dt>_selected_data_history<span class="classifier">set</span></dt><dd><p>Set of currently selected captured on press of &lt;space&gt;.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._selected_data_stored">
-<code class="sig-name descname"><span class="pre">_selected_data_stored</span></code><a class="headerlink" href="#napari.components.ViewerModel._selected_data_stored" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set of selected previously displayed. Used to prevent rerendering the
+<dt>_selected_data_stored<span class="classifier">set</span></dt><dd><p>Set of selected previously displayed. Used to prevent rerendering the
 same highlighted shapes when no data has changed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.9)">set</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="id14">
-<code class="sig-name descname"><span class="pre">_selected_box</span></code><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>None</cite> if no shapes are selected, otherwise a 10x2 array of vertices of
+<dt>_selected_box<span class="classifier">None | np.ndarray</span></dt><dd><p><cite>None</cite> if no shapes are selected, otherwise a 10x2 array of vertices of
 the interaction box. The first 8 points are the corners and midpoints
 of the box. The 9th point is the center of the box, and the last point
 is the location of the rotation handle that can be used to rotate the
 box.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>None | np.ndarray</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="id15">
-<code class="sig-name descname"><span class="pre">_drag_start</span></code><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
-<dd><p>If a drag has been started and is in progress then a length 2 array of
+<dt>_drag_start<span class="classifier">None | np.ndarray</span></dt><dd><p>If a drag has been started and is in progress then a length 2 array of
 the initial coordinates of the drag. <cite>None</cite> otherwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>None | np.ndarray</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._drag_box">
-<code class="sig-name descname"><span class="pre">_drag_box</span></code><a class="headerlink" href="#napari.components.ViewerModel._drag_box" title="Permalink to this definition">¶</a></dt>
-<dd><p>If a drag box is being created to select shapes then this is a 2x2
+<dt>_drag_box<span class="classifier">None | np.ndarray</span></dt><dd><p>If a drag box is being created to select shapes then this is a 2x2
 array of the two extreme corners of the drag. <cite>None</cite> otherwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>None | np.ndarray</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._drag_box_stored">
-<code class="sig-name descname"><span class="pre">_drag_box_stored</span></code><a class="headerlink" href="#napari.components.ViewerModel._drag_box_stored" title="Permalink to this definition">¶</a></dt>
-<dd><p>If a drag box is being created to select shapes then this is a 2x2
+<dt>_drag_box_stored<span class="classifier">None | np.ndarray</span></dt><dd><p>If a drag box is being created to select shapes then this is a 2x2
 array of the two extreme corners of the drag that have previously been
 rendered. <cite>None</cite> otherwise. Used to prevent rerendering the same
 drag box when no data has changed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>None | np.ndarray</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._is_moving">
-<code class="sig-name descname"><span class="pre">_is_moving</span></code><a class="headerlink" href="#napari.components.ViewerModel._is_moving" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bool indicating if any shapes are currently being moved.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dt>_is_moving<span class="classifier">bool</span></dt><dd><p>Bool indicating if any shapes are currently being moved.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._is_selecting">
-<code class="sig-name descname"><span class="pre">_is_selecting</span></code><a class="headerlink" href="#napari.components.ViewerModel._is_selecting" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bool indicating if a drag box is currently being created in order to
+<dt>_is_selecting<span class="classifier">bool</span></dt><dd><p>Bool indicating if a drag box is currently being created in order to
 select shapes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._is_creating">
-<code class="sig-name descname"><span class="pre">_is_creating</span></code><a class="headerlink" href="#napari.components.ViewerModel._is_creating" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bool indicating if any shapes are currently being created.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dt>_is_creating<span class="classifier">bool</span></dt><dd><p>Bool indicating if any shapes are currently being created.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._fixed_aspect">
-<code class="sig-name descname"><span class="pre">_fixed_aspect</span></code><a class="headerlink" href="#napari.components.ViewerModel._fixed_aspect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bool indicating if aspect ratio of shapes should be preserved on
+<dt>_fixed_aspect<span class="classifier">bool</span></dt><dd><p>Bool indicating if aspect ratio of shapes should be preserved on
 resizing.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._aspect_ratio">
-<code class="sig-name descname"><span class="pre">_aspect_ratio</span></code><a class="headerlink" href="#napari.components.ViewerModel._aspect_ratio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Value of aspect ratio to be preserved if <cite>_fixed_aspect</cite> is <cite>True</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+<dt>_aspect_ratio<span class="classifier">float</span></dt><dd><p>Value of aspect ratio to be preserved if <cite>_fixed_aspect</cite> is <cite>True</cite>.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._fixed_vertex">
-<code class="sig-name descname"><span class="pre">_fixed_vertex</span></code><a class="headerlink" href="#napari.components.ViewerModel._fixed_vertex" title="Permalink to this definition">¶</a></dt>
-<dd><p>If a scaling or rotation is in progress then a length 2 array of the
+<dt>_fixed_vertex<span class="classifier">None | np.ndarray</span></dt><dd><p>If a scaling or rotation is in progress then a length 2 array of the
 coordinates that are remaining fixed during the move. <cite>None</cite> otherwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>None | np.ndarray</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._fixed_index">
-<code class="sig-name descname"><span class="pre">_fixed_index</span></code><a class="headerlink" href="#napari.components.ViewerModel._fixed_index" title="Permalink to this definition">¶</a></dt>
-<dd><p>If a scaling or rotation is in progress then the index of the vertex of
+<dt>_fixed_index<span class="classifier">int</span></dt><dd><p>If a scaling or rotation is in progress then the index of the vertex of
 the boudning box that is remaining fixed during the move. <cite>None</cite>
 otherwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._update_properties">
-<code class="sig-name descname"><span class="pre">_update_properties</span></code><a class="headerlink" href="#napari.components.ViewerModel._update_properties" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bool indicating if properties are to allowed to update the selected
+<dt>_update_properties<span class="classifier">bool</span></dt><dd><p>Bool indicating if properties are to allowed to update the selected
 shapes when they are changed. Blocking this prevents circular loops
 when shapes are selected and the properties are changed based on that
 selection</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._allow_thumnail_update">
-<code class="sig-name descname"><span class="pre">_allow_thumnail_update</span></code><a class="headerlink" href="#napari.components.ViewerModel._allow_thumnail_update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Flag set to true to allow the thumbnail to be updated. Blocking the thumbnail
+<dt>_allow_thumnail_update<span class="classifier">bool</span></dt><dd><p>Flag set to true to allow the thumbnail to be updated. Blocking the thumbnail
 can be advantageous where responsiveness is critical.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._clipboard">
-<code class="sig-name descname"><span class="pre">_clipboard</span></code><a class="headerlink" href="#napari.components.ViewerModel._clipboard" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dict of shape objects that are to be used during a copy and paste.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+<dt>_clipboard<span class="classifier">dict</span></dt><dd><p>Dict of shape objects that are to be used during a copy and paste.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._colors">
-<code class="sig-name descname"><span class="pre">_colors</span></code><a class="headerlink" href="#napari.components.ViewerModel._colors" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of supported vispy color names.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
+<dt>_colors<span class="classifier">list</span></dt><dd><p>List of supported vispy color names.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._vertex_size">
-<code class="sig-name descname"><span class="pre">_vertex_size</span></code><a class="headerlink" href="#napari.components.ViewerModel._vertex_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Size of the vertices of the shapes and bounding box in Canvas
+<dt>_vertex_size<span class="classifier">float</span></dt><dd><p>Size of the vertices of the shapes and bounding box in Canvas
 coordinates.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._rotation_handle_length">
-<code class="sig-name descname"><span class="pre">_rotation_handle_length</span></code><a class="headerlink" href="#napari.components.ViewerModel._rotation_handle_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Length of the rotation handle of the boudning box in Canvas
+<dt>_rotation_handle_length<span class="classifier">float</span></dt><dd><p>Length of the rotation handle of the boudning box in Canvas
 coordinates.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._input_ndim">
-<code class="sig-name descname"><span class="pre">_input_ndim</span></code><a class="headerlink" href="#napari.components.ViewerModel._input_ndim" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dimensions of shape data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
+<dt>_input_ndim<span class="classifier">int</span></dt><dd><p>Dimensions of shape data.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._thumbnail_update_thresh">
-<code class="sig-name descname"><span class="pre">_thumbnail_update_thresh</span></code><a class="headerlink" href="#napari.components.ViewerModel._thumbnail_update_thresh" title="Permalink to this definition">¶</a></dt>
-<dd><p>If there are more than this number of shapes, the thumnail
+<dt>_thumbnail_update_thresh<span class="classifier">int</span></dt><dd><p>If there are more than this number of shapes, the thumnail
 won’t update during interactive events</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
 </dd>
 </dl>
-</dd></dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><strong>layer</strong> – The newly-created shapes layer.</p>
@@ -1690,8 +1417,8 @@ alpha values of the layer visual get mixed. Allowed values are
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="id16">
-<code class="sig-name descname"><span class="pre">data</span></code><a class="headerlink" href="#id16" title="Permalink to this definition">¶</a></dt>
+<dt id="id14">
+<code class="sig-name descname"><span class="pre">data</span></code><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
 <dd><p>The first element of the tuple is an (N, D) array of vertices of
 mesh triangles. The second is an (M, 3) array of int of indices
 of the mesh triangles. The third element is the (K0, …, KL, N)
@@ -1770,45 +1497,16 @@ the image.</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">Extended</span> <span class="pre">Summary</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">----------</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt id="id17">
-<code class="sig-name descname"><span class="pre">_data_view</span></code><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
-<dd><p>The coordinates of the vertices given the viewed dimensions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(M, 2) or (M, 3) array</p>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>_data_view<span class="classifier">(M, 2) or (M, 3) array</span></dt><dd><p>The coordinates of the vertices given the viewed dimensions.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._view_faces">
-<code class="sig-name descname"><span class="pre">_view_faces</span></code><a class="headerlink" href="#napari.components.ViewerModel._view_faces" title="Permalink to this definition">¶</a></dt>
-<dd><p>The integer indices of the vertices that form the triangles
+<dt>_view_faces<span class="classifier">(P, 3) array</span></dt><dd><p>The integer indices of the vertices that form the triangles
 in the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(P, 3) array</p>
+</dd>
+<dt>_colorbar<span class="classifier">array</span></dt><dd><p>Colorbar for current colormap.</p>
 </dd>
 </dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._colorbar">
-<code class="sig-name descname"><span class="pre">_colorbar</span></code><a class="headerlink" href="#napari.components.ViewerModel._colorbar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Colorbar for current colormap.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array</p>
-</dd>
-</dl>
-</dd></dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><strong>layer</strong> – The newly-created surface layer.</p>
@@ -1925,8 +1623,8 @@ alpha values of the layer visual get mixed. Allowed values are
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="id18">
-<code class="sig-name descname"><span class="pre">data</span></code><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
+<dt id="id15">
+<code class="sig-name descname"><span class="pre">data</span></code><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
 <dd><p>The start point and projections of N vectors in D dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1935,8 +1633,8 @@ alpha values of the layer visual get mixed. Allowed values are
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt id="id19">
-<code class="sig-name descname"><span class="pre">properties</span></code><a class="headerlink" href="#id19" title="Permalink to this definition">¶</a></dt>
+<dt id="id16">
+<code class="sig-name descname"><span class="pre">properties</span></code><a class="headerlink" href="#id16" title="Permalink to this definition">¶</a></dt>
 <dd><p>Properties for each vector. Each property should be an array of length N,
 where N is the number of vectors.</p>
 <dl class="field-list simple">
@@ -1946,8 +1644,8 @@ where N is the number of vectors.</p>
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt id="id20">
-<code class="sig-name descname"><span class="pre">edge_width</span></code><a class="headerlink" href="#id20" title="Permalink to this definition">¶</a></dt>
+<dt id="id17">
+<code class="sig-name descname"><span class="pre">edge_width</span></code><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
 <dd><p>Width for all vectors in pixels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1966,8 +1664,8 @@ where N is the number of vectors.</p>
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt id="id21">
-<code class="sig-name descname"><span class="pre">edge_color</span></code><a class="headerlink" href="#id21" title="Permalink to this definition">¶</a></dt>
+<dt id="id18">
+<code class="sig-name descname"><span class="pre">edge_color</span></code><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
 <dd><p>Color of all of the vectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1976,8 +1674,8 @@ where N is the number of vectors.</p>
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt id="id22">
-<code class="sig-name descname"><span class="pre">edge_color_cycle</span></code><a class="headerlink" href="#id22" title="Permalink to this definition">¶</a></dt>
+<dt id="id19">
+<code class="sig-name descname"><span class="pre">edge_color_cycle</span></code><a class="headerlink" href="#id19" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
 categorical attribute is used color the vectors.</p>
 <dl class="field-list simple">
@@ -1987,8 +1685,8 @@ categorical attribute is used color the vectors.</p>
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt id="id23">
-<code class="sig-name descname"><span class="pre">edge_colormap</span></code><a class="headerlink" href="#id23" title="Permalink to this definition">¶</a></dt>
+<dt id="id20">
+<code class="sig-name descname"><span class="pre">edge_colormap</span></code><a class="headerlink" href="#id20" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colormap to set vector color if a continuous attribute is used to set edge_color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1997,8 +1695,8 @@ categorical attribute is used color the vectors.</p>
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt id="id24">
-<code class="sig-name descname"><span class="pre">edge_contrast_limits</span></code><a class="headerlink" href="#id24" title="Permalink to this definition">¶</a></dt>
+<dt id="id21">
+<code class="sig-name descname"><span class="pre">edge_contrast_limits</span></code><a class="headerlink" href="#id21" title="Permalink to this definition">¶</a></dt>
 <dd><p>clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
 The default value is None. If set the none, the clims will be set to
@@ -2009,111 +1707,34 @@ The default value is None. If set the none, the clims will be set to
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">Extended</span> <span class="pre">Summary</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">----------</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt id="id25">
-<code class="sig-name descname"><span class="pre">_view_data</span></code><a class="headerlink" href="#id25" title="Permalink to this definition">¶</a></dt>
-<dd><p>The start point and projections of N vectors in 2D for vectors whose
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>_view_data<span class="classifier">(M, 2, 2) array</span></dt><dd><p>The start point and projections of N vectors in 2D for vectors whose
 start point is in the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(M, 2, 2) array</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._view_face_color">
-<code class="sig-name descname"><span class="pre">_view_face_color</span></code><a class="headerlink" href="#napari.components.ViewerModel._view_face_color" title="Permalink to this definition">¶</a></dt>
-<dd><p>colors for the M in view vectors</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(M, 4) np.ndarray</p>
+<dt>_view_face_color<span class="classifier">(M, 4) np.ndarray</span></dt><dd><p>colors for the M in view vectors</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._view_indices">
-<code class="sig-name descname"><span class="pre">_view_indices</span></code><a class="headerlink" href="#napari.components.ViewerModel._view_indices" title="Permalink to this definition">¶</a></dt>
-<dd><p>indices for the M in view vectors</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(1, M) array</p>
+<dt>_view_indices<span class="classifier">(1, M) array</span></dt><dd><p>indices for the M in view vectors</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._view_vertices">
-<code class="sig-name descname"><span class="pre">_view_vertices</span></code><a class="headerlink" href="#napari.components.ViewerModel._view_vertices" title="Permalink to this definition">¶</a></dt>
-<dd><p>the corner points for the M in view faces. Shape is (4M, 2) for 2D and (8M, 2) for 3D.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(4M, 2) or (8M, 2) np.ndarray</p>
+<dt>_view_vertices<span class="classifier">(4M, 2) or (8M, 2) np.ndarray</span></dt><dd><p>the corner points for the M in view faces. Shape is (4M, 2) for 2D and (8M, 2) for 3D.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="id26">
-<code class="sig-name descname"><span class="pre">_view_faces</span></code><a class="headerlink" href="#id26" title="Permalink to this definition">¶</a></dt>
-<dd><p>indices of the _mesh_vertices that form the faces of the M in view vectors.
+<dt>_view_faces<span class="classifier">(2M, 3) or (4M, 3) np.ndarray</span></dt><dd><p>indices of the _mesh_vertices that form the faces of the M in view vectors.
 Shape is (2M, 2) for 2D and (4M, 2) for 3D.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(2M, 3) or (4M, 3) np.ndarray</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="id27">
-<code class="sig-name descname"><span class="pre">_property_choices</span></code><a class="headerlink" href="#id27" title="Permalink to this definition">¶</a></dt>
-<dd><p>Possible values for the properties in Vectors.properties.
+<dt>_property_choices<span class="classifier">dict {str: array (N,)}</span></dt><dd><p>Possible values for the properties in Vectors.properties.
 If properties is not provided, it will be {} (empty dictionary).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dict {str: array (N,)}</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._mesh_vertices">
-<code class="sig-name descname"><span class="pre">_mesh_vertices</span></code><a class="headerlink" href="#napari.components.ViewerModel._mesh_vertices" title="Permalink to this definition">¶</a></dt>
-<dd><p>The four corner points for the mesh representation of each vector as as
+<dt>_mesh_vertices<span class="classifier">(4N, 2) array</span></dt><dd><p>The four corner points for the mesh representation of each vector as as
 rectangle in the slice that it starts in.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(4N, 2) array</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._mesh_triangles">
-<code class="sig-name descname"><span class="pre">_mesh_triangles</span></code><a class="headerlink" href="#napari.components.ViewerModel._mesh_triangles" title="Permalink to this definition">¶</a></dt>
-<dd><p>The integer indices of the <cite>_mesh_vertices</cite> that form the two triangles
+<dt>_mesh_triangles<span class="classifier">(2N, 3) array</span></dt><dd><p>The integer indices of the <cite>_mesh_vertices</cite> that form the two triangles
 for the mesh representation of the vectors.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(2N, 3) array</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.components.ViewerModel._max_vectors_thumbnail">
-<code class="sig-name descname"><span class="pre">_max_vectors_thumbnail</span></code><a class="headerlink" href="#napari.components.ViewerModel._max_vectors_thumbnail" title="Permalink to this definition">¶</a></dt>
-<dd><p>The maximum number of vectors that will ever be used to render the
+<dt>_max_vectors_thumbnail<span class="classifier">int</span></dt><dd><p>The maximum number of vectors that will ever be used to render the
 thumbnail. If more vectors are present then they are randomly
 subsampled.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
 </dd>
 </dl>
-</dd></dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><strong>layer</strong> – The newly-created vectors layer.</p>
@@ -2267,6 +1888,35 @@ compatible with the layer_type.</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.components.ViewerModel.open_sample">
+<code class="sig-name descname"><span class="pre">open_sample</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reader_plugin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/components/viewer_model.html#ViewerModel.open_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.open_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open <cite>sample</cite> from <cite>plugin</cite> and add it to the viewer.</p>
+<p>To see all available samples registered by plugins, use
+<code class="xref py py-func docutils literal notranslate"><span class="pre">napari.plugins.available_samples()</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – name of a plugin providing a sample</p></li>
+<li><p><strong>sample</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – name of the sample</p></li>
+<li><p><strong>reader_plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – reader plugin to pass to viewer.open (only used if the sample data
+is a string).  by default None.</p></li>
+<li><p><strong>**kwargs</strong> – additional kwargs will be passed to the sample data loader provided
+by <cite>plugin</cite>.  Use of <a href="#id22"><span class="problematic" id="id23">**</span></a>kwargs may raise an error if the kwargs do
+not match the sample data loader.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>layers</strong> – A list of any layers that were added to the viewer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.9)"><strong>KeyError</strong></a> – If <cite>plugin</cite> does not provide a sample named <cite>sample</cite>.</p>
 </dd>
 </dl>
 </dd></dl>

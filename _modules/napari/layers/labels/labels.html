@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.plugins.NapariPluginManager.html">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -318,25 +319,26 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 
+<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">...utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span>
 <span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">color_dict_to_colormap</span><span class="p">,</span>
     <span class="n">label_colormap</span><span class="p">,</span>
     <span class="n">low_discrepancy_image</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">...utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">..image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
-<span class="kn">from</span> <span class="nn">..image.image</span> <span class="kn">import</span> <span class="n">_get_image_base_class</span>
+<span class="kn">from</span> <span class="nn">..image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
 <span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="n">transform_color</span>
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">dataframe_to_properties</span>
 <span class="kn">from</span> <span class="nn">._labels_constants</span> <span class="kn">import</span> <span class="n">LabelBrushShape</span><span class="p">,</span> <span class="n">LabelColorMode</span><span class="p">,</span> <span class="n">Mode</span>
 <span class="kn">from</span> <span class="nn">._labels_mouse_bindings</span> <span class="kn">import</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pick</span>
 <span class="kn">from</span> <span class="nn">._labels_utils</span> <span class="kn">import</span> <span class="n">indices_in_shape</span><span class="p">,</span> <span class="n">sphere_indices</span>
 
-<span class="n">_image_base_class</span> <span class="o">=</span> <span class="n">_get_image_base_class</span><span class="p">()</span>
 
-
-<div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Labels.html#napari.layers.Labels">[docs]</a><span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">_image_base_class</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
     <span class="sd">"""Labels (or segmentation) layer.</span>
 
 <span class="sd">    An image-like layer where every pixel contains an integer ID</span>
@@ -345,7 +347,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : array or list of array</span>
-<span class="sd">        Labels data as an array or multiscale.</span>
+<span class="sd">        Labels data as an array or multiscale. Must be integer type or bools</span>
 <span class="sd">    num_colors : int</span>
 <span class="sd">        Number of unique colors to use in colormap.</span>
 <span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
@@ -398,7 +400,7 @@
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : array</span>
-<span class="sd">        Integer valued label data. Can be N dimensional. Every pixel contains</span>
+<span class="sd">        Integer label data. Can be N dimensional. Every pixel contains</span>
 <span class="sd">        an integer ID corresponding to the region it belongs to. The label 0 is</span>
 <span class="sd">        rendered as transparent.</span>
 <span class="sd">    multiscale : bool</span>
@@ -455,8 +457,8 @@
 <span class="sd">        In ERASE mode the cursor functions similarly to PAINT mode, but to</span>
 <span class="sd">        paint with background label, which effectively removes the label.</span>
 
-<span class="sd">    Extended Summary</span>
-<span class="sd">    ----------</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
 <span class="sd">    _data_raw : array (N, M)</span>
 <span class="sd">        2D labels data for the currently viewed slice.</span>
 <span class="sd">    _selected_color : 4-tuple or None</span>
@@ -501,6 +503,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_contour</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_int_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="n">properties</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="p">{}</span>
@@ -541,7 +544,14 @@
             <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">preserve_labels</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">n_dimensional</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">n_dimensional</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"'Labels.events.n_dimensional' is deprecated and will be removed in napari v0.4.9. Use 'Labels.event.n_edit_dimensions' instead."</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="nb">type</span><span class="o">=</span><span class="s1">'n_dimensional'</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">n_edit_dimensions</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">contiguous</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">brush_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">selected_label</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -550,7 +560,7 @@
             <span class="n">contour</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n_dimensional</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_edit_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_contiguous</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_brush_size</span> <span class="o">=</span> <span class="mi">10</span>
 
@@ -584,12 +594,40 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">n_dimensional</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""bool: paint and fill edits labels across all dimensions."""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_dimensional</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">'Labels.n_dimensional is deprecated. Use Labels.n_edit_dimensions instead.'</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_edit_dimensions</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span>
 
     <span class="nd">@n_dimensional</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">n_dimensional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_dimensional</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n_dimensional</span> <span class="o">=</span> <span class="n">n_dimensional</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">'Labels.n_dimensional is deprecated. Use Labels.n_edit_dimensions instead.'</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_dimensional</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">n_dimensional</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_edit_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_edit_dimensions</span>
+
+    <span class="nd">@n_edit_dimensions</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">n_edit_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_edit_dimensions</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_edit_dimensions</span> <span class="o">=</span> <span class="n">n_edit_dimensions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">contour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -627,6 +665,9 @@
     <span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span> <span class="o">=</span> <span class="n">seed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
+        <span class="c1"># invalidate _all_vals to trigger re-generation</span>
+        <span class="c1"># in _raw_to_displayed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
 
@@ -644,6 +685,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""array: Image data."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+
+    <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_int_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_editable</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">"""dict {str: array (N,)}, DataFrame: Properties for each label."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
@@ -654,8 +708,8 @@
             <span class="n">properties</span><span class="p">,</span> <span class="n">label_index</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">label_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">label_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_index</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="n">label_index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="n">label_index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -687,24 +741,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
 
     <span class="k">def</span> <span class="nf">_ensure_int_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">"""Ensure data is integer by converting from float if required"""</span>
+        <span class="sd">"""Ensure data is integer by converting from bool if required, raising an error otherwise."""</span>
         <span class="n">looks_multiscale</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">guess_multiscale</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">looks_multiscale</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s2">"Float dtypes are not supported for Labels layers. Converting data to integers..."</span>
-            <span class="p">)</span>
-            <span class="n">int_data</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">:</span>
-                    <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">))</span>
-                <span class="k">elif</span> <span class="n">d</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">:</span>
-                    <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">))</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">int_data</span>
-
+        <span class="n">int_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">data_level</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="c1"># normalize_dtype turns e.g. tensorstore or torch dtypes into</span>
+            <span class="c1"># numpy dtypes</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">normalize_dtype</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s2">"Only integer types are supported for Labels layers, but data contains </span><span class="si">{data_level_type}</span><span class="s2">."</span><span class="p">,</span>
+                        <span class="n">data_level_type</span><span class="o">=</span><span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">data_level</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+                <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">int_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_level</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">int_data</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">looks_multiscale</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">data</span>
@@ -721,7 +777,10 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">v</span> <span class="o">==</span> <span class="n">lens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">lens</span><span class="p">]):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">"the number of items must be equal for all properties"</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"the number of items must be equal for all properties"</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">properties</span>
 
@@ -824,9 +883,8 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">"The square brush shape is deprecated and will be removed in version 0.4.9. "</span>
-                    <span class="s2">"Afterward, only the circle brush shape will be available, "</span>
-                    <span class="s2">"and the layer.brush_shape attribute will be removed."</span>
+                    <span class="s2">"The square brush shape is deprecated and will be removed in version 0.4.9. Afterward, only the circle brush shape will be available, and the layer.brush_shape attribute will be removed."</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">),</span>
             <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
@@ -842,9 +900,8 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">"The square brush shape is deprecated and will be removed in version 0.4.9. "</span>
-                    <span class="s2">"Afterward, only the circle brush shape will be available, "</span>
-                    <span class="s2">"and the layer.brush_shape attribute will be removed."</span>
+                    <span class="s2">"The square brush shape is deprecated and will be removed in version 0.4.9. Afterward, only the circle brush shape will be available, and the layer.brush_shape attribute will be removed."</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">),</span>
             <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
@@ -917,11 +974,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">*</span> <span class="n">data2world_scale</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">'hold &lt;space&gt; to pan/zoom, '</span>
-                <span class="s1">'hold &lt;shift&gt; to toggle preserve_labels, '</span>
-                <span class="s1">'hold &lt;control&gt; to fill, '</span>
-                <span class="s1">'hold &lt;alt&gt; to erase, '</span>
-                <span class="s1">'drag to paint a label'</span>
+                <span class="s1">'hold &lt;space&gt; to pan/zoom, hold &lt;shift&gt; to toggle preserve_labels, hold &lt;control&gt; to fill, hold &lt;alt&gt; to erase, drag to paint a label'</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">draw</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span>
@@ -978,6 +1031,103 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">()</span>
 
+    <span class="k">def</span> <span class="nf">_lookup_with_low_discrepancy_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">selected_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""Returns display version of im using low_discrepancy_image.</span>
+
+<span class="sd">        Passes the image through low_discrepancy_image, only coloring</span>
+<span class="sd">        selected_label if it's not None.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        im : array or int</span>
+<span class="sd">            Raw integer input image.</span>
+<span class="sd">        selected_label : int, optional</span>
+<span class="sd">            Value of selected label to color, by default None</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">selected_label</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="n">im</span> <span class="o">==</span> <span class="n">selected_label</span><span class="p">,</span>
+                <span class="n">low_discrepancy_image</span><span class="p">(</span><span class="n">selected_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span><span class="p">),</span>
+                <span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">im</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">low_discrepancy_image</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span>
+
+    <span class="k">def</span> <span class="nf">_lookup_with_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">selected_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""Returns display version of im using color lookup array by index</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        im : array or int</span>
+<span class="sd">            Raw integer input image.</span>
+<span class="sd">        selected_label : int, optional</span>
+<span class="sd">            Value of selected label to color, by default None</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">selected_label</span><span class="p">:</span>
+            <span class="n">selected_color</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span><span class="n">selected_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">selected_label</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">selected_label</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
+                <span class="p">)</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">))</span>
+            <span class="n">colors</span><span class="p">[</span><span class="n">selected_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_color</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_color_lookup_func</span><span class="p">(</span>
+                    <span class="n">im</span><span class="p">,</span> <span class="n">max_val</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span>
+                    <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_low_discrepancy_image</span>
+                <span class="p">):</span>
+                    <span class="c1"># revert to "classic" mode converting all pixels since we</span>
+                    <span class="c1"># encountered a large value in the raw labels image</span>
+                    <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">selected_label</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">max_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">image</span>
+
+    <span class="k">def</span> <span class="nf">_get_color_lookup_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">max_label_val</span><span class="p">):</span>
+        <span class="sd">"""Returns function used for mapping label values to colors</span>
+
+<span class="sd">        If array of [0..max(data)] would be larger than data,</span>
+<span class="sd">        returns lookup_with_low_discrepancy_image, otherwise returns</span>
+<span class="sd">        lookup_with_index</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : array</span>
+<span class="sd">            labels data</span>
+<span class="sd">        max_label_val : int</span>
+<span class="sd">            maximum label value in data</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ----------</span>
+<span class="sd">        lookup_func : function</span>
+<span class="sd">            function to use for mapping label values to colors</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># low_discrepancy_image is slow for large images, but large labels can</span>
+        <span class="c1"># blow up memory usage of an index array of colors. If the index array</span>
+        <span class="c1"># would be larger than the image, we go back to computing the low</span>
+        <span class="c1"># discrepancy image on the whole input image. (Up to a minimum value of</span>
+        <span class="c1"># 1kB.)</span>
+        <span class="n">nbytes_low_discrepancy</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">nbytes</span>
+        <span class="n">max_nbytes</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">max_label_val</span> <span class="o">*</span> <span class="n">nbytes_low_discrepancy</span> <span class="o">&gt;</span> <span class="n">max_nbytes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_low_discrepancy_image</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_index</span>
+
     <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">):</span>
         <span class="sd">"""Determine displayed image from a saved raw image and a saved seed.</span>
 
@@ -994,9 +1144,9 @@
 <span class="sd">        image : array</span>
 <span class="sd">            Image mapped between 0 and 1 to be displayed.</span>
 <span class="sd">        """</span>
-        <span class="k">if</span> <span class="n">raw</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
-            <span class="n">raw</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_color_lookup_func</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
@@ -1014,29 +1164,12 @@
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="n">raw</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">max_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="n">raw</span><span class="p">]</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="p">):</span>
-            <span class="n">selected_color</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
-                <span class="p">)</span>
-            <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">))</span>
-            <span class="n">colors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_color</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">raw</span><span class="p">]</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span><span class="p">)</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
@@ -1070,7 +1203,12 @@
             <span class="n">image</span><span class="p">[</span><span class="n">boundaries</span><span class="p">]</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="n">boundaries</span><span class="p">]</span>
             <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="n">image</span><span class="p">]</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Contours are not displayed during 3D rendering"</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"Contours are not displayed during 3D rendering"</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">image</span>
 
@@ -1111,7 +1249,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        value: 3-tuple of arrays</span>
+<span class="sd">        value : 3-tuple of arrays</span>
 <span class="sd">            The value is a 3-tuple containing:</span>
 
 <span class="sd">            - a numpy multi-index, pointing to the array elements that were</span>
@@ -1143,7 +1281,7 @@
 
 <span class="sd">        See Also</span>
 <span class="sd">        --------</span>
-<span class="sd">        `Labels._save_history`</span>
+<span class="sd">        Labels._save_history</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">before</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1197,14 +1335,13 @@
         <span class="p">):</span>
             <span class="k">return</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dimensional</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="c1"># work with entire image</span>
-            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
-            <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">int_coord</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># work with just the sliced image</span>
-            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_raw</span>
-            <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">int_coord</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="n">dims_to_fill</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:]</span>
+        <span class="n">data_slice_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">int_coord</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">dims_to_fill</span><span class="p">:</span>
+            <span class="n">data_slice_list</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">data_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">data_slice_list</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
+        <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">int_coord</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dims_to_fill</span><span class="p">)</span>
 
         <span class="n">matches</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">==</span> <span class="n">old_label</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contiguous</span><span class="p">:</span>
@@ -1217,16 +1354,16 @@
                 <span class="p">)</span>
 
         <span class="n">match_indices_local</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_dimensional</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">}:</span>
             <span class="n">n_idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">match_indices_local</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">match_indices</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">:</span>
-                    <span class="n">match_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_idx</span><span class="p">,</span> <span class="n">int_coord</span><span class="p">[</span><span class="n">d</span><span class="p">]))</span>
-                <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data_slice</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
                     <span class="n">match_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match_indices_local</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
                     <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">match_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_idx</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">))</span>
             <span class="n">match_indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">match_indices</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">match_indices</span> <span class="o">=</span> <span class="n">match_indices_local</span>
@@ -1257,11 +1394,14 @@
 <span class="sd">            calls.</span>
 <span class="sd">        """</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:]</span>
+        <span class="n">dims_not_painted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_brush_shape</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"square"</span><span class="p">:</span>
             <span class="n">brush_size_dims</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dimensional</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">:</span>
-                    <span class="n">brush_size_dims</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">:</span>
+                        <span class="n">brush_size_dims</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
             <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
                 <span class="nb">slice</span><span class="p">(</span>
@@ -1281,17 +1421,21 @@
             <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">indices_in_shape</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_brush_shape</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"circle"</span><span class="p">:</span>
             <span class="n">slice_coord</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">]</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dimensional</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
-                <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+                <span class="n">coord_paint</span> <span class="o">=</span> <span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">]</span>
+                <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">coord_paint</span> <span class="o">=</span> <span class="n">coord</span>
 
-            <span class="n">sphere_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
+            <span class="n">sphere_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord_paint</span><span class="p">)</span>
             <span class="c1"># Ensure circle doesn't have spurious point</span>
             <span class="c1"># on edge by keeping radius as ##.5</span>
             <span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span>
             <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">sphere_indices</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">sphere_dims</span><span class="p">)</span>
 
-            <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">mask_indices</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coord</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">mask_indices</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coord_paint</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
             <span class="c1"># discard candidate coordinates that are out of bounds</span>
             <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">indices_in_shape</span><span class="p">(</span><span class="n">mask_indices</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
@@ -1299,10 +1443,10 @@
             <span class="c1"># Transfer valid coordinates to slice_coord,</span>
             <span class="c1"># or expand coordinate if 3rd dim in 2D image</span>
             <span class="n">slice_coord_temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mask_indices</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dimensional</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dims_to_paint</span><span class="p">):</span>
                     <span class="n">slice_coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">slice_coord_temp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_not_painted</span><span class="p">:</span>
                     <span class="n">slice_coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">slice_coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
                         <span class="n">mask_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span>
                     <span class="p">)</span>
@@ -1374,8 +1518,15 @@
                         <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'index'</span><span class="p">:</span>
                             <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">', </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">msg</span> <span class="o">+=</span> <span class="s1">' [No Properties]'</span>
-        <span class="k">return</span> <span class="n">msg</span></div></div>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">'[No Properties]'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+
+
+<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">..image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
+
+<div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Labels.html#napari.layers.Labels">[docs]</a>    <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">Labels</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>
+        <span class="k">pass</span></div>
 </pre></div>
 
 

@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="napari.plugins.NapariPluginManager.html">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -628,84 +629,28 @@ have their properties edited, or be deleted.</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">Extended</span> <span class="pre">Summary</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">----------</span></code></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt id="napari.layers.Points._property_choices">
-<code class="sig-name descname"><span class="pre">_property_choices</span></code><a class="headerlink" href="#napari.layers.Points._property_choices" title="Permalink to this definition">¶</a></dt>
-<dd><p>Possible values for the properties in Points.properties.
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>_property_choices<span class="classifier">dict {str: array (N,)}</span></dt><dd><p>Possible values for the properties in Points.properties.
 If properties is not provided, it will be {} (empty dictionary).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dict {str: array (N,)}</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.layers.Points._view_data">
-<code class="sig-name descname"><span class="pre">_view_data</span></code><a class="headerlink" href="#napari.layers.Points._view_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>2D coordinates of points in the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (M, 2)</p>
+<dt>_view_data<span class="classifier">array (M, 2)</span></dt><dd><p>2D coordinates of points in the currently viewed slice.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.layers.Points._view_size">
-<code class="sig-name descname"><span class="pre">_view_size</span></code><a class="headerlink" href="#napari.layers.Points._view_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Size of the point markers in the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (M, )</p>
+<dt>_view_size<span class="classifier">array (M, )</span></dt><dd><p>Size of the point markers in the currently viewed slice.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.layers.Points._indices_view">
-<code class="sig-name descname"><span class="pre">_indices_view</span></code><a class="headerlink" href="#napari.layers.Points._indices_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integer indices of the points in the currently viewed slice.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (M, )</p>
+<dt>_indices_view<span class="classifier">array (M, )</span></dt><dd><p>Integer indices of the points in the currently viewed slice.</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.layers.Points._selected_view">
-<code class="sig-name descname"><span class="pre">_selected_view</span></code><a class="headerlink" href="#napari.layers.Points._selected_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integer indices of selected points in the currently viewed slice within
+<dt>_selected_view :</dt><dd><p>Integer indices of selected points in the currently viewed slice within
 the <cite>_view_data</cite> array.</p>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.layers.Points._selected_box">
-<code class="sig-name descname"><span class="pre">_selected_box</span></code><a class="headerlink" href="#napari.layers.Points._selected_box" title="Permalink to this definition">¶</a></dt>
-<dd><p>Four corners of any box either around currently selected points or
+</dd>
+<dt>_selected_box<span class="classifier">array (4, 2) or None</span></dt><dd><p>Four corners of any box either around currently selected points or
 being created during a drag action. Starting in the top left and
 going clockwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array (4, 2) or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt id="napari.layers.Points._drag_start">
-<code class="sig-name descname"><span class="pre">_drag_start</span></code><a class="headerlink" href="#napari.layers.Points._drag_start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Coordinates of first cursor click during a drag action. Gets reset to
+<dt>_drag_start<span class="classifier">list or None</span></dt><dd><p>Coordinates of first cursor click during a drag action. Gets reset to
 None after dragging is done.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
 </dd>
 </dl>
-</dd></dl>
 <p class="rubric">Methods</p>
 <p class="rubric">Attributes</p>
 <dl class="py method">

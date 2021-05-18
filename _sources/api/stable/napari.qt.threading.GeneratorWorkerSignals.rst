@@ -154,6 +154,7 @@ napari.qt.threading.GeneratorWorkerSignals
       ~GeneratorWorkerSignals.returned
       ~GeneratorWorkerSignals.started
       ~GeneratorWorkerSignals.staticMetaObject
+      ~GeneratorWorkerSignals.warned
       ~GeneratorWorkerSignals.yielded
    
    

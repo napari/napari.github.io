@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.NapariPluginManager.html">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -313,18 +314,15 @@
 <h1>Source code for napari.plugins.io</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">HookImplementation</span><span class="p">,</span>
-    <span class="n">PluginCallError</span><span class="p">,</span>
-    <span class="n">PluginManager</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">HookImplementation</span><span class="p">,</span> <span class="n">PluginCallError</span>
 
 <span class="kn">from</span> <span class="nn">..layers</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">LayerData</span>
 <span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">abspath_or_url</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">plugin_manager</span> <span class="k">as</span> <span class="n">napari_plugin_manager</span>
+<span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">plugin_manager</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -332,8 +330,7 @@
 <span class="k">def</span> <span class="nf">read_data_with_plugins</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
     <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">plugin_manager</span><span class="p">:</span> <span class="n">PluginManager</span> <span class="o">=</span> <span class="n">napari_plugin_manager</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HookImplementation</span><span class="p">]]:</span>
     <span class="sd">"""Iterate reader hooks and return first non-None LayerData or None.</span>
 
 <span class="sd">    This function returns as soon as the path has been read successfully,</span>
@@ -352,9 +349,6 @@
 <span class="sd">        Name of a plugin to use.  If provided, will force ``path`` to be read</span>
 <span class="sd">        with the specified ``plugin``.  If the requested plugin cannot read</span>
 <span class="sd">        ``path``, a PluginCallError will be raised.</span>
-<span class="sd">    plugin_manager : plugins.PluginManager, optional</span>
-<span class="sd">        Instance of a napari PluginManager.  by default the main napari</span>
-<span class="sd">        plugin_manager will be used.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -373,22 +367,37 @@
 <span class="sd">    """</span>
     <span class="n">hook_caller</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">hook</span><span class="o">.</span><span class="n">napari_get_reader</span>
 
+    <span class="n">hookimpl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HookImplementation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">plugin</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">plugin</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">plugins</span><span class="p">:</span>
             <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">plugin_name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_hookimpls</span><span class="p">()}</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"There is no registered plugin named '</span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2">'.</span><span class="se">\n</span><span class="s2">"</span>
-                <span class="sa">f</span><span class="s2">"Names of plugins offering readers are: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">"</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"There is no registered plugin named '</span><span class="si">{plugin}</span><span class="s2">'.</span><span class="se">\n</span><span class="s2">Names of plugins offering readers are: </span><span class="si">{names}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
+                    <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="n">reader</span> <span class="o">=</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">_call_plugin</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Plugin </span><span class="si">{</span><span class="n">plugin</span><span class="si">!r}</span><span class="s1"> does not support file </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">'Plugin </span><span class="si">{plugin!r}</span><span class="s1"> does not support file </span><span class="si">{path}</span><span class="s1">'</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
+                    <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_plugin_implementation</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
         <span class="n">layer_data</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="c1"># if the reader returns a "null layer" sentinel indicating an empty</span>
         <span class="c1"># file, return an empty list, otherwise return the result or None</span>
         <span class="k">if</span> <span class="n">_is_null_layer_sentinel</span><span class="p">(</span><span class="n">layer_data</span><span class="p">):</span>
-            <span class="k">return</span> <span class="p">[]</span>
-        <span class="k">return</span> <span class="n">layer_data</span> <span class="ow">or</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="p">[],</span> <span class="n">hookimpl</span>
+
+        <span class="k">return</span> <span class="n">layer_data</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span> <span class="n">hookimpl</span>
 
     <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PluginCallError</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">abspath_or_url</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
@@ -405,6 +414,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">layer_data</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>  <span class="c1"># try to read data</span>
             <span class="k">if</span> <span class="n">layer_data</span><span class="p">:</span>
+                <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">implementation</span>
                 <span class="k">break</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="c1"># collect the error and log it, but don't raise it.</span>
@@ -419,11 +429,20 @@
         <span class="c1"># we just want to provide some useful feedback, which includes</span>
         <span class="c1"># whether or not paths were passed to plugins as a list.</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-            <span class="n">path_repr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, ...] as stack"</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">'No plugin found capable of reading [</span><span class="si">{repr_path}</span><span class="s1">, ...] as stack.'</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">repr_path</span><span class="o">=</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">path_repr</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">'No plugin found capable of reading </span><span class="si">{repr_path}</span><span class="s1">.'</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">repr_path</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+            <span class="p">)</span>
+
         <span class="c1"># TODO: change to a warning notification in a later PR</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'No plugin found capable of reading </span><span class="si">{</span><span class="n">path_repr</span><span class="si">}</span><span class="s1">.'</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
         <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">plugin_name</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">}</span>
@@ -434,9 +453,8 @@
 
     <span class="c1"># if the reader returns a "null layer" sentinel indicating an empty file,</span>
     <span class="c1"># return an empty list, otherwise return the result or None</span>
-    <span class="k">if</span> <span class="n">_is_null_layer_sentinel</span><span class="p">(</span><span class="n">layer_data</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[]</span>
-    <span class="k">return</span> <span class="n">layer_data</span> <span class="ow">or</span> <span class="kc">None</span>
+    <span class="n">_data</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">_is_null_layer_sentinel</span><span class="p">(</span><span class="n">layer_data</span><span class="p">)</span> <span class="k">else</span> <span class="n">layer_data</span> <span class="ow">or</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">_data</span><span class="p">,</span> <span class="n">hookimpl</span>
 
 
 <div class="viewcode-block" id="save_layers"><a class="viewcode-back" href="../../../api/stable/napari.html#napari.save_layers">[docs]</a><span class="k">def</span> <span class="nf">save_layers</span><span class="p">(</span>
@@ -509,8 +527,12 @@
         <span class="c1"># path/layers combination</span>
         <span class="c1"># we just want to provide some useful feedback</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s1">'No data written! There may be no plugins '</span>
-            <span class="sa">f</span><span class="s1">'capable of writing these </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span><span class="si">}</span><span class="s1"> layers to </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">.'</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">'No data written! There may be no plugins capable of writing these </span><span class="si">{length}</span><span class="s1"> layers to </span><span class="si">{path}</span><span class="s1">.'</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">length</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">),</span>
+                <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">written</span></div>
@@ -544,7 +566,6 @@
     <span class="n">layers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">plugin_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">plugin_manager</span><span class="o">=</span><span class="n">napari_plugin_manager</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">"""Write data from multiple layers data with a plugin.</span>
 
@@ -573,9 +594,6 @@
 <span class="sd">        If provided, force the plugin manager to use the ``napari_get_writer``</span>
 <span class="sd">        from the requested ``plugin_name``.  If none is available, or if it is</span>
 <span class="sd">        incapable of handling the layers, this function will fail.</span>
-<span class="sd">    plugin_manager : plugins.PluginManager, optional</span>
-<span class="sd">        Instance of a PluginManager.  by default the main napari</span>
-<span class="sd">        plugin_manager will be used.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -593,8 +611,12 @@
         <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">plugins</span><span class="p">:</span>
             <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">plugin_name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_hookimpls</span><span class="p">()}</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"There is no registered plugin named '</span><span class="si">{</span><span class="n">plugin_name</span><span class="si">}</span><span class="s2">'.</span><span class="se">\n</span><span class="s2">"</span>
-                <span class="sa">f</span><span class="s2">"Names of plugins offering writers are: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">"</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"There is no registered plugin named '</span><span class="si">{plugin_name}</span><span class="s2">'.</span><span class="se">\n</span><span class="s2">Names of plugins offering writers are: </span><span class="si">{names}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">plugin_name</span><span class="o">=</span><span class="n">plugin_name</span><span class="p">,</span>
+                    <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="n">implementation</span> <span class="o">=</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_plugin_implementation</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">)</span>
         <span class="n">writer_function</span> <span class="o">=</span> <span class="n">hook_caller</span><span class="p">(</span>
@@ -609,10 +631,19 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">writer_function</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">plugin_name</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'Requested plugin "</span><span class="si">{</span><span class="n">plugin_name</span><span class="si">}</span><span class="s1">" is not capable'</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">'Requested plugin "</span><span class="si">{plugin_name}</span><span class="s1">" is not capable of writing this combination of layer types: </span><span class="si">{layer_types}</span><span class="s1">'</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">plugin_name</span><span class="o">=</span><span class="n">plugin_name</span><span class="p">,</span>
+                <span class="n">layer_types</span><span class="o">=</span><span class="n">layer_types</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s1">'Unable to find plugin capable'</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">' of writing this combination of layer types: </span><span class="si">{</span><span class="n">layer_types</span><span class="si">}</span><span class="s1">'</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">'Unable to find plugin capable of writing this combination of layer types: </span><span class="si">{layer_types}</span><span class="s1">'</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">layer_types</span><span class="o">=</span><span class="n">layer_types</span><span class="p">,</span>
+            <span class="p">)</span>
+
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
@@ -626,7 +657,6 @@
     <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">plugin_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">plugin_manager</span><span class="o">=</span><span class="n">napari_plugin_manager</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">"""Write single layer data with a plugin.</span>
 
@@ -652,9 +682,6 @@
 <span class="sd">        Name of the plugin to write data with. If None then all plugins</span>
 <span class="sd">        corresponding to appropriate hook specification will be looped</span>
 <span class="sd">        through to find the first one that can write the data.</span>
-<span class="sd">    plugin_manager : plugins.PluginManager, optional</span>
-<span class="sd">        Instance of a napari PluginManager.  by default the main napari</span>
-<span class="sd">        plugin_manager will be used.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -669,9 +696,12 @@
     <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">and</span> <span class="p">(</span><span class="n">plugin_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">plugins</span><span class="p">):</span>
         <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">plugin_name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_hookimpls</span><span class="p">()}</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"There is no registered plugin named '</span><span class="si">{</span><span class="n">plugin_name</span><span class="si">}</span><span class="s2">'.</span><span class="se">\n</span><span class="s2">"</span>
-            <span class="s2">"Plugins capable of writing layer._type_string layers"</span>
-            <span class="sa">f</span><span class="s2">"are: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">"</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s2">"There is no registered plugin named '</span><span class="si">{plugin_name}</span><span class="s2">'.</span><span class="se">\n</span><span class="s2">Plugins capable of writing layer._type_string layers are: </span><span class="si">{names}</span><span class="s2">"</span><span class="p">,</span>
+                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">plugin_name</span><span class="o">=</span><span class="n">plugin_name</span><span class="p">,</span>
+                <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
     <span class="c1"># Call the hook_caller</span>

@@ -110,6 +110,7 @@ napari.layers.Points
       ~Points.selected_data
       ~Points.shear
       ~Points.size
+      ~Points.source
       ~Points.symbol
       ~Points.text
       ~Points.thumbnail

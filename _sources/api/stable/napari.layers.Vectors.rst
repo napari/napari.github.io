@@ -86,6 +86,7 @@ napari.layers.Vectors
       ~Vectors.scale
       ~Vectors.selected
       ~Vectors.shear
+      ~Vectors.source
       ~Vectors.thumbnail
       ~Vectors.translate
       ~Vectors.translate_grid

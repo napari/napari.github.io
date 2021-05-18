@@ -88,6 +88,7 @@ napari.layers.Surface
       ~Surface.scale
       ~Surface.selected
       ~Surface.shear
+      ~Surface.source
       ~Surface.thumbnail
       ~Surface.translate
       ~Surface.translate_grid

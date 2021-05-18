@@ -222,7 +222,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.types.html">napari.types</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.ArrayBase.html">napari.types.ArrayBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.Path.html">napari.types.Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.SampleDict.html">napari.types.SampleDict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TracebackType.html">napari.types.TracebackType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.types.TypedDict.html">napari.types.TypedDict</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.utils.html">napari.utils</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -231,9 +234,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.plugins.html">napari.plugins</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.FunctionType.html">napari.plugins.FunctionType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.HookImplementation.html">napari.plugins.HookImplementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.PluginManager.html">napari.plugins.PluginManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.plugins.NapariPluginManager.html">napari.plugins.NapariPluginManager</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.components.html">napari.components</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -343,21 +344,82 @@
 <span class="sd">    ``napari_hook_specification`` and ``napari_hook_implementation``,</span>
 <span class="sd">    respectively.</span>
 <span class="sd">"""</span>
-
 <span class="c1"># These hook specifications also serve as the API reference for plugin</span>
 <span class="c1"># developers, so comprehensive documentation with complete type annotations is</span>
 <span class="c1"># imperative!</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_specification</span>
 
-<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">AugmentedWidget</span><span class="p">,</span> <span class="n">ReaderFunction</span><span class="p">,</span> <span class="n">WriterFunction</span>
+<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AugmentedWidget</span><span class="p">,</span>
+    <span class="n">ReaderFunction</span><span class="p">,</span>
+    <span class="n">SampleData</span><span class="p">,</span>
+    <span class="n">SampleDict</span><span class="p">,</span>
+    <span class="n">WriterFunction</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># -------------------------------------------------------------------------- #</span>
 <span class="c1">#                                 IO Hooks                                   #</span>
 <span class="c1"># -------------------------------------------------------------------------- #</span>
+
+
+<div class="viewcode-block" id="napari_provide_sample_data"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_provide_sample_data">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_provide_sample_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SampleData</span><span class="p">,</span> <span class="n">SampleDict</span><span class="p">]]:</span>
+    <span class="sd">"""Provide sample data.</span>
+
+<span class="sd">    Plugins may implement this hook to provide sample data for use in napari.</span>
+<span class="sd">    Sample data is accessible in the `File &gt; Open Sample` menu, or</span>
+<span class="sd">    programmatically, with :meth:`napari.Viewer.open_sample`.</span>
+
+<span class="sd">    Plugins implementing this hook specification must return a ``dict``, where</span>
+<span class="sd">    each key is a `sample_key` (the string that will appear in the</span>
+<span class="sd">    `Open Sample` menu), and the value is either a string, or</span>
+<span class="sd">    a callable that returns an iterable of ``LayerData`` tuples, where each</span>
+<span class="sd">    tuple is a 1-, 2-, or 3-tuple of ``(data,)``, ``(data, meta)``, or ``(data,</span>
+<span class="sd">    meta, layer_type)`` (thus, an individual sample-loader may provide multiple</span>
+<span class="sd">    layers).  If the value is a string, it will be opened with</span>
+<span class="sd">    :meth:`napari.Viewer.open`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Here's a minimal example of a plugin that provides three samples:</span>
+
+<span class="sd">        1. random data from numpy</span>
+<span class="sd">        2. a random image pulled from the internet</span>
+<span class="sd">        3. random data from numpy, provided as a dict with the keys:</span>
+<span class="sd">            'display_name': a string that will show in the menu (by default,</span>
+<span class="sd">                the `sample_key` will be shown)</span>
+<span class="sd">            'data': a string or callable, as in 1/2.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import numpy as np</span>
+<span class="sd">        from napari_plugin_engine import napari_hook_implementation</span>
+
+<span class="sd">        def _generate_random_data(shape=(512, 512)):</span>
+<span class="sd">            data = np.random.rand(*shape)</span>
+<span class="sd">            return [(data, {'name': 'random data'})]</span>
+
+<span class="sd">        @napari_hook_implementation</span>
+<span class="sd">        def napari_provide_sample_data():</span>
+<span class="sd">            return {</span>
+<span class="sd">                'random data': _generate_random_data,</span>
+<span class="sd">                'random image': 'https://picsum.photos/1024',</span>
+<span class="sd">                'sample_key': {</span>
+<span class="sd">                    'display_name': 'Some Random Data (512 x 512)'</span>
+<span class="sd">                    'data': _generate_random_data,</span>
+<span class="sd">                }</span>
+<span class="sd">            }</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict[ str, Union[str, Callable[..., Iterable[LayerData]]] ]</span>
+<span class="sd">        A mapping of `sample_key` to `data_loader`</span>
+<span class="sd">    """</span></div>
 
 
 <div class="viewcode-block" id="napari_get_reader"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_get_reader">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

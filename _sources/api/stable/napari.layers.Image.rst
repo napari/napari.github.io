@@ -94,6 +94,7 @@ napari.layers.Image
       ~Image.scale
       ~Image.selected
       ~Image.shear
+      ~Image.source
       ~Image.thumbnail
       ~Image.translate
       ~Image.translate_grid

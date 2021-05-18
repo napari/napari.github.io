@@ -151,5 +151,6 @@ napari.qt.threading.WorkerBaseSignals
       ~WorkerBaseSignals.returned
       ~WorkerBaseSignals.started
       ~WorkerBaseSignals.staticMetaObject
+      ~WorkerBaseSignals.warned
    
    

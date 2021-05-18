@@ -69,6 +69,9 @@ napari.Viewer
       ~Viewer.open
    
    
+      ~Viewer.open_sample
+   
+   
       ~Viewer.parse_file
    
    
@@ -114,6 +117,7 @@ napari.Viewer
    .. autosummary::
       :inherited-members:
    
+      ~Viewer.active_layer
       ~Viewer.class_keymap
       ~Viewer.events
       ~Viewer.experimental

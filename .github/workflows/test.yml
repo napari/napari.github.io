@@ -8,13 +8,14 @@ on:
 jobs:
 
   test:
-    name: ${{ matrix.platform }} ${{ matrix.python }}
+    name: ${{ matrix.platform }} ${{ matrix.python }} (${{ matrix.napari_version }})
     runs-on: ${{ matrix.platform }}
     strategy:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest]
         python: [3.7, 3.8, 3.9]
+        napari_version: ["latest", "master"]
 
     steps:
       - uses: actions/checkout@v2
@@ -36,6 +37,11 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt          
+
+      - name: Install napari from master
+        if: ${{ matrix.napari_version == 'master' }}
+        run: |
+          pip install git+https://github.com/napari/napari@master#egg=napari[all]
 
       - name: Test
         run: pytest -v

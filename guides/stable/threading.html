@@ -365,21 +365,7 @@ methods in another thread.</p>
 <p>The simplest way to run a function in another thread in napari is to decorate
 your function with the {func}<code class="docutils literal notranslate"><span class="pre">@thread_worker</span> <span class="pre">&lt;napari.qt.threading.thread_worker&gt;</span></code> decorator. Continuing with the example
 above:</p>
-<div class="highlight-python notranslate"><div class="table-wrapper"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="hll"><span class="kn">from</span> <span class="nn">napari.qt.threading</span> <span class="kn">import</span> <span class="n">thread_worker</span>
@@ -395,18 +381,17 @@ above:</p>
 </span><span class="hll"><span class="n">worker</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># start the thread!</span>
 </span><span class="hll"><span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </span></pre></div>
-</td></tr></table></div></div>
+</div>
 <p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">@thread_worker</span></code> decorator
-(<strong>7</strong>), converts your function into one that returns a
-<a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase" title="napari.qt.threading.WorkerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkerBase</span></code></a> instance (<strong>13</strong>). The <code class="docutils literal notranslate"><span class="pre">worker</span></code>
+converts your function into one that returns a
+<a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase" title="napari.qt.threading.WorkerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkerBase</span></code></a> instance. The <code class="docutils literal notranslate"><span class="pre">worker</span></code>
 manages the work being done by your function in another thread.  It also
 exposes a few “signals” that let you respond to events happening in the other
 thread.  Here, we connect the <code class="docutils literal notranslate"><span class="pre">worker.returned</span></code> signal to the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">viewer.add_image</span></code>
-function
-(<strong>14</strong>), which has the effect of adding the result to the viewer when it is
+function, which has the effect of adding the result to the viewer when it is
 ready. Lastly, we start the worker with
-<a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.start" title="napari.qt.threading.WorkerBase.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start()</span></code></a> (<strong>15</strong>) because workers do not
+<a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.start" title="napari.qt.threading.WorkerBase.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start()</span></code></a> because workers do not
 start themselves by default.</p>
 <p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">@thread_worker</span></code> decorator also
 accepts keyword arguments like <code class="docutils literal notranslate"><span class="pre">connect</span></code>, and <code class="docutils literal notranslate"><span class="pre">start_thread</span></code>, which may
@@ -504,33 +489,7 @@ intermediate results back in the main thread.  Continuing with our example of
 taking the mean projection of a large stack, if we yield the cumulative average
 as it is generated (rather than taking the average of the fully generated
 stack) we can watch the mean projection as it builds:</p>
-<div class="highlight-python notranslate"><div class="table-wrapper"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">napari.qt.threading</span> <span class="kn">import</span> <span class="n">thread_worker</span>
 
@@ -558,11 +517,11 @@ stack) we can watch the mean projection as it builds:</p>
 </span><span class="n">large_random_images</span><span class="p">()</span>  <span class="c1"># call the function!</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div></div>
+</div>
 <p>Note how we periodically (every 16 iterations) <code class="docutils literal notranslate"><span class="pre">yield</span></code> the image result in
-the <code class="docutils literal notranslate"><span class="pre">large_random_images</span></code> function (<strong>25</strong>).  We also connected the
+the <code class="docutils literal notranslate"><span class="pre">large_random_images</span></code> function.  We also connected the
 <code class="docutils literal notranslate"><span class="pre">yielded</span></code> event in the {func}<code class="docutils literal notranslate"><span class="pre">@thread_worker</span> <span class="pre">&lt;napari.qt.threading.thread_worker&gt;</span></code> decorator to the previously-defined
-<code class="docutils literal notranslate"><span class="pre">update_layer</span></code> function (<strong>19</strong>).  The result is that the image in the viewer
+<code class="docutils literal notranslate"><span class="pre">update_layer</span></code> function.  The result is that the image in the viewer
 is updated every time a new image is yielded.</p>
 <p>Any time you can break up a long-running function into a stream of
 shorter-running yield statements like this, you not only benefit from the
@@ -576,39 +535,7 @@ our long running function.  When you use the {func}<code class="docutils literal
 ability to stop, start, and quit a thread comes for free.  In the example below
 we decorate what would normally be an infinitely yielding generator, but add a
 button that aborts the worker when clicked:</p>
-<div class="highlight-python notranslate"><div class="table-wrapper"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QPushButton</span>
 
@@ -642,7 +569,7 @@ button that aborts the worker when clicked:</p>
 <span class="n">worker</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div></div>
+</div>
 </div>
 <div class="section" id="graceful-exit">
 <h4>Graceful Exit<a class="headerlink" href="#graceful-exit" title="Permalink to this headline">¶</a></h4>
@@ -672,62 +599,7 @@ pattern.  This next example ties together a number of concepts and demonstrates
 two-thread communication with conditional flow control.  It’s a simple
 cumulative multiplier that runs in another thread, and exits if the product
 hits “0”:</p>
-<div class="highlight-python notranslate"><div class="table-wrapper"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">from</span> <span class="nn">napari.qt.threading</span> <span class="kn">import</span> <span class="n">thread_worker</span>
@@ -784,28 +656,27 @@ hits “0”:</p>
 <span class="n">worker</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div></div>
+</div>
 <p>Let’s break it down:</p>
 <ol class="simple">
-<li><p>As usual, we decorate our generator function with {func}<code class="docutils literal notranslate"><span class="pre">@thread_worker</span> <span class="pre">&lt;napari.qt.threading.thread_worker&gt;</span></code> (<strong>9</strong>) and instantiate it to create
-a <code class="docutils literal notranslate"><span class="pre">worker</span></code> (<strong>35</strong>).</p></li>
-<li><p>The most interesting line in this example is line <strong>14</strong>, where we both
+<li><p>As usual, we decorate our generator function with {func}<code class="docutils literal notranslate"><span class="pre">@thread_worker</span> <span class="pre">&lt;napari.qt.threading.thread_worker&gt;</span></code> and instantiate it to create a
+<code class="docutils literal notranslate"><span class="pre">worker</span></code>.</p></li>
+<li><p>The most interesting line in this example is where we both
 <code class="docutils literal notranslate"><span class="pre">yield</span></code> the current <code class="docutils literal notranslate"><span class="pre">total</span></code> to the main thread (<code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">total</span></code>), <em>and</em>
 receive a new value from the main thread (with <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">=</span> <span class="pre">yield</span></code>).</p></li>
-<li><p>In the main thread, we have connected that <code class="docutils literal notranslate"><span class="pre">worker.yielded</span></code> event (<strong>52</strong>)
+<li><p>In the main thread, we have connected that <code class="docutils literal notranslate"><span class="pre">worker.yielded</span></code> event
 to a callback that pauses the worker and updates the <code class="docutils literal notranslate"><span class="pre">result_label</span></code>
-widget (<strong>38</strong>).</p></li>
-<li><p>The thread will then wait indefinitely for the <code class="docutils literal notranslate"><span class="pre">resume()</span></code> command
-(<strong>50</strong>), which we have connected to the <code class="docutils literal notranslate"><span class="pre">line_edit.returnPressed</span></code> signal
-(<strong>54</strong>).</p></li>
+widget.</p></li>
+<li><p>The thread will then wait indefinitely for the <code class="docutils literal notranslate"><span class="pre">resume()</span></code> command,
+which we have connected to the <code class="docutils literal notranslate"><span class="pre">line_edit.returnPressed</span></code> signal.</p></li>
 <li><p>However, before that <code class="docutils literal notranslate"><span class="pre">resume()</span></code> command gets sent, we use
 <code class="docutils literal notranslate"><span class="pre">worker.send()</span></code> to send the current value of the <code class="docutils literal notranslate"><span class="pre">line_edit</span></code> widget
-into the thread (<strong>49</strong>) which the thread will multiple by the existing
-total (<strong>15</strong>).</p></li>
+into the thread which the thread will multiple by the existing
+total.</p></li>
 <li><p>Lastly, if the thread total ever goes to “0”, we stop the thread by
-returning the string <code class="docutils literal notranslate"><span class="pre">"Game</span> <span class="pre">Over"</span></code> (<strong>16</strong>).  In the main thread, the
+returning the string <code class="docutils literal notranslate"><span class="pre">"Game</span> <span class="pre">Over"</span></code>.  In the main thread, the
 <code class="docutils literal notranslate"><span class="pre">worker.returned</span></code> event is connected to a callback that disables the
-<code class="docutils literal notranslate"><span class="pre">line_edit</span></code> widget and shows the string returned from the thread (<strong>53</strong>).</p></li>
+<code class="docutils literal notranslate"><span class="pre">line_edit</span></code> widget and shows the string returned from the thread.</p></li>
 </ol>
 <p>This example is a bit contrived, since there’s little need to put such a basic
 computation in another thread.  But it demonstrates some of the power and

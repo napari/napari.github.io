@@ -349,7 +349,7 @@ coins in an image, assigning each one an integer label, and then overlay the
 results on the original image as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 <span class="kn">from</span> <span class="nn">skimage.filters</span> <span class="kn">import</span> <span class="n">threshold_otsu</span>
 <span class="kn">from</span> <span class="nn">skimage.segmentation</span> <span class="kn">import</span> <span class="n">clear_border</span>
@@ -372,22 +372,14 @@ results on the original image as follows:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-runner'
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/labels_4_0.png" src="../../_images/labels_4_0.png"/>
 </div>
 </div>
 </div>
@@ -397,85 +389,7 @@ results on the original image as follows:</p>
 accept the same layer-creation parameters.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_labels</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function view_labels:
-
-view_labels(data, *, num_colors=50, properties=None, color=None, seed=0.5, name=None, metadata=None, scale=None, translate=None, rotate=None, shear=None, affine=None, opacity=0.7, blending='translucent', visible=True, multiscale=None, title='napari', ndisplay=2, order=(), axis_labels=(), show=True)
-    Create a viewer and add a labels layer.
-    
-    Parameters
-    ----------
-    data : array or list of array
-        Labels data as an array or multiscale. Must be integer type or bools
-    num_colors : int
-        Number of unique colors to use in colormap.
-    properties : dict {str: array (N,)}, DataFrame
-        Properties for each label. Each property should be an array of length
-        N, where N is the number of labels, and the first property corresponds
-        to background.
-    color : dict of int to str or array
-        Custom label to color mapping. Values must be valid color names or RGBA
-        arrays.
-    seed : float
-        Seed for colormap random generator.
-    name : str
-        Name of the layer.
-    metadata : dict
-        Layer metadata.
-    scale : tuple of float
-        Scale factors for the layer.
-    translate : tuple of float
-        Translation values for the layer.
-    rotate : float, 3-tuple of float, or n-D array.
-        If a float convert into a 2D rotation matrix using that value as an
-        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
-        pitch, roll convention. Otherwise assume an nD rotation. Angles are
-        assumed to be in degrees. They can be converted from radians with
-        np.degrees if needed.
-    shear : 1-D array or n-D array
-        Either a vector of upper triangular values, or an nD shear matrix with
-        ones along the main diagonal.
-    affine : n-D array or napari.utils.transforms.Affine
-        (N+1, N+1) affine transformation matrix in homogeneous coordinates.
-        The first (N, N) entries correspond to a linear transform and
-        the final column is a lenght N translation vector and a 1 or a napari
-        AffineTransform object. If provided then translate, scale, rotate, and
-        shear values are ignored.
-    opacity : float
-        Opacity of the layer visual, between 0.0 and 1.0.
-    blending : str
-        One of a list of preset blending modes that determines how RGB and
-        alpha values of the layer visual get mixed. Allowed values are
-        {'opaque', 'translucent', and 'additive'}.
-    visible : bool
-        Whether the layer visual is currently being displayed.
-    multiscale : bool
-        Whether the data is a multiscale image or not. Multiscale data is
-        represented by a list of array like image data. If not specified by
-        the user and if the data is a list of arrays that decrease in shape
-        then it will be taken to be multiscale. The first image in the list
-        should be the largest.
-        title : string, optional
-            The title of the viewer window. by default 'napari'.
-        ndisplay : {2, 3}, optional
-            Number of displayed dimensions. by default 2.
-        order : tuple of int, optional
-            Order in which dimensions are displayed where the last two or last
-            three dimensions correspond to row x column or plane x row x column if
-            ndisplay is 2 or 3. by default None
-        axis_labels : list of str, optional
-            Dimension names. by default they are labeled with sequential numbers
-        show : bool, optional
-            Whether to show the viewer after instantiation. by default True.
-    
-    Returns
-    -------
-    viewer : :class:`napari.Viewer`
-        The newly-created viewer.
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_labels</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -519,7 +433,7 @@ or 3 less than the total number of dimensions of the layer, allowing you to
 browse volumetric timeseries data and other high dimensional data.</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 
 <span class="n">blobs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">binary_blobs</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">volume_fraction</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">blobs</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'blobs'</span><span class="p">)</span>
@@ -532,15 +446,12 @@ browse volumetric timeseries data and other high dimensional data.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># programmatically adjust the camera angle</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># programmatically adjust the camera angle</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">53</span><span class="p">)</span>
 <span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/labels_13_0.png" src="../../_images/labels_13_0.png"/>
 </div>
 </div>
 <p>Note though that when entering 3D rendering mode the colorpicker, paintbrush,

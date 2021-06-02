@@ -2,10 +2,10 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="napari 0.3.3" href="release_0_3_3.html" /><link rel="prev" title="napari 0.3.5" href="release_0_3_5.html" />
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="napari 0.4.8" href="release_0_4_8.html" /><link rel="prev" title="Release Notes" href="index.html" />
 
     <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
-        <title>napari 0.3.4 - napari</title>
+        <title>napari 0.4.9 - napari</title>
       <link rel="stylesheet" href="../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
     <link rel="stylesheet" href="../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
@@ -168,7 +168,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Release notes</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="release_0_4_9.html">napari 0.4.9</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">napari 0.4.9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_4_8.html">napari 0.4.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_4_7.html">napari 0.4.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_4_6.html">napari 0.4.6</a></li>
@@ -182,7 +182,7 @@
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_7.html">napari 0.3.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_6.html">napari 0.3.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_5.html">napari 0.3.5</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">napari 0.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_0_3_4.html">napari 0.3.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_3.html">napari 0.3.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_2.html">napari 0.3.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_0_3_1.html">napari 0.3.1</a></li>
@@ -312,43 +312,111 @@
 
 
 
-<div class="section" id="napari-0-3-4">
-<h1>napari 0.3.4<a class="headerlink" href="#napari-0-3-4" title="Permalink to this headline">¶</a></h1>
-<p>We’re happy to announce the release of napari 0.3.4!
+<div class="section" id="napari-0-4-9">
+<h1>napari 0.4.9<a class="headerlink" href="#napari-0-4-9" title="Permalink to this headline">¶</a></h1>
+<p>We’re happy to announce the release of napari 0.4.9!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
 It’s designed for browsing, annotating, and analyzing large multi-dimensional
 images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).</p>
-<p>This is a short release that refactors our installation process to allow more
-flexibility around which Qt python bindings users install (PySide2, PyQt5).
-Starting with this release, running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari</span></code> will <em>no longer</em>
-install a GUI backend by default. For a complete installation with a GUI
-backend, users are now encouraged to use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span></code>, which
-will install the default backend (currently PyQt5).  To explicitly select
-a backend, users may run either <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[pyqt5]</span></code> or
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[pyside2]</span></code>.</p>
 <p>For more information, examples, and documentation, please visit our website:
 <a class="reference external" href="https://github.com/napari/napari">https://github.com/napari/napari</a></p>
-<div class="section" id="build-tools">
-<h2>Build Tools<a class="headerlink" href="#build-tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="highlights">
+<h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
+<p>This release adds a couple nice new features like additional shading modes for our
+surface layer (#2972) and the ability to copy a screenshot directly to the clipboard (#2721).
+It also contains a variety of bug fixes and improvements.</p>
+</div>
+<div class="section" id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Add check-manifest to CI and release workflow (#1318)</p></li>
-<li><p>Packaging and <a class="reference external" href="http://setup.py">setup.py</a> refactor (#1324)</p></li>
+<li><p>Added copy-to-clipboard functionality (#2721)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">watch</span></code> command for hot reload (#2763)</p></li>
+<li><p>Expose alternative shading modes for surfaces (#2792)</p></li>
 </ul>
 </div>
-<div class="section" id="author-added-to-this-release-alphabetical">
-<h2>1 author added to this release (alphabetical)<a class="headerlink" href="#author-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="improvements">
+<h2>Improvements<a class="headerlink" href="#improvements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p>Global plugin setting (#2565)</p></li>
+<li><p>Delay all imports in <code class="docutils literal notranslate"><span class="pre">napari.__init__</span></code> behind module level <code class="docutils literal notranslate"><span class="pre">napari.__getattr__</span></code> (#2662)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">block</span></code> to viewer.show (#2669)</p></li>
+<li><p>New type stubs PR, and simpler <code class="docutils literal notranslate"><span class="pre">napari.view_layers</span></code> module (#2675)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">MultiScaleData</span></code> wrapper to give multiscale data a consistent API (#2683)</p></li>
+<li><p>Revert “add <code class="docutils literal notranslate"><span class="pre">MultiScaleData</span></code> wrapper to give multiscale data a consistent API (#2683)” (#2807)</p></li>
+<li><p>Add repr-html to nbscreenshot (#2740)</p></li>
+<li><p>Set default highlight thickness to 2 (#2746)</p></li>
+<li><p>Save shortcuts in settings (#2754)</p></li>
+<li><p>Enable correct loading of settings from environment variables (#2759)</p></li>
+<li><p>Add tooltips to widgets in preferences (#2762)</p></li>
+<li><p>Improve colormap error message, when using display names or wrong colormap names (#2769)</p></li>
+<li><p>Add parent to console and dockwidgets in a separate private attribute. (#2773)</p></li>
+<li><p>Improve error message when legacy Qt installed from conda over pip (#2776)</p></li>
+<li><p>Change remove to uninstall in plugin dialog (#2787)</p></li>
+<li><p>Do not write settings loaded from environment values (#2797)</p></li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Fixing <code class="docutils literal notranslate"><span class="pre">add_dock_widget</span></code> compatibility with <code class="docutils literal notranslate"><span class="pre">magicgui</span> <span class="pre">v0.2</span></code> (#2734)</p></li>
+<li><p>Shortcuts: Render properly shortcuts with minus and space. (#2735)</p></li>
+<li><p>Fix runtime error when running doc tests on napari site (#2738)</p></li>
+<li><p>Fix play button with dask/zarr (#2741)</p></li>
+<li><p>Ignore opening 1D image layers in the viewer model. (#2743)</p></li>
+<li><p>Fix custom layer subclasses (don’t require layer icon) (#2758)</p></li>
+<li><p>Add temporal fix for handling enums in qt_json_form (#2761)</p></li>
+<li><p>Use slicing rather than np.take in add_image (#2780)</p></li>
+<li><p>Fix paint cursor size for layer with negative scale (#2788)</p></li>
+<li><p>track_id dtype change. from uint16 to uint32 (#2789)</p></li>
+<li><p>Ensure aborted workers don’t emit returned signal (#2796)</p></li>
+<li><p>Connect axes visual to dims range change (#2802)</p></li>
+<li><p>Add fix for large labels in new slices (#2804)</p></li>
+<li><p>Fix zoom for non square image (#2805)</p></li>
+<li><p>Implement lazy module importing for all public submodules (#2816)</p></li>
+</ul>
+</div>
+<div class="section" id="tasks">
+<h2>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add imports linting (#2659)</p></li>
+<li><p>Pre-commit update (#2728)</p></li>
+<li><p>Remove linenos option from code-blocks and line references (#2739)</p></li>
+<li><p>Remove qt from _qt import linter rule (#2774)</p></li>
+<li><p>Add PR labeler and update templates (#2775)</p></li>
+<li><p>Add pytest-order and move threading tests to the top of the suite (#2779)</p></li>
+<li><p>Auto assign PR to author (#2794)</p></li>
+</ul>
+</div>
+<div class="section" id="authors-added-to-this-release-alphabetical">
+<h2>12 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AhmetCanSolak">Ahmet Can Solak</a> - @AhmetCanSolak</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">Alister Burt</a> - @alisterburt</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">Andy Sweet</a> - @andy-sweet</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> - @DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - @goanpeca</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - @Czaki</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=JoOkuma">Jordão Bragantini</a> - @JoOkuma</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - @jni</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lukasz-migas">Lukasz Migas</a> - @lukasz-migas</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Carreau">Matthias Bussonnier</a> - @Carreau</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">Pam</a> - @ppwadhwa</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - @tlambert03</p></li>
 </ul>
 </div>
 <div class="section" id="reviewers-added-to-this-release-alphabetical">
-<h2>5 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+<h2>10 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">Andy Sweet</a> - @andy-sweet</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> - @DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - @goanpeca</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=JoOkuma">Jordão Bragantini</a> - @JoOkuma</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - @jni</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kevinyamauchi">Kevin Yamauchi</a> - @kevinyamauchi</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - @kne42</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lukasz-migas">Lukasz Migas</a> - @lukasz-migas</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Carreau">Matthias Bussonnier</a> - @Carreau</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=sofroniewn">Nicholas Sofroniew</a> - @sofroniewn</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">Pam</a> - @ppwadhwa</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - @tlambert03</p></li>
 </ul>
 </div>
@@ -378,23 +446,23 @@ a backend, users may run either <code class="docutils literal notranslate"><span
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="release_0_3_3.html">
+          <a class="next-page" href="release_0_4_8.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">napari 0.3.3</div>
+                <div class="title">napari 0.4.8</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="release_0_3_5.html">
+          <a class="prev-page" href="index.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">napari 0.3.5</div>
+                <div class="title">Release Notes</div>
                 
               </div>
             </a>
@@ -408,7 +476,7 @@ a backend, users may run either <code class="docutils literal notranslate"><span
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
             |
-            <a class="muted-link" href="../_sources/release/release_0_3_4.md"
+            <a class="muted-link" href="../_sources/release/release_0_4_9.md"
                rel="nofollow">
               Show Source
             </a>
@@ -428,10 +496,14 @@ a backend, users may run either <code class="docutils literal notranslate"><span
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">napari 0.3.4</a><ul>
-<li><a class="reference internal" href="#build-tools">Build Tools</a></li>
-<li><a class="reference internal" href="#author-added-to-this-release-alphabetical">1 author added to this release (alphabetical)</a></li>
-<li><a class="reference internal" href="#reviewers-added-to-this-release-alphabetical">5 reviewers added to this release (alphabetical)</a></li>
+<li><a class="reference internal" href="#">napari 0.4.9</a><ul>
+<li><a class="reference internal" href="#highlights">Highlights</a></li>
+<li><a class="reference internal" href="#new-features">New Features</a></li>
+<li><a class="reference internal" href="#improvements">Improvements</a></li>
+<li><a class="reference internal" href="#bug-fixes">Bug Fixes</a></li>
+<li><a class="reference internal" href="#tasks">Tasks</a></li>
+<li><a class="reference internal" href="#authors-added-to-this-release-alphabetical">12 authors added to this release (alphabetical)</a></li>
+<li><a class="reference internal" href="#reviewers-added-to-this-release-alphabetical">10 reviewers added to this release (alphabetical)</a></li>
 </ul>
 </li>
 </ul>

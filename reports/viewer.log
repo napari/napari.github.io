@@ -32,8 +32,10 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-from napari.utils import nbscreenshot
+viewer = napari.Viewer()
+viewer.add_image(data.astronaut(), name='astronaut')
 
-nbscreenshot(viewer)
+# change the viewer theme
+viewer.theme = 'light'
 -------------------
 

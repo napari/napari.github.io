@@ -87,6 +87,7 @@ napari.layers.Surface
       ~Surface.rotate
       ~Surface.scale
       ~Surface.selected
+      ~Surface.shading
       ~Surface.shear
       ~Surface.source
       ~Surface.thumbnail

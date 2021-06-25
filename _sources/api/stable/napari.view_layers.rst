@@ -15,7 +15,6 @@
       :nosignatures:
       :toctree:
    
-      NumpyDocString
       Viewer
    
    
@@ -25,7 +24,6 @@
    .. rubric:: Functions
 
    
-   .. autofunction:: merge_docs
    .. autofunction:: view_image
    .. autofunction:: view_labels
    .. autofunction:: view_path

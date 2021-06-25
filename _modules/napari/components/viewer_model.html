@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.components.viewer_model - napari</title>
-      <link rel="stylesheet" href="../../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -341,7 +342,6 @@
 <span class="kn">from</span> <span class="nn">..layers._source</span> <span class="kn">import</span> <span class="n">layer_source</span>
 <span class="kn">from</span> <span class="nn">..layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
 <span class="kn">from</span> <span class="nn">..layers.utils.stack_utils</span> <span class="kn">import</span> <span class="n">split_channels</span>
-<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">PathOrPaths</span>
 <span class="kn">from</span> <span class="nn">..utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
 <span class="kn">from</span> <span class="nn">..utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
 <span class="kn">from</span> <span class="nn">..utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">,</span> <span class="n">disconnect_events</span>
@@ -349,6 +349,7 @@
 <span class="kn">from</span> <span class="nn">..utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
 <span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">is_sequence</span>
 <span class="kn">from</span> <span class="nn">..utils.mouse_bindings</span> <span class="kn">import</span> <span class="n">MousemapProvider</span>
+<span class="kn">from</span> <span class="nn">..utils.settings</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
 <span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">available_themes</span>
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
@@ -360,6 +361,7 @@
 <span class="kn">from</span> <span class="nn">.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
 <span class="kn">from</span> <span class="nn">.scale_bar</span> <span class="kn">import</span> <span class="n">ScaleBar</span>
 <span class="kn">from</span> <span class="nn">.text_overlay</span> <span class="kn">import</span> <span class="n">TextOverlay</span>
+<span class="kn">from</span> <span class="nn">.tooltip</span> <span class="kn">import</span> <span class="n">Tooltip</span>
 
 <span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">'dark'</span>
 <span class="n">EXCLUDE_DICT</span> <span class="o">=</span> <span class="p">{</span>
@@ -374,7 +376,10 @@
 <span class="n">EXCLUDE_JSON</span> <span class="o">=</span> <span class="n">EXCLUDE_DICT</span><span class="o">.</span><span class="n">union</span><span class="p">({</span><span class="s1">'layers'</span><span class="p">,</span> <span class="s1">'active_layer'</span><span class="p">})</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">FullLayerData</span><span class="p">,</span> <span class="n">LayerData</span>
+    <span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">FullLayerData</span><span class="p">,</span> <span class="n">LayerData</span><span class="p">,</span> <span class="n">PathOrPaths</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'ViewerModel'</span><span class="p">,</span> <span class="s1">'valid_add_kwargs'</span><span class="p">]</span>
 
 
 <span class="c1"># KeymapProvider &amp; MousemapProvider should eventually be moved off the ViewerModel</span>
@@ -422,6 +427,7 @@
 
     <span class="n">help</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span>
     <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'Ready'</span>
+    <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Tooltip</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_THEME</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'napari'</span>
 
@@ -440,6 +446,10 @@
             <span class="p">},</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">ignore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">layer_tooltip_visibility</span>
+        <span class="n">SETTINGS</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">layer_tooltip_visibility</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tooltip_visible_update</span>
+        <span class="p">)</span>
 
         <span class="c1"># Add extra events - ideally these will be removed too!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers_change</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span> <span class="n">reset_view</span><span class="o">=</span><span class="n">Event</span><span class="p">)</span>
@@ -472,6 +482,9 @@
                 <span class="nb">type</span><span class="o">=</span><span class="s1">'active_layer'</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_tooltip_visible_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
 
     <span class="nd">@validator</span><span class="p">(</span><span class="s1">'theme'</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_valid_theme</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
@@ -554,8 +567,8 @@
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mf">0.95</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="mf">0.95</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mf">0.95</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_size</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 
@@ -680,6 +693,10 @@
         <span class="k">if</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">_get_tooltip_text</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_grid_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">"""Arrange the current layers is a 2D grid."""</span>
@@ -822,10 +839,12 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        data : array or list of array</span>
-<span class="sd">            Image data. Can be N dimensional. If the last dimension has length</span>
+<span class="sd">            Image data. Can be N &gt;= 2 dimensional. If the last dimension has length</span>
 <span class="sd">            3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a</span>
 <span class="sd">            list and arrays are decreasing in shape then the data is treated as</span>
-<span class="sd">            a multiscale image.</span>
+<span class="sd">            a multiscale image. Please note multiscale rendering is only</span>
+<span class="sd">            supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">            displayed.</span>
 <span class="sd">        channel_axis : int, optional</span>
 <span class="sd">            Axis to expand image along.  If provided, each channel in the data</span>
 <span class="sd">            will be added as an individual image layer.  In channel_axis mode,</span>
@@ -920,7 +939,9 @@
 <span class="sd">            represented by a list of array like image data. If not specified by</span>
 <span class="sd">            the user and if the data is a list of arrays that decrease in shape</span>
 <span class="sd">            then it will be taken to be multiscale. The first image in the list</span>
-<span class="sd">            should be the largest.</span>
+<span class="sd">            should be the largest. Please note multiscale rendering is only</span>
+<span class="sd">            supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">            displayed.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1225,7 +1246,10 @@
         <span class="k">return</span> <span class="n">added</span>
 
     <span class="k">def</span> <span class="nf">_add_layer_from_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
         <span class="sd">"""Add arbitrary layer data to the viewer.</span>
 
@@ -1308,7 +1332,7 @@
         <span class="k">return</span> <span class="n">layer</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">layer</span><span class="p">]</span></div>
 
 
-<span class="k">def</span> <span class="nf">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="s1">'LayerData'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'FullLayerData'</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">LayerData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FullLayerData</span><span class="p">:</span>
     <span class="sd">"""Accepts any layerdata tuple, and returns a fully qualified tuple.</span>
 
 <span class="sd">    Parameters</span>
@@ -1361,11 +1385,11 @@
 
 
 <span class="k">def</span> <span class="nf">_unify_data_and_user_kwargs</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">:</span> <span class="s1">'LayerData'</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">LayerData</span><span class="p">,</span>
     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fallback_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'FullLayerData'</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FullLayerData</span><span class="p">:</span>
     <span class="sd">"""Merge data returned from plugins with options specified by user.</span>
 
 <span class="sd">    If ``data == (_data, _meta, _type)``.  Then:</span>

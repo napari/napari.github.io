@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="napari.qt.threading" href="napari.qt.threading.html" /><link rel="prev" title="napari.components.LayerList" href="napari.components.LayerList.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.components.ViewerModel - napari</title>
-      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -371,10 +372,12 @@ ndisplay is 2 or 3.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>array</em><em> or </em><em>list of array</em>) – Image data. Can be N dimensional. If the last dimension has length
+<li><p><strong>data</strong> (<em>array</em><em> or </em><em>list of array</em>) – Image data. Can be N &gt;= 2 dimensional. If the last dimension has length
 3 or 4 can be interpreted as RGB or RGBA if rgb is <cite>True</cite>. If a
 list and arrays are decreasing in shape then the data is treated as
-a multiscale image.</p></li>
+a multiscale image. Please note multiscale rendering is only
+supported in 2D. In 3D, only the lowest resolution scale is
+displayed.</p></li>
 <li><p><strong>channel_axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>optional</em>) – Axis to expand image along.  If provided, each channel in the data
 will be added as an individual image layer.  In channel_axis mode,
 all other parameters MAY be provided as lists, and the Nth value
@@ -449,7 +452,9 @@ being expanded as channels.</p></li>
 represented by a list of array like image data. If not specified by
 the user and if the data is a list of arrays that decrease in shape
 then it will be taken to be multiscale. The first image in the list
-should be the largest.</p></li>
+should be the largest. Please note multiscale rendering is only
+supported in 2D. In 3D, only the lowest resolution scale is
+displayed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -467,9 +472,11 @@ should be the largest.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>array</em><em> or </em><em>list of array</em>) – Labels data as an array or multiscale. Must be integer type or bools</p></li>
+<li><p><strong>data</strong> (<em>array</em><em> or </em><em>list of array</em>) – Labels data as an array or multiscale. Must be integer type or bools.
+Please note multiscale rendering is only supported in 2D. In 3D, only
+the lowest resolution scale is displayed.</p></li>
 <li><p><strong>num_colors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of unique colors to use in colormap.</p></li>
-<li><p><strong>properties</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em><em>, </em><em>DataFrame</em>) – Properties for each label. Each property should be an array of length
+<li><p><strong>properties</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em><em> or </em><em>DataFrame</em>) – Properties for each label. Each property should be an array of length
 N, where N is the number of labels, and the first property corresponds
 to background.</p></li>
 <li><p><strong>color</strong> (<em>dict of int to str</em><em> or </em><em>array</em>) – Custom label to color mapping. Values must be valid color names or RGBA
@@ -500,19 +507,23 @@ alpha values of the layer visual get mixed. Allowed values are
 represented by a list of array like image data. If not specified by
 the user and if the data is a list of arrays that decrease in shape
 then it will be taken to be multiscale. The first image in the list
-should be the largest.</p></li>
+should be the largest. Please note multiscale rendering is only
+supported in 2D. In 3D, only the lowest resolution scale is
+displayed.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt id="napari.components.ViewerModel.data">
 <code class="sig-name descname"><span class="pre">data</span></code><a class="headerlink" href="#napari.components.ViewerModel.data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integer label data. Can be N dimensional. Every pixel contains
-an integer ID corresponding to the region it belongs to. The label 0 is
-rendered as transparent.</p>
+<dd><p>Integer label data as an array or multiscale. Can be N dimensional.
+Every pixel contains an integer ID corresponding to the region it
+belongs to. The label 0 is rendered as transparent. Please note
+multiscale rendering is only supported in 2D. In 3D, only
+the lowest resolution scale is displayed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>array</p>
+<dd class="field-odd"><p>array or list of array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -521,7 +532,9 @@ rendered as transparent.</p>
 <code class="sig-name descname"><span class="pre">multiscale</span></code><a class="headerlink" href="#napari.components.ViewerModel.multiscale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether the data is a multiscale image or not. Multiscale data is
 represented by a list of array like image data. The first image in the
-list should be the largest.</p>
+list should be the largest. Please note multiscale rendering is only
+supported in 2D. In 3D, only the lowest resolution scale is
+displayed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
@@ -704,7 +717,7 @@ background label <cite>0</cite> is selected.</p>
 </dd></dl>
 <dl class="py method">
 <dt id="napari.components.ViewerModel.add_points">
-<code class="sig-name descname"><span class="pre">add_points</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_color_cycle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_color_cycle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_dimensional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.add_points" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_points</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'o'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_color_cycle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_color_cycle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_dimensional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">property_choices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.add_points" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a Points layer to the layer list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -727,7 +740,7 @@ square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</p></li>
 the same size. If given as an array, size must be the same
 broadcastable to the same shape as the data.</p></li>
 <li><p><strong>edge_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Width of the symbol edge in pixels.</p></li>
-<li><p><strong>edge_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>array-like</em>) – Color of the point marker border. Numeric color values should be RGB(A).</p></li>
+<li><p><strong>edge_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Color of the point marker border. Numeric color values should be RGB(A).</p></li>
 <li><p><strong>edge_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
 categorical attribute is used color the vectors.</p></li>
 <li><p><strong>edge_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set edge_color if a continuous attribute is used to set face_color.</p></li>
@@ -735,7 +748,7 @@ categorical attribute is used color the vectors.</p></li>
 of the specified property that are mapped to 0 and 1, respectively.
 The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p></li>
-<li><p><strong>face_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>array-like</em>) – Color of the point marker body. Numeric color values should be RGB(A).</p></li>
+<li><p><strong>face_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Color of the point marker body. Numeric color values should be RGB(A).</p></li>
 <li><p><strong>face_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
 categorical attribute is used color the vectors.</p></li>
 <li><p><strong>face_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set face_color if a continuous attribute is used to set face_color.</p></li>
@@ -766,6 +779,7 @@ shear values are ignored.</p></li>
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
 <li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
+<li><p><strong>property_choices</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em>) – possible values for each property.</p></li>
 </ul>
 </dd>
 </dl>
@@ -786,7 +800,7 @@ alpha values of the layer visual get mixed. Allowed values are
 where N is the number of points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dict {str: array (N,)}</p>
+<dd class="field-odd"><p>dict {str: array (N,)} or DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1372,7 +1386,7 @@ won’t update during interactive events</p>
 </dd></dl>
 <dl class="py method">
 <dt id="napari.components.ViewerModel.add_surface">
-<code class="sig-name descname"><span class="pre">add_surface</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gray'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.add_surface" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_surface</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gray'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'flat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.add_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a Surface layer to the layer list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1413,6 +1427,28 @@ shear values are ignored.</p></li>
 <li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
+<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Shading</em>) – <p>One of a list of preset shading modes that determine the lighting model
+using when rendering the surface in 3D.</p>
+<blockquote>
+<div><ul>
+<li><dl class="simple">
+<dt>Shading.NONE</dt><dd><p>Corresponds to shading=’none’.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Shading.FLAT</dt><dd><p>Corresponds to shading=’flat’.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Shading.SMOOTH</dt><dd><p>Corresponds to shading=’smooth’.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</p></li>
 <li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
 </ul>
 </dd>
@@ -1485,6 +1521,24 @@ the image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a> (2,)</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt id="napari.components.ViewerModel.shading">
+<code class="sig-name descname"><span class="pre">shading</span></code><a class="headerlink" href="#napari.components.ViewerModel.shading" title="Permalink to this definition">¶</a></dt>
+<dd><p>One of a list of preset shading modes that determine the lighting model
+using when rendering the surface.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘none’</p></li>
+<li><p>‘flat’</p></li>
+<li><p>‘smooth’</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>

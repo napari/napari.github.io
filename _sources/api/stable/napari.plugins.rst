@@ -26,6 +26,11 @@
 
    
    
+   .. rubric:: Functions
+
+   
+   .. autofunction:: get_settings
+   
    
 
    

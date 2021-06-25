@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="napari.qt.threading.FunctionWorker" href="napari.qt.threading.FunctionWorker.html" /><link rel="prev" title="napari.components.ViewerModel" href="napari.components.ViewerModel.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.qt.threading - napari</title>
-      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -351,7 +352,7 @@
 </dd></dl>
 <dl class="py function">
 <dt id="napari.qt.threading.create_worker">
-<code class="sig-prename descclassname"><span class="pre">napari.qt.threading.</span></code><code class="sig-name descname"><span class="pre">create_worker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_start_thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_connect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_worker_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_ignore_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/_qt/qthreading.html#create_worker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.create_worker" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">napari.qt.threading.</span></code><code class="sig-name descname"><span class="pre">create_worker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_start_thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_connect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_worker_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_ignore_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/_qt/qthreading.html#create_worker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.create_worker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience function to start a function in another thread.</p>
 <p>By default, uses <code class="xref py py-class docutils literal notranslate"><span class="pre">Worker</span></code>, but a custom <code class="docutils literal notranslate"><span class="pre">WorkerBase</span></code> subclass may
 be provided.  If so, it must be a subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">Worker</span></code>, which
@@ -366,6 +367,13 @@ must be manually started with <code class="docutils literal notranslate"><span c
 <li><p><strong>_connect</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>Callable</em><em>, </em><em>Sequence</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A mapping of <code class="docutils literal notranslate"><span class="pre">"signal_name"</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">callable</span></code> or list of <code class="docutils literal notranslate"><span class="pre">callable</span></code>:
 callback functions to connect to the various signals offered by the
 worker class. by default None</p></li>
+<li><p><strong>_progress</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Can be True, to provide indeterminate progress bar, or dictionary.
+If dict, requires mapping of ‘total’ to number of expected yields.
+If total is not provided, progress bar will be indeterminate. Will connect
+progress bar update to yields and display this progress in the viewer.
+Can also take a mapping of ‘desc’ to the progress bar description.
+Progress bar will become indeterminate when number of yields exceeds ‘total’.
+By default None.</p></li>
 <li><p><strong>_worker_class</strong> (<em>Type</em><em>[</em><a class="reference internal" href="napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase" title="napari.qt.threading.WorkerBase"><em>WorkerBase</em></a><em>]</em><em>, </em><em>optional</em>) – The :class`WorkerBase` to instantiate, by default
 <a class="reference internal" href="napari.qt.threading.FunctionWorker.html#napari.qt.threading.FunctionWorker" title="napari.qt.threading.FunctionWorker"><code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionWorker</span></code></a> will be used if <code class="docutils literal notranslate"><span class="pre">func</span></code> is a regular function,
 and <a class="reference internal" href="napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker" title="napari.qt.threading.GeneratorWorker"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratorWorker</span></code></a> will be used if it is a generator.</p></li>
@@ -386,6 +394,7 @@ will have a <cite>.start()</cite> method that can be used to start the thread.</
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.9)"><strong>TypeError</strong></a> – If a worker_class is provided that is not a subclass of WorkerBase.</p></li>
 <li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.9)"><strong>TypeError</strong></a> – If _connect is provided and is not a dict of <code class="docutils literal notranslate"><span class="pre">{str:</span> <span class="pre">callable}</span></code></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.9)"><strong>TypeError</strong></a> – If _progress is provided and function is not a generator</p></li>
 </ul>
 </dd>
 </dl>

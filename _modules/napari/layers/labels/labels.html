@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.layers.labels.labels - napari</title>
-      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -315,7 +316,7 @@
 <h1>Source code for napari.layers.labels.labels</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
@@ -348,10 +349,12 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : array or list of array</span>
-<span class="sd">        Labels data as an array or multiscale. Must be integer type or bools</span>
+<span class="sd">        Labels data as an array or multiscale. Must be integer type or bools.</span>
+<span class="sd">        Please note multiscale rendering is only supported in 2D. In 3D, only</span>
+<span class="sd">        the lowest resolution scale is displayed.</span>
 <span class="sd">    num_colors : int</span>
 <span class="sd">        Number of unique colors to use in colormap.</span>
-<span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
+<span class="sd">    properties : dict {str: array (N,)} or DataFrame</span>
 <span class="sd">        Properties for each label. Each property should be an array of length</span>
 <span class="sd">        N, where N is the number of labels, and the first property corresponds</span>
 <span class="sd">        to background.</span>
@@ -396,18 +399,24 @@
 <span class="sd">        represented by a list of array like image data. If not specified by</span>
 <span class="sd">        the user and if the data is a list of arrays that decrease in shape</span>
 <span class="sd">        then it will be taken to be multiscale. The first image in the list</span>
-<span class="sd">        should be the largest.</span>
+<span class="sd">        should be the largest. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    data : array</span>
-<span class="sd">        Integer label data. Can be N dimensional. Every pixel contains</span>
-<span class="sd">        an integer ID corresponding to the region it belongs to. The label 0 is</span>
-<span class="sd">        rendered as transparent.</span>
+<span class="sd">    data : array or list of array</span>
+<span class="sd">        Integer label data as an array or multiscale. Can be N dimensional.</span>
+<span class="sd">        Every pixel contains an integer ID corresponding to the region it</span>
+<span class="sd">        belongs to. The label 0 is rendered as transparent. Please note</span>
+<span class="sd">        multiscale rendering is only supported in 2D. In 3D, only</span>
+<span class="sd">        the lowest resolution scale is displayed.</span>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
 <span class="sd">        represented by a list of array like image data. The first image in the</span>
-<span class="sd">        list should be the largest.</span>
+<span class="sd">        list should be the largest. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
 <span class="sd">    metadata : dict</span>
 <span class="sd">        Labels metadata.</span>
 <span class="sd">    num_colors : int</span>
@@ -506,20 +515,9 @@
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_int_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="n">properties</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="n">label_index</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">,</span> <span class="n">label_index</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">label_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">props</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">props</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_index</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="n">label_index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_properties</span><span class="p">(</span>
+            <span class="n">properties</span>
+        <span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
@@ -649,13 +647,15 @@
     <span class="nd">@brush_size</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">brush_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">brush_size</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_brush_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">brush_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_cursor_size</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">brush_size</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_cursor_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Convert from brush size in data coordinates to</span>
         <span class="c1"># cursor size in world coordinates</span>
-        <span class="n">data2world_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">*</span> <span class="n">data2world_scale</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">brush_size</span><span class="p">()</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">scale</span>
+        <span class="n">average_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">scale</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">*</span> <span class="n">average_scale</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -705,13 +705,46 @@
 
     <span class="nd">@properties</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">properties</span><span class="p">,</span> <span class="n">label_index</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">label_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">label_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_index</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="n">label_index</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_properties</span><span class="p">(</span>
+            <span class="n">properties</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_prepare_properties</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">"""Convert an input properties value to a standard dict-of-columns format.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        properties : dict or DataFrame</span>
+<span class="sd">            properties to be transformed</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        properties : dict</span>
+<span class="sd">            properties dictionary</span>
+<span class="sd">        index: dict</span>
+<span class="sd">            index mapping dictionary</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">properties</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="c1"># None or empty dict properties</span>
+            <span class="k">return</span> <span class="p">{},</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+            <span class="n">label_index</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"index"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">label_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># got array of indexes</span>
+                <span class="n">label_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">label_index</span><span class="p">)}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># assume that properties is a DataFrame.</span>
+            <span class="n">properties</span><span class="p">,</span> <span class="n">label_index</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">label_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label_index</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_map_index</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">properties</span><span class="p">,</span> <span class="n">label_index</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -766,8 +799,9 @@
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">data</span>
 
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_validate_properties</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+        <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">"""Validate the type and size of properties."""</span>
         <span class="n">lens</span> <span class="o">=</span> <span class="p">[]</span>
@@ -776,7 +810,7 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
                 <span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">v</span> <span class="o">==</span> <span class="n">lens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">lens</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="o">!=</span> <span class="n">lens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">lens</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">"the number of items must be equal for all properties"</span><span class="p">,</span>
@@ -785,11 +819,13 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">properties</span>
 
-    <span class="k">def</span> <span class="nf">_map_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_map_index</span><span class="p">(</span><span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="sd">"""Map rows in given properties to label indices"""</span>
-        <span class="n">arbitrary_key</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">label_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">properties</span><span class="p">[</span><span class="n">arbitrary_key</span><span class="p">]))}</span>
-        <span class="k">return</span> <span class="n">label_index</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">properties</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_len</span><span class="p">)}</span>
 
     <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""Get dictionary of layer state.</span>
@@ -967,12 +1003,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pick</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_brush_shape</span><span class="p">)</span>
-            <span class="c1"># Convert from brush size in data coordinates to</span>
-            <span class="c1"># cursor size in world coordinates</span>
-            <span class="n">data2world_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
-                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">*</span> <span class="n">data2world_scale</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_cursor_size</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                 <span class="s1">'hold &lt;space&gt; to pan/zoom, hold &lt;shift&gt; to toggle preserve_labels, hold &lt;control&gt; to fill, hold &lt;alt&gt; to erase, drag to paint a label'</span>
@@ -987,12 +1018,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">draw</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_brush_shape</span><span class="p">)</span>
-            <span class="c1"># Convert from brush size in data coordinates to</span>
-            <span class="c1"># cursor size in world coordinates</span>
-            <span class="n">data2world_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
-                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">*</span> <span class="n">data2world_scale</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_cursor_size</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                 <span class="s1">'hold &lt;space&gt; to pan/zoom, drag to erase a label'</span>
@@ -1066,34 +1092,36 @@
 <span class="sd">            Value of selected label to color, by default None</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="n">selected_label</span><span class="p">:</span>
-            <span class="n">selected_color</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span><span class="n">selected_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">selected_label</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">selected_label</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_color_lookup_func</span><span class="p">(</span>
+                    <span class="n">im</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">im</span><span class="p">),</span> <span class="n">selected_label</span><span class="p">)</span>
                 <span class="p">)</span>
-            <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">))</span>
-            <span class="n">colors</span><span class="p">[</span><span class="n">selected_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_color</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span>
+                <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_low_discrepancy_image</span>
+            <span class="p">):</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">selected_label</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">)</span>
+                <span class="n">colors</span><span class="p">[</span><span class="n">selected_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
+                    <span class="n">selected_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
+                <span class="p">)</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
             <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_color_lookup_func</span><span class="p">(</span>
-                    <span class="n">im</span><span class="p">,</span> <span class="n">max_val</span>
+                    <span class="n">im</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
                 <span class="p">)</span>
                 <span class="k">if</span> <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span>
-                    <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_low_discrepancy_image</span>
+                    <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_low_discrepancy_image</span>
                 <span class="p">):</span>
                     <span class="c1"># revert to "classic" mode converting all pixels since we</span>
                     <span class="c1"># encountered a large value in the raw labels image</span>
                     <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">selected_label</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">max_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
-                    <span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">image</span>
 
@@ -1127,6 +1155,11 @@
         <span class="k">if</span> <span class="n">max_label_val</span> <span class="o">*</span> <span class="n">nbytes_low_discrepancy</span> <span class="o">&gt;</span> <span class="n">max_nbytes</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_low_discrepancy_image</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">max_label_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">max_label_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_index</span>
 
     <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">):</span>
@@ -1330,7 +1363,7 @@
             <span class="k">return</span>
 
         <span class="c1"># If requested new label doesn't change old label then return</span>
-        <span class="n">old_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">int_coord</span><span class="p">]</span>
+        <span class="n">old_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">int_coord</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">old_label</span> <span class="o">==</span> <span class="n">new_label</span> <span class="ow">or</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">preserve_labels</span> <span class="ow">and</span> <span class="n">old_label</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
         <span class="p">):</span>
@@ -1341,7 +1374,7 @@
         <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">dims_to_fill</span><span class="p">:</span>
             <span class="n">data_slice_list</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">data_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">data_slice_list</span><span class="p">)</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">data_slice</span><span class="p">])</span>
         <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">int_coord</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dims_to_fill</span><span class="p">)</span>
 
         <span class="n">matches</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">==</span> <span class="n">old_label</span>
@@ -1486,7 +1519,7 @@
         <span class="k">if</span> <span class="n">refresh</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Labels.get_status"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Labels.html#napari.layers.Labels.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Labels.get_status"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Labels.html#napari.layers.Labels.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">"""Status message of the data at a coordinate position.</span>
 
 <span class="sd">        Parameters</span>
@@ -1505,22 +1538,53 @@
         <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">)</span>
 
         <span class="c1"># if this labels layer has properties</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">)</span>
-            <span class="c1"># if the cursor is not outside the image or on the background</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">:</span>
-                    <span class="n">label_value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">label_value</span> <span class="o">=</span> <span class="n">value</span>
-                <span class="k">if</span> <span class="n">label_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span><span class="p">:</span>
-                    <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span><span class="p">[</span><span class="n">label_value</span><span class="p">]</span>
-                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                        <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'index'</span><span class="p">:</span>
-                            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">', </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">msg</span> <span class="o">+=</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">'[No Properties]'</span><span class="p">)</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">properties</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s2">"; "</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">msg</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_tooltip_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        tooltip message of the data at a coordinate position.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position : tuple</span>
+<span class="sd">            Position in either data or world coordinates.</span>
+<span class="sd">        world : bool</span>
+<span class="sd">            If True the position is taken to be in world coordinates</span>
+<span class="sd">            and converted into data coordinates. False by default.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        msg : string</span>
+<span class="sd">            String containing a message that can be used as a tooltip.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">)</span>
+        <span class="c1"># if the cursor is not outside the image or on the background</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">label_value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="n">value</span>
+        <span class="k">if</span> <span class="n">label_value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">'[No Properties]'</span><span class="p">)]</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span><span class="p">[</span><span class="n">label_value</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'index'</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">idx</span>
+            <span class="ow">and</span> <span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+        <span class="p">]</span>
 
 
 <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>

@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.layers.tracks.tracks - napari</title>
-      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -613,16 +614,16 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">""" return a view of the data """</span>
+        <span class="sd">"""return a view of the data"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pad_display_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">track_vertices</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">""" return a view of the graph """</span>
+        <span class="sd">"""return a view of the graph"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pad_display_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph_vertices</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_pad_display_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertices</span><span class="p">):</span>
-        <span class="sd">""" pad display data when moving between 2d and 3d """</span>
+        <span class="sd">"""pad display data when moving between 2d and 3d"""</span>
         <span class="k">if</span> <span class="n">vertices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
@@ -637,7 +638,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">""" current time according to the first dimension """</span>
+        <span class="sd">"""current time according to the first dimension"""</span>
         <span class="c1"># TODO(arl): get the correct index here</span>
         <span class="n">time_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -656,12 +657,12 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">""" array (N, D+1): Coordinates for N points in D+1 dimensions. """</span>
+        <span class="sd">"""array (N, D+1): Coordinates for N points in D+1 dimensions."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">data</span>
 
     <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="sd">""" set the data and build the vispy arrays for display """</span>
+        <span class="sd">"""set the data and build the vispy arrays for display"""</span>
         <span class="c1"># set the data and build the tracks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">build_tracks</span><span class="p">()</span>
@@ -688,12 +689,12 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties_to_color_by</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">""" track properties that can be used for coloring etc... """</span>
+        <span class="sd">"""track properties that can be used for coloring etc..."""</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="nd">@properties</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
-        <span class="sd">""" set track properties """</span>
+        <span class="sd">"""set track properties"""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_by</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="o">*</span><span class="n">properties</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s1">'track_id'</span><span class="p">]:</span>
             <span class="n">warn</span><span class="p">(</span>
                 <span class="p">(</span>
@@ -717,7 +718,7 @@
 
     <span class="nd">@graph</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]):</span>
-        <span class="sd">""" Set the track graph. """</span>
+        <span class="sd">"""Set the track graph."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">build_graph</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rebuild_graph</span><span class="p">()</span>
@@ -744,7 +745,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">display_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">""" display the track id """</span>
+        <span class="sd">"""display the track id"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_id</span>
 
     <span class="nd">@display_id</span><span class="o">.</span><span class="n">setter</span>
@@ -755,7 +756,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">display_tail</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">""" display the track tail """</span>
+        <span class="sd">"""display the track tail"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_tail</span>
 
     <span class="nd">@display_tail</span><span class="o">.</span><span class="n">setter</span>
@@ -765,7 +766,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">display_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">""" display the graph edges """</span>
+        <span class="sd">"""display the graph edges"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_graph</span>
 
     <span class="nd">@display_graph</span><span class="o">.</span><span class="n">setter</span>
@@ -779,7 +780,7 @@
 
     <span class="nd">@color_by</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">color_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_by</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">""" set the property to color vertices by """</span>
+        <span class="sd">"""set the property to color vertices by"""</span>
         <span class="k">if</span> <span class="n">color_by</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties_to_color_by</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -798,7 +799,7 @@
 
     <span class="nd">@colormap</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">""" set the default colormap """</span>
+        <span class="sd">"""set the default colormap"""</span>
         <span class="k">if</span> <span class="n">colormap</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AVAILABLE_COLORMAPS</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -821,7 +822,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_colormaps_dict</span> <span class="o">=</span> <span class="n">colormaps_dict</span>
 
     <span class="k">def</span> <span class="nf">_recolor_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">""" recolor the tracks """</span>
+        <span class="sd">"""recolor the tracks"""</span>
 
         <span class="c1"># this catch prevents a problem coloring the tracks if the data is</span>
         <span class="c1"># updated before the properties are. properties should always contain</span>
@@ -848,7 +849,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">track_connex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">""" vertex connections for drawing track lines """</span>
+        <span class="sd">"""vertex connections for drawing track lines"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">track_connex</span>
 
     <span class="nd">@property</span>
@@ -859,22 +860,22 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">graph_connex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">""" vertex connections for drawing the graph """</span>
+        <span class="sd">"""vertex connections for drawing the graph"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph_connex</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">track_times</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">""" time points associated with each track vertex """</span>
+        <span class="sd">"""time points associated with each track vertex"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">track_times</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">graph_times</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">""" time points assocaite with each graph vertex """</span>
+        <span class="sd">"""time points assocaite with each graph vertex"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph_times</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">track_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-        <span class="sd">""" return track labels at the current time """</span>
+        <span class="sd">"""return track labels at the current time"""</span>
         <span class="n">labels</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">track_labels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">)</span>
 
         <span class="c1"># if there are no labels, return empty for vispy</span>

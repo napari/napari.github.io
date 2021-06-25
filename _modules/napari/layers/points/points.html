@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.layers.points.points - napari</title>
-      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -316,7 +317,7 @@
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span><span class="p">,</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">cycle</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -337,6 +338,10 @@
 <span class="kn">from</span> <span class="nn">._points_constants</span> <span class="kn">import</span> <span class="n">SYMBOL_ALIAS</span><span class="p">,</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">Symbol</span>
 <span class="kn">from</span> <span class="nn">._points_mouse_bindings</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">highlight</span><span class="p">,</span> <span class="n">select</span>
 <span class="kn">from</span> <span class="nn">._points_utils</span> <span class="kn">import</span> <span class="n">create_box</span><span class="p">,</span> <span class="n">fix_data_points</span><span class="p">,</span> <span class="n">points_to_squares</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+
 
 <span class="n">DEFAULT_COLOR_CYCLE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 
@@ -371,7 +376,7 @@
 <span class="sd">        broadcastable to the same shape as the data.</span>
 <span class="sd">    edge_width : float</span>
 <span class="sd">        Width of the symbol edge in pixels.</span>
-<span class="sd">    edge_color : str, array-like</span>
+<span class="sd">    edge_color : str, array-like, dict</span>
 <span class="sd">        Color of the point marker border. Numeric color values should be RGB(A).</span>
 <span class="sd">    edge_color_cycle : np.ndarray, list</span>
 <span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a</span>
@@ -383,7 +388,7 @@
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
 <span class="sd">        The default value is None. If set the none, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
-<span class="sd">    face_color : str, array-like</span>
+<span class="sd">    face_color : str, array-like, dict</span>
 <span class="sd">        Color of the point marker body. Numeric color values should be RGB(A).</span>
 <span class="sd">    face_color_cycle : np.ndarray, list</span>
 <span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a</span>
@@ -429,12 +434,14 @@
 <span class="sd">        {'opaque', 'translucent', and 'additive'}.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
+<span class="sd">    property_choices : dict {str: array (N,)}</span>
+<span class="sd">        possible values for each property.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : array (N, D)</span>
 <span class="sd">        Coordinates for N points in D dimensions.</span>
-<span class="sd">    properties : dict {str: array (N,)}</span>
+<span class="sd">    properties : dict {str: array (N,)} or DataFrame</span>
 <span class="sd">        Annotations for each point. Each property should be an array of length N,</span>
 <span class="sd">        where N is the number of points.</span>
 <span class="sd">    text : str</span>
@@ -536,6 +543,8 @@
 <span class="sd">        None after dragging is done.</span>
 <span class="sd">    """</span>
 
+    <span class="c1"># TODO  write better documentation for edge_color and face_color</span>
+
     <span class="c1"># The max number of points that will ever be used to render the thumbnail</span>
     <span class="c1"># If more points are present then they are randomly subsampled</span>
     <span class="n">_max_points_thumbnail</span> <span class="o">=</span> <span class="mi">1024</span>
@@ -569,6 +578,7 @@
         <span class="n">opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="s1">'translucent'</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
@@ -611,25 +621,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="c1"># Save the properties</span>
-        <span class="k">if</span> <span class="n">properties</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">properties</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"Property choices should be passed as property_choices, not properties. This warning will become an error in version 0.4.11."</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="ne">DeprecationWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">property_choices</span> <span class="o">=</span> <span class="n">properties</span>
             <span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">properties</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="n">properties</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">properties</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">}</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">}</span>
-            <span class="n">empty_properties</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">empty_properties</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_properties</span><span class="p">(</span>
+            <span class="n">properties</span><span class="p">,</span> <span class="n">property_choices</span><span class="p">,</span> <span class="n">save_choices</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
 
         <span class="c1"># make the text</span>
         <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
@@ -656,11 +660,7 @@
         <span class="c1"># be added. For any given property, if a list is passed to the</span>
         <span class="c1"># constructor so each point gets its own value then the default</span>
         <span class="c1"># value is used when adding new points</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span> <span class="o">=</span> <span class="mi">10</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="k">else</span> <span class="mi">10</span>
         <span class="c1"># Indices of selected points</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -679,7 +679,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_drag_start</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># initialize view data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box</span> <span class="o">=</span> <span class="kc">None</span>
@@ -694,7 +694,9 @@
             <span class="n">continuous_colormap</span><span class="o">=</span><span class="n">edge_colormap</span><span class="p">,</span>
             <span class="n">contrast_limits</span><span class="o">=</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
             <span class="n">categorical_colormap</span><span class="o">=</span><span class="n">edge_color_cycle</span><span class="p">,</span>
-            <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">size</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_face</span> <span class="o">=</span> <span class="n">ColorManager</span><span class="o">.</span><span class="n">_from_layer_kwargs</span><span class="p">(</span>
             <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
@@ -702,7 +704,9 @@
             <span class="n">continuous_colormap</span><span class="o">=</span><span class="n">face_colormap</span><span class="p">,</span>
             <span class="n">contrast_limits</span><span class="o">=</span><span class="n">face_contrast_limits</span><span class="p">,</span>
             <span class="n">categorical_colormap</span><span class="o">=</span><span class="n">face_color_cycle</span><span class="p">,</span>
-            <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">size</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
@@ -803,56 +807,117 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">highlight</span><span class="p">()</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">property_choices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">"""dict {str: np.ndarray (N,)}, DataFrame: Annotations for each point"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
 
-    <span class="nd">@properties</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">properties</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_update_color_manager</span><span class="p">(</span>
+        <span class="n">color_manager</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">current_properties</span><span class="p">,</span> <span class="n">name</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">properties</span><span class="p">:</span>
+                <span class="n">color_manager</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
+                <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">'property used for face_color dropped'</span><span class="p">,</span>
+                        <span class="s1">'property used for </span><span class="si">{name}</span><span class="s1"> dropped'</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                     <span class="p">),</span>
                     <span class="ne">RuntimeWarning</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">face_color_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="s1">'name'</span><span class="p">:</span> <span class="n">face_color_name</span><span class="p">,</span>
-                    <span class="s1">'values'</span><span class="p">:</span> <span class="n">properties</span><span class="p">[</span><span class="n">face_color_name</span><span class="p">],</span>
-                    <span class="s1">'current_value'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">face_color_name</span><span class="p">],</span>
+                <span class="n">color_name</span> <span class="o">=</span> <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">color_manager</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">'name'</span><span class="p">:</span> <span class="n">color_name</span><span class="p">,</span>
+                    <span class="s1">'values'</span><span class="p">:</span> <span class="n">properties</span><span class="p">[</span><span class="n">color_name</span><span class="p">],</span>
+                    <span class="s1">'current_value'</span><span class="p">:</span> <span class="n">current_properties</span><span class="p">[</span><span class="n">color_name</span><span class="p">],</span>
                 <span class="p">}</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">'property used for edge_color dropped'</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">),</span>
-                    <span class="ne">RuntimeWarning</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">edge_color_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span><span class="o">.</span><span class="n">name</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">color_properties</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="s1">'name'</span><span class="p">:</span> <span class="n">edge_color_name</span><span class="p">,</span>
-                    <span class="s1">'values'</span><span class="p">:</span> <span class="n">properties</span><span class="p">[</span><span class="n">edge_color_name</span><span class="p">],</span>
-                    <span class="s1">'current_value'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">[</span><span class="n">edge_color_name</span><span class="p">],</span>
-                <span class="p">}</span>
+    <span class="nd">@properties</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="s1">'DataFrame'</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_properties</span><span class="p">(</span>
+            <span class="n">properties</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_color_manager</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_properties</span><span class="p">,</span>
+            <span class="s2">"face_color"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_color_manager</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_properties</span><span class="p">,</span>
+            <span class="s2">"edge_color"</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_text</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_prepare_properties</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">properties</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">]],</span> <span class="s1">'DataFrame'</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="p">],</span>
+        <span class="n">property_choices</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">save_choices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+        <span class="sd">"""Return properties in a normalized dict-of-columns format.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        properties : Union[dict, DataFrame]</span>
+<span class="sd">            properties to be transformed</span>
+<span class="sd">        property_choices : Dict[str, np.ndarray]</span>
+<span class="sd">            previous choices</span>
+<span class="sd">        save_choices : bool</span>
+<span class="sd">            preserve property choices that are not available in input columns.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        properties (dict):</span>
+<span class="sd">            properties dictionary</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">property_choices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">property_choices</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">properties</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">properties</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dataframe_to_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+
+        <span class="n">new_choices</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">property_choices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">[]))))</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">new_choices</span><span class="p">:</span>
+            <span class="c1"># case of set empty properties when have available choices list</span>
+            <span class="n">new_choices</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">property_choices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">properties</span> <span class="ow">and</span> <span class="n">new_choices</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">k</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">new_choices</span>
+                <span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">new_choices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">}</span>
+        <span class="k">if</span> <span class="n">save_choices</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">property_choices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new_choices</span><span class="p">:</span>
+                    <span class="n">new_choices</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                    <span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties</span><span class="p">(</span><span class="n">properties</span><span class="p">),</span> <span class="n">new_choices</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -1298,6 +1363,7 @@
                 <span class="s1">'edge_colormap'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="s1">'edge_contrast_limits'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span><span class="p">,</span>
                 <span class="s1">'properties'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+                <span class="s1">'property_choices'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_choices</span><span class="p">,</span>
                 <span class="s1">'text'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_get_state</span><span class="p">(),</span>
                 <span class="s1">'n_dimensional'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dimensional</span><span class="p">,</span>
                 <span class="s1">'size'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
@@ -1324,7 +1390,7 @@
         <span class="p">)</span>
 
         <span class="c1"># Update properties based on selected points</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">()</span>
             <span class="k">return</span>
         <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">)</span>
@@ -1355,7 +1421,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">properties</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Points.interaction_box"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Points.html#napari.layers.Points.interaction_box">[docs]</a>    <span class="k">def</span> <span class="nf">interaction_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="Points.interaction_box"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Points.html#napari.layers.Points.interaction_box">[docs]</a>    <span class="k">def</span> <span class="nf">interaction_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">"""Create the interaction box around a list of points in view.</span>
 
 <span class="sd">        Parameters</span>
@@ -1365,19 +1431,16 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        box : np.ndarray</span>
+<span class="sd">        box : np.ndarray or None</span>
 <span class="sd">            4x2 array of corners of the interaction box in clockwise order</span>
 <span class="sd">            starting in the upper-left corner.</span>
 <span class="sd">        """</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">box</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
             <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">points_to_squares</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
-            <span class="n">box</span> <span class="o">=</span> <span class="n">create_box</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">box</span></div>
+            <span class="k">return</span> <span class="n">create_box</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -1438,7 +1501,7 @@
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span> <span class="ow">and</span> <span class="n">old_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">!=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span> <span class="ow">or</span> <span class="n">old_mode</span> <span class="o">!=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
@@ -1456,9 +1519,7 @@
 <span class="sd">            Array of coordinates for the N points in view</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)]</span>
-
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># if no points in this slice send dummy data</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">))</span>
@@ -1477,7 +1538,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">view_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_view_text_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_view_text_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="sd">"""Get the coordinates of the text elements in view</span>
 
 <span class="sd">        Returns</span>
@@ -1485,6 +1546,7 @@
 <span class="sd">        text_coords : (N x D) np.ndarray</span>
 <span class="sd">            Array of coordindates for the N text elements in view</span>
 <span class="sd">        """</span>
+        <span class="c1"># TODO check if it is used, as it has wrong signature and this not cause errors.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">compute_text_coords</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -1537,11 +1599,7 @@
     <span class="k">def</span> <span class="nf">_set_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""Set editable mode based on layer properties."""</span>
         <span class="k">if</span> <span class="n">editable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">True</span>
-
+            <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">&lt;</span> <span class="mi">3</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">editable</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
 
@@ -1586,7 +1644,7 @@
                 <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">slice_indices</span><span class="p">,</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">return</span> <span class="p">[],</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="sd">"""Value of the data at a position in data coordinates.</span>
@@ -1603,6 +1661,7 @@
 <span class="sd">        """</span>
         <span class="c1"># Display points if there are any in this slice</span>
         <span class="n">view_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span>
+        <span class="n">selection</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">view_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">displayed_position</span> <span class="o">=</span> <span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
             <span class="c1"># Get the point sizes</span>
@@ -1614,10 +1673,6 @@
             <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">in_slice_matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">selection</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">selection</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">return</span> <span class="n">selection</span>
 
@@ -1626,7 +1681,7 @@
         <span class="c1"># get the indices of points in view</span>
         <span class="n">indices</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="n">scale</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span> <span class="o">=</span> <span class="n">indices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
         <span class="c1"># get the selected points that are in view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span>
@@ -1669,9 +1724,7 @@
                     <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_selecting</span>
                 <span class="p">):</span>
                     <span class="n">hover_point</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">hover_point</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
-                        <span class="k">pass</span>
-                    <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">hover_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
                         <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hover_point</span><span class="p">)</span>
                 <span class="n">index</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1747,7 +1800,7 @@
         <span class="sd">"""Removes selected points if any."""</span>
         <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
         <span class="n">index</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span><span class="n">indices_to_remove</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>

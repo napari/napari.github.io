@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.layers.base.base - napari</title>
-      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -333,6 +334,7 @@
 <span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.._source</span> <span class="kn">import</span> <span class="n">current_source</span>
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">coerce_affine</span><span class="p">,</span>
     <span class="n">compute_multiscale_level_and_corners</span><span class="p">,</span>
     <span class="n">convert_to_uint8</span><span class="p">,</span>
 <span class="p">)</span>
@@ -366,9 +368,9 @@
 <span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
-<span class="sd">        the final column is a lenght N translation vector and a 1 or a napari</span>
-<span class="sd">        AffineTransform object. If provided then translate, scale, rotate, and</span>
-<span class="sd">        shear values are ignored.</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
+<span class="sd">        AffineTransform object. Applied as an extra transform on top of the</span>
+<span class="sd">        provided scale, rotate, and shear values.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    blending : str</span>
@@ -420,9 +422,9 @@
 <span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
-<span class="sd">        the final column is a lenght N translation vector and a 1 or a napari</span>
-<span class="sd">        AffineTransform object. If provided then translate, scale, rotate, and</span>
-<span class="sd">        shear values are ignored.</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
+<span class="sd">        AffineTransform object. Applied as an extra transform on top of the</span>
+<span class="sd">        provided scale, rotate, and shear values.</span>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is multiscale or not. Multiscale data is</span>
 <span class="sd">        represented by a list of data objects and should go from largest to</span>
@@ -510,53 +512,36 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">))</span>
 
-        <span class="c1"># Create a transform chain consisting of three transforms:</span>
-        <span class="c1"># 1. `tile2data`: An initial transform only needed displaying tiles</span>
+        <span class="c1"># Create a transform chain consisting of four transforms:</span>
+        <span class="c1"># 1. `tile2data`: An initial transform only needed to display tiles</span>
         <span class="c1">#   of an image. It maps pixels of the tile into the coordinate space</span>
         <span class="c1">#   of the full resolution data and can usually be represented by a</span>
         <span class="c1">#   scale factor and a translation. A common use case is viewing part</span>
         <span class="c1">#   of lower resolution level of a multiscale image, another is using a</span>
         <span class="c1">#   downsampled version of an image when the full image size is larger</span>
         <span class="c1">#   than the maximum allowed texture size of your graphics card.</span>
-        <span class="c1"># 2. `data2world`: The main transform mapping data to a world-like</span>
-        <span class="c1">#   coordinate.</span>
-        <span class="c1"># 3. `world2grid`: An additional transform mapping world-coordinates</span>
+        <span class="c1"># 2. `data2physical`: The main transform mapping data to a world-like</span>
+        <span class="c1">#   physical coordinate that may also encode acquisition parameters or</span>
+        <span class="c1">#   sample spacing.</span>
+        <span class="c1"># 3. `physical2world`: An extra transform applied in world-coordinates that</span>
+        <span class="c1">#   typically aligns this layer with another.</span>
+        <span class="c1"># 4. `world2grid`: An additional transform mapping world-coordinates</span>
         <span class="c1">#   into a grid for looking at layers side-by-side.</span>
-
-        <span class="c1"># First create the `data2world` transform from the input parameters</span>
-        <span class="k">if</span> <span class="n">affine</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
-            <span class="k">if</span> <span class="n">translate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">translate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
-            <span class="n">data2world_transform</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">(</span>
-                <span class="n">scale</span><span class="p">,</span>
-                <span class="n">translate</span><span class="p">,</span>
-                <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
-                <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="s1">'data2world'</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="n">data2world_transform</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">(</span>
-                <span class="n">affine_matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">affine</span><span class="p">),</span>
-                <span class="n">name</span><span class="o">=</span><span class="s1">'data2world'</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">Affine</span><span class="p">):</span>
-            <span class="n">affine</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'data2world'</span>
-            <span class="n">data2world_transform</span> <span class="o">=</span> <span class="n">affine</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">'affine input not recognized. must be either napari.utils.transforms.Affine, ndarray, or None. Got </span><span class="si">{dtype}</span><span class="s1">'</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">dtype</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">affine</span><span class="p">),</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-
+        <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
+        <span class="k">if</span> <span class="n">translate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">translate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="n">TransformChain</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">Affine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tile2data'</span><span class="p">),</span>
-                <span class="n">data2world_transform</span><span class="p">,</span>
+                <span class="n">Affine</span><span class="p">(</span>
+                    <span class="n">scale</span><span class="p">,</span>
+                    <span class="n">translate</span><span class="p">,</span>
+                    <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
+                    <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">'data2physical'</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">coerce_affine</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'physical2world'</span><span class="p">),</span>
                 <span class="n">Affine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'world2grid'</span><span class="p">),</span>
             <span class="p">]</span>
         <span class="p">)</span>
@@ -725,67 +710,57 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""list: Anisotropy factors to scale data into world coordinates."""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span>
 
     <span class="nd">@scale</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">scale</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""list: Factors to shift the layer by in units of world coordinates."""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span>
 
     <span class="nd">@translate</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translate</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">translate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">translate</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">translate</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""array: Rotation matrix in world coordinates."""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">rotate</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">rotate</span>
 
     <span class="nd">@rotate</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotate</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">rotate</span> <span class="o">=</span> <span class="n">rotate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">rotate</span> <span class="o">=</span> <span class="n">rotate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rotate</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""array: Sheer matrix in world coordinates."""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">shear</span>
+        <span class="sd">"""array: Shear matrix in world coordinates."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">shear</span>
 
     <span class="nd">@shear</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">shear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shear</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">shear</span> <span class="o">=</span> <span class="n">shear</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2physical'</span><span class="p">]</span><span class="o">.</span><span class="n">shear</span> <span class="o">=</span> <span class="n">shear</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shear</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">affine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""napari.utils.transforms.Affine: Affine transform."""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span>
+        <span class="sd">"""napari.utils.transforms.Affine: Extra affine transform to go from physical to world coordinates."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'physical2world'</span><span class="p">]</span>
 
     <span class="nd">@affine</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">affine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affine</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">affine_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">affine</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">Affine</span><span class="p">):</span>
-            <span class="n">affine</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'data2world'</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span> <span class="o">=</span> <span class="n">affine</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">'affine input not recognized. must be either napari.utils.transforms.Affine or ndarray. Got </span><span class="si">{dtype}</span><span class="s1">'</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">dtype</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">affine</span><span class="p">),</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'physical2world'</span><span class="p">]</span> <span class="o">=</span> <span class="n">coerce_affine</span><span class="p">(</span>
+            <span class="n">affine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'physical2world'</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="p">()</span>
 
@@ -928,7 +903,7 @@
         <span class="n">full_data_extent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="o">*</span><span class="n">data_extent</span><span class="o">.</span><span class="n">T</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
             <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">D</span>
         <span class="p">)</span>
-        <span class="n">full_world_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">](</span><span class="n">full_data_extent</span><span class="p">)</span>
+        <span class="n">full_world_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="p">(</span><span class="n">full_data_extent</span><span class="p">)</span>
         <span class="n">world_extent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">full_world_extent</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
@@ -944,13 +919,13 @@
         <span class="k">return</span> <span class="n">Extent</span><span class="p">(</span>
             <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
             <span class="n">world</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_extent_world</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
-            <span class="n">step</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
+            <span class="n">step</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
         <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_slice_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""(D, ) array: Slice indices in data coordinates."""</span>
-        <span class="n">inv_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'data2world'</span><span class="p">]</span><span class="o">.</span><span class="n">inverse</span>
+        <span class="n">inv_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">:</span>
             <span class="c1"># Subspace spanned by non displayed dimensions</span>
@@ -1309,7 +1284,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        position : tuple, list, 1D array</span>
-<span class="sd">            Position in world coorindates. If longer then the</span>
+<span class="sd">            Position in world coordinates. If longer then the</span>
 <span class="sd">            number of dimensions of the layer, the later</span>
 <span class="sd">            dimensions will be used.</span>
 
@@ -1325,9 +1300,20 @@
 
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">simplified</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">coords</span><span class="p">))</span></div>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_data_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Affine</span><span class="p">:</span>
+        <span class="sd">"""The transform from data to world coordinates.</span>
+
+<span class="sd">        This affine transform is composed from the affine property and the</span>
+<span class="sd">        other transform properties in the following order:</span>
+
+<span class="sd">        affine * (rotate * shear * scale + translate)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">simplified</span>
+
     <span class="k">def</span> <span class="nf">_update_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">corner_pixels</span><span class="p">,</span> <span class="n">shape_threshold</span><span class="p">):</span>
         <span class="sd">"""Update canvas scale and corner values on draw.</span>
-<span class="sd">        For layer multiscale determing if a new resolution level or tile is</span>
+<span class="sd">        For layer multiscale determining if a new resolution level or tile is</span>
 <span class="sd">        required.</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1392,7 +1378,8 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">coordinates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Layer.get_status"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">"""Status message of the data at a coordinate position.</span>
+        <span class="sd">"""</span>
+<span class="sd">        Status message of the data at a coordinate position.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1409,6 +1396,25 @@
 <span class="sd">        """</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">generate_layer_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_tooltip_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        tooltip message of the data at a coordinate position.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position : tuple</span>
+<span class="sd">            Position in either data or world coordinates.</span>
+<span class="sd">        world : bool</span>
+<span class="sd">            If True the position is taken to be in world coordinates</span>
+<span class="sd">            and converted into data coordinates. False by default.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        msg : string</span>
+<span class="sd">            String containing a message that can be used as a tooltip.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="s2">""</span>
 
 <div class="viewcode-block" id="Layer.save"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">"""Save this layer to ``path`` with default (or specified) plugin.</span>

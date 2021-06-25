@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.layers.image.image - napari</title>
-      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -315,8 +316,11 @@
 <h1>Source code for napari.layers.image.image</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Image class.</span>
 <span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
@@ -324,6 +328,7 @@
 <span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">config</span>
 <span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span>
 <span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">..intensity_mixin</span> <span class="kn">import</span> <span class="n">IntensityVisualizationMixin</span>
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">calc_data_range</span>
@@ -332,13 +337,8 @@
 <span class="kn">from</span> <span class="nn">._image_slice_data</span> <span class="kn">import</span> <span class="n">ImageSliceData</span>
 <span class="kn">from</span> <span class="nn">._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span><span class="p">,</span> <span class="n">guess_rgb</span>
 
-<span class="c1"># Use special ChunkedSlideData for async.</span>
-<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">.experimental._chunked_slice_data</span> <span class="kn">import</span> <span class="n">ChunkedSliceData</span>
-
-    <span class="n">SliceDataClass</span> <span class="o">=</span> <span class="n">ChunkedSliceData</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">SliceDataClass</span> <span class="o">=</span> <span class="n">ImageSliceData</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">...components.experimental.chunk</span> <span class="kn">import</span> <span class="n">ChunkRequest</span>
 
 
 <span class="c1"># It is important to contain at least one abstractmethod to properly exclude this class</span>
@@ -350,10 +350,12 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : array or list of array</span>
-<span class="sd">        Image data. Can be N dimensional. If the last dimension has length</span>
+<span class="sd">        Image data. Can be N &gt;= 2 dimensional. If the last dimension has length</span>
 <span class="sd">        3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a</span>
 <span class="sd">        list and arrays are decreasing in shape then the data is treated as</span>
-<span class="sd">        a multiscale image.</span>
+<span class="sd">        a multiscale image. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
 <span class="sd">    rgb : bool</span>
 <span class="sd">        Whether the image is rgb RGB or RGBA. If not specified by user and</span>
 <span class="sd">        the last dimension of the data has length 3 or 4 it will be set as</span>
@@ -401,7 +403,7 @@
 <span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
-<span class="sd">        the final column is a lenght N translation vector and a 1 or a napari</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
 <span class="sd">        AffineTransform object. If provided then translate, scale, rotate, and</span>
 <span class="sd">        shear values are ignored.</span>
 <span class="sd">    opacity : float</span>
@@ -417,7 +419,9 @@
 <span class="sd">        represented by a list of array like image data. If not specified by</span>
 <span class="sd">        the user and if the data is a list of arrays that decrease in shape</span>
 <span class="sd">        then it will be taken to be multiscale. The first image in the list</span>
-<span class="sd">        should be the largest.</span>
+<span class="sd">        should be the largest. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -425,7 +429,9 @@
 <span class="sd">        Image data. Can be N dimensional. If the last dimension has length</span>
 <span class="sd">        3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a list</span>
 <span class="sd">        and arrays are decreasing in shape then the data is treated as a</span>
-<span class="sd">        multiscale image.</span>
+<span class="sd">        multiscale image. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
 <span class="sd">    metadata : dict</span>
 <span class="sd">        Image metadata.</span>
 <span class="sd">    rgb : bool</span>
@@ -436,7 +442,9 @@
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
 <span class="sd">        represented by a list of array like image data. The first image in the</span>
-<span class="sd">        list should be the largest.</span>
+<span class="sd">        list should be the largest. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
 <span class="sd">    colormap : 2-tuple of str, napari.utils.Colormap</span>
 <span class="sd">        The first is the name of the current colormap, and the second value is</span>
 <span class="sd">        the colormap. Colormaps are used for luminance images, if the image is</span>
@@ -500,6 +508,11 @@
     <span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">GeneratorType</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">'ndim'</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">'Image data must have at least 2 dimensions.'</span><span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="c1"># Determine if data is a multiscale</span>
         <span class="k">if</span> <span class="n">multiscale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -836,8 +849,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">:</span>
-            <span class="c1"># If 3d redering just show lowest level of multiscale</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="c1"># If 3d redering just show lowest level of multiscale</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s1">'Multiscale rendering is only supported in 2D. In 3D, only the lowest resolution scale is displayed'</span><span class="p">,</span>
+                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_level</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
             <span class="c1"># Slice currently viewed level</span>
@@ -901,10 +921,21 @@
             <span class="n">thumbnail_source</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Load our images, might be sync or async.</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">SliceDataClass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_indices</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">thumbnail_source</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SliceDataClass</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">image_indices</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">thumbnail_source</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_slice</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_load_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">SliceDataClass</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_SliceDataClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Use special ChunkedSlideData for async.</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.experimental._chunked_slice_data</span> <span class="kn">import</span> <span class="n">ChunkedSliceData</span>
+
+            <span class="k">return</span> <span class="n">ChunkedSliceData</span>
+        <span class="k">return</span> <span class="n">ImageSliceData</span>
+
+    <span class="k">def</span> <span class="nf">_load_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ImageSliceData</span><span class="p">):</span>
         <span class="sd">"""Load the image and maybe thumbnail source.</span>
 
 <span class="sd">        Parameters</span>
@@ -919,7 +950,7 @@
             <span class="c1"># property is now false, since the load is in progress.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">loaded</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_on_data_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">SliceDataClass</span><span class="p">,</span> <span class="n">sync</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_on_data_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ImageSliceData</span><span class="p">,</span> <span class="n">sync</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">"""The given data a was loaded, use it now.</span>
 
 <span class="sd">        This routine is called synchronously from _load_async() above, or</span>
@@ -1064,7 +1095,6 @@
 
     <span class="c1"># For async we add an on_chunk_loaded() method.</span>
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">...components.experimental.chunk</span> <span class="kn">import</span> <span class="n">ChunkRequest</span>
 
         <span class="k">def</span> <span class="nf">on_chunk_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">ChunkRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="sd">"""An asynchronous ChunkRequest was loaded.</span>
@@ -1075,7 +1105,7 @@
 <span class="sd">                This request was loaded.</span>
 <span class="sd">            """</span>
             <span class="c1"># Convert the ChunkRequest to SliceData and use it.</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">SliceDataClass</span><span class="o">.</span><span class="n">from_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SliceDataClass</span><span class="o">.</span><span class="n">from_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_on_data_loaded</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 

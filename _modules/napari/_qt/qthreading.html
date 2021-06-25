@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari._qt.qthreading - napari</title>
-      <link rel="stylesheet" href="../../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -331,6 +332,7 @@
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+<span class="kn">from</span> <span class="nn">.qprogress</span> <span class="kn">import</span> <span class="n">progress</span>
 
 
 <span class="k">def</span> <span class="nf">as_generator_function</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
@@ -481,7 +483,8 @@
                     <span class="k">return</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">result</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">returned</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort_requested</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">returned</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">errored</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
@@ -648,6 +651,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># polling interval: ONLY relevant if the user paused a running worker</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pause_interval</span> <span class="o">=</span> <span class="mf">0.01</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="GeneratorWorker.work"><a class="viewcode-back" href="../../../api/stable/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.work">[docs]</a>    <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""Core event loop that calls the original function.</span>
@@ -812,6 +816,7 @@
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="n">_start_thread</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_connect</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">_progress</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_worker_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -834,6 +839,14 @@
 <span class="sd">        A mapping of ``"signal_name"`` -&gt; ``callable`` or list of ``callable``:</span>
 <span class="sd">        callback functions to connect to the various signals offered by the</span>
 <span class="sd">        worker class. by default None</span>
+<span class="sd">    _progress : Union[bool, Dict[str, Union[int, bool, str]]], optional</span>
+<span class="sd">        Can be True, to provide indeterminate progress bar, or dictionary.</span>
+<span class="sd">        If dict, requires mapping of 'total' to number of expected yields.</span>
+<span class="sd">        If total is not provided, progress bar will be indeterminate. Will connect</span>
+<span class="sd">        progress bar update to yields and display this progress in the viewer.</span>
+<span class="sd">        Can also take a mapping of 'desc' to the progress bar description.</span>
+<span class="sd">        Progress bar will become indeterminate when number of yields exceeds 'total'.</span>
+<span class="sd">        By default None.</span>
 <span class="sd">    _worker_class : Type[WorkerBase], optional</span>
 <span class="sd">        The :class`WorkerBase` to instantiate, by default</span>
 <span class="sd">        :class:`FunctionWorker` will be used if ``func`` is a regular function,</span>
@@ -858,6 +871,8 @@
 <span class="sd">        If a worker_class is provided that is not a subclass of WorkerBase.</span>
 <span class="sd">    TypeError</span>
 <span class="sd">        If _connect is provided and is not a dict of ``{str: callable}``</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If _progress is provided and function is not a generator</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -915,6 +930,31 @@
                     <span class="p">)</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
+    <span class="c1"># either True or a non-empty dictionary</span>
+    <span class="k">if</span> <span class="n">_progress</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_progress</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="n">_progress</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">_progress</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'desc'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="n">_progress</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'total'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="n">FunctionWorker</span><span class="p">)</span> <span class="ow">and</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"_progress total != 0 but worker is FunctionWorker and will not yield. Returning indeterminate progress bar..."</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="ne">RuntimeWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">pbar</span> <span class="o">=</span> <span class="n">progress</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">)</span>
+        <span class="n">worker</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">pbar</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="n">GeneratorWorker</span><span class="p">):</span>
+            <span class="n">worker</span><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">pbar</span><span class="o">.</span><span class="n">increment_with_overflow</span><span class="p">)</span>
+
+        <span class="n">worker</span><span class="o">.</span><span class="n">pbar</span> <span class="o">=</span> <span class="n">pbar</span>
+
     <span class="c1"># if the user has not provided a default connection for the "errored"</span>
     <span class="c1"># signal... and they have not explicitly set ``ignore_errors=True``</span>
     <span class="c1"># Then rereaise any errors from the thread.</span>
@@ -935,6 +975,7 @@
     <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
     <span class="n">start_thread</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">connect</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">progress</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">worker_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
@@ -983,6 +1024,14 @@
 <span class="sd">        A mapping of ``"signal_name"`` -&gt; ``callable`` or list of ``callable``:</span>
 <span class="sd">        callback functions to connect to the various signals offered by the</span>
 <span class="sd">        worker class. by default None</span>
+<span class="sd">    progress : Union[bool, Dict[str, Union[int, bool, str]]], optional</span>
+<span class="sd">        Can be True, to provide indeterminate progress bar, or dictionary.</span>
+<span class="sd">        If dict, requires mapping of 'total' to number of expected yields.</span>
+<span class="sd">        If total is not provided, progress bar will be indeterminate. Will connect</span>
+<span class="sd">        progress bar update to yields and display this progress in the viewer.</span>
+<span class="sd">        Can also take a mapping of 'desc' to the progress bar description.</span>
+<span class="sd">        Progress bar will become indeterminate when number of yields exceeds 'total'.</span>
+<span class="sd">        By default None. Must be used in conjunction with a generator function.</span>
 <span class="sd">    worker_class : Type[WorkerBase], optional</span>
 <span class="sd">        The :class`WorkerBase` to instantiate, by default</span>
 <span class="sd">        :class:`FunctionWorker` will be used if ``func`` is a regular function,</span>
@@ -1026,6 +1075,7 @@
         <span class="c1"># underscore-prefixed version of the kwarg.</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_start_thread'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_start_thread'</span><span class="p">,</span> <span class="n">start_thread</span><span class="p">)</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_connect'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_connect'</span><span class="p">,</span> <span class="n">connect</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_progress'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_progress'</span><span class="p">,</span> <span class="n">progress</span><span class="p">)</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_worker_class'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_worker_class'</span><span class="p">,</span> <span class="n">worker_class</span><span class="p">)</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">'_ignore_errors'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_ignore_errors'</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">create_worker</span><span class="p">(</span>

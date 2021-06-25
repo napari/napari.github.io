@@ -4,11 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-3.5.4, furo 2021.04.11.beta34"/>
+    <meta name="generator" content="sphinx-3.5.4, furo 2021.06.18.beta36"/>
         <title>napari.view_layers - napari</title>
-      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=59ab60ac09ea94ccfe6deddff6d715cce948a6fc">
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=9b17055c4366e8b2949c66d6a9d8b0efe4dbaa60">
     <link rel="stylesheet" href="../../_static/pygments.css">
-    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
     
 
 
@@ -43,7 +42,8 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    <link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=ee12cdd73c4bbac24afec78d92c4afd7c2d8ea7f">
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <style>
@@ -176,6 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_4.html">napari 0.4.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_3.html">napari 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_2.html">napari 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_10.html">napari 0.4.10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_1.html">napari 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_4_0.html">napari 0.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../release/release_0_3_8.html">napari 0.3.8</a></li>
@@ -217,7 +218,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../api/stable/napari.view_layers.html">napari.view_layers</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.NumpyDocString.html">napari.view_layers.NumpyDocString</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/stable/napari.view_layers.Viewer.html">napari.view_layers.Viewer</a></li>
 </ul>
 </li>
@@ -281,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/preferences.html">Preferences</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../developers/index.html">Developer resources</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -313,45 +314,56 @@
 
 
 <h1>Source code for napari.view_layers</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Methods to create a new viewer instance and add a particular layer type.</span>
+<span></span><span class="sd">"""Methods to create a new viewer instance then add a particular layer type.</span>
 
-<span class="sd">This module autogenerates a number of convenience functions, such as</span>
-<span class="sd">"view_image", or "view_surface", that both instantiate a new viewer instance,</span>
-<span class="sd">and add a new layer of a specific type to the viewer.  Each convenience</span>
-<span class="sd">function signature is a merged version of one of the ``Viewer.__init__`` method</span>
-<span class="sd">and the ``Viewer.add_&lt;layer_type&gt;`` methods.  The final generated functions</span>
-<span class="sd">follow this pattern</span>
-<span class="sd">(where &lt;layer_type&gt; is replaced with one of the layer types):</span>
+<span class="sd">All functions follow this pattern, (where &lt;layer_type&gt; is replaced with one</span>
+<span class="sd">of the layer types, like "image", "points", etc...):</span>
 
 <span class="sd">    def view_&lt;layer_type&gt;(*args, **kwargs):</span>
-<span class="sd">        # pop all of the viewer kwargs out of kwargs into viewer_kwargs</span>
+<span class="sd">        # ... pop all of the viewer kwargs out of kwargs into viewer_kwargs</span>
 <span class="sd">        viewer = Viewer(**viewer_kwargs)</span>
 <span class="sd">        add_method = getattr(viewer, f"add_{&lt;layer_type&gt;}")</span>
 <span class="sd">        add_method(*args, **kwargs)</span>
 <span class="sd">        return viewer</span>
-
-<span class="sd">Note however: the real function signatures and documentation are maintained in</span>
-<span class="sd">the final functions, along with introspection, and tab autocompletion, etc...</span>
 <span class="sd">"""</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">textwrap</span>
-<span class="kn">import</span> <span class="nn">typing</span>
 
-<span class="kn">from</span> <span class="nn">numpydoc.docscrape</span> <span class="kn">import</span> <span class="n">NumpyDocString</span>
+<span class="kn">from</span> <span class="nn">numpydoc.docscrape</span> <span class="kn">import</span> <span class="n">NumpyDocString</span> <span class="k">as</span> <span class="n">_NumpyDocString</span>
 
-<span class="kn">from</span> <span class="nn">.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.viewer</span> <span class="kn">import</span> <span class="n">Viewer</span>
 
-<span class="n">VIEW_DOC</span> <span class="o">=</span> <span class="n">NumpyDocString</span><span class="p">(</span><span class="n">Viewer</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
-<span class="n">VIEW_PARAMS</span> <span class="o">=</span> <span class="s2">"    "</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">VIEW_DOC</span><span class="o">.</span><span class="n">_str_param_list</span><span class="p">(</span><span class="s1">'Parameters'</span><span class="p">)[</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'view_image'</span><span class="p">,</span>
+    <span class="s1">'view_labels'</span><span class="p">,</span>
+    <span class="s1">'view_path'</span><span class="p">,</span>
+    <span class="s1">'view_points'</span><span class="p">,</span>
+    <span class="s1">'view_shapes'</span><span class="p">,</span>
+    <span class="s1">'view_surface'</span><span class="p">,</span>
+    <span class="s1">'view_tracks'</span><span class="p">,</span>
+    <span class="s1">'view_vectors'</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">_doc_template</span> <span class="o">=</span> <span class="s2">"""Create a viewer and add a</span><span class="si">{n}</span><span class="s2"> </span><span class="si">{layer_string}</span><span class="s2"> layer.</span>
+
+<span class="si">{params}</span><span class="s2"></span>
+
+<span class="s2">Returns</span>
+<span class="s2">-------</span>
+<span class="s2">viewer : :class:`napari.Viewer`</span>
+<span class="s2">    The newly-created viewer.</span>
+<span class="s2">"""</span>
+
+<span class="n">_VIEW_DOC</span> <span class="o">=</span> <span class="n">_NumpyDocString</span><span class="p">(</span><span class="n">Viewer</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+<span class="n">_VIEW_PARAMS</span> <span class="o">=</span> <span class="s2">"    "</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_VIEW_DOC</span><span class="o">.</span><span class="n">_str_param_list</span><span class="p">(</span><span class="s1">'Parameters'</span><span class="p">)[</span><span class="mi">2</span><span class="p">:])</span>
 
 
-<div class="viewcode-block" id="merge_docs"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_layers.merge_docs">[docs]</a><span class="k">def</span> <span class="nf">merge_docs</span><span class="p">(</span><span class="n">add_method</span><span class="p">,</span> <span class="n">layer_string</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_merge_docstrings</span><span class="p">(</span><span class="n">add_method</span><span class="p">,</span> <span class="n">layer_string</span><span class="p">):</span>
     <span class="c1"># create combined docstring with parameters from add_* and Viewer methods</span>
-    <span class="n">add_method_doc</span> <span class="o">=</span> <span class="n">NumpyDocString</span><span class="p">(</span><span class="n">add_method</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">textwrap</span>
+
+    <span class="n">add_method_doc</span> <span class="o">=</span> <span class="n">_NumpyDocString</span><span class="p">(</span><span class="n">add_method</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">add_method_doc</span><span class="o">.</span><span class="n">_str_param_list</span><span class="p">(</span><span class="s1">'Parameters'</span><span class="p">))</span> <span class="o">+</span> <span class="n">VIEW_PARAMS</span>
+        <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">add_method_doc</span><span class="o">.</span><span class="n">_str_param_list</span><span class="p">(</span><span class="s1">'Parameters'</span><span class="p">))</span> <span class="o">+</span> <span class="n">_VIEW_PARAMS</span>
     <span class="p">)</span>
     <span class="c1"># this ugliness is because the indentation of the parsed numpydocstring</span>
     <span class="c1"># is different for the first parameter :(</span>
@@ -359,125 +371,118 @@
     <span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">3</span><span class="p">:]))</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
     <span class="n">params</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
     <span class="n">n</span> <span class="o">=</span> <span class="s1">'n'</span> <span class="k">if</span> <span class="n">layer_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="s1">'aeiou'</span><span class="p">))</span> <span class="k">else</span> <span class="s1">''</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">"""Create a viewer and add a</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">layer_string</span><span class="si">}</span><span class="s2"> layer.</span>
-
-<span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2"></span>
-
-<span class="s2">Returns</span>
-<span class="s2">-------</span>
-<span class="s2">viewer : :class:`napari.Viewer`</span>
-<span class="s2">    The newly-created viewer.</span>
-<span class="s2">"""</span></div>
+    <span class="k">return</span> <span class="n">_doc_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">layer_string</span><span class="o">=</span><span class="n">layer_string</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_generate_view_function</span><span class="p">(</span><span class="n">layer_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="sd">"""Autogenerate a ``view_&lt;layer_string&gt;`` method.</span>
+<span class="k">def</span> <span class="nf">_merge_layer_viewer_sigs_docs</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">"""Make combined signature, docstrings, and annotations for `func`.</span>
 
-<span class="sd">    Combines the signatures and docs of ``Viewer`` and</span>
-<span class="sd">    ``Viewer.add_&lt;layer_string&gt;``.  The returned function is compatible with</span>
-<span class="sd">    IPython help, introspection, tab completion, and autodocs.</span>
-
-<span class="sd">    Here's how it works:</span>
-<span class="sd">    1. we create a **string** (`fakefunc`) that represents how we _would_ have</span>
-<span class="sd">       typed out the original `view_*` method.</span>
-<span class="sd">        - `{combo_sig}` is an `inspect.Signature</span>
-<span class="sd">          &lt;https://docs.python.org/3/library/inspect.html#inspect.Signature&gt;`_</span>
-<span class="sd">          object (whose string representation is, conveniently, exactly how we</span>
-<span class="sd">          would have typed the original function).</span>
-<span class="sd">        - the inner part is basically how we were typing the body of the</span>
-<span class="sd">          `view_*` functions before.  That is, ``Viewer`` kwargs go to the</span>
-<span class="sd">          ``Viewer`` constructor, and everything else goes to the ``add_*``</span>
-<span class="sd">          method.  Note that we use ``_kw = locals()`` to get a dict of all</span>
-<span class="sd">          arguments passed to the function.</span>
-<span class="sd">    2. we compile that string, giving ``__file__`` as the second (``filename``)</span>
-<span class="sd">       argument, so it appears that the compiled code comes from this file.</span>
-<span class="sd">    3. finally, we evaluate the compiled code and add it to the</span>
-<span class="sd">       current module's "globals".  The second argument in the ``eval`` call</span>
-<span class="sd">       is a locals() namespace required to interpret the evaluated code.</span>
-<span class="sd">       (Note: evaluation at this step is essentially exactly what was</span>
-<span class="sd">       previously happening when python hit each `def view_*` declaration when</span>
-<span class="sd">       importing `view_layers.py`)</span>
+<span class="sd">    This is a decorator that combines information from `Viewer.__init__`,</span>
+<span class="sd">    and one of the `viewer.add_*` methods.  It updates the docstring,</span>
+<span class="sd">    signature, and type annotations of the decorated function with the merged</span>
+<span class="sd">    versions.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    layer_string : str</span>
-<span class="sd">        The name of the layer type</span>
-<span class="sd">    method_name : str</span>
-<span class="sd">        The name of the method in Viewer to use, by default will use</span>
-<span class="sd">        f'add_{layer_string}'</span>
+<span class="sd">    func : callable</span>
+<span class="sd">        `view_&lt;layer_type&gt;` function to modify</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    view_func : Callable</span>
-<span class="sd">        The complete view_* function</span>
+<span class="sd">    func : callable</span>
+<span class="sd">        The same function, with merged metadata.</span>
 <span class="sd">    """</span>
-    <span class="c1"># name of the corresponding add_* func</span>
-    <span class="n">add_string</span> <span class="o">=</span> <span class="n">method_name</span> <span class="ow">or</span> <span class="sa">f</span><span class="s1">'add_</span><span class="si">{</span><span class="n">layer_string</span><span class="si">}</span><span class="s1">'</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">add_string</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">"No Viewer method named '</span><span class="si">{add_string}</span><span class="s2">'"</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">add_string</span><span class="o">=</span><span class="n">add_string</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">.utils.misc</span> <span class="kn">import</span> <span class="n">_combine_signatures</span>
 
-    <span class="c1"># get signatures of the add_* method and Viewer.__init__</span>
-    <span class="n">add_sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">add_method</span><span class="p">)</span>
-    <span class="n">view_sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">Viewer</span><span class="p">)</span>
+    <span class="c1"># get the `Viewer.add_*` method</span>
+    <span class="n">layer_string</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"view_"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">layer_string</span> <span class="o">==</span> <span class="s1">'path'</span><span class="p">:</span>
+        <span class="n">add_method</span> <span class="o">=</span> <span class="n">Viewer</span><span class="o">.</span><span class="n">open</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">add_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Viewer</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'add_</span><span class="si">{</span><span class="n">layer_string</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
-    <span class="c1"># create a new combined signature</span>
-    <span class="n">new_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">add_sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># [1:] to remove self</span>
-    <span class="n">new_params</span> <span class="o">+=</span> <span class="n">view_sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-    <span class="n">new_params</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">new_params</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">kind</span><span class="p">)</span>
-    <span class="n">combo_sig</span> <span class="o">=</span> <span class="n">add_sig</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">new_params</span><span class="p">)</span>
+    <span class="c1"># merge the docstrings of Viewer and viewer.add_*</span>
+    <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">_merge_docstrings</span><span class="p">(</span><span class="n">add_method</span><span class="p">,</span> <span class="n">layer_string</span><span class="p">)</span>
 
-    <span class="c1"># make new function string with the combined signature</span>
-    <span class="n">fakefunc</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"def view_</span><span class="si">{</span><span class="n">layer_string</span><span class="si">}{</span><span class="n">combo_sig</span><span class="si">}</span><span class="s2">:"</span>
-    <span class="n">fakefunc</span> <span class="o">+=</span> <span class="s2">"""</span>
-<span class="s2">        _kw = locals()</span>
-<span class="s2">        view_kwargs = {</span>
-<span class="s2">            k: _kw.pop(k) for k in list(_kw) if k in view_sig.parameters</span>
-<span class="s2">        }</span>
-<span class="s2">        viewer = napari.Viewer(**view_kwargs)</span>
-<span class="s2">        if 'kwargs' in _kw:</span>
-<span class="s2">            _kw.update(_kw.pop("kwargs"))</span>
-<span class="s2">    """</span>
-    <span class="n">fakefunc</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"    viewer.</span><span class="si">{</span><span class="n">add_string</span><span class="si">}</span><span class="s2">(**_kw)</span><span class="se">\n</span><span class="s2">        return viewer"</span>
-    <span class="c1"># evaluate the new function into the current module namespace</span>
-    <span class="nb">globals</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span>
-    <span class="nb">eval</span><span class="p">(</span>
-        <span class="nb">compile</span><span class="p">(</span><span class="n">fakefunc</span><span class="p">,</span> <span class="vm">__file__</span><span class="p">,</span> <span class="s2">"exec"</span><span class="p">),</span>
-        <span class="p">{</span>
-            <span class="s1">'typing'</span><span class="p">:</span> <span class="n">typing</span><span class="p">,</span>
-            <span class="s1">'view_sig'</span><span class="p">:</span> <span class="n">view_sig</span><span class="p">,</span>
-            <span class="s1">'Union'</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">,</span>
-            <span class="s1">'Optional'</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">,</span>
-            <span class="s1">'List'</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">,</span>
-            <span class="s1">'NoneType'</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span>
-            <span class="s1">'Sequence'</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Sequence</span><span class="p">,</span>
-            <span class="s1">'napari'</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">),</span>
-        <span class="p">},</span>
-        <span class="nb">globals</span><span class="p">,</span>
+    <span class="c1"># merge the signatures of Viewer and viewer.add_*</span>
+    <span class="n">func</span><span class="o">.</span><span class="n">__signature__</span> <span class="o">=</span> <span class="n">_combine_signatures</span><span class="p">(</span>
+        <span class="n">add_method</span><span class="p">,</span> <span class="n">Viewer</span><span class="p">,</span> <span class="n">return_annotation</span><span class="o">=</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s1">'self'</span><span class="p">,)</span>
     <span class="p">)</span>
-    <span class="n">view_func</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">[</span><span class="sa">f</span><span class="s1">'view_</span><span class="si">{</span><span class="n">layer_string</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span>  <span class="c1"># this is the final function.</span>
-    <span class="n">view_func</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">merge_docs</span><span class="p">(</span><span class="n">add_method</span><span class="p">,</span> <span class="n">layer_string</span><span class="p">)</span>
+
+    <span class="c1"># merge the __annotations__</span>
+    <span class="n">func</span><span class="o">.</span><span class="vm">__annotations__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">**</span><span class="n">add_method</span><span class="o">.</span><span class="vm">__annotations__</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">Viewer</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__annotations__</span><span class="p">,</span>
+        <span class="s1">'return'</span><span class="p">:</span> <span class="n">Viewer</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># _forwardrefns_ is used by stubgen.py to populate the globalns</span>
+    <span class="c1"># when evaluate forward references with get_type_hints</span>
+    <span class="n">func</span><span class="o">.</span><span class="n">_forwardrefns_</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">add_method</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">func</span>
 
 
-<span class="k">for</span> <span class="n">_layer</span> <span class="ow">in</span> <span class="p">(</span>
-    <span class="s1">'image'</span><span class="p">,</span>
-    <span class="s1">'points'</span><span class="p">,</span>
-    <span class="s1">'labels'</span><span class="p">,</span>
-    <span class="s1">'shapes'</span><span class="p">,</span>
-    <span class="s1">'surface'</span><span class="p">,</span>
-    <span class="s1">'vectors'</span><span class="p">,</span>
-    <span class="s1">'tracks'</span><span class="p">,</span>
-<span class="p">):</span>
-    <span class="n">_generate_view_function</span><span class="p">(</span><span class="n">_layer</span><span class="p">)</span>
+<span class="n">_viewer_params</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">Viewer</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span>
 
-<span class="n">_generate_view_function</span><span class="p">(</span><span class="s1">'path'</span><span class="p">,</span> <span class="s1">'open'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_make_viewer_then</span><span class="p">(</span><span class="n">add_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Viewer</span><span class="p">:</span>
+    <span class="sd">"""Utility function that creates a viewer, adds a layer, returns viewer."""</span>
+    <span class="n">vkwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_viewer_params</span><span class="p">}</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">(</span><span class="o">**</span><span class="n">vkwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">'kwargs'</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"kwargs"</span><span class="p">))</span>
+    <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">add_method</span><span class="p">)</span>
+    <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">viewer</span>
+
+
+<span class="c1"># Each of the following functions will have this pattern:</span>
+<span class="c1">#</span>
+<span class="c1"># def view_image(*args, **kwargs):</span>
+<span class="c1">#     # ... pop all of the viewer kwargs out of kwargs into viewer_kwargs</span>
+<span class="c1">#     viewer = Viewer(**viewer_kwargs)</span>
+<span class="c1">#     viewer.add_image(*args, **kwargs)</span>
+<span class="c1">#     return viewer</span>
+
+
+<div class="viewcode-block" id="view_image"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_image">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
+<span class="k">def</span> <span class="nf">view_image</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">'add_image'</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="view_labels"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_labels">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
+<span class="k">def</span> <span class="nf">view_labels</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">'add_labels'</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="view_points"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_points">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
+<span class="k">def</span> <span class="nf">view_points</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">'add_points'</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="view_shapes"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_shapes">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
+<span class="k">def</span> <span class="nf">view_shapes</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">'add_shapes'</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="view_surface"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_surface">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
+<span class="k">def</span> <span class="nf">view_surface</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">'add_surface'</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="view_tracks"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_tracks">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
+<span class="k">def</span> <span class="nf">view_tracks</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">'add_tracks'</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="view_vectors"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_vectors">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
+<span class="k">def</span> <span class="nf">view_vectors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">'add_vectors'</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="view_path"><a class="viewcode-back" href="../../api/stable/napari.view_layers.html#napari.view_path">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
+<span class="k">def</span> <span class="nf">view_path</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">'open'</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
 </pre></div>
 
 

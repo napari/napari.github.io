@@ -104,6 +104,7 @@ napari.layers.Points
       ~Points.opacity
       ~Points.position
       ~Points.properties
+      ~Points.property_choices
       ~Points.rotate
       ~Points.scale
       ~Points.selected

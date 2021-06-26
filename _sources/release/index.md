@@ -2,5 +2,11 @@
 
 Release notes for napari versions.
 
-```{tableofcontents}
+```{toctree}
+---
+glob: true
+titlesonly: true
+reversed: true
+---
+release_*
 ```

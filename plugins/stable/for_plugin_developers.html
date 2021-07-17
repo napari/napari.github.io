@@ -339,12 +339,32 @@ specific <em>hook specification</em> offered by napari.
 See <a class="reference internal" href="#plugins-hook-implement"><span class="std std-ref">Step 2: Write your hook implementation</span></a>.</p>
 <p>3. <strong>Plugin discovery</strong>: Plugins that are installed in the same python
 environment as napari can make themselves known to napari. <code class="docutils literal notranslate"><span class="pre">napari</span></code> will then
-scan plugin modules for <em>hook implementations</em> that will then be called at the
-appropriate time place during the execution of <code class="docutils literal notranslate"><span class="pre">napari</span></code>.
+scan plugin modules for <em>hook implementations</em> that will be called at the
+appropriate time and place during the execution of <code class="docutils literal notranslate"><span class="pre">napari</span></code>.
 See <a class="reference internal" href="#plugin-discovery"><span class="std std-ref">Step 3: Make your plugin discoverable</span></a>.</p>
 <p>4. <strong>Plugin sharing</strong>: When you are ready to share your plugin, tag your repo
 with <cite>napari-plugin</cite>, push a release to pypi, and announce it on Image.sc.
-See <a class="reference internal" href="#plugin-sharing"><span class="std std-ref">Step 4: Share your plugin with the world</span></a>.</p>
+Your plugin will then be available for users on the <a class="reference external" href="https://napari-hub.org/">napari hub</a> See <a class="reference internal" href="#plugin-sharing"><span class="std std-ref">Step 5: Share your plugin with the world</span></a>.</p>
+</div>
+<div class="section" id="cookiecutter-template">
+<span id="plugin-cookiecutter-template"></span><h2>Cookiecutter template<a class="headerlink" href="#cookiecutter-template" title="Permalink to this headline">¶</a></h2>
+<p>Hook implementations defined by plugin developers typically live inside a
+module of a Python package. This allows them to be “pip installable” and
+shared via <a class="reference external" href="https://pypi.org/">PyPI</a> and the <a class="reference external" href="https://napari-hub.org/">napari hub</a>.</p>
+<p>To quickly generate a new napari plugin project, you may wish to use the
+<a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.  This uses
+the <a class="reference external" href="https://github.com/cookiecutter/cookiecutter">cookiecutter</a> command line
+utility, which will ask you a few questions about your project and get you
+started with a ready-to-go package layout where you can begin implementing your
+plugin.</p>
+<p>Install cookiecutter and use the template as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install cookiecutter
+cookiecutter https://github.com/napari/cookiecutter-napari-plugin
+</pre></div>
+</div>
+<p>The cookiecutter template is a great place to start if you want to focus on
+implementing your plugin functionality without having to manually create a
+package and all its associated configuration.</p>
 </div>
 <div class="section" id="step-1-choose-a-hook-specification-to-implement">
 <span id="plugins-hook-spec"></span><h2>Step 1: Choose a hook specification to implement<a class="headerlink" href="#step-1-choose-a-hook-specification-to-implement" title="Permalink to this headline">¶</a></h2>
@@ -352,11 +372,12 @@ See <a class="reference internal" href="#plugin-sharing"><span class="std std-re
 <code class="docutils literal notranslate"><span class="pre">napari</span></code>, is rather specific in scope: They are <em>not</em> just independent code
 blocks with their own GUIs that show up next to the main napari window. Rather,
 plugin developers must decide which of the current <em>hook specifications</em>
-defined by napari that they would like to implement.</p>
+defined by napari they would like to implement.</p>
 <p>For a complete list of <em>hook specifications</em> that developers can implement, see
 the <a class="reference internal" href="hook_specifications.html#hook-specifications-reference"><span class="std std-ref">napari hook specification reference</span></a>.</p>
-<p>A single plugin package may implement more than one <em>hook specification</em>, but
-may not declare more the one <em>hook implementation</em> for any given specification.</p>
+<p>A single plugin package may implement more than one <em>hook specification</em>, and
+each <em>hook specification</em> could have multiple <em>hook implementations</em> within
+a single package.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>One of the primary ways that we will extend the functionality of napari over
@@ -413,7 +434,7 @@ with <a class="reference external" href="https://numpy.org/doc/stable/reference/
 <span class="c1"># this line is explained below in "Decorating your function..."</span>
 <span class="nd">@napari_hook_implementation</span>
 <span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-   <span class="c1"># remember, path can be a list, so we check it's type first...</span>
+   <span class="c1"># remember, path can be a list, so we check its type first...</span>
    <span class="c1"># (this example plugin doesn't handle lists)</span>
    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".npy"</span><span class="p">):</span>
       <span class="c1"># If we recognize the format, we return the actual reader function</span>
@@ -441,7 +462,7 @@ only standard lib python).</p>
 <h4>Matching hook implementations to specifications<a class="headerlink" href="#matching-hook-implementations-to-specifications" title="Permalink to this headline">¶</a></h4>
 <p>By default, <code class="docutils literal notranslate"><span class="pre">napari</span></code> matches your implementation to one of our hook
 specifications by looking at the <em>name</em> of your decorated function.  So in the
-example above, because hook implementation was literally
+example above, because the hook implementation was literally
 named <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>, it gets interpreted as an implementation for the
 hook specification of the same name.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@napari_hook_implementation</span>
@@ -477,47 +498,61 @@ implementations, then if you include in <code class="docutils literal notranslat
 
 <span class="n">setup</span><span class="p">(</span>
    <span class="o">...</span>
-   <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span><span class="s1">'napari.plugin'</span><span class="p">:</span> <span class="s1">'plugin_name = mypackage.napari_plugin'</span><span class="p">},</span>
+   <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span><span class="s1">'napari.plugin'</span><span class="p">:</span> <span class="s1">'plugin-name = mypackage.napari_plugin'</span><span class="p">},</span>
    <span class="o">...</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>… then napari will search the <code class="docutils literal notranslate"><span class="pre">mypackage.napari_plugin</span></code> module for
 functions decorated with the <code class="docutils literal notranslate"><span class="pre">HookImplementationMarker("napari")</span></code> decorator
-and register them the plugin name <code class="docutils literal notranslate"><span class="pre">"plugin_name"</span></code>.</p>
+and register them under the plugin name <code class="docutils literal notranslate"><span class="pre">"plugin-name"</span></code>.</p>
 <p>A user would then be able to use <code class="docutils literal notranslate"><span class="pre">napari</span></code>, extended with your package’s
 functionality by simply installing your package along with napari:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install napari mypackage
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-4-share-your-plugin-with-the-world">
-<span id="plugin-sharing"></span><h2>Step 4: Share your plugin with the world<a class="headerlink" href="#step-4-share-your-plugin-with-the-world" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-4-preparing-for-release">
+<h2>Step 4: Preparing for release<a class="headerlink" href="#step-4-preparing-for-release" title="Permalink to this headline">¶</a></h2>
+<p>To make your plugin easily discoverable by napari users, you can use the
+<cite>‘Framework :: napari’</cite> [classifier](<a class="reference external" href="https://pypi.org/classifiers/">https://pypi.org/classifiers/</a>) in your
+<cite>setup.py</cite> file, which will allow your package to be
+[displayed on the napari-hub](<a class="reference external" href="https://napari-hub.org/">https://napari-hub.org/</a>) and easily searched
+for on PyPI.</p>
+<p>Once your package, with its <cite>‘Framework :: napari’</cite> classifier,  is listed on <a class="reference external" href="https://pypi.org/">PyPI</a>, it will also be visible
+on the <a class="reference external" href="https://napari-hub.org/">napari hub</a>, alongside all other napari plugins.</p>
+<p>The napari hub reads the metadata of your package and displays it in a number of places
+so that users can easily find your plugin and decide if it provides functionality they
+need. Most of this metadata lives inside your package configuration files. You can customize
+your plugin’s listing for the hub by following <a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/blob/main/docs/customizing-plugin-listing.md">this guide</a>.</p>
+<p>You can also include a napari hub specific description file at <cite>/.napari/DESCRIPTION.md</cite>.
+The hub preferentially displays this file over your repository’s <cite>README.md</cite> when it’s
+available. This file allows you to maintain a more developer/repository oriented <cite>README.md</cite>
+while still making sure potential users get all the information they need to get started
+with your plugin. For more information on this file, see <a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/blob/main/docs/customizing-plugin-listing.md">the guide</a>.</p>
+<p>Finally, once you have curated your package metadata and description, you can preview your
+metadata, and check any missing fields using the <code class="docutils literal notranslate"><span class="pre">napari-hub-cli</span></code> tool. Install this tool
+using</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install napari-hub-cli
+</pre></div>
+</div>
+<p>and preview your metadata with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari-hub-cli preview-metadata /tmp/example-plugin
+</pre></div>
+</div>
+<p>For more information on the tool see <a class="reference external" href="https://github.com/chanzuckerberg/napari-hub-cli">the repository README</a></p>
+<p>If you want your plugin to be available on PyPI, but not visible on the napari hub,
+submit an issue on the <a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/issues/new">napari hub repository</a> or send an email to
+<cite>team@napari-hub.org</cite> and it will be removed.</p>
+</div>
+<div class="section" id="step-5-share-your-plugin-with-the-world">
+<span id="plugin-sharing"></span><h2>Step 5: Share your plugin with the world<a class="headerlink" href="#step-5-share-your-plugin-with-the-world" title="Permalink to this headline">¶</a></h2>
 <p>Once you are ready to share your plugin, <a class="reference external" href="https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives">upload the Python package to PyPI</a>
 and it can then be installed with a simple <cite>pip install mypackage</cite>.
 If you used the <a class="reference internal" href="#plugin-cookiecutter-template"><span class="std std-ref">Cookiecutter template</span></a>, you can also <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin#set-up-automatic-deployments">setup automated deployments</a>.</p>
-<p>Be sure to use the <cite>‘Framework :: napari’</cite>
-[classifier](<a class="reference external" href="https://pypi.org/classifiers/">https://pypi.org/classifiers/</a>) in your <cite>setup.py</cite> file, which will
-allow your package to be [easily searched on
-PyPI](<a class="reference external" href="https://pypi.org/search/?c=Framework+%3A%3A+napari">https://pypi.org/search/?c=Framework+%3A%3A+napari</a>) as offering
-functionality for napari.</p>
 <p>If you are using Github, add the <a class="reference external" href="https://github.com/topics/napari-plugin">“napari-plugin” topic</a> to your repo so other developers can
 see your work.</p>
 <p>When you are ready for users, announce your plugin on the <a class="reference external" href="https://forum.image.sc/tag/napari">Image.sc Forum</a>.</p>
-</div>
-<div class="section" id="cookiecutter-template">
-<span id="plugin-cookiecutter-template"></span><h2>Cookiecutter template<a class="headerlink" href="#cookiecutter-template" title="Permalink to this headline">¶</a></h2>
-<p>To quickly generate a new napari plugin project, you may wish to use the
-<a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template.  This uses
-the <a class="reference external" href="https://github.com/cookiecutter/cookiecutter">cookiecutter</a> command line
-utility, which will ask you a few questions about your project and get you
-started with a ready-to-go package layout where you can begin implementing your
-plugin.</p>
-<p>Install cookiecutter and use the template as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install cookiecutter
-cookiecutter https://github.com/napari/cookiecutter-napari-plugin
-</pre></div>
-</div>
 </div>
 <div class="section" id="example-plugins">
 <h2>Example Plugins<a class="headerlink" href="#example-plugins" title="Permalink to this headline">¶</a></h2>
@@ -527,7 +562,7 @@ read the <a class="reference external" href="https://github.com/tlambert03/mrc">
 community plugins developed for napari.  This plugin takes advantage of
 <a class="reference internal" href="#plugin-discovery"><span class="std std-ref">entry_point discovery</span></a> to offer multiple
 readers for both in-memory and lazy-loading of image files.</p>
-<p>More examples of plugins can be found on the <a class="reference external" href="https://github.com/topics/napari-plugin">“napari-plugin” Github topic</a>.</p>
+<p>More examples of plugins can be found on the <a class="reference external" href="https://napari-hub.org/">napari hub</a>.</p>
 </div>
 <div class="section" id="help">
 <h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
@@ -614,6 +649,7 @@ support, please open an issue at our <a class="reference external" href="https:/
             <ul>
 <li><a class="reference internal" href="#">creating a napari plugin</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#cookiecutter-template">Cookiecutter template</a></li>
 <li><a class="reference internal" href="#step-1-choose-a-hook-specification-to-implement">Step 1: Choose a hook specification to implement</a></li>
 <li><a class="reference internal" href="#step-2-write-your-hook-implementation">Step 2: Write your hook implementation</a><ul>
 <li><a class="reference internal" href="#decorating-your-function-with-hookimplementationmarker">Decorating your function with <code class="docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code></a><ul>
@@ -623,8 +659,8 @@ support, please open an issue at our <a class="reference external" href="https:/
 </ul>
 </li>
 <li><a class="reference internal" href="#step-3-make-your-plugin-discoverable">Step 3: Make your plugin discoverable</a></li>
-<li><a class="reference internal" href="#step-4-share-your-plugin-with-the-world">Step 4: Share your plugin with the world</a></li>
-<li><a class="reference internal" href="#cookiecutter-template">Cookiecutter template</a></li>
+<li><a class="reference internal" href="#step-4-preparing-for-release">Step 4: Preparing for release</a></li>
+<li><a class="reference internal" href="#step-5-share-your-plugin-with-the-world">Step 5: Share your plugin with the world</a></li>
 <li><a class="reference internal" href="#example-plugins">Example Plugins</a></li>
 <li><a class="reference internal" href="#help">Help</a></li>
 </ul>

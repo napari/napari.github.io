@@ -32,8 +32,13 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-from napari.utils import nbscreenshot
+import napari
+import numpy as np
+from vispy.color import Colormap
 
-nbscreenshot(viewer)
+cmap = Colormap([[1, 0, 0], [0, 0, 0], [0, 0, 1]])
+image = np.random.random((100, 100))
+
+viewer = napari.view_image(image, colormap=('diverging', cmap))
 -------------------
 

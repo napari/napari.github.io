@@ -3,8 +3,14 @@
 ## Coordinate systems in napari
 In napari, there are three main coordinate systems: (1) canvas, (2) world, and (3) layer. The canvas coordinates system is the 2D coordinate system of the canvas on which the scene is rendered. World coordinates are the nD coordinates of the entire scene. As the name suggests, the layer coordinates is the nD coordinate system of the data in a given layer. Layer coordinates are specific the each layer's data and are related to the world coordinate system via the layer transforms.
 
+![coordinate-systems](images/3d_interaction_coordianates.png)
+
 ## In 3D mode, clicks are lines
-Since the 3D scene is rendered on a 2D surface (your screen), your mouse click does not map to a specific point in space. Thus, when rendering a scene in 3D, napari interprets your click as a line in the direction of the camera view that goes through the point that view ray intersects the camera plane. When a user clicks or moves the mouse in the canvas, napari emits a mouse event with the following properties:
+Since the 3D scene is rendered on a 2D surface (your screen), your mouse click does not map to a specific point in space. Thus, when rendering a scene in 3D, napari interprets your click as a line in the direction of the camera view that goes through the point that view ray intersects the camera plane.
+
+![click-line](images/3d_interaction_click_line.png)
+
+When a user clicks or moves the mouse in the canvas, napari emits a mouse event with the following properties:
 
 
 - pos: the position of the click in canvas coordinates.
@@ -18,7 +24,11 @@ Since the 3D scene is rendered on a 2D surface (your screen), your mouse click d
 
 
 ## Determining where the click intersects the data
-Each napari layer has a method called `get_ray_intersections()` that will return the points on the data bounding box that a given line will intersect (`start_point ` and `end_point `). `start_point` and `end_point` are  the end points of line segment that intersects the layer's axis-alinged data bounding box. `near_point` is the end point that is closest to the camera (i.e, the "first" intersection") and `far_point` is the end point that is farthest from the camera (i.e., the "last" intersection). If the line does not intersect the data bounding box (i.e., the click was outside of the data), `start_point` and `end_point` are `None`. The `position` and `view_direction` should be provided as world coordinates if `world` is set to True and in layer coordinates if `world` is set to `False`.
+Each napari layer has a method called `get_ray_intersections()` that will return the points on the data bounding box that a given line will intersect (`start_point ` and `end_point `). `start_point` and `end_point` are  the end points of line segment that intersects the layer's axis-alinged data bounding box. `near_point` is the end point that is closest to the camera (i.e, the "first" intersection") and `far_point` is the end point that is farthest from the camera (i.e., the "last" intersection).
+
+![click-intersection](images/3d_interaction_ray_intersection.png)
+
+See the `get_ray_intersection()` docstrings below for details. Note that if the line does not intersect the data bounding box (i.e., the click was outside of the data), `start_point` and `end_point` are `None`. The `position` and `view_direction` should be provided as world coordinates if `world` is set to True and in layer coordinates if `world` is set to `False`.
 
 ```
 def get_ray_intersections(

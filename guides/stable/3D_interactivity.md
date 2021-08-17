@@ -24,7 +24,7 @@ When a user clicks or moves the mouse in the canvas, napari emits a mouse event 
 
 
 ## Determining where the click intersects the data
-Each napari layer has a method called `get_ray_intersections()` that will return the points on the data bounding box that a given line will intersect (`start_point ` and `end_point `). `start_point` and `end_point` are  the end points of line segment that intersects the layer's axis-alinged data bounding box. `near_point` is the end point that is closest to the camera (i.e, the "first" intersection") and `far_point` is the end point that is farthest from the camera (i.e., the "last" intersection).
+Each napari layer has a method called `get_ray_intersections()` that will return the points on the data bounding box that a given line will intersect (`start_point ` and `end_point `). `start_point` and `end_point` are  the end points of line segment that intersects the layer's axis-alinged data bounding box. `near_point` is the end point that is closest to the camera (i.e, the "first" intersection") and `far_point` is the end point that is farthest from the camera (i.e., the "last" intersection). You can use the line segment between `start_point` and `end_point` to interrogate the layer data that is "under" your cursor.
 
 ![click-intersection](images/3d_interaction_ray_intersection.png)
 
@@ -72,8 +72,8 @@ def get_ray_intersections(
 	"""
 ```
 
-## Custom 3D interactivity
-Custom 3D interactivity can be added via mouse callbacks. The `layer.get_ray_intersections()` function has been designed to work seamlessly with the napari mouse callback event.
+## Adding 3D interactivity via mouse events
+Custom 3D interactivity can be added via mouse callbacks. The `layer.get_ray_intersections()` function has been designed to work seamlessly with the napari mouse callback event. You can pass the mouse callback event properties to `layer.get_ray_intersections()` get the `start_point` and `end_point` of where the click line intersects the layer data. 
 
 ```
 @layer.mouse_drag_callbacks.append
@@ -91,5 +91,41 @@ def on_click(layer, event):
 
 For an example implementation, see the [`cursor_ray.py`](https://github.com/napari/napari/blob/master/examples/cursor_ray.py) example.
 
-# Resources
-PRs in which the 3D interactivity was added:
+## Getting the layer data under the cursor
+We are currently implementing convenience methods to the layers (`layer.get_value()`) to get the layer data value underneath the cursor that is "on top" (i.e., closest to `start_point`). Like `layer.get_ray_intersections()`, `layer.get_value()` takes the click position, view direction, dims_displayed in either world or layer coordinates (see `world` argument) as input. Thus, it can be easily integrated into a mouse event callback. Note that `layer.get_value()` returns `None` if the layer is not currently visible. See the docstring below for details.
+
+```
+    def get_value(
+        self,
+        position,
+        *,
+        view_direction: Optional[np.ndarray] = None,
+        dims_displayed: Optional[List[int]] = None,
+        world=False,
+    ):
+        """Value of the data at a position.
+
+        If the layer is not visible, return None.
+
+        Parameters
+        ----------
+        position : tuple
+            Position in either data or world coordinates.
+        view_direction : Optional[np.ndarray]
+            A unit vector giving the direction of the ray in nD world coordinates.
+            The default value is None.
+        dims_displayed : Optional[List[int]]
+            A list of the dimensions currently being displayed in the viewer.
+            The default value is None.
+        world : bool
+            If True the position is taken to be in world coordinates
+            and converted into data coordinates. False by default.
+
+        Returns
+        -------
+        value : tuple, None
+            Value of the data. If the layer is not visible return None.
+```
+
+We have implemented `layer.get_value()` for the layers below. All other layers with return `None` from `layer.get_value()` when called while the viewer is in a 3D rendering mode.
+- `Labels`

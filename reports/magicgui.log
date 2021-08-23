@@ -32,9 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-from napari.utils import nbscreenshot
-
-viewer.window._qt_window.resize(750, 550)
-nbscreenshot(viewer)
+['from napari.types import LabelsData, ImageData', '', "@magicgui(call_button='Run Threshold')", 'def threshold(image: ImageData, threshold: int = 75) -> LabelsData:', '    """Threshold an image and return a mask."""']
+...
+['', 'viewer = napari.view_image(np.random.randint(0, 100, (64, 64)))', 'viewer.window.add_dock_widget(threshold)', 'threshold()  # "call the widget" to call the function.', '             # Normally this would be caused by some user UI interaction']
 -------------------
 

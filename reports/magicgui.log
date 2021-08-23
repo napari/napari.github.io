@@ -32,13 +32,9 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-@magicgui(call_button='Add Image')
-def my_widget(ny: int=64, nx: int=64) -> Image:
-  return Image(np.random.rand(ny, nx), name='My Image')
+from napari.utils import nbscreenshot
 
-viewer = napari.Viewer()
-viewer.window.add_dock_widget(my_widget, area='right')
-my_widget()  # "call the widget" to call the function.
-             # Normally this would be caused by some user UI interaction
+viewer.window._qt_window.resize(750, 550)
+nbscreenshot(viewer)
 -------------------
 

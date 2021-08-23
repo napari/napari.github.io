@@ -18,19 +18,19 @@ Traceback (most recent call last):
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
 import napari
-from skimage import data
+from skimage.data import cells3d
 
-cells = data.cells3d()[30, 1]  # grab some data
+cells = cells3d()[30, 1]  # get some data
 viewer = napari.view_image(cells, colormap='magma')
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mImportError[0m                               Traceback (most recent call last)
-[0;32m/tmp/ipykernel_2026/645241933.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_2006/431478319.py[0m in [0;36m<module>[0;34m[0m
 [1;32m      1[0m [0;32mimport[0m [0mnapari[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 2[0;31m [0;32mfrom[0m [0mskimage[0m [0;32mimport[0m [0mdata[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 2[0;31m [0;32mfrom[0m [0mskimage[0m[0;34m.[0m[0mdata[0m [0;32mimport[0m [0mcells3d[0m[0;34m[0m[0;34m[0m[0m
 [0m[1;32m      3[0m [0;34m[0m[0m
-[1;32m      4[0m [0mcells[0m [0;34m=[0m [0mdata[0m[0;34m.[0m[0mcells3d[0m[0;34m([0m[0;34m)[0m[0;34m[[0m[0;36m30[0m[0;34m,[0m [0;36m1[0m[0;34m][0m  [0;31m# grab some data[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0mcells[0m [0;34m=[0m [0mcells3d[0m[0;34m([0m[0;34m)[0m[0;34m[[0m[0;36m30[0m[0;34m,[0m [0;36m1[0m[0;34m][0m  [0;31m# get some data[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      5[0m [0mviewer[0m [0;34m=[0m [0mnapari[0m[0;34m.[0m[0mview_image[0m[0;34m([0m[0mcells[0m[0;34m,[0m [0mcolormap[0m[0;34m=[0m[0;34m'magma'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/skimage/__init__.py[0m in [0;36m<module>[0;34m[0m

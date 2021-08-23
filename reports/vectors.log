@@ -18,20 +18,34 @@ Traceback (most recent call last):
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
 import napari
+import numpy as np
 from skimage import data
 
-cells = data.cells3d()[30, 1]  # grab some data
-viewer = napari.view_image(cells, colormap='magma')
+# create vector data
+n = 250
+vectors = np.zeros((n, 2, 2), dtype=np.float32)
+phi_space = np.linspace(0, 4 * np.pi, n)
+radius_space = np.linspace(0, 100, n)
+# assign x-y projection
+vectors[:, 1, 0] = radius_space * np.cos(phi_space)
+vectors[:, 1, 1] = radius_space * np.sin(phi_space)
+# assign x-y position
+vectors[:, 0] = vectors[:, 1] + 256
+
+# add the image
+viewer = napari.view_image(data.camera(), name='photographer')
+# add the vectors
+vectors_layer = viewer.add_vectors(vectors, edge_width=3)
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mImportError[0m                               Traceback (most recent call last)
-[0;32m/tmp/ipykernel_2026/645241933.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_2100/2814492494.py[0m in [0;36m<module>[0;34m[0m
 [1;32m      1[0m [0;32mimport[0m [0mnapari[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 2[0;31m [0;32mfrom[0m [0mskimage[0m [0;32mimport[0m [0mdata[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      3[0m [0;34m[0m[0m
-[1;32m      4[0m [0mcells[0m [0;34m=[0m [0mdata[0m[0;34m.[0m[0mcells3d[0m[0;34m([0m[0;34m)[0m[0;34m[[0m[0;36m30[0m[0;34m,[0m [0;36m1[0m[0;34m][0m  [0;31m# grab some data[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m [0mviewer[0m [0;34m=[0m [0mnapari[0m[0;34m.[0m[0mview_image[0m[0;34m([0m[0mcells[0m[0;34m,[0m [0mcolormap[0m[0;34m=[0m[0;34m'magma'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      2[0m [0;32mimport[0m [0mnumpy[0m [0;32mas[0m [0mnp[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 3[0;31m [0;32mfrom[0m [0mskimage[0m [0;32mimport[0m [0mdata[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      4[0m [0;34m[0m[0m
+[1;32m      5[0m [0;31m# create vector data[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/skimage/__init__.py[0m in [0;36m<module>[0;34m[0m
 [1;32m    133[0m                              [0mimg_as_bool[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m

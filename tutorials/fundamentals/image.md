@@ -151,6 +151,35 @@ example these cells undergoing mitosis in this volumetric timeseries:
 
 +++
 
+## loading multichannel images
+Each channel in a multichannel image can be displayed as an individual layer 
+by using the `channel_axis` argument in `viewer.add_image()`. All the rest
+of the arguments to `viewer.add_image()` (e.g. name, colormap, contrast_limit)
+can take the form of a list of the same size as the number of channels.
+
+For example, the multichannel image below has dimensions (60, 2, 256, 256)
+with axes ordered ZCYX (so the channel axis has an index of 1). It is loaded into 
+napari in one line.
+
+```{code cell} python
+import napari
+from skimage import data
+
+cells = data.cells3d() #ZCYX image data
+
+# load multichannel image in one line
+viewer = napari.view_image(cells, channel_axis=1)
+
+# load multichannel image in one line, with additional options
+viewer = napari.view_image(cells, channel_axis=1, name=["membrane", "nuclei"], colormap=["green", "magenta"], contrast_limit=[[1000,20000],[1000,50000]]
+
+```
++++
+
+![image: multichannel image](../assets/tutorials/multichannel_cells.png)
+
++++
+
 ## viewing rgb vs luminance (grayscale) images
 
 In this example we explicitly set the `rgb` keyword to be `True`

@@ -429,6 +429,30 @@ browse volumetric timeseries data and other high dimensional data. See for
 example these cells undergoing mitosis in this volumetric timeseries:</p>
 <p><img alt="image: mitorsis" src="../../_images/mitosis.gif"/></p>
 </div>
+<div class="section" id="loading-multichannel-images">
+<h2>loading multichannel images<a class="headerlink" href="#loading-multichannel-images" title="Permalink to this headline">¶</a></h2>
+<p>Each channel in a multichannel image can be displayed as an individual layer
+by using the <code class="docutils literal notranslate"><span class="pre">channel_axis</span></code> argument in <code class="docutils literal notranslate"><span class="pre">viewer.add_image()</span></code>. All the rest
+of the arguments to <code class="docutils literal notranslate"><span class="pre">viewer.add_image()</span></code> (e.g. name, colormap, contrast_limit)
+can take the form of a list of the same size as the number of channels.</p>
+<p>For example, the multichannel image below has dimensions (60, 2, 256, 256)
+with axes ordered ZCYX (so the channel axis has an index of 1). It is loaded into
+napari in one line.</p>
+<div class="highlight-{code notranslate"><div class="highlight"><pre><span></span>import napari
+from skimage import data
+
+cells = data.cells3d() #ZCYX image data
+
+# load multichannel image in one line
+viewer = napari.view_image(cells, channel_axis=1)
+
+# load multichannel image in one line, with additional options
+viewer = napari.view_image(cells, channel_axis=1, name=["membrane", "nuclei"], colormap=["green", "magenta"], contrast_limit=[[1000,20000],[1000,50000]]
+
+</pre></div>
+</div>
+<p><img alt="image: multichannel image" src="../../_images/multichannel_cells.png"/></p>
+</div>
 <div class="section" id="viewing-rgb-vs-luminance-grayscale-images">
 <h2>viewing rgb vs luminance (grayscale) images<a class="headerlink" href="#viewing-rgb-vs-luminance-grayscale-images" title="Permalink to this headline">¶</a></h2>
 <p>In this example we explicitly set the <code class="docutils literal notranslate"><span class="pre">rgb</span></code> keyword to be <code class="docutils literal notranslate"><span class="pre">True</span></code>
@@ -734,6 +758,7 @@ labeling regions of images.</p>
 <li><a class="reference internal" href="#image-data-and-numpy-like-arrays">image data and numpy-like arrays</a></li>
 <li><a class="reference internal" href="#image-pyramids">image pyramids</a></li>
 <li><a class="reference internal" href="#d-rendering-of-images">3D rendering of images</a></li>
+<li><a class="reference internal" href="#loading-multichannel-images">loading multichannel images</a></li>
 <li><a class="reference internal" href="#viewing-rgb-vs-luminance-grayscale-images">viewing rgb vs luminance (grayscale) images</a></li>
 <li><a class="reference internal" href="#working-with-colormaps">working with colormaps</a></li>
 <li><a class="reference internal" href="#adjusting-contrast-limits">adjusting contrast limits</a></li>

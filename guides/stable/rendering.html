@@ -469,7 +469,7 @@ and drawing the ideal chunks.</p>
 can slightly delay when the ideal chunks are loaded, it’s a very quick way
 to get reasonable looking “coverage” of the area of interest. Often data
 from one or two levels up isn’t even that noticeably degraded. This table
-shows how many ideal chunks are “covered” a chunk at a higher level:</p>
+shows how many ideal chunks are “covered” by a chunk at a higher level:</p>
 <div class="table-wrapper"><table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="text-align:right head"><p>Levels Above Ideal</p></th>
@@ -596,7 +596,7 @@ up the loader pool with workers loading chunks that have already moved out
 of view. The
 <code class="xref py py-class docutils literal notranslate"><span class="pre">DelayQueue</span></code> was
 created to help with this problem.</p>
-<p>While we can’t cancel a load if a worker as started working on it, we can
+<p>While we can’t cancel a load if a worker has started working on it, we can
 trivially cancel loads that are still in our delay queue. If the chunk goes
 out of view, we cancel the load. If the user pauses for a bit, we initiate
 the loads.</p>
@@ -655,7 +655,7 @@ works today is the
 potentially passes the visual tiles of various sizes, from different levels
 of the Octree. The tiles are rendered on top of each other from largest
 (coarsest level) to smallest (finest level). This is a nice trick so that
-bigger tiles to provide “coverage” for an area, while the smaller tiles add
+bigger tiles provide “coverage” for an area, while the smaller tiles add
 detail only where that data has been loaded.</p>
 <p>However, this breaks blending and opacity. We draw multiple tiles on top of
 each other, so the image is blending with itself. One solution which is
@@ -666,9 +666,9 @@ knows about the Octree. It can walk up and down the Octree chopping up
 larger tiles to make sure we do not render anything on top of anything
 else.</p>
 <p>Until we do that, we could punt on making things look correct while loads
-are in progress. We could even highly the fact that a tile has not been
-fully loaded. Purposely make them look different until the data is fully
-loaded. Aside from blending this would address a common complaint with
+are in progress. We could even highlight the fact that a tile has not been
+fully loaded (purposely making it look different until the data is fully
+loaded). Aside from blending, this would address a common complaint with
 tiled image viewers: you often can’t tell if the data is still being
 loaded. This could be a big issue for scientific uses, you don’t want
 people drawing the wrong conclusions from the data.</p>
@@ -747,11 +747,11 @@ framerate would not tank, and you could switch slices at any time.</p>
 </div>
 <div class="section" id="future-work-caching">
 <h3>Future Work: Caching<a class="headerlink" href="#future-work-caching" title="Permalink to this headline">¶</a></h3>
-<p>Basically no work as gone into caching or memory management for Octree
+<p>Basically no work has gone into caching or memory management for Octree
 data. It’s very likely there are leaks and extended usage will run out of
 memory. This hasn’t been addressed because using Octree for long periods of
 time is just now becoming possible.</p>
-<p>One caching issue is figuring how to combine the <code class="docutils literal notranslate"><span class="pre">ChunkCache</span></code> with
+<p>One caching issue is figuring out how to combine the <code class="docutils literal notranslate"><span class="pre">ChunkCache</span></code> with
 Dasks’s built-in caching. We probably want to keep the <code class="docutils literal notranslate"><span class="pre">ChunkCache</span></code> for
 rendering non-Dask arrays? But when using Dask, we defer to its cache? We
 certainly don’t want to cache the data in both places.</p>

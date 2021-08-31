@@ -318,7 +318,7 @@
 
 <div class="section" id="performance-monitoring">
 <span id="perfmon"></span><h1>Performance Monitoring<a class="headerlink" href="#performance-monitoring" title="Permalink to this headline">¶</a></h1>
-<p>If napari is not performing well, you can use the
+<p>If napari is not performing well, you can use
 <a class="reference internal" href="../../api/stable/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> to help
 diagnose the problem.</p>
 <p>The module can do several things:</p>
@@ -425,8 +425,8 @@ Tracing GUI.</p>
 <div class="section" id="add-a-sleep">
 <h3>Add a Sleep<a class="headerlink" href="#add-a-sleep" title="Permalink to this headline">¶</a></h3>
 <p>To simulate a performance problem in napari, add a <code class="docutils literal notranslate"><span class="pre">sleep()</span></code> call to the
-:meth:<code class="docutils literal notranslate"><span class="pre">Labels.paint&lt;napari.layer.labels.Label.paint&gt;</span></code> method, this
-will make the method take at least 100ms:</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code> method, this
+will make the method take at least 100 ms:</p>
 </div>
 <div class="section" id="create-a-perfmon-config-file">
 <h3>Create a Perfmon Config File<a class="headerlink" href="#create-a-perfmon-config-file" title="Permalink to this headline">¶</a></h3>
@@ -470,10 +470,10 @@ in or out. Both the <code class="docutils literal notranslate"><span class="pre"
 the lower pane the <code class="docutils literal notranslate"><span class="pre">Wall</span> <span class="pre">Duration</span></code> field says it took over 100ms:</p>
 <p><img alt="example chrome output" src="https://user-images.githubusercontent.com/4163446/94200256-1fc17180-fe88-11ea-9935-bef4f818407d.png"/></p>
 <p>So we can see that some events are running slow. The next questions is
-why are <code class="docutils literal notranslate"><span class="pre">MouseButtonPress</span></code> or <code class="docutils literal notranslate"><span class="pre">MouseMove</span></code> is running slow? To answer this
+why are <code class="docutils literal notranslate"><span class="pre">MouseButtonPress</span></code> and <code class="docutils literal notranslate"><span class="pre">MouseMove</span></code> running slow? To answer this
 question we can add more timers. In this case we know the answer, but often
 you will have to guess or experiment. You might add some timers and then
-find out they actually runs fast, so you can remove them.</p>
+find out they actually run fast, so you can remove them.</p>
 </div>
 <div class="section" id="add-paint-method">
 <h3>Add Paint Method<a class="headerlink" href="#add-paint-method" title="Permalink to this headline">¶</a></h3>
@@ -509,7 +509,7 @@ command.</p>
 <a class="reference internal" href="../../api/stable/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> is really responsible
 for most of the time. After clicking on the event press the <code class="docutils literal notranslate"><span class="pre">m</span></code> key, that
 will highlight the event duration with arrows and print the duration right
-on the timeline, in this case it says the even took  106.597ms:</p>
+on the timeline, in this case it says the event took 106.597ms:</p>
 <p><img alt="highlighted event duration showing Labels.paint took 106.597ms to run" src="https://user-images.githubusercontent.com/4163446/94201049-66fc3200-fe89-11ea-9720-6a7ff3c7361a.png"/></p>
 <p>When investigating a real problem we might have to add many functions to
 the config file. It’s best to add timers that take a lot of time. If you

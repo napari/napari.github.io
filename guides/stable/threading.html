@@ -368,8 +368,9 @@ methods in another thread.</p>
 <div class="section" id="threading-in-napari-with-thread-worker">
 <h2>Threading in napari with <code class="docutils literal notranslate"><span class="pre">@thread_worker</span></code><a class="headerlink" href="#threading-in-napari-with-thread-worker" title="Permalink to this headline">¶</a></h2>
 <p>The simplest way to run a function in another thread in napari is to decorate
-your function with the {func}<code class="docutils literal notranslate"><span class="pre">@thread_worker</span> <span class="pre">&lt;napari.qt.threading.thread_worker&gt;</span></code> decorator. Continuing with the example
-above:</p>
+your function with the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">@thread_worker</span></code> decorator.
+Continuing with the example above:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -525,9 +526,10 @@ stack) we can watch the mean projection as it builds:</p>
 </div>
 <p>Note how we periodically (every 16 iterations) <code class="docutils literal notranslate"><span class="pre">yield</span></code> the image result in
 the <code class="docutils literal notranslate"><span class="pre">large_random_images</span></code> function.  We also connected the
-<code class="docutils literal notranslate"><span class="pre">yielded</span></code> event in the {func}<code class="docutils literal notranslate"><span class="pre">@thread_worker</span> <span class="pre">&lt;napari.qt.threading.thread_worker&gt;</span></code> decorator to the previously-defined
-<code class="docutils literal notranslate"><span class="pre">update_layer</span></code> function.  The result is that the image in the viewer
-is updated every time a new image is yielded.</p>
+<code class="docutils literal notranslate"><span class="pre">yielded</span></code> event in the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">@thread_worker</span></code>
+decorator to the previously-defined <code class="docutils literal notranslate"><span class="pre">update_layer</span></code> function.  The result is
+that the image in the viewer is updated every time a new image is yielded.</p>
 <p>Any time you can break up a long-running function into a stream of
 shorter-running yield statements like this, you not only benefit from the
 increased responsiveness in the viewer, you can often save on precious memory
@@ -536,10 +538,11 @@ resources.</p>
 <h4>Flow Control and Escape Hatches<a class="headerlink" href="#flow-control-and-escape-hatches" title="Permalink to this headline">¶</a></h4>
 <p>A perhaps even more useful aspect of yielding periodically in our long running
 function is that we provide a “hook” for the main thread to control the flow of
-our long running function.  When you use the {func}<code class="docutils literal notranslate"><span class="pre">@thread_worker</span> <span class="pre">&lt;napari.qt.threading.thread_worker&gt;</span></code> decorator on a generator function, the
-ability to stop, start, and quit a thread comes for free.  In the example below
-we decorate what would normally be an infinitely yielding generator, but add a
-button that aborts the worker when clicked:</p>
+our long running function.  When you use the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">@thread_worker</span></code> decorator on a
+generator function, the ability to stop, start, and quit a thread comes for
+free.  In the example below we decorate what would normally be an infinitely
+yielding generator, but add a button that aborts the worker when clicked:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">from</span> <span class="nn">napari.qt.threading</span> <span class="kn">import</span> <span class="n">thread_worker</span>
@@ -566,7 +569,7 @@ button that aborts the worker when clicked:</p>
 <span class="n">worker</span> <span class="o">=</span> <span class="n">yield_random_images_forever</span><span class="p">()</span>
 <span class="n">worker</span><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">update_layer</span><span class="p">)</span>
 
-<span class="c1"># add a button to the viewew that, when clicked, stops the worker</span>
+<span class="c1"># add a button to the viewer that, when clicked, stops the worker</span>
 <span class="n">button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">"STOP!"</span><span class="p">)</span>
 <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">worker</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
 <span class="hll"><span class="n">worker</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">disconnect</span><span class="p">)</span>
@@ -587,9 +590,9 @@ and then closes without leaving any orphaned threads.</p>
 <p>Now go back to the first example with the pure (non-generator) function, and
 try quitting before the function has returned (i.e. before the image appears).
 You’ll notice that it takes a while to quit: it has to wait for the background
-thread to finish because there is no good way to communicate equest that it
-quit!  If you had a <em>very</em> long function, you’d be left with no choice but to
-force quit your program.</p>
+thread to finish because there is no good way to communicate the request that
+it quit!  If you had a <em>very</em> long function, you’d be left with no choice but
+to force quit your program.</p>
 <p>So whenever possible, sprinkle your long-running functions with <code class="docutils literal notranslate"><span class="pre">yield</span></code>.</p>
 </div>
 </div>
@@ -665,8 +668,9 @@ hits “0”:</p>
 </div>
 <p>Let’s break it down:</p>
 <ol class="simple">
-<li><p>As usual, we decorate our generator function with {func}<code class="docutils literal notranslate"><span class="pre">@thread_worker</span> <span class="pre">&lt;napari.qt.threading.thread_worker&gt;</span></code> and instantiate it to create a
-<code class="docutils literal notranslate"><span class="pre">worker</span></code>.</p></li>
+<li><p>As usual, we decorate our generator function with
+<code class="xref py py-func docutils literal notranslate"><span class="pre">@thread_worker</span></code> and instantiate
+it to create a <code class="docutils literal notranslate"><span class="pre">worker</span></code>.</p></li>
 <li><p>The most interesting line in this example is where we both
 <code class="docutils literal notranslate"><span class="pre">yield</span></code> the current <code class="docutils literal notranslate"><span class="pre">total</span></code> to the main thread (<code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">total</span></code>), <em>and</em>
 receive a new value from the main thread (with <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">=</span> <span class="pre">yield</span></code>).</p></li>
@@ -677,8 +681,7 @@ widget.</p></li>
 which we have connected to the <code class="docutils literal notranslate"><span class="pre">line_edit.returnPressed</span></code> signal.</p></li>
 <li><p>However, before that <code class="docutils literal notranslate"><span class="pre">resume()</span></code> command gets sent, we use
 <code class="docutils literal notranslate"><span class="pre">worker.send()</span></code> to send the current value of the <code class="docutils literal notranslate"><span class="pre">line_edit</span></code> widget
-into the thread which the thread will multiple by the existing
-total.</p></li>
+into the thread for multiplication by the existing total.</p></li>
 <li><p>Lastly, if the thread total ever goes to “0”, we stop the thread by
 returning the string <code class="docutils literal notranslate"><span class="pre">"Game</span> <span class="pre">Over"</span></code>.  In the main thread, the
 <code class="docutils literal notranslate"><span class="pre">worker.returned</span></code> event is connected to a callback that disables the
@@ -740,8 +743,11 @@ keep in mind the following guidelines:</p>
 <a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.work" title="napari.qt.threading.WorkerBase.work"><code class="xref py py-meth docutils literal notranslate"><span class="pre">work()</span></code></a> method (preferred), or in
 extreme cases, may directly reimplement the
 <a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.run" title="napari.qt.threading.WorkerBase.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method.  (When a worker “start”
-is started with :meth:<code class="docutils literal notranslate"><span class="pre">~napari.qt.threading.WorkerBase.start</span></code>, the call
-order is always :meth:<code class="docutils literal notranslate"><span class="pre">worker.start()</span> <span class="pre">&lt;napari.qt.threading.WorkerBase.start&gt;</span></code> → {meth}<code class="docutils literal notranslate"><span class="pre">worker.run()</span> <span class="pre">&lt;napari.qt.threading.WorkerBase.run&gt;</span></code> → {meth}<code class="docutils literal notranslate"><span class="pre">worker.work()</span> <span class="pre">&lt;napari.qt.threading.WorkerBase.work&gt;</span></code>.</p></li>
+is started with <a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.start" title="napari.qt.threading.WorkerBase.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start()</span></code></a>, the call
+order is always
+<a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.start" title="napari.qt.threading.WorkerBase.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">worker.start()</span></code></a> →
+<a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.run" title="napari.qt.threading.WorkerBase.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">worker.run()</span></code></a> →
+<a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.work" title="napari.qt.threading.WorkerBase.work"><code class="xref py py-meth docutils literal notranslate"><span class="pre">worker.work()</span></code></a>.</p></li>
 <li><p>When implementing the <a class="reference internal" href="../../api/stable/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.work" title="napari.qt.threading.WorkerBase.work"><code class="xref py py-meth docutils literal notranslate"><span class="pre">work()</span></code></a> method,
 it is important that you periodically check <code class="docutils literal notranslate"><span class="pre">self.abort_requested</span></code> in your
 thread loop, and exit the thread accordingly, otherwise <code class="docutils literal notranslate"><span class="pre">napari</span></code> will not
@@ -749,10 +755,10 @@ be able to gracefully exit a long-running thread.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort_requested</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">aborted</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
-        <span class="k">break</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort_requested</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aborted</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+            <span class="k">break</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>

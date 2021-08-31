@@ -140,7 +140,7 @@ interface GetGlobalHeadersOptions<T> {
  * Utility function for getting global header data from a DOM tree. The function
  * is implemented generically enough so that it can be used on the browser and
  * by the pre-renderer. Since the DOM is a tree, we can use Depth First Search
- * to traverse the tree and serialize it into the global headers data
+ * to traverse the tree and deserialize it into the global headers data
  * structures.
  */
 export function getGlobalHeaders<T>({
@@ -163,6 +163,7 @@ export function getGlobalHeaders<T>({
     const link = getLinkNode(node);
 
     if (link.href && link.text) {
+      // Add new header mapped to the link URL.
       globalHeaders[link.href] = {
         level,
         children: [],
@@ -174,6 +175,7 @@ export function getGlobalHeaders<T>({
         rootGlobalHeaders.push(link.href);
       }
 
+      // Add current header as child of parent header.
       if (parentId) {
         globalHeaders[parentId].children.push(link.href);
       }
@@ -181,6 +183,7 @@ export function getGlobalHeaders<T>({
       const nextLevel = level + 1;
       const nextNodes = getNextNodes(node, nextLevel);
 
+      // Add next headers to the stack for processing.
       for (const nextNode of nextNodes) {
         stack.push({
           parentId: link.href,

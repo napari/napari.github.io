@@ -3,23 +3,56 @@
   "version": "1.0.0",
   "license": "BSD-3-Clause",
   "scripts": {
-    "build": "yarn build:theme-prod && yarn build:docs",
+    "// Scripts for building napari.org for production": "",
+    "build": "run-s clean build:* pre-render",
+    "build:theme": "vite build",
     "build:docs": "jupyter-book build .",
-    "build:theme": "webpack build",
-    "build:theme-prod": "NODE_ENV=production yarn build:theme",
+
+    "// Scripts for cleaning build files.": "",
     "clean": "run-p clean:*",
     "clean:api-stable": "find api/stable/ ! -name 'index.rst' -type f -exec rm -f {} +",
     "clean:docs": "rm -rf _build/html",
+    "clean:pre-render": "rm -rf scripts/renderAppToString",
     "clean:theme": "rm -rf theme/napari/static/dist",
+
+    "// Scripts for using various linters on the codebase.": "",
     "lint": "run-p lint:*",
-    "lint:scss": "stylelint theme/scss",
-    "lint:js": "eslint theme/js",
-    "dev": "yarn build:theme && mkdir -p _build/html && run-p dev:*",
-    "dev:server": "node dev-server",
-    "dev:theme": "webpack watch",
+    "lint:scss": "stylelint theme/src/scss",
+    "lint:ts": "run-p lint:ts:*",
+    "lint:ts:theme": "eslint theme/src",
+    "lint:ts:scripts": "eslint *.js scripts/",
+
+    "// Scripts for running napari.org locally in development mode.": "",
+    "dev": "yarn clean && mkdir -p _build/html && run-p dev:*",
+    "dev:server": "ts-node -P tsconfig.node.json scripts/dev-server",
+    "dev:theme": "vite",
+    "dev:tsm": "tsm -w -e default -p.@ theme/src 'theme/src/**/*.module.scss'",
+
+    "// Installs husky githooks after running `yarn install`.": "",
     "postinstall": "husky install",
+
+    "// Scripts for checking and formatting the codebase using Prettier.": "",
     "prettier": "prettier --check theme",
-    "prettier:fix": "prettier --write theme"
+    "prettier:fix": "prettier --write theme",
+
+    "// Scripts for pre-rendering React application HTML into the compiled Jupyter Book HTML.": "",
+    "pre-render": "run-s pre-render:**",
+
+    "// Compiles module for rendering the application to an HTML string.": "",
+    "pre-render:compile": "PRE_RENDER=true vite build --ssr theme/src/renderAppToString.tsx --outDir ../scripts/renderAppToString/",
+
+    "// Creates type declarations of the compiled module.": "",
+    "pre-render:types": "tsc -p tsconfig.types.json",
+
+    "// Renames files to index.ts and index.d.ts for import convenience.": "",
+    "pre-render:rename-files:scripts": "mv scripts/renderAppToString/{renderAppToString,index}.js",
+    "pre-render:rename-files:types": "mv scripts/renderAppToString/{renderAppToString,index}.d.ts",
+
+    "// Runs the pre-render script.": "",
+    "pre-render:run": "ts-node -P tsconfig.node.json scripts/pre-render",
+
+    "// Type checks the theme source code using TSC": "",
+    "type-check": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@types/lodash-es": "4.17.4",

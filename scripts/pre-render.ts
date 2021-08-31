@@ -14,7 +14,7 @@ import { promises } from 'fs';
 import { resolve } from 'path';
 import yaml from 'yaml';
 
-import { TOCHeader } from '@/components/TableOfContents';
+import { TOCHeader } from '@/context/jupyterBook';
 
 import { getGlobalHeaders, renderAppToString } from './renderAppToString';
 

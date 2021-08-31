@@ -1,59 +1,61 @@
-/**
- * Script for re-running `jupyter-book build` on script changes.
- *
- * TODO There's probably a smarter way to serve the re-built SCSS and JS assets
- * using some proxying magic. Instead of rebuilding the entire docs for SCSS
- * and JS changes, we could probably serve the re-compiled assets directly from
- * `theme/napari/static/dist` instead of rebuilding and using the updated
- * assets in `_build/html/_static/dist`.
- */
+import { ChildProcess, spawn } from 'child_process';
+import chokidar from 'chokidar';
+import express, { Express } from 'express';
+import logger from 'morgan';
+import { resolve } from 'path';
+import reload, { Reloader } from 'reload';
 
-const chokidar = require('chokidar');
-const { spawn } = require('child_process');
-const { resolve } = require('path');
-
-const express = require('express');
-const logger = require('morgan');
-const reload = require('reload');
-
-const PUBLIC_DIR = resolve(__dirname, '_build/html');
-const OUTPUT_DIR = resolve(__dirname, 'theme/napari/static/dist');
+const ROOT_DIR = resolve(__dirname, '..');
+const PUBLIC_DIR = resolve(ROOT_DIR, '_build/html');
+const OUTPUT_DIR = resolve(ROOT_DIR, 'theme/napari/static/dist');
 const DEFAULT_PORT = 8080;
-const IGNORED_FILES = [
-  '.github',
-  '_build',
-  'node_modules',
-  'theme/js',
-  'theme/scss',
-];
+const IGNORED_FILES = ['.github', '_build', 'node_modules', 'theme/src'].map(
+  (file) => resolve(ROOT_DIR, file),
+);
+
+function isErronoException(value: unknown): value is NodeJS.ErrnoException {
+  return !!(value as NodeJS.ErrnoException).errno;
+}
 
 class DevServer {
-  app = null;
-  buildProcess = null;
-  reloader = null;
+  app?: Express;
 
-  reloadBrowser() {
+  buildProcess?: ChildProcess;
+
+  reloader?: Reloader;
+
+  private reloadBrowser() {
     console.log('Reloading the browser!');
-    this.reloader.reload();
+    this.reloader?.reload();
   }
 
   /**
    * Runs `jupyter-book` to build the napari docs as a subprocess. Running
    * processes are cancelled to ensure the build is up-to-date.
    */
-  buildDocs() {
+  private buildDocs() {
     // Kill existing build if there is one
     if (this.buildProcess) {
       console.log('Cancelling existing build');
       this.buildProcess.kill();
     }
 
-    this.buildProcess = spawn('jupyter-book', ['build', '.'], {
+    this.buildProcess = spawn('jupyter-book', ['build', ROOT_DIR], {
       // Pipe process output to terminal
       stdio: 'inherit',
     });
+
+    this.buildProcess.on('error', (error) => {
+      if (isErronoException(error) && error.code === 'ENOENT') {
+        console.error('Unable to find `jupyter-book`. Is it installed?');
+        process.exit(-1);
+      }
+
+      console.error('Error running Jupyter Book:', error);
+    });
+
     this.buildProcess.once('exit', (code) => {
-      this.buildProcess = null;
+      this.buildProcess = undefined;
 
       // Reload on successful run
       if (this.reloader && code === 0) {
@@ -65,8 +67,8 @@ class DevServer {
   /**
    * Re-builds the napari docs on file changes.
    */
-  watchDocs() {
-    const watcher = chokidar.watch('.', { ignored: IGNORED_FILES });
+  private watchDocs() {
+    const watcher = chokidar.watch(ROOT_DIR, { ignored: IGNORED_FILES });
 
     watcher.on('change', (path) => {
       // If path is theme asset, we can reload the browser instead of
@@ -87,12 +89,12 @@ class DevServer {
   /**
    * Starts the dev server using express and reload.
    */
-  async startDevServer() {
+  private async startDevServer() {
     this.app = express();
     this.app.use(logger('dev'));
 
-    // Proxy static path used by sphinx to bypass having to rebuild the docs
-    // when the JS / SCSS changes.
+    // Proxy static path used by Jupyter Book to bypass having to rebuild the
+    // docs when the JS / SCSS changes.
     this.app.use('/_static/dist', express.static(OUTPUT_DIR));
 
     // Serve built docs if other proxy handler is a miss.
@@ -113,4 +115,6 @@ class DevServer {
 }
 
 const server = new DevServer();
-server.start();
+server
+  .start()
+  .catch((err) => console.error('Unable to start dev server!', err));

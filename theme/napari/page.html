@@ -1,19 +1,56 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-{% extends "layout.html" %}
+    {%- block htmltitle -%}
+      {% if pagename == master_doc %}
+        <title>{{ _("Home") }} - {{ docstitle|striptags|e }}</title>
+      {% else %}
+        <title>{{ title|striptags|e }} - {{ docstitle|striptags|e }}</title>
+      {% endif %}
+    {%- endblock -%}
 
-{%- block body -%}
+    <link rel="shortcut icon" href="{{ pathto('_static/favicon.ico', 1) }}">
+    <link rel="stylesheet" href="{{ pathto('_static/dist/style.css', 1) }}">
+  </head>
 
-{% include "app-bar.html" %}
+  <body>
+    <div id="app">
+      <!-- react application here -->
+    </div>
 
-<div class="page">
-  <section>{{ toctree(includehidden=true, collapse=true) }}</section>
+    <div id="jupyter-book-data" style="display: none;">
+      <div id="global-toc">{{ toctree(includehidden=true, collapse=false) }}</div>
 
-  <main class="content">
-    <h1>Hello, World!</h1>
-    {{ body }}
-  </main>
+      <div id="page-body">
+        {{ body }}
+      </div>
 
-  <section>{{ toc }}</section>
-</div>
+      <div id="page-toc">{{ toc }}</div>
+    </div>
 
-{%- endblock body -%}
+    <script
+      id="documentation_options"
+      data-url_root="{{ pathto('', 1) }}"
+      src="{{ pathto('_static/documentation_options.js', 1) }}"
+    ></script>
+
+    <script data-dev src="/reload/reload.js"></script>
+
+    <script data-dev type="module">
+      // Setup React Refresh runtime for Vite dev server.
+      import RefreshRuntime from "http://localhost:3000/@react-refresh"
+      RefreshRuntime.injectIntoGlobalHook(window)
+      window.$RefreshReg$ = () => {}
+      window.$RefreshSig$ = () => (type) => type
+      window.__vite_plugin_react_preamble_installed__ = true
+    </script>
+    <script data-dev type="module" src="http://localhost:3000/@vite/client"></script>
+    <script data-dev type="module" src="http://localhost:3000/src/main.tsx"></script>
+
+    <script type="module" src="{{ pathto('_static/dist/napari-theme.es.js', 1) }}"></script>
+    <script nomodule defer src="{{ pathto('_static/dist/napari-theme.iife.js', 1) }}"></script>
+  </body>
+</html>

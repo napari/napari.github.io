@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, ReactNode, useContext, useEffect, useRef } from 'react';
 import slug from 'slug';
 
 export interface TOCHeader {
@@ -62,46 +56,46 @@ interface Props extends Partial<JupyterBookState> {
   children: ReactNode;
 }
 
-function usePageBodyHtml(propPageBodyHtml?: string) {
-  const [pageBodyHtml, setPageBodyHtml] = useState(propPageBodyHtml ?? '');
+function usePageData(propPageBodyHtml?: string) {
+  const pageBodyHtmlRef = useRef(propPageBodyHtml ?? '');
 
-  useEffect(() => {
-    if (propPageBodyHtml) {
-      return;
+  if (!pageBodyHtmlRef.current) {
+    const pageBody = document.querySelector('#page-body');
+
+    // Remove header links added by Jupyter Book
+    for (const link of Array.from(
+      pageBody?.querySelectorAll('.headerlink') ?? [],
+    )) {
+      link.remove();
     }
 
-    const html = document.querySelector('#page-body')?.innerHTML ?? '';
+    const html = pageBody?.innerHTML;
+
     if (html) {
-      setPageBodyHtml(html);
+      pageBodyHtmlRef.current = html;
     }
-  }, [propPageBodyHtml]);
+  }
 
-  return { pageBodyHtml };
+  return {
+    pageBodyHtml: pageBodyHtmlRef.current,
+  };
 }
 
 function usePageHeaders(propPageHeaders?: TOCHeader[]) {
-  const [pageHeaders, setPageHeaders] = useState(propPageHeaders ?? []);
+  const pageHeadersRef = useRef(propPageHeaders);
 
-  useEffect(() => {
-    if (propPageHeaders) {
-      return;
-    }
-
+  if (!pageHeadersRef.current) {
     const linkNodes = Array.from(
       document.querySelectorAll('#page-toc > ul > li > ul > li > a'),
     );
 
-    if (linkNodes.length > 0) {
-      setPageHeaders(
-        linkNodes.map((node) => ({
-          id: slug(node.textContent ?? ''),
-          text: node.textContent ?? '',
-        })),
-      );
-    }
-  }, [propPageHeaders]);
+    pageHeadersRef.current = linkNodes.map((node) => ({
+      id: slug(node.textContent ?? ''),
+      text: node.textContent ?? '',
+    }));
+  }
 
-  return { pageHeaders };
+  return { pageHeaders: pageHeadersRef.current };
 }
 
 interface StackItem<T> {
@@ -213,20 +207,14 @@ function getTocSelector(level = 1) {
 /**
  * Hook that gets the global header data if the prop data is not available.
  */
-function useGlobalHeaders(
+function useGlobalHeaderData(
   propGlobalHeaders?: Record<string, GlobalHeader>,
   propRootGlobalHeaders?: string[],
 ) {
-  const [globalHeaders, setGlobalHeaders] = useState(propGlobalHeaders ?? {});
-  const [rootGlobalHeaders, setRootGlobalHeaders] = useState(
-    propRootGlobalHeaders ?? [],
-  );
+  const globalHeadersRef = useRef(propGlobalHeaders);
+  const rootGlobalHeadersRef = useRef(propRootGlobalHeaders);
 
-  useEffect(() => {
-    if (propGlobalHeaders) {
-      return;
-    }
-
+  if (!globalHeadersRef.current || !rootGlobalHeadersRef.current) {
     const result = getGlobalHeaders({
       getRootNodes: () =>
         Array.from(document.querySelectorAll(getTocSelector())),
@@ -244,11 +232,14 @@ function useGlobalHeaders(
         Array.from(node?.querySelectorAll(getTocSelector(level)) ?? []),
     });
 
-    setGlobalHeaders(result.globalHeaders);
-    setRootGlobalHeaders(result.rootGlobalHeaders);
-  }, [propGlobalHeaders]);
+    globalHeadersRef.current = result.globalHeaders;
+    rootGlobalHeadersRef.current = result.rootGlobalHeaders;
+  }
 
-  return { globalHeaders, rootGlobalHeaders };
+  return {
+    globalHeaders: globalHeadersRef.current,
+    rootGlobalHeaders: rootGlobalHeadersRef.current,
+  };
 }
 
 /**
@@ -265,19 +256,18 @@ function useRemoveSphinxData() {
  * that the pre-renderer can render the application to an HTML string.
  */
 export function JupyterBookProvider({ children, ...props }: Props) {
-  const { pageBodyHtml } = usePageBodyHtml(props.pageBodyHtml);
-  const { pageHeaders } = usePageHeaders(props.pageHeaders);
-  const { globalHeaders, rootGlobalHeaders } = useGlobalHeaders(
+  const pageData = usePageData(props.pageBodyHtml);
+  const pageHeaderData = usePageHeaders(props.pageHeaders);
+  const globalHeaderData = useGlobalHeaderData(
     props.globalHeaders,
     props.rootGlobalHeaders,
   );
   useRemoveSphinxData();
 
   const state: JupyterBookState = {
-    pageHeaders,
-    pageBodyHtml,
-    globalHeaders,
-    rootGlobalHeaders,
+    ...pageData,
+    ...globalHeaderData,
+    ...pageHeaderData,
   };
 
   return (

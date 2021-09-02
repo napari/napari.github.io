@@ -22,6 +22,11 @@ export interface JupyterBookState {
   pageHeaders: TOCHeader[];
 
   /**
+   * Title for the H1 tag on the page.
+   */
+  pageTitle: string;
+
+  /**
    * HTML string of the page body.
    */
   pageBodyHtml: string;
@@ -48,6 +53,7 @@ export interface JupyterBookState {
 const JupyterBookContext = createContext<JupyterBookState>({
   pageHeaders: [],
   pageBodyHtml: '',
+  pageTitle: '',
   globalHeaders: {},
   rootGlobalHeaders: [],
 });
@@ -56,10 +62,11 @@ interface Props extends Partial<JupyterBookState> {
   children: ReactNode;
 }
 
-function usePageData(propPageBodyHtml?: string) {
+function usePageData(propPageTitle?: string, propPageBodyHtml?: string) {
+  const pageTitleRef = useRef(propPageTitle ?? '');
   const pageBodyHtmlRef = useRef(propPageBodyHtml ?? '');
 
-  if (!pageBodyHtmlRef.current) {
+  if (!pageTitleRef.current || !pageBodyHtmlRef.current) {
     const pageBody = document.querySelector('#page-body');
 
     // Remove header links added by Jupyter Book
@@ -69,14 +76,25 @@ function usePageData(propPageBodyHtml?: string) {
       link.remove();
     }
 
+    const pageTitleNode = pageBody?.querySelector('h1');
+    const title = pageTitleNode?.textContent ?? '';
+
+    // Remove page title from page so that it can be rendered in React.
+    pageTitleNode?.remove();
+
     const html = pageBody?.innerHTML;
 
     if (html) {
       pageBodyHtmlRef.current = html;
     }
+
+    if (title) {
+      pageTitleRef.current = title;
+    }
   }
 
   return {
+    pageTitle: pageTitleRef.current,
     pageBodyHtml: pageBodyHtmlRef.current,
   };
 }
@@ -256,7 +274,7 @@ function useRemoveSphinxData() {
  * that the pre-renderer can render the application to an HTML string.
  */
 export function JupyterBookProvider({ children, ...props }: Props) {
-  const pageData = usePageData(props.pageBodyHtml);
+  const pageData = usePageData(props.pageTitle, props.pageBodyHtml);
   const pageHeaderData = usePageHeaders(props.pageHeaders);
   const globalHeaderData = useGlobalHeaderData(
     props.globalHeaders,

@@ -167,8 +167,12 @@ async function preRenderFile(file: string) {
   const $ = cheerio.load(rawHtml);
 
   const pageBody = $('#page-body');
+  const pageHeader = pageBody.find('h1').first();
   const pageToc = $('#page-toc');
   const globalToc = $('#global-toc');
+
+  // Remove header link automatically added by Jupyter Book.
+  pageBody.find('.headerlink').remove();
 
   // Remove any development specific HTML tags.
   $('[data-dev]').remove();
@@ -176,10 +180,21 @@ async function preRenderFile(file: string) {
   // Add SSR styles to fresnel style element.
   $('#fresnel').text(mediaStyles);
 
+  // Get page title from header text content.
+  const pageTitle = pageHeader.text();
+
+  // Extract h1 from HTML and render application with the header removed, but
+  // use a copy so that we don't remove it from the HTML file. The client will
+  // need the h1 still in the HTML file to hydrate the UI.
+  const pageBodyClone = pageBody.clone();
+  pageBodyClone.find('h1').remove();
+  const pageBodyHtml = pageBodyClone.html() ?? '';
+
   // Render application HTML using parsed page data.
   const appHtml = renderAppToString({
     ...getGlobalTocHeaders(globalToc),
-    pageBodyHtml: pageBody.html() ?? '',
+    pageBodyHtml,
+    pageTitle,
     pageHeaders: getPageHeaders(pageToc),
   });
 

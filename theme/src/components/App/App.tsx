@@ -17,7 +17,7 @@ function InPageTableOfContents() {
 }
 
 function Content() {
-  const { pageBodyHtml } = useJupyterBookData();
+  const { pageTitle, pageBodyHtml } = useJupyterBookData();
 
   return (
     <div
@@ -38,6 +38,8 @@ function Content() {
           'col-span-3 screen-1425:col-start-2 screen-1425:col-span-3',
         )}
       >
+        <h1 className="text-5xl font-bold">{pageTitle}</h1>
+
         <Media lessThan="screen-1425">
           <div className="my-6">
             <InPageTableOfContents />

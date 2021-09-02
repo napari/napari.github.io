@@ -5,6 +5,7 @@ import '@/scss/main.scss';
 import clsx from 'clsx';
 
 import { AppBar } from '@/components/AppBar';
+import { MediaContextProvider } from '@/components/media';
 import { useJupyterBookData } from '@/context/jupyterBook';
 
 import styles from './App.module.scss';
@@ -32,12 +33,12 @@ function Content() {
 
 export function App() {
   return (
-    <>
+    <MediaContextProvider>
       <AppBar />
 
       <main className="mt-6">
         <Content />
       </main>
-    </>
+    </MediaContextProvider>
   );
 }

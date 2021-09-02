@@ -16,7 +16,11 @@ import yaml from 'yaml';
 
 import { TOCHeader } from '@/context/jupyterBook';
 
-import { getGlobalHeaders, renderAppToString } from './renderAppToString';
+import {
+  getGlobalHeaders,
+  mediaStyles,
+  renderAppToString,
+} from './renderAppToString';
 
 const fs = promises;
 
@@ -166,15 +170,18 @@ async function preRenderFile(file: string) {
   const pageToc = $('#page-toc');
   const globalToc = $('#global-toc');
 
+  // Remove any development specific HTML tags.
+  $('[data-dev]').remove();
+
+  // Add SSR styles to fresnel style element.
+  $('#fresnel').text(mediaStyles);
+
   // Render application HTML using parsed page data.
   const appHtml = renderAppToString({
     ...getGlobalTocHeaders(globalToc),
     pageBodyHtml: pageBody.html() ?? '',
     pageHeaders: getPageHeaders(pageToc),
   });
-
-  // Remove any development specific HTML tags.
-  $('[data-dev]').remove();
 
   // Write application HTML to #app node.
   $('#app').html(appHtml);

@@ -1,4 +1,4 @@
-import { hydrate } from 'react-dom';
+import { hydrate, render } from 'react-dom';
 import Helmet from 'react-helmet';
 
 import { App } from '@/components/App';
@@ -29,4 +29,5 @@ function Main() {
   );
 }
 
-hydrate(<Main />, document.getElementById('app'));
+const renderFn = PROD ? hydrate : render;
+renderFn(<Main />, document.getElementById('app'));

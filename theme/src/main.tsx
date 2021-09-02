@@ -29,5 +29,8 @@ function Main() {
   );
 }
 
+// Use `hydrate()` in production so that React can use the already existing
+// nodes from pre-rendering. For development, the app node is empty, so we can
+// use `render()` instead
 const renderFn = PROD ? hydrate : render;
 renderFn(<Main />, document.getElementById('app'));

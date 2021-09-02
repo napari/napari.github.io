@@ -29,23 +29,28 @@ function Content() {
         'p-6 screen-495:p-12',
       )}
     >
+      {/* Global table of contents */}
       <Media greaterThanOrEqual="screen-1150">
         <p>Global TOC placeholder</p>
       </Media>
 
+      {/* Main content */}
       <div
         className={clsx(
           'col-span-3 screen-1425:col-start-2 screen-1425:col-span-3',
         )}
       >
+        {/* Page title */}
         <h1 className="text-5xl font-bold">{pageTitle}</h1>
 
+        {/* In page table of content that renders above the main content. */}
         <Media lessThan="screen-1425">
           <div className="my-6">
             <InPageTableOfContents />
           </div>
         </Media>
 
+        {/* Page content */}
         <div
           className={clsx('prose max-w-full', styles.content)}
           // eslint-disable-next-line react/no-danger
@@ -53,6 +58,7 @@ function Content() {
         />
       </div>
 
+      {/* In page table of contents that renders to the right of the main content. */}
       <Media greaterThanOrEqual="screen-1425">
         <InPageTableOfContents />
       </Media>
@@ -60,6 +66,11 @@ function Content() {
   );
 }
 
+/**
+ * Root application component responsible for rendering the entire napari.org
+ * website. This is used by both the client entry and pre-renderer for rendering
+ * the application on the client and server.
+ */
 export function App() {
   return (
     <MediaContextProvider>

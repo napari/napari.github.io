@@ -1,10 +1,17 @@
+import { mediaStyles } from '@/components/media';
 import { getGlobalHeaders, JupyterBookState } from '@/context/jupyterBook';
 
-/**
- * Export getGlobalHeaders so that the pre-renderer can reuse the DFS based
- * algorithm for getting the global headers.
- */
-export { getGlobalHeaders };
+export {
+  /**
+   * Export `getGlobalHeaders` so that the pre-renderer can reuse the DFS based
+   * algorithm for getting the global headers.
+   */
+  getGlobalHeaders,
+  /**
+   * Export `mediaStyles` so that it can be pre-rendered into the HTML.
+   */
+  mediaStyles,
+};
 
 /**
  * Renders the application as an HTML string for pre-rendering.

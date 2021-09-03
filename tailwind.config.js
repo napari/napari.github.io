@@ -2,6 +2,7 @@
 
 const { reduce } = require('lodash');
 const typography = require('@tailwindcss/typography');
+const breakpoints = require('./theme/src/breakpoints.json');
 
 const colors = {
   primary: '#80d1ff',
@@ -10,14 +11,6 @@ const colors = {
   gray: '#6f6f6f',
   light: '#d2efff',
   error: '#eb1000',
-};
-
-const breakpoints = {
-  'screen-300': 300,
-  'screen-495': 495,
-  'screen-875': 875,
-  'screen-1150': 1150,
-  'screen-1425': 1425,
 };
 
 const fontFamily = ['Barlow', 'sans-serif'];

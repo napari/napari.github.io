@@ -30,6 +30,9 @@ napari.components.Dims
       ~Dims.dict
    
    
+      ~Dims.enums_as_values
+   
+   
       ~Dims.from_orm
    
    

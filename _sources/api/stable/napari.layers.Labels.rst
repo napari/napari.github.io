@@ -27,10 +27,16 @@ napari.layers.Labels
       ~Labels.block_update_properties
    
    
+      ~Labels.create
+   
+   
       ~Labels.fill
    
    
       ~Labels.get_color
+   
+   
+      ~Labels.get_ray_intersections
    
    
       ~Labels.get_status
@@ -81,7 +87,6 @@ napari.layers.Labels
       ~Labels.affine
       ~Labels.attenuation
       ~Labels.blending
-      ~Labels.brush_shape
       ~Labels.brush_size
       ~Labels.class_keymap
       ~Labels.color
@@ -101,6 +106,8 @@ napari.layers.Labels
       ~Labels.downsample_factors
       ~Labels.dtype
       ~Labels.editable
+      ~Labels.experimental_clipping_planes
+      ~Labels.experimental_slicing_plane
       ~Labels.extent
       ~Labels.gamma
       ~Labels.help
@@ -109,6 +116,7 @@ napari.layers.Labels
       ~Labels.iso_threshold
       ~Labels.level_shapes
       ~Labels.loaded
+      ~Labels.metadata
       ~Labels.mode
       ~Labels.n_dimensional
       ~Labels.n_edit_dimensions

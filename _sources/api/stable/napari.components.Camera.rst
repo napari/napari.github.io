@@ -21,6 +21,9 @@ napari.components.Camera
       ~Camera.asdict
    
    
+      ~Camera.calculate_nd_view_direction
+   
+   
       ~Camera.construct
    
    
@@ -28,6 +31,9 @@ napari.components.Camera
    
    
       ~Camera.dict
+   
+   
+      ~Camera.enums_as_values
    
    
       ~Camera.from_orm
@@ -43,6 +49,9 @@ napari.components.Camera
    
    
       ~Camera.parse_raw
+   
+   
+      ~Camera.reset
    
    
       ~Camera.schema
@@ -70,5 +79,6 @@ napari.components.Camera
       :inherited-members:
    
       ~Camera.events
+      ~Camera.view_direction
    
    

@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -317,36 +316,70 @@
 
 
 <h1>Source code for napari.layers.base.base</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">_magicgui</span> <span class="k">as</span> <span class="n">_mgui</span>
+<span class="kn">from</span> <span class="nn">...utils._magicgui</span> <span class="kn">import</span> <span class="n">add_layer_to_viewer</span><span class="p">,</span> <span class="n">get_layers</span>
 <span class="kn">from</span> <span class="nn">...utils.dask_utils</span> <span class="kn">import</span> <span class="n">configure_dask</span>
 <span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">...utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
+<span class="kn">from</span> <span class="nn">...utils.geometry</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">find_front_back_face</span><span class="p">,</span>
+    <span class="n">intersect_line_with_axis_aligned_bounding_box_3d</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">...utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
 <span class="kn">from</span> <span class="nn">...utils.misc</span> <span class="kn">import</span> <span class="n">ROOT_DIR</span>
 <span class="kn">from</span> <span class="nn">...utils.mouse_bindings</span> <span class="kn">import</span> <span class="n">MousemapProvider</span>
 <span class="kn">from</span> <span class="nn">...utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
 <span class="kn">from</span> <span class="nn">...utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_status</span>
-<span class="kn">from</span> <span class="nn">...utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span><span class="p">,</span> <span class="n">TransformChain</span>
+<span class="kn">from</span> <span class="nn">...utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span><span class="p">,</span> <span class="n">CompositeAffine</span><span class="p">,</span> <span class="n">TransformChain</span>
 <span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.._source</span> <span class="kn">import</span> <span class="n">current_source</span>
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">coerce_affine</span><span class="p">,</span>
     <span class="n">compute_multiscale_level_and_corners</span><span class="p">,</span>
     <span class="n">convert_to_uint8</span><span class="p">,</span>
+    <span class="n">dims_displayed_world_to_layer</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..utils.plane</span> <span class="kn">import</span> <span class="n">ClippingPlane</span><span class="p">,</span> <span class="n">ClippingPlaneList</span>
 <span class="kn">from</span> <span class="nn">._base_constants</span> <span class="kn">import</span> <span class="n">Blending</span>
 
 <span class="n">Extent</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'Extent'</span><span class="p">,</span> <span class="s1">'data world step'</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Layer"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer">[docs]</a><span class="k">class</span> <span class="nc">Layer</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProvider</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">no_op</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    A convenient no-op event for the layer mouse binding.</span>
+
+<span class="sd">    This makes it easier to handle many cases by inserting this as</span>
+<span class="sd">    as place holder</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    layer : Layer</span>
+<span class="sd">        Current layer on which this will be bound as a callback</span>
+<span class="sd">    event : Event</span>
+<span class="sd">        event that triggered this mouse callback.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="Layer"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer">[docs]</a><span class="nd">@_mgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="n">get_layers</span><span class="p">,</span> <span class="n">return_callback</span><span class="o">=</span><span class="n">add_layer_to_viewer</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Layer</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProvider</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
     <span class="sd">"""Base layer class.</span>
 
 <span class="sd">    Parameters</span>
@@ -372,7 +405,7 @@
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
-<span class="sd">        AffineTransform object. Applied as an extra transform on top of the</span>
+<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
@@ -426,7 +459,7 @@
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
-<span class="sd">        AffineTransform object. Applied as an extra transform on top of the</span>
+<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
 <span class="sd">    multiscale : bool</span>
 <span class="sd">        Whether the data is multiscale or not. Multiscale data is</span>
@@ -489,6 +522,7 @@
         <span class="n">blending</span><span class="o">=</span><span class="s1">'translucent'</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -497,7 +531,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="n">current_source</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span> <span class="o">=</span> <span class="n">configure_dask</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">metadata</span> <span class="ow">or</span> <span class="p">{})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_opacity</span> <span class="o">=</span> <span class="n">opacity</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_blending</span> <span class="o">=</span> <span class="n">Blending</span><span class="p">(</span><span class="n">blending</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_visible</span> <span class="o">=</span> <span class="n">visible</span>
@@ -510,6 +544,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="o">=</span> <span class="n">multiscale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_experimental_clipping_planes</span> <span class="o">=</span> <span class="n">ClippingPlaneList</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">=</span> <span class="mi">2</span>
@@ -537,14 +572,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="n">TransformChain</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">Affine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tile2data'</span><span class="p">),</span>
-                <span class="n">Affine</span><span class="p">(</span>
+                <span class="n">CompositeAffine</span><span class="p">(</span>
                     <span class="n">scale</span><span class="p">,</span>
                     <span class="n">translate</span><span class="p">,</span>
                     <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
                     <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
+                    <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span>
                     <span class="n">name</span><span class="o">=</span><span class="s1">'data2physical'</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="n">coerce_affine</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'physical2world'</span><span class="p">),</span>
+                <span class="n">coerce_affine</span><span class="p">(</span><span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'physical2world'</span><span class="p">),</span>
                 <span class="n">Affine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'world2grid'</span><span class="p">),</span>
             <span class="p">]</span>
         <span class="p">)</span>
@@ -558,6 +594,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span> <span class="o">=</span> <span class="n">experimental_clipping_planes</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
             <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">auto_connect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -607,6 +645,59 @@
         <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> layer </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;"</span>
 
+    <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">Modeclass</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Helper to manage callbacks in multiple layers</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mode : Modeclass | str</span>
+<span class="sd">            New mode for the current layer.</span>
+<span class="sd">        Modeclass : Enum</span>
+<span class="sd">            Enum for the current class representing the modes it can takes,</span>
+<span class="sd">            this is usually specific on each subclass.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple (new Mode, mode changed)</span>
+
+<span class="sd">        """</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="n">Modeclass</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">editable</span><span class="p">:</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="n">Modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mode</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Modeclass</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"Mode not recognized: </span><span class="si">{mode}</span><span class="s2">"</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">old_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
+
+        <span class="k">for</span> <span class="n">callback_list</span><span class="p">,</span> <span class="n">mode_dict</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drag_modes</span><span class="p">),</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mouse_move_callbacks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_move_modes</span><span class="p">),</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mouse_double_click_callbacks</span><span class="p">,</span>
+                <span class="nb">getattr</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="s1">'_double_click_modes'</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">no_op</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">]:</span>
+            <span class="k">if</span> <span class="n">mode_dict</span><span class="p">[</span><span class="n">old_mode</span><span class="p">]</span> <span class="ow">in</span> <span class="n">callback_list</span><span class="p">:</span>
+                <span class="n">callback_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">mode_dict</span><span class="p">[</span><span class="n">old_mode</span><span class="p">])</span>
+            <span class="n">callback_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mode_dict</span><span class="p">[</span><span class="n">mode</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_modes</span><span class="p">[</span><span class="n">mode</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">mode</span><span class="p">,</span> <span class="kc">True</span>
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_basename</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">'</span>
@@ -615,6 +706,25 @@
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""str: Unique name of the layer."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basename</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">"""Key/value map for user-stored data."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+
+    <span class="nd">@metadata</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -628,15 +738,6 @@
 <span class="sd">        Derived classes that do asynchronous loading can override this.</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="kc">True</span>
-
-    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basename</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">opacity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -761,8 +862,11 @@
 
     <span class="nd">@affine</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">affine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affine</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">'physical2world'</span><span class="p">]</span> <span class="o">=</span> <span class="n">coerce_affine</span><span class="p">(</span>
-            <span class="n">affine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'physical2world'</span>
+        <span class="c1"># Assignment by transform name is not supported by TransformChain and</span>
+        <span class="c1"># EventedList, so use the integer index instead. For more details, see:</span>
+        <span class="c1"># https://github.com/napari/napari/issues/3058</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">coerce_affine</span><span class="p">(</span>
+            <span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'physical2world'</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="p">()</span>
@@ -806,6 +910,17 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">==</span> <span class="n">_position</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="n">_position</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_is_moving</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_private_is_moving</span>
+
+    <span class="nd">@_is_moving</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">_is_moving</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moving_coordinates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_private_is_moving</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_dims_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -993,6 +1108,9 @@
             <span class="s1">'opacity'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">,</span>
             <span class="s1">'blending'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">blending</span><span class="p">,</span>
             <span class="s1">'visible'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span>
+            <span class="s1">'experimental_clipping_planes'</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">plane</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">plane</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span>
+            <span class="p">],</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">base_dict</span>
 
@@ -1124,6 +1242,31 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">cursor_size</span><span class="p">(</span><span class="n">cursor_size</span><span class="o">=</span><span class="n">cursor_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_size</span> <span class="o">=</span> <span class="n">cursor_size</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">experimental_clipping_planes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_experimental_clipping_planes</span>
+
+    <span class="nd">@experimental_clipping_planes</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">experimental_clipping_planes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">dict</span><span class="p">,</span>
+            <span class="n">ClippingPlane</span><span class="p">,</span>
+            <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ClippingPlane</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]],</span>
+            <span class="n">ClippingPlaneList</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_experimental_clipping_planes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">ClippingPlane</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">new_plane</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">plane</span> <span class="o">=</span> <span class="n">ClippingPlane</span><span class="p">()</span>
+            <span class="n">plane</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_plane</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_experimental_clipping_planes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_view_slice</span><span class="p">()</span>
@@ -1214,7 +1357,14 @@
 <span class="sd">        """</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Layer.get_value"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Layer.get_value"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">"""Value of the data at a position.</span>
 
 <span class="sd">        If the layer is not visible, return None.</span>
@@ -1223,6 +1373,12 @@
 <span class="sd">        ----------</span>
 <span class="sd">        position : tuple</span>
 <span class="sd">            Position in either data or world coordinates.</span>
+<span class="sd">        view_direction : Optional[np.ndarray]</span>
+<span class="sd">            A unit vector giving the direction of the ray in nD world coordinates.</span>
+<span class="sd">            The default value is None.</span>
+<span class="sd">        dims_displayed : Optional[List[int]]</span>
+<span class="sd">            A list of the dimensions currently being displayed in the viewer.</span>
+<span class="sd">            The default value is None.</span>
 <span class="sd">        world : bool</span>
 <span class="sd">            If True the position is taken to be in world coordinates</span>
 <span class="sd">            and converted into data coordinates. False by default.</span>
@@ -1234,14 +1390,72 @@
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">world</span><span class="p">:</span>
+                <span class="n">ndim_world</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">dims_displayed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># convert the dims_displayed to the layer dims.This accounts</span>
+                    <span class="c1"># for differences in the number of dimensions in the world</span>
+                    <span class="c1"># dims versus the layer and for transpose and rolls.</span>
+                    <span class="n">dims_displayed</span> <span class="o">=</span> <span class="n">dims_displayed_world_to_layer</span><span class="p">(</span>
+                        <span class="n">dims_displayed</span><span class="p">,</span>
+                        <span class="n">ndim_world</span><span class="o">=</span><span class="n">ndim_world</span><span class="p">,</span>
+                        <span class="n">ndim_layer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">position</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">dims_displayed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">position</span><span class="p">))</span>
+
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">view_direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_data_ray</span><span class="p">(</span>
+                        <span class="nb">list</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ray_intersections</span><span class="p">(</span>
+                        <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+                        <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
+                        <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
+                        <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_value_3d</span><span class="p">(</span>
+                        <span class="n">start_point</span><span class="o">=</span><span class="n">start_point</span><span class="p">,</span>
+                        <span class="n">end_point</span><span class="o">=</span><span class="n">end_point</span><span class="p">,</span>
+                        <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
+                    <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># This should be removed as soon as possible, it is still</span>
         <span class="c1"># used in Points and Shapes.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">return</span> <span class="n">value</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_value_3d</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">start_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">end_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">"""Get the layer data value along a ray</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start_point : np.ndarray</span>
+<span class="sd">            The start position of the ray used to interrogate the data.</span>
+<span class="sd">        end_point : np.ndarray</span>
+<span class="sd">            The end position of the ray used to interrogate the data.</span>
+<span class="sd">        dims_displayed : List[int]</span>
+<span class="sd">            The indices of the dimensions currently displayed in the Viewer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        value</span>
+<span class="sd">            The data value along the supplied ray.</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">block_update_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1314,41 +1528,195 @@
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">simplified</span>
 
-    <span class="k">def</span> <span class="nf">_update_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">corner_pixels</span><span class="p">,</span> <span class="n">shape_threshold</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_world_to_data_ray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">"""Convert a vector defining an orientation from world coordinates to data coordinates.</span>
+<span class="sd">        For example, this would be used to convert the view ray.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vector : tuple, list, 1D array</span>
+<span class="sd">            A vector in world coordinates.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            Vector in data coordinates.</span>
+<span class="sd">        """</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">vector</span><span class="p">))</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">vector</span><span class="p">)))</span>
+        <span class="n">normalized_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">normalized_vector</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_display_bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="sd">"""An axis aligned (self._ndisplay, 2) bounding box around the data"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">[:,</span> <span class="n">dims_displayed_mask</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+
+<div class="viewcode-block" id="Layer.get_ray_intersections"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer.get_ray_intersections">[docs]</a>    <span class="k">def</span> <span class="nf">get_ray_intersections</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">view_direction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="sd">"""Get the start and end point for the ray extending</span>
+<span class="sd">        from a point through the data bounding box.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position</span>
+<span class="sd">            the position of the point in nD coordinates. World vs. data</span>
+<span class="sd">            is set by the world keyword argument.</span>
+<span class="sd">        view_direction : np.ndarray</span>
+<span class="sd">            a unit vector giving the direction of the ray in nD coordinates.</span>
+<span class="sd">            World vs. data is set by the world keyword argument.</span>
+<span class="sd">        dims_displayed</span>
+<span class="sd">            a list of the dimensions currently being displayed in the viewer.</span>
+<span class="sd">        world : bool</span>
+<span class="sd">            True if the provided coordinates are in world coordinates.</span>
+<span class="sd">            Default value is True.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        start_point : np.ndarray</span>
+<span class="sd">            The point on the axis-aligned data bounding box that the cursor click</span>
+<span class="sd">            intersects with. This is the point closest to the camera.</span>
+<span class="sd">            The point is the full nD coordinates of the layer data.</span>
+<span class="sd">            If the click does not intersect the axis-aligned data bounding box,</span>
+<span class="sd">            None is returned.</span>
+<span class="sd">        end_point : np.ndarray</span>
+<span class="sd">            The point on the axis-aligned data bounding box that the cursor click</span>
+<span class="sd">            intersects with. This is the point farthest from the camera.</span>
+<span class="sd">            The point is the full nD coordinates of the layer data.</span>
+<span class="sd">            If the click does not intersect the axis-aligned data bounding box,</span>
+<span class="sd">            None is returned.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="c1"># create a mask to select the in view dimensions</span>
+            <span class="n">dims_displayed</span> <span class="o">=</span> <span class="n">dims_displayed</span>
+            <span class="n">dims_displayed_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+            <span class="n">dims_displayed_mask</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># create the bounding box in data coordinates</span>
+            <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">dims_displayed_mask</span><span class="p">)</span>
+
+            <span class="c1"># get the view direction in data coords (only displayed dims)</span>
+            <span class="k">if</span> <span class="n">world</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">view_dir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_world_to_data_ray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">))[</span>
+                    <span class="n">dims_displayed_mask</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">view_dir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)[</span><span class="n">dims_displayed_mask</span><span class="p">]</span>
+
+            <span class="c1"># Get the clicked point in data coords (only displayed dims)</span>
+            <span class="k">if</span> <span class="n">world</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">click_pos_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">position</span><span class="p">))[</span>
+                    <span class="n">dims_displayed_mask</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">click_pos_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">dims_displayed_mask</span><span class="p">]</span>
+
+            <span class="c1"># Determine the front and back faces</span>
+            <span class="n">front_face_normal</span><span class="p">,</span> <span class="n">back_face_normal</span> <span class="o">=</span> <span class="n">find_front_back_face</span><span class="p">(</span>
+                <span class="n">click_pos_data</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">view_dir</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Get the locations in the plane where the ray intersects</span>
+            <span class="k">if</span> <span class="n">front_face_normal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">back_face_normal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">start_point_disp_dims</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">intersect_line_with_axis_aligned_bounding_box_3d</span><span class="p">(</span>
+                        <span class="n">click_pos_data</span><span class="p">,</span> <span class="n">view_dir</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">front_face_normal</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">end_point_disp_dims</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">intersect_line_with_axis_aligned_bounding_box_3d</span><span class="p">(</span>
+                        <span class="n">click_pos_data</span><span class="p">,</span> <span class="n">view_dir</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">back_face_normal</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+                <span class="c1"># add the coordinates for the axes not displayed</span>
+                <span class="n">start_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+                <span class="n">start_point</span><span class="p">[</span><span class="n">dims_displayed_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_point_disp_dims</span>
+                <span class="n">end_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+                <span class="n">end_point</span><span class="p">[</span><span class="n">dims_displayed_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_point_disp_dims</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># if the click doesn't intersect the data bounding box,</span>
+                <span class="c1"># return None</span>
+                <span class="n">start_point</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">end_point</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">return</span> <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_displayed_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">displayed_axes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed_order</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">displayed_axes</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_corner_pixels_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_axes</span>
+        <span class="n">corner_pixels_displayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">corner_pixels_displayed</span>
+
+    <span class="k">def</span> <span class="nf">_update_draw</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">corner_pixels_displayed</span><span class="p">,</span> <span class="n">shape_threshold</span>
+    <span class="p">):</span>
         <span class="sd">"""Update canvas scale and corner values on draw.</span>
+
 <span class="sd">        For layer multiscale determining if a new resolution level or tile is</span>
 <span class="sd">        required.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        scale_factor : float</span>
 <span class="sd">            Scale factor going from canvas to world coordinates.</span>
-<span class="sd">        corner_pixels : array</span>
-<span class="sd">            Coordinates of the top-left and bottom-right canvas pixels in the</span>
+<span class="sd">        corner_pixels_displayed : array, shape (2, 2)</span>
+<span class="sd">            Coordinates of the top-left and bottom-right canvas pixels in</span>
 <span class="sd">            world coordinates.</span>
 <span class="sd">        shape_threshold : tuple</span>
 <span class="sd">            Requested shape of field of view in data coordinates.</span>
 <span class="sd">        """</span>
-        <span class="c1"># Note we ignore the first transform which is tile2data</span>
-        <span class="n">data_corners</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">simplified</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">corner_pixels</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="n">scale_factor</span>
 
-        <span class="c1"># Round and clip data corners</span>
-        <span class="n">data_corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">data_corners</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">data_corners</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_axes</span>
+        <span class="c1"># we need to compute all four corners to compute a complete,</span>
+        <span class="c1"># data-aligned bounding box, because top-left/bottom-right may not</span>
+        <span class="c1"># remain top-left and bottom-right after transformations.</span>
+        <span class="n">all_corners</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">corner_pixels_displayed</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+        <span class="c1"># Note that we ignore the first transform which is tile2data</span>
+        <span class="n">data_corners</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="o">.</span><span class="n">simplified</span><span class="o">.</span><span class="n">set_slice</span><span class="p">(</span><span class="n">displayed_axes</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">all_corners</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># find the maximal data-axis-aligned bounding box containing all four</span>
+        <span class="c1"># canvas corners</span>
+        <span class="n">data_bbox</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data_corners</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data_corners</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="c1"># round and clip the bounding box values</span>
+        <span class="n">data_bbox_int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">data_bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">data_bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
         <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        <span class="n">data_corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
-            <span class="n">data_corners</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">displayed_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span>
+        <span class="n">data_bbox_clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">data_bbox_int</span><span class="p">,</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">:</span>
-            <span class="n">level</span><span class="p">,</span> <span class="n">displayed_corners</span> <span class="o">=</span> <span class="n">compute_multiscale_level_and_corners</span><span class="p">(</span>
-                <span class="n">data_corners</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">],</span>
+            <span class="n">level</span><span class="p">,</span> <span class="n">scaled_corners</span> <span class="o">=</span> <span class="n">compute_multiscale_level_and_corners</span><span class="p">(</span>
+                <span class="n">data_bbox_clipped</span><span class="p">,</span>
                 <span class="n">shape_threshold</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">downsample_factors</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">downsample_factors</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">],</span>
             <span class="p">)</span>
             <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span>
-            <span class="n">corners</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span> <span class="o">=</span> <span class="n">displayed_corners</span>
+            <span class="n">corners</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_corners</span>
             <span class="n">corners</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_level</span> <span class="o">!=</span> <span class="n">level</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">==</span> <span class="n">corners</span>
@@ -1358,7 +1726,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">data_corners</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">data_bbox_clipped</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">displayed_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1380,7 +1748,14 @@
         <span class="n">coordinates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_position</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">coordinates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Layer.get_status"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Layer.get_status"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Status message of the data at a coordinate position.</span>
 
@@ -1388,6 +1763,12 @@
 <span class="sd">        ----------</span>
 <span class="sd">        position : tuple</span>
 <span class="sd">            Position in either data or world coordinates.</span>
+<span class="sd">        view_direction : Optional[np.ndarray]</span>
+<span class="sd">            A unit vector giving the direction of the ray in nD world coordinates.</span>
+<span class="sd">            The default value is None.</span>
+<span class="sd">        dims_displayed : Optional[List[int]]</span>
+<span class="sd">            A list of the dimensions currently being displayed in the viewer.</span>
+<span class="sd">            The default value is None.</span>
 <span class="sd">        world : bool</span>
 <span class="sd">            If True the position is taken to be in world coordinates</span>
 <span class="sd">            and converted into data coordinates. False by default.</span>
@@ -1397,7 +1778,12 @@
 <span class="sd">        msg : string</span>
 <span class="sd">            String containing a message that can be used as a status update.</span>
 <span class="sd">        """</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+            <span class="n">position</span><span class="p">,</span>
+            <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
+            <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
+            <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">generate_layer_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_get_tooltip_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -1452,7 +1838,80 @@
         <span class="k">if</span> <span class="n">selected</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">deselect</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">deselect</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Layer.create"><a class="viewcode-back" href="../../../../api/stable/napari.layers.Layer.html#napari.layers.Layer.create">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Layer</span><span class="p">:</span>
+        <span class="sd">"""Create layer from `data` of type `layer_type`.</span>
+
+<span class="sd">        Primarily intended for usage by reader plugin hooks and creating a</span>
+<span class="sd">        layer from an unwrapped layer data tuple.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : Any</span>
+<span class="sd">            Data in a format that is valid for the corresponding `layer_type`.</span>
+<span class="sd">        meta : dict, optional</span>
+<span class="sd">            Dict of keyword arguments that will be passed to the corresponding</span>
+<span class="sd">            layer constructor.  If any keys in `meta` are not valid for the</span>
+<span class="sd">            corresponding layer type, an exception will be raised.</span>
+<span class="sd">        layer_type : str</span>
+<span class="sd">            Type of layer to add. Must be the (case insensitive) name of a</span>
+<span class="sd">            Layer subclass.  If not provided, the layer is assumed to</span>
+<span class="sd">            be "image", unless data.dtype is one of (np.int32, np.uint32,</span>
+<span class="sd">            np.int64, np.uint64), in which case it is assumed to be "labels".</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If ``layer_type`` is not one of the recognized layer types.</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If any keyword arguments in ``meta`` are unexpected for the</span>
+<span class="sd">            corresponding `add_*` method for this layer_type.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        A typical use case might be to upack a tuple of layer data with a</span>
+<span class="sd">        specified layer_type.</span>
+
+<span class="sd">        &gt;&gt;&gt; data = (</span>
+<span class="sd">        ...     np.random.random((10, 2)) * 20,</span>
+<span class="sd">        ...     {'face_color': 'blue'},</span>
+<span class="sd">        ...     'points',</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; Layer.create(*data)</span>
+
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">layers</span>
+        <span class="kn">from</span> <span class="nn">..image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
+
+        <span class="n">layer_type</span> <span class="o">=</span> <span class="p">(</span><span class="n">layer_type</span> <span class="ow">or</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="c1"># assumes that big integer type arrays are likely labels.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_type</span><span class="p">:</span>
+            <span class="n">layer_type</span> <span class="o">=</span> <span class="n">guess_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Unrecognized layer_type: '</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">'. "</span>
+                <span class="sa">f</span><span class="s2">"Must be one of: </span><span class="si">{</span><span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="si">}</span><span class="s2">."</span>
+            <span class="p">)</span>
+
+        <span class="n">Cls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Cls</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">meta</span> <span class="ow">or</span> <span class="p">{}))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'unexpected keyword argument'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">exc</span>
+
+            <span class="n">bad_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'keyword argument '</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">"_add_layer_from_data received an unexpected keyword "</span>
+                <span class="sa">f</span><span class="s2">"argument (</span><span class="si">{</span><span class="n">bad_key</span><span class="si">}</span><span class="s2">) for layer type </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span></div></div>
 </pre></div>
 
 

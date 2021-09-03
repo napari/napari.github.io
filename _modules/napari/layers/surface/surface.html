@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -377,9 +376,9 @@
 <span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
-<span class="sd">        the final column is a lenght N translation vector and a 1 or a napari</span>
-<span class="sd">        AffineTransform object. If provided then translate, scale, rotate, and</span>
-<span class="sd">        shear values are ignored.</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
+<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
+<span class="sd">        provided scale, rotate, and shear values.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    blending : str</span>
@@ -463,6 +462,7 @@
         <span class="n">blending</span><span class="o">=</span><span class="s1">'translucent'</span><span class="p">,</span>
         <span class="n">shading</span><span class="o">=</span><span class="s1">'flat'</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 
         <span class="n">ndim</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -480,6 +480,7 @@
             <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
             <span class="n">blending</span><span class="o">=</span><span class="n">blending</span><span class="p">,</span>
             <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+            <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">interpolation</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span> <span class="n">rendering</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="n">Event</span><span class="p">)</span>
@@ -521,7 +522,7 @@
         <span class="c1"># Shading mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_shading</span> <span class="o">=</span> <span class="n">shading</span>
 
-    <span class="k">def</span> <span class="nf">_calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'data'</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -551,6 +552,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_autoscale</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -712,6 +715,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">matches</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_autoscale</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""Update thumbnail with current surface."""</span>

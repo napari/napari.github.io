@@ -30,6 +30,12 @@ napari.layers.Points
       ~Points.block_update_properties
    
    
+      ~Points.create
+   
+   
+      ~Points.get_ray_intersections
+   
+   
       ~Points.get_status
    
    
@@ -55,6 +61,9 @@ napari.layers.Points
    
    
       ~Points.set_view_slice
+   
+   
+      ~Points.to_mask
    
    
       ~Points.world_to_data
@@ -88,6 +97,7 @@ napari.layers.Points
       ~Points.edge_contrast_limits
       ~Points.edge_width
       ~Points.editable
+      ~Points.experimental_clipping_planes
       ~Points.extent
       ~Points.face_color
       ~Points.face_color_cycle
@@ -97,6 +107,7 @@ napari.layers.Points
       ~Points.help
       ~Points.interactive
       ~Points.loaded
+      ~Points.metadata
       ~Points.mode
       ~Points.n_dimensional
       ~Points.name

@@ -38,7 +38,6 @@
    .. autofunction:: TracksData
    .. autofunction:: VectorsData
    .. autofunction:: image_reader_to_layerdata_reader
-   .. autofunction:: register_types_with_magicgui
    .. autofunction:: wraps
    
    

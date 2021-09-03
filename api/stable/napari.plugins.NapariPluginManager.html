@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -361,6 +360,38 @@ represents the result of the overall hook call.</p>
 <p>Functions are recognized if they have been decorated accordingly.</p>
 </dd></dl>
 <dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.assign_reader_to_extensions">
+<code class="sig-name descname"><span class="pre">assign_reader_to_extensions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extensions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.assign_reader_to_extensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.assign_reader_to_extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign a specific reader plugin to <cite>extensions</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reader</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of a plugin offering a reader hook.</p></li>
+<li><p><strong>extensions</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em><em>]</em>) – Name(s) of extensions to always write with <cite>reader</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.assign_writer_to_extensions">
+<code class="sig-name descname"><span class="pre">assign_writer_to_extensions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extensions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.assign_writer_to_extensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.assign_writer_to_extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign a specific writer plugin to <cite>extensions</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of a plugin offering a writer hook.</p></li>
+<li><p><strong>extensions</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em><em>]</em>) – Name(s) of extensions to always write with <cite>writer</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
 <dt id="napari.plugins.NapariPluginManager.available_samples">
 <code class="sig-name descname"><span class="pre">available_samples</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.available_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.available_samples" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of sample data keys provided by plugins.</p>
@@ -436,6 +467,14 @@ occurred (if <code class="docutils literal notranslate"><span class="pre">ignore
 <dd class="field-odd"><p>Tuple[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a>, List[PluginError]]</p>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.discover_themes">
+<code class="sig-name descname"><span class="pre">discover_themes</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.discover_themes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.discover_themes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trigger discovery of theme plugins.</p>
+<p>As a “historic” hook, this should only need to be called once.
+(historic here means that even plugins that are discovered after this
+is called will be added.)</p>
 </dd></dl>
 <dl class="py method">
 <dt id="napari.plugins.NapariPluginManager.discover_widgets">
@@ -520,6 +559,16 @@ least one value must be supplied.</p></li>
 <dd><p>Return name for registered plugin or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not registered.</p>
 </dd></dl>
 <dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.get_reader_for_extension">
+<code class="sig-name descname"><span class="pre">get_reader_for_extension</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extension</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.get_reader_for_extension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_reader_for_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return reader plugin assigned to <cite>extension</cite>, or None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
 <dt id="napari.plugins.NapariPluginManager.get_standard_metadata">
 <code class="sig-name descname"><span class="pre">get_standard_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_standard_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a standard metadata dict for <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
@@ -581,6 +630,16 @@ returned, otherwise a ValueError will be raised, by default None</p></li>
 <li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – If <cite>widget_name</cite> is not provided, but <cite>plugin_name</cite> provides more than
     one widget</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.get_writer_for_extension">
+<code class="sig-name descname"><span class="pre">get_writer_for_extension</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extension</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.get_writer_for_extension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.get_writer_for_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return writer plugin assigned to <cite>extension</cite>, or None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -715,6 +774,13 @@ or 3-tuple of <code class="docutils literal notranslate"><span class="pre">(data
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.register_theme_colors">
+<code class="sig-name descname"><span class="pre">register_theme_colors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hookimpl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.register_theme_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.register_theme_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register theme data dict returned by <cite>napari_experimental_provide_theme</cite>.</p>
+<p>The <cite>theme</cite> data should be provided as an iterable containing dictionary
+of values, where the <code class="docutils literal notranslate"><span class="pre">folder</span></code> value will be used as theme name.</p>
+</dd></dl>
+<dl class="py method">
 <dt id="napari.plugins.NapariPluginManager.set_blocked">
 <code class="sig-name descname"><span class="pre">set_blocked</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.plugins.NapariPluginManager.set_blocked" title="Permalink to this definition">¶</a></dt>
 <dd><p>Block registrations of <code class="docutils literal notranslate"><span class="pre">plugin_name</span></code>, unregister if registered.</p>
@@ -757,6 +823,11 @@ sooner.</p>
 <dd class="field-odd"><p>Any or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py method">
+<dt id="napari.plugins.NapariPluginManager.unregister_theme_colors">
+<code class="sig-name descname"><span class="pre">unregister_theme_colors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/_plugin_manager.html#NapariPluginManager.unregister_theme_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.NapariPluginManager.unregister_theme_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregister theme data from napari.</p>
 </dd></dl>
 </dd></dl>
 </div>

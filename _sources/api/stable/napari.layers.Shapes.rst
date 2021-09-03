@@ -21,6 +21,21 @@ napari.layers.Shapes
       ~Shapes.add
    
    
+      ~Shapes.add_ellipses
+   
+   
+      ~Shapes.add_lines
+   
+   
+      ~Shapes.add_paths
+   
+   
+      ~Shapes.add_polygons
+   
+   
+      ~Shapes.add_rectangles
+   
+   
       ~Shapes.as_layer_data_tuple
    
    
@@ -33,7 +48,16 @@ napari.layers.Shapes
       ~Shapes.block_update_properties
    
    
+      ~Shapes.create
+   
+   
       ~Shapes.expand_shape
+   
+   
+      ~Shapes.get_index_and_intersection
+   
+   
+      ~Shapes.get_ray_intersections
    
    
       ~Shapes.get_status
@@ -106,6 +130,7 @@ napari.layers.Shapes
       ~Shapes.edge_contrast_limits
       ~Shapes.edge_width
       ~Shapes.editable
+      ~Shapes.experimental_clipping_planes
       ~Shapes.extent
       ~Shapes.face_color
       ~Shapes.face_color_cycle
@@ -115,6 +140,7 @@ napari.layers.Shapes
       ~Shapes.help
       ~Shapes.interactive
       ~Shapes.loaded
+      ~Shapes.metadata
       ~Shapes.mode
       ~Shapes.name
       ~Shapes.ndim
@@ -122,6 +148,7 @@ napari.layers.Shapes
       ~Shapes.opacity
       ~Shapes.position
       ~Shapes.properties
+      ~Shapes.property_choices
       ~Shapes.rotate
       ~Shapes.scale
       ~Shapes.selected

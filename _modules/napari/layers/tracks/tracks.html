@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -357,7 +356,9 @@
 <span class="sd">    tail_width : float</span>
 <span class="sd">        Width of the track tails in pixels.</span>
 <span class="sd">    tail_length : float</span>
-<span class="sd">        Length of the track tails in units of time.</span>
+<span class="sd">        Length of the positive (backward in time) tails in units of time.</span>
+<span class="sd">    head_length : float</span>
+<span class="sd">        Length of the positive (forward in time) tails in units of time.</span>
 <span class="sd">    colormap : str</span>
 <span class="sd">        Default colormap to use to set vertex colors. Specialized colormaps,</span>
 <span class="sd">        relating to specified properties can be passed to the layer via</span>
@@ -386,9 +387,9 @@
 <span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
 <span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
 <span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
-<span class="sd">        the final column is a lenght N translation vector and a 1 or a napari</span>
-<span class="sd">        AffineTransform object. If provided then translate, scale, rotate, and</span>
-<span class="sd">        shear values are ignored.</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
+<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
+<span class="sd">        provided scale, rotate, and shear values.</span>
 <span class="sd">    opacity : float</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
 <span class="sd">    blending : str</span>
@@ -404,6 +405,8 @@
     <span class="c1"># The max number of tracks that will ever be used to render the thumbnail</span>
     <span class="c1"># If more tracks are present then they are randomly subsampled</span>
     <span class="n">_max_tracks_thumbnail</span> <span class="o">=</span> <span class="mi">1024</span>
+    <span class="n">_max_length</span> <span class="o">=</span> <span class="mi">300</span>
+    <span class="n">_max_width</span> <span class="o">=</span> <span class="mi">20</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -413,6 +416,7 @@
         <span class="n">graph</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">tail_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">tail_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="n">head_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -426,6 +430,7 @@
         <span class="n">colormap</span><span class="o">=</span><span class="s1">'turbo'</span><span class="p">,</span>
         <span class="n">color_by</span><span class="o">=</span><span class="s1">'track_id'</span><span class="p">,</span>
         <span class="n">colormaps_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 
         <span class="c1"># if not provided with any data, set up an empty layer in 2D+t</span>
@@ -455,11 +460,13 @@
             <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
             <span class="n">blending</span><span class="o">=</span><span class="n">blending</span><span class="p">,</span>
             <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+            <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
             <span class="n">tail_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">tail_length</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">head_length</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">display_id</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">display_tail</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">display_graph</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -483,6 +490,7 @@
         <span class="c1"># track display properties</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tail_width</span> <span class="o">=</span> <span class="n">tail_width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tail_length</span> <span class="o">=</span> <span class="n">tail_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head_length</span> <span class="o">=</span> <span class="n">head_length</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_id</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_tail</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_graph</span> <span class="o">=</span> <span class="kc">True</span>
@@ -539,6 +547,7 @@
                 <span class="s1">'colormaps_dict'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormaps_dict</span><span class="p">,</span>
                 <span class="s1">'tail_width'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail_width</span><span class="p">,</span>
                 <span class="s1">'tail_length'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail_length</span><span class="p">,</span>
+                <span class="s1">'head_length'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_length</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
@@ -607,7 +616,9 @@
             <span class="c1"># modulate track colors as per colormap/current_time</span>
             <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_colors</span><span class="p">[</span><span class="n">thumbnail_indices</span><span class="p">]</span>
             <span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_times</span><span class="p">[</span><span class="n">thumbnail_indices</span><span class="p">]</span>
-            <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span> <span class="o">-</span> <span class="n">times</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tail_length</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head_length</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span> <span class="o">-</span> <span class="n">times</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tail_length</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_length</span>
+            <span class="p">)</span>
             <span class="n">alpha</span><span class="p">[</span><span class="n">times</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
             <span class="n">colors</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
             <span class="n">colormapped</span><span class="p">[</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colors</span>
@@ -687,7 +698,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-        <span class="sd">"""dict {str: np.ndarray (N,)}, DataFrame: Properties for each track."""</span>
+        <span class="sd">"""dict {str: np.ndarray (N,)}: Properties for each track."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">properties</span>
 
     <span class="nd">@property</span>
@@ -733,7 +744,7 @@
 
     <span class="nd">@tail_width</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">tail_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tail_width</span> <span class="o">=</span> <span class="n">tail_width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tail_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">tail_width</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_width</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">tail_width</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -743,8 +754,17 @@
 
     <span class="nd">@tail_length</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">tail_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tail_length</span> <span class="o">=</span> <span class="n">tail_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tail_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">tail_length</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_length</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">tail_length</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">head_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head_length</span>
+
+    <span class="nd">@head_length</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">head_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_head_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">head_length</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_length</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">head_length</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">display_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -873,7 +893,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">graph_times</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">"""time points assocaite with each graph vertex"""</span>
+        <span class="sd">"""time points associated with each graph vertex"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manager</span><span class="o">.</span><span class="n">graph_times</span>
 
     <span class="nd">@property</span>

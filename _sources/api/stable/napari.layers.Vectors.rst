@@ -27,6 +27,12 @@ napari.layers.Vectors
       ~Vectors.block_update_properties
    
    
+      ~Vectors.create
+   
+   
+      ~Vectors.get_ray_intersections
+   
+   
       ~Vectors.get_status
    
    
@@ -72,16 +78,19 @@ napari.layers.Vectors
       ~Vectors.edge_contrast_limits
       ~Vectors.edge_width
       ~Vectors.editable
+      ~Vectors.experimental_clipping_planes
       ~Vectors.extent
       ~Vectors.help
       ~Vectors.interactive
       ~Vectors.length
       ~Vectors.loaded
+      ~Vectors.metadata
       ~Vectors.name
       ~Vectors.ndim
       ~Vectors.opacity
       ~Vectors.position
       ~Vectors.properties
+      ~Vectors.property_choices
       ~Vectors.rotate
       ~Vectors.scale
       ~Vectors.selected

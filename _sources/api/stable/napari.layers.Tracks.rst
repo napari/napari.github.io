@@ -27,6 +27,12 @@ napari.layers.Tracks
       ~Tracks.block_update_properties
    
    
+      ~Tracks.create
+   
+   
+      ~Tracks.get_ray_intersections
+   
+   
       ~Tracks.get_status
    
    
@@ -71,13 +77,16 @@ napari.layers.Tracks
       ~Tracks.display_tail
       ~Tracks.displayed_coordinates
       ~Tracks.editable
+      ~Tracks.experimental_clipping_planes
       ~Tracks.extent
       ~Tracks.graph
       ~Tracks.graph_connex
       ~Tracks.graph_times
+      ~Tracks.head_length
       ~Tracks.help
       ~Tracks.interactive
       ~Tracks.loaded
+      ~Tracks.metadata
       ~Tracks.name
       ~Tracks.ndim
       ~Tracks.opacity

@@ -27,6 +27,12 @@ napari.layers.Image
       ~Image.block_update_properties
    
    
+      ~Image.create
+   
+   
+      ~Image.get_ray_intersections
+   
+   
       ~Image.get_status
    
    
@@ -77,6 +83,8 @@ napari.layers.Image
       ~Image.downsample_factors
       ~Image.dtype
       ~Image.editable
+      ~Image.experimental_clipping_planes
+      ~Image.experimental_slicing_plane
       ~Image.extent
       ~Image.gamma
       ~Image.help
@@ -85,6 +93,7 @@ napari.layers.Image
       ~Image.iso_threshold
       ~Image.level_shapes
       ~Image.loaded
+      ~Image.metadata
       ~Image.name
       ~Image.ndim
       ~Image.opacity

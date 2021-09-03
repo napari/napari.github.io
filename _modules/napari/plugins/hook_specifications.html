@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -355,7 +354,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_specification</span>
 
@@ -814,6 +813,56 @@
 <span class="sd">    &gt;&gt;&gt; @napari_hook_implementation</span>
 <span class="sd">    &gt;&gt;&gt; def napari_experimental_provide_dock_widget():</span>
 <span class="sd">    ...     return threshold</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="napari_experimental_provide_theme"><a class="viewcode-back" href="../../../plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_experimental_provide_theme">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">napari_experimental_provide_theme</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span>
+    <span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">]]</span>
+<span class="p">]:</span>
+    <span class="sd">"""Provide GUI with a set of colors used through napari. This hook allows you to</span>
+<span class="sd">    provide additional color schemes so you can accomplish your desired styling.</span>
+
+<span class="sd">    Themes are provided as `dict` with several required fields and correctly formatted</span>
+<span class="sd">    color values. Colors can be specified using color names (e.g. ``white``), hex color</span>
+<span class="sd">    (e.g. ``#ff5733``), rgb color in 0-255 range (e.g. ``rgb(255, 0, 127)`` or as</span>
+<span class="sd">    3- or 4-element tuples or lists (e.g. ``(255, 0, 127)``. The `Theme` model will</span>
+<span class="sd">    automatically handle the conversion.</span>
+
+<span class="sd">    See :class:`~napari.utils.theme.Theme` for more detail of what are the required keys.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    themes : Dict[str, Dict[str, Union[str, Tuple, List]]</span>
+<span class="sd">        Sequence of dictionaries containing new color schemes to be used by napari.</span>
+<span class="sd">        You can replace existing themes by using the same names.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; def get_new_theme() -&gt; Dict[str, Dict[str, Union[str, Tuple, List]]:</span>
+<span class="sd">    ...     # specify theme(s) that should be added to napari</span>
+<span class="sd">    ...     themes = {</span>
+<span class="sd">    ...         "super_dark": {</span>
+<span class="sd">    ...             "name": "super_dark",</span>
+<span class="sd">    ...             "background": "rgb(12, 12, 12)",</span>
+<span class="sd">    ...             "foreground": "rgb(65, 72, 81)",</span>
+<span class="sd">    ...             "primary": "rgb(90, 98, 108)",</span>
+<span class="sd">    ...             "secondary": "rgb(134, 142, 147)",</span>
+<span class="sd">    ...             "highlight": "rgb(106, 115, 128)",</span>
+<span class="sd">    ...             "text": "rgb(240, 241, 242)",</span>
+<span class="sd">    ...             "icon": "rgb(209, 210, 212)",</span>
+<span class="sd">    ...             "warning": "rgb(153, 18, 31)",</span>
+<span class="sd">    ...             "current": "rgb(0, 122, 204)",</span>
+<span class="sd">    ...             "syntax_style": "native",</span>
+<span class="sd">    ...             "console": "rgb(0, 0, 0)",</span>
+<span class="sd">    ...             "canvas": "black",</span>
+<span class="sd">    ...         }</span>
+<span class="sd">    ...     }</span>
+<span class="sd">    ...     return themes</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; @napari_hook_implementation</span>
+<span class="sd">    &gt;&gt;&gt; def napari_experimental_provide_theme():</span>
+<span class="sd">    ...     return get_new_theme()</span>
 <span class="sd">    """</span></div>
 </pre></div>
 

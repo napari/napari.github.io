@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -330,13 +329,13 @@
 <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span>
 
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span>
 <span class="kn">from</span> <span class="nn">..utils.notifications</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">notification_manager</span><span class="p">,</span>
     <span class="n">show_console_notification</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..utils.perf</span> <span class="kn">import</span> <span class="n">perf_config</span>
-<span class="kn">from</span> <span class="nn">..utils.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.dialogs.qt_notification</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">NapariQtNotification</span><span class="p">,</span>
@@ -344,6 +343,7 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.qt_resources</span> <span class="kn">import</span> <span class="n">_register_napari_resources</span>
 <span class="kn">from</span> <span class="nn">.qthreading</span> <span class="kn">import</span> <span class="n">wait_for_workers_to_quit</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_maybe_allow_interrupt</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
@@ -373,6 +373,7 @@
 
 <span class="c1"># store reference to QApplication to prevent garbage collection</span>
 <span class="n">_app_ref</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">_IPYTHON_WAS_HERE_FIRST</span> <span class="o">=</span> <span class="s2">"IPython"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
 
 
 <span class="k">def</span> <span class="nf">get_app</span><span class="p">(</span>
@@ -423,11 +424,6 @@
 <span class="sd">    Substitutes QApplicationWithTracing when the NAPARI_PERFMON env variable</span>
 <span class="sd">    is set.</span>
 
-<span class="sd">    If the QApplication already exists, we call convert_app_for_tracing() which</span>
-<span class="sd">    deletes the QApplication and creates a new one. However here with get_app</span>
-<span class="sd">    we need to create the correct QApplication up front, or we will crash</span>
-<span class="sd">    because we'd be deleting the QApplication after we created QWidgets with</span>
-<span class="sd">    it, such as we do for the splash screen.</span>
 <span class="sd">    """</span>
     <span class="c1"># napari defaults are all-or nothing.  If any of the keywords are used</span>
     <span class="c1"># then they are all used.</span>
@@ -448,10 +444,13 @@
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">perf_config</span> <span class="ow">and</span> <span class="n">perf_config</span><span class="o">.</span><span class="n">trace_qt_events</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">.perf.qt_event_tracing</span> <span class="kn">import</span> <span class="n">convert_app_for_tracing</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">"Using NAPARI_PERFMON with an already-running QtApp (--gui qt?) is not supported."</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
 
-            <span class="c1"># no-op if app is already a QApplicationWithTracing</span>
-            <span class="n">app</span> <span class="o">=</span> <span class="n">convert_app_for_tracing</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># automatically determine monitor DPI.</span>
         <span class="c1"># Note: this MUST be set before the QApplication is instantiated</span>
@@ -485,7 +484,8 @@
 
     <span class="k">if</span> <span class="n">ipy_interactive</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ipy_interactive</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">ipy_interactive</span>
-    <span class="n">_try_enable_ipython_gui</span><span class="p">(</span><span class="s1">'qt'</span> <span class="k">if</span> <span class="n">ipy_interactive</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">_IPYTHON_WAS_HERE_FIRST</span><span class="p">:</span>
+        <span class="n">_try_enable_ipython_gui</span><span class="p">(</span><span class="s1">'qt'</span> <span class="k">if</span> <span class="n">ipy_interactive</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">perf_config</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">perf_config</span><span class="o">.</span><span class="n">patched</span><span class="p">:</span>
         <span class="c1"># Will patch based on config file.</span>
@@ -612,6 +612,18 @@
     <span class="k">return</span> <span class="n">shell</span><span class="o">.</span><span class="n">active_eventloop</span> <span class="o">==</span> <span class="s1">'qt'</span>
 
 
+<span class="k">def</span> <span class="nf">_pycharm_has_eventloop</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">QApplication</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">"""Return true if running in PyCharm and eventloop is active.</span>
+
+<span class="sd">    Explicit checking is necessary because PyCharm runs a custom interactive</span>
+<span class="sd">    shell which overrides `InteractiveShell.enable_gui()`, breaking some</span>
+<span class="sd">    superclass behaviour.</span>
+<span class="sd">    """</span>
+    <span class="n">in_pycharm</span> <span class="o">=</span> <span class="s1">'PYCHARM_HOSTED'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+    <span class="n">in_event_loop</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s1">'_in_event_loop'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">in_pycharm</span> <span class="ow">and</span> <span class="n">in_event_loop</span>
+
+
 <span class="k">def</span> <span class="nf">_try_enable_ipython_gui</span><span class="p">(</span><span class="n">gui</span><span class="o">=</span><span class="s1">'qt'</span><span class="p">):</span>
     <span class="sd">"""Start %gui qt the eventloop."""</span>
     <span class="n">ipy_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"IPython"</span><span class="p">)</span>
@@ -660,6 +672,10 @@
         <span class="k">return</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">_pycharm_has_eventloop</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+        <span class="c1"># explicit check for PyCharm pydev console</span>
+        <span class="k">return</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">app</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -690,8 +706,7 @@
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="k">return</span>
-
-    <span class="k">with</span> <span class="n">notification_manager</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">notification_manager</span><span class="p">,</span> <span class="n">_maybe_allow_interrupt</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
         <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
 </pre></div>
 

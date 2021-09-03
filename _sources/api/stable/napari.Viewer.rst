@@ -60,6 +60,9 @@ napari.Viewer
       ~Viewer.dict
    
    
+      ~Viewer.enums_as_values
+   
+   
       ~Viewer.from_orm
    
    
@@ -79,6 +82,9 @@ napari.Viewer
    
    
       ~Viewer.parse_raw
+   
+   
+      ~Viewer.reset
    
    
       ~Viewer.reset_view

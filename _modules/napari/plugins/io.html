@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -317,7 +316,9 @@
 
 
 <h1>Source code for napari.plugins.io</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -371,6 +372,10 @@
 <span class="sd">        If ``plugin`` is specified but raises an Exception while reading.</span>
 <span class="sd">    """</span>
     <span class="n">hook_caller</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">hook</span><span class="o">.</span><span class="n">napari_get_reader</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">abspath_or_url</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">plugin</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)):</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">plugin</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_reader_for_extension</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
 
     <span class="n">hookimpl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HookImplementation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">plugin</span><span class="p">:</span>
@@ -405,7 +410,6 @@
         <span class="k">return</span> <span class="n">layer_data</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span> <span class="n">hookimpl</span>
 
     <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PluginCallError</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">abspath_or_url</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">skip_impls</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">HookImplementation</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">layer_data</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -608,6 +612,10 @@
     <span class="n">layer_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">as_layer_data_tuple</span><span class="p">()</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">]</span>
     <span class="n">layer_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">ld</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">ld</span> <span class="ow">in</span> <span class="n">layer_data</span><span class="p">]</span>
 
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">plugin_name</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)):</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">plugin_name</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_writer_for_extension</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
+
     <span class="n">hook_caller</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">hook</span><span class="o">.</span><span class="n">napari_get_writer</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">abspath_or_url</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">plugin_name</span><span class="p">:</span>
@@ -697,6 +705,10 @@
     <span class="n">hook_caller</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
         <span class="n">plugin_manager</span><span class="o">.</span><span class="n">hook</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'napari_write_</span><span class="si">{</span><span class="n">layer</span><span class="o">.</span><span class="n">_type_string</span><span class="si">}</span><span class="s1">'</span>
     <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">plugin_name</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)):</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">plugin_name</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_writer_for_extension</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">and</span> <span class="p">(</span><span class="n">plugin_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">plugins</span><span class="p">):</span>
         <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">plugin_name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_hookimpls</span><span class="p">()}</span>

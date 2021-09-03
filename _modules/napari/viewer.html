@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -319,15 +318,16 @@
 <h1>Source code for napari.viewer</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">.components</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">.components.viewer_model</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_magicgui</span><span class="p">,</span> <span class="n">config</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="c1"># helpful for IDE support</span>
     <span class="kn">from</span> <span class="nn">._qt.qt_main_window</span> <span class="kn">import</span> <span class="n">Window</span>
 
 
-<div class="viewcode-block" id="Viewer"><a class="viewcode-back" href="../../api/stable/napari.view_layers.Viewer.html#napari.Viewer">[docs]</a><span class="k">class</span> <span class="nc">Viewer</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">):</span>
+<div class="viewcode-block" id="Viewer"><a class="viewcode-back" href="../../api/stable/napari.view_layers.Viewer.html#napari.Viewer">[docs]</a><span class="nd">@_magicgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">_magicgui</span><span class="o">.</span><span class="n">find_viewer_ancestor</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Viewer</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">):</span>
     <span class="sd">"""Napari ndarray viewer.</span>
 
 <span class="sd">    Parameters</span>
@@ -346,8 +346,7 @@
 <span class="sd">        Whether to show the viewer after instantiation. by default True.</span>
 <span class="sd">    """</span>
 
-    <span class="c1"># Create private variable for window</span>
-    <span class="n">_window</span><span class="p">:</span> <span class="s1">'Window'</span>
+    <span class="n">_window</span><span class="p">:</span> <span class="s1">'Window'</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -441,6 +440,16 @@
             <span class="c1"># https://github.com/napari/napari/issues/1500</span>
             <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
                 <span class="n">chunk_loader</span><span class="o">.</span><span class="n">on_layer_deleted</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="current_viewer"><a class="viewcode-back" href="../../api/stable/napari.html#napari.current_viewer">[docs]</a><span class="k">def</span> <span class="nf">current_viewer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Viewer</span><span class="p">:</span>
+    <span class="sd">"""Return the currently active napari viewer."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">napari._qt.qt_main_window</span> <span class="kn">import</span> <span class="n">_QtMainWindow</span>
+
+        <span class="k">return</span> <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">current_viewer</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
 

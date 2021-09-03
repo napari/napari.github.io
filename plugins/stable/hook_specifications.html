@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -715,6 +714,54 @@ them.</p>
 </div>
 <div class="section" id="gui-hooks">
 <h2>GUI hooks<a class="headerlink" href="#gui-hooks" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="napari.plugins.hook_specifications.napari_experimental_provide_theme">
+<code class="sig-prename descclassname"><span class="pre">napari.plugins.hook_specifications.</span></code><code class="sig-name descname"><span class="pre">napari_experimental_provide_theme</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/hook_specifications.html#napari_experimental_provide_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.hook_specifications.napari_experimental_provide_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide GUI with a set of colors used through napari. This hook allows you to
+provide additional color schemes so you can accomplish your desired styling.</p>
+<p>Themes are provided as <cite>dict</cite> with several required fields and correctly formatted
+color values. Colors can be specified using color names (e.g. <code class="docutils literal notranslate"><span class="pre">white</span></code>), hex color
+(e.g. <code class="docutils literal notranslate"><span class="pre">#ff5733</span></code>), rgb color in 0-255 range (e.g. <code class="docutils literal notranslate"><span class="pre">rgb(255,</span> <span class="pre">0,</span> <span class="pre">127)</span></code> or as
+3- or 4-element tuples or lists (e.g. <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">0,</span> <span class="pre">127)</span></code>. The <cite>Theme</cite> model will
+automatically handle the conversion.</p>
+<p>See <code class="xref py py-class docutils literal notranslate"><span class="pre">Theme</span></code> for more detail of what are the required keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>themes</strong> – Sequence of dictionaries containing new color schemes to be used by napari.
+You can replace existing themes by using the same names.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, Tuple, List]]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">get_new_theme</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">]]:</span>
+<span class="gp">... </span>    <span class="c1"># specify theme(s) that should be added to napari</span>
+<span class="gp">... </span>    <span class="n">themes</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">"super_dark"</span><span class="p">:</span> <span class="p">{</span>
+<span class="gp">... </span>            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"super_dark"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"background"</span><span class="p">:</span> <span class="s2">"rgb(12, 12, 12)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"foreground"</span><span class="p">:</span> <span class="s2">"rgb(65, 72, 81)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"primary"</span><span class="p">:</span> <span class="s2">"rgb(90, 98, 108)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"secondary"</span><span class="p">:</span> <span class="s2">"rgb(134, 142, 147)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"highlight"</span><span class="p">:</span> <span class="s2">"rgb(106, 115, 128)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"rgb(240, 241, 242)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"icon"</span><span class="p">:</span> <span class="s2">"rgb(209, 210, 212)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"warning"</span><span class="p">:</span> <span class="s2">"rgb(153, 18, 31)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"current"</span><span class="p">:</span> <span class="s2">"rgb(0, 122, 204)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"syntax_style"</span><span class="p">:</span> <span class="s2">"native"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"console"</span><span class="p">:</span> <span class="s2">"rgb(0, 0, 0)"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">"canvas"</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">}</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">themes</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@napari_hook_implementation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">napari_experimental_provide_theme</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">get_new_theme</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
 <dl class="py function">
 <dt id="napari.plugins.hook_specifications.napari_experimental_provide_dock_widget">
 <code class="sig-prename descclassname"><span class="pre">napari.plugins.hook_specifications.</span></code><code class="sig-name descname"><span class="pre">napari_experimental_provide_dock_widget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/napari/plugins/hook_specifications.html#napari_experimental_provide_dock_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.hook_specifications.napari_experimental_provide_dock_widget" title="Permalink to this definition">¶</a></dt>

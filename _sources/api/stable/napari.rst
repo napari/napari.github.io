@@ -24,6 +24,7 @@
    .. rubric:: Functions
 
    
+   .. autofunction:: current_viewer
    .. autofunction:: gui_qt
    .. autofunction:: run
    .. autofunction:: save_layers

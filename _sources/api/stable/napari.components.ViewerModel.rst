@@ -57,6 +57,9 @@ napari.components.ViewerModel
       ~ViewerModel.dict
    
    
+      ~ViewerModel.enums_as_values
+   
+   
       ~ViewerModel.from_orm
    
    
@@ -76,6 +79,9 @@ napari.components.ViewerModel
    
    
       ~ViewerModel.parse_raw
+   
+   
+      ~ViewerModel.reset
    
    
       ~ViewerModel.reset_view

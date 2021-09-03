@@ -282,7 +282,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html">Hooking up your own events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../guides/stable/connecting_events.html#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../guides/stable/3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -336,8 +335,6 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span>
-
-<span class="kn">from</span> <span class="nn">.utils._magicgui</span> <span class="kn">import</span> <span class="n">register_types_with_magicgui</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">dask.array</span>
@@ -443,7 +440,28 @@
     <span class="k">return</span> <span class="n">reader_function</span></div>
 
 
-<span class="n">register_types_with_magicgui</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">_register_types_with_magicgui</span><span class="p">():</span>
+    <span class="sd">"""Register napari.types objects with magicgui."""</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">layers</span>
+    <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_magicgui</span> <span class="k">as</span> <span class="n">_mgui</span>
+
+    <span class="n">_mgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span>
+        <span class="n">LayerDataTuple</span><span class="p">,</span>
+        <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_layer_data_tuples_to_viewer</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">_mgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span>
+        <span class="n">List</span><span class="p">[</span><span class="n">LayerDataTuple</span><span class="p">],</span>
+        <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_layer_data_tuples_to_viewer</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">layer_name</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
+        <span class="n">_mgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span>
+            <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">layer_name</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">Data'</span><span class="p">),</span>
+            <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
+            <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_layer_data_to_viewer</span><span class="p">,</span>
+        <span class="p">)</span>
+
+
+<span class="n">_register_types_with_magicgui</span><span class="p">()</span>
 </pre></div>
 
 

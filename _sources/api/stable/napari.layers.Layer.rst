@@ -27,6 +27,12 @@ napari.layers.Layer
       ~Layer.block_update_properties
    
    
+      ~Layer.create
+   
+   
+      ~Layer.get_ray_intersections
+   
+   
       ~Layer.get_status
    
    
@@ -63,10 +69,12 @@ napari.layers.Layer
       ~Layer.data
       ~Layer.displayed_coordinates
       ~Layer.editable
+      ~Layer.experimental_clipping_planes
       ~Layer.extent
       ~Layer.help
       ~Layer.interactive
       ~Layer.loaded
+      ~Layer.metadata
       ~Layer.name
       ~Layer.ndim
       ~Layer.opacity

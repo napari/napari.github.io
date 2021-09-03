@@ -27,6 +27,12 @@ napari.layers.Surface
       ~Surface.block_update_properties
    
    
+      ~Surface.create
+   
+   
+      ~Surface.get_ray_intersections
+   
+   
       ~Surface.get_status
    
    
@@ -74,12 +80,14 @@ napari.layers.Surface
       ~Surface.displayed_coordinates
       ~Surface.dtype
       ~Surface.editable
+      ~Surface.experimental_clipping_planes
       ~Surface.extent
       ~Surface.faces
       ~Surface.gamma
       ~Surface.help
       ~Surface.interactive
       ~Surface.loaded
+      ~Surface.metadata
       ~Surface.name
       ~Surface.ndim
       ~Surface.opacity

@@ -282,6 +282,7 @@
 <li class="toctree-l2"><a class="reference internal" href="translations.html">Translations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rendering-explanation.html">Rendering in napari</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Hooking up your own events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#long-running-blocking-functions">Long-running, blocking functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3D_interactivity.html">3D interactivity</a></li>
 </ul>
 </li>
@@ -316,7 +317,7 @@
 
 
 <div class="section" id="hooking-up-your-own-events">
-<span id="connecting-events"></span><h1>Hooking up your own events<a class="headerlink" href="#hooking-up-your-own-events" title="Permalink to this headline">¶</a></h1>
+<h1>Hooking up your own events<a class="headerlink" href="#hooking-up-your-own-events" title="Permalink to this headline">¶</a></h1>
 <p>If you’re coming from a background of scripting or working with python in an
 interactive console, thinking in terms of the “event loop” can feel a bit
 strange at times. Often we write code in a very procedural way: “do this …
@@ -424,8 +425,9 @@ function that accepts the event object:</p>
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="long-running-blocking-functions">
-<h2>Long-running, blocking functions<a class="headerlink" href="#long-running-blocking-functions" title="Permalink to this headline">¶</a></h2>
+<h1>Long-running, blocking functions<a class="headerlink" href="#long-running-blocking-functions" title="Permalink to this headline">¶</a></h1>
 <p>An important detail here is that the napari event loop is running in a <em>single
 thread</em>.  This works just fine if the handling of each event is very short, as
 is usually the case with moving sliders, and pressing buttons.  However, if one
@@ -444,7 +446,6 @@ must wait!</p>
 event can be processed until it’s done</em>.  In this scenario, it’s best to put
 your long-running function into another thread or process.  <code class="docutils literal notranslate"><span class="pre">napari</span></code> provides a
 convenience for that, described in <a class="reference internal" href="threading.html#multithreading-in-napari"><span class="std std-ref">Multithreading in napari</span></a>.</p>
-</div>
 </div>
 <script type="text/x-thebe-config">
     {
@@ -525,9 +526,9 @@ convenience for that, described in <a class="reference internal" href="threading
 <li><a class="reference internal" href="#listening-for-keypress-events">Listening for keypress events</a></li>
 <li><a class="reference internal" href="#listening-for-mouse-events">Listening for mouse events</a></li>
 <li><a class="reference internal" href="#connection-functions-to-native-napari-events">Connection functions to native napari events</a></li>
-<li><a class="reference internal" href="#long-running-blocking-functions">Long-running, blocking functions</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#long-running-blocking-functions">Long-running, blocking functions</a></li>
 </ul>
 
           </div>

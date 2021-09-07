@@ -1,7 +1,3 @@
-import 'modern-normalize/modern-normalize.css';
-import '@/scss/tailwind.scss';
-import '@/scss/main.scss';
-
 import clsx from 'clsx';
 
 import { AppBar } from '@/components/AppBar';

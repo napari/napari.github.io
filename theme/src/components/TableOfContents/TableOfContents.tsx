@@ -56,7 +56,7 @@ export function TableOfContents({ active, className, headers, free }: Props) {
       )}
     >
       {headers.map((header) => {
-        const isActive = header.id === activeHeader;
+        const isActive = header.href === activeHeader;
 
         return (
           <li
@@ -82,7 +82,7 @@ export function TableOfContents({ active, className, headers, free }: Props) {
               'border-transparent',
               isActive && 'screen-1425:border-black',
             )}
-            key={header.id}
+            key={header.href}
             data-active={isActive}
             data-testid="tocItem"
           >
@@ -92,7 +92,7 @@ export function TableOfContents({ active, className, headers, free }: Props) {
             */}
             <a
               className={clsx(isActive && 'screen-1425:font-bold')}
-              href={`#${header.id}`}
+              href={header.href}
               onClick={(event) => {
                 // If highlighting is disabled, treat this as a regular link.
                 if (!enabled) {
@@ -108,8 +108,8 @@ export function TableOfContents({ active, className, headers, free }: Props) {
                 disableEventHandlers();
 
                 // Set the hash to the header ID so that the page scrolls to it.
-                window.location.hash = header.id;
-                setActiveHeader(header.id);
+                window.location.hash = header.href;
+                setActiveHeader(header.href);
 
                 // Wrap in timeout so that the browser has time to scroll the
                 // header. If we don't wrap it in a timeout, then setting the

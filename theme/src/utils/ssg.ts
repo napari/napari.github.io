@@ -3,11 +3,7 @@
 import cheerio, { Cheerio, Element } from 'cheerio';
 import fs from 'fs-extra';
 
-import {
-  GlobalHeader,
-  JupyterBookState,
-  TOCHeader,
-} from '@/context/jupyterBook';
+import { JupyterBookState, TOCHeader } from '@/context/jupyterBook';
 
 interface StackItem<T> {
   level: number;
@@ -53,7 +49,7 @@ function getGlobalHeaders<T>({
   getLinkData,
   getNextNodes,
 }: GetGlobalHeadersOptions<T>) {
-  const globalHeaders: Record<string, GlobalHeader> = {};
+  const globalHeaders: Record<string, TOCHeader> = {};
   const rootGlobalHeaders: string[] = [];
 
   const stack: StackItem<T>[] = getRootNodes().map((node) => ({
@@ -82,7 +78,7 @@ function getGlobalHeaders<T>({
 
       // Add current header as child of parent header.
       if (parentId) {
-        globalHeaders[parentId].children.push(link.href);
+        globalHeaders[parentId].children?.push(link.href);
       }
 
       const nextLevel = level + 1;
@@ -102,7 +98,7 @@ function getGlobalHeaders<T>({
   // Reverse header lists because stacks pop items in reverse.
   rootGlobalHeaders.reverse();
   for (const header of Object.values(globalHeaders)) {
-    header.children.reverse();
+    header.children?.reverse();
   }
 
   return {
@@ -120,8 +116,7 @@ function getPageHeaders(contentToc: Cheerio<Element>) {
       const href = link.attr('href') ?? '';
 
       return {
-        // Remove the starting hash on the link if it exists.
-        id: href.replace(/^#/, ''),
+        href,
         text: link.text(),
       };
     });

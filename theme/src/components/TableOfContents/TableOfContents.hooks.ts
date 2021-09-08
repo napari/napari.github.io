@@ -23,6 +23,17 @@ const FIND_ACTIVE_HEADER_THROTTLE_MS = 100;
 const SET_INITIAL_HEADER_TIMEOUT_MS = 200;
 
 /**
+ * Function for removing the leading hash from a string. This is useful for
+ * converting hash links to DOM IDs.
+ *
+ * @param value The value to operate on.
+ * @returns The value without a leading hash, if it has one.
+ */
+function removeLeadingHash(value: string) {
+  return value.replace(/^#/, '');
+}
+
+/**
  * Utility function for finding the first header in the viewport by looking for
  * the first positive `top` value.
  *
@@ -37,7 +48,7 @@ function firstHeaderInViewport(headers: TOCHeader[]) {
   let firstHeaderIndex = -1;
 
   for (let i = 0; i < headers.length; i += 1) {
-    const { id } = headers[i];
+    const id = removeLeadingHash(headers[i].href);
     const node = document.getElementById(id);
     const top = node?.getBoundingClientRect()?.top ?? 0;
 
@@ -84,7 +95,7 @@ export function useActiveHeader({
   enabled = true,
   headers,
 }: UseActiveHeaderOptions) {
-  const [activeHeader, setActiveHeader] = useState(headers[0]?.id ?? '');
+  const [activeHeader, setActiveHeader] = useState(headers[0]?.href ?? '');
 
   // Function that finds the active header based on the current viewport `scrollY`.
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,12 +109,12 @@ export function useActiveHeader({
       }
 
       if (Math.floor(firstHeaderTop) <= TOP_OFFSET_PX) {
-        setActiveHeader(firstHeader.id);
+        setActiveHeader(firstHeader.href);
       } else {
         // If the first header in the viewport is greater than the offset, then the
         // user is still in the previous section.
         const previousHeader = headers[firstHeaderIndex - 1] ?? firstHeader;
-        setActiveHeader(previousHeader.id);
+        setActiveHeader(previousHeader.href);
       }
     }, FIND_ACTIVE_HEADER_THROTTLE_MS),
     [headers],
@@ -133,11 +144,11 @@ export function useActiveHeader({
       return () => {};
     }
 
-    const initialHeader = window.location.hash.replace(/^#/, '');
+    const initialHeader = window.location.hash;
 
     // If the user is opening a link with a header specified in the hash, then
     // we need to figure out the correct active header to render.
-    if (headers.find((header) => header.id === initialHeader)) {
+    if (headers.find((header) => header.href === initialHeader)) {
       // Wrap in timeout so that the DOM has time to settle after initial load.
       setTimeout(() => {
         // If the header is at the bottom of the page, then set the active
@@ -150,7 +161,7 @@ export function useActiveHeader({
           findActiveHeader();
         }
 
-        // enableEventHandlers();
+        enableEventHandlers();
       }, SET_INITIAL_HEADER_TIMEOUT_MS);
     } else {
       // If there is no header specified in the hash, then just find the next

@@ -3,6 +3,7 @@ import {
   GetStaticPropsContext,
   GetStaticPropsResult,
 } from 'next';
+import Head from 'next/head';
 import { resolve } from 'path';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -109,8 +110,16 @@ export async function getStaticProps({
  */
 export default function Page({ state }: Props) {
   return (
-    <JupyterBookProvider {...state}>
-      <App />
-    </JupyterBookProvider>
+    <>
+      <Head>
+        <title>
+          {state.pageTitle === 'napari' ? 'Home' : state.pageTitle} - napari
+        </title>
+      </Head>
+
+      <JupyterBookProvider {...state}>
+        <App />
+      </JupyterBookProvider>
+    </>
   );
 }

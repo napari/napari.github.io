@@ -7,6 +7,11 @@ export default class HubDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap"
+            rel="stylesheet"
+          />
+
           <style
             type="text/css"
             // eslint-disable-next-line react/no-danger

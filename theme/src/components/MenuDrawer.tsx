@@ -42,6 +42,8 @@ export function MenuDrawer({ items, onOpen, onClose, visible }: Props) {
             >
               {item.title}
             </Link>
+
+            {item.icon}
           </li>
         ))}
       </ul>

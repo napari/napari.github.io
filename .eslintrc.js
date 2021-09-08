@@ -22,7 +22,7 @@ module.exports = {
 
     // TypeScript and React source code.
     {
-      files: ['./theme/**/*.ts{,x}'],
+      files: ['./theme/**/*.ts{,x}', './pages/**/*.ts{,x}', 'derp.ts'],
       extends: [configs.typescript, configs.react],
     },
 
@@ -39,6 +39,7 @@ module.exports = {
         './theme/**/hooks.ts',
         './theme/**/*.test.ts{,x}',
         './tests/**/*.ts',
+        './pages/**/*.ts{,x}',
       ],
       rules: {
         '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -56,7 +57,7 @@ module.exports = {
       definitions are generated using `export default styles`.
     */
     {
-      files: ['./theme/pages/**/*.ts{,x}', '**/*.d.ts'],
+      files: ['./theme/pages/**/*.ts{,x}', './pages/**/*.ts{,x}', '**/*.d.ts'],
       rules: {
         'import/no-default-export': 'off',
         'import/prefer-default-export': 'error',

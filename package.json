@@ -4,16 +4,26 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "// Scripts for building napari.org for production": "",
-    "build": "run-s clean build:* pre-render",
-    "build:theme": "vite build",
+    "build": "run-s clean build:*",
     "build:docs": "jupyter-book build .",
+    "build:next": "run-s next:*",
+
+    "// Scripts for building and exporting the documentation using Next.js": "",
+    "next:build": "next build",
+    "next:copy-public": "mkdir public && ts-node -P tsconfig.node.json scripts/copy-public-files",
+    "next:export": "next export -o dist",
+    "next:remove-extra-files": "rm -rf dist/index",
+
+    "// Scripts for running napari.org locally in development mode.": "",
+    "dev": "yarn clean && mkdir -p _build/html && run-p dev:*",
+    "dev:server": "ts-node -P tsconfig.node.json scripts/dev-server",
+    "dev:tsm": "tsm -w -e default -p.@ theme/src 'theme/src/**/*.module.scss'",
 
     "// Scripts for cleaning build files.": "",
     "clean": "run-p clean:*",
     "clean:api-stable": "find api/stable/ ! -name 'index.rst' -type f -exec rm -f {} +",
     "clean:docs": "rm -rf _build/html",
-    "clean:pre-render": "rm -rf scripts/renderAppToString",
-    "clean:theme": "rm -rf theme/napari/static/dist",
+    "clean:theme": "rm -rf dist public",
 
     "// Scripts for using various linters on the codebase.": "",
     "lint": "run-p lint:*",
@@ -22,34 +32,12 @@
     "lint:ts:theme": "eslint theme/src",
     "lint:ts:scripts": "eslint *.js scripts/",
 
-    "// Scripts for running napari.org locally in development mode.": "",
-    "dev": "yarn clean && mkdir -p _build/html && run-p dev:*",
-    "dev:server": "ts-node -P tsconfig.node.json scripts/dev-server",
-    "dev:theme": "vite",
-    "dev:tsm": "tsm -w -e default -p.@ theme/src 'theme/src/**/*.module.scss'",
-
-    "// Installs husky githooks after running `yarn install`.": "",
-    "postinstall": "husky install",
-
     "// Scripts for checking and formatting the codebase using Prettier.": "",
     "prettier": "prettier --check theme",
     "prettier:fix": "prettier --write theme",
 
-    "// Scripts for pre-rendering React application HTML into the compiled Jupyter Book HTML.": "",
-    "pre-render": "run-s pre-render:**",
-
-    "// Compiles module for rendering the application to an HTML string.": "",
-    "pre-render:compile": "PRE_RENDER=true vite build --ssr theme/src/renderAppToString.tsx --outDir ../scripts/renderAppToString/",
-
-    "// Creates type declarations of the compiled module.": "",
-    "pre-render:types": "tsc -p tsconfig.types.json",
-
-    "// Renames files to index.ts and index.d.ts for import convenience.": "",
-    "pre-render:rename-files:scripts": "mv scripts/renderAppToString/{renderAppToString,index}.js",
-    "pre-render:rename-files:types": "mv scripts/renderAppToString/{renderAppToString,index}.d.ts",
-
-    "// Runs the pre-render script.": "",
-    "pre-render:run": "ts-node -P tsconfig.node.json scripts/pre-render",
+    "// Installs husky githooks after running `yarn install`.": "",
+    "postinstall": "husky install",
 
     "// Type checks the theme source code using TSC": "",
     "type-check": "tsc -p tsconfig.json --noEmit"
@@ -58,29 +46,30 @@
     "@artsy/fresnel": "^1.9.0",
     "@types/lodash-es": "4.17.4",
     "clsx": "1.1.1",
+    "fs-extra": "^10.0.0",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",
     "modern-normalize": "1.1.0",
+    "next": "^11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-helmet": "^6.1.0",
     "slug": "5.1.0"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^11.1.2",
     "@tailwindcss/typography": "0.4.1",
     "@types/express": "4.17.13",
-    "@types/morgan": "1.9.3",
+    "@types/fs-extra": "^9.0.12",
     "@types/react": "17.0.19",
     "@types/react-dom": "17.0.9",
     "@types/react-helmet": "^6.1.2",
     "@types/slug": "5.0.2",
     "@typescript-eslint/eslint-plugin": "4.30.0",
     "@typescript-eslint/parser": "4.30.0",
-    "@vitejs/plugin-react-refresh": "1.3.6",
     "autoprefixer": "10.3.3",
     "cheerio": "1.0.0-rc.10",
     "chokidar": "3.5.2",
-    "cssnano": "5.0.8",
     "eslint": "7.23.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-airbnb-typescript": "12.3.1",
@@ -96,7 +85,6 @@
     "express": "4.17.1",
     "husky": "7.0.2",
     "lint-staged": "11.1.2",
-    "morgan": "1.10.0",
     "npm-run-all": "4.1.5",
     "postcss": "8.3.6",
     "postcss-import": "14.0.2",
@@ -113,7 +101,6 @@
     "tsconfig-paths": "3.11.0",
     "typed-scss-modules": "4.1.1",
     "typescript": "4.4.2",
-    "vite": "2.5.2",
     "yaml": "1.10.2"
   }
 }

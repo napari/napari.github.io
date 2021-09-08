@@ -1,33 +1,30 @@
 import { ChildProcess, spawn } from 'child_process';
 import chokidar from 'chokidar';
-import express, { Express } from 'express';
-import logger from 'morgan';
+import { EventEmitter } from 'events';
 import { resolve } from 'path';
-import reload, { Reloader } from 'reload';
+
+import { getTOCFiles } from '../theme/src/utils/jupyterBook';
+import { copyPublicFiles } from './copy-public-files';
 
 const ROOT_DIR = resolve(__dirname, '..');
-const PUBLIC_DIR = resolve(ROOT_DIR, '_build/html');
-const OUTPUT_DIR = resolve(ROOT_DIR, 'theme/napari/static/dist');
-const DEFAULT_PORT = 8080;
-const IGNORED_FILES = ['.github', '_build', 'node_modules', 'theme/src'].map(
-  (file) => resolve(ROOT_DIR, file),
-);
+const PORT = process.env.PORT || '8080';
 
 function isErronoException(value: unknown): value is NodeJS.ErrnoException {
   return !!(value as NodeJS.ErrnoException).errno;
 }
 
-class DevServer {
-  app?: Express;
+/**
+ * Events emitted by the dev server.
+ */
+enum Events {
+  /**
+   * Event for when the Jupyter Book build is complete.
+   */
+  JupyterBuildComplete = 'jupyter-build-complete',
+}
 
+class DevServer extends EventEmitter {
   buildProcess?: ChildProcess;
-
-  reloader?: Reloader;
-
-  private reloadBrowser() {
-    console.log('Reloading the browser!');
-    this.reloader?.reload();
-  }
 
   /**
    * Runs `jupyter-book` to build the napari docs as a subprocess. Running
@@ -54,63 +51,75 @@ class DevServer {
       console.error('Error running Jupyter Book:', error);
     });
 
-    this.buildProcess.once('exit', (code) => {
+    this.buildProcess.once('exit', () => {
       this.buildProcess = undefined;
-
-      // Reload on successful run
-      if (this.reloader && code === 0) {
-        this.reloadBrowser();
-      }
+      this.emit(Events.JupyterBuildComplete);
     });
+  }
+
+  /**
+   * Returns a list of files that should be watched for Jupyter Book rebuilds.
+   * This reads from the `_toc.yml` to get a list of the documentation files to
+   * watch.
+   *
+   * @returns The list of files to watch
+   */
+  private async getWatchFiles() {
+    const files = await getTOCFiles();
+    const watchFiles = new Set(['assets', '_toc.yml', '_config.yml']);
+
+    // For each file, add the top-most directory so we can watch all files
+    // within that directory.
+    for (const file of files) {
+      if (file === 'index') {
+        watchFiles.add('index.md');
+      } else {
+        const [parentDir] = file.split('/');
+        if (parentDir) {
+          watchFiles.add(parentDir);
+        }
+      }
+    }
+
+    return Array.from(watchFiles);
   }
 
   /**
    * Re-builds the napari docs on file changes.
    */
-  private watchDocs() {
-    const watcher = chokidar.watch(ROOT_DIR, { ignored: IGNORED_FILES });
+  private async watchDocs() {
+    const watchFiles = await this.getWatchFiles();
+    const watcher = chokidar.watch(watchFiles);
 
     watcher.on('change', (path) => {
-      // If path is theme asset, we can reload the browser instead of
-      // re-building the docs.
-      if (path.includes(OUTPUT_DIR)) {
-        console.log(`${path} changed, reloading browser`);
-        this.reloadBrowser();
-      } else {
-        console.log(`${path} changed, re-building docs`);
-        this.buildDocs();
-      }
+      console.log(`${path} changed, re-building docs`);
+      this.buildDocs();
     });
 
     // Build docs on initial run
     this.buildDocs();
   }
 
-  /**
-   * Starts the dev server using express and reload.
-   */
-  private async startDevServer() {
-    this.app = express();
-    this.app.use(logger('dev'));
-
-    // Proxy static path used by Jupyter Book to bypass having to rebuild the
-    // docs when the JS / SCSS changes.
-    this.app.use('/_static/dist', express.static(OUTPUT_DIR));
-
-    // Serve built docs if other proxy handler is a miss.
-    this.app.use(express.static(PUBLIC_DIR));
-
-    this.reloader = await reload(this.app);
-    this.app.listen(DEFAULT_PORT, () =>
-      console.log(
-        `Started napari.org dev server at http://localhost:${DEFAULT_PORT}`,
-      ),
-    );
+  private startNextDevServer() {
+    const nextCli = resolve(ROOT_DIR, 'node_modules/.bin/next');
+    spawn(nextCli, ['-p', PORT], {
+      stdio: 'inherit',
+    });
   }
 
   async start() {
-    await this.startDevServer();
-    this.watchDocs();
+    await this.watchDocs();
+
+    // Start Next.js dev server after the first build is complete.
+    this.once(Events.JupyterBuildComplete, () => {
+      this.startNextDevServer();
+    });
+
+    // Copy public files after every build.
+    this.on(Events.JupyterBuildComplete, () => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      copyPublicFiles();
+    });
   }
 }
 

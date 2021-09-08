@@ -10,7 +10,7 @@ import { useJupyterBookData } from '@/context/jupyterBook';
 import { LinkInfo } from '@/types';
 
 /**
- * Checks if the string is an external link. This works by using the value to
+ * Checks if the string is an external URL. This works by using the value to
  * create a URL object. URL objects will throw errors for relative URLs if a
  * base URL isn't provided, so an error will indicate that the URL is an absolute URL.
  *
@@ -21,7 +21,7 @@ import { LinkInfo } from '@/types';
  * @param url The string to check.
  * @returns True if the string is an external URL, false if relative.
  */
-function isExternalLink(url: string) {
+function isExternalUrl(url: string) {
   try {
     return url !== '#' && !!new URL(url);
   } catch (_) {
@@ -38,7 +38,7 @@ export function AppBar() {
 
   const links: LinkInfo[] = rootGlobalHeaders.map((header) => {
     const { href, text } = globalHeaders[header];
-    const isExternal = isExternalLink(href);
+    const isExternal = isExternalUrl(href);
 
     return {
       link: href,

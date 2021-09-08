@@ -1,10 +1,10 @@
 import { ChildProcess, spawn } from 'child_process';
 import chokidar from 'chokidar';
 import { EventEmitter } from 'events';
-import fs from 'fs-extra';
 import { resolve } from 'path';
 
 import { getTOCFiles } from '../theme/src/utils/jupyterBook';
+import { copyPublicFiles } from './copy-public-files';
 
 const ROOT_DIR = resolve(__dirname, '..');
 const PORT = process.env.PORT || '8080';
@@ -107,22 +107,6 @@ class DevServer extends EventEmitter {
     });
   }
 
-  /**
-   * Copies static files used by Jupyter Book pages into the Next.js public
-   * folder so that Next.js can access it
-   */
-  private async copyPublicFiles() {
-    const staticFiles = resolve(ROOT_DIR, '_build/html/_static');
-    const publicDirectory = resolve(ROOT_DIR, 'public');
-
-    // Remove public directory to ensure consistent rebuilds during development.
-    if (await fs.pathExists(publicDirectory)) {
-      await fs.remove(publicDirectory);
-    }
-
-    await fs.copy(staticFiles, publicDirectory);
-  }
-
   async start() {
     await this.watchDocs();
 
@@ -134,7 +118,7 @@ class DevServer extends EventEmitter {
     // Copy public files after every build.
     this.on(Events.JupyterBuildComplete, () => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      this.copyPublicFiles();
+      copyPublicFiles();
     });
   }
 }

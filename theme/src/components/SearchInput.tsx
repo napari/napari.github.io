@@ -68,7 +68,7 @@ export function SearchInput({ large, ...props }: Props) {
       {...props}
     >
       <input
-        aria-label="Search input for searching for napari plugins."
+        aria-label="Search input for searching napari.org site."
         data-testid="searchInputTextInput"
         className={clsx(
           // Flex layout

@@ -1,9 +1,15 @@
 import 'modern-normalize/modern-normalize.css';
 import '@/scss/tailwind.scss';
-import '@/scss/main.scss';
+import '@/scss/global.scss';
 
 import { AppProps } from 'next/app';
 
+import { ApplicationProvider } from '@/components/ApplicationProvider';
+
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <ApplicationProvider>
+      <Component {...pageProps} />
+    </ApplicationProvider>
+  );
 }

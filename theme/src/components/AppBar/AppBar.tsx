@@ -1,13 +1,15 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { ExternalLink, Menu, NapariLogo } from '@/components/icons';
 import { Link } from '@/components/Link';
 import { Media } from '@/components/media';
-import { MenuDrawer } from '@/components/MenuDrawer';
+import { MenuPopover } from '@/components/MenuPopover';
 import { SearchInput } from '@/components/SearchInput';
 import { useJupyterBookData } from '@/context/jupyterBook';
 import { LinkInfo } from '@/types';
+
+import styles from './AppBar.module.scss';
 
 /**
  * Checks if the string is an external URL. This works by using the value to
@@ -33,6 +35,7 @@ function isExternalUrl(url: string) {
  * App bar component that renders the home link, search bar, and menu.
  */
 export function AppBar() {
+  const anchorElRef = useRef<HTMLButtonElement | null>(null);
   const [visible, setVisible] = useState(false);
   const { globalHeaders, rootGlobalHeaders } = useJupyterBookData();
 
@@ -43,7 +46,7 @@ export function AppBar() {
     return {
       link: href,
       title: text,
-      icon: isExternal && <ExternalLink />,
+      icon: isExternal && <ExternalLink className={styles.externalLinkIcon} />,
       newTab: isExternal,
     };
   });
@@ -51,10 +54,10 @@ export function AppBar() {
   return (
     <>
       <Media lessThan="screen-1150">
-        <MenuDrawer
+        <MenuPopover
+          anchorEl={anchorElRef.current}
           items={links}
           onClose={() => setVisible(false)}
-          onOpen={() => setVisible(true)}
           visible={visible}
         />
       </Media>
@@ -106,6 +109,7 @@ export function AppBar() {
               className="ml-6 flex lg:hidden"
               onClick={() => setVisible(true)}
               type="button"
+              ref={anchorElRef}
             >
               <Menu alt="Icon for opening side menu." />
             </button>

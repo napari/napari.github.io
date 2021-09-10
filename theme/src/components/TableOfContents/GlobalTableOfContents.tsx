@@ -114,18 +114,16 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
               'border-l border-black',
           )}
         >
+          {/* Container for rendering the left border and adding padding to the titles. */}
           <div
             className={clsx(
               'flex items-center',
 
               // Hover styles for items in the TOC.
               HEADER_TITLES.includes(header.level ?? 0) && [
-                'border-l-4 hover:border-napari-hover py-1',
+                'border-l-4 hover:border-napari-hover py-1 pl-6',
                 isActive ? 'border-black' : 'border-transparent',
               ],
-
-              header.level === Header.Title && 'pl-6',
-              header.level === Header.Subtitle && 'pl-6',
             )}
           >
             <Link

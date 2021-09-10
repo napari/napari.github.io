@@ -176,14 +176,10 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
           user visits a page within the category.
         */}
         {header.level === Header.Category ? (
-          <>
-            {isExpanded && (
-              // Render as list component and return a new sub-list.
-              <Collapse component="li" in={isExpanded} unmountOnExit>
-                <ul>{children}</ul>
-              </Collapse>
-            )}
-          </>
+          // Render as list component and return a new sub-list.
+          <Collapse component="li" in={isExpanded} unmountOnExit>
+            <ul>{children}</ul>
+          </Collapse>
         ) : (
           children
         )}

@@ -188,6 +188,104 @@ useful if you want to move around the shapes layer as you edit it.
 
 +++
 
+You can add new shapes to an existing `Shapes` layer programmatically by using 
+the `add` method, which allows you to pass in a `shape_type` list when you 
+have mixed shape data.
+
+```{code-cell} python
+import napari
+import numpy as np
+from skimage import data
+
+# add the image
+viewer = napari.view_image(data.camera(), name='photographer')
+
+# create a triangle
+triangle = np.array([[11, 13], [111, 113], [22, 246]])
+
+# create an ellipse
+ellipse = np.array([[59, 222], [110, 289], [170, 243], [119, 176]])
+
+# put both shapes in a list
+mixed_shapes = [triangle, ellipse]
+
+# add an empty shapes layer
+shapes_layer = viewer.add_shapes()
+
+# add mixed shapes using the `add` method
+shapes_layer.add(
+  mixed_shapes, 
+  shape_type=['polygon', 'ellipse'], 
+  edge_width=5,
+  edge_color='coral', 
+  face_color='royalblue'
+)
+```
+
+```{code-cell} python
+:tags: [hide-input]
+
+from napari.utils import nbscreenshot
+
+nbscreenshot(viewer)
+```
+
+```{code-cell} python
+:tags: [remove-cell]
+
+viewer.close()
+```
+
++++
+
+Finally, each shape type has its own convenience method for adding new shapes
+to a layer. Their arguments are identical to those of the `add` method, but
+they do not take a `shape_type`.
+
+```{code-cell} python
+import napari
+import numpy as np
+from skimage import data
+
+# add the image
+viewer = napari.view_image(data.camera(), name='photographer')
+
+# create some ellipses
+ellipse = np.array([[59, 222], [110, 289], [170, 243], [119, 176]])
+
+ellipse2 = np.array([[165, 329], [165, 401], [234, 401], [234, 329]])
+
+# put both shapes in a list
+ellipses = [ellipse, ellipse2]
+
+# add an empty shapes layer
+shapes_layer = viewer.add_shapes()
+
+# add ellipses using their convenience method
+shapes_layer.add_ellipses(
+  ellipses, 
+  edge_width=5,
+  edge_color='coral', 
+  face_color='royalblue'
+)
+```
+
+```{code-cell} python
+:tags: [hide-input]
+
+from napari.utils import nbscreenshot
+
+nbscreenshot(viewer)
+```
+
+```{code-cell} python
+:tags: [remove-cell]
+
+viewer.close()
+```
+
++++
+
 ## creating a new shapes layer
 
 As you can add new shapes to a shapes layer using the various shape creation

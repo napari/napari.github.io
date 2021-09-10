@@ -116,7 +116,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
             headerLevel === Header.Category && 'first:mt-0 mt-2 mb-2',
 
             // Sub-list black border.
-            HEADER_TITLES.includes(headerLevel) && 'border-l border-black',
+            HEADER_TITLES.includes(headerLevel) && 'border-l border-black py-1',
           )}
         >
           {/* Container for rendering the left border and adding padding to the titles. */}
@@ -125,7 +125,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
               'flex items-center',
 
               // Hover styles for items in the TOC.
-              HEADER_TITLES.includes(headerLevel) && 'border-l-4 py-1 pl-6',
+              HEADER_TITLES.includes(headerLevel) && 'border-l-4 py-1 pl-4',
 
               headerLevel === Header.Title && 'border-transparent',
 
@@ -156,8 +156,8 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
                   headerLevel === Header.Title && [
                     'text-xs',
 
-                    // Render link bold if there are sub-pages for this particular page.
-                    hasChildren && 'font-bold',
+                    // Styles for if there are sub-pages for this particular page.
+                    hasChildren && 'font-bold uppercase tracking-widest',
 
                     // Render as semi-bold if there are no sub-pages and if it's
                     // the currently active page.

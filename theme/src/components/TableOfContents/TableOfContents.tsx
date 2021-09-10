@@ -11,11 +11,6 @@ interface Props {
   className?: string;
 
   /**
-   * onClick: callback for when headings are clicked.
-   */
-  onClick?(heading: string): void;
-
-  /**
    * headers: header ids and titles to link to
    */
   headers: TOCHeader[];
@@ -42,13 +37,7 @@ const ENABLE_EVENT_HANDLERS_TIMEOUT_MS = 100;
  * Component for rendering TOC from the given headers. Highlighting will
  * only work if the headers match those present on the page.
  */
-export function TableOfContents({
-  active,
-  className,
-  onClick,
-  headers,
-  free,
-}: Props) {
+export function TableOfContents({ active, className, headers, free }: Props) {
   const enabled = active === undefined;
   const {
     activeHeader,
@@ -116,7 +105,6 @@ export function TableOfContents({
                 // Set the hash to the header ID so that the page scrolls to it.
                 window.location.hash = header.id;
                 setActiveHeader(header.id);
-                onClick?.(header.text);
 
                 // Wrap in timeout so that the browser has time to scroll the
                 // header. If we don't wrap it in a timeout, then setting the

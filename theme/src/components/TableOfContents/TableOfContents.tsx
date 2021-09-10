@@ -94,6 +94,11 @@ export function TableOfContents({ active, className, headers, free }: Props) {
               className={clsx(isActive && 'screen-1425:font-bold')}
               href={`#${header.id}`}
               onClick={(event) => {
+                // If highlighting is disabled, treat this as a regular link.
+                if (!enabled) {
+                  return;
+                }
+
                 event.preventDefault();
 
                 // The event handlers are disabled here because we want to set

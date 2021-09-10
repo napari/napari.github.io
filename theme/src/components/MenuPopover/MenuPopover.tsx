@@ -1,29 +1,35 @@
-import { IconButton, SwipeableDrawer } from '@material-ui/core';
+import { IconButton, Popover } from '@material-ui/core';
+import clsx from 'clsx';
 
 import { Close } from '@/components/icons';
 import { Link } from '@/components/Link';
 import { LinkInfo } from '@/types';
 
+import styles from './MenuPopover.module.scss';
+
 interface Props {
+  anchorEl: HTMLElement | null;
   items: LinkInfo[];
   onClose: () => void;
-  onOpen: () => void;
   visible: boolean;
 }
 
 /**
- * Navigation drawer that slides out from the right. The drawer can be opened by
- * pressing the menu button or by swiping left from the right side of the
- * screen. Conversely, the drawer can be closed by clicking the close button,
- * swiping the drawer right, or clicking outside of the drawer area.
+ * Popover menu for rendering a list of links.
  */
-export function MenuDrawer({ items, onOpen, onClose, visible }: Props) {
+export function MenuPopover({ anchorEl, items, onClose, visible }: Props) {
   return (
-    <SwipeableDrawer
-      anchor="right"
-      classes={{ paper: 'bg-black flex-row w-9/12 p-6' }}
+    <Popover
+      anchorEl={anchorEl}
+      className="flex flex-row-reverse"
+      classes={{
+        paper: clsx(
+          styles.menuPopover,
+          'bg-black static flex flex-row',
+          'p-6 h-[min-content] max-w-[325px]',
+        ),
+      }}
       onClose={onClose}
-      onOpen={onOpen}
       open={visible}
       data-testid="menu"
     >
@@ -32,7 +38,7 @@ export function MenuDrawer({ items, onOpen, onClose, visible }: Props) {
           <li
             className="flex items-center mb-5 last:m-0"
             key={item.title}
-            data-testid="drawerItem"
+            data-testid="menuItem"
           >
             <Link
               className="mr-1"
@@ -50,11 +56,11 @@ export function MenuDrawer({ items, onOpen, onClose, visible }: Props) {
 
       <IconButton
         className="self-start p-0"
-        data-testid="drawerClose"
+        data-testid="menuClose"
         onClick={onClose}
       >
         <Close />
       </IconButton>
-    </SwipeableDrawer>
+    </Popover>
   );
 }

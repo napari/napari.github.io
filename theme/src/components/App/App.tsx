@@ -2,7 +2,10 @@ import clsx from 'clsx';
 
 import { AppBar } from '@/components/AppBar';
 import { Media } from '@/components/media';
-import { TableOfContents } from '@/components/TableOfContents';
+import {
+  GlobalTableOfContents,
+  TableOfContents,
+} from '@/components/TableOfContents';
 import { useJupyterBookData } from '@/context/jupyterBook';
 
 import styles from './App.module.scss';
@@ -13,7 +16,8 @@ function InPageTableOfContents() {
 }
 
 function Content() {
-  const { pageTitle, pageBodyHtml } = useJupyterBookData();
+  const { globalHeaders, rootGlobalHeaders, pageTitle, pageBodyHtml } =
+    useJupyterBookData();
 
   return (
     <div
@@ -27,7 +31,10 @@ function Content() {
     >
       {/* Global table of contents */}
       <Media greaterThanOrEqual="screen-1150">
-        <p>Global TOC placeholder</p>
+        <GlobalTableOfContents
+          headers={globalHeaders}
+          rootHeaders={rootGlobalHeaders}
+        />
       </Media>
 
       {/* Main content */}

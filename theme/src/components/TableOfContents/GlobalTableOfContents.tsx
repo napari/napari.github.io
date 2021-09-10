@@ -127,7 +127,11 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
               // Hover styles for items in the TOC.
               HEADER_TITLES.includes(headerLevel) && 'border-l-4 py-1 pl-4',
 
-              headerLevel === Header.Title && 'border-transparent',
+              headerLevel === Header.Title && [
+                isActive && !hasChildren
+                  ? 'border-black'
+                  : 'border-transparent',
+              ],
 
               headerLevel === Header.Subtitle && [
                 'hover:border-napari-primary',

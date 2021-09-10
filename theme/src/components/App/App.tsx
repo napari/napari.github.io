@@ -19,7 +19,7 @@ function InPageTableOfContents() {
 }
 
 function Content() {
-  const pageContentRef = useRef<HTMLDivElement>();
+  const pageContentRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
   const { globalHeaders, rootGlobalHeaders, pageTitle, pageBodyHtml } =

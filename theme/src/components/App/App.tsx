@@ -1,4 +1,6 @@
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
 
 import { AppBar } from '@/components/AppBar';
 import { Media } from '@/components/media';
@@ -7,6 +9,7 @@ import {
   TableOfContents,
 } from '@/components/TableOfContents';
 import { useJupyterBookData } from '@/context/jupyterBook';
+import { isExternalUrl } from '@/utils/url';
 
 import styles from './App.module.scss';
 
@@ -16,8 +19,30 @@ function InPageTableOfContents() {
 }
 
 function Content() {
+  const pageContentRef = useRef<HTMLDivElement>();
+  const router = useRouter();
+
   const { globalHeaders, rootGlobalHeaders, pageTitle, pageBodyHtml } =
     useJupyterBookData();
+
+  useEffect(() => {
+    const pageContentNode = pageContentRef.current;
+    if (!pageContentNode) {
+      return;
+    }
+
+    const linkNodes = Array.from(pageContentNode.querySelectorAll('a'));
+    for (const link of linkNodes) {
+      const href = link.href.replace(window.location.origin, '');
+      if (!isExternalUrl(href)) {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          router.push(href);
+        });
+      }
+    }
+  }, [router]);
 
   return (
     <div
@@ -56,6 +81,7 @@ function Content() {
 
         {/* Page content */}
         <div
+          ref={pageContentRef}
           className={clsx('prose max-w-full', styles.content)}
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: pageBodyHtml }}

@@ -1,13 +1,9 @@
 import { createContext, ReactNode, useContext } from 'react';
 
 export interface TOCHeader {
-  id: string;
-  text: string;
-}
-export interface GlobalHeader {
-  children: string[];
+  children?: string[];
   href: string;
-  level: number;
+  level?: number;
   text: string;
 }
 
@@ -41,7 +37,7 @@ export interface JupyterBookState {
    * https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
    *
    */
-  globalHeaders: Record<string, GlobalHeader>;
+  globalHeaders: Record<string, TOCHeader>;
 
   /**
    * An array of the top-most headers in order of appearance on the DOM.

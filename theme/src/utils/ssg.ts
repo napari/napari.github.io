@@ -2,12 +2,11 @@
 
 import cheerio, { Cheerio, Element } from 'cheerio';
 import fs from 'fs-extra';
+import { resolve } from 'path';
 
-import {
-  GlobalHeader,
-  JupyterBookState,
-  TOCHeader,
-} from '@/context/jupyterBook';
+import { JupyterBookState, TOCHeader } from '@/context/jupyterBook';
+
+import { isExternalUrl } from './url';
 
 interface StackItem<T> {
   level: number;
@@ -53,7 +52,7 @@ function getGlobalHeaders<T>({
   getLinkData,
   getNextNodes,
 }: GetGlobalHeadersOptions<T>) {
-  const globalHeaders: Record<string, GlobalHeader> = {};
+  const globalHeaders: Record<string, TOCHeader> = {};
   const rootGlobalHeaders: string[] = [];
 
   const stack: StackItem<T>[] = getRootNodes().map((node) => ({
@@ -82,7 +81,7 @@ function getGlobalHeaders<T>({
 
       // Add current header as child of parent header.
       if (parentId) {
-        globalHeaders[parentId].children.push(link.href);
+        globalHeaders[parentId].children?.push(link.href);
       }
 
       const nextLevel = level + 1;
@@ -102,7 +101,7 @@ function getGlobalHeaders<T>({
   // Reverse header lists because stacks pop items in reverse.
   rootGlobalHeaders.reverse();
   for (const header of Object.values(globalHeaders)) {
-    header.children.reverse();
+    header.children?.reverse();
   }
 
   return {
@@ -120,8 +119,7 @@ function getPageHeaders(contentToc: Cheerio<Element>) {
       const href = link.attr('href') ?? '';
 
       return {
-        // Remove the starting hash on the link if it exists.
-        id: href.replace(/^#/, ''),
+        href,
         text: link.text(),
       };
     });
@@ -136,9 +134,15 @@ function getGlobalTocHeaders(globalToc: Cheerio<Element>) {
     getRootNodes: () => globalToc.find(getTocSelector()).toArray(),
     getLinkData: (node) => {
       const link = cheerio(node).find('a').first();
+      let href = link.attr('href') ?? '';
+
+      // Add prefix to make URL absolute.
+      if (!isExternalUrl(href)) {
+        href = `/${href}`;
+      }
 
       return {
-        href: link.attr('href') ?? '',
+        href,
         text: link.text(),
       };
     },
@@ -153,12 +157,16 @@ function getGlobalTocHeaders(globalToc: Cheerio<Element>) {
  * @param file The HTML file to extract data from.
  */
 export async function getPageData(file: string): Promise<JupyterBookState> {
+  // Load global TOC from index.html file to get consistent TOC links.
+  const indexFile = resolve(__dirname, '../../../_build/html/index.html');
+  const indexHtml = await fs.readFile(indexFile, 'utf-8');
+
   const rawHtml = await fs.readFile(file, 'utf-8');
   const $ = cheerio.load(rawHtml);
 
   const pageBody = $('#page-body');
   const pageToc = $('#page-toc');
-  const globalToc = $('#global-toc');
+  const globalToc = cheerio.load(indexHtml)('#global-toc');
 
   // Remove header link automatically added by Jupyter Book.
   pageBody.find('.headerlink').remove();

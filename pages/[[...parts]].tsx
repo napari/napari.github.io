@@ -38,13 +38,7 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
     },
   ];
 
-  for (let route of routes) {
-    // Remove HTML routes for production so that Next.js doesn't generate
-    // directories named `/<path>.html`.
-    if (PROD) {
-      route = route.replace('.html', '');
-    }
-
+  for (const route of routes) {
     // Split route into URL parts.
     paths.push({
       params: {

@@ -21,8 +21,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version: [3.8]
-        # TODO Uncomment when napari theme is ready
-        # node-version: [15]
+        node-version: [15]
     steps:
       - uses: actions/checkout@v2.3.3
 
@@ -31,11 +30,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # TODO Uncomment when napari theme is ready
-      # - name: Set up Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
       # Install dependencies
       - name: Install dependencies
@@ -59,10 +57,8 @@ jobs:
           # npm install -g npm
           # yarn install
 
-      # TODO Uncomment when napari theme is ready
-      # Build the theme
-      # - name: Build the theme
-      #   run: yarn build:theme-prod
+      - name: Build the theme
+        run: yarn build
 
       # Build the book
       - name: Build the book
@@ -76,5 +72,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3.6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_build/html
+          publish_dir: ./dist
           cname: napari.org

@@ -1,4 +1,4 @@
-import { Grow, GrowProps, IconButton, Popover } from '@material-ui/core';
+import { IconButton, Popover } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { Close } from '@/components/icons';
@@ -6,23 +6,6 @@ import { Link } from '@/components/Link';
 import { LinkInfo } from '@/types';
 
 import styles from './MenuPopover.module.scss';
-
-/**
- * Transition component that renders the Grow transition, but with different
- * animation durations so that the closing animation finishes faster than the
- * opening animation.
- *
- * https://material.io/design/motion/speed.html#duration
- */
-function MenuGrow({ in: inProp, ...props }: Omit<GrowProps, 'timeout'>) {
-  return (
-    <Grow
-      in={inProp}
-      {...props}
-      {...(inProp ? { timeout: 250 } : { timeout: 200 })}
-    />
-  );
-}
 
 interface Props {
   anchorEl: HTMLElement | null;
@@ -49,7 +32,7 @@ export function MenuPopover({ anchorEl, items, onClose, visible }: Props) {
       onClose={onClose}
       open={visible}
       data-testid="menu"
-      TransitionComponent={MenuGrow}
+      transitionDuration={visible ? 250 : 200}
     >
       <ul className="text-white flex-grow">
         {items.map((item) => (

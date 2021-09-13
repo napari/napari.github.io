@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import { HTMLProps, useState } from 'react';
+import { HTMLProps, useEffect, useState } from 'react';
 
 import { Search } from '@/components/icons';
+import { SEARCH_QUERY_PARAM } from '@/constants/query';
 
 interface Props extends HTMLProps<HTMLFormElement> {
   /**
@@ -21,7 +22,25 @@ export function SearchInput({ large, ...props }: Props) {
   const router = useRouter();
 
   // Local state for query. This is used to store the current entered query string.
-  const [localQuery, setLocalQuery] = useState('');
+  const [localQuery, setLocalQuery] = useState(() => {
+    const params = new URL(router.asPath, 'http://tmp.com').searchParams;
+    return params.get(SEARCH_QUERY_PARAM) ?? '';
+  });
+
+  // Effect for setting the search bar input query from the query parameter when
+  // loading the search page. This is to increase visual consistency so that
+  // searching from a page will retain the query when on the search page.
+  useEffect(() => {
+    function clearQuery(path: string) {
+      if (router.asPath.includes('/search') && !path.includes('/search')) {
+        setLocalQuery('');
+      }
+    }
+
+    router.events.on('routeChangeComplete', clearQuery);
+
+    return () => router.events.off('routeChangeComplete', clearQuery);
+  }, [router]);
 
   const iconClassName = clsx(
     'h-5 w-5',
@@ -35,18 +54,17 @@ export function SearchInput({ large, ...props }: Props) {
    * page, this runs the query through the search engine. Otherwise, it
    * redirects to the search page with the query added to the URL.
    */
-  async function submitForm(searchQuery: string) {
+  function submitForm(searchQuery: string) {
     if (!searchQuery) {
       return;
     }
 
-    const url = {
-      pathname: '/search',
-      query: {
-        query: searchQuery,
-      },
-    };
-    await router.push(url);
+    const url = new URL('/search.html', window.location.origin);
+    url.searchParams.set(SEARCH_QUERY_PARAM, searchQuery);
+
+    // Load new page by assigning a new URL. This is to ensure that the any
+    // pending fetching logic is cancelled.
+    window.location.href = url.href;
   }
 
   return (
@@ -61,9 +79,9 @@ export function SearchInput({ large, ...props }: Props) {
 
         large && 'text-xl',
       )}
-      onSubmit={async (event) => {
+      onSubmit={(event) => {
         event.preventDefault();
-        await submitForm(localQuery);
+        submitForm(localQuery);
       }}
       {...props}
     >

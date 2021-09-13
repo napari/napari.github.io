@@ -6,3 +6,26 @@
     }
   }
 }
+
+.search {
+  :global {
+    // Remove list item left dot.
+    li::before {
+      display: none;
+    }
+
+    ul > li {
+      @apply border-t last:border-b border-black;
+      @apply pl-0 py-2;
+    }
+
+    // Search result highlighting.
+    .highlighted {
+      @apply bg-napari-light p-0.5;
+    }
+
+    h2 {
+      @apply m-0;
+    }
+  }
+}

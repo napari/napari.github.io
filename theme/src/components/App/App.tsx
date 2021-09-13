@@ -21,6 +21,7 @@ function InPageTableOfContents() {
 function Content() {
   const pageContentRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
+  const isSearch = router.asPath.includes('/search');
 
   const { globalHeaders, rootGlobalHeaders, pageTitle, pageBodyHtml } =
     useJupyterBookData();
@@ -82,7 +83,11 @@ function Content() {
         {/* Page content */}
         <div
           ref={pageContentRef}
-          className={clsx('prose max-w-full', styles.content)}
+          className={clsx(
+            'prose max-w-full',
+            styles.content,
+            isSearch && styles.search,
+          )}
           // Role is used by the search engine to extract the text content of
           // each page.
           role="main"

@@ -1,4 +1,5 @@
 import NextLink, { LinkProps } from 'next/link';
+import { useRouter } from 'next/router';
 import { AnchorHTMLAttributes } from 'react';
 
 interface Props extends AnchorHTMLAttributes<HTMLElement> {
@@ -18,6 +19,7 @@ export function Link({
   newTab,
   ...props
 }: Props) {
+  const router = useRouter();
   let newTabProps: AnchorHTMLAttributes<HTMLElement> | undefined;
 
   if (newTab) {
@@ -29,11 +31,21 @@ export function Link({
     };
   }
 
-  return (
-    <NextLink {...linkProps}>
-      <a href={href} {...props} {...newTabProps}>
-        {children}
-      </a>
-    </NextLink>
+  const linkNode = (
+    <a href={href} {...props} {...newTabProps}>
+      {children}
+    </a>
   );
+
+  // Use regular links for the search page. This is because Jupyter Book fetches
+  // every page from the documentation site to get and search its text content.
+  // The fetching logic doesn't take SPA style apps into account, so it doesn't
+  // include request cancellation logic. Because of this, we need to use regular
+  // links so that opening a link will load a new page and cancel the pending
+  // network requests.
+  if (router.asPath.includes('/search')) {
+    return linkNode;
+  }
+
+  return <NextLink {...linkProps}>{linkNode}</NextLink>;
 }

@@ -2,6 +2,7 @@
 
 import cheerio, { Cheerio, Element } from 'cheerio';
 import fs from 'fs-extra';
+import { last } from 'lodash';
 import { resolve } from 'path';
 
 import { JupyterBookState, TOCHeader } from '@/context/jupyterBook';
@@ -151,6 +152,14 @@ function getGlobalTocHeaders(globalToc: Cheerio<Element>) {
   });
 }
 
+const SEARCH_PAGE_SELECTOR_BLOCK_LIST = [
+  '.footer',
+  '.related',
+  '.logo',
+  '#search-documentation',
+  '.body > p:nth-child(2)',
+];
+
 /**
  * Scrapes page data from an HTML file for pre-rendering.
  *
@@ -164,24 +173,49 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
   const rawHtml = await fs.readFile(file, 'utf-8');
   const $ = cheerio.load(rawHtml);
 
-  const pageBody = $('#page-body');
-  const pageToc = $('#page-toc');
+  const isSearch = last(file.split('/')) === 'search.html';
+  let result: JupyterBookState;
+
   const globalToc = cheerio.load(indexHtml)('#global-toc');
 
-  // Remove header link automatically added by Jupyter Book.
-  pageBody.find('.headerlink').remove();
+  // The search page requires separate pre-processing of data for rendering.
+  if (isSearch) {
+    const pageBody = $('body');
 
-  // Get page title from header text content.
-  const pageHeader = pageBody.find('h1').first();
-  const pageTitle = pageHeader.text();
-  pageHeader.remove();
+    SEARCH_PAGE_SELECTOR_BLOCK_LIST.forEach((selector) =>
+      pageBody.find(selector).remove(),
+    );
 
-  const result = {
-    ...getGlobalTocHeaders(globalToc),
-    pageTitle,
-    pageBodyHtml: pageBody.html() ?? '',
-    pageHeaders: getPageHeaders(pageToc),
-  };
+    // While the form isn't required since we have the app search bar, we need
+    // to keep it to leverage the existing search functionality. So instead of
+    // removing it, we render it invisible from the DOM.
+    pageBody.find('form').attr('style', 'display: none');
+
+    result = {
+      ...getGlobalTocHeaders(globalToc),
+      pageTitle: 'Search',
+      pageBodyHtml: pageBody.html() ?? '',
+      pageHeaders: [],
+    };
+  } else {
+    const pageBody = $('#page-body');
+    const pageToc = $('#page-toc');
+
+    // Remove header link automatically added by Jupyter Book.
+    pageBody.find('.headerlink').remove();
+
+    // Get page title from header text content.
+    const pageHeader = pageBody.find('h1').first();
+    const pageTitle = pageHeader.text();
+    pageHeader.remove();
+
+    result = {
+      ...getGlobalTocHeaders(globalToc),
+      pageTitle,
+      pageBodyHtml: pageBody.html() ?? '',
+      pageHeaders: getPageHeaders(pageToc),
+    };
+  }
 
   return result;
 }

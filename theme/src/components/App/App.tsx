@@ -83,6 +83,9 @@ function Content() {
         <div
           ref={pageContentRef}
           className={clsx('prose max-w-full', styles.content)}
+          // Role is used by the search engine to extract the text content of
+          // each page.
+          role="main"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: pageBodyHtml }}
         />

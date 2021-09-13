@@ -152,7 +152,7 @@ function getGlobalTocHeaders(globalToc: Cheerio<Element>) {
   });
 }
 
-const SEARCH_PAGE_SELECTOR_BLOCK_LIST = [
+const SEARCH_PAGE_SELECTOR_REMOVE_LIST = [
   '.footer',
   '.related',
   '.logo',
@@ -182,13 +182,13 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
   if (isSearch) {
     const pageBody = $('body');
 
-    SEARCH_PAGE_SELECTOR_BLOCK_LIST.forEach((selector) =>
+    SEARCH_PAGE_SELECTOR_REMOVE_LIST.forEach((selector) =>
       pageBody.find(selector).remove(),
     );
 
     // While the form isn't required since we have the app search bar, we need
     // to keep it to leverage the existing search functionality. So instead of
-    // removing it, we render it invisible from the DOM.
+    // removing it, we render it invisible in the DOM.
     pageBody.find('form').attr('style', 'display: none');
 
     result = {

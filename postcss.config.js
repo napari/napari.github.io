@@ -3,5 +3,6 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
     'postcss-import': {},
+    'postcss-strip-units': {},
   },
 };

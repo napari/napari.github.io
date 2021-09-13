@@ -1,25 +1,63 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
-import { Menu, NapariLogo } from '@/components/icons';
+import { ExternalLink, Menu, NapariLogo } from '@/components/icons';
 import { Link } from '@/components/Link';
 import { Media } from '@/components/media';
-import { MenuDrawer } from '@/components/MenuDrawer';
+import { MenuPopover } from '@/components/MenuPopover';
 import { SearchInput } from '@/components/SearchInput';
+import { useJupyterBookData } from '@/context/jupyterBook';
+import { LinkInfo } from '@/types';
+
+import styles from './AppBar.module.scss';
+
+/**
+ * Checks if the string is an external URL. This works by using the value to
+ * create a URL object. URL objects will throw errors for relative URLs if a
+ * base URL isn't provided, so an error will indicate that the URL is an absolute URL.
+ *
+ * One limitation with this is it only checks for absolute URLs since Jupyter
+ * Book uses relative URLs for the TOC. If an absolute URL is used that has the
+ * same host, it'll be treated as an external URL, but so far there are no use cases.
+ *
+ * @param url The string to check.
+ * @returns True if the string is an external URL, false if relative.
+ */
+function isExternalUrl(url: string) {
+  try {
+    return url !== '#' && !!new URL(url);
+  } catch (_) {
+    return false;
+  }
+}
 
 /**
  * App bar component that renders the home link, search bar, and menu.
  */
 export function AppBar() {
+  const anchorElRef = useRef<HTMLButtonElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const { globalHeaders, rootGlobalHeaders } = useJupyterBookData();
+
+  const links: LinkInfo[] = rootGlobalHeaders.map((header) => {
+    const { href, text } = globalHeaders[header];
+    const isExternal = isExternalUrl(href);
+
+    return {
+      link: href,
+      title: text,
+      icon: isExternal && <ExternalLink className={styles.externalLinkIcon} />,
+      newTab: isExternal,
+    };
+  });
 
   return (
     <>
       <Media lessThan="screen-1150">
-        <MenuDrawer
-          items={[]}
+        <MenuPopover
+          anchorEl={anchorElRef.current}
+          items={links}
           onClose={() => setVisible(false)}
-          onOpen={() => setVisible(true)}
           visible={visible}
         />
       </Media>
@@ -71,6 +109,7 @@ export function AppBar() {
               className="ml-6 flex lg:hidden"
               onClick={() => setVisible(true)}
               type="button"
+              ref={anchorElRef}
             >
               <Menu alt="Icon for opening side menu." />
             </button>

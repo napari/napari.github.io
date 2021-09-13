@@ -50,7 +50,7 @@ interface GetGlobalHeadersOptions<T> {
  */
 function getGlobalHeaders<T>({
   getRootNodes,
-  getLinkData: getLinkNode,
+  getLinkData,
   getNextNodes,
 }: GetGlobalHeadersOptions<T>) {
   const globalHeaders: Record<string, GlobalHeader> = {};
@@ -65,7 +65,7 @@ function getGlobalHeaders<T>({
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const { level, node, parentId } = stack.pop()!;
 
-    const link = getLinkNode(node);
+    const link = getLinkData(node);
 
     if (link.href && link.text) {
       // Add new header mapped to the link URL.

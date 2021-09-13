@@ -56,14 +56,10 @@ jobs:
           npm install -g npm
           yarn install
 
-      - name: Build the theme
-        run: yarn build
-
-      # Build the book
-      - name: Build the book
+      - name: Build the website
         env:
           DISPLAY: ":99.0"
-        run: jupyter-book build .
+        run: yarn build
 
       # Deploy the book's HTML to github pages
       - name: GitHub Pages action

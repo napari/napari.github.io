@@ -81,7 +81,7 @@ export async function getTOCFiles(): Promise<string[]> {
   return files;
 }
 
-const IGNORED_FILES = ['genindex.html', 'py-modindex.html', 'search.html'];
+const IGNORED_FILES = ['genindex.html', 'py-modindex.html'];
 
 /**
  * Returns a list of HTML files that are created in _build/html.

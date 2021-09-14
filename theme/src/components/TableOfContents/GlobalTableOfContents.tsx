@@ -6,7 +6,7 @@ import { createElement, Fragment } from 'react';
 import { ExternalLink } from '@/components/icons';
 import { Link } from '@/components/Link';
 import { TOCHeader } from '@/context/jupyterBook';
-import { isExternalUrl } from '@/utils/url';
+import { createUrl, isExternalUrl } from '@/utils/url';
 
 import styles from './GlobalTableOfContents.module.scss';
 
@@ -42,20 +42,11 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
    * @returns The router pathname without hashes or query parameters.
    */
   function getPathname() {
-    // Use URL constructor to extract pathname.
-    return new URL(
-      // `router.asPath` will return the pathname + query parameters and hash
-      // values like `/example?foo=bar#foobar`. Because of this, we need to
-      // extract the pathname without the query parameters or hash value using
-      // `URL.pathname`. This will return a path like `/example`.
-      router.asPath,
-
-      // Since `router.asPath` will only return a pathname, a base URL is
-      // required when creating a URL object, otherwise it'll throw a runtime
-      // error. The actual value of the URL doesn't matter since we only care
-      // about `pathname`.
-      'http://tmp.com',
-    ).pathname;
+    // `router.asPath` will return the pathname + query parameters and hash
+    // values like `/example?foo=bar#foobar`. Because of this, we need to
+    // extract the pathname without the query parameters or hash value using
+    // `URL.pathname`, which will return a path like `/example`.
+    return createUrl(router.asPath).pathname;
   }
 
   /**

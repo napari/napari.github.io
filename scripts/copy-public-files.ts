@@ -2,16 +2,24 @@ import fs from 'fs-extra';
 import { basename, resolve } from 'path';
 
 const ROOT_DIR = resolve(__dirname, '..');
+const BUILD_DIR = resolve(ROOT_DIR, '_build/html');
 
 /**
  * Copies static files used by Jupyter Book pages into the Next.js public
  * folder so that Next.js can access it
  */
 export async function copyPublicFiles(): Promise<void> {
-  const staticFiles = ['pygments.css'].map((file) =>
-    resolve(ROOT_DIR, '_build/html/_static', file),
-  );
-  const imageFiles = resolve(ROOT_DIR, '_build/html/_images');
+  const staticFiles = [
+    'pygments.css',
+    'jquery.js',
+    'underscore.js',
+    'documentation_options.js',
+    'doctools.js',
+    'language_data.js',
+    'searchtools.js',
+  ].map((file) => resolve(BUILD_DIR, '_static', file));
+  const searchIndexFile = resolve(BUILD_DIR, 'searchindex.js');
+  const imageFiles = resolve(BUILD_DIR, '_images');
   const publicDirectory = resolve(ROOT_DIR, 'public');
 
   // Remove public directory to ensure consistent rebuilds during development.
@@ -25,6 +33,10 @@ export async function copyPublicFiles(): Promise<void> {
       fs.copy(file, resolve(publicDirectory, basename(file))),
     ),
     fs.copy(imageFiles, resolve(publicDirectory, '_images')),
+    fs.copy(
+      searchIndexFile,
+      resolve(publicDirectory, basename(searchIndexFile)),
+    ),
   ]);
 }
 

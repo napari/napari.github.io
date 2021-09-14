@@ -153,10 +153,19 @@ function getGlobalTocHeaders(globalToc: Cheerio<Element>) {
 }
 
 const SEARCH_PAGE_SELECTOR_REMOVE_LIST = [
+  // Footer can be removed since the napari theme already has a footer.
   '.footer',
+
+  // Links to index pages. This can be removed since we handle rendering the TOC.
   '.related',
-  '.logo',
-  '#search-documentation',
+
+  // Sidebar for rendering logo, which is not required for the theme.
+  '.sphinxsidebar',
+
+  // napari theme handles rendering h1 header.
+  'h1#search-documentation',
+
+  // Removes unnecessary text node about multiple matches.
   '.body > p:nth-child(2)',
 ];
 

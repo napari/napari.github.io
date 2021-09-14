@@ -74,11 +74,13 @@ function Content() {
         <h1 className="text-5xl font-bold">{pageTitle}</h1>
 
         {/* In page table of content that renders above the main content. */}
-        <Media lessThan="screen-1425">
-          <div className="my-6">
-            <InPageTableOfContents />
-          </div>
-        </Media>
+        {!isSearch && (
+          <Media lessThan="screen-1425">
+            <div className="my-6">
+              <InPageTableOfContents />
+            </div>
+          </Media>
+        )}
 
         {/* Page content */}
         <div

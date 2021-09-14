@@ -4,6 +4,7 @@ import { createElement, Fragment } from 'react';
 
 import { ExternalLink } from '@/components/icons';
 import { Link } from '@/components/Link';
+import { Header } from '@/constants/toc';
 import { TOCHeader } from '@/context/jupyterBook';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { isExternalUrl } from '@/utils/url';
@@ -13,16 +14,6 @@ import styles from './GlobalTableOfContents.module.scss';
 interface Props {
   headers: Record<string, TOCHeader>;
   rootHeaders: string[];
-}
-
-/**
- * Enum values for identifying header levels in the global table of contents
- * data structure.
- */
-enum Header {
-  Category = 1,
-  Title = 2,
-  Subtitle = 3,
 }
 
 /**

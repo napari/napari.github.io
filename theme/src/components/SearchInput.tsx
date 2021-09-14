@@ -4,6 +4,7 @@ import { HTMLProps, useEffect, useState } from 'react';
 
 import { Search } from '@/components/icons';
 import { SEARCH_QUERY_PARAM } from '@/constants/query';
+import { createUrl } from '@/utils/url';
 
 interface Props extends HTMLProps<HTMLFormElement> {
   /**
@@ -23,7 +24,7 @@ export function SearchInput({ large, ...props }: Props) {
 
   // Local state for query. This is used to store the current entered query string.
   const [localQuery, setLocalQuery] = useState(() => {
-    const params = new URL(router.asPath, 'http://tmp.com').searchParams;
+    const params = createUrl(router.asPath).searchParams;
     return params.get(SEARCH_QUERY_PARAM) ?? '';
   });
 
@@ -59,7 +60,7 @@ export function SearchInput({ large, ...props }: Props) {
       return;
     }
 
-    const url = new URL('/search.html', window.location.origin);
+    const url = createUrl('/search.html', window.location.origin);
     url.searchParams.set(SEARCH_QUERY_PARAM, searchQuery);
 
     // Load new page by assigning a new URL. This is to ensure that the any

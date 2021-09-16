@@ -18,11 +18,11 @@ interface Props {
 }
 
 /**
- * Component for rendering the in page table of contents for Category index
- * pages. If the item has children, a sub-header and sub-list will be rendered
- * instead of a list item.
+ * Component for rendering the in page table of contents for Sub Page TOC pages.
+ * If the item has children, a sub-header and sub-list will be rendered instead
+ * of a list item.
  */
-export function CategoryTableOfContents({ className, headerId }: Props) {
+export function SubPageTableOfContents({ className, headerId }: Props) {
   const { globalHeaders } = useJupyterBookData();
   const childIds = globalHeaders[headerId].children;
 
@@ -37,14 +37,14 @@ export function CategoryTableOfContents({ className, headerId }: Props) {
             className={clsx(!hasChildren && 'list-disc list-inside my-2')}
             key={childId}
           >
-            {(header.level ?? 0) < Header.Subtitle && hasChildren ? (
+            {(header.level ?? 0) < Header.Level3 && hasChildren ? (
               // Render sub-header and sub-list for items with children. This
               // will only work for level 2 headers.
               <>
                 <h2 id={slug(header.text)} className="text-2xl font-bold mt-10">
                   {header.text}
                 </h2>
-                <CategoryTableOfContents headerId={childId} />
+                <SubPageTableOfContents headerId={childId} />
               </>
             ) : (
               // Render as link for regular items.

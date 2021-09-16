@@ -1,6 +1,6 @@
 import { Collapse } from '@material-ui/core';
 import clsx from 'clsx';
-import { createElement, Fragment } from 'react';
+import { Fragment } from 'react';
 
 import { ExternalLink } from '@/components/icons';
 import { Link } from '@/components/Link';
@@ -19,7 +19,7 @@ interface Props {
 /**
  * Constant for applying styles to the title headers.
  */
-const HEADER_TITLES = [Header.Title, Header.Subtitle];
+const HEADER_TITLES = [Header.Level2, Header.Level3];
 
 /**
  * Component for rendering the global table of contents list. This uses a
@@ -33,10 +33,10 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
    * Determines if a particular header is within an expanded column.
    *
    * @param headerId The header ID.
-   * @returns True if the header ID is in a category that's expanded.
+   * @returns True if the header ID is in a level 1 list that's expanded.
    */
-  function isCategoryExpanded(headerId: string) {
-    // Use DFS to check if the header ID is in a expanded category.
+  function isLevel1Expanded(headerId: string) {
+    // Use DFS to check if the header ID is in an expanded level 1 list.
     const stack = [headerId];
     const rootHeaderSet = new Set(rootHeaders);
 
@@ -45,7 +45,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
       const currentHeaderId = stack.pop()!;
 
       // If the current header is equal to the pathname, then the original
-      // header should be within an expanded category.
+      // header should be within an expanded level 1 list.
       if (
         currentHeaderId === currentPathname &&
         !rootHeaderSet.has(currentHeaderId)
@@ -88,16 +88,16 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
     // Bool for if the header link matches the current page.
     const isActive = header.href === currentPathname;
 
-    // Bool for if the current category is expanded.
+    // Bool for if the current level 1 list is expanded.
     const isExpanded =
-      headerLevel === Header.Category && isCategoryExpanded(headerId);
+      headerLevel === Header.Level1 && isLevel1Expanded(headerId);
 
     return (
       <Fragment key={headerId}>
         <li
           className={clsx(
-            // Category list spacing.
-            headerLevel === Header.Category && 'first:mt-0 mt-2 mb-2',
+            // Level 1 list spacing.
+            headerLevel === Header.Level1 && 'first:mt-0 mt-2 mb-2',
 
             // Sub-list black border.
             HEADER_TITLES.includes(headerLevel) && 'border-l border-black py-1',
@@ -111,56 +111,41 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
               // Hover styles for items in the TOC.
               HEADER_TITLES.includes(headerLevel) && 'border-l-4 py-1 pl-4',
 
-              headerLevel === Header.Title && [
+              headerLevel === Header.Level1 && [
+                'text-base hover:font-bold',
+
+                // Render category bold if its currently expanded.
+                (isActive || isExpanded) && 'font-bold',
+              ],
+
+              headerLevel === Header.Level2 && [
+                'text-xs',
+
+                // Styles for if there are sub-pages for this particular page.
+                hasChildren && 'font-bold uppercase tracking-widest',
+
+                // Highlight active items with semi-bold and a black border, but
+                // only if there are no level 3 items.
                 isActive && !hasChildren
-                  ? 'border-black'
+                  ? 'font-semibold border-black'
                   : 'border-transparent',
               ],
 
-              headerLevel === Header.Subtitle && [
-                'hover:border-napari-primary',
-                isActive ? 'border-black' : 'border-transparent',
+              headerLevel === Header.Level3 && [
+                'text-sm hover:border-napari-primary',
+
+                // Highlight active items with semi-bold and a black border.
+                isActive ? 'font-semibold border-black' : 'border-transparent',
               ],
             )}
           >
-            {createElement(
-              // Render links for categories and subtitles.
-              [Header.Category, Header.Subtitle].includes(headerLevel) ||
-                !hasChildren
-                ? Link
-                : 'p',
-              {
-                href: header.href,
-                newTab: isExternal,
-
-                className: clsx(
-                  headerLevel === Header.Category && [
-                    'text-base hover:font-bold',
-
-                    // Render category bold if its currently expanded.
-                    (isActive || isExpanded) && 'font-bold',
-                  ],
-
-                  headerLevel === Header.Title && [
-                    'text-xs',
-
-                    // Styles for if there are sub-pages for this particular page.
-                    hasChildren && 'font-bold uppercase tracking-widest',
-
-                    // Render as semi-bold if there are no sub-pages and if it's
-                    // the currently active page.
-                    isActive && !hasChildren && 'font-semibold',
-                  ],
-
-                  headerLevel === Header.Subtitle && [
-                    'text-sm',
-
-                    // Render subtitle semibold if it's active.
-                    isActive && 'font-semibold',
-                  ],
-                ),
-              },
-              header.text,
+            {[Header.Level1, Header.Level3].includes(headerLevel) ||
+            !hasChildren ? (
+              <Link href={header.href} newTab={isExternal}>
+                {header.text}
+              </Link>
+            ) : (
+              <p>{header.text}</p>
             )}
 
             {/* Render icon if the link is external.  */}
@@ -174,7 +159,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
           The category list is collapsed by default, and is expanded when the
           user visits a page within the category.
         */}
-        {headerLevel === Header.Category ? (
+        {headerLevel === Header.Level1 ? (
           // Render as list component and return a new sub-list.
           <Collapse component="li" in={isExpanded} unmountOnExit>
             <ul>{children}</ul>

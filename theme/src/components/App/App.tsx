@@ -6,8 +6,8 @@ import slug from 'slug';
 import { AppBar } from '@/components/AppBar';
 import { Media } from '@/components/media';
 import {
-  CategoryTableOfContents,
   GlobalTableOfContents,
+  SubPageTableOfContents,
   TableOfContents,
 } from '@/components/TableOfContents';
 import { TOCHeader, useJupyterBookData } from '@/context/jupyterBook';
@@ -17,10 +17,10 @@ import { isExternalUrl } from '@/utils/url';
 import styles from './App.module.scss';
 
 /**
- * Hook for determining if the Category TOC is enabled for the current page.
- * This will only be true when the user clicks on the root category link.
+ * Hook for determining if the Sub Page TOC is enabled for the current page.
+ * This will only be true when the user clicks on a level 1 link.
  */
-function useCategoryTOCEnabled() {
+function useSubPageTocEnabled() {
   const { rootGlobalHeaders } = useJupyterBookData();
   const currentPathname = useCurrentPathname();
   return rootGlobalHeaders.includes(currentPathname);
@@ -29,11 +29,11 @@ function useCategoryTOCEnabled() {
 function InPageTableOfContents() {
   const { pageHeaders, globalHeaders } = useJupyterBookData();
   const currentPathname = useCurrentPathname();
-  const categoryTocEnabled = useCategoryTOCEnabled();
+  const subPageTocEnabled = useSubPageTocEnabled();
   const sectionHeaders: TOCHeader[] = [];
 
-  // Add headers from the Category TOC if it's enabled.
-  if (categoryTocEnabled) {
+  // Add headers from the Sub Page TOC if it's enabled.
+  if (subPageTocEnabled) {
     const header = globalHeaders[currentPathname];
 
     for (const childId of header.children ?? []) {
@@ -58,7 +58,7 @@ function Content() {
   const { globalHeaders, rootGlobalHeaders, pageTitle, pageBodyHtml } =
     useJupyterBookData();
   const currentPathname = useCurrentPathname();
-  const categoryTocEnabled = useCategoryTOCEnabled();
+  const subPageTocEnabled = useSubPageTocEnabled();
 
   useEffect(() => {
     const pageContentNode = pageContentRef.current;
@@ -116,12 +116,9 @@ function Content() {
           </Media>
         )}
 
-        {/* In page table of contents that renders for category pages. */}
-        {categoryTocEnabled && (
-          <CategoryTableOfContents
-            className="mt-6"
-            headerId={currentPathname}
-          />
+        {/* In page table of contents that renders a TOC for sub-pages. */}
+        {subPageTocEnabled && (
+          <SubPageTableOfContents className="mt-6" headerId={currentPathname} />
         )}
 
         {/* Page content */}

@@ -55,8 +55,13 @@ function Content() {
   const router = useRouter();
   const isSearch = router.asPath.includes('/search');
 
-  const { globalHeaders, rootGlobalHeaders, pageTitle, pageBodyHtml } =
-    useJupyterBookData();
+  const {
+    globalHeaders,
+    rootGlobalHeaders,
+    pageTitle,
+    pageBodyHtml,
+    pageFrontMatter: { intro: pageIntro },
+  } = useJupyterBookData();
   const currentPathname = useCurrentPathname();
   const subPageTocEnabled = useSubPageTocEnabled();
 
@@ -106,6 +111,12 @@ function Content() {
       >
         {/* Page title */}
         <h1 className="text-5xl font-bold">{pageTitle}</h1>
+
+        {pageIntro && (
+          <h2 className="font-semibold text-xs mt-3 screen-875:text-base screen-875:mt-10">
+            {pageIntro}
+          </h2>
+        )}
 
         {/* In page table of content that renders above the main content. */}
         {!isSearch && (

@@ -1,21 +1,53 @@
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
+import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
 import { Media } from '@/components/media';
 import {
+  CategoryTableOfContents,
   GlobalTableOfContents,
   TableOfContents,
 } from '@/components/TableOfContents';
-import { useJupyterBookData } from '@/context/jupyterBook';
+import { TOCHeader, useJupyterBookData } from '@/context/jupyterBook';
+import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { isExternalUrl } from '@/utils/url';
 
 import styles from './App.module.scss';
 
+/**
+ * Hook for determining if the Category TOC is enabled for the current page.
+ * This will only be true when the user clicks on the root category link.
+ */
+function useCategoryTOCEnabled() {
+  const { rootGlobalHeaders } = useJupyterBookData();
+  const currentPathname = useCurrentPathname();
+  return rootGlobalHeaders.includes(currentPathname);
+}
+
 function InPageTableOfContents() {
-  const { pageHeaders } = useJupyterBookData();
-  return <TableOfContents headers={pageHeaders} />;
+  const { pageHeaders, globalHeaders } = useJupyterBookData();
+  const currentPathname = useCurrentPathname();
+  const categoryTocEnabled = useCategoryTOCEnabled();
+  const sectionHeaders: TOCHeader[] = [];
+
+  // Add headers from the Category TOC if it's enabled.
+  if (categoryTocEnabled) {
+    const header = globalHeaders[currentPathname];
+
+    for (const childId of header.children ?? []) {
+      const childHeader = globalHeaders[childId];
+
+      if ((childHeader.children?.length ?? 0) > 0) {
+        const { text } = childHeader;
+        const href = slug(text);
+        sectionHeaders.push({ href, text });
+      }
+    }
+  }
+
+  return <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />;
 }
 
 function Content() {
@@ -25,6 +57,8 @@ function Content() {
 
   const { globalHeaders, rootGlobalHeaders, pageTitle, pageBodyHtml } =
     useJupyterBookData();
+  const currentPathname = useCurrentPathname();
+  const categoryTocEnabled = useCategoryTOCEnabled();
 
   useEffect(() => {
     const pageContentNode = pageContentRef.current;
@@ -80,6 +114,14 @@ function Content() {
               <InPageTableOfContents />
             </div>
           </Media>
+        )}
+
+        {/* In page table of contents that renders for category pages. */}
+        {categoryTocEnabled && (
+          <CategoryTableOfContents
+            className="mt-6"
+            headerId={currentPathname}
+          />
         )}
 
         {/* Page content */}

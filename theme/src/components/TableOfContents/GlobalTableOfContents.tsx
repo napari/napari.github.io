@@ -1,28 +1,19 @@
 import { Collapse } from '@material-ui/core';
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
 import { createElement, Fragment } from 'react';
 
 import { ExternalLink } from '@/components/icons';
 import { Link } from '@/components/Link';
+import { Header } from '@/constants/toc';
 import { TOCHeader } from '@/context/jupyterBook';
-import { createUrl, isExternalUrl } from '@/utils/url';
+import { useCurrentPathname } from '@/hooks/useCurrentPathname';
+import { isExternalUrl } from '@/utils/url';
 
 import styles from './GlobalTableOfContents.module.scss';
 
 interface Props {
   headers: Record<string, TOCHeader>;
   rootHeaders: string[];
-}
-
-/**
- * Enum values for identifying header levels in the global table of contents
- * data structure.
- */
-enum Header {
-  Category = 1,
-  Title = 2,
-  Subtitle = 3,
 }
 
 /**
@@ -36,18 +27,7 @@ const HEADER_TITLES = [Header.Title, Header.Subtitle];
  * data is deeply nested.
  */
 export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
-  const router = useRouter();
-
-  /**
-   * @returns The router pathname without hashes or query parameters.
-   */
-  function getPathname() {
-    // `router.asPath` will return the pathname + query parameters and hash
-    // values like `/example?foo=bar#foobar`. Because of this, we need to
-    // extract the pathname without the query parameters or hash value using
-    // `URL.pathname`, which will return a path like `/example`.
-    return createUrl(router.asPath).pathname;
-  }
+  const currentPathname = useCurrentPathname();
 
   /**
    * Determines if a particular header is within an expanded column.
@@ -67,7 +47,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
       // If the current header is equal to the pathname, then the original
       // header should be within an expanded category.
       if (
-        currentHeaderId === getPathname() &&
+        currentHeaderId === currentPathname &&
         !rootHeaderSet.has(currentHeaderId)
       ) {
         return true;
@@ -106,7 +86,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
     const isExternal = isExternalUrl(header.href);
 
     // Bool for if the header link matches the current page.
-    const isActive = header.href === getPathname();
+    const isActive = header.href === currentPathname;
 
     // Bool for if the current category is expanded.
     const isExpanded =

@@ -1,9 +1,11 @@
-name: Test 
+name: Test
 
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - '**/*.md'
 
 jobs:
 
@@ -35,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt          
+          pip install -r requirements.txt
 
       - name: Test
         run: pytest -v

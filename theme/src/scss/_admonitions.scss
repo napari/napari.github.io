@@ -1,24 +1,27 @@
-.prose .admonition {
+.admonition {
+  --admonition-color: #80ffe0;
+
   @apply mb-12;
   @apply border;
-  --admonition-color: #80ffe0;
+
   border-color: var(--admonition-color);
 
   > * {
     @apply px-6;
   }
 
-  &-title {
+  & > &-title {
     @apply m-0;
     @apply py-1;
     @apply text-base;
     @apply text-black;
     @apply uppercase;
     @apply font-bold;
+
     background-color: var(--admonition-color);
   }
 
-  :not(:first-child) {
+  & > :not(:first-child) {
     @apply mt-6;
   }
 

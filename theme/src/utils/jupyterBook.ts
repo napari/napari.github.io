@@ -81,6 +81,8 @@ export async function getTOCFiles(): Promise<string[]> {
   return files;
 }
 
+const IGNORED_DIRS = ['_images', '_panels_static', '_sources', '_static'];
+
 const IGNORED_FILES = ['genindex.html', 'py-modindex.html'];
 
 /**
@@ -102,8 +104,8 @@ export async function getHTMLFiles(): Promise<string[]> {
     if (
       // Is directory.
       stats.isDirectory() &&
-      // File is not an underscore directory.
-      !file.replace(buildDir, '').startsWith('/_')
+      // Is not an ignored directory.
+      !IGNORED_DIRS.some((ignoredDir) => file.includes(ignoredDir))
     ) {
       // Add directory files to the stack.
       const nextFiles = await fs.readdir(file);

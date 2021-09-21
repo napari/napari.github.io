@@ -12,9 +12,6 @@ export default class HubDocument extends Document {
             rel="stylesheet"
           />
 
-          {/* eslint-disable-next-line @next/next/no-css-tags */}
-          <link href="/pygments.css" rel="stylesheet" />
-
           <style
             type="text/css"
             // eslint-disable-next-line react/no-danger

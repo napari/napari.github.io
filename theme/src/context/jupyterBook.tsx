@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext } from 'react';
+import {
+  createContext,
+  LinkHTMLAttributes,
+  ReactNode,
+  ScriptHTMLAttributes,
+  useContext,
+} from 'react';
 
 export interface TOCHeader {
   children?: string[];
@@ -57,6 +63,9 @@ export interface JupyterBookState {
    * An array of the top-most headers in order of appearance on the DOM.
    */
   rootGlobalHeaders: string[];
+
+  appScripts: ScriptHTMLAttributes<HTMLScriptElement>[];
+  appStyleSheets: LinkHTMLAttributes<HTMLLinkElement>[];
 }
 
 const JupyterBookContext = createContext<JupyterBookState>({
@@ -66,6 +75,8 @@ const JupyterBookContext = createContext<JupyterBookState>({
   globalHeaders: {},
   rootGlobalHeaders: [],
   pageFrontMatter: {},
+  appScripts: [],
+  appStyleSheets: [],
 });
 
 interface Props extends JupyterBookState {

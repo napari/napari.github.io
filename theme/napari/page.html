@@ -17,7 +17,7 @@
     </style>
 
     <link rel="shortcut icon" href="{{ pathto('_static/favicon.ico', 1) }}">
-    <link rel="stylesheet" href="{{ pathto('_static/dist/style.css', 1) }}">
+    <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1) }}">
   </head>
 
   <body>
@@ -29,17 +29,12 @@
       <div id="global-toc">{{ toctree(includehidden=true, collapse=false) }}</div>
 
       <div id="page-body">
+        <div id="documentation_options" data-url_root="{{ pathto('', 1) }}"></div>
         {{ body }}
       </div>
 
       <div id="page-toc">{{ toc }}</div>
     </div>
-
-    <script
-      id="documentation_options"
-      data-url_root="{{ pathto('', 1) }}"
-      src="{{ pathto('_static/documentation_options.js', 1) }}"
-    ></script>
 
     <script data-dev src="/reload/reload.js"></script>
 
@@ -56,5 +51,24 @@
 
     <script type="module" src="{{ pathto('_static/dist/napari-theme.es.js', 1) }}"></script>
     <script nomodule defer src="{{ pathto('_static/dist/napari-theme.iife.js', 1) }}"></script>
+
+    <div id="scripts">
+      <script src="{{ pathto('_static/documentation_options.js', 1) }}"></script>
+
+      {%- block scripts -%}
+
+      {# Custom JS #}
+      {%- block regular_scripts -%}
+      {% for path in script_files -%}
+        {{ js_tag(path) }}
+      {% endfor -%}
+      {%- endblock regular_scripts -%}
+
+      {# Theme-related JavaScript code #}
+      {%- block theme_scripts -%}
+      {%- endblock -%}
+
+      {%- endblock scripts -%}
+    </div>
   </body>
 </html>

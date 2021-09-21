@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import slug from 'slug';
 
@@ -161,15 +162,34 @@ function Content() {
   );
 }
 
+const BEFORE_INTERACTIVE_SCRIPTS = [
+  'jquery.js',
+  'underscore.js',
+  'documentation_options.js',
+  'doctools.js',
+  'language_data.js',
+];
+
+const SEARCH_SCRIPTS = ['doctools.js', 'language_data.js'];
+
 /**
  * Root application component responsible for rendering the entire napari.org
  * website. This is used by both the client entry and pre-renderer for rendering
  * the application on the client and server.
  */
 export function App() {
+  const initialLoadRef = useRef(true);
+  const router = useRouter();
   const {
+    appScripts,
+    appStyleSheets,
     pageFrontMatter: { metaDescription, intro },
   } = useJupyterBookData();
+  const isSearch = router.asPath.includes('/search');
+
+  useEffect(() => {
+    initialLoadRef.current = false;
+  }, []);
 
   return (
     <>
@@ -181,12 +201,49 @@ export function App() {
         {(metaDescription || intro) && (
           <meta name="description" content={metaDescription || intro} />
         )}
+
+        {appStyleSheets.map((props) => (
+          <link key={props.href} {...props} />
+        ))}
       </Head>
+
+      {isSearch && <div id="documentation_options" data-url_root="./" />}
+
       <AppBar />
 
       <main className="mt-6">
         <Content />
       </main>
+
+      {appScripts
+        .filter(({ src }) => {
+          if (!src) {
+            return true;
+          }
+
+          return (
+            isSearch || SEARCH_SCRIPTS.every((script) => !src.includes(script))
+          );
+        })
+        .map((props) => {
+          const id =
+            props.src || (props.children && String(props.children)) || '';
+
+          return (
+            <Script
+              id={id}
+              key={id}
+              {...props}
+              strategy={
+                BEFORE_INTERACTIVE_SCRIPTS.some((script) => id.includes(script))
+                  ? 'beforeInteractive'
+                  : undefined
+              }
+            >
+              {props.children}
+            </Script>
+          );
+        })}
     </>
   );
 }

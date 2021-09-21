@@ -7,6 +7,10 @@ export interface TOCHeader {
   text: string;
 }
 
+export interface PageFrontMatterData {
+  intro?: string;
+}
+
 /**
  * Deserialized Jupyter Book data from the DOM.
  */
@@ -25,6 +29,8 @@ export interface JupyterBookState {
    * HTML string of the page body.
    */
   pageBodyHtml: string;
+
+  pageFrontMatter: PageFrontMatterData;
 
   /**
    * A dictionary of all global headers mapped by the header ID (in this case,
@@ -51,6 +57,7 @@ const JupyterBookContext = createContext<JupyterBookState>({
   pageTitle: '',
   globalHeaders: {},
   rootGlobalHeaders: [],
+  pageFrontMatter: {},
 });
 
 interface Props extends JupyterBookState {

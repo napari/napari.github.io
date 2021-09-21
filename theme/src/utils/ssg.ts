@@ -1,11 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import cheerio, { Cheerio, Element } from 'cheerio';
+import parseFrontMatter from 'front-matter';
 import fs from 'fs-extra';
 import { last } from 'lodash';
 import { resolve } from 'path';
 
-import { JupyterBookState, TOCHeader } from '@/context/jupyterBook';
+import {
+  JupyterBookState,
+  PageFrontMatterData,
+  TOCHeader,
+} from '@/context/jupyterBook';
 
 import { isExternalUrl } from './url';
 
@@ -169,6 +174,29 @@ const SEARCH_PAGE_SELECTOR_REMOVE_LIST = [
   '.body > p:nth-child(2)',
 ];
 
+const ROOT_DIR = resolve(__dirname, '../../..');
+const BUILD_DIR = resolve(ROOT_DIR, '_build/html');
+
+interface RawFrontMatterData {
+  theme?: PageFrontMatterData;
+}
+
+async function getPageFrontMatter(file: string) {
+  // Get corresponding markdown file from HTML file.
+  const markdownFile = resolve(
+    ROOT_DIR,
+    file.replace(`${BUILD_DIR}/`, '').replace('.html', '.md'),
+  );
+
+  if (await fs.pathExists(markdownFile)) {
+    const mdData = await fs.readFile(markdownFile, 'utf-8');
+
+    return parseFrontMatter<RawFrontMatterData>(mdData).attributes.theme ?? {};
+  }
+
+  return {};
+}
+
 /**
  * Scrapes page data from an HTML file for pre-rendering.
  *
@@ -176,7 +204,7 @@ const SEARCH_PAGE_SELECTOR_REMOVE_LIST = [
  */
 export async function getPageData(file: string): Promise<JupyterBookState> {
   // Load global TOC from index.html file to get consistent TOC links.
-  const indexFile = resolve(__dirname, '../../../_build/html/index.html');
+  const indexFile = resolve(BUILD_DIR, 'index.html');
   const indexHtml = await fs.readFile(indexFile, 'utf-8');
 
   const rawHtml = await fs.readFile(file, 'utf-8');
@@ -205,6 +233,7 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       pageTitle: 'Search',
       pageBodyHtml: pageBody.html() ?? '',
       pageHeaders: [],
+      pageFrontMatter: {},
     };
   } else {
     const pageBody = $('#page-body');
@@ -221,6 +250,7 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
     result = {
       ...getGlobalTocHeaders(globalToc),
       pageTitle,
+      pageFrontMatter: await getPageFrontMatter(file),
       pageBodyHtml: pageBody.html() ?? '',
       pageHeaders: getPageHeaders(pageToc),
     };

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import slug from 'slug';
@@ -166,8 +167,21 @@ function Content() {
  * the application on the client and server.
  */
 export function App() {
+  const {
+    pageFrontMatter: { metaDescription, intro },
+  } = useJupyterBookData();
+
   return (
     <>
+      <Head>
+        {/*
+          Use `metaDescription` (or `intro` if `undefined`) from frontmatter for
+          meta description tag.
+        */}
+        {(metaDescription || intro) && (
+          <meta name="description" content={metaDescription || intro} />
+        )}
+      </Head>
       <AppBar />
 
       <main className="mt-6">

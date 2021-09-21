@@ -14,6 +14,7 @@ export interface QuickLinkItem {
 }
 
 export interface PageFrontMatterData {
+  metaDescription?: string;
   intro?: string;
   quickLinks?: QuickLinkItem[];
 }

@@ -5,7 +5,7 @@
   "scripts": {
     "// Scripts for building napari.org for production": "",
     "build": "run-s clean build:*",
-    "build:docs": "jupyter-book build .",
+    "build:docs": "PYTHONPATH=$PWD jupyter-book build .",
     "build:next": "run-s next:*",
 
     "// Scripts for building and exporting the documentation using Next.js": "",
@@ -17,7 +17,7 @@
 
     "// Scripts for running napari.org locally in development mode.": "",
     "dev": "yarn clean && mkdir -p _build/html && run-p dev:*",
-    "dev:server": "ts-node -P tsconfig.node.json scripts/dev-server",
+    "dev:server": "PYTHONPATH=$PWD ts-node -P tsconfig.node.json scripts/dev-server",
     "dev:tsm": "tsm -w -e default -p.@ theme/src 'theme/src/**/*.module.scss'",
 
     "// Scripts for cleaning build files.": "",

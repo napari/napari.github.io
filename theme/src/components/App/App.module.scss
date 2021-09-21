@@ -48,10 +48,29 @@
   }
 
   pre {
-    @apply text-black;
+    @apply text-black m-0 p-0;
 
     // The Tailwind prose class adds a background around pre elements.
     background: none;
+  }
+
+  :global {
+    .highlight {
+      @apply relative p-4;
+    }
+
+    .copybtn {
+      @apply absolute top-4 right-4 bg-white;
+      @apply opacity-0 transition-opacity;
+    }
+
+    .copybtn img {
+      @apply m-0 w-6 h-6;
+    }
+
+    .highlight:hover .copybtn {
+      @apply opacity-100;
+    }
   }
 }
 

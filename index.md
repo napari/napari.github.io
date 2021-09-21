@@ -1,3 +1,47 @@
+---
+theme:
+  gridTOC:
+    - title: Community
+      content: Meet the team, our mission, and our values
+      url: /community/index.html
+
+    - title: Tutorials
+      content: Step by step guides for common napari workflows
+      url: /tutorials/index.html
+
+    - title: Plugins
+      content: Learn how to create a plugin that works with the napari ecosystem
+      url: /plugins/stable/index.html
+
+    - title: Release Notes
+      content: See what’s been updated in the latest releases
+      url: /release/index.html
+
+    - title: API reference
+      content: Information on specific functions, classes, and methods
+      url: /api/stable/index.html
+
+    - title: Roadmaps
+      content: Find out what we plan to build next and into the near future
+      url: /roadmaps/index.html
+
+    - title: Developer Guides
+      content: Explanations about how napari works behind the screen
+      url: /guides/stable/index.html 
+
+    - title: Developer Resources
+      content: Explanations about how napari works behind the screen
+      url: /developers/index.html
+
+    - title: Source code
+      content: Explanations about how napari works behind the screen
+      url: https://github.com/napari/napari
+
+    - title: napari hub
+      content: Discover, install, and share napari plugins
+      url: https://www.napari-hub.org
+---
+
 # napari
 
 ## multi-dimensional image viewer for python

@@ -9,8 +9,6 @@ import { TOCHeader } from '@/context/jupyterBook';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { isExternalUrl } from '@/utils/url';
 
-import styles from './GlobalTableOfContents.module.scss';
-
 interface Props {
   headers: Record<string, TOCHeader>;
   rootHeaders: string[];
@@ -150,7 +148,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
 
             {/* Render icon if the link is external.  */}
             {isExternal && (
-              <ExternalLink className={clsx(styles.externalLink, 'ml-2')} />
+              <ExternalLink className="ml-2 w-3 h-3" color="#000" />
             )}
           </div>
         </li>

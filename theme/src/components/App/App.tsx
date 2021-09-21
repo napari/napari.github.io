@@ -4,9 +4,9 @@ import { useEffect, useRef } from 'react';
 import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
+import { GlobalTableOfContents } from '@/components/GlobalTableOfContents';
 import { Media } from '@/components/media';
 import {
-  GlobalTableOfContents,
   SubPageTableOfContents,
   TableOfContents,
 } from '@/components/TableOfContents';

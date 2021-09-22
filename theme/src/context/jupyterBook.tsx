@@ -7,7 +7,7 @@ export interface TOCHeader {
   text: string;
 }
 
-export interface GridTOCItem {
+export interface QuickLinkItem {
   title: string;
   content: string;
   url: string;
@@ -15,7 +15,7 @@ export interface GridTOCItem {
 
 export interface PageFrontMatterData {
   intro?: string;
-  gridTOC?: GridTOCItem[];
+  quickLinks?: QuickLinkItem[];
 }
 
 /**

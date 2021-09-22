@@ -5,8 +5,8 @@ import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
 import { GlobalTableOfContents } from '@/components/GlobalTableOfContents';
-import { GridTableOfContents } from '@/components/GridTableOfContents';
 import { Media } from '@/components/media';
+import { QuickLinks } from '@/components/QuickLinks';
 import {
   SubPageTableOfContents,
   TableOfContents,
@@ -149,7 +149,7 @@ function Content() {
         />
 
         {/* Render links + descriptions in a grid. */}
-        <GridTableOfContents />
+        <QuickLinks />
       </div>
 
       {/* In page table of contents that renders to the right of the main content. */}

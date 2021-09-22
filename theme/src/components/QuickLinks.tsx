@@ -6,15 +6,15 @@ import { useJupyterBookData } from '@/context/jupyterBook';
 import { isExternalUrl } from '@/utils/url';
 
 /**
- * Renders a grid of table of content items with descriptions. The `gridTOC`
- * frontmatter configuration is used for rendering the grid TOC.
+ * Renders a grid of table of content items with descriptions. The `quickLinks`
+ * frontmatter configuration is used for rendering quick link items.
  */
-export function GridTableOfContents() {
+export function QuickLinks() {
   const {
-    pageFrontMatter: { gridTOC },
+    pageFrontMatter: { quickLinks },
   } = useJupyterBookData();
 
-  if (!gridTOC) {
+  if (!quickLinks) {
     return null;
   }
 
@@ -25,7 +25,7 @@ export function GridTableOfContents() {
         'grid-cols-3 screen-875:grid-cols-5',
       )}
     >
-      {gridTOC.map((item) => {
+      {quickLinks.map((item) => {
         const isExternal = isExternalUrl(item.url);
 
         return (
@@ -45,7 +45,7 @@ export function GridTableOfContents() {
               )}
             </div>
 
-            {/* Grid TOC item content */}
+            {/* Quick link item content */}
             <p className="text-sm mt-4">{item.content}</p>
           </li>
         );

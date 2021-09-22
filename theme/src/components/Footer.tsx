@@ -15,6 +15,7 @@ interface FooterItem {
   link: string;
   alt: string;
   icon: ComponentType<IconColorProps>;
+  size?: string;
 }
 
 const FOOTER_LINKS: FooterItem[] = [
@@ -35,6 +36,7 @@ const FOOTER_LINKS: FooterItem[] = [
     link: 'https://image.sc',
     alt: 'Visit image.sc forum',
     icon: ImageSC,
+    size: 'h-5 w-5',
   },
   {
     title: 'Zulip',
@@ -44,8 +46,11 @@ const FOOTER_LINKS: FooterItem[] = [
   },
 ];
 
-const COMMON_STYLES =
-  'whitespace-nowrap text-xs screen-450:text-sm text-white mr-6 last:mr-0';
+const COMMON_STYLES = clsx(
+  'text-xs screen-450:text-sm text-white',
+  'whitespace-nowrap mr-6 last:mr-0',
+);
+const STANDARD_ICON_SIZE = 'h-4 w-4';
 
 function FooterLinks() {
   return (
@@ -57,7 +62,10 @@ function FooterLinks() {
           newTab
         >
           <item.icon
-            className="inline-block mr-1 h-4 w-4"
+            className={clsx(
+              item.size ? item.size : STANDARD_ICON_SIZE,
+              'inline-block mr-1',
+            )}
             color="white"
             alt={item.alt}
           />

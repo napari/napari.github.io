@@ -3,7 +3,7 @@ import { ComponentType } from 'react';
 
 import {
   GitHub,
-  IconPropsColor,
+  IconColorProps,
   ImageSC,
   Twitter,
   Zulip,
@@ -14,7 +14,7 @@ interface FooterItem {
   title: string;
   link: string;
   alt: string;
-  icon: ComponentType<IconPropsColor>;
+  icon: ComponentType<IconColorProps>;
 }
 
 const FOOTER_LINKS: FooterItem[] = [

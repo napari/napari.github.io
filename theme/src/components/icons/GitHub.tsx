@@ -1,6 +1,6 @@
-import { IconPropsColor } from './icons.type';
+import { IconColorProps } from './icons.type';
 
-export function GitHub({ className, alt, color = 'black' }: IconPropsColor) {
+export function GitHub({ className, alt, color = 'black' }: IconColorProps) {
   return (
     <svg
       className={className}

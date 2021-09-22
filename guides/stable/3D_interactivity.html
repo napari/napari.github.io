@@ -390,7 +390,7 @@ in the viewer. This comes from <code class="docutils literal notranslate"><span 
 <p>Custom 3D interactivity can be added via mouse callbacks. The <code class="docutils literal notranslate"><span class="pre">layer.get_ray_intersections()</span></code> function has been designed to work seamlessly with the napari mouse callback event. You can pass the mouse callback event properties to <code class="docutils literal notranslate"><span class="pre">layer.get_ray_intersections()</span></code> get the <code class="docutils literal notranslate"><span class="pre">start_point</span></code> and <code class="docutils literal notranslate"><span class="pre">end_point</span></code> of where the click line intersects the layer data.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span>
 <span class="k">def</span> <span class="nf">on_click</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-	<span class="c1"># get the points where the click intersects the </span>
+	<span class="c1"># get the points where the click intersects the</span>
     <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">get_ray_intersections</span><span class="p">(</span>
         <span class="n">position</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
         <span class="n">view_direction</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">view_direction</span><span class="p">,</span>
@@ -401,7 +401,7 @@ in the viewer. This comes from <code class="docutils literal notranslate"><span 
     	<span class="c1"># use start_point and end_point to interrogate layer data</span>
 </pre></div>
 </div>
-<p>For an example implementation, see <a class="reference external" href="https://github.com/napari/napari/blob/master/examples/cursor_ray.py"><code class="docutils literal notranslate"><span class="pre">cursor_ray.py</span></code></a>.</p>
+<p>For an example implementation, see <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/cursor_ray.py"><code class="docutils literal notranslate"><span class="pre">cursor_ray.py</span></code></a>.</p>
 </div>
 <div class="section" id="getting-the-layer-data-under-the-cursor">
 <h2>Getting the layer data under the cursor<a class="headerlink" href="#getting-the-layer-data-under-the-cursor" title="Permalink to this headline">¶</a></h2>

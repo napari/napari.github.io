@@ -325,7 +325,7 @@ it will include generating release notes, documentation, etc.</p>
 They will need to have a <a class="reference external" href="https://pypi.org">PyPI</a> account with upload permissions to the <code class="docutils literal notranslate"><span class="pre">napari</span></code> package.</p>
 <p>You will also need the additional <code class="docutils literal notranslate"><span class="pre">release</span></code> dependencies (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[release]</span></code>) to complete the release process.</p>
 <blockquote>
-<div><p><a class="reference external" href="https://github.com/napari/napari/blob/master/MANIFEST.in"><code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code></a> determines which non-Python files are included.
+<div><p><a class="reference external" href="https://github.com/napari/napari/blob/main/MANIFEST.in"><code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code></a> determines which non-Python files are included.
 Make sure to check that all necessary ones are listed before beginning the release process.</p>
 </div></blockquote>
 <p>The <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> repository must have a PyPI API token as a GitHub secret.
@@ -351,7 +351,7 @@ release though we need to generate the release notes.</p>
 For each release generate the list to include everything since the last release for which there
 are release notes (which should just be the last release). For example making the release notes
 for the <code class="docutils literal notranslate"><span class="pre">0.2.1</span></code> release can be done as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python docs/release/generate_release_notes.py v0.2.0 master --version <span class="m">0</span>.2.1 <span class="p">|</span> tee docs/release/release_0_2_1.md
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python docs/release/generate_release_notes.py v0.2.0 main --version <span class="m">0</span>.2.1 <span class="p">|</span> tee docs/release/release_0_2_1.md
 </pre></div>
 </div>
 </li>
@@ -392,10 +392,10 @@ on the <code class="docutils literal notranslate"><span class="pre">stdout</span
 Using release candidates allows us to test releases on PyPI without using up the actual
 release number.</p>
 <p>You can tag the current source code as a release candidate with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Zrc1 master
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Zrc1 main
 </pre></div>
 </div>
-<p>If the tag is meant for a previous version of master, simply reference the specific commit:</p>
+<p>If the tag is meant for a previous version of main, simply reference the specific commit:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Zrc1 abcde42
 </pre></div>
 </div>
@@ -423,7 +423,7 @@ incrementing the number after <code class="docutils literal notranslate"><span c
 <h2>generating the actual release<a class="headerlink" href="#generating-the-actual-release" title="Permalink to this headline">¶</a></h2>
 <p>To generate the actual release you will now repeat the processes above but now dropping the <code class="docutils literal notranslate"><span class="pre">rc</span></code>.
 For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Z master
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Z main
 git push upstream --tags
 </pre></div>
 </div>

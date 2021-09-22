@@ -403,19 +403,19 @@ of time since building napari can be a time consuming task:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="comparing-results-to-master">
-<h2>Comparing results to master<a class="headerlink" href="#comparing-results-to-master" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="comparing-results-to-main">
+<h2>Comparing results to main<a class="headerlink" href="#comparing-results-to-main" title="Permalink to this headline">¶</a></h2>
 <p>Often, the goal of a PR is to compare the results of the modifications in terms
-of speed to a snapshot of the code that is in the master branch of the
+of speed to a snapshot of the code that is in the main branch of the
 <code class="docutils literal notranslate"><span class="pre">napari</span></code> repository. The command <code class="docutils literal notranslate"><span class="pre">asv</span> <span class="pre">continuous</span></code> is of help here:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv continuous master your-current-branch -b ViewImageSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv continuous main your-current-branch -b ViewImageSuite
 </pre></div>
 </div>
 <p>This call will build out the environments specified in the <code class="docutils literal notranslate"><span class="pre">asv.conf.json</span></code>
 file and compare the performance of the benchmark between your current commit
-and the code in the master branch.</p>
+and the code in the main branch.</p>
 <p>The output may look something like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ asv continuous master your-current-branch -b ViewImageSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ asv continuous main your-current-branch -b ViewImageSuite
 · Creating environments
 · Discovering benchmarks
 ·· Uninstalling from conda-py3.7-cython-numpy1.15-scipy
@@ -428,7 +428,7 @@ and the code in the master branch.</p>
 BENCHMARKS NOT SIGNIFICANTLY CHANGED.
 </pre></div>
 </div>
-<p>In this case, the differences between HEAD on your-current-branch and master are not significant
+<p>In this case, the differences between HEAD on your-current-branch and main are not significant
 enough for airspeed velocity to report.</p>
 </div>
 <div class="section" id="profiling">
@@ -535,7 +535,7 @@ which you can pip install with</p>
 <li><a class="reference internal" href="#writing-a-benchmark">Writing a benchmark</a></li>
 <li><a class="reference internal" href="#testing-the-benchmarks-locally">Testing the benchmarks locally</a></li>
 <li><a class="reference internal" href="#running-your-benchmark">Running your benchmark</a></li>
-<li><a class="reference internal" href="#comparing-results-to-master">Comparing results to master</a></li>
+<li><a class="reference internal" href="#comparing-results-to-main">Comparing results to main</a></li>
 <li><a class="reference internal" href="#profiling">profiling</a></li>
 </ul>
 </li>

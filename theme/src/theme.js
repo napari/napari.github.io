@@ -18,6 +18,7 @@ const breakpoints = {
   // Special screen size for fresnel when using `lessThan` queries.
   zero: 0,
   'screen-300': 300,
+  'screen-450': 450,
   'screen-495': 495,
   'screen-875': 875,
   'screen-1150': 1150,

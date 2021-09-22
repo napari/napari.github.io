@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
+import { Footer } from '@/components/Footer';
 import { Media } from '@/components/media';
 import {
   GlobalTableOfContents,
@@ -169,6 +170,8 @@ export function App() {
       <main className="mt-6">
         <Content />
       </main>
+
+      <Footer />
     </>
   );
 }

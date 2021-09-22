@@ -164,14 +164,14 @@ function Content() {
  */
 export function App() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <AppBar />
 
-      <main className="mt-6">
+      <main className="mt-6 flex-grow">
         <Content />
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

@@ -47,7 +47,7 @@ const FOOTER_LINKS: FooterItem[] = [
 ];
 
 const COMMON_STYLES = clsx(
-  'text-xs screen-450:text-sm text-white',
+  'text-xs screen-495:text-sm text-white',
   'whitespace-nowrap mr-6 last:mr-0',
 );
 const STANDARD_ICON_SIZE = 'h-4 w-4';
@@ -82,7 +82,7 @@ export function Footer() {
       className={clsx(
         'flex flex-row items-center justify-start',
         'h-[4.6875em] w-full',
-        'px-6 screen-450:px-12',
+        'px-6 screen-495:px-12',
         'bg-black',
       )}
     >

@@ -21,7 +21,7 @@ export function QuickLinks() {
   return (
     <ul
       className={clsx(
-        'grid gap-x-6 gap-y-12 justify-center',
+        'grid gap-6 screen-495:gap-12 justify-center',
         'grid-cols-3 screen-875:grid-cols-5',
       )}
     >

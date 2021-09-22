@@ -81,8 +81,24 @@ export async function getTOCFiles(): Promise<string[]> {
   return files;
 }
 
-const IGNORED_DIRS = ['_images', '_panels_static', '_sources', '_static'];
+/**
+ * Directories that should be ignored when looking for HTML files.
+ */
+const IGNORED_DIRS = [
+  // Static files
+  '_images',
+  '_static',
+  '_panels_static',
 
+  // Documentation source code. Instead of copying this over, we can link the
+  // user to the source code in GitHub instead so that we can reduce the
+  // deployment size.
+  '_sources',
+];
+
+/**
+ * Files that should be ignored when an HTML file is found.
+ */
 const IGNORED_FILES = ['genindex.html', 'py-modindex.html'];
 
 /**

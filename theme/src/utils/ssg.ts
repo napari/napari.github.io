@@ -162,89 +162,115 @@ function getGlobalTocHeaders(globalToc: Cheerio<Element>) {
   });
 }
 
+/**
+ * Scripts that shouldn't be included in the React application.
+ */
 const IGNORED_APP_SCRIPTS = ['_static/sphinx-book-theme'];
 
 /**
- * Parses the page scripts HTML to retrieve the list of scripts required for the
- * page. This is so that whatever functionality added by extensions or the
- * search engine can be loaded and functioning properly.
+ * Parses the page HTML to retrieve the list of scripts required for the page.
+ * This is so that whatever functionality added by extensions or the search
+ * engine can be loaded and functioning properly.
  *
  * @param $ The cheerio instance.
- * @returns A list of script elements deserialized into script prop objects.
+ * @returns A list of script elements converted into a list of script props.
  */
 function getAppScripts($: CheerioAPI, selector: string) {
-  return $(selector)
-    .toArray()
-    .map((script) => cheerio(script))
-    .filter((script) => {
-      const src = script.attr('src');
+  return (
+    $(selector)
+      .toArray()
+      // Convert elements to cheerio elements.
+      .map((script) => cheerio(script))
+      // Filter out scripts in the ignore list.
+      .filter((script) => {
+        const src = script.attr('src');
 
-      if (!src) {
-        return true;
-      }
+        // Allow inline scripts.
+        if (!src) {
+          return true;
+        }
 
-      return IGNORED_APP_SCRIPTS.every((file) => !src.includes(file));
-    })
-    .map((script) => {
-      // Parse React script props from script element.
-      const props: ScriptHTMLAttributes<HTMLScriptElement> = {
-        async: script.attr('async') === 'true' ? true : undefined,
-        crossOrigin: script.attr('crossorigin'),
-        defer: script.attr('defer') === 'true' ? true : undefined,
-        integrity: script.attr('integrity'),
-        noModule: script.attr('nomodule') === 'true' ? true : undefined,
-        nonce: script.attr('nonce'),
-        referrerPolicy: script.attr('referrerpolicy') as
-          | HTMLAttributeReferrerPolicy
-          | undefined,
-        src: script.attr('src'),
-        type: script.attr('type'),
-      };
+        return IGNORED_APP_SCRIPTS.every((file) => !src.includes(file));
+      })
+      // Create script props object using the HTML attributes.
+      .map((script) => {
+        // Parse React script props from script element.
+        const props: ScriptHTMLAttributes<HTMLScriptElement> = {
+          async: script.attr('async') === 'true' ? true : undefined,
+          crossOrigin: script.attr('crossorigin'),
+          defer: script.attr('defer') === 'true' ? true : undefined,
+          integrity: script.attr('integrity'),
+          noModule: script.attr('nomodule') === 'true' ? true : undefined,
+          nonce: script.attr('nonce'),
+          referrerPolicy: script.attr('referrerpolicy') as
+            | HTMLAttributeReferrerPolicy
+            | undefined,
+          src: script.attr('src'),
+          type: script.attr('type'),
+        };
 
-      // Make absolute URL.
-      if (props.src && !isExternalUrl(props.src)) {
-        props.src = `/_static/${props.src.replace(/^.*_static\//, '')}`;
-      }
+        // Make absolute URL.
+        if (props.src && !isExternalUrl(props.src)) {
+          props.src = `/_static/${props.src.replace(/^.*_static\//, '')}`;
+        }
 
-      // Add script content if it exists.
-      const content = script.html();
-      if (content) {
-        props.children = content;
-      }
+        // Add script content if it exists.
+        const content = script.html();
+        if (content) {
+          props.children = content;
+        }
 
-      // Remove `undefined` keys so that Next.js can serialize the data as JSON.
-      return pickBy(props, (value) => value !== undefined);
-    });
+        // Remove `undefined` keys so that Next.js can serialize the data as JSON.
+        return pickBy(props, (value) => value !== undefined);
+      })
+  );
 }
 
+/**
+ * Stylesheets that should not be added in the React application.
+ */
 const IGNORED_STYLE_SHEETS = ['_static/basic.css'];
 
+/**
+ * Parses the page HTML to retrieve the list of stylesheets required for the
+ * page. This is so that whatever styling added by extensions can be used in the
+ * documentation.
+ *
+ * @param $ The cheerio instance.
+ * @returns A list of style elements converted into a list of style props.
+ */
 function getAppStyleSheets($: CheerioAPI) {
-  return $('link[rel=stylesheet]')
-    .toArray()
-    .map((linkElement) => cheerio(linkElement))
-    .filter((link) => {
-      const href = link.attr('href');
+  return (
+    $('link[rel=stylesheet]')
+      .toArray()
+      // Convert elements to cheerio elements.
+      .map((linkElement) => cheerio(linkElement))
+      // Filter out ignored stylesheets.
+      .filter((link) => {
+        const href = link.attr('href');
+        return (
+          href && IGNORED_STYLE_SHEETS.every((file) => !href.includes(file))
+        );
+      })
+      // Create link props from HTML attributes.
+      .map((link) => {
+        // Parse React link props from link element.
+        const props: LinkHTMLAttributes<HTMLLinkElement> = {
+          href: link.attr('href'),
+          media: link.attr('media'),
+          rel: link.attr('rel'),
+          type: link.attr('type'),
+        };
 
-      return href && IGNORED_STYLE_SHEETS.every((file) => !href.includes(file));
-    })
-    .map((link) => {
-      // Parse React link props from link element.
-      const props: LinkHTMLAttributes<HTMLLinkElement> = {
-        href: link.attr('href'),
-        media: link.attr('media'),
-        rel: link.attr('rel'),
-        type: link.attr('type'),
-      };
+        // Make absolute URL.
+        if (props.href && !isExternalUrl(props.href)) {
+          props.href = `/_static/${props.href.replace(/^.*_static\//, '')}`;
+        }
 
-      // Make absolute URL.
-      if (props.href && !isExternalUrl(props.href)) {
-        props.href = `/_static/${props.href.replace(/^.*_static\//, '')}`;
-      }
-
-      // Remove `undefined` keys so that Next.js can serialize the data as JSON.
-      return pickBy(props, (value) => value !== undefined);
-    });
+        // Remove `undefined` keys so that Next.js can serialize the data as JSON.
+        return pickBy(props, (value) => value !== undefined);
+      })
+  );
 }
 
 const SEARCH_PAGE_SELECTOR_REMOVE_LIST = [

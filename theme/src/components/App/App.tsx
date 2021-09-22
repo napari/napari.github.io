@@ -162,14 +162,30 @@ function Content() {
   );
 }
 
+/**
+ * Scripts that should load during the `beforeInteractive` stage:
+ * https://nextjs.org/docs/basic-features/script
+ */
 const BEFORE_INTERACTIVE_SCRIPTS = [
+  // Everyone and their grandma knows what jQuery is :)
   'jquery.js',
+
+  // JavaScript utility library.
   'underscore.js',
+
+  // Sphinx documentation data used by extensions.
   'documentation_options.js',
+
+  // Utility functions for working with the Sphinx documentation.
   'doctools.js',
+
+  // Language specific data used by `searchtools.js
   'language_data.js',
 ];
 
+/**
+ * Scripts that should only be loaded on the search page.
+ */
 const SEARCH_SCRIPTS = ['doctools.js', 'language_data.js'];
 
 /**
@@ -207,6 +223,13 @@ export function App() {
         ))}
       </Head>
 
+      {/*
+        Every page emits a node with ID `documentation_options` in the page body
+        HTML except for the search page, so we need to render it in React.
+
+        This is used by the `documentation_options.js` script to get the
+        document root, which is used by extensions and documentation search.
+      */}
       {isSearch && <div id="documentation_options" data-url_root="./" />}
 
       <AppBar />
@@ -217,15 +240,19 @@ export function App() {
 
       {appScripts
         .filter(({ src }) => {
+          // Allow all inline scripts.
           if (!src) {
             return true;
           }
 
+          // Filter scripts that are only used on the search page if the user is
+          // loading a non-search page.
           return (
             isSearch || SEARCH_SCRIPTS.every((script) => !src.includes(script))
           );
         })
         .map((props) => {
+          // Get ID from either the src URL or the JS source if available.
           const id =
             props.src || (props.children && String(props.children)) || '';
 

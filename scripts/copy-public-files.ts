@@ -1,6 +1,5 @@
 import fs from 'fs-extra';
 import { basename, resolve } from 'path';
-// import { resolve } from 'path';
 
 const ROOT_DIR = resolve(__dirname, '..');
 const BUILD_DIR = resolve(ROOT_DIR, '_build/html');
@@ -21,6 +20,7 @@ export async function copyPublicFiles(): Promise<void> {
     await fs.remove(publicDirectory);
   }
 
+  // Create public directories so that concurrent file copies do not throw an error.
   await fs.mkdir(publicDirectory);
   await fs.mkdir(staticPublicDirectory);
 

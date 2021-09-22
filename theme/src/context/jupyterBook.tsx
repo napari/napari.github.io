@@ -64,7 +64,14 @@ export interface JupyterBookState {
    */
   rootGlobalHeaders: string[];
 
+  /**
+   * Sphinx JS scripts that should be loaded into the React application.
+   */
   appScripts: ScriptHTMLAttributes<HTMLScriptElement>[];
+
+  /**
+   * Sphinx stylesheets that should be loaded into the React application.
+   */
   appStyleSheets: LinkHTMLAttributes<HTMLLinkElement>[];
 }
 

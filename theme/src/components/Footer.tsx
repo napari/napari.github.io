@@ -27,20 +27,20 @@ const FOOTER_LINKS: FooterItem[] = [
   },
   {
     title: 'Twitter',
-    link: 'https://twitter.com/napari-imaging',
+    link: 'https://twitter.com/napari_imaging',
     alt: 'Visit Twitter page',
     icon: Twitter,
   },
   {
     title: 'image.sc',
-    link: 'https://image.sc',
+    link: 'https://forum.image.sc/tag/napari',
     alt: 'Visit image.sc forum',
     icon: ImageSC,
     size: 'h-5 w-5',
   },
   {
     title: 'Zulip',
-    link: 'https://image.sc',
+    link: 'https://napari.zulipchat.com',
     alt: 'Visit Zulip chatroom',
     icon: Zulip,
   },

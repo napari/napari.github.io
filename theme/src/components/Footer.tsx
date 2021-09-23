@@ -1,17 +1,18 @@
 import clsx from 'clsx';
-import { ComponentType } from 'react';
+import { ComponentType, ReactNode } from 'react';
 
 import {
   GitHub,
   IconColorProps,
   ImageSC,
+  NapariHub,
   Twitter,
   Zulip,
 } from '@/components/icons';
 import { Link } from '@/components/Link';
 
 interface FooterItem {
-  title: string;
+  title: ReactNode | string;
   link: string;
   alt: string;
   icon: ComponentType<IconColorProps>;
@@ -19,6 +20,16 @@ interface FooterItem {
 }
 
 const FOOTER_LINKS: FooterItem[] = [
+  {
+    title: (
+      <>
+        <span className="font-normal">napari</span> hub
+      </>
+    ),
+    link: 'https://napari-hub.org',
+    alt: 'Visit napari hub',
+    icon: NapariHub,
+  },
   {
     title: 'GitHub',
     link: 'https://github.com/napari/napari',
@@ -46,10 +57,6 @@ const FOOTER_LINKS: FooterItem[] = [
   },
 ];
 
-const COMMON_STYLES = clsx(
-  'text-xs screen-495:text-sm text-white',
-  'whitespace-nowrap mr-6 last:mr-0',
-);
 const STANDARD_ICON_SIZE = 'h-4 w-4';
 
 function FooterLinks() {
@@ -57,7 +64,11 @@ function FooterLinks() {
     <>
       {FOOTER_LINKS.map((item) => (
         <Link
-          className={clsx(COMMON_STYLES, 'flex flex-row items-center')}
+          className={clsx(
+            'text-xs screen-495:text-sm text-white',
+            'whitespace-nowrap mr-6 last:mr-0',
+            'flex flex-row items-center',
+          )}
           href={item.link}
           newTab
         >
@@ -69,7 +80,7 @@ function FooterLinks() {
             color="white"
             alt={item.alt}
           />
-          {item.title}
+          <span className="font-semibold">{item.title}</span>
         </Link>
       ))}
     </>
@@ -86,9 +97,6 @@ export function Footer() {
         'bg-black',
       )}
     >
-      <Link className={COMMON_STYLES} href="https://napari-hub.org" newTab>
-        napari <span className="font-semibold">hub</span>
-      </Link>
       <FooterLinks />
     </div>
   );

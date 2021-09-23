@@ -4,6 +4,7 @@ export * from './GitHub';
 export * from './icons.type';
 export * from './ImageSC';
 export * from './Menu';
+export * from './NapariHub';
 export * from './NapariLogo';
 export * from './Search';
 export * from './Twitter';

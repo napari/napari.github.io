@@ -4,9 +4,10 @@ import { useEffect, useRef } from 'react';
 import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
+import { GlobalTableOfContents } from '@/components/GlobalTableOfContents';
 import { Media } from '@/components/media';
+import { QuickLinks } from '@/components/QuickLinks';
 import {
-  GlobalTableOfContents,
   SubPageTableOfContents,
   TableOfContents,
 } from '@/components/TableOfContents';
@@ -105,7 +106,7 @@ function Content() {
       {/* Main content */}
       <div
         className={clsx(
-          'col-span-3',
+          'col-span-3 mb-6 screen-495:mb-12',
           'screen-1425:col-start-2 screen-1425:col-span-3',
         )}
       >
@@ -146,6 +147,9 @@ function Content() {
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: pageBodyHtml }}
         />
+
+        {/* Render links + descriptions in a grid. */}
+        <QuickLinks />
       </div>
 
       {/* In page table of contents that renders to the right of the main content. */}

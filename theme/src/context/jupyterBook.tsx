@@ -7,8 +7,15 @@ export interface TOCHeader {
   text: string;
 }
 
+export interface QuickLinkItem {
+  title: string;
+  content: string;
+  url: string;
+}
+
 export interface PageFrontMatterData {
   intro?: string;
+  quickLinks?: QuickLinkItem[];
 }
 
 /**

@@ -1,10 +1,15 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import cheerio, { Cheerio, Element } from 'cheerio';
+import cheerio, { Cheerio, CheerioAPI, Element } from 'cheerio';
 import parseFrontMatter from 'front-matter';
 import fs from 'fs-extra';
-import { last } from 'lodash';
+import { last, pickBy } from 'lodash';
 import { resolve } from 'path';
+import {
+  HTMLAttributeReferrerPolicy,
+  LinkHTMLAttributes,
+  ScriptHTMLAttributes,
+} from 'react';
 
 import {
   JupyterBookState,
@@ -116,8 +121,8 @@ function getGlobalHeaders<T>({
   };
 }
 
-function getPageHeaders(contentToc: Cheerio<Element>) {
-  return contentToc
+function getPageHeaders($: CheerioAPI) {
+  return $('#page-toc')
     .find('#page-toc > ul > li > ul > li > a')
     .toArray()
     .map<TOCHeader>((element) => {
@@ -157,6 +162,117 @@ function getGlobalTocHeaders(globalToc: Cheerio<Element>) {
   });
 }
 
+/**
+ * Scripts that shouldn't be included in the React application.
+ */
+const IGNORED_APP_SCRIPTS = ['_static/sphinx-book-theme'];
+
+/**
+ * Parses the page HTML to retrieve the list of scripts required for the page.
+ * This is so that whatever functionality added by extensions or the search
+ * engine can be loaded and functioning properly.
+ *
+ * @param $ The cheerio instance.
+ * @returns A list of script elements converted into a list of script props.
+ */
+function getAppScripts($: CheerioAPI, selector: string) {
+  return (
+    $(selector)
+      .toArray()
+      // Convert elements to cheerio elements.
+      .map((script) => cheerio(script))
+      // Filter out scripts in the ignore list.
+      .filter((script) => {
+        const src = script.attr('src');
+
+        // Allow inline scripts.
+        if (!src) {
+          return true;
+        }
+
+        return IGNORED_APP_SCRIPTS.every((file) => !src.includes(file));
+      })
+      // Create script props object using the HTML attributes.
+      .map((script) => {
+        // Parse React script props from script element.
+        const props: ScriptHTMLAttributes<HTMLScriptElement> = {
+          async: script.attr('async') === 'true' ? true : undefined,
+          crossOrigin: script.attr('crossorigin'),
+          defer: script.attr('defer') === 'true' ? true : undefined,
+          integrity: script.attr('integrity'),
+          noModule: script.attr('nomodule') === 'true' ? true : undefined,
+          nonce: script.attr('nonce'),
+          referrerPolicy: script.attr('referrerpolicy') as
+            | HTMLAttributeReferrerPolicy
+            | undefined,
+          src: script.attr('src'),
+          type: script.attr('type'),
+        };
+
+        // Make absolute URL.
+        if (props.src && !isExternalUrl(props.src)) {
+          props.src = `/_static/${props.src.replace(/^.*_static\//, '')}`;
+        }
+
+        // Add script content if it exists.
+        const content = script.html();
+        if (content) {
+          props.children = content;
+        }
+
+        // Remove `undefined` keys so that Next.js can serialize the data as JSON.
+        return pickBy(props, (value) => value !== undefined);
+      })
+  );
+}
+
+/**
+ * Stylesheets that should not be added in the React application.
+ */
+const IGNORED_STYLE_SHEETS = ['_static/basic.css'];
+
+/**
+ * Parses the page HTML to retrieve the list of stylesheets required for the
+ * page. This is so that whatever styling added by extensions can be used in the
+ * documentation.
+ *
+ * @param $ The cheerio instance.
+ * @returns A list of style elements converted into a list of style props.
+ */
+function getAppStyleSheets($: CheerioAPI) {
+  return (
+    $('link[rel=stylesheet]')
+      .toArray()
+      // Convert elements to cheerio elements.
+      .map((linkElement) => cheerio(linkElement))
+      // Filter out ignored stylesheets.
+      .filter((link) => {
+        const href = link.attr('href');
+        return (
+          href && IGNORED_STYLE_SHEETS.every((file) => !href.includes(file))
+        );
+      })
+      // Create link props from HTML attributes.
+      .map((link) => {
+        // Parse React link props from link element.
+        const props: LinkHTMLAttributes<HTMLLinkElement> = {
+          href: link.attr('href'),
+          media: link.attr('media'),
+          rel: link.attr('rel'),
+          type: link.attr('type'),
+        };
+
+        // Make absolute URL.
+        if (props.href && !isExternalUrl(props.href)) {
+          props.href = `/_static/${props.href.replace(/^.*_static\//, '')}`;
+        }
+
+        // Remove `undefined` keys so that Next.js can serialize the data as JSON.
+        return pickBy(props, (value) => value !== undefined);
+      })
+  );
+}
+
 const SEARCH_PAGE_SELECTOR_REMOVE_LIST = [
   // Footer can be removed since the napari theme already has a footer.
   '.footer',
@@ -172,6 +288,11 @@ const SEARCH_PAGE_SELECTOR_REMOVE_LIST = [
 
   // Removes unnecessary text node about multiple matches.
   '.body > p:nth-child(2)',
+
+  // Removes script used for removing the fallback so that we can remove it
+  // directly. This is because the script is embedded in the `<body>` and
+  // requires jQuery, but jQuery isn't loaded until later.
+  '#fallback > script',
 ];
 
 const ROOT_DIR = resolve(__dirname, '../../..');
@@ -206,16 +327,16 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
   // Load global TOC from index.html file to get consistent TOC links.
   const indexFile = resolve(BUILD_DIR, 'index.html');
   const indexHtml = await fs.readFile(indexFile, 'utf-8');
+  const globalToc = cheerio.load(indexHtml)('#global-toc');
 
   const rawHtml = await fs.readFile(file, 'utf-8');
   const $ = cheerio.load(rawHtml);
 
-  const isSearch = last(file.split('/')) === 'search.html';
   let result: JupyterBookState;
 
-  const globalToc = cheerio.load(indexHtml)('#global-toc');
-
   // The search page requires separate pre-processing of data for rendering.
+  const isSearch = last(file.split('/')) === 'search.html';
+
   if (isSearch) {
     const pageBody = $('body');
 
@@ -231,13 +352,14 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
     result = {
       ...getGlobalTocHeaders(globalToc),
       pageTitle: 'Search',
+      appScripts: getAppScripts($, 'head script'),
+      appStyleSheets: getAppStyleSheets($),
       pageBodyHtml: pageBody.html() ?? '',
       pageHeaders: [],
       pageFrontMatter: {},
     };
   } else {
     const pageBody = $('#page-body');
-    const pageToc = $('#page-toc');
 
     // Remove header link automatically added by Jupyter Book.
     pageBody.find('.headerlink').remove();
@@ -251,8 +373,10 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       ...getGlobalTocHeaders(globalToc),
       pageTitle,
       pageFrontMatter: await getPageFrontMatter(file),
+      appScripts: getAppScripts($, '#scripts script'),
+      appStyleSheets: getAppStyleSheets($),
       pageBodyHtml: pageBody.html() ?? '',
-      pageHeaders: getPageHeaders(pageToc),
+      pageHeaders: getPageHeaders($),
     };
   }
 

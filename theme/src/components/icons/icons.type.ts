@@ -3,3 +3,7 @@ export interface IconProps {
   color?: string;
   alt?: string;
 }
+
+export interface IconColorProps extends IconProps {
+  color?: string;
+}

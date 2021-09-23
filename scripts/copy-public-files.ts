@@ -9,33 +9,28 @@ const BUILD_DIR = resolve(ROOT_DIR, '_build/html');
  * folder so that Next.js can access it
  */
 export async function copyPublicFiles(): Promise<void> {
-  const staticFiles = [
-    'pygments.css',
-    'jquery.js',
-    'underscore.js',
-    'documentation_options.js',
-    'doctools.js',
-    'language_data.js',
-    'searchtools.js',
-  ].map((file) => resolve(BUILD_DIR, '_static', file));
+  const staticFiles = resolve(BUILD_DIR, '_static');
   const searchIndexFile = resolve(BUILD_DIR, 'searchindex.js');
   const imageFiles = resolve(BUILD_DIR, '_images');
   const publicDirectory = resolve(ROOT_DIR, 'public');
+  const staticPublicDirectory = resolve(publicDirectory, '_static');
 
   // Remove public directory to ensure consistent rebuilds during development.
   if (await fs.pathExists(publicDirectory)) {
     await fs.remove(publicDirectory);
   }
 
+  // Create public directories so that concurrent file copies do not throw an error.
+  await fs.mkdir(publicDirectory);
+  await fs.mkdir(staticPublicDirectory);
+
   // Copy all files concurrently.
   await Promise.all([
-    ...staticFiles.map((file) =>
-      fs.copy(file, resolve(publicDirectory, basename(file))),
-    ),
+    fs.copy(staticFiles, staticPublicDirectory),
     fs.copy(imageFiles, resolve(publicDirectory, '_images')),
     fs.copy(
       searchIndexFile,
-      resolve(publicDirectory, basename(searchIndexFile)),
+      resolve(staticPublicDirectory, basename(searchIndexFile)),
     ),
   ]);
 }

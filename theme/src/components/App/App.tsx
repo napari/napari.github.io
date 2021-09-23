@@ -1,5 +1,7 @@
 import clsx from 'clsx';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import slug from 'slug';
 
@@ -161,18 +163,114 @@ function Content() {
 }
 
 /**
+ * Scripts that should load during the `beforeInteractive` stage:
+ * https://nextjs.org/docs/basic-features/script
+ */
+const BEFORE_INTERACTIVE_SCRIPTS = [
+  // Everyone and their grandma knows what jQuery is :)
+  'jquery.js',
+
+  // JavaScript utility library.
+  'underscore.js',
+
+  // Sphinx documentation data used by extensions.
+  'documentation_options.js',
+
+  // Utility functions for working with the Sphinx documentation.
+  'doctools.js',
+
+  // Language specific data used by `searchtools.js
+  'language_data.js',
+];
+
+/**
+ * Scripts that should only be loaded on the search page.
+ */
+const SEARCH_SCRIPTS = ['doctools.js', 'language_data.js'];
+
+/**
  * Root application component responsible for rendering the entire napari.org
  * website. This is used by both the client entry and pre-renderer for rendering
  * the application on the client and server.
  */
 export function App() {
+  const initialLoadRef = useRef(true);
+  const router = useRouter();
+  const {
+    appScripts,
+    appStyleSheets,
+    pageFrontMatter: { metaDescription, intro },
+  } = useJupyterBookData();
+  const isSearch = router.asPath.includes('/search');
+
+  useEffect(() => {
+    initialLoadRef.current = false;
+  }, []);
+
   return (
     <>
+      <Head>
+        {/*
+          Use `metaDescription` (or `intro` if `undefined`) from frontmatter for
+          meta description tag.
+        */}
+        {(metaDescription || intro) && (
+          <meta name="description" content={metaDescription || intro} />
+        )}
+
+        {appStyleSheets.map((props) => (
+          <link key={props.href} {...props} />
+        ))}
+      </Head>
+
+      {/*
+        Every page emits a node with ID `documentation_options` in the page body
+        HTML except for the search page, so we need to render it in React.
+
+        This is used by the `documentation_options.js` script to get the
+        document root, which is used by extensions and documentation search.
+      */}
+      {isSearch && <div id="documentation_options" data-url_root="./" />}
+
       <AppBar />
 
       <main className="mt-6">
         <Content />
       </main>
+
+      {appScripts
+        .filter(({ src }) => {
+          // Allow all inline scripts.
+          if (!src) {
+            return true;
+          }
+
+          // Filter scripts that are only used on the search page if the user is
+          // loading a non-search page.
+          return (
+            isSearch || SEARCH_SCRIPTS.every((script) => !src.includes(script))
+          );
+        })
+        .map((props) => {
+          // Get ID from either the src URL or the JS source if available.
+          const id =
+            props.src || (props.children && String(props.children)) || '';
+
+          return (
+            <Script
+              id={id}
+              key={id}
+              {...props}
+              strategy={
+                BEFORE_INTERACTIVE_SCRIPTS.some((script) => id.includes(script))
+                  ? 'beforeInteractive'
+                  : undefined
+              }
+            >
+              {props.children}
+            </Script>
+          );
+        })}
     </>
   );
 }

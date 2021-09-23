@@ -1,6 +1,10 @@
-import { IconProps } from './icons.type';
+import { IconColorProps } from './icons.type';
 
-export function ExternalLink({ alt, className, color = 'white' }: IconProps) {
+export function ExternalLink({
+  alt,
+  className,
+  color = 'white',
+}: IconColorProps) {
   return (
     <svg
       className={className}

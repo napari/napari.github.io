@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext } from 'react';
+import {
+  createContext,
+  LinkHTMLAttributes,
+  ReactNode,
+  ScriptHTMLAttributes,
+  useContext,
+} from 'react';
 
 export interface TOCHeader {
   children?: string[];
@@ -7,8 +13,16 @@ export interface TOCHeader {
   text: string;
 }
 
+export interface QuickLinkItem {
+  title: string;
+  content: string;
+  url: string;
+}
+
 export interface PageFrontMatterData {
+  metaDescription?: string;
   intro?: string;
+  quickLinks?: QuickLinkItem[];
 }
 
 /**
@@ -49,6 +63,16 @@ export interface JupyterBookState {
    * An array of the top-most headers in order of appearance on the DOM.
    */
   rootGlobalHeaders: string[];
+
+  /**
+   * Sphinx JS scripts that should be loaded into the React application.
+   */
+  appScripts: ScriptHTMLAttributes<HTMLScriptElement>[];
+
+  /**
+   * Sphinx stylesheets that should be loaded into the React application.
+   */
+  appStyleSheets: LinkHTMLAttributes<HTMLLinkElement>[];
 }
 
 const JupyterBookContext = createContext<JupyterBookState>({
@@ -58,6 +82,8 @@ const JupyterBookContext = createContext<JupyterBookState>({
   globalHeaders: {},
   rootGlobalHeaders: [],
   pageFrontMatter: {},
+  appScripts: [],
+  appStyleSheets: [],
 });
 
 interface Props extends JupyterBookState {

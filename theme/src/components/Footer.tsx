@@ -47,7 +47,7 @@ const FOOTER_LINKS: FooterItem[] = [
     link: 'https://forum.image.sc/tag/napari',
     alt: 'Visit image.sc forum',
     icon: ImageSC,
-    size: 'h-5 w-5',
+    size: 'h-[1.25em] w-[1.25em]',
   },
   {
     title: 'Zulip',
@@ -57,7 +57,7 @@ const FOOTER_LINKS: FooterItem[] = [
   },
 ];
 
-const STANDARD_ICON_SIZE = 'h-4 w-4';
+const STANDARD_ICON_SIZE = 'h-[1em] w-[1em]';
 
 function FooterLinks() {
   return (
@@ -65,8 +65,8 @@ function FooterLinks() {
       {FOOTER_LINKS.map((item) => (
         <Link
           className={clsx(
-            'text-xs screen-495:text-sm text-white',
-            'whitespace-nowrap mr-6 last:mr-0',
+            'text-white',
+            'whitespace-nowrap mr-4 last:mr-0',
             'flex flex-row items-center',
           )}
           href={item.link}
@@ -80,7 +80,7 @@ function FooterLinks() {
             color="white"
             alt={item.alt}
           />
-          <span className="font-semibold">{item.title}</span>
+          <span className="font-semibold text-[0.875em]">{item.title}</span>
         </Link>
       ))}
     </>

@@ -1,12 +1,15 @@
 import clsx from 'clsx';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
+import { GlobalTableOfContents } from '@/components/GlobalTableOfContents';
 import { Media } from '@/components/media';
+import { QuickLinks } from '@/components/QuickLinks';
 import {
-  GlobalTableOfContents,
   SubPageTableOfContents,
   TableOfContents,
 } from '@/components/TableOfContents';
@@ -55,8 +58,13 @@ function Content() {
   const router = useRouter();
   const isSearch = router.asPath.includes('/search');
 
-  const { globalHeaders, rootGlobalHeaders, pageTitle, pageBodyHtml } =
-    useJupyterBookData();
+  const {
+    globalHeaders,
+    rootGlobalHeaders,
+    pageTitle,
+    pageBodyHtml,
+    pageFrontMatter: { intro: pageIntro },
+  } = useJupyterBookData();
   const currentPathname = useCurrentPathname();
   const subPageTocEnabled = useSubPageTocEnabled();
 
@@ -100,12 +108,18 @@ function Content() {
       {/* Main content */}
       <div
         className={clsx(
-          'col-span-3',
+          'col-span-3 mb-6 screen-495:mb-12',
           'screen-1425:col-start-2 screen-1425:col-span-3',
         )}
       >
         {/* Page title */}
         <h1 className="text-5xl font-bold">{pageTitle}</h1>
+
+        {pageIntro && (
+          <h2 className="font-semibold text-xs mt-3 screen-875:text-base screen-875:mt-10">
+            {pageIntro}
+          </h2>
+        )}
 
         {/* In page table of content that renders above the main content. */}
         {!isSearch && (
@@ -135,6 +149,9 @@ function Content() {
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: pageBodyHtml }}
         />
+
+        {/* Render links + descriptions in a grid. */}
+        <QuickLinks />
       </div>
 
       {/* In page table of contents that renders to the right of the main content. */}
@@ -146,18 +163,114 @@ function Content() {
 }
 
 /**
+ * Scripts that should load during the `beforeInteractive` stage:
+ * https://nextjs.org/docs/basic-features/script
+ */
+const BEFORE_INTERACTIVE_SCRIPTS = [
+  // Everyone and their grandma knows what jQuery is :)
+  'jquery.js',
+
+  // JavaScript utility library.
+  'underscore.js',
+
+  // Sphinx documentation data used by extensions.
+  'documentation_options.js',
+
+  // Utility functions for working with the Sphinx documentation.
+  'doctools.js',
+
+  // Language specific data used by `searchtools.js
+  'language_data.js',
+];
+
+/**
+ * Scripts that should only be loaded on the search page.
+ */
+const SEARCH_SCRIPTS = ['doctools.js', 'language_data.js'];
+
+/**
  * Root application component responsible for rendering the entire napari.org
  * website. This is used by both the client entry and pre-renderer for rendering
  * the application on the client and server.
  */
 export function App() {
+  const initialLoadRef = useRef(true);
+  const router = useRouter();
+  const {
+    appScripts,
+    appStyleSheets,
+    pageFrontMatter: { metaDescription, intro },
+  } = useJupyterBookData();
+  const isSearch = router.asPath.includes('/search');
+
+  useEffect(() => {
+    initialLoadRef.current = false;
+  }, []);
+
   return (
     <>
+      <Head>
+        {/*
+          Use `metaDescription` (or `intro` if `undefined`) from frontmatter for
+          meta description tag.
+        */}
+        {(metaDescription || intro) && (
+          <meta name="description" content={metaDescription || intro} />
+        )}
+
+        {appStyleSheets.map((props) => (
+          <link key={props.href} {...props} />
+        ))}
+      </Head>
+
+      {/*
+        Every page emits a node with ID `documentation_options` in the page body
+        HTML except for the search page, so we need to render it in React.
+
+        This is used by the `documentation_options.js` script to get the
+        document root, which is used by extensions and documentation search.
+      */}
+      {isSearch && <div id="documentation_options" data-url_root="./" />}
+
       <AppBar />
 
       <main className="mt-6">
         <Content />
       </main>
+
+      {appScripts
+        .filter(({ src }) => {
+          // Allow all inline scripts.
+          if (!src) {
+            return true;
+          }
+
+          // Filter scripts that are only used on the search page if the user is
+          // loading a non-search page.
+          return (
+            isSearch || SEARCH_SCRIPTS.every((script) => !src.includes(script))
+          );
+        })
+        .map((props) => {
+          // Get ID from either the src URL or the JS source if available.
+          const id =
+            props.src || (props.children && String(props.children)) || '';
+
+          return (
+            <Script
+              id={id}
+              key={id}
+              {...props}
+              strategy={
+                BEFORE_INTERACTIVE_SCRIPTS.some((script) => id.includes(script))
+                  ? 'beforeInteractive'
+                  : undefined
+              }
+            >
+              {props.children}
+            </Script>
+          );
+        })}
     </>
   );
 }

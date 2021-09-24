@@ -37,6 +37,16 @@ export function Link({
     </a>
   );
 
+  // TODO Remove when sphinx script loading is figured out.
+  // Currently there's an issue with using Next.js links because some of the
+  // Sphinx extensions have scripts that need to run on initial load for every
+  // page. Because of this, we can't treat the docs as an SPA and should use
+  // regular links so that pages load normally.
+  //
+  // The code below is unreachable because of the return, but we're keeping it
+  // in the codebase until the above TODO is solved.
+  return linkNode;
+
   // Use regular links for the search page. This is because Jupyter Book fetches
   // every page from the documentation site to get and search its text content.
   // The fetching logic doesn't take SPA style apps into account, so it doesn't

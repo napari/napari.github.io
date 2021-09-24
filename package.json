@@ -5,19 +5,19 @@
   "scripts": {
     "// Scripts for building napari.org for production": "",
     "build": "run-s clean build:*",
-    "build:docs": "jupyter-book build .",
+    "build:docs": "PYTHONPATH=$PWD jupyter-book build .",
     "build:next": "run-s next:*",
 
     "// Scripts for building and exporting the documentation using Next.js": "",
     "next:build": "next build",
-    "next:copy-public": "mkdir public && ts-node -P tsconfig.node.json scripts/copy-public-files",
+    "next:copy-public": "ts-node -P tsconfig.node.json scripts/copy-public-files",
     "next:export": "next export -o dist",
     "next:remove-extra-files": "rm -rf dist/index.html.html",
     "next:fix-dist-file-names": "ts-node -P tsconfig.node.json scripts/fix-dist-file-names",
 
     "// Scripts for running napari.org locally in development mode.": "",
     "dev": "yarn clean && mkdir -p _build/html && run-p dev:*",
-    "dev:server": "ts-node -P tsconfig.node.json scripts/dev-server",
+    "dev:server": "PYTHONPATH=$PWD ts-node -P tsconfig.node.json scripts/dev-server",
     "dev:tsm": "tsm -w -e default -p.@ theme/src 'theme/src/**/*.module.scss'",
 
     "// Scripts for cleaning build files.": "",
@@ -51,6 +51,7 @@
     "@material-ui/styles": "^4.11.4",
     "@types/lodash-es": "4.17.4",
     "clsx": "1.1.1",
+    "front-matter": "^4.0.2",
     "fs-extra": "^10.0.0",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",

@@ -81,6 +81,24 @@ export async function getTOCFiles(): Promise<string[]> {
   return files;
 }
 
+/**
+ * Directories that should be ignored when looking for HTML files.
+ */
+const IGNORED_DIRS = [
+  // Static files
+  '_images',
+  '_static',
+  '_panels_static',
+
+  // Documentation source code. Instead of copying this over, we can link the
+  // user to the source code in GitHub instead so that we can reduce the
+  // deployment size.
+  '_sources',
+];
+
+/**
+ * Files that should be ignored when an HTML file is found.
+ */
 const IGNORED_FILES = ['genindex.html', 'py-modindex.html'];
 
 /**
@@ -102,8 +120,8 @@ export async function getHTMLFiles(): Promise<string[]> {
     if (
       // Is directory.
       stats.isDirectory() &&
-      // File is not an underscore directory.
-      !file.replace(buildDir, '').startsWith('/_')
+      // Is not an ignored directory.
+      !IGNORED_DIRS.some((ignoredDir) => file.includes(ignoredDir))
     ) {
       // Add directory files to the stack.
       const nextFiles = await fs.readdir(file);

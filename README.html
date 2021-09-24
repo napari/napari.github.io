@@ -333,9 +333,9 @@ pip install -r requirements.txt
 </div>
 <div class="section" id="node-js">
 <h4>Node.js<a class="headerlink" href="#node-js" title="Permalink to this headline">¶</a></h4>
-<p>The napari theme is built using HTML, JS, and SCSS. The JS and SCSS files are
-processed using Gulp to compile SCSS to CSS, add vendor prefixes, and minify
-the result.</p>
+<p>The napari theme is built with React and bundled with Next.js using the <a class="reference external" href="https://nextjs.org/docs/advanced-features/static-html-export">Static
+HTML Export</a>.
+feature.</p>
 <p>You will need to setup Node.js and Yarn to work with the theme and run the
 dev server:</p>
 <ul class="simple">
@@ -360,13 +360,10 @@ yarn
 </div>
 <div class="section" id="dev-server">
 <h3>Dev Server<a class="headerlink" href="#dev-server" title="Permalink to this headline">¶</a></h3>
-<p>The Dev Server a is thin wrapper over <code class="docutils literal notranslate"><span class="pre">express</span></code> and <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code> to live
+<p>The Dev Server a is thin wrapper over <code class="docutils literal notranslate"><span class="pre">next</span></code> and <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code> to live
 reload the browser whenever the theme or documentation is modified. To use
-the Dev Server, run the following commands:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recommended to remove cached files</span>
-yarn clean
-<span class="c1"># Run dev server</span>
-yarn dev
+the Dev Server, run the command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>yarn dev
 </pre></div>
 </div>
 <p>After the build is complete, you should be able to access the documentation
@@ -377,70 +374,38 @@ at <a class="reference external" href="http://localhost:8080">http://localhost:8
 <ul class="simple">
 <li><p>Update documentation content: Markdown file, Jupyter notebook file, etc.</p>
 <ol class="simple">
-<li><p>Dev Server is notified file has been modified</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code></p></li>
+<li><p>Dev Server is notified file has been modified.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code>.</p></li>
 </ol>
 </li>
-<li><p>Update the theme’s HTML layouts</p>
+<li><p>Update the theme’s HTML layouts.</p>
 <ol class="simple">
-<li><p>Dev Server is notified file has been modified</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code></p></li>
+<li><p>Dev Server is notified file has been modified.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code>.</p></li>
 </ol>
 </li>
-<li><p>Update the theme’s JS/SCSS</p>
+<li><p>Update the theme React source code.</p>
 <ol class="simple">
-<li><p>Gulp is notified file has been modified</p></li>
-<li><p>Gulp processes files to JS/CSS and outputs it to <code class="docutils literal notranslate"><span class="pre">theme/napari/static/dist</span></code></p></li>
-<li><p>Dev Server is notified file has been created/modified</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code></p></li>
+<li><p>Next.js is notified file has been modified.</p></li>
+<li><p>Next.js rebuilds only the file that has been changed.</p></li>
+<li><p>The Next.js dev client reloads the browser UI.</p></li>
 </ol>
 </li>
 </ul>
 <p>Because of how long <code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code> can take, the dev server will
 automatically cancel the existing build process in case files are modified
 during the build.</p>
-<p>When the documentation is finished building, the dev server sends a reload
-event over WebSocket to refresh the browser when a new build is available.</p>
-</div>
-<div class="section" id="background">
-<h4>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h4>
-<p>Currently, there isn’t a builtin mechanism for re-building the Jupyter book
-on file changes. There are a couple of issues with relevant discussion in
-both
-<a class="reference external" href="https://github.com/executablebooks/jupyter-book">jupyter-book</a>
-and
-<a class="reference external" href="https://github.com/executablebooks/sphinx-autobuild">sphinx-autobuild</a>:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/executablebooks/jupyter-book/issues/213">https://github.com/executablebooks/jupyter-book/issues/213</a></p></li>
-<li><p><a class="reference external" href="https://github.com/executablebooks/sphinx-autobuild/issues/99">https://github.com/executablebooks/sphinx-autobuild/issues/99</a></p></li>
-</ul>
-<p>So far, not much has been done in pushing this effort forward. To achieve
-live editing, we added the following:</p>
-<ul class="simple">
-<li><p>Gulp <code class="docutils literal notranslate"><span class="pre">watch</span></code> task for processing the JS and SCSS files when they are modified</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DevServer</span></code> class in <code class="docutils literal notranslate"><span class="pre">dev-server.js</span></code> that:</p>
-<ul>
-<li><p>Sets up an <a class="reference external" href="https://expressjs.com/">express</a> server for local hosting</p></li>
-<li><p>Builds the docs with <code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">.</span></code> when files are modified</p></li>
-<li><p>Reloads the browser when the build is complete using <a class="reference external" href="https://github.com/alallier/reload">reload</a></p></li>
-</ul>
-</li>
-<li><p>NPM <code class="docutils literal notranslate"><span class="pre">dev</span></code> script that runs Gulp and the dev server concurrently using <a class="reference external" href="https://github.com/mysticatea/npm-run-all">npm-run-all</a></p></li>
-<li><p>Set <code class="docutils literal notranslate"><span class="pre">execute_notebooks:</span> <span class="pre">cache</span></code> in <span class="xref myst">_config.yml</span> to speed up subsequent builds</p></li>
-</ul>
 </div>
 </div>
 <div class="section" id="building-the-book-for-production">
 <h3>Building the book for production<a class="headerlink" href="#building-the-book-for-production" title="Permalink to this headline">¶</a></h3>
 <p>If you’d like to develop on and build the tutorials book, you should clone
 this repository and run:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recommended to remove cached files</span>
-yarn clean
-<span class="c1"># Build theme in production mode and run `jupyter-book build .`</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build theme in production mode and run `jupyter-book build .`</span>
 yarn build
 </pre></div>
 </div>
-<p>A fully-rendered HTML version of the book will be built in <code class="docutils literal notranslate"><span class="pre">_build/html/</span></code>.</p>
+<p>A fully-rendered HTML version of the book will be built in <code class="docutils literal notranslate"><span class="pre">dist/</span></code>.</p>
 </div>
 <div class="section" id="working-on-the-napari-theme">
 <h3>Working on the napari Theme<a class="headerlink" href="#working-on-the-napari-theme" title="Permalink to this headline">¶</a></h3>
@@ -626,7 +591,6 @@ yarn build
 </li>
 <li><a class="reference internal" href="#dev-server">Dev Server</a><ul>
 <li><a class="reference internal" href="#live-reloading">Live Reloading</a></li>
-<li><a class="reference internal" href="#background">Background</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#building-the-book-for-production">Building the book for production</a></li>

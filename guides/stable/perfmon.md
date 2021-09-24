@@ -1,6 +1,6 @@
 (perfmon)=
 
-# Performance Monitoring
+# performance monitoring
 
 If napari is not performing well, you can use
 {mod}`napari.utils.perf<napari.utils.perf>` to help

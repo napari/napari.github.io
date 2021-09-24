@@ -62,15 +62,19 @@ theme:
 **napari** is a fast, interactive, multi-dimensional image viewer for Python.
 It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of `Qt` (for the GUI), `vispy` (for performant
-GPU-based rendering), and the scientific Python stack (`numpy`, `scipy`).
+GPU-based rendering), and the scientific Python stack (`numpy`, `scipy`). It
+includes critical viewer features out-of-the-box, such as support for large
+multi-dimensional data, and layering and annotation. By integrating closely with
+the Python ecosystem, **napari** can be easily coupled to leading machine
+learning and image analysis tools (e.g. `scikit-image`, `scikit-learn`,
+`TensorFlow`, `PyTorch`), enabling more user-friendly automated analysis.
 
 We're developing **napari** in the open! But the project is in an **alpha**
 stage, and there will still likely be **breaking changes** with each release.
-You can follow progress on this repository, test out new versions as we release
-them, and contribute ideas and code.
 
-We're working on [tutorials](./tutorials/index), but you can also quickly get started
-by looking below.
+You can follow progress
+[on out GitHub repository](https://github.com/napari/napari), test out new
+versions as we release them, and contribute ideas and code.
 
 ## installation
 
@@ -153,10 +157,14 @@ pip install "napari[pyside2]"  # for PySide2
 ```
 ````
 
-## simple example
+## getting started
 
-(The examples below require the `scikit-image` package to run. We just use data
-samples from this package for demonstration purposes. If you change the examples
+If you are new to napari, check out our [getting started guide](tutorials/fundamentals/getting_started.md). 
+
+## example
+
+(The example below requires the `scikit-image` package to run. We just use data
+samples from this package for demonstration purposes. If you change the example
 to use your own dataset, you may not need to install this package.)
 
 From inside an IPython shell or jupyter notebook you can open up an interactive
@@ -218,9 +226,8 @@ details on our vision for supporting a plugin ecosystem around napari.
 ## contributing
 
 Contributions are encouraged! Please read our [contributing
-guide](./developers/contributing.md) to get started. Given that we're in an
-early stage, you may want to reach out on our [Github
-Issues](https://github.com/napari/napari/issues) before jumping in.
+guide](./developers/contributing.md) to get started. To get a sense of our current plans checkout and contribute to the discussion on some of our [long-term feature issues](https://github.com/napari/napari/issues?q=is%3Aissue+is%3Aopen+label%3A%22long-term+feature%22)
+on Github.
 
 ## code of conduct
 

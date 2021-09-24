@@ -96,25 +96,27 @@ To enable the napari theme, you'll need to update [\_config.yml](_config.yml):
 
 ```diff
 diff --git a/_config.yml b/_config.yml
-index 0df4bfc..1388a45 100644
+index 61a8a0d..9cfad69 100644
 --- a/_config.yml
 +++ b/_config.yml
-@@ -39,11 +39,11 @@ sphinx:
-     exclude_patterns:
+@@ -42,13 +42,10 @@ sphinx:
        - _build
        - node_modules
+       - theme/src
 -    html_theme: furo
-+    # html_theme: furo
-     # (WIP) napari theme
+-    # (WIP) napari theme
 -    # html_theme: napari
 -    # html_theme_path:
 -    #   - theme
+-    # pygments_style: theme.napari_code_theme.NapariCodeTheme
+-    pygments_style: solarized-dark
 +    html_theme: napari
 +    html_theme_path:
 +      - theme
-     pygments_style: solarized-dark
++    pygments_style: theme.napari_code_theme.NapariCodeTheme
      templates_path:
        - '_templates'
+     intersphinx_mapping:
 ```
 
 </details>
@@ -127,22 +129,24 @@ To deploy with the napari theme, you'll need to uncomment the steps in the
 
 ```diff
 diff --git a/.github/workflows/deploy.yml b/.github/workflows/deploy.yml
-index c131bd6..7f826ad 100644
+index b4e662f..a05b3e2 100644
 --- a/.github/workflows/deploy.yml
 +++ b/.github/workflows/deploy.yml
-@@ -22,7 +22,7 @@ jobs:
+@@ -21,8 +21,7 @@ jobs:
+       matrix:
          os: [ubuntu-latest]
          python-version: [3.8]
-         # TODO Uncomment when napari theme is ready
+-        # TODO Uncomment when napari theme is ready
 -        # node-version: [15]
 +        node-version: [15]
      steps:
        - uses: actions/checkout@v2.3.3
 
-@@ -32,10 +32,10 @@ jobs:
+@@ -31,11 +30,10 @@ jobs:
+         with:
            python-version: ${{ matrix.python-version }}
 
-       # TODO Uncomment when napari theme is ready
+-      # TODO Uncomment when napari theme is ready
 -      # - name: Set up Node.js ${{ matrix.node-version }}
 -      #   uses: actions/setup-node@v2
 -      #   with:
@@ -154,28 +158,32 @@ index c131bd6..7f826ad 100644
 
        # Install dependencies
        - name: Install dependencies
-@@ -56,8 +56,8 @@ jobs:
+@@ -55,20 +53,14 @@ jobs:
+           pip install -r requirements.txt
 
            # Install Node.js dependencies
-           # TODO Uncomment when napari theme is ready
+-          # TODO Uncomment when napari theme is ready
 -          # npm install -g npm
 -          # yarn install
+-
+-      # TODO Uncomment when napari theme is ready
+-      # Build the theme
+-      # - name: Build the theme
+-      #   run: yarn build:theme-prod
 +          npm install -g npm
 +          yarn install
 
-       # Test the notebooks
-       - name: Test notebooks
-@@ -67,8 +67,8 @@ jobs:
-
-       # TODO Uncomment when napari theme is ready
-       # Build the theme
--      # - name: Build the theme
--      #   run: yarn build:prod
+-      # Build the book
+-      - name: Build the book
++      # Build the theme and book
 +      - name: Build the theme
-+        run: yarn build:prod
+         env:
+           DISPLAY: ":99.0"
+-        run: jupyter-book build .
++        run: yarn build
 
-       # Build the book
-       - name: Build the book
+       # Deploy the book's HTML to github pages
+       - name: GitHub Pages action
 ```
 
 </details>

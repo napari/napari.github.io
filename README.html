@@ -416,25 +416,27 @@ yarn build
 <details>
 <summary>_config.yml patch</summary>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gh">diff --git a/_config.yml b/_config.yml</span>
-<span class="gh">index 0df4bfc..1388a45 100644</span>
+<span class="gh">index 61a8a0d..9cfad69 100644</span>
 <span class="gd">--- a/_config.yml</span>
 <span class="gi">+++ b/_config.yml</span>
-<span class="gu">@@ -39,11 +39,11 @@ sphinx:</span>
-     exclude_patterns:
+<span class="gu">@@ -42,13 +42,10 @@ sphinx:</span>
        - _build
        - node_modules
+       - theme/src
 <span class="gd">-    html_theme: furo</span>
-<span class="gi">+    # html_theme: furo</span>
-     # (WIP) napari theme
+<span class="gd">-    # (WIP) napari theme</span>
 <span class="gd">-    # html_theme: napari</span>
 <span class="gd">-    # html_theme_path:</span>
 <span class="gd">-    #   - theme</span>
+<span class="gd">-    # pygments_style: theme.napari_code_theme.NapariCodeTheme</span>
+<span class="gd">-    pygments_style: solarized-dark</span>
 <span class="gi">+    html_theme: napari</span>
 <span class="gi">+    html_theme_path:</span>
 <span class="gi">+      - theme</span>
-     pygments_style: solarized-dark
+<span class="gi">+    pygments_style: theme.napari_code_theme.NapariCodeTheme</span>
      templates_path:
        - '_templates'
+     intersphinx_mapping:
 </pre></div>
 </div>
 </details>
@@ -443,22 +445,24 @@ yarn build
 <details>
 <summary>.github/workflows/deploy.yml patch</summary>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gh">diff --git a/.github/workflows/deploy.yml b/.github/workflows/deploy.yml</span>
-<span class="gh">index c131bd6..7f826ad 100644</span>
+<span class="gh">index b4e662f..a05b3e2 100644</span>
 <span class="gd">--- a/.github/workflows/deploy.yml</span>
 <span class="gi">+++ b/.github/workflows/deploy.yml</span>
-<span class="gu">@@ -22,7 +22,7 @@ jobs:</span>
+<span class="gu">@@ -21,8 +21,7 @@ jobs:</span>
+       matrix:
          os: [ubuntu-latest]
          python-version: [3.8]
-         # TODO Uncomment when napari theme is ready
+<span class="gd">-        # TODO Uncomment when napari theme is ready</span>
 <span class="gd">-        # node-version: [15]</span>
 <span class="gi">+        node-version: [15]</span>
      steps:
        - uses: actions/checkout@v2.3.3
 
-<span class="gu">@@ -32,10 +32,10 @@ jobs:</span>
+<span class="gu">@@ -31,11 +30,10 @@ jobs:</span>
+         with:
            python-version: ${{ matrix.python-version }}
 
-       # TODO Uncomment when napari theme is ready
+<span class="gd">-      # TODO Uncomment when napari theme is ready</span>
 <span class="gd">-      # - name: Set up Node.js ${{ matrix.node-version }}</span>
 <span class="gd">-      #   uses: actions/setup-node@v2</span>
 <span class="gd">-      #   with:</span>
@@ -470,28 +474,32 @@ yarn build
 
        # Install dependencies
        - name: Install dependencies
-<span class="gu">@@ -56,8 +56,8 @@ jobs:</span>
+<span class="gu">@@ -55,20 +53,14 @@ jobs:</span>
+           pip install -r requirements.txt
 
            # Install Node.js dependencies
-           # TODO Uncomment when napari theme is ready
+<span class="gd">-          # TODO Uncomment when napari theme is ready</span>
 <span class="gd">-          # npm install -g npm</span>
 <span class="gd">-          # yarn install</span>
+<span class="gd">-</span>
+<span class="gd">-      # TODO Uncomment when napari theme is ready</span>
+<span class="gd">-      # Build the theme</span>
+<span class="gd">-      # - name: Build the theme</span>
+<span class="gd">-      #   run: yarn build:theme-prod</span>
 <span class="gi">+          npm install -g npm</span>
 <span class="gi">+          yarn install</span>
 
-       # Test the notebooks
-       - name: Test notebooks
-<span class="gu">@@ -67,8 +67,8 @@ jobs:</span>
-
-       # TODO Uncomment when napari theme is ready
-       # Build the theme
-<span class="gd">-      # - name: Build the theme</span>
-<span class="gd">-      #   run: yarn build:prod</span>
+<span class="gd">-      # Build the book</span>
+<span class="gd">-      - name: Build the book</span>
+<span class="gi">+      # Build the theme and book</span>
 <span class="gi">+      - name: Build the theme</span>
-<span class="gi">+        run: yarn build:prod</span>
+         env:
+           DISPLAY: ":99.0"
+<span class="gd">-        run: jupyter-book build .</span>
+<span class="gi">+        run: yarn build</span>
 
-       # Build the book
-       - name: Build the book
+       # Deploy the book's HTML to github pages
+       - name: GitHub Pages action
 </pre></div>
 </div>
 </details>

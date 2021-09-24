@@ -17,9 +17,9 @@ pip install -r requirements.txt
 
 #### Node.js
 
-The napari theme is built using HTML, JS, and SCSS. The JS and SCSS files are
-processed using Gulp to compile SCSS to CSS, add vendor prefixes, and minify
-the result.
+The napari theme is built with React and bundled with Next.js using the [Static
+HTML Export](https://nextjs.org/docs/advanced-features/static-html-export).
+feature.
 
 You will need to setup Node.js and Yarn to work with the theme and run the
 dev server:
@@ -41,14 +41,11 @@ yarn
 
 ### Dev Server
 
-The Dev Server a is thin wrapper over `express` and `jupyter-book` to live
+The Dev Server a is thin wrapper over `next` and `jupyter-book` to live
 reload the browser whenever the theme or documentation is modified. To use
-the Dev Server, run the following commands:
+the Dev Server, run the command:
 
 ```sh
-# Recommended to remove cached files
-yarn clean
-# Run dev server
 yarn dev
 ```
 
@@ -60,46 +57,19 @@ at http://localhost:8080.
 The following outlines the current behavior of the dev server:
 
 - Update documentation content: Markdown file, Jupyter notebook file, etc.
-  1. Dev Server is notified file has been modified
-  2. `jupyter-book build`
-- Update the theme's HTML layouts
-  1. Dev Server is notified file has been modified
-  2. `jupyter-book build`
-- Update the theme's JS/SCSS
-  1. Gulp is notified file has been modified
-  2. Gulp processes files to JS/CSS and outputs it to `theme/napari/static/dist`
-  3. Dev Server is notified file has been created/modified
-  4. `jupyter-book build`
+  1. Dev Server is notified file has been modified.
+  2. `jupyter-book build`.
+- Update the theme's HTML layouts.
+  1. Dev Server is notified file has been modified.
+  2. `jupyter-book build`.
+- Update the theme React source code.
+  1. Next.js is notified file has been modified.
+  2. Next.js rebuilds only the file that has been changed.
+  3. The Next.js dev client reloads the browser UI.
 
 Because of how long `jupyter-book build` can take, the dev server will
 automatically cancel the existing build process in case files are modified
 during the build.
-
-When the documentation is finished building, the dev server sends a reload
-event over WebSocket to refresh the browser when a new build is available.
-
-#### Background
-
-Currently, there isn't a builtin mechanism for re-building the Jupyter book
-on file changes. There are a couple of issues with relevant discussion in
-both
-[jupyter-book](https://github.com/executablebooks/jupyter-book)
-and
-[sphinx-autobuild](https://github.com/executablebooks/sphinx-autobuild):
-
-- https://github.com/executablebooks/jupyter-book/issues/213
-- https://github.com/executablebooks/sphinx-autobuild/issues/99
-
-So far, not much has been done in pushing this effort forward. To achieve
-live editing, we added the following:
-
-- Gulp `watch` task for processing the JS and SCSS files when they are modified
-- `DevServer` class in `dev-server.js` that:
-  - Sets up an [express](https://expressjs.com/) server for local hosting
-  - Builds the docs with `jupyter-book build .` when files are modified
-  - Reloads the browser when the build is complete using [reload](https://github.com/alallier/reload)
-- NPM `dev` script that runs Gulp and the dev server concurrently using [npm-run-all](https://github.com/mysticatea/npm-run-all)
-- Set `execute_notebooks: cache` in [\_config.yml](_config.yml) to speed up subsequent builds
 
 ### Building the book for production
 
@@ -107,13 +77,11 @@ If you'd like to develop on and build the tutorials book, you should clone
 this repository and run:
 
 ```sh
-# Recommended to remove cached files
-yarn clean
 # Build theme in production mode and run `jupyter-book build .`
 yarn build
 ```
 
-A fully-rendered HTML version of the book will be built in `_build/html/`.
+A fully-rendered HTML version of the book will be built in `dist/`.
 
 ### Working on the napari Theme
 

@@ -361,12 +361,9 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
   } else {
     const pageBody = $('#page-body');
 
-    // Remove header link automatically added by Jupyter Book.
-    pageBody.find('.headerlink').remove();
-
     // Get page title from header text content.
     const pageHeader = pageBody.find('h1').first();
-    const pageTitle = pageHeader.text();
+    const pageTitle = pageHeader.text().replace('¶', '');
     pageHeader.remove();
 
     result = {

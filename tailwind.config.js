@@ -38,11 +38,13 @@ module.exports = {
 
       colors: {
         'napari-primary': colors.primary,
+        'napari-deep-blue': colors.deepBlue,
         'napari-hover': colors.hover,
         'napari-hover-gray': colors.hoverGray,
         'napari-light': colors.light,
         'napari-error': colors.error,
         'napari-gray': colors.gray,
+        'napari-dark-gray': colors.darkGray,
       },
 
       width: (theme) => ({

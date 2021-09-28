@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react';
 import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
+import { Footer } from '@/components/Footer';
 import { GlobalTableOfContents } from '@/components/GlobalTableOfContents';
 import { Media } from '@/components/media';
 import { QuickLinks } from '@/components/QuickLinks';
@@ -232,11 +233,15 @@ export function App() {
       */}
       {isSearch && <div id="documentation_options" data-url_root="./" />}
 
-      <AppBar />
+      <div className="min-h-screen flex flex-col">
+        <AppBar />
 
-      <main className="mt-6">
-        <Content />
-      </main>
+        <main className="mt-6 flex-grow">
+          <Content />
+        </main>
+
+        <Footer />
+      </div>
 
       {appScripts
         .filter(({ src }) => {

@@ -114,10 +114,12 @@ function Content() {
         )}
       >
         {/* Page title */}
-        <h1 className="text-5xl font-bold">{pageTitle}</h1>
+        <h1 className="text-5xl font-bold mb-3 screen-875:mb-10">
+          {pageTitle}
+        </h1>
 
         {pageIntro && (
-          <h2 className="font-semibold text-xs mt-3 screen-875:text-base screen-875:mt-10">
+          <h2 className="font-semibold text-xs screen-875:text-base">
             {pageIntro}
           </h2>
         )}

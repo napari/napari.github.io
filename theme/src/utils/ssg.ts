@@ -229,7 +229,7 @@ function getAppScripts($: CheerioAPI, selector: string) {
 /**
  * Stylesheets that should not be added in the React application.
  */
-const IGNORED_STYLE_SHEETS = ['_static/basic.css'];
+const IGNORED_STYLE_SHEETS = ['_static/basic.css', '_static/pygments_dark.css'];
 
 /**
  * Parses the page HTML to retrieve the list of stylesheets required for the

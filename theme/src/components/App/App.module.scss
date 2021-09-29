@@ -54,22 +54,69 @@
     background: none;
   }
 
+  // The styles below override Jupyter Book default styles to work better with the napari theme.
   :global {
     .highlight {
       @apply relative p-4;
     }
 
+    // Fixes styles for code copy button.
     .copybtn {
-      @apply absolute top-4 right-4 bg-white;
-      @apply opacity-0 transition-opacity;
+      // Fix dimensions of copy button image. Without it, the copy icon appears
+      // below the box for some reason.
+      img {
+        @apply m-0 w-6 h-6;
+      }
     }
 
-    .copybtn img {
-      @apply m-0 w-6 h-6;
+    // Page content sections.
+    .section {
+      // Use flex so that the "click to show" button can align itself to the
+      // flex end.
+      @apply flex flex-col;
     }
 
-    .highlight:hover .copybtn {
-      @apply opacity-100;
+    // Python code output.
+    .cell_output {
+      // Removing padding so that the output cell can be aligned with the input cell.
+      @apply p-0;
+    }
+
+    // Fixes styles for Jupyter Book code cells.
+    .cell {
+      &,
+      &_input,
+      &_output {
+        // Ensure that python cells take full width of parent container.
+        @apply max-w-full;
+      }
+
+      &.tag_hide-input {
+        // Convert cell input to flex so that "click to show" can align to the
+        // flex end.
+        @apply flex flex-col;
+      }
+    }
+
+    button.toggle-button {
+      // Remove janky layout CSS.
+      @apply float-none m-0 right-0;
+
+      // Align button at the right-side of the parent container.
+      @apply self-end;
+
+      // Center icon in button.
+      @apply flex items-center justify-center;
+
+      // Dimensions
+      @apply w-8 h-8 mb-2;
+
+      .bar {
+        // Unset absolute layout positioning so that flex can place the plus
+        // icon bars in the center.
+        top: unset;
+        left: unset;
+      }
     }
   }
 }

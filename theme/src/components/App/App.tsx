@@ -45,7 +45,7 @@ function InPageTableOfContents() {
 
       if ((childHeader.children?.length ?? 0) > 0) {
         const { text } = childHeader;
-        const href = slug(text);
+        const href = `#${slug(text)}`;
         sectionHeaders.push({ href, text });
       }
     }

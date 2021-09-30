@@ -1,0 +1,49 @@
+.content {
+  :global {
+    // Styles for the API reference page.
+    #api-reference {
+      h2 {
+        @apply text-xl font-bold;
+      }
+
+      p {
+        @apply text-base;
+
+        // Styling for API section subtitles.
+        &.rubric {
+          @apply font-semibold mb-6;
+        }
+      }
+
+      .longtable {
+        // Reduce margins for API table entries.
+        p {
+          @apply my-2;
+        }
+      }
+
+      // Remove extra margins for paragraphs after the API rubrics / descriptions.
+      .rubric + p {
+        @apply m-0;
+      }
+    }
+
+    // Add left indentation for API attributes, methods, and textual content.
+    .py {
+      .attribute,
+      .method,
+      .simple {
+        dt {
+          // Add margins for source code links.
+          a.reference {
+            @apply ml-4;
+          }
+        }
+
+        dd {
+          @apply ml-6;
+        }
+      }
+    }
+  }
+}

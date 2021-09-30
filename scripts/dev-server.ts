@@ -203,7 +203,6 @@ class DevServer extends EventEmitter {
     watcher.on('change', (path) => {
       console.log(`${path} changed, re-building docs`);
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.buildDocs().catch((err) => {
         console.error('Unable to build docs on file changes:', err);
         process.exit(-1);
@@ -229,8 +228,9 @@ class DevServer extends EventEmitter {
 
     // Copy public files after every build.
     this.on(Events.JupyterBuildComplete, () => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      copyPublicFiles();
+      copyPublicFiles().catch((err) =>
+        console.error('Unable to copy public files:', err),
+      );
     });
 
     await this.watchDocs();

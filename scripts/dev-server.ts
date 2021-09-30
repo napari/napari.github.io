@@ -88,7 +88,7 @@ class DevServer extends EventEmitter {
    * Creates a new SHA256 hash string from the file contents of the files used
    * by Jupyter Book. This hash is used for speeding up future `yarn dev`
    * invocations so that the Jupyter Book HTML doesn't have to rebuilt if the
-   * files hasn't changed.
+   * files haven't changed.
    *
    * @returns The build hash string.
    */

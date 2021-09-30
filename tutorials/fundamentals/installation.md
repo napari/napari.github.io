@@ -1,30 +1,47 @@
-# napari installation tutorial
+# How to install napari on your machine
 
-Welcome to the **napari** installation tutorial!
+Welcome to the **napari** installation guide!
 
-This tutorial will teach you how to do a clean install of **napari**. It is
-aimed at people that just want to use napari. For people also interested in
-contributing to napari please check our [contributing
-guidelines](https://github.com/napari/napari/blob/master/docs/developers/CONTRIBUTING.md)
-for more advanced installation procedures. At the end of the tutorial you should
-have napari successfully installed on your computer and be able to make the
-napari viewer appear.
+This guide will teach you how to do a clean install of **napari** and launch the viewer.
 
-## installation
+## Prerequisites
 
-### which distribution to install
+Prerequisites differ depending on what type of distribution you want to install.
+
+### Installing the bundled app
+This is the easiest way to install napari if you only wish to use it as a standalone GUI app.
+This installation method does not have any prerequisites. 
+[Click here](#installing-as-a-bundled-app) to see instructions
+for installing the bundled app.
+
+### Installing as a python package or in editable mode
+This installation method allows you to use napari from Python to programmatically 
+interact with the app.
+
+It requires:
+- [Python 3.7+](https://www.python.org/downloads/)
+- the ability to install python packages via [pip](https://pypi.org/project/pip/) OR [conda-forge](https://conda-forge.org/docs/user/introduction.html)
+
+You may also want:
+- an environment manager like [conda](https://docs.conda.io/en/latest/miniconda.html) or
+[venv](https://docs.python.org/3/library/venv.html) **(Highly recommended)**
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) (For editable mode)
+
+***
+
+### Choose which distribution to install.
 
 If you want to contribute back to the napari codebase, you should install from
 source code: see the [from source](#clone-the-repository-locally-and-install-in-editable-mode) section.
 
-If you only wish to use napari as GUI app (and not from python code), the
+If you only wish to use napari as a GUI app (and not from python code), the
 [bundled app](#installing-as-a-bundled-app)
-is the easiest way to install, it does not require having python pre-installed.
+is the easiest way to install and it does not require having python pre-installed.
 
 If you are using napari from Python to programmatically interact with the app,
 you can install via pip, conda-forge, or from source.
 
-### from pip, with "batteries included"
+### From pip, with "batteries included"
 
 napari can be installed on most macOS, Linux, and Windows systems with Python
 3.7, 3.8, and 3.9 using pip:
@@ -49,7 +66,7 @@ pip install "napari[all]"
 ```
 ````
 
-### from conda-forge
+### From conda-forge
 
 If you prefer to manage packages with conda, napari is available on the
 conda-forge channel. You can install it with:
@@ -58,7 +75,7 @@ conda-forge channel. You can install it with:
 conda install -c conda-forge napari
 ```
 
-### install from the master branch on Github
+### Install from the master branch on Github
 
 To install the "next-release" version from github via pip, call
 
@@ -66,7 +83,7 @@ To install the "next-release" version from github via pip, call
 pip install "git+https://github.com/napari/napari.git#egg=napari[all]"
 ```
 
-### clone the repository locally and install in editable mode
+### Clone the repository locally and install in editable mode
 
 To clone the github repository for local install
 
@@ -76,7 +93,7 @@ cd napari
 pip install -e .[all]
 ```
 
-## checking it worked
+## Checking it worked
 
 After installation you should be able to launch napari from the command line by
 simply running
@@ -89,7 +106,7 @@ An empty napari viewer should appear as follows
 
 ![image: An empty napari viewer](../assets/tutorials/launch_cli_empty.png)
 
-## upgrading
+## Upgrading
 
 If you installed napari with `pip` you can upgrade by calling
 
@@ -97,7 +114,7 @@ If you installed napari with `pip` you can upgrade by calling
 pip install "napari[all]" --upgrade
 ```
 
-## choosing a different Qt backend
+## Choosing a different Qt backend
 
 ````{admonition} Specifying a GUI Backend
 :class: tip
@@ -128,7 +145,7 @@ pip install "napari[pyside2]"  # for PySide2
 *Note: if you switch backends, it's a good idea to `pip uninstall` the one
 you're not using.*
 
-## installing as a bundled app
+## Installing as a bundled app
 
 napari can also be installed as a bundled app on each of the major platforms,
 MacOS, Windows, and Linux with a simple one click download and installation
@@ -148,7 +165,7 @@ assets](../assets/tutorials/installation/bundle_assets.png)
 
 You can then download the appropriate zip file for your platform.
 
-### installing the MacOS bundle
+### Installing the MacOS bundle
 
 Once you have downloaded the MacOS bundle zip you will have a zip file with a
 name like `napari-0.3.7-macOS.zip`. After unzipping you will have a file with a
@@ -195,7 +212,7 @@ box](../assets/tutorials/installation/bundle_open.png)
 After clicking "Open", the viewer should appear. Don't worry, you only have to
 go through this process once when you install a new bundle.
 
-### installing the Windows bundle
+### Installing the Windows bundle
 
 Once you have downloaded the Windows bundle zip you will have a zip file with a
 name like `napari-0.3.7-Windows.zip`. Unzip the bundle (you may like to use a
@@ -219,8 +236,8 @@ When you launch the bundled napari app on Windows, first you'll see an empty
 command terminal appear (do not close this window - you can ignore it). The
 command terminal will be followed by a napari splash screen, and then the main
 napari user interface window will appear a few seconds later. Note that errors
-which might occur during your napari session will appear on the command terminal
-- so if something is not working, it might pay to take a look at the terminal!
+which might occur during your napari session will appear on the command terminal - 
+so if something is not working, it might pay to take a look at the terminal!
 
 ![image: Windows command terminal on napari
 launch](../assets/tutorials/installation/windows_bundle_command_terminal.png)
@@ -233,30 +250,25 @@ menu](../assets/tutorials/installation/windows_launch_napari.png)
 The very first time you launch napari the startup time will be fairly slow, but
 after that you will find that napari launches more quickly.
 
-
-### installing the Linux bundle
+### Installing the Linux bundle
 
 (Guide coming soon... In the meantime, if you try it and encounter issues, see
 below for how to contact us.)
 
-## bug reports
+***
 
-If you are running into issues, please open a new issue on our [issue
-tracker](https://github.com/napari/napari/issues) and include the output of the
-following command
+## Next steps
 
-```sh
-napari --info
-```
-
-## help
-
-We're a community partner on the [imagesc
+- to start learning how to use napari, checkout our [getting
+started](./getting_started) tutorial
+- if you are interested in
+contributing to napari please check our [contributing
+guidelines](../../developers/contributing.md)
+- if you are running into issues or bugs, please open a new issue on our [issue
+tracker](https://github.com/napari/napari/issues)
+    - include the output of `napari -info` 
+    (or go to Help>Info in the viewer and copy paste the information)
+- if you want help using napari, we are a community partner on the [imagesc
 forum](https://forum.image.sc/tags/napari) and all usage support requests should
 be posted on the forum with the tag `napari`. We look forward to interacting
-with you there.
-
-## next steps
-
-Now that you've got napari installed, checkout our [getting
-started](./getting_started) tutorial to start learning how to use it!
+with you there!

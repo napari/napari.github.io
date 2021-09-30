@@ -15,6 +15,10 @@ Workshops and talks are listed in reverse chronological order. Have you given a 
 
 ## Talks
 
+* April 2021 - *napari: n-dimensional data viewer in python*
+  * [Watch it here](https://www.youtube.com/watch?v=rOO6tK7z6yk) (25 minute video)
+  * Presented by Talley Lambert at the CZI Imaging Scientists meeting 2021
+
 * May 2021 - *napari: a fast, interactive, multi-dimensional image viewer*
   * [Watch it here](https://www.youtube.com/watch?v=66m8qtOQehs) (20 minute video)
   * Presented by Nick Sofroniew at [BIDS ImageXD](https://bids.berkeley.edu/events/imagexd-2021) 2021

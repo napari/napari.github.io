@@ -34,6 +34,25 @@ interface Props {
 const ENABLE_EVENT_HANDLERS_TIMEOUT_MS = 100;
 
 /**
+ * Helper for scrolling to the selected header. By default, the browser will
+ * scroll to the heading when the hash values is changed. However, if the hash
+ * is already set to the same value, the browser will not scroll to the heading.
+ * Because of this, we'l need to manually scroll to the heading when the hash
+ * values are the same.
+ *
+ * @param header The header to scroll to.
+ */
+function scrollToHeading(header: TOCHeader) {
+  if (window.location.hash === header.href) {
+    const headerNode = document.getElementById(header.href.replace(/^#/, ''));
+    const alignToTop = true;
+    headerNode?.scrollIntoView(alignToTop);
+  } else {
+    window.location.hash = header.href;
+  }
+}
+
+/**
  * Component for rendering TOC from the given headers. Highlighting will
  * only work if the headers match those present on the page.
  */
@@ -94,12 +113,13 @@ export function TableOfContents({ active, className, headers, free }: Props) {
               className={clsx(isActive && 'screen-1425:font-bold')}
               href={header.href}
               onClick={(event) => {
-                // If highlighting is disabled, treat this as a regular link.
+                event.preventDefault();
+
+                // If highlighting is disabled, only handle scrolling to the header.
                 if (!enabled) {
+                  scrollToHeading(header);
                   return;
                 }
-
-                event.preventDefault();
 
                 // The event handlers are disabled here because we want to set
                 // the active header AND scroll to the header. If the handlers
@@ -107,8 +127,7 @@ export function TableOfContents({ active, className, headers, free }: Props) {
                 // `setActiveHeader()` will have a race condition.
                 disableEventHandlers();
 
-                // Set the hash to the header ID so that the page scrolls to it.
-                window.location.hash = header.href;
+                scrollToHeading(header);
                 setActiveHeader(header.href);
 
                 // Wrap in timeout so that the browser has time to scroll the

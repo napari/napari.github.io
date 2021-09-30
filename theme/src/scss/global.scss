@@ -1,5 +1,6 @@
 @import '@/scss/utils';
 @import '@/scss/_admonitions';
+@import '@/scss/_scrollbar';
 
 html {
   /*
@@ -26,6 +27,9 @@ html {
 }
 
 body {
+  // Add scroll for all pages so that the page width stays consistent.
+  @apply overflow-y-scroll;
+
   /*
     Overflow body along x-axis when contents are too long for the page. This
     should only happen in rare cases where the viewport is < 300px.

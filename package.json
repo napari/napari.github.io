@@ -16,13 +16,14 @@
     "next:fix-dist-file-names": "ts-node -P tsconfig.node.json scripts/fix-dist-file-names",
 
     "// Scripts for running napari.org locally in development mode.": "",
-    "dev": "yarn clean && mkdir -p _build/html && run-p dev:*",
+    "dev": "run-p dev:*",
     "dev:server": "PYTHONPATH=$PWD ts-node -P tsconfig.node.json scripts/dev-server",
     "dev:tsm": "tsm -w -e default -p.@ theme/src 'theme/src/**/*.module.scss'",
 
     "// Scripts for cleaning build files.": "",
     "clean": "run-p clean:*",
     "clean:api-stable": "find api/stable/ ! -name 'index.rst' -type f -exec rm -f {} +",
+    "clean:build-hash": "rm -rf _build/jupyter-build-hash",
     "clean:docs": "rm -rf _build/html",
     "clean:theme": "rm -rf dist public",
     "clean:next": "rm -rf .next",
@@ -89,6 +90,7 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "express": "4.17.1",
+    "file-type": "^16.5.3",
     "glob": "^7.1.7",
     "husky": "7.0.2",
     "lint-staged": "11.1.2",

@@ -203,10 +203,10 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
               ],
 
               headerLevel === Header.Level2 && [
-                'text-xs',
-
                 // Styles for if there are sub-pages for this particular page.
-                hasChildren && 'font-bold uppercase tracking-widest',
+                hasChildren
+                  ? 'text-xs font-bold uppercase tracking-widest'
+                  : 'text-sm hover:border-napari-primary',
 
                 // Highlight active items with semi-bold and a black border, but
                 // only if there are no level 3 items.

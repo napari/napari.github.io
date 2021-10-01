@@ -167,9 +167,6 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
       <Fragment key={headerId}>
         <li
           className={clsx(
-            // Level 1 list spacing.
-            headerLevel === Header.Level1 && 'first:mt-0 mt-2 mb-2',
-
             // Sub-list black border.
             HEADER_TITLES.includes(headerLevel) && 'border-l border-black py-1',
           )}
@@ -268,5 +265,9 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
   }
 
   // Render global TOC using root headers at the top of the list.
-  return <ul ref={listRef}>{rootHeaders.map((href) => render(href))}</ul>;
+  return (
+    <ul className="space-y-4" ref={listRef}>
+      {rootHeaders.map((href) => render(href))}
+    </ul>
+  );
 }

@@ -118,7 +118,7 @@ function Content() {
         )}
       >
         {/* Page title */}
-        <h1 className="text-5xl font-bold mb-3 screen-875:mb-10">
+        <h1 className="text-5xl leading-tight font-bold mb-3 screen-875:mb-10">
           {pageTitle}
         </h1>
 

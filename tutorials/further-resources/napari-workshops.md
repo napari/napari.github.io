@@ -2,9 +2,13 @@
 
 There have been many workshops and tutorials given about napari.
 This page contains a list, to make them easier to find online.
-Workshops are listed in reverse chronological order.
+
+You can find more videos of talks, tutorials and demos on the
+[napari youtube channel](https://www.youtube.com/channel/UCbTgw84ew4pxTJ9qu3W2hqg/playlists).
 
 ## Workshops
+
+*Workshops are listed from newest to oldest.*
 
 * August 2021 [NDCN](https://chanzuckerberg.com/science/programs-resources/neurodegeneration-challenge/) Workshop / September 2021 [ZIDAS](https://www.zidas.org/) Workshop
   * [Read the workshop materials online](https://alisterburt.github.io/napari-workshops/home.html)

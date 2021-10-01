@@ -193,7 +193,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
               HEADER_TITLES.includes(headerLevel) && 'border-l-4 py-1 pl-4',
 
               headerLevel === Header.Level1 && [
-                'text-base hover:font-bold',
+                'text-base',
 
                 // Render category bold if its currently expanded.
                 (isActive || isExpanded) && 'font-bold',

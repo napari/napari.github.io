@@ -6,6 +6,10 @@ Workshops are listed in reverse chronological order.
 
 ## Workshops
 
+* August 2021 [NDCN](https://chanzuckerberg.com/science/programs-resources/neurodegeneration-challenge/) Workshop / September 2021 [ZIDAS](https://www.zidas.org/) Workshop
+  * [Read the workshop materials online](https://alisterburt.github.io/napari-workshops/home.html)
+  * [Workshop materials available here](https://github.com/alisterburt/napari-workshops)
+
 * June 2021, Bioimage analysis fundamentals in Python workshop at [SciPy 2021](https://www.scipy2021.scipy.org/)
   * [Watch it here](https://www.youtube.com/watch?v=kXdy_Tp12zA) (2 hour and 20 minute video)
   * [Workshop materials available here](https://github.com/sofroniewn/tutorial-scipy2021-bioimage-analysis-fundamentals)

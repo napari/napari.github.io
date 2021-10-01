@@ -131,7 +131,7 @@ function Content() {
         {/* In page table of content that renders above the main content. */}
         {!isSearch && (
           <Media lessThan="screen-1425">
-            <div className="my-6">
+            <div className="my-12">
               <InPageTableOfContents />
             </div>
           </Media>

@@ -158,7 +158,7 @@ function Content() {
         />
 
         {/* Render links + descriptions in a grid. */}
-        <QuickLinks />
+        <QuickLinks className="mt-20" />
       </div>
 
       {/* In page table of contents that renders to the right of the main content. */}

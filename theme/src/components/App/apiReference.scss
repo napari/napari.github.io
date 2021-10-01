@@ -15,10 +15,21 @@
         }
       }
 
-      .longtable {
+      table.longtable {
+        @apply flex flex-col screen-495:table;
+
         // Reduce margins for API table entries.
         p {
           @apply my-2;
+        }
+
+        tbody {
+          @apply flex flex-col screen-495:table-row-group;
+        }
+
+        .row-odd,
+        .row-even {
+          @apply flex flex-col screen-495:table-row;
         }
       }
 

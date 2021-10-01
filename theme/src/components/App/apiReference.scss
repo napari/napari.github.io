@@ -30,6 +30,17 @@
 
     // Add left indentation for API attributes, methods, and textual content.
     .py {
+      // Remove unnecessary padding for class names. Class names use two
+      // `<code>` tags for rendering the full name, so we need to remove the
+      // paddings in between.
+      .descclassname {
+        @apply pr-0;
+
+        & + .descname {
+          @apply pl-0;
+        }
+      }
+
       .attribute,
       .method,
       .simple {

@@ -111,6 +111,10 @@ function Content() {
         className={clsx(
           'col-span-3 mb-6 screen-495:mb-12',
           'screen-1425:col-start-2 screen-1425:col-span-3',
+
+          // Allow overflow for really long content. This can happen for things
+          // like long Python class names on the API reference pages.
+          'overflow-x-auto',
         )}
       >
         {/* Page title */}

@@ -117,13 +117,23 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
   function render(headerId: string) {
     // Grab header data.
     const header = headers[headerId];
-    const hasChildren = (header.children?.length ?? 0) > 0;
+
+    // TODO Remove when better design is available for API reference page.
+    const isApiReference = headers['/api/stable/index.html'].children?.includes(
+      header.href,
+    );
+
+    // TODO Uncomment when better design is available for API reference page.
+    // const hasChildren = (header.children?.length ?? 0) > 0;
+
+    // TODO Remove when better design is available for API reference page.
+    const hasChildren = !isApiReference && (header.children?.length ?? 0) > 0;
     const headerLevel = header.level ?? 0;
 
     // Render children recursively.
-    const children = headers[headerId].children?.map((childId) =>
-      render(childId),
-    );
+    const children =
+      hasChildren &&
+      headers[headerId].children?.map((childId) => render(childId));
 
     // Bool for if the URL point somewhere outside of napari.org.
     const isExternal = isExternalUrl(header.href);

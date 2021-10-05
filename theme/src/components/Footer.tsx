@@ -70,7 +70,7 @@ function FooterLinks() {
           className={clsx(
             'text-white',
             'whitespace-nowrap',
-            ' mr-4 last:mr-0 mb-4', // TODO: when flex gap is more widely used, remove this (replaced by `gap-4` in parent)
+            'mr-4 last:mr-0 mb-4', // TODO: when flex gap is more widely used, remove this (replaced by `gap-4` in parent)
             'flex flex-row items-center',
           )}
           key={item.link}

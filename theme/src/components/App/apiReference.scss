@@ -15,10 +15,21 @@
         }
       }
 
-      .longtable {
+      table.longtable {
+        @apply flex flex-col screen-495:table;
+
         // Reduce margins for API table entries.
         p {
           @apply my-2;
+        }
+
+        tbody {
+          @apply flex flex-col screen-495:table-row-group;
+        }
+
+        .row-odd,
+        .row-even {
+          @apply flex flex-col screen-495:table-row;
         }
       }
 
@@ -30,6 +41,17 @@
 
     // Add left indentation for API attributes, methods, and textual content.
     .py {
+      // Remove unnecessary padding for class names. Class names use two
+      // `<code>` tags for rendering the full name, so we need to remove the
+      // paddings in between.
+      .descclassname {
+        @apply pr-0;
+
+        & + .descname {
+          @apply pl-0;
+        }
+      }
+
       .attribute,
       .method,
       .simple {

@@ -118,7 +118,7 @@ function Content() {
         )}
       >
         {/* Page title */}
-        <h1 className="text-5xl font-bold mb-3 screen-875:mb-10">
+        <h1 className="text-5xl leading-tight font-bold mb-3 screen-875:mb-10">
           {pageTitle}
         </h1>
 
@@ -131,7 +131,7 @@ function Content() {
         {/* In page table of content that renders above the main content. */}
         {!isSearch && (
           <Media lessThan="screen-1425">
-            <div className="my-6">
+            <div className="my-12">
               <InPageTableOfContents />
             </div>
           </Media>
@@ -158,7 +158,7 @@ function Content() {
         />
 
         {/* Render links + descriptions in a grid. */}
-        <QuickLinks />
+        <QuickLinks className="mt-20" />
       </div>
 
       {/* In page table of contents that renders to the right of the main content. */}

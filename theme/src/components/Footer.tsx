@@ -17,15 +17,17 @@ interface FooterItem {
   link: string;
   alt: string;
   icon: ComponentType<IconColorProps>;
+  sameTab?: boolean;
   size?: string;
 }
 
 const FOOTER_LINKS: FooterItem[] = [
   {
     title: 'napari',
-    link: 'https://napari.org',
+    link: '/',
     alt: 'Return to Home Page',
     icon: NapariLogo,
+    sameTab: true,
   },
   {
     title: 'napari hub',
@@ -75,7 +77,7 @@ function FooterLinks() {
           )}
           key={item.link}
           href={item.link}
-          newTab
+          newTab={!item.sameTab}
         >
           <item.icon
             className={clsx(

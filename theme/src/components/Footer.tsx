@@ -6,6 +6,7 @@ import {
   IconColorProps,
   ImageSC,
   NapariHub,
+  NapariLogo,
   Twitter,
   Zulip,
 } from '@/components/icons';
@@ -21,11 +22,13 @@ interface FooterItem {
 
 const FOOTER_LINKS: FooterItem[] = [
   {
-    title: (
-      <>
-        <span className="font-normal">napari</span> hub
-      </>
-    ),
+    title: 'napari',
+    link: 'https://napari.org',
+    alt: 'Return to Home Page',
+    icon: NapariLogo,
+  },
+  {
+    title: 'napari hub',
     link: 'https://napari-hub.org',
     alt: 'Visit napari hub',
     icon: NapariHub,
@@ -66,9 +69,11 @@ function FooterLinks() {
         <Link
           className={clsx(
             'text-white',
-            'whitespace-nowrap mr-4 last:mr-0',
+            'whitespace-nowrap',
+            ' mr-4 last:mr-0 mb-4', // TODO: when flex gap is more widely used, remove this (replaced by `gap-4` in parent)
             'flex flex-row items-center',
           )}
+          key={item.link}
           href={item.link}
           newTab
         >
@@ -91,8 +96,10 @@ export function Footer() {
   return (
     <div
       className={clsx(
-        'flex flex-row items-center justify-start',
-        'h-[4.6875em] w-full',
+        'flex flex-row flex-wrap',
+        'items-center justify-start',
+        'w-full',
+        'pt-6 pb-2', // TODO: when flex gap is more widely used, replace this with `py-6 gap-4`
         'px-6 screen-495:px-12',
         'bg-black',
       )}

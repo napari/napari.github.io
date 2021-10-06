@@ -14,8 +14,6 @@ how-to and how it helps address a common problem/task/need.
 - plugins that should be installed
 - python packages that should be installed (don't list napari dependencies)
 
-***
-
 ## How-to steps
 
 Headings in this section are yours to decide on. You should split your how-to guide into easy to follow, sequential steps to achieve the stated goal. Remember that your how-to may be used as a reference, so your headings should be descriptive and allow users to get a quick overview of the document, and which steps are relevant to them.
@@ -38,8 +36,6 @@ words to capitalize in your headings (spoiler - we use sentence case for our hea
 ## Where does this how-to go?
 
 Once you've written your how-to, you should place this document under `how_tos/` and open a PR in the [napari.github.io](https://github.com/napari/napari.github.io) repository.
-
-***
 
 ## Further Reading
 

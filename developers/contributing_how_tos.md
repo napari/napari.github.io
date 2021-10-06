@@ -1,6 +1,7 @@
 # How to contribute a napari How-To
 
-This should be a sentence (or brief paragraph) about what this how-to will achieve and how it helps address a common problem/task/need.
+This should be a sentence (or brief paragraph) about what the reader will achieve after following this
+how-to and how it helps address a common problem/task/need.
 
 ## Prerequisites
 
@@ -19,17 +20,24 @@ This should be a sentence (or brief paragraph) about what this how-to will achie
 
 Headings in this section are yours to decide on. You should split your how-to guide into easy to follow, sequential steps to achieve the stated goal. Remember that your how-to may be used as a reference, so your headings should be descriptive and allow users to get a quick overview of the document, and which steps are relevant to them.
 
-## Include pictures
-
-You should include pictures/videos, particularly when describing interactions with the viewer. If an action can be performed both through the viewer and through code, you should include both options.
-
 ## How-to vs. tutorial
 
-A how-to is a step by step guide designed to answer a specific "How do I..." question. This means the user already knows **what** they want to do, just not how. A how-to does not explain concepts or engage in discussion, and should prioritise practical usability. In comparison, a tutorial is a broader exploration, or guided tour of what is available. It might include detailed explanations and discussion, and is usually aimed at users who don't yet know what can be done.
+A how-to is a step by step guide designed to answer a specific "How do I..." question. This means the user already knows **what** they want to do, just not how. A how-to does not explain concepts or engage in discussion, and should prioritise practical usability.
+
+## Include pictures
+
+You should include pictures/videos, particularly when describing interactions with the viewer. If an action can be performed both through the viewer and through code, you should include both options. Keep accessibility in mind when adding images. Each image should be
+accompanied by complete and descriptive alt-text. If you're using arrows/circles to highlight portions of the image, make sure
+they contrast well against the background of the image.
+
+## Use the Google developer's style guide
+
+This [style guide](https://developers.google.com/style/) should answer all your questions about when to italicise and when to bold, which
+words to capitalize in your headings (spoiler - we use sentence case for our headings) and other style conventions.
 
 ## Where does this how-to go?
 
-Once you've written your how-to, you should place this document under `getting_started/how_tos/` and open a PR in the [napari.github.io](https://github.com/napari/napari.github.io) repository.
+Once you've written your how-to, you should place this document under `how_tos/` and open a PR in the [napari.github.io](https://github.com/napari/napari.github.io) repository.
 
 ***
 

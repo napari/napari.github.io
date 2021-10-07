@@ -1,4 +1,4 @@
-# annotating videos with napari
+# Annotating videos with napari
 
 **Note**: this tutorial has been updated and is now compatible with napari > 0.4.5 and magicgui > 0.2.5. For details, see [this pull request](https://github.com/napari/napari.github.io/pull/114).
 
@@ -151,7 +151,7 @@ def point_annotator(
         points_layer.current_properties = current_properties
 ```
 
-## point_annotator()
+## `point_annotator()`
 
 We will create the GUI within a function called `point_annotator()`.
 Wrapping the GUI creation in the function allows us to integrate it into other functions (e.g., a command line interface) and applications.

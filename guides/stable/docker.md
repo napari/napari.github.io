@@ -1,4 +1,4 @@
-# napari in docker (WIP)
+# napari in Docker
 
 ## Build
 Builds are avilable through [dockerhub](https://hub.docker.com/repository/docker/napari/napari)

@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# image layer tutorial
+# Image layer tutorial
 
 +++
 
@@ -33,7 +33,7 @@ images both from the GUI and from the console.
 
 +++
 
-## a simple example
+## A simple example
 
 You can create a new viewer and add an image in one go using the
 `napari.view_image` method, or if you already have an existing viewer, you can
@@ -64,7 +64,7 @@ nbscreenshot(viewer)
 viewer.close()
 ```
 
-## arguments of view_image and add_image
+## Arguments of `view_image` and `add_image`
 
 {meth}`~napari.view_layers.view_image` and {meth}`~napari.Viewer.add_image`
 accept the same layer-creation parameters.
@@ -75,7 +75,7 @@ accept the same layer-creation parameters.
 help(napari.view_image)
 ```
 
-## image data and numpy-like arrays
+## Image data and NumPy-like arrays
 
 napari can take any numpy-like array as input for its image layer. A numpy-like
 array can just be a [numpy
@@ -105,7 +105,7 @@ in a zarr file:
 
 +++
 
-## image pyramids
+## Image pyramids
 
 For exceptionally large datasets napari supports image pyramids. An image
 pyramid is a list of arrays, where each array is downsampling of the previous
@@ -151,7 +151,7 @@ example these cells undergoing mitosis in this volumetric timeseries:
 
 +++
 
-## loading multichannel images
+## Loading multichannel images
 Each channel in a multichannel image can be displayed as an individual layer 
 by using the `channel_axis` argument in `viewer.add_image()`. All the rest
 of the arguments to `viewer.add_image()` (e.g. name, colormap, contrast_limit)
@@ -180,7 +180,7 @@ viewer = napari.view_image(cells, channel_axis=1, name=["membrane", "nuclei"], c
 
 +++
 
-## viewing rgb vs luminance (grayscale) images
+## Viewing RGB vs luminance (grayscale) images
 
 In this example we explicitly set the `rgb` keyword to be `True`
 because we know we are working with an `rgb` image:
@@ -214,7 +214,7 @@ range they will be clipped.
 
 +++
 
-## working with colormaps
+## Working with colormaps
 
 napari supports any colormap that is created with `vispy.color.Colormap`. We
 provide access to some standard colormaps that you can set using a string of
@@ -274,7 +274,7 @@ of the full range of the colormap.
 
 +++
 
-## adjusting contrast limits
+## Adjusting contrast limits
 
 Each image layer gets mapped through its colormap according to values called
 contrast limits. The contrast limits are a 2-tuple where the second value is
@@ -336,7 +336,7 @@ extent of the contrast limits range slider will be set to those values.
 
 +++
 
-## layer visibility
+## Layer visibility
 
 All our layers support a visibility toggle that allows you to set the `visible`
 property of each layer. This property is located inside the layer widget in the
@@ -344,14 +344,14 @@ layers list and is represented by an eye icon.
 
 +++
 
-## layer opacity
+## Layer opacity
 
 All our layers support an opacity slider and `opacity` property that allow you
 to adjust the layer opacity between 0, fully invisible and 1, fully visible.
 
 +++
 
-## blending layers
+## Blending layers
 
 All our layers support three blending modes `translucent`, `additive`, and
 `opaque` that determine how the visuals for this layer get mixed with the
@@ -377,7 +377,7 @@ For example:
 
 +++
 
-## layer interpolation
+## Layer interpolation
 
 We support a variety of interpolation modes when viewing 2D slices. In the
 default mode `nearest` each pixel is represented as a small square of specified
@@ -389,7 +389,7 @@ artificial blurring. These modes have no effect when viewing 3D slices.
 
 +++
 
-## layer rendering
+## Layer rendering
 
 When viewing 3D slices, we support a variety of rendering modes. The default
 mode `mip`, or maximum intensity projection, will combine voxels at different
@@ -407,7 +407,7 @@ When viewing 2D slices the rendering mode has no effect.
 
 +++
 
-## naming layers
+## Naming layers
 
 All our layers support a `name` property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
@@ -416,7 +416,7 @@ retrieve the layer object.
 
 +++
 
-## scaling layers
+## Scaling layers
 
 All our layers support a `scale` property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
@@ -426,7 +426,7 @@ the size in the x and y dimensions.
 
 +++
 
-## translating layers
+## Translating layers
 
 All our layers support a `translate` property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
@@ -434,14 +434,14 @@ are trying to overlay two layers for image registration purposes.
 
 +++
 
-## layer metadata
+## Layer metadata
 
 All our layers also support a `metadata` property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.
 
 +++
 
-## next steps
+## Next steps
 
 Hopefully, this tutorial has given you a detailed understanding of the `Image`
 layer, including how to create one and control its properties. To learn more

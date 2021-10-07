@@ -1,3 +1,3 @@
-# layers in napari
+# Layers in napari
 
 To be completed.

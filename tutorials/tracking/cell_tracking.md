@@ -1,4 +1,4 @@
-# single cell tracking with napari
+# Single cell tracking with napari
 
 In this application note, we will use napari (requires version 0.4.0 or greater) to visualize single cell tracking data using the `Tracks` layer. For an overview of the `Tracks` layer, please see the [tracks layer fundamentals tutorial](../fundamentals/tracks).
 
@@ -7,14 +7,14 @@ This application note covers two examples:
 2. Single cell tracking using btrack and napari
 
 
-## 1. cell tracking challenge data
+## 1. Cell tracking challenge data
 
 The first example of track visualization uses data from the [cell tracking challenge](http://celltrackingchallenge.net/3d-datasets/). We will use the *C. elegans* developing embryo [dataset](http://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip) which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.
 
 A full description of the data format can be found [here](https://public.celltrackingchallenge.net/documents/Naming%20and%20file%20content%20conventions.pdf).
 
 
-### extracting the tracks from the dataset
+### Extracting the tracks from the dataset
 
 We need to extract the centroids of each cell and their associated track labels from the annotated dataset. We start by loading the images containing the centroids and unique track labels:
 
@@ -91,7 +91,7 @@ napari.view_tracks(data, name='tracklets')
 napari.run()
 ```
 
-### calculating the graph using the lineage information
+### Calculating the graph using the lineage information
 
 The `Tracks` layer can also be used to visualize a track 'graph' using the additional keyword argument `graph`. The `graph`  represents associations between tracks, by defining the
 mapping between a `track_id` and the parents of the track. This graph can be useful in single cell tracking to understand the lineage of cells over multiple cell division events. For more information on the format of the track `graph`, please see the "tracks graph" section of the [tracks layer fundamentals tutorial](../fundamentals/tracks).
@@ -121,7 +121,7 @@ Finally, we remove the root nodes (*i.e.* cells without a parent) for visualizat
 graph = {k: v for k, v in full_graph.items() if v != 0}
 ```
 
-### traversing the lineage trees to identify the root nodes
+### Traversing the lineage trees to identify the root nodes
 
 One property that is useful to visualize in single cell tracking is the `track_id` of the root node of the lineage trees, *i.e.* the founder cell.
 We create it with the following code:
@@ -152,7 +152,7 @@ The `Tracks` layer enables the vertices of the tracks to be colored by user spec
 properties = {'root_id': [roots[idx] for idx in data[:, 0]]}
 ```
 
-### visualizing the tracks with napari
+### Visualizing the tracks with napari
 
 Alongside the tracks, we can also visualize the fluorescence imaging data.
 
@@ -182,7 +182,7 @@ napari.run()
 
 ---
 
-## 2. using `btrack` to track cells
+## 2. Using `btrack` to track cells
 
 The `btrack` library can be used for cell tracking. It provides a convenient `to_napari()` function to enable rapid visualization of the tracking results. You can learn more about the `btrack` library [here](https://github.com/quantumjot/BayesianTracker).
 
@@ -234,10 +234,10 @@ napari.run()
 
 A notebook for this example can be found in the btrack examples directory ([`napari_btrack.ipynb`](https://github.com/quantumjot/BayesianTracker/blob/caa56fa82330e4b16b5d28150f9b60ed963165c7/examples/napari_btrack.ipynb))
 
-## summary
+## Summary
 In this application note, we have used napari to track and visualize single cells.
 
-## further reading
+## Further reading
 
 References for cell tracking challenge:
 + https://www.nature.com/articles/nmeth.1228

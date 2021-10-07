@@ -1,6 +1,6 @@
 (find-and-install-plugins)=
 
-# finding and installing a napari plugin
+# Finding and installing a napari plugin
 
 napari plugins are Python packages distributed on the Python Package Index
 (PyPI), and annotated with the tag [`Framework ::
@@ -11,13 +11,13 @@ metadata, to produce a more user friendly way to find napari plugins.
 Similarly, plugins annotated on PyPI with `Framework :: napari` are listed in
 the "Plugins > Install/Uninstall Plugins" menu within napari.
 
-## finding plugins on the napari hub
+## Finding plugins on the napari hub
 
 The napari hub hosts information about all napari-compatible plugins.
 You can browse, search, and filter to find plugins that fit your needs.
 You can also share links to specific search results and plugins.
 
-## installing plugins with napari
+## Installing plugins with napari
 
 All PyPI packages annotated with the `Framework :: napari` tag can be installed
 directly from within napari:

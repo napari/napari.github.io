@@ -29,7 +29,7 @@ on the screen and the data inside of it.
 
 +++
 
-## launching the viewer
+## Launching the viewer
 
 As discussed in [getting started](./getting_started) tutorial the napari viewer
 can be launched from the command-line, a python script, an IPython console, or a
@@ -96,7 +96,7 @@ continue exploring the rest of the viewer.
 
 +++
 
-## layout of the viewer
+## Layout of the viewer
 
 The viewer is organized into a few key areas:
 
@@ -106,7 +106,7 @@ We'll go through each of these in the next sections.
 
 +++
 
-### main canvas
+### Main canvas
 
 The main canvas is in the center of the viewer and contains the visual display
 of the data passed to **napari**, including images, point, shapes, and our other
@@ -122,7 +122,7 @@ performant. You can also return to the original zoom level by clicking the
 
 +++
 
-### layer list
+### Layer list
 
 One of the basic **napari** objects are layers. There are different layer types
 for `Image`, `Points`, `Shapes`, and other basic data types. They can be added
@@ -191,7 +191,7 @@ You can rearrange layers by clicking and dragging them.
 viewer.close()
 ```
 
-### layer controls
+### Layer controls
 
 Above the layers list in the top left corner of the viewer there is a box that
 contains the layer controls. The controls that you have available to you depend
@@ -242,7 +242,7 @@ specific tutorials listed at the bottom of this tutorial.
 
 +++
 
-### new layer buttons
+### New layer buttons
 
 New `Points`, `Shapes`, and `Labels` layers can be added to the viewer using the
 new layer buttons in the bottom righthand corner of the GUI. These correspond to
@@ -268,7 +268,7 @@ viewer.layers.pop(i)
 
 +++
 
-## dimension sliders
+## Dimension sliders
 
 One of the main strengths of **napari** is that it has been designed from the
 beginning to handle n-dimensional data. While much consumer photography is 2D
@@ -314,7 +314,7 @@ viewer.add_image(blobs, name='blobs', opacity=0.5, colormap='red')
 nbscreenshot(viewer)
 ```
 
-### viewer buttons
+### Viewer buttons
 
 Underneath the layers list there is a row of buttons that includes the `Console`
 button that will show or hide our console that allows you to interact with a
@@ -373,7 +373,7 @@ initial values.
 
 +++
 
-### status bar
+### Status bar
 
 At the very bottom of the GUI there is a status bar that contains useful updates
 and tips.
@@ -389,7 +389,7 @@ which layer and tools are currently selected.
 
 +++
 
-## changing viewer theme
+## Changing viewer theme
 
 Currently, **napari** comes with two different themes `light` and `dark`, which
 is the default. To change the theme, update `theme` property of the viewer:
@@ -422,7 +422,7 @@ more information about building the icons and add one yourself!
 
 +++
 
-## custom keybinding
+## Custom keybinding
 
 One of the promises of **napari** is to provide a beginner friendly environment
 for interactive analysis. For example, we want to enable workflows where people
@@ -488,7 +488,7 @@ within **napari** and we hope you take full advantage of them.
 
 +++
 
-## next steps
+## Next steps
 
 Hopefully, this tutorial has given you an overview of the functionality
 available on the **napari** viewer, including the `LayerList` and some of the

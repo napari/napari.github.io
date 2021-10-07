@@ -1,6 +1,6 @@
 (rendering)=
 
-# Asynchronous Rendering
+# Asynchronous rendering
 
 As discussed in the explanations document on rendering, asynchronous
 rendering is a feature that allows napari to stay usable and responsive
@@ -27,7 +27,7 @@ it will call {meth}`~napari.layers.Image.on_chunk_loaded` with
 the loaded data. The next frame {class}`~napari.layers.Image`
 can display the new data.
 
-### Time-series Data
+### Time-series data
 
 Without `NAPARI_ASYNC` napari will block when switching slices. Napari
 will hang until the new slice has loaded. If the slice loads slowly enough
@@ -38,7 +38,7 @@ Asynchronous rendering allows the user to interrupt the loading of a slice
 at any time. The user can freely move the slice slider. This is especially
 nice for remote or slow-loading data.
 
-### Multi-scale Images
+### Multi-scale images
 
 With today's {class}`~napari.layers.Image` class there are no
 tiles or chunks. Instead, whenever the camera is panned or zoomed napari
@@ -81,7 +81,7 @@ for 3D and multiple images is part of future work on the `OCTREE`.
 
 See {ref}`octree-config` for Octree configuration options.
 
-### Octree Visuals
+### Octree visuals
 
 The visual portion of Octree rendering is implemented by three classes:
 {class}`~napari._vispy.experimental.vispy_tiled_image_layer.VispyTiledImageLayer`,
@@ -121,7 +121,7 @@ for multiple reasons, so even if that crash were fixed the atlas is a
 better solution.
 
 
-### Octree Rendering
+### Octree rendering
 
 The interface between the visuals and the Octree is the
 {class}`~napari.layers.image.experimental.octree_image.OctreeImage` method
@@ -182,7 +182,7 @@ can load one chunk and it will cover 64 ideal chunks. This is the heart of
 the power of Octrees, Quadtrees or image pyramids.
 
 (octree-config)=
-### Octree Configuration File
+### Octree configuration file
 
 Setting `NAPARI_OCTREE=1` enables Octree rendering with the default
 configuration. To customize the configuration set `NAPARI_OCTREE` to be
@@ -246,7 +246,7 @@ Each loader uses the `loader_defaults` but you can override the
 `num_workers`, `auto_sync_ms` and `delay_queue_ms` values in
 each loader defined in `loaders`.
 
-### Multiple Loaders
+### Multiple loaders
 
 We allow multiple loaders to improve loading performance. There are a lot
 of different strategies one could use when loading chunks. For example,
@@ -278,7 +278,7 @@ to experiment to figure out the best configuration. And figure out how that
 configuration needs to vary based on the latency of the data or other
 considerations.
 
-### Future Work: Compatibility with the existing Image class
+### Future work: compatibility with the existing image class
 
 The focus for initial Octree development was Octree-specific behaviors and
 infrastructure. Loading chunks asynchronously and rendering them as
@@ -306,7 +306,7 @@ duplicating that functionality somehow in the derived class.
 Some {class}`~napari.layers.Image` functionality that needs to
 be duplicated in Octree code:
 
-#### Contrast Limits and Color Transforms
+#### Contrast limits and color transforms
 
 The contrast limit code in Vispy's `ImageVisual` needs to be moved into
 the tiled visual's
@@ -314,7 +314,7 @@ the tiled visual's
 Instead operating on `self.data` it needs to transform tile's which are newly
 being added to the visual. The color transform similarly needs to be per-tile.
 
-#### Blending and Opacity
+#### Blending and opacity
 
 It might be hard to get opacity working correctly for tiles where loads are
 in progress. The way
@@ -344,7 +344,7 @@ tiled image viewers: you often can't tell if the data is still being
 loaded. This could be a big issue for scientific uses, you don't want
 people drawing the wrong conclusions from the data.
 
-#### Time-series Multiscale
+#### Time-series multiscale
 
 To make time-series multiscale work should not be too hard. We just need to
 correctly create a new
@@ -358,7 +358,7 @@ previous slices are canceled and everything is cleaned up.
 
 
 (future-work-atlas-2D)=
-### Future Work: Extending TextureAtlas2D
+### Future work: extending `TextureAtlas2D`
 
 We could improve our
 {class}`~napari._vispy.experimental.texture_atlas.TextureAtlas2D` class in
@@ -397,7 +397,7 @@ Octree rendering to worsen cases which work well today. To keep today's
 performance for smaller images we probably need to add support for variable
 size tiles.
 
-### Future Work: Level Zero Only Octrees
+### Future work: level zero only Octrees
 
 In issue [#1300](https://github.com/napari/napari/issues/1300) it takes
 1500ms to switch slices. There we are rendering a (16384, 16384) image that
@@ -424,7 +424,7 @@ switching slices would be similar to panning and zooming a multiscale
 Octree image, you'd see the new tiles loading in over time, but the
 framerate would not tank, and you could switch slices at any time.
 
-### Future Work: Caching
+### Future work: caching
 
 Basically no work has gone into caching or memory management for Octree
 data. It's very likely there are leaks and extended usage will run out of

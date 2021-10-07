@@ -10,9 +10,9 @@ for more advanced installation procedures. At the end of the tutorial you should
 have napari successfully installed on your computer and be able to make the
 napari viewer appear.
 
-## installation
+## Installation
 
-### which distribution to install
+### Which distribution to install
 
 If you want to contribute back to the napari codebase, you should install from
 source code: see the [from source](#clone-the-repository-locally-and-install-in-editable-mode) section.
@@ -24,7 +24,7 @@ is the easiest way to install, it does not require having python pre-installed.
 If you are using napari from Python to programmatically interact with the app,
 you can install via pip, conda-forge, or from source.
 
-### from pip, with "batteries included"
+### From pip, with "batteries included"
 
 napari can be installed on most macOS, Linux, and Windows systems with Python
 3.7, 3.8, and 3.9 using pip:
@@ -49,7 +49,7 @@ pip install "napari[all]"
 ```
 ````
 
-### from conda-forge
+### From conda-forge
 
 If you prefer to manage packages with conda, napari is available on the
 conda-forge channel. You can install it with:
@@ -58,7 +58,7 @@ conda-forge channel. You can install it with:
 conda install -c conda-forge napari
 ```
 
-### install from the master branch on Github
+### Install from the master branch on Github
 
 To install the "next-release" version from github via pip, call
 
@@ -66,7 +66,7 @@ To install the "next-release" version from github via pip, call
 pip install "git+https://github.com/napari/napari.git#egg=napari[all]"
 ```
 
-### clone the repository locally and install in editable mode
+### Clone the repository locally and install in editable mode
 
 To clone the github repository for local install
 
@@ -76,7 +76,7 @@ cd napari
 pip install -e .[all]
 ```
 
-## checking it worked
+## Checking it worked
 
 After installation you should be able to launch napari from the command line by
 simply running
@@ -89,7 +89,7 @@ An empty napari viewer should appear as follows
 
 ![image: An empty napari viewer](../assets/tutorials/launch_cli_empty.png)
 
-## upgrading
+## Upgrading
 
 If you installed napari with `pip` you can upgrade by calling
 
@@ -97,7 +97,7 @@ If you installed napari with `pip` you can upgrade by calling
 pip install "napari[all]" --upgrade
 ```
 
-## choosing a different Qt backend
+## Choosing a different Qt backend
 
 ````{admonition} Specifying a GUI Backend
 :class: tip
@@ -128,7 +128,7 @@ pip install "napari[pyside2]"  # for PySide2
 *Note: if you switch backends, it's a good idea to `pip uninstall` the one
 you're not using.*
 
-## installing as a bundled app
+## Installing as a bundled app
 
 napari can also be installed as a bundled app on each of the major platforms,
 MacOS, Windows, and Linux with a simple one click download and installation
@@ -148,7 +148,7 @@ assets](../assets/tutorials/installation/bundle_assets.png)
 
 You can then download the appropriate zip file for your platform.
 
-### installing the MacOS bundle
+### Installing the MacOS bundle
 
 Once you have downloaded the MacOS bundle zip you will have a zip file with a
 name like `napari-0.3.7-macOS.zip`. After unzipping you will have a file with a
@@ -195,7 +195,7 @@ box](../assets/tutorials/installation/bundle_open.png)
 After clicking "Open", the viewer should appear. Don't worry, you only have to
 go through this process once when you install a new bundle.
 
-### installing the Windows bundle
+### Installing the Windows bundle
 
 Once you have downloaded the Windows bundle zip you will have a zip file with a
 name like `napari-0.3.7-Windows.zip`. Unzip the bundle (you may like to use a
@@ -234,12 +234,12 @@ The very first time you launch napari the startup time will be fairly slow, but
 after that you will find that napari launches more quickly.
 
 
-### installing the Linux bundle
+### Installing the Linux bundle
 
 (Guide coming soon... In the meantime, if you try it and encounter issues, see
 below for how to contact us.)
 
-## bug reports
+## Bug reports
 
 If you are running into issues, please open a new issue on our [issue
 tracker](https://github.com/napari/napari/issues) and include the output of the
@@ -249,14 +249,14 @@ following command
 napari --info
 ```
 
-## help
+## Help
 
 We're a community partner on the [imagesc
 forum](https://forum.image.sc/tags/napari) and all usage support requests should
 be posted on the forum with the tag `napari`. We look forward to interacting
 with you there.
 
-## next steps
+## Next steps
 
 Now that you've got napari installed, checkout our [getting
 started](./getting_started) tutorial to start learning how to use it!

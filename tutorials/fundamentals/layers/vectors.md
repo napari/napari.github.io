@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# vectors layer tutorial
+# Vectors layer tutorial
 
 +++
 
@@ -38,7 +38,7 @@ programmatically and from the GUI.
 
 +++
 
-## a simple example
+## A simple example
 
 You can create a new viewer and add vectors in one go using the
 `napari.view_vectors` method, or if you already have an existing viewer, you can
@@ -84,7 +84,7 @@ nbscreenshot(viewer)
 viewer.close()
 ```
 
-## arguments of view_vectors and add_vectors
+## Arguments of `view_vectors` and `add_vectors`
 
 {meth}`~napari.view_layers.view_vectors` and {meth}`~napari.Viewer.add_vectors`
 accept the same layer-creation parameters.
@@ -95,7 +95,7 @@ accept the same layer-creation parameters.
 help(napari.view_vectors)
 ```
 
-## vectors data
+## Vectors data
 
 The input data to the vectors layer must either be a Nx2xD numpy array
 representing N vectors with start position and projection values in D
@@ -142,7 +142,7 @@ to see shapes in both 2D and 3D:
 
 +++
 
-## changing vector length, width, and color
+## Changing vector length, width, and color
 
 You can multiplicatively scale the length of all the vectors projections using
 the `layer.length` property or combobox inside the layer controls panel.
@@ -155,7 +155,7 @@ You can also set the color of all the vectors in a layer using the
 
 +++
 
-## layer visibility
+## Layer visibility
 
 All our layers support a visibility toggle that allows you to set the `visible`
 property of each layer. This property is located inside the layer widget in the
@@ -163,7 +163,7 @@ layers list and is represented by an eye icon.
 
 +++
 
-## layer opacity
+## Layer opacity
 
 All our layers support an opacity slider and `opacity` property that allow you
 to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
@@ -171,7 +171,7 @@ The opacity value applies globally to all the vectors in the layer.
 
 +++
 
-## blending layers
+## Blending layers
 
 All our layers support three blending modes `translucent`, `additive`, and
 `opaque` that determine how the visuals for this layer get mixed with the
@@ -190,7 +190,7 @@ visualizing multiple layers at the same time.
 
 +++
 
-## naming layers
+## Naming layers
 
 All our layers support a `name` property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
@@ -199,7 +199,7 @@ retrieve the layer object.
 
 +++
 
-## scaling layers
+## Scaling layers
 
 All our layers support a `scale` property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
@@ -209,7 +209,7 @@ size in the x and y dimensions.
 
 +++
 
-## translating layers
+## Translating layers
 
 All our layers support a `translate` property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
@@ -217,14 +217,14 @@ are trying to overlay two layers for image registration purposes.
 
 +++
 
-## layer metadata
+## Layer metadata
 
 All our layers also support a `metadata` property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.
 
 +++
 
-## next steps
+## Next steps
 
 Hopefully, this tutorial has given you a detailed understanding of the `Vectors`
 layer, including how to create one and control its properties. If you've

@@ -1,4 +1,4 @@
-# tracks layer tutorial
+# Tracks layer tutorial
 
 Welcome to the tutorial on the **napari** `Tracks` layer! Please note that `Tracks` layer is a new layer type that will be released in `napari 0.4.0`, but it is available for preview on the [master branch](https://github.com/napari/napari).
 
@@ -25,7 +25,7 @@ These properties can be used to set the colors of the tracks.
 For example, when displaying tracks of different classes/types,
 one could automatically set color the individual tracks by their respective class/type.
 
-## a simple example
+## A simple example
 
 You can create a new viewer and add a set of tracks in one go using the `napari.view_tracks` method,
 or if you already have an existing viewer,
@@ -66,7 +66,7 @@ napari.run()
 
 ![image: tracks simple demo](../assets/tutorials/tracks_simple_demo.gif)
 
-## arguments of view_tracks and add_tracks
+## Arguments of `view_tracks` and `add_tracks`
 
 Both `view_tracks` and `add_tracks` have the following doc strings:
 
@@ -126,7 +126,7 @@ layer : napari.layers.Tracks
 """
 ```
 
-## tracks data
+## Tracks data
 
 The input data to the tracks layer must be an NxD+1 numpy array or list containing the coordinates of N vertices with a track ID and coordinate in D dimensions. The ordering of these dimensions is the same as the ordering of the dimensions for image layers.
 This array is always accessible through the `layer.data` property
@@ -157,7 +157,7 @@ napari.run()
 ```
 
 
-## tracks graph
+## Tracks graph
 
 We can use the tracks `graph` argument to define the relationships between tracks (e.g., tracks merging or tracks splitting). The graph is defined as a dictionary where the keys are the `track_id` and the values are the `track_id` of the parents of the the key.
 
@@ -180,7 +180,7 @@ graph = {
 ```
 For a full example of 3d+t tracks data with a parent graph, please see our [`tracks_3d_with_graph.py` example](https://github.com/napari/napari/blob/master/examples/tracks_3d_with_graph.py).
 
-## using the tracks properties dictionary
+## Using the tracks properties dictionary
 
 The `Tracks` layer can contain properties that annotate the vertices of each track.
 `Tracks.properties` stores the properties in a dictionary
@@ -195,7 +195,7 @@ All our layers can be rendered in both 2D and 3D mode,
 and one of our viewer buttons can toggle between each mode.
 The number of dimensions sliders will be 2 or 3 less than the total number of dimensions of the layer.
 
-## changing track width
+## Changing track width
 We can specify the width of the tracks in pixels. The track width can be specified via the `tail_width` keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that as already been constructed, we can set the track width via the `layer.tail_width` property.
 
 ```python
@@ -211,7 +211,7 @@ Additionally, we can adjust the width of the track in the GUI using the "tail wi
 
 ![image: tracks tail width](../assets/tutorials/tracks_tail_width.gif)
 
-## changing tail length
+## Changing tail length
 We can specify the length of the tails of the tracks in time units. The tail is the portion of the track displayed from previous time steps. The track tail length can be specified via the `tail_length ` keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods. From a layer that as already been constructed, we can set the track width via the `tail_length ` property.
 
 ```python
@@ -227,7 +227,7 @@ Additionally, we can adjust the width of the track in the GUI using the "tail le
 
 ![image: tracks tail length](../assets/tutorials/tracks_tail_length.gif)
 
-## setting the track color with properties
+## Setting the track color with properties
 We can color the tracks by mapping colors to the track properties defined in `Tracks.properties`. If we define properties and pass them via the properties keyword argument in the `viewer.add_tracks()` and `napari.view_tracks()` methods, we can then select the property we would like to color the tracks by in the "color by" dropdown menu in the `Tracks` layer controls. We can additionally specify the colormap used to map the property value to color via the "colormap" dropdown menu.
 
 ```python
@@ -266,18 +266,18 @@ napari.run()
 
 ![image: tracks colored by properties](../assets/tutorials/tracks_color_by.gif)
 
-## layer visibility
+## Layer visibility
 
 All our layers support a visibility toggle that allows you to set the `visible` property of each layer.
 This property is located inside the layer widget in the layers list and is represented by an eye icon.
 
-## layer opacity
+## Layer opacity
 
 All our layers support an opacity slider and `opacity` property
 that allow you to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
 The opacity value applies globally to all the tracks in the layer.
 
-## blending layers
+## Blending layers
 
 All our layers support three blending modes `translucent`, `additive`, and `opaque`
 that determine how the visuals for this layer get mixed with the visuals from the other layers.
@@ -292,37 +292,37 @@ This is a reasonable default, useful for many applications.
 The final blending mode `additive` will cause the layer to blend with the layers below even when it has full opacity.
 This mode is especially useful for visualizing multiple layers at the same time.
 
-## naming layers
+## Naming layers
 
 All our layers support a `name` property that can be set inside a text box inside the layer widget in the layers list.
 The name of each layer is forced into being unique
 so that you can use the name to index into `viewer.layers` to retrieve the layer object.
 
-## scaling layers
+## Scaling layers
 
 All our layers support a `scale` property and keyword argument
 that will rescale the layer multiplicatively according to the scale values (one for each dimension).
 This property can be particularly useful for viewing anisotropic data
 where the size of the voxel in the z dimension might be different then the size in the x and y dimensions.
 
-## translating layers
+## Translating layers
 
 All our layers support a `translate` property and keyword argument
 that you can use to offset a layer relative to the other layers,
 which could be useful if you are trying to overlay two layers for image registration purposes.
 
-## layer metadata
+## Layer metadata
 
 All our layers also support a `metadata` property and keyword argument
 that you can use to store an arbitrary metadata dictionary on the layer.
 
-## putting it all together
+## Putting it all together
 
 Here you can see an example of 3D+t tracks. You can view the source code for this example [here](https://github.com/napari/napari/blob/master/examples/tracks_3d.py)
 
 ![image: tracks 3D plus time](../assets/tutorials/tracks_3d_t.gif)
 
-## next steps
+## Next steps
 
 Hopefully, this tutorial has given you a detailed understanding of the `Tracks` layer,
 including how to create one and control its properties.

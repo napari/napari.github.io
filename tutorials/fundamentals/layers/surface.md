@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# surface layer tutorial
+# Surface layer tutorial
 
 +++
 
@@ -38,7 +38,7 @@ list of values to associate with each vertex to use alongside a colormap.
 
 +++
 
-## a simple example
+## A simple example
 
 You can create a new viewer and add a surface in one go using the
 `napari.view_surface` method, or if you already have an existing viewer, you can
@@ -73,7 +73,7 @@ nbscreenshot(viewer)
 viewer.close()
 ```
 
-## arguments of view_surface and add_surface
+## Arguments of `view_surface` and `add_surface`
 
 {meth}`~napari.view_layers.view_surface` and {meth}`~napari.Viewer.add_surface`
 accept the same layer-creation parameters.
@@ -84,7 +84,7 @@ accept the same layer-creation parameters.
 help(napari.view_surface)
 ```
 
-## surface data
+## Surface data
 
 The data for a surface layer is defined by a 3-tuple of its vertices, faces, and
 vertex values. The vertices are an NxD array of N vertices in D coordinates. The
@@ -108,7 +108,7 @@ these brain surfaces rendered in 3D:
 
 +++
 
-## working with colormaps
+## Working with colormaps
 
 The same colormaps available for the `Image` layer are also available for the
 `Surface` layer. napari supports any colormap that is created with
@@ -133,7 +133,7 @@ here](https://vispy.org/api/vispy.color.colormap.html#vispy.color.colormap.Color
 
 +++
 
-## adjusting contrast limits
+## Adjusting contrast limits
 
 The vertex values of the surface layer get mapped through its colormap according
 to values called contrast limits. These are a 2-tuple of values defining how
@@ -144,7 +144,7 @@ properties, and range slider as in the image layer.
 
 +++
 
-## layer visibility
+## Layer visibility
 
 All our layers support a visibility toggle that allows you to set the `visible`
 property of each layer. This property is located inside the layer widget in the
@@ -152,14 +152,14 @@ layers list and is represented by an eye icon.
 
 +++
 
-## layer opacity
+## Layer opacity
 
 All our layers support an opacity slider and `opacity` property that allow you
 to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
 
 +++
 
-## blending layers
+## Blending layers
 
 All our layers support three blending modes `translucent`, `additive`, and
 `opaque` that determine how the visuals for this layer get mixed with the
@@ -178,7 +178,7 @@ visualizing multiple layers at the same time.
 
 +++
 
-## naming layers
+## Naming layers
 
 All our layers support a `name` property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
@@ -187,7 +187,7 @@ retrieve the layer object.
 
 +++
 
-## scaling layers
+## Scaling layers
 
 All our layers support a `scale` property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
@@ -197,7 +197,7 @@ size in the x and y dimensions.
 
 +++
 
-## translating layers
+## Translating layers
 
 All our layers support a `translate` property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
@@ -205,14 +205,14 @@ are trying to overlay two layers for image registration purposes.
 
 +++
 
-## layer metadata
+## Layer metadata
 
 All our layers also support a `metadata` property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.
 
 +++
 
-## next steps
+## Next steps
 
 Hopefully, this tutorial has given you a detailed understanding of the `Vectors`
 layer, including how to create one and control its properties. To learn more

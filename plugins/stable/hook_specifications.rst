@@ -17,7 +17,7 @@ IO hooks
 
 .. _write-single-layer-hookspecs:
 
-Single Layers IO
+Single layers IO
 ''''''''''''''''
 
 The following hook specifications will be called when a user saves a single

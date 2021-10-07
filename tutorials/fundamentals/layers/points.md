@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# points layer tutorial
+# Points layer tutorial
 
 +++
 
@@ -46,7 +46,7 @@ tutorial](../applications/annotate_points).
 
 +++
 
-## a simple example
+## A simple example
 
 You can create a new viewer and add a set of points in one go using the
 `napari.view_points` method, or if you already have an existing viewer, you can
@@ -81,7 +81,7 @@ nbscreenshot(viewer)
 viewer.close()
 ```
 
-## arguments of view_points and add_points
+## Arguments of `view_points` and `add_points`
 
 {meth}`~napari.view_layers.view_points` and {meth}`~napari.Viewer.add_points`
 accept the same layer-creation parameters.
@@ -92,7 +92,7 @@ accept the same layer-creation parameters.
 help(napari.view_points)
 ```
 
-## points data
+## Points data
 
 The input data to the points layer must be an NxD numpy array containing the
 coordinates of N points in D dimensions. The ordering of these dimensions is the
@@ -102,7 +102,7 @@ points are either added or deleted.
 
 +++
 
-## using the points properties dictionary
+## Using the points properties dictionary
 
 The `Points` layer can contain properties that annotate each point.
 `Points.properties` stores the properties in a dictionary where each key is the
@@ -114,7 +114,7 @@ color or edge color). To see the points properties in action, please see the
 
 +++
 
-## creating a new points layer
+## Creating a new points layer
 
 As you can add new points to a points layer using the add points tool, it is
 possible to create a brand new empty points layers by clicking the new points
@@ -126,7 +126,7 @@ present in the viewer.
 
 +++
 
-## non-editable mode
+## Non-editable mode
 
 If you want to disable editing of the points layer you can set the `editable`
 property of the layer to `False`.
@@ -155,7 +155,7 @@ layer using 2D rendering.
 
 +++
 
-## pan and zoom mode
+## Pan and zoom mode
 
 The default mode of the points layer is to support panning and zooming, as in
 the image layer. This mode is represented by the magnifying glass in the layers
@@ -166,7 +166,7 @@ selected.
 
 +++
 
-## adding, deleting, and selecting points
+## Adding, deleting, and selecting points
 
 New points can be added using the point adding tool. This tool can be selected
 from layer controls panel. Points can then be added by clicking in the canvas.
@@ -196,7 +196,7 @@ your selection.
 
 +++
 
-## changing points size
+## Changing points size
 
 Each point can have a different size. You can pass a list or 1-dimensional array
 of points through the size keyword argument to initialize the layer with points
@@ -219,7 +219,7 @@ found in the `layer.size` property. Note this property is different from
 
 +++
 
-## changing points edge and face color
+## Changing points edge and face color
 
 Individual points can each have different edge and face colors. You can
 initially set these colors by providing a list of colors to the `edge_color` or
@@ -236,7 +236,7 @@ initializing the property for the next point you add.
 
 +++
 
-## setting point edge and face color with properties
+## Setting point edge and face color with properties
 
 Point edge and face colors can be set as a function of a property in
 `Points.properties`. There are two ways that the values in properties can be
@@ -258,7 +258,7 @@ list(napari.utils.colormaps.AVAILABLE_COLORMAPS)
 
 +++
 
-### setting edge or face color with a color cycle
+### Setting edge or face color with a color cycle
 
 Here we will set the edge color of the markers with a color cycle on a property.
 To do the same for a face color, substitute `face_color` for `edge_color` in the
@@ -304,7 +304,7 @@ strings or a (M x 4) array of M RGBA colors).
 
 +++
 
-### setting edge or face color with a colormap
+### Setting edge or face color with a colormap
 
 Here we will set the face color of the markers with a color cycle on a property.
 To do the same for a face color, substitute `edge_color` for `face_color` in the
@@ -348,7 +348,7 @@ colormap to viridis using the `face_colormap` keyword argument
 
 +++
 
-## changing the points symbol
+## Changing the points symbol
 
 The symbol for the points layer is a global property for the layer. All points
 must have the same symbol. You can set the symbol on the loading of the layer
@@ -358,7 +358,7 @@ you don't need to have any points selected for it to have an effect.
 
 +++
 
-## copying and pasting points
+## Copying and pasting points
 
 It is possible to copy and paste any selected points using the `ctrl-C` and
 `ctrl-V` keybindings, respectively. If you have a multidimensional `Points`
@@ -369,7 +369,7 @@ will be updated with the new slice values.
 
 +++
 
-## layer visibility
+## Layer visibility
 
 All our layers support a visibility toggle that allows you to set the `visible`
 property of each layer. This property is located inside the layer widget in the
@@ -377,7 +377,7 @@ layers list and is represented by an eye icon.
 
 +++
 
-## layer opacity
+## Layer opacity
 
 All our layers support an opacity slider and `opacity` property that allow you
 to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
@@ -386,7 +386,7 @@ don't need to have any points selected for it to have an effect.
 
 +++
 
-## blending layers
+## Blending layers
 
 All our layers support three blending modes `translucent`, `additive`, and
 `opaque` that determine how the visuals for this layer get mixed with the
@@ -405,7 +405,7 @@ visualizing multiple layers at the same time.
 
 +++
 
-## naming layers
+## Naming layers
 
 All our layers support a `name` property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
@@ -414,7 +414,7 @@ retrieve the layer object.
 
 +++
 
-## scaling layers
+## Scaling layers
 
 All our layers support a `scale` property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
@@ -424,7 +424,7 @@ size in the x and y dimensions.
 
 +++
 
-## translating layers
+## Translating layers
 
 All our layers support a `translate` property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
@@ -432,14 +432,14 @@ are trying to overlay two layers for image registration purposes.
 
 +++
 
-## layer metadata
+## Layer metadata
 
 All our layers also support a `metadata` property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.
 
 +++
 
-## putting it all together
+## Putting it all together
 
 Here you can see an example of adding, selecting, deleting points and change
 their properties:
@@ -450,7 +450,7 @@ their properties:
 
 +++
 
-## next steps
+## Next steps
 
 Hopefully, this tutorial has given you a detailed understanding of the `Points`
 layer, including how to create one and control its properties. To learn more

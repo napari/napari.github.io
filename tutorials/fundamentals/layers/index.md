@@ -1,4 +1,4 @@
-# using layers
+# Using layers
 
 * [image layer](image.md)
 * [labels layer](labels.md)

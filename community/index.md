@@ -1,1 +1,1 @@
-# Community Resources
+# Community resources

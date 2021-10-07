@@ -1,4 +1,4 @@
-# Contributing Guide
+# Contributing guide
 
 We welcome your contributions! Please see the provided steps below and never hesitate to contact us.
 

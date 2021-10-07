@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# labels layer tutorial
+# Labels layer tutorial
 
 +++
 
@@ -42,7 +42,7 @@ label, as occurs in instance segmentation.
 
 +++
 
-## a simple example
+## A simple example
 
 You can create a new viewer and add an labels image in one go using the
 `napari.view_labels` method, or if you already have an existing viewer, you can
@@ -91,7 +91,7 @@ nbscreenshot(viewer)
 viewer.close()
 ```
 
-## arguments of view_labels and add_labels
+## Arguments of `view_labels` and `add_labels`
 
 {meth}`~napari.view_layers.view_labels` and {meth}`~napari.Viewer.add_labels`
 accept the same layer-creation parameters.
@@ -102,7 +102,7 @@ accept the same layer-creation parameters.
 help(napari.view_labels)
 ```
 
-## labels data
+## Labels data
 
 The labels layer is a subclass of the `Image` layer and as such can support the
 same numpy-like arrays, including [dask
@@ -119,7 +119,7 @@ details in the [image layer](./image) tutorial.
 
 +++
 
-## creating a new labels layer
+## Creating a new labels layer
 
 As you can edit a `Labels` layer using the paintbrush and fill bucket, it is
 possible to create a brand-new empty labels layers by clicking the new labels
@@ -129,7 +129,7 @@ them.
 
 +++
 
-## non-editable mode
+## Non-editable mode
 
 If you want to disable editing of the labels layer you can set the `editable`
 property of the layer to `False`.
@@ -174,7 +174,7 @@ options are only supported when viewing a layer using 2D rendering.
 
 +++
 
-## pan and zoom mode
+## Pan and zoom mode
 
 The default mode of the labels layer is to support panning and zooming, as in
 the image layer. This mode is represented by the magnifying glass in the layers
@@ -185,7 +185,7 @@ selected.
 
 +++
 
-## shuffling label colors
+## Shuffling label colors
 
 The color that each integer gets assigned is random, aside from 0 which always
 gets assigned to be transparent. The colormap we use is designed such that
@@ -199,7 +199,7 @@ to distinguish from the background or nearby objects.
 
 +++
 
-## selecting a label
+## Selecting a label
 
 A particular label can be selected either using the label combobox inside the
 layers control panel and typing in the value of the desired label or using the
@@ -224,7 +224,7 @@ You can also increment or decrement the currently selected label by pressing the
 
 +++
 
-## painting in the labels layer
+## Painting in the labels layer
 
 One of the major use cases for the labels layer is to manually edit or create
 image segmentations. One of the tools that can be used for manual editing is the
@@ -254,7 +254,7 @@ layer is selected.
 
 +++
 
-## using the fill bucket
+## Using the fill bucket
 
 Sometimes you might want to replace an entire label with a different label. This
 could be because you want to make two touching regions have the same label, or
@@ -280,7 +280,7 @@ layer is selected.
 
 +++
 
-## creating, deleting, merging, and splitting connected components
+## Creating, deleting, merging, and splitting connected components
 
 Using the `color picker`, `paintbrush`, and `fill bucket` tools one can create
 and edit object segmentation maps. Below we show how to use these tools to by
@@ -289,7 +289,7 @@ checked).
 
 +++
 
-**drawing a connected component**:
+**Drawing a connected component**:
 
 ![image: draw component](../assets/tutorials/draw_component.gif)
 
@@ -301,7 +301,7 @@ the contour to assign the label to all pixels of the object.
 
 +++
 
-**selecting a connected component**:
+**Selecting a connected component**:
 
 ![image: delete label](../assets/tutorials/delete_label.gif)
 
@@ -313,7 +313,7 @@ component to background.
 
 +++
 
-**merging connected components**:
+**Merging connected components**:
 
 ![image: merge labels](../assets/tutorials/merge_labels.gif)
 
@@ -324,7 +324,7 @@ filling the components to be merged with the fill bucket.
 
 +++
 
-**splitting a connected component**:
+**Splitting a connected component**:
 
 ![image: split label](../assets/tutorials/split_label.gif)
 
@@ -337,7 +337,7 @@ parts with the `fill bucket`.
 
 +++
 
-## undo / redo functionality
+## Undo / redo functionality
 
 When painting or using the fill bucket it can be easy to make a mistake that you
 might want to undo or then redo. For the labels layer we support an undo with
@@ -350,7 +350,7 @@ will cause the undo history to be reset.
 
 +++
 
-## layer visibility
+## Layer visibility
 
 All our layers support a visibility toggle that allows you to set the `visible`
 property of each layer. This property is located inside the layer widget in the
@@ -358,14 +358,14 @@ layers list and is represented by an eye icon.
 
 +++
 
-## layer opacity
+## Layer opacity
 
 All our layers support an opacity slider and `opacity` property that allow you
 to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
 
 +++
 
-## blending layers
+## Blending layers
 
 All our layers support three blending modes `translucent`, `additive`, and
 `opaque` that determine how the visuals for this layer get mixed with the
@@ -384,7 +384,7 @@ visualizing multiple layers at the same time.
 
 +++
 
-## naming layers
+## Naming layers
 
 All our layers support a `name` property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
@@ -393,7 +393,7 @@ retrieve the layer object.
 
 +++
 
-## scaling layers
+## Scaling layers
 
 All our layers support a `scale` property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
@@ -403,7 +403,7 @@ the size in the x and y dimensions.
 
 +++
 
-## translating layers
+## Translating layers
 
 All our layers support a `translate` property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
@@ -411,14 +411,14 @@ are trying to overlay two layers for image registration purposes.
 
 +++
 
-## layer metadata
+## Layer metadata
 
 All our layers also support a `metadata` property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.
 
 +++
 
-## next steps
+## Next steps
 
 Hopefully, this tutorial has given you a detailed understanding of the `Labels`
 layer, including how to create one and control its properties. To learn more

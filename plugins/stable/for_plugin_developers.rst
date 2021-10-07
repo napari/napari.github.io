@@ -3,7 +3,7 @@
 .. role:: python(code)
    :language: python
 
-creating a napari plugin
+Creating a napari plugin
 ========================
 
 This document explains how to extend napari's functionality by writing a plugin
@@ -24,14 +24,14 @@ might want to enable plugins to extend the file formats that can be handled.  A
 "promise" to call functions created by external developers & installed by the user.
 
 
-1. **Hook Specifications**:  For each supported hook, we have created
+1. **Hook specifications**:  For each supported hook, we have created
 "*hook specifications*", which are
 well-documented function signatures that define the API (or
 "contract") that a plugin developer must adhere to when writing their function
 that we promise to call somewhere in the napari codebase.
 See :ref:`plugins-hook-spec`.
 
-2. **Hook Implementations**: To make a plugin, plugin developers then write functions ("*hook
+2. **Hook implementations**: To make a plugin, plugin developers then write functions ("*hook
 implementations*") and mark that function as meeting the requirements of a
 specific *hook specification* offered by napari.
 See :ref:`plugins-hook-implement`.

@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# shapes layer tutorial
+# Shapes layer tutorial
 
 +++
 
@@ -37,7 +37,7 @@ independently, both programmatically and from the GUI.
 
 +++
 
-## a simple example
+## A simple example
 
 You can create a new viewer and add a list of shapes in one go using the
 `napari.view_shapes` method, or if you already have an existing viewer, you can
@@ -88,7 +88,7 @@ nbscreenshot(viewer)
 viewer.close()
 ```
 
-## arguments of view_shapes and add_shapes
+## Arguments of `view_shapes` and `add_shapes`
 
 {meth}`~napari.view_layers.view_shapes` and {meth}`~napari.Viewer.add_shapes`
 accept the same layer-creation parameters.
@@ -99,7 +99,7 @@ accept the same layer-creation parameters.
 help(napari.view_shapes)
 ```
 
-## shapes data
+## Shapes data
 
 The input data to the shapes layer must be a list of NxD numpy array, with each
 array containing the coordinates of the N vertices in D dimensions that make up
@@ -112,7 +112,7 @@ drawing polygons or paths.
 
 +++
 
-## adding different shape types
+## Adding different shape types
 
 Right now the shapes layer supports 5 types of shapes, `Lines`, `Rectangles`,
 `Ellipses`, `Polygons`, and `Paths`. When adding new data can set the shape type
@@ -286,7 +286,7 @@ viewer.close()
 
 +++
 
-## creating a new shapes layer
+## Creating a new shapes layer
 
 As you can add new shapes to a shapes layer using the various shape creation
 tools, it is possible to create a brand-new empty shapes layers by clicking the
@@ -298,7 +298,7 @@ layers are present in the viewer.
 
 +++
 
-## non-editable mode
+## Non-editable mode
 
 If you want to disable editing of the shapes layer you can set the `editable`
 property of the layer to `False`.
@@ -345,7 +345,7 @@ supporting those options soon.
 
 +++
 
-## pan and zoom mode
+## Pan and zoom mode
 
 The default mode of the shapes layer is to support panning and zooming, as in
 the image layer. This mode is represented by the magnifying glass in the layers
@@ -356,7 +356,7 @@ selected.
 
 +++
 
-## selecting, resizing, moving, and deleting shapes
+## Selecting, resizing, moving, and deleting shapes
 
 New shapes can be added using one of the 5 shape creation tools, for `Lines`,
 `Rectangles`, `Ellipses`, `Polygons`, and `Paths`. For more information on the
@@ -391,7 +391,7 @@ resizing](../assets/tutorials/shape_resizing.gif)
 
 +++
 
-## adding, moving, and deleting individual vertices
+## Adding, moving, and deleting individual vertices
 
 You can move individual vertices by entering the direct selection mode by either
 clicking on the direct select tool in the layer controls panel or pressing the
@@ -413,7 +413,7 @@ editing](../assets/tutorials/shape_vertex_editing.gif)
 
 +++
 
-## changing shape edge and face colors
+## Changing shape edge and face colors
 
 Individual shapes can each have different edge and face colors. You can
 initially set these colors by providing a list of colors to the `edge_color` or
@@ -430,7 +430,7 @@ initializing the property for the next shape you add.
 
 +++
 
-## changing shape edge widths
+## Changing shape edge widths
 
 Individual shapes can each have different edge widths. You can initially set the
 edge widths by providing a list of values to the `edge_width` keyword arguments
@@ -446,7 +446,7 @@ property for the next shape you add.
 
 +++
 
-## layer ordering
+## Layer ordering
 
 You can adjust the ordering of shapes in the layer by selecting shapes and then
 clicking the move to front or move to back buttons. You can get the ordering of
@@ -455,7 +455,7 @@ initial ordering of shapes by passing a list to the `layer.z_index` property.
 
 +++
 
-## copying and pasting shapes
+## Copying and pasting shapes
 
 It is possible to copy and paste any selected shapes using the `ctrl-C` and
 `ctrl-V` keybindings respectively. If you have a multidimensional shapes layer
@@ -466,7 +466,7 @@ will be updated with the new slice values.
 
 +++
 
-## layer visibility
+## Layer visibility
 
 All our layers support a visibility toggle that allows you to set the `visible`
 property of each layer. This property is located inside the layer widget in the
@@ -474,7 +474,7 @@ layers list and is represented by an eye icon.
 
 +++
 
-## layer opacity
+## Layer opacity
 
 All our layers support an opacity slider and `opacity` property that allow you
 to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
@@ -490,7 +490,7 @@ added.
 
 +++
 
-## blending layers
+## Blending layers
 
 All our layers support three blending modes `translucent`, `additive`, and
 `opaque` that determine how the visuals for this layer get mixed with the
@@ -509,7 +509,7 @@ visualizing multiple layers at the same time.
 
 +++
 
-## naming layers
+## Naming layers
 
 All our layers support a `name` property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
@@ -518,7 +518,7 @@ retrieve the layer object.
 
 +++
 
-## scaling layers
+## Scaling layers
 
 All our layers support a `scale` property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
@@ -528,7 +528,7 @@ size in the x and y dimensions.
 
 +++
 
-## translating layers
+## Translating layers
 
 All our layers support a `translate` property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
@@ -536,14 +536,14 @@ are trying to overlay two layers for image registration purposes.
 
 +++
 
-## layer metadata
+## Layer metadata
 
 All our layers also support a `metadata` property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.
 
 +++
 
-## putting it all together
+## Putting it all together
 
 Here you can see an example of adding, selecting, and editing shapes and change
 their properties:
@@ -554,7 +554,7 @@ their properties:
 
 +++
 
-## next steps
+## Next steps
 
 Hopefully, this tutorial has given you a detailed understanding of the `Shapes`
 layer, including how to create one and control its properties. To learn more

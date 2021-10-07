@@ -1,6 +1,6 @@
 (connecting-events)=
 
-# hooking up your own events
+# Hooking up your own events
 
 If you're coming from a background of scripting or working with python in an
 interactive console, thinking in terms of the "event loop" can feel a bit

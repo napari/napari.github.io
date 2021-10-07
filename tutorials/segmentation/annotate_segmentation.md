@@ -1,4 +1,4 @@
-# annotating segmentation with text and bounding boxes
+# Annotating segmentation with text and bounding boxes
 
 In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu's method, but this same approach could also be used to visualize the results of other image processing algorithms such as [object detection with neural networks](https://www.tensorflow.org/lite/models/object_detection/overview).
 
@@ -138,7 +138,7 @@ napari.run()
 
 ```
 
-## segmentation
+## Segmentation
 We start by defining a function to perform segmentation of an image based on intensity. Based on the [skimage segmentation example](https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding.html), we determine the threshold intensity that separates the foreground and background pixels using [Otsu's method](https://en.wikipedia.org/wiki/Otsu%27s_method). We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.
 
 ```python
@@ -189,7 +189,7 @@ napari.run()
 
 ![image: segmentation labels](../assets/tutorials/segmentation_labels.png)
 
-## analyzing the segmentation
+## Analyzing the segmentation
 
 Next, we use [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table) from skimage to quantify some parameters of each detection object (e.g., area and perimeter).
 
@@ -291,7 +291,7 @@ bbox_rects = make_bbox([properties[f'bbox-{i}'] for i in range(4)])
 ```
 
 
-## visualizing the segmentation results
+## Visualizing the segmentation results
 Now that we have performed out analysis, we can visualize the results in napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels, and (3) Shapes.
 
 As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows:
@@ -321,7 +321,7 @@ Next, we will use the Shapes layer to overlay the bounding boxes for each detect
 
 The first positional argument (`bbox_rects`) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (`face_color='transparent'`) and the edges of the bounding box are green (`edge_color='green'`). Finally, the name of the layer displayed in the layer list in the napari GUI is `bounding box` (`name='bounding box'`).
 
-## annotating shapes with text
+## Annotating shapes with text
 We can further annotate our analysis by using text to display properties of each segmentation. The code to create a shapes layer with text is pasted here and explained below.
 
 ```python
@@ -406,7 +406,7 @@ shapes_layer = viewer.add_shapes(
 napari.run()
 ```
 
-## summary
+## Summary
 In this tutorial, we have used napari to view and annotate segmentation results.
 
 ![image: annotated bounding box](../assets/tutorials/annotated_bbox.png)

@@ -19,6 +19,7 @@ You can find more videos of talks, tutorials and demos on the
   * [Workshop materials available here](https://github.com/sofroniewn/tutorial-scipy2021-bioimage-analysis-fundamentals)
 
 * November 2020, scikit-image, napari, & friends workshop at the [I2K conference](https://www.janelia.org/you-janelia/conferences/from-images-to-knowledge-with-imagej-friends)
+  * [Watch it here](https://www.youtube.com/watch?v=NZWSGXb3_Mg)
   * [Workshop materials available here](https://github.com/jni/i2k-skimage-napari)
 
 * June 2020, [NEUBIAS Academy@Home workshop](http://eubias.org/NEUBIAS/training-schools/neubias-academy-home/neubias-academy-archive-spring2020/)

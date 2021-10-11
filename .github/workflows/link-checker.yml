@@ -15,9 +15,9 @@ jobs:
       - name: Link Checker
         uses: lycheeverse/lychee-action@v1.0.8
         with:
-          args: --verbose --no-progress **/*.md **/*.html
+          args: --verbose --no-progress **/*.md **/*.html --base-url https://napari.org --exclude-all-private --require-https
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.DOCS_GITHUB_TOKEN}}
 
       - name: Create Issue From File
         uses: peter-evans/create-issue-from-file@v3

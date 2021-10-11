@@ -32,8 +32,12 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['import napari', 'import numpy as np', 'from skimage import data', '', '# add the image']
-...
-["  shape_type=['polygon', 'ellipse'], ", '  edge_width=5,', "  edge_color='coral', ", "  face_color='royalblue'", ')']
+from scipy import ndimage as ndi
+
+blobs = data.binary_blobs(length=128, volume_fraction=0.1, n_dim=3)
+viewer = napari.view_image(blobs.astype(float), name='blobs')
+labeled = ndi.label(blobs)[0]
+labels_layer = viewer.add_labels(labeled, name='blob ID')
+viewer.dims.ndisplay = 3
 -------------------
 

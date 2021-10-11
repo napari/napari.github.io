@@ -32,9 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-from napari.utils import nbscreenshot
-
-viewer.window._qt_window.resize(750, 550)
-nbscreenshot(viewer)
+['import napari.types', '', "@magicgui(call_button='Make Points')", 'def make_points(n_points=40) -> napari.types.LayerDataTuple:', '  data = 500 * np.random.rand(n_points, 2)']
+...
+['', 'viewer = napari.Viewer()', 'viewer.window.add_dock_widget(make_points)', 'make_points()  # "call the widget" to call the function.', '               # Normally this would be caused by some user UI interaction']
 -------------------
 

@@ -237,7 +237,7 @@ available colormaps using `layer.colormaps`.
 
 It is also possible to create your own colormaps using vispy's
 `vispy.color.Colormap` object, see it's full [documentation
-here](http://vispy.org/color.html#vispy.color.Colormap). Briefly, you can pass
+here](https://vispy.org/api/vispy.color.colormap.html#vispy.color.colormap.Colormap). Briefly, you can pass
 `Colormap` a list of length 3 or length 4 lists, corresponding to the `rgb` or
 `rgba` values at different points along the colormap.
 

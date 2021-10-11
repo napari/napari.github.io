@@ -128,7 +128,7 @@ the vispy colormap object. You can list all the available colormaps using
 
 It is also possible to create your own colormaps using vispy's
 `vispy.color.Colormap` object, see it's full [documentation
-here](http://vispy.org/color.html#vispy.color.Colormap). For more detail see the
+here](https://vispy.org/api/vispy.color.colormap.html#vispy.color.colormap.Colormap). For more detail see the
 [image layer tutorial](./image).
 
 +++

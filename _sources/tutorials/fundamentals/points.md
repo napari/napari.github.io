@@ -248,7 +248,7 @@ number of colors in the color cycle.
 
 Colormaps are a continuum of colors that are mapped to a continuous property
 value. The available colormaps are listed below (colormaps are from
-[vispy](http://vispy.org/color.html#vispy.color.Colormap)). For some guidance on
+[vispy](https://vispy.org/api/vispy.color.colormap.html#vispy.color.colormap.Colormap)). For some guidance on
 choosing colormaps, see the [matplotlib colormap
 docs](https://matplotlib.org/3.2.0/tutorials/colors/colormaps.html).
 

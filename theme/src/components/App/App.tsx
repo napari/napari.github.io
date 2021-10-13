@@ -53,11 +53,11 @@ function InPageTableOfContents() {
 
   return (
     <>
-      <Media greaterThanOrEqual="screen-1150">
+      <Media greaterThanOrEqual="screen-1425">
         <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />;
       </Media>
 
-      <Media lessThan="screen-1150">
+      <Media lessThan="screen-1425">
         <TableOfContents
           headers={[...sectionHeaders, ...pageHeaders]}
           variant="collapsed"
@@ -144,9 +144,7 @@ function Content() {
         {/* In page table of content that renders above the main content. */}
         {!isSearch && (
           <Media lessThan="screen-1425">
-            <div className="screen-1150:my-12">
-              <InPageTableOfContents />
-            </div>
+            <InPageTableOfContents />
           </Media>
         )}
 

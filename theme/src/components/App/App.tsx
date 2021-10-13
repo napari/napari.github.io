@@ -54,7 +54,7 @@ function InPageTableOfContents() {
   return (
     <>
       <Media greaterThanOrEqual="screen-1425">
-        <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />;
+        <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />
       </Media>
 
       <Media lessThan="screen-1425">

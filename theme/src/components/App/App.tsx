@@ -51,7 +51,20 @@ function InPageTableOfContents() {
     }
   }
 
-  return <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />;
+  return (
+    <>
+      <Media greaterThanOrEqual="screen-1425">
+        <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />;
+      </Media>
+
+      <Media lessThan="screen-1425">
+        <TableOfContents
+          headers={[...sectionHeaders, ...pageHeaders]}
+          variant="collapsed"
+        />
+      </Media>
+    </>
+  );
 }
 
 function Content() {
@@ -131,9 +144,7 @@ function Content() {
         {/* In page table of content that renders above the main content. */}
         {!isSearch && (
           <Media lessThan="screen-1425">
-            <div className="my-12">
-              <InPageTableOfContents />
-            </div>
+            <InPageTableOfContents />
           </Media>
         )}
 

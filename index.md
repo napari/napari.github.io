@@ -1,3 +1,47 @@
+---
+theme:
+  quickLinks:
+    - title: Community
+      content: Meet the team, our mission, and our values
+      url: /community/index.html
+
+    - title: Tutorials
+      content: Step by step guides for common napari workflows
+      url: /tutorials/index.html
+
+    - title: Plugins
+      content: Learn how to create a plugin that works with the napari ecosystem
+      url: /plugins/stable/index.html
+
+    - title: Release notes
+      content: See what’s been updated in the latest releases
+      url: /release/index.html
+
+    - title: API reference
+      content: Information on specific functions, classes, and methods
+      url: /api/stable/index.html
+
+    - title: Roadmaps
+      content: Find out what we plan to build next and into the near future
+      url: /roadmaps/index.html
+
+    - title: Developer guides
+      content: Explanations about how napari works behind the screen
+      url: /guides/stable/index.html
+
+    - title: Developer resources
+      content: All you need to know to contribute to the napari codebase
+      url: /developers/index.html
+
+    - title: Source code
+      content: Jump out to GitHub to take a look at the code that runs napari
+      url: https://github.com/napari/napari
+
+    - title: napari hub
+      content: Discover, install, and share napari plugins
+      url: https://www.napari-hub.org
+---
+
 # napari
 
 ## multi-dimensional image viewer for python

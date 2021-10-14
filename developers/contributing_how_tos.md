@@ -1,3 +1,17 @@
+---
+jupytext:
+  formats: ipynb,md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.13.0
+kernelspec:
+  display_name: Python 3 (ipykernel)
+  language: python
+  name: python3
+---
+
 # How to contribute a napari How-To
 
 This should be a sentence (or brief paragraph) about what the reader will achieve after following this
@@ -17,6 +31,10 @@ how-to and how it helps address a common problem/task/need.
 ## How-to steps
 
 Headings in this section are yours to decide on. You should split your how-to guide into easy to follow, sequential steps to achieve the stated goal. Remember that your how-to may be used as a reference, so your headings should be descriptive and allow users to get a quick overview of the document, and which steps are relevant to them.
+
+## Executable documentation
+
+napari's goal is that every how-to, tutorial or explanation should be executable. That's why this template isn't just plain markdown! It's MyST Markdown, which means you can open this directly in Jupyter notebook and start writing your code. If you have an existing notebook you'd like to convert to a How-to, or the words MyST Markdown mean nothing to you, check out [our tutorial](./contributing_pairing_notebooks.md) for adding viewer screenshots, hiding notebook cells and pairing your notebook with Jupytext (this is where MyST Markdown comes in).
 
 ## How-to vs. tutorial
 

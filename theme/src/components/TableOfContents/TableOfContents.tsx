@@ -82,6 +82,11 @@ export function TableOfContents({
   } = useActiveHeader({ enabled, headers });
   const [expanded, setExpanded] = useState(false);
 
+  // Render nothing if there are no headers.
+  if (headers.length === 0) {
+    return null;
+  }
+
   const tableOfContentsNode = (
     <ul
       className={clsx(

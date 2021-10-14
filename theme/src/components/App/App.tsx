@@ -136,7 +136,7 @@ function Content() {
         </h1>
 
         {pageIntro && (
-          <h2 className="font-semibold text-xs screen-875:text-base">
+          <h2 className="font-semibold text-xs screen-875:text-base mb-6">
             {pageIntro}
           </h2>
         )}

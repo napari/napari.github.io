@@ -19,11 +19,6 @@ interface Props {
   headers: TOCHeader[];
 
   /**
-   * free: whether the component should move with the page or be fixed in place
-   */
-  free?: boolean;
-
-  /**
    * Active header that should be highlighted. This will completely disable the
    * highlight on scroll effect. Setting this to an empty value will disable
    * highlighting completely.
@@ -70,7 +65,6 @@ export function TableOfContents({
   active,
   className,
   headers,
-  free,
   variant = 'normal',
 }: Props) {
   const enabled = active === undefined;
@@ -88,14 +82,7 @@ export function TableOfContents({
   }
 
   const tableOfContentsNode = (
-    <ul
-      className={clsx(
-        className,
-        'flex flex-col',
-        'border-l border-black',
-        !free && 'sticky top-12',
-      )}
-    >
+    <ul className={clsx(className, 'flex flex-col', 'border-l border-black')}>
       {headers.map((header) => {
         const isActive = header.href === activeHeader;
 

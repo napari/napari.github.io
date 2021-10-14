@@ -53,7 +53,7 @@ function InPageTableOfContents() {
 
   return (
     <>
-      <Media greaterThanOrEqual="screen-1425">
+      <Media className="sticky top-12" greaterThanOrEqual="screen-1425">
         <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />
       </Media>
 

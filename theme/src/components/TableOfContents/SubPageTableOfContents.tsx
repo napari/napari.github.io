@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import slug from 'slug';
 
 import { Link } from '@/components/Link';
-import { Header } from '@/constants/toc';
+import { API_ROOT_HEADER_KEY, Header } from '@/constants/toc';
 import { useJupyterBookData } from '@/context/jupyterBook';
 
 interface Props {
@@ -33,7 +33,7 @@ export function SubPageTableOfContents({ className, headerId }: Props) {
 
         // TODO Remove when better design is available for API reference page.
         const isApiReference = globalHeaders[
-          '/api/stable/index.html'
+          API_ROOT_HEADER_KEY
         ].children?.includes(header.href);
 
         const hasChildren = (header.children?.length ?? 0) > 0;

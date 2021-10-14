@@ -14,6 +14,7 @@ import {
   SubPageTableOfContents,
   TableOfContents,
 } from '@/components/TableOfContents';
+import { API_ROOT_HEADER_KEY } from '@/constants/toc';
 import { TOCHeader, useJupyterBookData } from '@/context/jupyterBook';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { isExternalUrl } from '@/utils/url';
@@ -36,8 +37,13 @@ function InPageTableOfContents() {
   const subPageTocEnabled = useSubPageTocEnabled();
   const sectionHeaders: TOCHeader[] = [];
 
-  // Add headers from the Sub Page TOC if it's enabled.
-  if (subPageTocEnabled) {
+  if (
+    // Add headers from the Sub Page TOC if it's enabled.
+    subPageTocEnabled &&
+    // Don't add extra headers for API reference page.
+    // TODO Remove when better design is available for API reference page.
+    currentPathname !== API_ROOT_HEADER_KEY
+  ) {
     const header = globalHeaders[currentPathname];
 
     for (const childId of header.children ?? []) {

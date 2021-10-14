@@ -7,3 +7,5 @@ export enum Header {
   Level2 = 2,
   Level3 = 3,
 }
+
+export const API_ROOT_HEADER_KEY = '/api/stable/index.html';

@@ -1,5 +1,6 @@
 ---
 jupytext:
+  formats: ipynb,md:myst
   text_representation:
     extension: .md
     format_name: myst
@@ -11,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Learn to contribute Jupyter notebooks to napari documentation
+# Learn to prepare Jupyter notebooks for contributing to napari documentation
 Guided by this template, you will prepare a Jupyter notebook for submission to napari's documentation.
 
 ## You'll learn:
@@ -53,18 +54,33 @@ it would be distracting if all the code cells included `nbscreenshot`, and might
 want to execute these notebooks in their own workflows.
 
 To avoid this frustration, we place calls to `nbscreenshot` in a hidden cell in your notebooks.
-You can completely remove input (i.e. the code that's running) in a notebook cell by adding a `remove-input` tag to the cell metadata:
+You can completely remove input (i.e. the code that's running) in a notebook cell by adding a `remove-input` tag to the cell metadata.
 
-```
-{
-    "tags": [
-        "remove-input",
-    ]
-}
-```
+### Adding Tags
+How you add cell tags depends on how you're editing your notebook. 
 
-You can also place other potentially distracting code in these cells, such as resizing the Viewer window or opening a menu.
-The screenshot below is produced by the following code, which has been hidden from you!
+1. If you're working in Jupyter notebook,
+you can open up the Tags toolbar for your cell using `View -> Cell Toolbar -> Tags`. You can then add any tags you want
+(e.g. `remove-input`) by typing into the text entry box of the toolbar and clicking `Add Tag`. 
+Here's what the Tags toolbar looks like, at the top right of this very cell.
+
+![Jupyter notebook cell with Tags toolbar highlighted by a black square in the top right of the cell. Tags toolbar involves a button
+with ellipses for seeing existing tags, a text entry box for adding new tags, and an Add Tag button](images/jupyter_cell_tags.png)
+
+2. If you're writing a MyST Markdown notebook, you can add tags directly to your code blocks e.g.
+
+    ```{code-cell}
+    :tags: [remove-input]
+
+    print("Your code here")
+    ```
+
+### What to put in hidden cells
+
+Alongside your call to `nbscreenshot`, you can also place other potentially distracting code in these tagged cells, 
+such as resizing the Viewer window or opening a menu. In general, if you're running code the reader isn't meant to run,
+this should be in a hidden cell.
+The screenshot below is produced by the following code, which has been hidden from you using the `remove-input` tag.
 
 ```python
 from napari.utils import nbscreenshot
@@ -86,6 +102,63 @@ viewer.window._qt_window.resize(750, 550)
 nbscreenshot(viewer)
 ```
 
+## Converting your notebook
 
+While Jupyter notebooks are a great format for sharing code workflows alongside their explanations, their raw JSON representation is not great
+for versioning. [Jupytext](https://jupytext.readthedocs.io/en/latest/index.html) is a Jupyter plugin that allows you to convert your notebooks
+to markdown files or scripts. 
+
+In napari's documentation we use MyST Markdown files for tutorials, how-tos or explanations that contain a lot of code. The Jupytext plugin
+allows you to pair your notebook with a MyST Markdown file in Jupyter Notebook, or convert your notebook to a markdown file in the command line.
+
+### Installing Jupytext
+You can install `jupytext` from the command line:
+
+```
+pip install jupytext
+```
+
+or
+
+```
+conda install jupytext -c conda-forge
+```
+
+### Pairing your notebook
+Once installed, you can start Jupyter notebook as you usually would. Pairing your notebook with MyST Markdown
+ will now be an option in the notebook's `File -> Jupytext` menu, as in the screenshot below. Selecting this option will generate a new markdown file
+ for you in the same working directory as your notebook.
+
+![Screenshot of Jupyter Notebook with File -> Jupytext menu open and Pair Notebook with MyST Markdown selected.](images/jupyter_jupytext.png)
+
+You can pair your notebook from the command line as well using the following command:
+
+```
+jupytext --set-formats ipynb,myst your_notebook.ipynb
+```
+
+Then, after making any changes to your notebook, run:
+
+```
+jupytext --sync your_notebook.ipynb
+```
+
+You can also just convert a notebook from the command line, though this will not *sync* your notebook with your markdown document - any changes to the notebook would require another conversion. To convert your notebook from the command line run:
+
+```
+jupytext your_notebook.ipynb --to myst
+```
+
+That's it! `your_notebook.md` is now ready to contribute to napari!
 
 +++
+
+## Next steps
+- Not sure what type of contribution to make? Check out our guide for different types of documentation (coming soon...)!
+- 
+
+## Further reading
+
+- If you want more information on adding tags as cell metadata, check out [this Jupyter Book guide](https://jupyterbook.org/content/metadata.html#jupyter-cell-tags)
+- You can hide cells in a number of different ways besides `remove-input` which we've shown here. [This guide](https://jupyterbook.org/interactive/hiding.html#hide-code-cell-content) 
+walks through the different options.

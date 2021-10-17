@@ -364,6 +364,28 @@ learning and image analysis tools (e.g. <code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exception in callback BaseAsyncIOLoop._handle_events(72, 1)
+handle: &lt;Handle BaseAsyncIOLoop._handle_events(72, 1)&gt;
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/asyncio/events.py", line 81, in _run
+    self._context.run(self._callback, *self._args)
+  File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tornado/platform/asyncio.py", line 189, in _handle_events
+    handler_func(fileobj, events)
+  File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/zmq/eventloop/zmqstream.py", line 452, in _handle_events
+    self._handle_recv()
+  File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/zmq/eventloop/zmqstream.py", line 481, in _handle_recv
+    self._run_callback(callback, msg)
+  File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/zmq/eventloop/zmqstream.py", line 431, in _run_callback
+    callback(*args, **kwargs)
+  File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/jupyter_client/threaded.py", line 121, in _handle_recv
+    msg_list = self.ioloop._asyncio_event_loop.run_until_complete(get_msg(future_msg))
+  File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/asyncio/base_events.py", line 592, in run_until_complete
+    self._check_running()
+  File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/asyncio/base_events.py", line 554, in _check_running
+    raise RuntimeError(
+RuntimeError: Cannot run the event loop while another loop is running
+</pre></div>
+</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR:tornado.general:Uncaught exception in ZMQStream callback
 Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/zmq/eventloop/zmqstream.py", line 431, in _run_callback
@@ -390,8 +412,8 @@ Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/asyncio/base_events.py", line 554, in _check_running
     raise RuntimeError(
 RuntimeError: Cannot run the event loop while another loop is running
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/collections/__init__.py:551: RuntimeWarning: coroutine 'get_msg' was never awaited
-  super(Counter, self).__init__()
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/napari/utils/events/event.py:444: RuntimeWarning: coroutine 'get_msg' was never awaited
+  for ri, criteria in enumerate((before, after)):
 RuntimeWarning: Enable tracemalloc to get the object allocation traceback
 </pre></div>
 </div>

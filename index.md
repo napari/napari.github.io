@@ -195,13 +195,10 @@ napari.run()  # start the event loop and show viewer
 Check out the scripts in our `examples` folder to see some of the functionality
 we're developing!
 
-**napari** supports six main different layer types, `Image`, `Labels`, `Points`,
-`Vectors`, `Shapes`, and `Surface`, each corresponding to a different data type,
-visualization, and interactivity. You can add multiple layers of different types
-into the viewer and then start working with them, adjusting their properties.
-
-All our layer types support n-dimensional data and the viewer provides the
-ability to quickly browse and visualize either 2D or 3D slices of the data.
+[**napari** supports seven main different layer types](guides/stable/layers),
+and you can add multiple layers of different types into the viewer and then
+start working with them, adjusting their properties. You can learn more about
+[how to use Layers here](howtos/layers/index).
 
 **napari** also supports bidirectional communication between the viewer and the
 Python kernel, which is especially useful when launching from jupyter notebooks

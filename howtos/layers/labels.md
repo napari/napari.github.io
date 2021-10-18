@@ -13,18 +13,6 @@ kernelspec:
 
 # Labels layer tutorial
 
-+++
-
-Welcome to the tutorial on the **napari** `Labels` layer!
-
-This tutorial assumes you have already installed **napari**, know how to launch
-the viewer, and are familiar with its layout. For help with installation see our
-[installation](./installation) tutorial. For help getting started with the
-viewer see our [getting started](./getting_started) tutorial. For help
-understanding the organisation of the viewer, including things like the layers
-list, the layer properties widgets, the layer control panels, and the dimension
-sliders see our [napari viewer](./viewer) tutorial.
-
 This tutorial will teach you about the **napari** `Labels` layer, including
 using the layer to display the results of image segmentation analyses, and how
 to manually segment images using the paintbrush and fill buckets. At the end of
@@ -190,8 +178,8 @@ selected.
 The color that each integer gets assigned is random, aside from 0 which always
 gets assigned to be transparent. The colormap we use is designed such that
 nearby integers get assigned distinct colors. The exact colors that get assigned
-as determined by a [random
-seed](https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.random.seed.html)
+as determined by a
+[random seed](https://numpy.org/doc/stable/reference/random/generated/numpy.random.seed.html)
 and changing that seed will shuffle the colors that each label gets assigned.
 Changing the seed can be done by clicking on the `shuffle colors` button in the
 layers control panel. Shuffling colors can be useful as some colors may be hard
@@ -291,7 +279,7 @@ checked).
 
 **Drawing a connected component**:
 
-![image: draw component](../assets/tutorials/draw_component.gif)
+![image: draw component](../../images/draw_component.gif)
 
 +++
 
@@ -303,7 +291,7 @@ the contour to assign the label to all pixels of the object.
 
 **Selecting a connected component**:
 
-![image: delete label](../assets/tutorials/delete_label.gif)
+![image: delete label](../../images/delete_label.gif)
 
 +++
 
@@ -315,7 +303,7 @@ component to background.
 
 **Merging connected components**:
 
-![image: merge labels](../assets/tutorials/merge_labels.gif)
+![image: merge labels](../../images/merge_labels.gif)
 
 +++
 
@@ -326,7 +314,7 @@ filling the components to be merged with the fill bucket.
 
 **Splitting a connected component**:
 
-![image: split label](../assets/tutorials/split_label.gif)
+![image: split label](../../images/split_label.gif)
 
 +++
 
@@ -348,80 +336,9 @@ recent painting or filling event, up to 100 events in the past.
 If you have multidimensional data, then adjusting the currently viewed slice
 will cause the undo history to be reset.
 
-+++
-
-## Layer visibility
-
-All our layers support a visibility toggle that allows you to set the `visible`
-property of each layer. This property is located inside the layer widget in the
-layers list and is represented by an eye icon.
-
-+++
-
-## Layer opacity
-
-All our layers support an opacity slider and `opacity` property that allow you
-to adjust the layer opacity between 0, fully invisible, and 1, fully visible.
-
-+++
-
-## Blending layers
-
-All our layers support three blending modes `translucent`, `additive`, and
-`opaque` that determine how the visuals for this layer get mixed with the
-visuals from the other layers.
-
-An `opaque` layer renders all the other layers below it invisible and will fade
-to black as you decrease its opacity.
-
-The `translucent` setting will cause the layer to blend with the layers below it
-if you decrease its opacity but will fully block those layers if its opacity is
-1. This is a reasonable default, useful for many applications.
-
-The final blending mode `additive` will cause the layer to blend with the layers
-below even when it has full opacity. This mode is especially useful for
-visualizing multiple layers at the same time.
-
-+++
-
-## Naming layers
-
-All our layers support a `name` property that can be set inside a text box
-inside the layer widget in the layers list. The name of each layer is forced
-into being unique so that you can use the name to index into `viewer.layers` to
-retrieve the layer object.
-
-+++
-
-## Scaling layers
-
-All our layers support a `scale` property and keyword argument that will rescale
-the layer multiplicatively according to the scale values (one for each
-dimension). This property can be particularly useful for viewing anisotropic
-volumes where the size of the voxel in the z dimension might be different then
-the size in the x and y dimensions.
-
-+++
-
-## Translating layers
-
-All our layers support a `translate` property and keyword argument that you can
-use to offset a layer relative to the other layers, which could be useful if you
-are trying to overlay two layers for image registration purposes.
-
-+++
-
-## Layer metadata
-
-All our layers also support a `metadata` property and keyword argument that you
-can use to store an arbitrary metadata dictionary on the layer.
-
-+++
-
 ## Next steps
 
-Hopefully, this tutorial has given you a detailed understanding of the `Labels`
+Hopefully, this guide has given you a detailed understanding of the `Labels`
 layer, including how to create one and control its properties. To learn more
-about some of the other layer types that **napari** supports checkout some more
-of our tutorials listed below. The [points layer](./points) tutorial is a great
-one to try next as points are one of our simplest shape-like layers.
+about some of the other layer types that **napari** supports, checkout [the
+other guides on Using layers](./index).

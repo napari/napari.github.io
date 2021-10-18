@@ -11,27 +11,14 @@ kernelspec:
   name: python3
 ---
 
-# Image layer tutorial
+# Using the image layer 
 
-+++
+In this guide, you will learn about how to use the **napari** layers, including
+the types of images that can be displayed, and how to set properties like the
+contrast, opacity, colormaps and blending mode. 
 
-Welcome to the tutorial on the **napari** `Image` layer!
-
-This tutorial assumes you have already installed **napari**, know how to launch
-the viewer, and are familiar with its layout. For help with installation see our
-[installation](./installation) tutorial. For help getting started with the
-viewer see our [getting started](./getting_started) tutorial. For help
-understanding the organisation of the viewer, including things like the layers
-list, the layer properties widgets, the layer control panels, and the dimension
-sliders see our [napari viewer](./viewer) tutorial.
-
-This tutorial will teach you about the **napari** `Image` layer, including the
-types of images that can be displayed, and how to set properties like the
-contrast, opacity, colormaps and blending mode. At the end of the tutorial you
-should understand how to add and manipulate a variety of different types of
-images both from the GUI and from the console.
-
-+++
+At the end of the tutorial you should understand how to add and manipulate a
+variety of different types of images both from the GUI and from the console.
 
 ## A simple example
 
@@ -78,13 +65,13 @@ help(napari.view_image)
 ## Image data and NumPy-like arrays
 
 napari can take any numpy-like array as input for its image layer. A numpy-like
-array can just be a [numpy
-array](https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html), a
-[dask array](https://docs.dask.org/en/stable/array.html), an
+array can just be a
+[numpy array](https://numpy.org/doc/stable/reference/generated/numpy.array.html),
+a [dask array](https://docs.dask.org/en/stable/array.html), an
 [xarray](http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html), a
 [zarr array](https://zarr.readthedocs.io/en/stable/api/core.html), or any other
 object that you can index into and when you call
-[`np.asarray`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.asarray.html)
+[`np.asarray`](https://numpy.org/doc/stable/reference/generated/numpy.asarray.html)
 on it you get back a numpy array.
 
 The great thing about napari support array-like objects is that you get to keep
@@ -101,7 +88,7 @@ in a zarr file:
 
 +++
 
-![image: lattice light sheet microscopy](../assets/tutorials/LLSM.gif)
+![image: lattice light sheet microscopy](../../images/LLSM.gif)
 
 +++
 
@@ -122,7 +109,7 @@ part of the image that needs to be displayed:
 
 +++
 
-![image: pathology](../assets/tutorials/pathology.gif)
+![image: pathology](../../images/pathology.gif)
 
 +++
 
@@ -137,21 +124,8 @@ whether your data is or needs to be an image pyramid.
 
 +++
 
-## 3D rendering of images
-
-All our layers can be rendered in both 2D and 3D mode, and one of our viewer
-buttons can toggle between each mode. The number of dimensions sliders will be 2
-or 3 less than the total number of dimensions of the layer, allowing you to
-browse volumetric timeseries data and other high dimensional data. See for
-example these cells undergoing mitosis in this volumetric timeseries:
-
-+++
-
-![image: mitorsis](../assets/tutorials/mitosis.gif)
-
-+++
-
 ## Loading multichannel images
+
 Each channel in a multichannel image can be displayed as an individual layer 
 by using the `channel_axis` argument in `viewer.add_image()`. All the rest
 of the arguments to `viewer.add_image()` (e.g. name, colormap, contrast_limit)
@@ -176,7 +150,7 @@ viewer = napari.view_image(cells, channel_axis=1, name=["membrane", "nuclei"], c
 ```
 +++
 
-![image: multichannel image](../assets/tutorials/multichannel_cells.png)
+![image: multichannel image](../../images/multichannel_cells.png)
 
 +++
 
@@ -236,10 +210,11 @@ colormap name followed by the vispy colormap object. You can list all the
 available colormaps using `layer.colormaps`.
 
 It is also possible to create your own colormaps using vispy's
-`vispy.color.Colormap` object, see it's full [documentation
-here](https://vispy.org/api/vispy.color.colormap.html#vispy.color.colormap.Colormap). Briefly, you can pass
-`Colormap` a list of length 3 or length 4 lists, corresponding to the `rgb` or
-`rgba` values at different points along the colormap.
+`vispy.color.Colormap` object, see it's full
+[documentation here](https://vispy.org/api/vispy.color.colormap.html#vispy.color.colormap.Colormap).
+Briefly, you can pass `Colormap` a list of length 3 or length 4 lists,
+corresponding to the `rgb` or `rgba` values at different points along the
+colormap.
 
 +++
 
@@ -336,116 +311,9 @@ extent of the contrast limits range slider will be set to those values.
 
 +++
 
-## Layer visibility
-
-All our layers support a visibility toggle that allows you to set the `visible`
-property of each layer. This property is located inside the layer widget in the
-layers list and is represented by an eye icon.
-
-+++
-
-## Layer opacity
-
-All our layers support an opacity slider and `opacity` property that allow you
-to adjust the layer opacity between 0, fully invisible and 1, fully visible.
-
-+++
-
-## Blending layers
-
-All our layers support three blending modes `translucent`, `additive`, and
-`opaque` that determine how the visuals for this layer get mixed with the
-visuals from the other layers.
-
-An `opaque` layer renders all the other layers below it invisible and will fade
-to black as you decrease its opacity.
-
-The `translucent` setting will cause the layer to blend with the layers below it
-if you decrease its opacity but will fully block those layers if its opacity is
-1\. This is a reasonable default, useful for many applications.
-
-The final blending mode `additive` will cause the layer to blend with the layers
-below even when it has full opacity. This mode is especially useful for many
-cell biology applications where you have multiple different components of a cell
-labeled in different colors.
-
-+++
-
-For example:
-
-![image: blending](../assets/tutorials/blending.png)
-
-+++
-
-## Layer interpolation
-
-We support a variety of interpolation modes when viewing 2D slices. In the
-default mode `nearest` each pixel is represented as a small square of specified
-size. As you zoom in you will eventually see each pixel. In other modes
-neighbouring pixels are blended together according to different functions, for
-example `bicubic`, which can lead to smoother looking images. For most
-scientific use-cases `nearest` is recommended because it does not introduce more
-artificial blurring. These modes have no effect when viewing 3D slices.
-
-+++
-
-## Layer rendering
-
-When viewing 3D slices, we support a variety of rendering modes. The default
-mode `mip`, or maximum intensity projection, will combine voxels at different
-distances from the camera according to a maximum intensity projection to create
-the 2D image that is then displayed on the screen. This mode works well for many
-biological images such as these cells growing in culture:
-
-+++
-
-![image: rendering](../assets/tutorials/rendering.png)
-
-+++
-
-When viewing 2D slices the rendering mode has no effect.
-
-+++
-
-## Naming layers
-
-All our layers support a `name` property that can be set inside a text box
-inside the layer widget in the layers list. The name of each layer is forced
-into being unique so that you can use the name to index into `viewer.layers` to
-retrieve the layer object.
-
-+++
-
-## Scaling layers
-
-All our layers support a `scale` property and keyword argument that will rescale
-the layer multiplicatively according to the scale values (one for each
-dimension). This property can be particularly useful for viewing anisotropic
-volumes where the size of the voxel in the z dimension might be different then
-the size in the x and y dimensions.
-
-+++
-
-## Translating layers
-
-All our layers support a `translate` property and keyword argument that you can
-use to offset a layer relative to the other layers, which could be useful if you
-are trying to overlay two layers for image registration purposes.
-
-+++
-
-## Layer metadata
-
-All our layers also support a `metadata` property and keyword argument that you
-can use to store an arbitrary metadata dictionary on the layer.
-
-+++
-
 ## Next steps
 
-Hopefully, this tutorial has given you a detailed understanding of the `Image`
+Hopefully, this guide has given you a detailed understanding of the `Image`
 layer, including how to create one and control its properties. To learn more
-about some of the other layer types that **napari** supports checkout some more
-of our tutorials listed below. The [labels layer](./labels) tutorial is a great
-one to try next as labels layers are an extension of our image layers used for
-labeling regions of images.
+about some of the other layer types that **napari** supports, checkout [the
+other guides on Using layers](./index).

@@ -4,19 +4,24 @@ Welcome to the **napari** installation guide!
 
 This guide will teach you how to do a clean install of **napari** and launch the viewer.
 
+Note: If you want to contribute back to the napari codebase, you should follow [this guide instead](https://napari.org/developers/contributing.html).
+
 ## Prerequisites
 
 Prerequisites differ depending on what type of distribution you want to install.
 
 ### Installing the bundled app
 This is the easiest way to install napari if you only wish to use it as a standalone GUI app.
-This installation method does not have any prerequisites. 
+This installation method does not have any prerequisites. Note that the bundled app is still
+in active development, and may not be very stable. We strongly recommend installing as a Python
+package instead.
 [Click here](#installing-as-a-bundled-app) to see instructions
 for installing the bundled app.
 
-### Installing as a python package or in editable mode
+### (Recommended) Installing as a python package or in editable mode 
 This installation method allows you to use napari from Python to programmatically 
-interact with the app.
+interact with the app. It is the best way to install napari and make full use of
+all its features.
 
 It requires:
 - [Python 3.7+](https://www.python.org/downloads/)
@@ -27,21 +32,18 @@ You may also want:
 [venv](https://docs.python.org/3/library/venv.html) **(Highly recommended)**
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) (For editable mode)
 
-***
 
-### Choose which distribution to install.
-
-If you want to contribute back to the napari codebase, you should install from
-source code: see the [from source](#clone-the-repository-locally-and-install-in-editable-mode) section.
+## Choose which distribution to install.
 
 If you only wish to use napari as a GUI app (and not from python code), the
 [bundled app](#installing-as-a-bundled-app)
 is the easiest way to install and it does not require having python pre-installed.
+Note that we strongly recommend installing as a Python package instead.
 
 If you are using napari from Python to programmatically interact with the app,
 you can install via pip, conda-forge, or from source.
 
-### From pip, with "batteries included"
+### 1. From pip, with "batteries included"
 
 napari can be installed on most macOS, Linux, and Windows systems with Python
 3.7, 3.8, and 3.9 using pip:
@@ -66,7 +68,7 @@ pip install "napari[all]"
 ```
 ````
 
-### From conda-forge
+### 2. From conda-forge
 
 If you prefer to manage packages with conda, napari is available on the
 conda-forge channel. You can install it with:
@@ -75,22 +77,12 @@ conda-forge channel. You can install it with:
 conda install -c conda-forge napari
 ```
 
-### Install from the master branch on Github
+### 3. Install from the main branch on Github
 
 To install the "next-release" version from github via pip, call
 
 ```sh
 pip install "git+https://github.com/napari/napari.git#egg=napari[all]"
-```
-
-### Clone the repository locally and install in editable mode
-
-To clone the github repository for local install
-
-```sh
-git clone https://github.com/napari/napari.git
-cd napari
-pip install -e .[all]
 ```
 
 ## Checking it worked
@@ -255,7 +247,6 @@ after that you will find that napari launches more quickly.
 (Guide coming soon... In the meantime, if you try it and encounter issues, see
 below for how to contact us.)
 
-***
 
 ## Next steps
 

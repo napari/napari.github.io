@@ -45,13 +45,26 @@ function InPageTableOfContents() {
 
       if ((childHeader.children?.length ?? 0) > 0) {
         const { text } = childHeader;
-        const href = slug(text);
+        const href = `#${slug(text)}`;
         sectionHeaders.push({ href, text });
       }
     }
   }
 
-  return <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />;
+  return (
+    <>
+      <Media greaterThanOrEqual="screen-1425">
+        <TableOfContents headers={[...sectionHeaders, ...pageHeaders]} />
+      </Media>
+
+      <Media lessThan="screen-1425">
+        <TableOfContents
+          headers={[...sectionHeaders, ...pageHeaders]}
+          variant="collapsed"
+        />
+      </Media>
+    </>
+  );
 }
 
 function Content() {
@@ -92,7 +105,7 @@ function Content() {
     <div
       className={clsx(
         'grid grid-cols-3',
-        'screen-1150:grid-cols-4 screen-1425:grid-cols-napari-5',
+        'screen-1150:grid-cols-napari-4 screen-1425:grid-cols-napari-5',
 
         'justify-center gap-6 screen-495:gap-12',
         'px-6 pt-4 screen-495:px-12 screen-495:pt-9',
@@ -111,13 +124,19 @@ function Content() {
         className={clsx(
           'col-span-3 mb-6 screen-495:mb-12',
           'screen-1425:col-start-2 screen-1425:col-span-3',
+
+          // Allow overflow for really long content. This can happen for things
+          // like long Python class names on the API reference pages.
+          'overflow-x-auto',
         )}
       >
         {/* Page title */}
-        <h1 className="text-5xl font-bold">{pageTitle}</h1>
+        <h1 className="text-5xl leading-tight font-bold mb-3 screen-875:mb-10">
+          {pageTitle}
+        </h1>
 
         {pageIntro && (
-          <h2 className="font-semibold text-xs mt-3 screen-875:text-base screen-875:mt-10">
+          <h2 className="font-semibold text-xs screen-875:text-base">
             {pageIntro}
           </h2>
         )}
@@ -125,9 +144,7 @@ function Content() {
         {/* In page table of content that renders above the main content. */}
         {!isSearch && (
           <Media lessThan="screen-1425">
-            <div className="my-6">
-              <InPageTableOfContents />
-            </div>
+            <InPageTableOfContents />
           </Media>
         )}
 
@@ -152,7 +169,7 @@ function Content() {
         />
 
         {/* Render links + descriptions in a grid. */}
-        <QuickLinks />
+        <QuickLinks className="mt-20" />
       </div>
 
       {/* In page table of contents that renders to the right of the main content. */}

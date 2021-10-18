@@ -90,7 +90,8 @@ interacting with you there.
 ## improving the tutorials
 
 Our tutorials are hosted on Github at
-[napari/tutorials](https://github.com/napari/tutorials). If as you're going
+[napari/napari.github.io](https://github.com/napari/napari.github.io)
+in the "tutorials" folder. If as you're going
 through the tutorials you spot any errors or can think of ways to improve them
 please raise an issue on the repository or make a PR, we'd love to have the
 community help make them better for everyone.

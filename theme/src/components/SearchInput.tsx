@@ -56,12 +56,15 @@ export function SearchInput({ large, ...props }: Props) {
    * redirects to the search page with the query added to the URL.
    */
   function submitForm(searchQuery: string) {
-    if (!searchQuery) {
+    // Remove whitespaces.
+    const query = searchQuery.trim();
+
+    if (!query) {
       return;
     }
 
     const url = createUrl('/search.html', window.location.origin);
-    url.searchParams.set(SEARCH_QUERY_PARAM, searchQuery);
+    url.searchParams.set(SEARCH_QUERY_PARAM, query);
 
     // Load new page by assigning a new URL. This is to ensure that the any
     // pending fetching logic is cancelled.

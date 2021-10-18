@@ -337,9 +337,19 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
   // The search page requires separate pre-processing of data for rendering.
   const isSearch = last(file.split('/')) === 'search.html';
 
-  if (isSearch) {
-    const pageBody = $('body');
+  const pageBody = $(isSearch ? 'body' : '#page-body');
 
+  // Make all external links open in a new tab.
+  pageBody
+    .find('a.external')
+    .toArray()
+    .map((link) => $(link))
+    .forEach((link) => {
+      link.attr('target', '_blank');
+      link.attr('rel', 'noreferrer');
+    });
+
+  if (isSearch) {
     SEARCH_PAGE_SELECTOR_REMOVE_LIST.forEach((selector) =>
       pageBody.find(selector).remove(),
     );
@@ -359,14 +369,9 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       pageFrontMatter: {},
     };
   } else {
-    const pageBody = $('#page-body');
-
-    // Remove header link automatically added by Jupyter Book.
-    pageBody.find('.headerlink').remove();
-
     // Get page title from header text content.
     const pageHeader = pageBody.find('h1').first();
-    const pageTitle = pageHeader.text();
+    const pageTitle = pageHeader.text().replace('¶', '');
     pageHeader.remove();
 
     result = {

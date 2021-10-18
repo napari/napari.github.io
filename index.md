@@ -25,7 +25,7 @@ stage, and there will still likely be **breaking changes** with each release.
 You can follow progress on this repository, test out new versions as we release
 them, and contribute ideas and code.
 
-We're working on [tutorials](./tutorials/), but you can also quickly get started
+We're working on [tutorials](./tutorials/index), but you can also quickly get started
 by looking below.
 
 ## installation
@@ -162,7 +162,7 @@ functions.
 
 ## tutorials
 
-For more details on how to use `napari` checkout our [tutorials](./tutorials/index.md).
+For more details on how to use `napari` checkout our [tutorials](./tutorials/index).
 These are still a work in progress, but we'll be updating them regularly.
 
 ## mission, values, and roadmap
@@ -180,13 +180,13 @@ Issues](https://github.com/napari/napari/issues) before jumping in.
 
 ## code of conduct
 
-`napari` has a [Code of Conduct](./developers/code_of_conduct.md) that should
-be honored by everyone who participates in the `napari` community.
+`napari` has a [Code of Conduct](./community/code_of_conduct) that should be
+honored by everyone who participates in the `napari` community.
 
 ## governance
 
 You can learn more about how the `napari` project is organized and managed from
-our [governance model](./developers/governance.md), which includes information
+our [governance model](./community/governance), which includes information
 about, and ways to contact, the
 [@napari/steering-council](https://github.com/orgs/napari/teams/steering-council)
 and [@napari/core-devs](https://github.com/orgs/napari/teams/core-devs).

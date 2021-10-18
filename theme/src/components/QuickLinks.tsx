@@ -5,11 +5,15 @@ import { Link } from '@/components/Link';
 import { useJupyterBookData } from '@/context/jupyterBook';
 import { isExternalUrl } from '@/utils/url';
 
+interface Props {
+  className?: string;
+}
+
 /**
  * Renders a grid of table of content items with descriptions. The `quickLinks`
  * frontmatter configuration is used for rendering quick link items.
  */
-export function QuickLinks() {
+export function QuickLinks({ className }: Props) {
   const {
     pageFrontMatter: { quickLinks },
   } = useJupyterBookData();
@@ -21,6 +25,7 @@ export function QuickLinks() {
   return (
     <ul
       className={clsx(
+        className,
         'grid gap-6 screen-495:gap-12 justify-center',
         'grid-cols-3 screen-875:grid-cols-5',
       )}

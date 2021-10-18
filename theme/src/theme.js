@@ -7,9 +7,11 @@ const createTheme = require('@material-ui/core/styles/createTheme').default;
 
 const colors = {
   primary: '#80d1ff',
+  deepBlue: '#009BF2',
   hover: '#98daff',
   hoverGray: '#f7f7f7',
   gray: '#6f6f6f',
+  darkGray: '#686868',
   light: '#d2efff',
   error: '#eb1000',
 };

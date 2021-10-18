@@ -1,7 +1,10 @@
+import { Button, Collapse } from '@material-ui/core';
 import clsx from 'clsx';
+import { useState } from 'react';
 
 import { TOCHeader } from '@/context/jupyterBook';
 
+import { ChevronDown, ChevronUp } from '../icons';
 import { useActiveHeader } from './TableOfContents.hooks';
 
 interface Props {
@@ -26,6 +29,13 @@ interface Props {
    * highlighting completely.
    */
   active?: string;
+
+  /**
+   * Variant of the table of contents to render. The collapsed variant renders
+   * the TOC in a collapsible component so that it can save vertical space on
+   * smaller screens.
+   */
+  variant?: 'normal' | 'collapsed';
 }
 
 /**
@@ -34,10 +44,35 @@ interface Props {
 const ENABLE_EVENT_HANDLERS_TIMEOUT_MS = 100;
 
 /**
+ * Helper for scrolling to the selected header. By default, the browser will
+ * scroll to the heading when the hash values is changed. However, if the hash
+ * is already set to the same value, the browser will not scroll to the heading.
+ * Because of this, we'l need to manually scroll to the heading when the hash
+ * values are the same.
+ *
+ * @param header The header to scroll to.
+ */
+function scrollToHeading(header: TOCHeader) {
+  if (window.location.hash === header.href) {
+    const headerNode = document.getElementById(header.href.replace(/^#/, ''));
+    const alignToTop = true;
+    headerNode?.scrollIntoView(alignToTop);
+  } else {
+    window.location.hash = header.href;
+  }
+}
+
+/**
  * Component for rendering TOC from the given headers. Highlighting will
  * only work if the headers match those present on the page.
  */
-export function TableOfContents({ active, className, headers, free }: Props) {
+export function TableOfContents({
+  active,
+  className,
+  headers,
+  free,
+  variant = 'normal',
+}: Props) {
   const enabled = active === undefined;
   const {
     activeHeader,
@@ -45,8 +80,9 @@ export function TableOfContents({ active, className, headers, free }: Props) {
     enableEventHandlers,
     disableEventHandlers,
   } = useActiveHeader({ enabled, headers });
+  const [expanded, setExpanded] = useState(false);
 
-  return (
+  const tableOfContentsNode = (
     <ul
       className={clsx(
         className,
@@ -94,12 +130,13 @@ export function TableOfContents({ active, className, headers, free }: Props) {
               className={clsx(isActive && 'screen-1425:font-bold')}
               href={header.href}
               onClick={(event) => {
-                // If highlighting is disabled, treat this as a regular link.
+                event.preventDefault();
+
+                // If highlighting is disabled, only handle scrolling to the header.
                 if (!enabled) {
+                  scrollToHeading(header);
                   return;
                 }
-
-                event.preventDefault();
 
                 // The event handlers are disabled here because we want to set
                 // the active header AND scroll to the header. If the handlers
@@ -107,8 +144,7 @@ export function TableOfContents({ active, className, headers, free }: Props) {
                 // `setActiveHeader()` will have a race condition.
                 disableEventHandlers();
 
-                // Set the hash to the header ID so that the page scrolls to it.
-                window.location.hash = header.href;
+                scrollToHeading(header);
                 setActiveHeader(header.href);
 
                 // Wrap in timeout so that the browser has time to scroll the
@@ -128,4 +164,29 @@ export function TableOfContents({ active, className, headers, free }: Props) {
       })}
     </ul>
   );
+
+  if (variant === 'collapsed') {
+    const chevronClassName = 'w-5 h-5';
+
+    return (
+      <div className={clsx('transition-all', expanded ? 'mb-12' : 'mb-0')}>
+        <Button
+          className={clsx('pl-0 transition-all', expanded ? 'mb-4' : 'mb-0')}
+          onClick={() => setExpanded((prevExpanded) => !prevExpanded)}
+        >
+          {expanded ? (
+            <ChevronUp className={chevronClassName} />
+          ) : (
+            <ChevronDown className={chevronClassName} />
+          )}
+
+          <p className="ml-2 uppercase font-semibold">Table of Contents</p>
+        </Button>
+
+        <Collapse in={expanded}>{tableOfContentsNode}</Collapse>
+      </div>
+    );
+  }
+
+  return tableOfContentsNode;
 }

@@ -288,7 +288,7 @@ different layers. If a 2D and 4D dataset are both added to the viewer then the
 sliders will only affect the 4D dataset and the 2D dataset will be remain the
 same. Effectively, the two datasets are broadcast together using [NumPy
 broadcasting
-rules](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html).
+rules](https://numpy.org/doc/stable/user/basics.broadcasting.html).
 
 For example, the following commands from the console will add a both 2D and 3D
 datasets to the same viewer:

@@ -1,10 +1,27 @@
+---
+jupyter:
+  jupytext:
+    formats: ipynb,md
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.3'
+      jupytext_version: 1.13.0
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
 # How to install napari on your machine
 
 Welcome to the **napari** installation guide!
 
 This guide will teach you how to do a clean install of **napari** and launch the viewer.
 
-Note: If you want to contribute back to the napari codebase, you should follow [this guide instead](https://napari.org/developers/contributing.html).
+```{note} 
+If you want to contribute back to the napari codebase, you should follow [this guide instead](https://napari.org/developers/contributing.html).
+```
 
 ## Prerequisites
 
@@ -18,7 +35,7 @@ package instead.
 [Click here](#installing-as-a-bundled-app) to see instructions
 for installing the bundled app.
 
-### (Recommended) Installing as a python package or in editable mode 
+### **Recommended**: installing as a python package 
 This installation method allows you to use napari from Python to programmatically 
 interact with the app. It is the best way to install napari and make full use of
 all its features.
@@ -30,10 +47,8 @@ It requires:
 You may also want:
 - an environment manager like [conda](https://docs.conda.io/en/latest/miniconda.html) or
 [venv](https://docs.python.org/3/library/venv.html) **(Highly recommended)**
-- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) (For editable mode)
 
-
-## Choose which distribution to install.
+## Choose which distribution to install
 
 If you only wish to use napari as a GUI app (and not from python code), the
 [bundled app](#installing-as-a-bundled-app)
@@ -43,7 +58,23 @@ Note that we strongly recommend installing as a Python package instead.
 If you are using napari from Python to programmatically interact with the app,
 you can install via pip, conda-forge, or from source.
 
-### 1. From pip, with "batteries included"
+````{important}
+While not strictly required, it is *highly* recommended to install
+napari into a clean virtual environment using an environment manager like
+[conda](https://docs.conda.io/en/latest/miniconda.html) or
+[venv](https://docs.python.org/3/library/venv.html), *before* you install
+napari.  
+
+For example, with `conda`:
+
+```sh
+conda create -y -n napari-env python=3.8
+conda activate napari-env
+```
+````
+
+````{admonition} **1. From pip, with "batteries included"**
+:class: dropdown
 
 napari can be installed on most macOS, Linux, and Windows systems with Python
 3.7, 3.8, and 3.9 using pip:
@@ -51,24 +82,20 @@ napari can be installed on most macOS, Linux, and Windows systems with Python
 ```sh
 pip install "napari[all]"
 ```
-
-*(See `Specifying a GUI Backend` below for an explanation of the `[all]`
-notation.)*
-
-````{important}
-While not strictly required, it is *highly* recommended to install
-napari into a clean virtual environment using an environment manager like
-[conda](https://docs.conda.io/en/latest/miniconda.html) or
-[venv](https://docs.python.org/3/library/venv.html).  For example, with `conda`:
+You can then upgrade napari to a new version using
 
 ```sh
-conda create -y -n napari-env python=3.8
-conda activate napari-env
-pip install "napari[all]"
+pip install "napari[all]" --upgrade
 ```
+
+*(See [Choosing a different Qt backend](#choosing-a-different-qt-backend) below for an explanation of the `[all]`
+notation.)*
+
 ````
 
-### 2. From conda-forge
+
+````{admonition} **2. From conda-forge**
+:class: dropdown
 
 If you prefer to manage packages with conda, napari is available on the
 conda-forge channel. You can install it with:
@@ -77,14 +104,25 @@ conda-forge channel. You can install it with:
 conda install -c conda-forge napari
 ```
 
-### 3. Install from the main branch on Github
+You can then upgrade to a new version of napari using 
 
-To install the "next-release" version from github via pip, call
+```sh
+conda update napari
+```
+````
+
+
+````{admonition} **3. From the main branch on Github**
+:class: dropdown
+
+To install the latest version with yet to be released features from github via pip, call
 
 ```sh
 pip install "git+https://github.com/napari/napari.git#egg=napari[all]"
 ```
+````
 
+<!-- #region -->
 ## Checking it worked
 
 After installation you should be able to launch napari from the command line by
@@ -98,18 +136,7 @@ An empty napari viewer should appear as follows
 
 ![image: An empty napari viewer](../assets/tutorials/launch_cli_empty.png)
 
-## Upgrading
-
-If you installed napari with `pip` you can upgrade by calling
-
-```sh
-pip install "napari[all]" --upgrade
-```
-
 ## Choosing a different Qt backend
-
-````{admonition} Specifying a GUI Backend
-:class: tip
 
 napari needs a library called [Qt](https://www.qt.io/) to run its user interface
 (UI). In Python, there are two alternative libraries to run this, called
@@ -132,10 +159,11 @@ pip install "napari[pyqt5]"    # for PyQt5
 # OR
 pip install "napari[pyside2]"  # for PySide2
 ```
-````
 
-*Note: if you switch backends, it's a good idea to `pip uninstall` the one
-you're not using.*
+```{note}
+If you switch backends, it's a good idea to `pip uninstall` the one
+you're not using.
+```
 
 ## Installing as a bundled app
 
@@ -246,7 +274,7 @@ after that you will find that napari launches more quickly.
 
 (Guide coming soon... In the meantime, if you try it and encounter issues, see
 below for how to contact us.)
-
+<!-- #endregion -->
 
 ## Next steps
 

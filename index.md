@@ -73,7 +73,7 @@ We're developing **napari** in the open! But the project is in an **alpha**
 stage, and there will still likely be **breaking changes** with each release.
 
 You can follow progress
-[on out GitHub repository](https://github.com/napari/napari), test out new
+[on our GitHub repository](https://github.com/napari/napari), test out new
 versions as we release them, and contribute ideas and code.
 
 ## Installation

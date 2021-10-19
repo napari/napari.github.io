@@ -51,8 +51,6 @@ If the image is `RGB` or `RGBA` use the `-r` or `--rgb` flag.
 
 Launching napari directly from the command line is the simplest and fastest way to open the viewer,
 but it doesn't allow you to preprocess your images before opening them.
-It is also currently not possible to save images or other layer types directly from the viewer,
-but we'll be adding support for this functionality soon as discussed in [#379](https://github.com/napari/napari/issues/379).
 
 ### Python script usage
 

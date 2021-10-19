@@ -2,12 +2,6 @@
 
 In this guide, you will learn about how to use the **napari** `Tracks` layer.
 
-```{note}
-Please note that `Tracks` layer is a new layer type that will be released in
-`napari 0.4.0`, but it is available for preview on the
-[main branch](https://github.com/napari/napari).
-```
-
 The tracks layer allows you to display trajectories in nD + t while visualizing
 the recent history of the track via a fading tail.
 

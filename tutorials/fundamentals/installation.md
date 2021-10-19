@@ -29,13 +29,18 @@ Prerequisites differ depending on what type of distribution you want to install.
 
 ### Installing the bundled app
 This is the easiest way to install napari if you only wish to use it as a standalone GUI app.
-This installation method does not have any prerequisites. Note that the bundled app is still
+This installation method does not have any prerequisites. 
+
+```{important}
+Note that the bundled app is still
 in active development, and may not be very stable. We strongly recommend installing as a Python
 package instead.
+```
+
 [Click here](#installing-as-a-bundled-app) to see instructions
 for installing the bundled app.
 
-### **Recommended**: installing as a python package 
+### Installing as a python package 
 This installation method allows you to use napari from Python to programmatically 
 interact with the app. It is the best way to install napari and make full use of
 all its features.
@@ -204,7 +209,7 @@ clicking on it.
 napari](../assets/tutorials/installation/bundle_applications_folder.png)
 
 The first time you try and open napari you will get the "unverified developer
-warning" that appears bellow:
+warning" that appears below:
 
 ![image: MacOS developer
 warning](../assets/tutorials/installation/bundle_dev_warning.png)
@@ -286,7 +291,7 @@ guidelines](../../developers/contributing.md)
 - if you are running into issues or bugs, please open a new issue on our [issue
 tracker](https://github.com/napari/napari/issues)
     - include the output of `napari -info` 
-    (or go to Help>Info in the viewer and copy paste the information)
+    (or go to `Help>Info` in the viewer and copy paste the information)
 - if you want help using napari, we are a community partner on the [imagesc
 forum](https://forum.image.sc/tags/napari) and all usage support requests should
 be posted on the forum with the tag `napari`. We look forward to interacting

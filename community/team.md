@@ -6,8 +6,7 @@ napari is a consensus-based community project. Anyone with an interest in the pr
 
 We hold regular meetings, the timings of which are available on our [public calendar](https://calendar.google.com/calendar/embed?src=c_35r93ec6vtp8smhm7dv5uot0v4%40group.calendar.google.com). 
 
-<iframe id="calendariframe" src="https://calendar.google.com/calendar/embed?ctz=local&amp;src=c_35r93ec6vtp8smhm7dv5uot0v4%40group.calendar.google.com" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-<script>document.getElementById("calendariframe").src = document.getElementById("calendariframe").src.replace("ctz=local", "ctz=" + Intl.DateTimeFormat().resolvedOptions().timeZone)</script>
+<iframe src="https://calendar.google.com/calendar/embed?src=c_35r93ec6vtp8smhm7dv5uot0v4%40group.calendar.google.com" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 
 If you are using napari or interested in how napari could be used in your work, please join one of our regular community meetings. If you're interested in diving deep on particular topic you could join the closest working group meeting. We currently have four working groups 'Bundled Application', 'Plugins', 'Architecture', and 'Documentation' that meet on a semi-regular candence. You can learn more about our working groups and community meetings in the corresponding discussion streams on the [napari Zulip](https://napari.zulipchat.com/login/).
 

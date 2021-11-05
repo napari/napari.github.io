@@ -319,6 +319,16 @@ async function getPageFrontMatter(file: string) {
 }
 
 /**
+ * Gets the link of the first image in the page body.
+ *
+ * @param pageBody The page body cheerio instance.
+ * @returns A link to the image or an empty string if not found.
+ */
+function getPreviewImage(pageBody: Cheerio<Element>) {
+  return pageBody.find('img').first().attr('src') ?? '';
+}
+
+/**
  * Scrapes page data from an HTML file for pre-rendering.
  *
  * @param file The HTML file to extract data from.
@@ -367,6 +377,7 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       pageBodyHtml: pageBody.html() ?? '',
       pageHeaders: [],
       pageFrontMatter: {},
+      previewImage: '',
     };
   } else {
     // Get page title from header text content.
@@ -382,6 +393,7 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       appStyleSheets: getAppStyleSheets($),
       pageBodyHtml: pageBody.html() ?? '',
       pageHeaders: getPageHeaders($),
+      previewImage: getPreviewImage(pageBody),
     };
   }
 

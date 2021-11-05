@@ -73,6 +73,11 @@ export interface JupyterBookState {
    * Sphinx stylesheets that should be loaded into the React application.
    */
   appStyleSheets: LinkHTMLAttributes<HTMLLinkElement>[];
+
+  /**
+   * Image that is used for social previews on Twitter and OpenGraph websites.
+   */
+  previewImage: string;
 }
 
 const JupyterBookContext = createContext<JupyterBookState>({
@@ -84,6 +89,7 @@ const JupyterBookContext = createContext<JupyterBookState>({
   pageFrontMatter: {},
   appScripts: [],
   appStyleSheets: [],
+  previewImage: '',
 });
 
 interface Props extends JupyterBookState {

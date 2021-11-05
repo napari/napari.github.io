@@ -385,15 +385,21 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
     const pageTitle = pageHeader.text().replace('¶', '');
     pageHeader.remove();
 
+    const pageFrontMatter = await getPageFrontMatter(file);
+    // Get preview image from front matter if defined, otherwise extract it from
+    // the page.
+    const previewImage =
+      pageFrontMatter.previewImage || getPreviewImage(pageBody);
+
     result = {
       ...getGlobalTocHeaders(globalToc),
       pageTitle,
-      pageFrontMatter: await getPageFrontMatter(file),
+      pageFrontMatter,
+      previewImage,
       appScripts: getAppScripts($, '#scripts script'),
       appStyleSheets: getAppStyleSheets($),
       pageBodyHtml: pageBody.html() ?? '',
       pageHeaders: getPageHeaders($),
-      previewImage: getPreviewImage(pageBody),
     };
   }
 

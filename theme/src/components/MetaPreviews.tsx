@@ -39,11 +39,6 @@ export function MetaPreviews() {
     previewImageLink = createNapariOrgUrl(previewImage);
   }
 
-  // If any of the required preview data is not available, then don't render the preview tags.
-  if (!pageTitle || !previewUrl) {
-    return null;
-  }
-
   return (
     <Head>
       {/* Twitter card data */}

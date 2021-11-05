@@ -138,10 +138,10 @@ image for each link:
 
 ![opengraph-example](./images/page-customization/opengraph-example.png)
 
-To enable rich previews for a page, you'll need to have:
+To configure rich previews for a page, you can set the following values:
 
-1. An H1 tag on the page.
-1. Use [`intro`](#intro) or [`metaDescription`](#metaDescription) in the frontmatter.
+1. Title: The H1 tag on the page.
+1. Description: Use [`intro`](#intro) or [`metaDescription`](#metaDescription) in the frontmatter.
 
 To include an image in the preview, you can either:
 

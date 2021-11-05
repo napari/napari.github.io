@@ -12,6 +12,11 @@ module.exports = {
         // analytics are enabled for production and staging deployments, but can
         // be enabled manually for testing.
         PLAUSIBLE: 'false',
+
+        // Base URL to use for preview links. By default, 'https://napari.org'
+        // will be used, but this can be set during development to test the
+        // preview links.
+        PREVIEW_BASE_URL: 'https://napari.org',
       }),
     );
 

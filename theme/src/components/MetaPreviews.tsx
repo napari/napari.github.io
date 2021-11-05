@@ -40,7 +40,7 @@ export function MetaPreviews() {
   }
 
   // If any of the required preview data is not available, then don't render the preview tags.
-  if (!pageTitle || !previewDescription || !previewUrl) {
+  if (!pageTitle || !previewUrl) {
     return null;
   }
 

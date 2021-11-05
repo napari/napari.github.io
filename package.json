@@ -5,8 +5,11 @@
   "scripts": {
     "// Scripts for building napari.org for production": "",
     "build": "run-s clean build:*",
-    "build:docs": "PYTHONPATH=$PWD jupyter-book build .",
+    "build:docs": "run-s docs:*",
     "build:next": "run-s next:*",
+
+    "docs:build": "PYTHONPATH=$PWD jupyter-book build .",
+    "docs:convert-data-images": "ts-node -P tsconfig.node.json scripts/convert-data-images",
 
     "// Scripts for building and exporting the documentation using Next.js": "",
     "next:build": "next build",
@@ -25,7 +28,7 @@
     "clean:api-stable": "find api/stable/ ! -name 'index.rst' -type f -exec rm -f {} +",
     "clean:build-hash": "rm -rf _build/jupyter-build-hash",
     "clean:docs": "rm -rf _build/html",
-    "clean:theme": "rm -rf dist public",
+    "clean:theme": "rm -rf dist public/_*",
     "clean:next": "rm -rf .next",
 
     "// Scripts for using various linters on the codebase.": "",

@@ -1,5 +1,6 @@
 ---
 theme:
+  metaDescription: napari is a fast, interactive, multi-dimensional image viewer for Python. It's designed for browsing, annotating, and analyzing large multi-dimensional images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based rendering), and the scientific Python stack (numpy, scipy).
   quickLinks:
     - title: Community
       content: Meet the team, our mission, and our values
@@ -57,7 +58,7 @@ theme:
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 [![DOI](https://zenodo.org/badge/144513571.svg)](https://zenodo.org/badge/latestdoi/144513571)
 
------
+---
 
 **napari** is a fast, interactive, multi-dimensional image viewer for Python.
 It's designed for browsing, annotating, and analyzing large multi-dimensional
@@ -95,7 +96,7 @@ napari can be installed on most macOS, Linux, and Windows systems with Python
 pip install "napari[all]"
 ```
 
-*(See `Specifying a GUI Backend` below for an explanation of the `[all]` notation.)*
+_(See `Specifying a GUI Backend` below for an explanation of the `[all]` notation.)_
 
 ````{important}
 While not strictly required, it is *highly* recommended to install

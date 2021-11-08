@@ -24,11 +24,7 @@ function createNapariOrgUrl(path: string) {
  */
 export function MetaPreviews() {
   const router = useRouter();
-  const { pageFrontMatter, pageTitle, previewImage } = useJupyterBookData();
-
-  // Meta description will override the intro if specified.
-  const previewDescription =
-    pageFrontMatter.metaDescription || pageFrontMatter.intro;
+  const { pageTitle, previewImage, previewDescription } = useJupyterBookData();
   const previewUrl = router.asPath && createNapariOrgUrl(router.asPath);
 
   // Convert image URL to absolute URL if it's an internal image.

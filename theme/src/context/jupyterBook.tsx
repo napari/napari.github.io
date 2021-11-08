@@ -79,6 +79,11 @@ export interface JupyterBookState {
    * Image that is used for social previews on Twitter and OpenGraph websites.
    */
   previewImage: string;
+
+  /**
+   * Description used for social previews.
+   */
+  previewDescription: string;
 }
 
 const JupyterBookContext = createContext<JupyterBookState>({
@@ -91,6 +96,7 @@ const JupyterBookContext = createContext<JupyterBookState>({
   appScripts: [],
   appStyleSheets: [],
   previewImage: '',
+  previewDescription: '',
 });
 
 interface Props extends JupyterBookState {

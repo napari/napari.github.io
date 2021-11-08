@@ -355,6 +355,12 @@ function getPreviewImage(pageBody: Cheerio<Element>) {
   return previewImage.attr('src') ?? '';
 }
 
+function getPreviewDescription(pageBody: Cheerio<Element>) {
+  return pageBody.find('p').first().text();
+}
+
+const MAX_PREVIEW_DESCRIPTION = 200;
+
 /**
  * Scrapes page data from an HTML file for pre-rendering.
  *
@@ -405,6 +411,7 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       pageHeaders: [],
       pageFrontMatter: {},
       previewImage: '',
+      previewDescription: '',
     };
   } else {
     // Get page title from header text content.
@@ -432,11 +439,24 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       }
     }
 
+    let previewDescription =
+      pageFrontMatter.metaDescription ||
+      pageFrontMatter.intro ||
+      getPreviewDescription(pageBody);
+
+    // Shorten the preview description if it's longer than the max length.
+    if (previewDescription.length > MAX_PREVIEW_DESCRIPTION) {
+      previewDescription = previewDescription
+        .slice(0, MAX_PREVIEW_DESCRIPTION)
+        .replaceAll(/.{3}$/g, '...');
+    }
+
     result = {
       ...getGlobalTocHeaders(globalToc),
       pageTitle,
       pageFrontMatter,
       previewImage,
+      previewDescription,
       appScripts: getAppScripts($, '#scripts script'),
       appStyleSheets: getAppStyleSheets($),
       pageBodyHtml: pageBody.html() ?? '',

@@ -320,13 +320,39 @@ async function getPageFrontMatter(file: string) {
 }
 
 /**
+ * List of images by alt name to exclude from the preview image. This uses the
+ * `alt` attribute to determine if the image should be filtered out or not.
+ */
+const PREVIEW_IMAGE_BLOCKLIST_SET = new Set([
+  // Badges on the index.md page
+  'image.sc forum',
+  'License',
+  'Build Status',
+  'codecov',
+  'Python Version',
+  'PyPI',
+  'PyPI - Downloads',
+  'Development Status',
+  'Code style: black',
+  'DOI',
+]);
+
+/**
  * Gets the link of the first image in the page body.
  *
  * @param pageBody The page body cheerio instance.
  * @returns A link to the image or an empty string if not found.
  */
 function getPreviewImage(pageBody: Cheerio<Element>) {
-  return pageBody.find('img').first().attr('src') ?? '';
+  const [previewImage] = pageBody
+    .find('img')
+    .toArray()
+    .map((node) => cheerio(node))
+    .filter(
+      (image) => !PREVIEW_IMAGE_BLOCKLIST_SET.has(image.attr('alt') ?? ''),
+    );
+
+  return previewImage.attr('src') ?? '';
 }
 
 /**

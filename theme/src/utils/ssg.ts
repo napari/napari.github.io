@@ -17,6 +17,7 @@ import {
   TOCHeader,
 } from '@/context/jupyterBook';
 
+import { getHTMLFiles } from './jupyterBook';
 import { isExternalUrl } from './url';
 
 interface StackItem<T> {
@@ -388,8 +389,22 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
     const pageFrontMatter = await getPageFrontMatter(file);
     // Get preview image from front matter if defined, otherwise extract it from
     // the page.
-    const previewImage =
+    let previewImage =
       pageFrontMatter.previewImage || getPreviewImage(pageBody);
+
+    // Use generated cells image from tutorials page as the default preview image.
+    if (!previewImage) {
+      const files = await getHTMLFiles();
+      const tutorialsIndexFile = files.find((htmlFile) =>
+        htmlFile.includes('tutorials/index.html'),
+      );
+
+      if (tutorialsIndexFile) {
+        const tutorialsHtml = await fs.readFile(tutorialsIndexFile, 'utf-8');
+        const tutorialsPageBody = cheerio.load(tutorialsHtml)('#page-body');
+        previewImage = getPreviewImage(tutorialsPageBody);
+      }
+    }
 
     result = {
       ...getGlobalTocHeaders(globalToc),

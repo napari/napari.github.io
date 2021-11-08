@@ -9,6 +9,8 @@ kernelspec:
   display_name: Python 3
   language: python
   name: python3
+theme:
+  intro: Welcome to the napari tutorials! Our main development occurs on the napari/napari repository. Here we’ve provided a few tutorials to explore the main usage modes and methods of napari.
 ---
 
 # napari tutorials

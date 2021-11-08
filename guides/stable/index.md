@@ -1,3 +1,9 @@
+---
+theme:
+  intro: The napari.org guides page.
+  previewImage: /spongebob.jpg
+---
+
 # Guides
 
 If you'd like to start customizing the behavior of napari, it pays to

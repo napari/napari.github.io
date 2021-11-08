@@ -335,6 +335,9 @@ const PREVIEW_IMAGE_BLOCKLIST_SET = new Set([
   'Development Status',
   'Code style: black',
   'DOI',
+
+  // CZI logo on team page
+  'CZI logo',
 ]);
 
 /**
@@ -352,7 +355,7 @@ function getPreviewImage(pageBody: Cheerio<Element>) {
       (image) => !PREVIEW_IMAGE_BLOCKLIST_SET.has(image.attr('alt') ?? ''),
     );
 
-  return previewImage.attr('src') ?? '';
+  return previewImage?.attr('src') ?? '';
 }
 
 function getPreviewDescription(pageBody: Cheerio<Element>) {
@@ -450,6 +453,10 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
         .slice(0, MAX_PREVIEW_DESCRIPTION)
         .replaceAll(/.{3}$/g, '...');
     }
+
+    // Remove in page TOC added by Jupyter if it exists.
+    pageBody.find('.tableofcontents-wrapper').remove();
+    pageBody.find('.toctree-wrapper').remove();
 
     result = {
       ...getGlobalTocHeaders(globalToc),

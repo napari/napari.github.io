@@ -23,6 +23,7 @@ export interface PageFrontMatterData {
   metaDescription?: string;
   intro?: string;
   quickLinks?: QuickLinkItem[];
+  previewImage?: string;
 }
 
 /**
@@ -73,6 +74,16 @@ export interface JupyterBookState {
    * Sphinx stylesheets that should be loaded into the React application.
    */
   appStyleSheets: LinkHTMLAttributes<HTMLLinkElement>[];
+
+  /**
+   * Image that is used for social previews on Twitter and OpenGraph websites.
+   */
+  previewImage: string;
+
+  /**
+   * Description used for social previews.
+   */
+  previewDescription: string;
 }
 
 const JupyterBookContext = createContext<JupyterBookState>({
@@ -84,6 +95,8 @@ const JupyterBookContext = createContext<JupyterBookState>({
   pageFrontMatter: {},
   appScripts: [],
   appStyleSheets: [],
+  previewImage: '',
+  previewDescription: '',
 });
 
 interface Props extends JupyterBookState {

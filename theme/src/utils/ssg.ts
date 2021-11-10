@@ -17,6 +17,7 @@ import {
   TOCHeader,
 } from '@/context/jupyterBook';
 
+import { getHTMLFiles } from './jupyterBook';
 import { isExternalUrl } from './url';
 
 interface StackItem<T> {
@@ -319,6 +320,51 @@ async function getPageFrontMatter(file: string) {
 }
 
 /**
+ * List of images by alt name to exclude from the preview image. This uses the
+ * `alt` attribute to determine if the image should be filtered out or not.
+ */
+const PREVIEW_IMAGE_BLOCKLIST_SET = new Set([
+  // Badges on the index.md page
+  'image.sc forum',
+  'License',
+  'Build Status',
+  'codecov',
+  'Python Version',
+  'PyPI',
+  'PyPI - Downloads',
+  'Development Status',
+  'Code style: black',
+  'DOI',
+
+  // CZI logo on team page
+  'CZI logo',
+]);
+
+/**
+ * Gets the link of the first image in the page body.
+ *
+ * @param pageBody The page body cheerio instance.
+ * @returns A link to the image or an empty string if not found.
+ */
+function getPreviewImage(pageBody: Cheerio<Element>) {
+  const [previewImage] = pageBody
+    .find('img')
+    .toArray()
+    .map((node) => cheerio(node))
+    .filter(
+      (image) => !PREVIEW_IMAGE_BLOCKLIST_SET.has(image.attr('alt') ?? ''),
+    );
+
+  return previewImage?.attr('src') ?? '';
+}
+
+function getPreviewDescription(pageBody: Cheerio<Element>) {
+  return pageBody.find('p').first().text();
+}
+
+const MAX_PREVIEW_DESCRIPTION = 200;
+
+/**
  * Scrapes page data from an HTML file for pre-rendering.
  *
  * @param file The HTML file to extract data from.
@@ -367,6 +413,8 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       pageBodyHtml: pageBody.html() ?? '',
       pageHeaders: [],
       pageFrontMatter: {},
+      previewImage: '',
+      previewDescription: '',
     };
   } else {
     // Get page title from header text content.
@@ -374,10 +422,48 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
     const pageTitle = pageHeader.text().replace('¶', '');
     pageHeader.remove();
 
+    const pageFrontMatter = await getPageFrontMatter(file);
+    // Get preview image from front matter if defined, otherwise extract it from
+    // the page.
+    let previewImage =
+      pageFrontMatter.previewImage || getPreviewImage(pageBody);
+
+    // Use generated cells image from tutorials page as the default preview image.
+    if (!previewImage) {
+      const files = await getHTMLFiles();
+      const tutorialsIndexFile = files.find((htmlFile) =>
+        htmlFile.includes('tutorials/index.html'),
+      );
+
+      if (tutorialsIndexFile) {
+        const tutorialsHtml = await fs.readFile(tutorialsIndexFile, 'utf-8');
+        const tutorialsPageBody = cheerio.load(tutorialsHtml)('#page-body');
+        previewImage = getPreviewImage(tutorialsPageBody);
+      }
+    }
+
+    let previewDescription =
+      pageFrontMatter.metaDescription ||
+      pageFrontMatter.intro ||
+      getPreviewDescription(pageBody);
+
+    // Shorten the preview description if it's longer than the max length.
+    if (previewDescription.length > MAX_PREVIEW_DESCRIPTION) {
+      previewDescription = previewDescription
+        .slice(0, MAX_PREVIEW_DESCRIPTION)
+        .replaceAll(/.{3}$/g, '...');
+    }
+
+    // Remove in page TOC added by Jupyter if it exists.
+    pageBody.find('.tableofcontents-wrapper').remove();
+    pageBody.find('.toctree-wrapper').remove();
+
     result = {
       ...getGlobalTocHeaders(globalToc),
       pageTitle,
-      pageFrontMatter: await getPageFrontMatter(file),
+      pageFrontMatter,
+      previewImage,
+      previewDescription,
       appScripts: getAppScripts($, '#scripts script'),
       appStyleSheets: getAppStyleSheets($),
       pageBodyHtml: pageBody.html() ?? '',

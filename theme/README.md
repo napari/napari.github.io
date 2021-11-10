@@ -141,16 +141,15 @@ image for each link:
 To configure rich previews for a page, you can set the following values:
 
 1. Title: The H1 tag on the page.
-1. Description: Use [`intro`](#intro) or [`metaDescription`](#metaDescription) in the frontmatter.
-
-To include an image in the preview, you can either:
-
-1. Add an image to the page, and the theme will use whatever is first.
-1. Use the [`previewImage`](#previewimage) variable.
-
-If you don't do one of the above, then the preview will show a `missing image` icon instead.
-
-![opengraph-example-no-image](./images/page-customization/opengraph-example-no-image.png)
+1. Description: You can either:
+   - Add at least one [Markdown paragraph](https://www.markdownguide.org/basic-syntax/#paragraphs-1) to the page. The first paragraph will be used for the preview.
+   - Use the [intro](#intro) variable.
+   - Use the [metaDescription](#metadescription) variable.
+   - Override order: `metaDescription` > `intro` > 1st paragraph
+1. Image: You can either
+   - Add at least one [Markdown image](https://www.markdownguide.org/basic-syntax/#images-1) to the page. The first image will be used for the preview.
+   - Use the [`previewImage`](#previewimage) variable.
+   - Override order: `previewImage` > 1st image
 
 ## How does it work?
 

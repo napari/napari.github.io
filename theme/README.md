@@ -148,7 +148,7 @@ To configure rich previews for a page, you can set the following values:
    - Override order: `metaDescription` > `intro` > 1st paragraph
 1. Image: You can either
    - Add at least one [Markdown image](https://www.markdownguide.org/basic-syntax/#images-1) to the page. The first image will be used for the preview.
-   - Use the [`previewImage`](#previewimage) variable.
+   - Use the [previewImage](#previewimage) variable.
    - Override order: `previewImage` > 1st image
 
 ## How does it work?

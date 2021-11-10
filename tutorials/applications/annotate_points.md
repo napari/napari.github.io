@@ -1,4 +1,4 @@
-# annotating videos with napari
+# Annotating videos with napari
 
 **Note**: this tutorial has been updated and is now compatible with napari > 0.4.5 and magicgui > 0.2.5. For details, see [this pull request](https://github.com/napari/napari.github.io/pull/114).
 
@@ -11,7 +11,6 @@ At the end of this tutorial, we will have created a GUI for annotating points in
 ```python
 im_path = '<path to directory with data>/*.png'
 point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'])
-
 ```
 
 The resulting viewer looks like this (images from [Mathis et al., 2018](https://www.nature.com/articles/s41593-018-0209-y), downloaded from [here](https://github.com/DeepLabCut/DeepLabCut/tree/f21321ef8060c537f9df0ce9346189bda07701b5/examples/openfield-Pranav-2018-10-30/labeled-data/m4s1)):
@@ -151,7 +150,7 @@ def point_annotator(
         points_layer.current_properties = current_properties
 ```
 
-## point_annotator()
+## `point_annotator()`
 
 We will create the GUI within a function called `point_annotator()`.
 Wrapping the GUI creation in the function allows us to integrate it into other functions (e.g., a command line interface) and applications.
@@ -171,7 +170,6 @@ def point_annotator(
     labels : List[str]
         list of the labels for each keypoint to be annotated (e.g., the body parts to be labeled).
     """
-
 ```
 
 ## Loading the video
@@ -284,8 +282,6 @@ To make the a dropdown menu populated with the valid point labels, we simply cre
 label_menu = ComboBox(label='feature_label', choices=labels)
 label_widget = Container(widgets=[label_menu])
 ```
-
-
 
 We then need to connect the dropdown menu (`label_menu`) to the points layer to ensure the menu selection is always synchronized to the `Points` layer model.
 
@@ -413,7 +409,6 @@ Now that you've put it all together, you should be ready to test! You can call t
 im_path = '<path to directory with data>/*.png'
 
 point_annotator(im_path, labels=['ear_l', 'ear_r', 'tail'])
-
 ```
 
 ### Saving the annotations

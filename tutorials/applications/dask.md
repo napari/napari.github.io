@@ -1,4 +1,4 @@
-# using dask and napari to process & view large datasets
+# Using Dask and napari to process & view large datasets
 
 Often in microscopy, multidimensional data is acquired and written to disk in many small files,
 each of which contain a subset of one or more dimensions from the complete dataset.
@@ -37,7 +37,7 @@ The second part of this tutorial demonstrates the use of the [`dask.array.map_bl
 to describe an arbitrary sequence of functions in a declarative manner
 that will be performed *on demand* as you explore the data (i.e. move the sliders) in `napari`.
 
-## using dask.delayed to load images
+## Using `dask.delayed` to load images
 
 If you have a function that can take a filename and return a `numpy` array,
 such as `skimage.io.imread`,
@@ -109,7 +109,7 @@ napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
 *Note: providing the* `contrast_limits` *and* `multiscale` *arguments prevents* `napari` *from trying to calculate the data min/max, which can take an extremely long time with big data.
 See [napari issue #736](https://github.com/napari/napari/issues/736) for further discussion.*
 
-## make your life easier with `dask-image`
+## Make your life easier with `dask-image`
 
 This pattern for creating a `dask.array` from image data
 has been previously described in an [excellent blog post](https://blog.dask.org/2019/06/20/load-image-data) by John Kirkham.
@@ -130,7 +130,7 @@ napari.view_image(stack, contrast_limits=[0,2000], is_pyramid=False)
 
 ![image: mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope](../assets/tutorials/dask1.gif)
 
-### **side note regarding higher-dimensional datasets**
+### **Side note regarding higher-dimensional datasets**
 
 In the above example, it would be quite common to have a 5+ dimensional dataset
 (e.g. different timepoints *and* channels represented among the 3D TIFF files in a folder).
@@ -174,7 +174,7 @@ stack[0, 0].compute()  # incurs a single file read
 
 ```
 
-## processing data with `dask.array.map_blocks`
+## Processing data with `dask.array.map_blocks`
 
 As previously mentioned,
 sometimes it is desirable to process data prior to viewing.
@@ -255,10 +255,8 @@ that describes a similar image processing pipeline using [ITK](https://itk.org/)
 `napari` simply sits at the end of this lazy processing chain,
 ready to show you the result on demand!
 
-## Further Reading
+## Further reading
 
-[Documentation on dask.delayed](https://docs.dask.org/en/latest/delayed.html)
-
-[Dask working notes on dask-image](https://blog.dask.org/2019/06/20/load-image-data)
-
-[Dask working notes on image processing with `dask.array.map_blocks`](https://blog.dask.org/2019/08/09/image-itk)
+- [Documentation on dask.delayed](https://docs.dask.org/en/latest/delayed.html)
+- [Dask working notes on dask-image](https://blog.dask.org/2019/06/20/load-image-data)
+- [Dask working notes on image processing with `dask.array.map_blocks`](https://blog.dask.org/2019/08/09/image-itk)

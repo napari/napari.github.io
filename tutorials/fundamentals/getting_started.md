@@ -1,4 +1,4 @@
-# getting started with napari
+# Getting started with napari
 
 Welcome to the getting started with **napari** tutorial!
 
@@ -8,7 +8,7 @@ For help with installation see our [installation tutorial](./installation).
 This tutorial will teach you all the different ways to launch napari.
 At the end of the tutorial you should be able to launch napari and see the viewer your favorite way.
 
-## launching napari
+## Launching napari
 
 There are four ways to launch the **napari** viewer:
 
@@ -20,7 +20,7 @@ There are four ways to launch the **napari** viewer:
 All four of these methods will launch the same napari viewer
 but depending on your use-case different ones may be preferable.
 
-### command line usage
+### Command line usage
 
 To launch napari from the command line simply run
 
@@ -54,7 +54,7 @@ but it doesn't allow you to preprocess your images before opening them.
 It is also currently not possible to save images or other layer types directly from the viewer,
 but we'll be adding support for this functionality soon as discussed in [#379](https://github.com/napari/napari/issues/379).
 
-### python script usage
+### Python script usage
 
 To launch napari from a python script, inside your script you should import `napari`,
 and then create the `Viewer` by adding some data.
@@ -110,7 +110,7 @@ is that the you can continue to programmatically interact with the viewer from t
 including bidirectional communication, where code run in the console will update the current viewer
 and where data changed in the GUI will be accessible in the console.
 
-### jupyter notebook usage
+### Jupyter notebook usage
 
 You can also launch napari from a jupyter notebook,
 such as [`examples/notebook.ipynb`](https://github.com/napari/napari/tree/master/examples/notebook.ipynb)
@@ -123,7 +123,7 @@ is that you can continue to programmatically interact with the viewer from jupyt
 including bidirectional communication, where code run in the notebook will update the current viewer
 and where data changed in the GUI will be accessible in the notebook.
 
-## next steps
+## Next steps
 
 To learn more about how to use the napari viewer with different types of napari layers
 checkout the [viewer tutorial](./viewer) and more of our tutorials listed below.

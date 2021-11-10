@@ -140,7 +140,7 @@ image for each link:
 
 To configure rich previews for a page, you can set the following values:
 
-1. Title: The H1 tag on the page.
+1. Title: Add a level 1 [Markdown heading](https://www.markdownguide.org/basic-syntax/#headings).
 1. Description: You can either:
    - Add at least one [Markdown paragraph](https://www.markdownguide.org/basic-syntax/#paragraphs-1) to the page. The first paragraph will be used for the preview.
    - Use the [intro](#intro) variable.

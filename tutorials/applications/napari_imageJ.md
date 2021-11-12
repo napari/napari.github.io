@@ -4,7 +4,7 @@ ImageJ is a Java-based image processing program that provides extensibility via 
 
 People who wish to try their hands on ImageJ can do so by downloading and installing it using this [link](https://imagej.net/Fiji/Downloads)
 
-### Reading image with ImageJ and viewing them with napari
+### Reading images with ImageJ and viewing them with napari
 
 Here we first cut at reading images with SCIFIO+Bio-Formats via PyimageJ into NumPy arrays
 and then display them with Napari.

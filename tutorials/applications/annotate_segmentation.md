@@ -1,4 +1,4 @@
-# annotating segmentation with text and bounding boxes
+# Annotating segmentation with text and bounding boxes
 
 In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu's method, but this same approach could also be used to visualize the results of other image processing algorithms such as [object detection with neural networks](https://www.tensorflow.org/lite/models/object_detection/overview).
 
@@ -138,7 +138,7 @@ napari.run()
 
 ```
 
-## segmentation
+## Segmentation
 We start by defining a function to perform segmentation of an image based on intensity. Based on the [skimage segmentation example](https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding.html), we determine the threshold intensity that separates the foreground and background pixels using [Otsu's method](https://en.wikipedia.org/wiki/Otsu%27s_method). We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.
 
 ```python
@@ -168,7 +168,6 @@ def segment(image):
     label_image = label(cleared)
 
     return label_image
-
 ```
 
 We can test the segmentation and view it in napari.
@@ -189,7 +188,7 @@ napari.run()
 
 ![image: segmentation labels](../assets/tutorials/segmentation_labels.png)
 
-## analyzing the segmentation
+## Analyzing the segmentation
 
 Next, we use [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table) from skimage to quantify some parameters of each detection object (e.g., area and perimeter).
 
@@ -243,8 +242,8 @@ def circularity(perimeter, area):
     return circularity
 ```
 
-
 We can then calculate the circularity of each region and save it as a property.
+
 ```python
 properties['circularity'] = circularity(
     properties['perimeter'], properties['area']
@@ -290,8 +289,7 @@ Finally, we can use an list comprension to pass the bounding box extents to `mak
 bbox_rects = make_bbox([properties[f'bbox-{i}'] for i in range(4)])
 ```
 
-
-## visualizing the segmentation results
+## Visualizing the segmentation results
 Now that we have performed out analysis, we can visualize the results in napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels, and (3) Shapes.
 
 As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows:
@@ -321,7 +319,7 @@ Next, we will use the Shapes layer to overlay the bounding boxes for each detect
 
 The first positional argument (`bbox_rects`) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (`face_color='transparent'`) and the edges of the bounding box are green (`edge_color='green'`). Finally, the name of the layer displayed in the layer list in the napari GUI is `bounding box` (`name='bounding box'`).
 
-## annotating shapes with text
+## Annotating shapes with text
 We can further annotate our analysis by using text to display properties of each segmentation. The code to create a shapes layer with text is pasted here and explained below.
 
 ```python
@@ -345,7 +343,6 @@ properties = {
 }
 ```
 
-
 Each bounding box can be annotated with text drawn from the layer `properties`. To specity the text and display properties of the text, we pass a dictionary with the text parameters (`text_parameters`). We define `text_parameters` as:
 
 ```python
@@ -368,7 +365,6 @@ circ: 0.83
 ```
 
 We set the text to green (`'color': 'green'`) with a font size of 12 (`'size': 12`). We specify that the text will be anchored in the upper left hand corner of the bounding box (`'anchor': 'upper_left'`). The valid anchors are: `'upper_right'`, `'upper_left'`, `'lower_right'`, `'lower_left'`, and `'center'`. We then offset the text from the anchor in order to make sure it does not overlap with the bounding box edge (`'translation': [-3, 0]`). The translation is relative to the anchor point. The first dimension is the vertical axis on the canvas (negative is "up") and the second dimension is along the horizontal axis of the canvas.
-
 
 All together, the visualization code is:
 
@@ -406,7 +402,7 @@ shapes_layer = viewer.add_shapes(
 napari.run()
 ```
 
-## summary
+## Summary
 In this tutorial, we have used napari to view and annotate segmentation results.
 
 ![image: annotated bounding box](../assets/tutorials/annotated_bbox.png)

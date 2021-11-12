@@ -101,7 +101,7 @@ and handing a `numpy` array to `napari` each time a new timepoint or channel is 
 ```python
 import napari
 
-# specify contrast_limits and is_pyramid=False with big data
+# specify contrast_limits and multiscale=False with big data
 # to avoid unnecessary computations
 napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
 ```
@@ -125,7 +125,7 @@ import napari
 from dask_image.imread import imread
 
 stack = imread("/path/to/experiment/*.tif")
-napari.view_image(stack, contrast_limits=[0,2000], is_pyramid=False)
+napari.view_image(stack, contrast_limits=[0,2000], multiscale=False)
 ```
 
 ![image: mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope](../assets/tutorials/dask1.gif)
@@ -230,11 +230,11 @@ deconvolved = deskewed.map_blocks(deconv, dtype="float32")
 cropped = deconvolved.map_blocks(crop, dtype="float32")
 
 # put the resulting dask array into napari.
-# (don't forget the contrast limits and is_pyramid==False !)
+# (don't forget the contrast limits and multiscale==False !)
 v = napari.view_image(
     cropped,
     contrast_limits=[90, 1500],
-    is_pyramid=False,
+    multiscale=False,
     ndisplay=3,
     scale=(3, 1, 1),
 )

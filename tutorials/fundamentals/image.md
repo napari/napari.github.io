@@ -131,7 +131,7 @@ for performance. If, however you don't have a precomputed pyramid but try and
 show a exceptionally large image napari will try and compute pyramids for you
 unless you tell it not too.
 
-You can use the `is_pyramid` keyword argument to specify if your data is an
+You can use the `multiscale` keyword argument to specify if your data is an
 image pyramid or not. If you don't provide this value, then will try and guess
 whether your data is or needs to be an image pyramid.
 

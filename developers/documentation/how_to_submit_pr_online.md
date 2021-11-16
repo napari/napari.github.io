@@ -14,18 +14,18 @@ kernelspec:
 
 # How to open a pull request on GitHub for new documentation
 
-This how-to will guide you to open a pull request in GitHub to contribute your prepared tutorial, how-to or explanation to napari.org. 
+This how-to will guide you to open a pull request in GitHub to contribute your prepared document to napari.org. 
 
 This guide is strictly designed for adding new documents - if you want to contribute code to napari check out [this guide instead](../contributing.md).
 
 ```{note}
-Don't yet a have a tutorial or how-to? Check out our [documentation contributor's overview](./index.md) to learn more about our documentation, find templates, and learn how to prepare your document!
+Don't yet a have a document ready? Check out our [main guide](./index.md) to find templates and learn how to prepare your document!
 ```
 
 ## Prerequisites
 
-- a tutorial, how-to or explanation for napari.org
-    - Your document should already be prepared for submission. Check out [our contributor's guide](./index.md) to learn how to prepare your document, or grab our [how-to](./how_to_template.md) or [tutorial](./tutorial_template.md) template if you already know what you want to write
+- a new document for napari.org
+    - Your document should already be prepared for submission. Check out [our contributor's guide](./index.md) to learn how to prepare your document
 - a [GitHub account](https://github.com)
 
 ## 1. Fork the napari repository
@@ -41,16 +41,18 @@ Click on folder names within the repository to navigate to the folder where your
 - **Explanations** go in `napari/docs/guides/`
 - **Tutorials** go in `napari/docs/tutorials/`
 - **How-tos** go in `napari/docs/howtos`
-    
+
+Not sure where to place your document? Make a best guess and open the pull request - the napari team will
+help you edit your document and find the right spot!
 ## 3. Upload your file
 
-Once you're in the right folder, you can click on `Add File -> Upload Files`, then drag your file into the box or click `choose your files` and navigate to your document on your computer.
+Once you're in the right folder, you can click on `Add File -> Upload Files`, then drag your file into the box or click `choose your files` and navigate to the document on your computer.
 
 ![Screenshot of top right of repository page with an arrow pointing to Add File, Upload Files](assets/upload_files.png)
 
 ## 4. Open the Pull Request
 
-Once your file has finished uploading, scroll down and add a title and description for this commit. Then, choose the `Create a new branch for this commit and start a pull request` option, optionally choose a descriptive name for your branch, and click `Propose changes`. This will open the PR creation page.
+Once your file has finished uploading, scroll down and add a title and description for this change. Then, choose the `Create a new branch for this commit and start a pull request` option, optionally choose a descriptive name for your branch, and click `Propose changes`. This will open the PR creation page.
 
 ![Screenshot of file upload page showing an uploaded file, and two text boxes - the title of the commit and its description, as well as the Propose changes button](assets/open_pr.png)
 
@@ -62,7 +64,15 @@ To do so, click on `compare across forks` in the subtitle of the page.
 
 ![Screenshot of Pull Request page with an arrow pointing to the compare across forks button](assets/compare.png)
 
-Once you're comparing across forks, select `base repository: napari/napari` and `base: main` by clicking on the the buttons and selecting from the dropdowns.
+```{admonition} Don't see the "compare across forks" button?
+:class: tip
+
+[Follow this link](https://github.com/napari/napari/pulls) and click on "New pull request" in the top right.
+You should then see the `compare across forks` button, and you'll be able to select the branch you just created
+in your fork to merge into `napari/napari`.
+```
+
+Once you're comparing across forks, select `base repository: napari/napari` and `base: main` by clicking on the buttons and selecting from the dropdowns.
 
 ![Screenshot of Pull Request page comparing across forks, with base repository dropdown open and napari/napari highlighted](assets/choose_base.png)
 
@@ -97,5 +107,5 @@ Once your pull request is approved, a napari core developer will merge it, and y
 ## Further Reading
 
 - You can learn more about pull requests using the [GitHub docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
-- You can read about our review and contribution process [here](..core_dev_guide.md)
+- You can read about our review and contribution process [here](../core_dev_guide.md)
 

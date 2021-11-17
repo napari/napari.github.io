@@ -46,7 +46,10 @@ Not sure where to place your document? Make a best guess and open the pull reque
 help you edit your document and find the right spot!
 ## 3. Upload your file
 
-Once you're in the right folder, you can click on `Add File -> Upload Files`, then drag your file into the box or click `choose your files` and navigate to the document on your computer.
+Once you're in the right folder, you can upload your MyST markdown file. 
+Check out [this guide](./index.md#3-pair-your-notebook-with-myst-markdown) if you have a Jupyter notebook file you need to convert to MyST markdown.
+
+To upload, click on `Add File -> Upload Files`, then drag your file into the box or click `choose your files` and navigate to the document on your computer.
 
 ![Screenshot of top right of repository page with an arrow pointing to Add File, Upload Files](assets/upload_files.png)
 

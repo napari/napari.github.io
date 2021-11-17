@@ -58,6 +58,8 @@ conda install jupytext -c conda-forge
 Once installed, you can start Jupyter notebook as you usually would. Pairing your notebook with MyST Markdown
  will now be an option in the notebook's `File -> Jupytext` menu, as in the screenshot below. Selecting this option will generate a new markdown file
  for you in the same working directory as your notebook.
+If you pair through Jupyter notebook, your markdown file will be updated every time you save the notebook,
+so you don't need to worry about keeping them synced.
 
 ![Screenshot of Jupyter Notebook with File -> Jupytext menu open and Pair Notebook with MyST Markdown selected.](assets/jupyter_jupytext.png)
 
@@ -80,10 +82,6 @@ jupytext your_notebook.ipynb --to myst
 ```
 
 That's it! `your_notebook.md` is now ready to contribute to napari!
-
-## 3. Preview your document
-
-*Coming soon...*
 ## 4. Submit your pull request
 
 Once you have written and prepared your document, it's time to open a pull request to [napari's main repository](https://github.com/napari/napari) and contribute it to our codebase. 

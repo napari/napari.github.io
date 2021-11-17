@@ -105,7 +105,7 @@ You can make the required changes to your file, and then scroll to the bottom of
 
 This automatically updates your pull request with the latest changes to the file. If you're not sure how to update the file with the desired changes, don't hesitate to comment on your pull request and let the napari team know! We're more than happy to help you through the process, and we can also update your pull requests ourselves if you prefer.
 
-Once your pull request is approved, a napari core developer will merge it, and your document will be visible on `napari.org`!
+Once your pull request is approved, a napari core developer will merge it, and your document will be visible on [napari.org](https://napari.org/)!
 
 ## Further Reading
 

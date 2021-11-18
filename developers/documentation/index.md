@@ -21,13 +21,32 @@ theme:
 - Familiarity with Jupyter notebooks (code cells and markdown cells)
 - Familiarity with using napari through a Jupyter notebook
 - A [GitHub account](https://github.com)
+
+## 0. Before you start
+
+If you'd like to contribute a brand new tutorial or how-to, it might be worth [opening an issue](https://github.com/napari/napari/issues/new?assignees=&labels=documentation&template=documentation.md&title=)
+ on our repository first to discuss the content you'd like to see and get some early feedback from the community.
+
+The napari team can also suggest the type of document that would be best suited, and whether there are already
+existing documents that could be expanded to include the content you think is lacking. 
+
 ## 1. Download our template
 
 Our goal is that all tutorials and how-tos are easily downloadable and executable by our users. 
 This helps ensure that they are reproducible and makes them easier to maintain. 
 We therefore provide a notebook template for our documents.
- 
-[Download this template](???) and open it directly in Jupyter notebook. 
+
+To download, [click on this link](https://raw.githubusercontent.com/napari/napari.github.io/9aac1c2d69ef0b0bc196ec1ccacba1c1f806eea4/developers/documentation/docs_template.md) then right-click anywhere on the page and click `Save as`. 
+
+```{admonition} Choose .md as the file extension
+:class: important
+
+This will open a Save dialog and prepopulate the filename and extension. Often, the default file extension chosen will be `.txt`.
+You need to change this extension to `.md` to open this file later in Jupyter notebook.
+
+On Mac, changing file extensions in the save dialog doesn't always work. You may have to navigate to the file in your directory
+and rename it without the `.txt` extension.
+```
 
 ## 2. Write your document
 

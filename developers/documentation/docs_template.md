@@ -107,6 +107,7 @@ The screenshot below is produced by the following code, which has been hidden fr
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
+viewer.dims.current_step = (25, 0, 1)
 nbscreenshot(viewer)
 ```
 
@@ -120,6 +121,7 @@ import in a hidden cell when you write your documentation.
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
+viewer.dims.current_step = (25, 0, 1)
 nbscreenshot(viewer)
 ```
 

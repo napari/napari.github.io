@@ -36,11 +36,22 @@ You should include pictures/videos, particularly when describing interactions wi
 accompanied by complete and descriptive alt-text. If you're using arrows/circles to highlight portions of the image, make sure
 they contrast well against the background of the image.
 
+### Use GitHub's media hosting
+
+GitHub now hosts videos and images added to comments and documents via their drag and drop API.
+This is not only very simple to achieve, but it keeps our repositories small.
+To use GitHub image hosting, upload your document to your pull request with no images. 
+Then, navigate to the document in your pull request and select "Edit file" from the three-dot menu on the top right of your file.
+Once you're in file editing mode, place your cursor on the line where you want the image to appear, and drag and drop the image.
+Don't forget to edit your alt text!
+
+### Take screenshots of the viewer
+
 It's common for napari documentation to include code that has some effect in the napari Viewer e.g. adding layers,
 changing layer properties or using a plugin. These changes in the Viewer should be shown to the user, and this can
 be easily achieved in your notebook with napari's `nbscreenshot` utility. Follow these steps to include screenshots of the napari viewer and hide code cells.
 
-### 1. Use `nbscreenshot` for screenshots of the viewer
+#### 1. Use `nbscreenshot` for screenshots of the viewer
 
 This utility allows you to pass an active Viewer as a parameter and produces a screenshot of the Viewer at that 
 point in time. This screenshot will be displayed to the user in the notebook.
@@ -57,7 +68,7 @@ viewer.open_sample('scikit-image', 'cells3d')
 nbscreenshot(viewer)
 ```
 
-### 2. Hide input cells
+#### 2. Hide input cells
 
 As you can see, it's simple to produce screenshots of the napari Viewer in your notebooks. However, if you look through napari's
 existing documentation, none of the code cells include calls to `nbscreenshot`, yet the screenshots are still produced. In fact,

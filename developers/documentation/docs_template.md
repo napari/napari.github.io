@@ -26,6 +26,8 @@ Include things like:
     'connecting callbacks to layer events' or 'using matplotlib to produce plots'
 - plugins that should be installed
 - python packages that should be installed (don't list napari or its dependencies)
+- links to sample data that can be used to follow your document
+  - **don't add this data to the repository**
 
 ## Write your document
 Fill out the main content of the document - your explanation, how-to steps or tutorial. 

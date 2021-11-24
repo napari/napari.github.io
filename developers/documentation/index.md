@@ -27,6 +27,12 @@ theme:
 If you'd like to contribute a brand new tutorial or how-to, it might be worth [opening an issue](https://github.com/napari/napari/issues/new?assignees=&labels=documentation&template=documentation.md&title=)
  on our repository first to discuss the content you'd like to see and get some early feedback from the community.
 
+Our main types of documents are:
+
+- **Explanations** (in `napari/docs/guides`): in depth content about napari architecture, development choices and some complex features 
+- **Tutorials** (in `napari/docs/tutorials`): detailed, reproducible step by step guides, usually combining multiple napari features to complete a potentially complex task
+- **How-tos** (in `napari/docs/howtos/`): simple step by step guides demonstrating the use of common features
+
 The napari team can also suggest the type of document that would be best suited, and whether there are already
 existing documents that could be expanded to include the content you think is lacking. 
 

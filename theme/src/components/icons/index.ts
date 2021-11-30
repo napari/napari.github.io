@@ -1,6 +1,7 @@
 export * from './ChevronDown';
 export * from './ChevronUp';
 export * from './Close';
+export * from './Download';
 export * from './ExternalLink';
 export * from './GitHub';
 export * from './icons.type';

@@ -237,7 +237,7 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
                 placement="right"
                 classes={{
                   arrow: 'text-black',
-                  tooltip: 'bg-black',
+                  tooltip: 'bg-black max-w-min',
                 }}
                 title={
                   <span className="text-sm whitespace-nowrap">

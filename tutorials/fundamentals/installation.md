@@ -85,7 +85,7 @@ python -m pip install "napari[all]"
 You can then upgrade napari to a new version using
 
 ```sh
-pip install "napari[all]" --upgrade
+python -m pip install "napari[all]" --upgrade
 ```
 
 *(See [Choosing a different Qt backend](#choosing-a-different-qt-backend) below for an explanation of the `[all]`

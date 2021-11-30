@@ -25,22 +25,9 @@ If you want to contribute back to the napari codebase, you should follow [this g
 
 ## Prerequisites
 
-Prerequisites differ depending on what type of distribution you want to install.
+Prerequisites differ depending on how you want to install napari.
 
-### Installing the bundled app
-This is the easiest way to install napari if you only wish to use it as a standalone GUI app.
-This installation method does not have any prerequisites. 
-
-```{important}
-Note that the bundled app is still
-in active development, and may not be very stable. We strongly recommend installing as a Python
-package instead.
-```
-
-[Click here](#installing-as-a-bundled-app) to see instructions
-for installing the bundled app.
-
-### Installing as a python package 
+### Installing as a Python package 
 This installation method allows you to use napari from Python to programmatically 
 interact with the app. It is the best way to install napari and make full use of
 all its features.
@@ -53,24 +40,30 @@ You may also want:
 - an environment manager like [conda](https://docs.conda.io/en/latest/miniconda.html) or
 [venv](https://docs.python.org/3/library/venv.html) **(Highly recommended)**
 
-## Choose which distribution to install
+### Installing the bundled app
+This is the easiest way to install napari if you only wish to use it as a standalone GUI app.
+This installation method does not have any prerequisites. 
 
-If you only wish to use napari as a GUI app (and not from python code), the
-[bundled app](#installing-as-a-bundled-app)
-is the easiest way to install and it does not require having python pre-installed.
-Note that we strongly recommend installing as a Python package instead.
+```{important}
+Note that the bundled app is still
+in active development, and may not be very stable. We strongly recommend 
+[installing as a Python package instead](#choose-which-distribution-to-install).
+```
 
-If you are using napari from Python to programmatically interact with the app,
-you can install via pip, conda-forge, or from source.
+[Click here](#installing-as-a-bundled-app) to see instructions
+for installing the bundled app.
+
+## Install your preferred package distribution
+
+Python package distributions of napari can be installed via `pip`, `conda-forge`, or from source.
 
 ````{important}
 While not strictly required, it is *highly* recommended to install
 napari into a clean virtual environment using an environment manager like
 [conda](https://docs.conda.io/en/latest/miniconda.html) or
-[venv](https://docs.python.org/3/library/venv.html), *before* you install
-napari.  
+[venv](https://docs.python.org/3/library/venv.html).
 
-For example, with `conda`:
+This should be set up *before* you install napari. For example, with `conda`:
 
 ```sh
 conda create -y -n napari-env python=3.8
@@ -78,7 +71,9 @@ conda activate napari-env
 ```
 ````
 
-````{admonition} **1. From pip, with "batteries included"**
+Choose one of the options below to install napari as a Python package.
+
+````{admonition} **1. From pip**
 :class: dropdown
 
 napari can be installed on most macOS, Linux, and Windows systems with Python
@@ -137,7 +132,7 @@ simply running
 napari
 ```
 
-An empty napari viewer should appear as follows
+An empty napari viewer should appear as follows.
 
 ![image: An empty napari viewer](../assets/tutorials/launch_cli_empty.png)
 

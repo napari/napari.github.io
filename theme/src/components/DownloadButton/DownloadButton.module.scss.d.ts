@@ -1,5 +1,6 @@
 export type Styles = {
   downloadButton: string;
+  menu: string;
   open: string;
 };
 

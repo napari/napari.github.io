@@ -67,7 +67,10 @@ export function DownloadButton({ className }: Props) {
       <Download />
 
       <Popper open={open} anchorEl={anchorElRef.current}>
-        <Paper className="border-2 border-napari-gray" ref={paperElRef}>
+        <Paper
+          className={clsx('border-2 border-napari-gray', styles.menu)}
+          ref={paperElRef}
+        >
           <MenuList>
             <MenuItemLink href={ipynbSource}>.ipynb</MenuItemLink>
 

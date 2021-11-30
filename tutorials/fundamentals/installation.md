@@ -80,7 +80,7 @@ napari can be installed on most macOS, Linux, and Windows systems with Python
 3.7, 3.8, and 3.9 using pip:
 
 ```sh
-pip install "napari[all]"
+python -m pip install "napari[all]"
 ```
 You can then upgrade napari to a new version using
 

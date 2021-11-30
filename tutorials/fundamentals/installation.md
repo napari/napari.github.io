@@ -53,7 +53,7 @@ in active development, and may not be very stable. We strongly recommend
 [Click here](#installing-as-a-bundled-app) to see instructions
 for installing the bundled app.
 
-## Install your preferred package distribution
+## Install as Python package
 
 Python package distributions of napari can be installed via `pip`, `conda-forge`, or from source.
 
@@ -165,7 +165,7 @@ If you switch backends, it's a good idea to `pip uninstall` the one
 you're not using.
 ```
 
-## Installing as a bundled app
+## Install as a bundled app
 
 napari can also be installed as a bundled app on each of the major platforms,
 MacOS, Windows, and Linux with a simple one click download and installation

@@ -84,6 +84,10 @@ export interface JupyterBookState {
    * Description used for social previews.
    */
   previewDescription: string;
+
+  ipynbSource: string;
+
+  mdSource: string;
 }
 
 const JupyterBookContext = createContext<JupyterBookState>({
@@ -97,6 +101,8 @@ const JupyterBookContext = createContext<JupyterBookState>({
   appStyleSheets: [],
   previewImage: '',
   previewDescription: '',
+  ipynbSource: '',
+  mdSource: '',
 });
 
 interface Props extends JupyterBookState {

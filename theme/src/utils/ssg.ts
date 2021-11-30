@@ -303,12 +303,13 @@ interface RawFrontMatterData {
   theme?: PageFrontMatterData;
 }
 
+function getMarkdownFile(file: string) {
+  return file.replace(`${BUILD_DIR}/`, '').replace('.html', '.md');
+}
+
 async function getPageFrontMatter(file: string) {
   // Get corresponding markdown file from HTML file.
-  const markdownFile = resolve(
-    ROOT_DIR,
-    file.replace(`${BUILD_DIR}/`, '').replace('.html', '.md'),
-  );
+  const markdownFile = resolve(ROOT_DIR, getMarkdownFile(file));
 
   if (await fs.pathExists(markdownFile)) {
     const mdData = await fs.readFile(markdownFile, 'utf-8');
@@ -364,6 +365,30 @@ function getPreviewDescription(pageBody: Cheerio<Element>) {
 
 const MAX_PREVIEW_DESCRIPTION = 200;
 
+function getIpynbSource($: CheerioAPI) {
+  const node = $('#ipynb-source');
+  const url = node.attr('data-source');
+
+  if (!url) {
+    return '';
+  }
+
+  return `/${url.replaceAll(/^(\.\.\/)*/g, '')}`;
+}
+
+async function getMdSource(file: string) {
+  const prefix = resolve(ROOT_DIR, 'public');
+  const mdFile = getMarkdownFile(file);
+  const sourceLink = `/_sources/${mdFile}`;
+  const localFile = resolve(prefix, '_sources', mdFile);
+
+  if (await fs.pathExists(localFile)) {
+    return sourceLink;
+  }
+
+  return '';
+}
+
 /**
  * Scrapes page data from an HTML file for pre-rendering.
  *
@@ -415,6 +440,8 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       pageFrontMatter: {},
       previewImage: '',
       previewDescription: '',
+      ipynbSource: '',
+      mdSource: '',
     };
   } else {
     // Get page title from header text content.
@@ -468,6 +495,8 @@ export async function getPageData(file: string): Promise<JupyterBookState> {
       appStyleSheets: getAppStyleSheets($),
       pageBodyHtml: pageBody.html() ?? '',
       pageHeaders: getPageHeaders($),
+      ipynbSource: getIpynbSource($),
+      mdSource: await getMdSource(file),
     };
   }
 

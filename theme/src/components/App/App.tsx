@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react';
 import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
+import { DownloadButton } from '@/components/DownloadButton';
 import { Footer } from '@/components/Footer';
 import { GlobalTableOfContents } from '@/components/GlobalTableOfContents';
 import { Media } from '@/components/media';
@@ -138,9 +139,12 @@ function Content() {
         )}
       >
         {/* Page title */}
-        <h1 className="text-5xl leading-tight font-bold mb-3 screen-875:mb-10">
-          {pageTitle}
-        </h1>
+        <section className="mb-3 screen-875:mb-10">
+          <h1 className="text-5xl leading-tight font-bold inline">
+            {pageTitle}
+            <DownloadButton />
+          </h1>
+        </section>
 
         {pageIntro && (
           <h2 className="font-semibold text-xs screen-875:text-base mb-6">

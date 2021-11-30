@@ -79,6 +79,7 @@ function Content() {
   const pageContentRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const isSearch = router.asPath.includes('/search');
+  const isTutorial = router.asPath.includes('/tutorials');
 
   const {
     globalHeaders,
@@ -142,8 +143,9 @@ function Content() {
         <section className="mb-3 screen-875:mb-10">
           <h1 className="text-5xl leading-tight font-bold inline">
             {pageTitle}
-            <DownloadButton />
           </h1>
+
+          {isTutorial && <DownloadButton className="-mt-4" />}
         </section>
 
         {pageIntro && (

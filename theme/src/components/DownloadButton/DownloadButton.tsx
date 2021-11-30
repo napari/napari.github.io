@@ -32,7 +32,7 @@ function MenuItemLink({
   return (
     <>
       {href && (
-        <MenuItem component={Link} href={href}>
+        <MenuItem component={Link} href={href} download>
           {children}
         </MenuItem>
       )}

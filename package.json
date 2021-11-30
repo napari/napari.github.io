@@ -5,8 +5,11 @@
   "scripts": {
     "// Scripts for building napari.org for production": "",
     "build": "run-s clean build:*",
-    "build:docs": "PYTHONPATH=$PWD jupyter-book build .",
+    "build:docs": "run-s docs:*",
     "build:next": "run-s next:*",
+
+    "docs:build": "PYTHONPATH=$PWD jupyter-book build .",
+    "docs:convert-data-images": "ts-node -P tsconfig.node.json scripts/convert-data-images",
 
     "// Scripts for building and exporting the documentation using Next.js": "",
     "next:build": "next build",
@@ -25,7 +28,7 @@
     "clean:api-stable": "find api/stable/ ! -name 'index.rst' -type f -exec rm -f {} +",
     "clean:build-hash": "rm -rf _build/jupyter-build-hash",
     "clean:docs": "rm -rf _build/html",
-    "clean:theme": "rm -rf dist public",
+    "clean:theme": "rm -rf dist public/_*",
     "clean:next": "rm -rf .next",
 
     "// Scripts for using various linters on the codebase.": "",
@@ -58,6 +61,7 @@
     "lodash-es": "4.17.21",
     "modern-normalize": "1.1.0",
     "next": "^11.1.2",
+    "next-plausible": "^2.1.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "slug": "5.1.0"
@@ -75,6 +79,7 @@
     "@typescript-eslint/parser": "4.30.0",
     "autoprefixer": "10.3.3",
     "babel-plugin-transform-imports": "^2.0.0",
+    "base64-img": "^1.0.4",
     "cheerio": "1.0.0-rc.10",
     "chokidar": "3.5.2",
     "eslint": "7.23.0",
@@ -99,7 +104,6 @@
     "postcss-import": "14.0.2",
     "postcss-strip-units": "^2.0.1",
     "prettier": "2.3.2",
-    "reload": "3.2.0",
     "sass": "1.38.2",
     "stylelint": "13.13.1",
     "stylelint-config-prettier": "8.0.2",
@@ -111,6 +115,7 @@
     "tsconfig-paths": "3.11.0",
     "typed-scss-modules": "4.1.1",
     "typescript": "4.4.2",
+    "webpack": "^5.58.2",
     "yaml": "1.10.2"
   }
 }

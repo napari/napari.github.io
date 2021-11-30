@@ -4,33 +4,36 @@ import { basename, resolve } from 'path';
 const ROOT_DIR = resolve(__dirname, '..');
 const BUILD_DIR = resolve(ROOT_DIR, '_build/html');
 
+const STATIC_FILES = resolve(BUILD_DIR, '_static');
+const SEARCH_INDEX_FILE = resolve(BUILD_DIR, 'searchindex.js');
+const IMAGE_FILES = resolve(BUILD_DIR, '_images');
+const PUBLIC_DIRECTORY = resolve(ROOT_DIR, 'public');
+const STATIC_PUBLIC_DIRECTORY = resolve(PUBLIC_DIRECTORY, '_static');
+const IMAGE_PUBLIC_DIRECTORY = resolve(PUBLIC_DIRECTORY, '_images');
+const PUBLIC_DIRECTORIES = [STATIC_PUBLIC_DIRECTORY, IMAGE_PUBLIC_DIRECTORY];
 /**
  * Copies static files used by Jupyter Book pages into the Next.js public
  * folder so that Next.js can access it
  */
 export async function copyPublicFiles(): Promise<void> {
-  const staticFiles = resolve(BUILD_DIR, '_static');
-  const searchIndexFile = resolve(BUILD_DIR, 'searchindex.js');
-  const imageFiles = resolve(BUILD_DIR, '_images');
-  const publicDirectory = resolve(ROOT_DIR, 'public');
-  const staticPublicDirectory = resolve(publicDirectory, '_static');
+  // Remove generated public directory to ensure consistent rebuilds during development.
+  await Promise.all(
+    PUBLIC_DIRECTORIES.map(async (dir) => {
+      if (await fs.pathExists(dir)) {
+        await fs.remove(dir);
+      }
 
-  // Remove public directory to ensure consistent rebuilds during development.
-  if (await fs.pathExists(publicDirectory)) {
-    await fs.remove(publicDirectory);
-  }
-
-  // Create public directories so that concurrent file copies do not throw an error.
-  await fs.mkdir(publicDirectory);
-  await fs.mkdir(staticPublicDirectory);
+      await fs.mkdirp(dir);
+    }),
+  );
 
   // Copy all files concurrently.
   await Promise.all([
-    fs.copy(staticFiles, staticPublicDirectory),
-    fs.copy(imageFiles, resolve(publicDirectory, '_images')),
+    fs.copy(STATIC_FILES, STATIC_PUBLIC_DIRECTORY),
+    fs.copy(IMAGE_FILES, IMAGE_PUBLIC_DIRECTORY),
     fs.copy(
-      searchIndexFile,
-      resolve(staticPublicDirectory, basename(searchIndexFile)),
+      SEARCH_INDEX_FILE,
+      resolve(STATIC_PUBLIC_DIRECTORY, basename(SEARCH_INDEX_FILE)),
     ),
   ]);
 }

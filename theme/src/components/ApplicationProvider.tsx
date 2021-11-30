@@ -1,4 +1,5 @@
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
+import NextPlausibleProvider from 'next-plausible';
 import { ReactNode, useEffect } from 'react';
 
 import { MediaContextProvider } from '@/components/media';
@@ -35,10 +36,33 @@ function MaterialUIProvider({ children }: ProviderProps) {
   );
 }
 
+/**
+ * Provider for Plausible functionality. This works by fetching the
+ * `plausible.js` script via `next-plausible` and providing a typed
+ * `plausible()` function in `hooks/usePlausible.ts`.
+ *
+ * By default, data will be sent to https://plausible.io/dev.napari-hub.org
+ * dashboard. For production, data will be sent to
+ * https://plausible.io/napari-hub.org.
+ */
+function PlausibleProvider({ children }: ProviderProps) {
+  return (
+    <NextPlausibleProvider
+      domain="napari.org"
+      enabled={process.env.PLAUSIBLE === 'true'}
+      trackOutboundLinks
+    >
+      {children}
+    </NextPlausibleProvider>
+  );
+}
+
 export function ApplicationProvider({ children }: ProviderProps) {
   return (
-    <MediaContextProvider>
-      <MaterialUIProvider>{children}</MaterialUIProvider>
-    </MediaContextProvider>
+    <PlausibleProvider>
+      <MediaContextProvider>
+        <MaterialUIProvider>{children}</MaterialUIProvider>
+      </MediaContextProvider>
+    </PlausibleProvider>
   );
 }

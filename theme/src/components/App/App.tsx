@@ -9,6 +9,7 @@ import { AppBar } from '@/components/AppBar';
 import { Footer } from '@/components/Footer';
 import { GlobalTableOfContents } from '@/components/GlobalTableOfContents';
 import { Media } from '@/components/media';
+import { MetaPreviews } from '@/components/MetaPreviews';
 import { QuickLinks } from '@/components/QuickLinks';
 import {
   SubPageTableOfContents,
@@ -246,6 +247,9 @@ export function App() {
           <link key={props.href} {...props} />
         ))}
       </Head>
+
+      {/* Add meta tags for website previews. */}
+      <MetaPreviews />
 
       {/*
         Every page emits a node with ID `documentation_options` in the page body

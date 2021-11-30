@@ -23,7 +23,7 @@ developing it.
 
 +++
 
-## what is napari?
+## What is napari?
 
 **napari** is a fast, interactive, multi-dimensional image viewer for Python.
 It's designed for browsing, annotating, and analyzing large multi-dimensional
@@ -66,7 +66,7 @@ To checkout some cool example uses of **napari** with scientific data see our
 
 +++
 
-## getting started
+## Getting started
 
 These tutorials target people who want to use napari as a user. If you are also
 interested in contributing to napari then please check out [contributing
@@ -78,7 +78,7 @@ checkout our [installing napari](./fundamentals/installation) tutorial.
 
 +++
 
-## help
+## Help
 
 We're a community partner on the [imagesc
 forum](https://forum.image.sc/tags/napari) and all help and support requests
@@ -87,7 +87,7 @@ interacting with you there.
 
 +++
 
-## improving the tutorials
+## Improving the tutorials
 
 Our tutorials are hosted on Github at
 [napari/napari.github.io](https://github.com/napari/napari.github.io)

@@ -15,7 +15,10 @@ Text for populating the `<meta description="name">` tag, which is the text used
 in Google search results. You should at least try to include one for every page
 if possible.
 
-You can also use `intro` if you want to use the same string for the intro and meta tag.
+You can also use `intro` if you want to use the same string for the intro and
+meta tag. However, if you use both the `intro` and `metaDescription` variables,
+then the `metaDescription` will override the `intro` for the meta description
+tag.
 
 #### Example
 
@@ -101,6 +104,53 @@ theme:
 
 ![quick-links](./images/page-customization/quick-links.png)
 
+### `previewImage`
+
+**Type**: `string`
+
+Image to use when rendering social previews. If this value is not defined, then
+the theme will use the first image on the page. See [Social
+Previews](#social-previews) for more details.
+
+#### Example
+
+```md
+---
+theme:
+  intro: The napari.org guides page.
+  previewImage: /napari.jpg
+---
+
+# Release Notes
+
+Release notes for napari versions.
+```
+
+#### Output
+
+![opengraph-example](./images/page-customization/opengraph-example.png)
+
+### Social Previews
+
+The napari theme includes meta tags for rendering rich previews on OpenGraph
+websites and Twitter. This allows us to display a unique title, description, and
+image for each link:
+
+![opengraph-example](./images/page-customization/opengraph-example.png)
+
+To configure rich previews for a page, you can set the following values:
+
+1. Title: Add a level 1 [Markdown heading](https://www.markdownguide.org/basic-syntax/#headings).
+1. Description: You can either:
+   - Add at least one [Markdown paragraph](https://www.markdownguide.org/basic-syntax/#paragraphs-1) to the page. The first paragraph will be used for the preview.
+   - Use the [intro](#intro) variable.
+   - Use the [metaDescription](#metadescription) variable.
+   - Override order: `metaDescription` > `intro` > 1st paragraph
+1. Image: You can either
+   - Add at least one [Markdown image](https://www.markdownguide.org/basic-syntax/#images-1) to the page. The first image will be used for the preview.
+   - Use the [previewImage](#previewimage) variable.
+   - Override order: `previewImage` > 1st image
+
 ## How does it work?
 
 We use a combination of Node and Python tooling to build the napari.org. We use
@@ -122,3 +172,11 @@ code and then `next export` to export the application as HTML. This is known as
 having the Next.js server render every page once to an HTML file. This then
 allows us to distribute the docs + theme as HTML so we can upload it to GitHub
 pages.
+
+```
+
+```
+
+```
+
+```

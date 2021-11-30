@@ -7,12 +7,16 @@ const BUILD_DIR = resolve(ROOT_DIR, '_build/html');
 const STATIC_FILES = resolve(BUILD_DIR, '_static');
 const SEARCH_INDEX_FILE = resolve(BUILD_DIR, 'searchindex.js');
 const IMAGE_FILES = resolve(BUILD_DIR, '_images');
-const SOURCES_DIRECTORY = resolve(BUILD_DIR, '_sources')
+const SOURCES_DIRECTORY = resolve(BUILD_DIR, '_sources');
 const PUBLIC_DIRECTORY = resolve(ROOT_DIR, 'public');
 const STATIC_PUBLIC_DIRECTORY = resolve(PUBLIC_DIRECTORY, '_static');
 const IMAGE_PUBLIC_DIRECTORY = resolve(PUBLIC_DIRECTORY, '_images');
 const SOURCES_PUBLIC_DIRECTORY = resolve(PUBLIC_DIRECTORY, '_sources');
-const PUBLIC_DIRECTORIES = [STATIC_PUBLIC_DIRECTORY, IMAGE_PUBLIC_DIRECTORY, SOURCES_PUBLIC_DIRECTORY];
+const PUBLIC_DIRECTORIES = [
+  STATIC_PUBLIC_DIRECTORY,
+  IMAGE_PUBLIC_DIRECTORY,
+  SOURCES_PUBLIC_DIRECTORY,
+];
 
 /**
  * Copies static files used by Jupyter Book pages into the Next.js public

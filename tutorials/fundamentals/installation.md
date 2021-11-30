@@ -58,7 +58,7 @@ for installing the bundled app.
 Python package distributions of napari can be installed via `pip`, `conda-forge`, or from source.
 
 ````{important}
-While not strictly required, it is *highly* recommended to install
+While not strictly required, it is highly recommended to install
 napari into a clean virtual environment using an environment manager like
 [conda](https://docs.conda.io/en/latest/miniconda.html) or
 [venv](https://docs.python.org/3/library/venv.html).

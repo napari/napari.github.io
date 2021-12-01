@@ -53,7 +53,7 @@ in active development, and may not be very stable. We strongly recommend
 [Click here](#installing-as-a-bundled-app) to see instructions
 for installing the bundled app.
 
-## Install as Python package
+## Install as Python package (recommended)
 
 Python package distributions of napari can be installed via `pip`, `conda-forge`, or from source.
 

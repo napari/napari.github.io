@@ -40,7 +40,7 @@ You may also want:
 - an environment manager like [conda](https://docs.conda.io/en/latest/miniconda.html) or
 [venv](https://docs.python.org/3/library/venv.html) **(Highly recommended)**
 
-### Installing the bundled app
+### Prerequisites for installing napari as a bundled app
 This is the easiest way to install napari if you only wish to use it as a standalone GUI app.
 This installation method does not have any prerequisites. 
 

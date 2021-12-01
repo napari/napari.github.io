@@ -27,7 +27,7 @@ If you want to contribute code back into napari, you should follow the [developm
 
 Prerequisites differ depending on how you want to install napari.
 
-### Installing as a Python package 
+### Prerequisites for installing napari as a Python package 
 This installation method allows you to use napari from Python to programmatically 
 interact with the app. It is the best way to install napari and make full use of
 all its features.

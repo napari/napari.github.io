@@ -55,6 +55,12 @@
       </div>
 
       <div id="page-toc">{{ toc }}</div>
+
+      {% if ipynb_source %}
+        <div
+          id="ipynb-source"
+          data-source="{{ pathto('_sources', 1) }}/{{ ipynb_source }}"></div>
+      {% endif %}
     </div>
 
     <script data-dev src="/reload/reload.js"></script>

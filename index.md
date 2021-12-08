@@ -45,6 +45,16 @@ theme:
 
 # napari
 
+````{important} Take our annual napari survey!
+
+Since we’re developing in the open, your feedback is vital! 
+We’re currently running our annual napari viewer survey to capture big feedback from our user community, to gauge napari’s progress over time, and to define strategic improvements.  
+You can take the eight minute survey [here](https://chanzuck.co1.qualtrics.com/jfe/form/SV_6Qh0nIs7z8lh2t0), and learn about last year’s survey insights [here](https://chanzuck.co1.qualtrics.com/reports/RC/public/Y2hhbnp1Y2stNjA5OWNiZmU2NjNiYjIwMDBmMmFhZjk0LVVSX2E2MzZjdjhTUDNSYUJOeg==).
+
+- [Take the annual napari survey here!](https://chanzuck.co1.qualtrics.com/jfe/form/SV_6Qh0nIs7z8lh2t0)
+
+````
+
 ## multi-dimensional image viewer for python
 
 [![image.sc forum](https://img.shields.io/badge/dynamic/json.svg?label=forum&url=https%3A%2F%2Fforum.image.sc%2Ftags%2Fnapari.json&query=%24.topic_list.tags.0.topic_count&colorB=brightgreen&suffix=%20topics&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAABPklEQVR42m3SyyqFURTA8Y2BER0TDyExZ+aSPIKUlPIITFzKeQWXwhBlQrmFgUzMMFLKZeguBu5y+//17dP3nc5vuPdee6299gohUYYaDGOyyACq4JmQVoFujOMR77hNfOAGM+hBOQqB9TjHD36xhAa04RCuuXeKOvwHVWIKL9jCK2bRiV284QgL8MwEjAneeo9VNOEaBhzALGtoRy02cIcWhE34jj5YxgW+E5Z4iTPkMYpPLCNY3hdOYEfNbKYdmNngZ1jyEzw7h7AIb3fRTQ95OAZ6yQpGYHMMtOTgouktYwxuXsHgWLLl+4x++Kx1FJrjLTagA77bTPvYgw1rRqY56e+w7GNYsqX6JfPwi7aR+Y5SA+BXtKIRfkfJAYgj14tpOF6+I46c4/cAM3UhM3JxyKsxiOIhH0IO6SH/A1Kb1WBeUjbkAAAAAElFTkSuQmCC)](https://forum.image.sc/tag/napari)

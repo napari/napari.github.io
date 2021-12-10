@@ -10,7 +10,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { useEffect } from 'react';
 
 import { App } from '@/components/App';
-import { PROD } from '@/constants/env';
+import { BUILD_PROD } from '@/constants/env';
 import { JupyterBookProvider, JupyterBookState } from '@/context/jupyterBook';
 import { getHTMLFiles } from '@/utils/jupyterBook';
 import { getPageData } from '@/utils/ssg';
@@ -51,7 +51,7 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
     // Allow support for `/<path>` given `/<path>/index.html` in development
     // mode. Most web server support both `/<path>` and `/<path>/index.html`,
     // but Next.js needs to have it configured explicitly.
-    if (!PROD && route.endsWith('/index.html')) {
+    if (!BUILD_PROD && route.endsWith('/index.html')) {
       paths.push({
         params: {
           parts: route.replace('/index.html', '').split('/').filter(Boolean),

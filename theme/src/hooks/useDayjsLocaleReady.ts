@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 import localeList from 'dayjs/locale.json';
 import { useEffect, useState } from 'react';
 
+import { isFeatureFlagEnabled } from '@/utils/featureFlags';
+
 async function loadDayjsLanguage(language: string) {
   const locale = localeList.find(({ key }) =>
     [language, language.split('-')[0]].includes(key),
@@ -40,8 +42,11 @@ export function useDayjsLocaleReady(): boolean {
   const [localeReady, setLocaleReady] = useState(false);
   useEffect(() => {
     async function loadLocale() {
-      Object.assign(window, { dayjs });
-      await loadDayjsLocale();
+      if (isFeatureFlagEnabled('calendari18n')) {
+        Object.assign(window, { dayjs });
+        await loadDayjsLocale();
+      }
+
       setLocaleReady(true);
     }
 

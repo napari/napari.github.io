@@ -23,6 +23,9 @@ module.exports = {
 
         // Calendar ID used for the docs website.
         GOOGLE_CALENDAR_ID: '',
+
+        // Hosting environment the docs are served from.
+        ENV: 'dev',
       }),
     );
 

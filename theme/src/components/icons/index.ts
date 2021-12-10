@@ -10,6 +10,7 @@ export * from './ImageSC';
 export * from './Menu';
 export * from './NapariHub';
 export * from './NapariLogo';
+export * from './PopupArrow';
 export * from './Search';
 export * from './Twitter';
 export * from './Zulip';

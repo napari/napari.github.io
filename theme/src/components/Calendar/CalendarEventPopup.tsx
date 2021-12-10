@@ -118,25 +118,25 @@ export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
       })),
 
       {
+        icon: LocationOn,
+        label: event.location,
+      },
+      {
         icon: Info,
         label: event.description,
         html: true,
-      },
-      {
-        icon: LocationOn,
-        label: event.location,
       },
     ].filter(({ label }) => label);
 
     return (
       <Popup
         ref={ref}
-        paperClassName="max-w-64 max-h-96 p-5 flex"
+        paperClassName="max-w-64 max-h-96 py-1 flex"
         placement="top"
         open={open && !!(!event.recurringEventId || recurrence)}
         {...props}
       >
-        <div className="flex flex-col space-y-2 overflow-y-auto">
+        <div className="flex flex-col space-y-2 overflow-y-auto py-4 px-5">
           <p className="font-bold uppercase">
             {event.start.format('dddd MMM D')}
           </p>
@@ -147,7 +147,7 @@ export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
 
           <h2 className="text-2xl font-bold">{event.title}</h2>
 
-          <ul className="space-y-2 overflow-y-auto">
+          <ul className="space-y-2">
             {metadata
               .filter(({ label }) => label)
               .map((metadataProps) => (

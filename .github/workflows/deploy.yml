@@ -62,6 +62,8 @@ jobs:
           DISPLAY: ':99.0'
           ENV: prod
           PLAUSIBLE: 'true'
+          GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_CALENDAR_ID }}
+          GOOGLE_CALENDAR_API_KEY: ${{ secrets.GOOGLE_CALENDAR_API_KEY }}
         run: yarn build
 
       # Deploy the book's HTML to github pages

@@ -129,7 +129,7 @@ export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
       },
     ].filter(({ label }) => label);
 
-    const eventHtmlId = createUrl(event.htmlLink).searchParams.get('eid');
+    const eventHtmlId = createUrl(event.htmlLink).searchParams.get('eid') ?? '';
     const copyLink = `https://calendar.google.com/calendar/u/0/r/eventedit/copy/${eventHtmlId}`;
 
     return (

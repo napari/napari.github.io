@@ -97,14 +97,35 @@ export async function fetchEvents(
       visitedDates.add(dateStr);
 
       events.push({
+        calendarId,
         end,
         start,
         title,
         type,
         description: event.description,
         location: event.location ?? '',
+        recurringEventId: event.recurringEventId,
       });
     });
 
   return events;
+}
+
+/**
+ * Fetches a single calendar event.
+ *
+ * @param calendarId The calendar ID.
+ * @param eventId The calendar event ID.
+ * @returns The calendar event data.
+ */
+export async function fetchEvent(
+  calendarId: string,
+  eventId: string,
+): Promise<gapi.client.calendar.Event> {
+  const { result } = await gapi.client.calendar.events.get({
+    calendarId,
+    eventId,
+  });
+
+  return result;
 }

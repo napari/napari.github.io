@@ -7,6 +7,7 @@ import { useConstant } from '@/hooks/useConstant';
 
 import { CalendarEventMap, CalendarEventState, CalendarState } from './types';
 import { useFetchCalendarEvents } from './useFetchCalendarEvents';
+import { getEventMapKey } from './utils';
 
 interface CalendarContextValue {
   calendarState: CalendarState;
@@ -42,14 +43,22 @@ export function CalendarProvider({ children }: Props) {
         const result: CalendarEventMap = {};
 
         for (const event of events) {
-          const dayInMonth = event.date.date();
+          const key = getEventMapKey(event.date);
 
-          if (!result[dayInMonth]) {
-            result[dayInMonth] = [];
+          if (!result[key]) {
+            result[key] = [];
           }
 
           if (filters[event.type]) {
-            result[dayInMonth]?.push(event);
+            result[key]?.push(event);
+          }
+        }
+
+        for (const [key, eventList] of Object.entries(result)) {
+          if (eventList) {
+            result[key] = eventList.sort((event1, event2) =>
+              event1.date.diff(event2.date),
+            );
           }
         }
 

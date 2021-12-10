@@ -6,7 +6,7 @@ import { useSnapshot } from 'valtio';
 import styles from './Calendar.module.scss';
 import { useCalendar } from './context';
 import { CalendarEvent } from './types';
-import { formatEventTime } from './utils';
+import { formatEventTime, getEventMapKey } from './utils';
 
 interface CalendarDayListProps {
   date: dayjs.Dayjs;
@@ -85,7 +85,7 @@ export function CalendarWeekView() {
     dayNodes.push(
       <CalendarDayList
         date={currentDay}
-        events={events[currentDay.date()] ?? []}
+        events={events[getEventMapKey(currentDay)] ?? []}
       />,
     );
   }

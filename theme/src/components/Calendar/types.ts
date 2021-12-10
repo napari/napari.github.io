@@ -23,7 +23,7 @@ export interface CalendarState {
   filters: CalendarFilterState;
 }
 
-export type CalendarEventMap = Record<number, CalendarEvent[] | undefined>;
+export type CalendarEventMap = Record<string, CalendarEvent[] | undefined>;
 
 export interface CalendarEventState {
   events: CalendarEventMap;

@@ -1,9 +1,12 @@
 import dayjs from 'dayjs';
-import { createContext, ReactNode, useContext, useRef } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import { proxy } from 'valtio';
 import { derive } from 'valtio/utils';
 
+import { useConstant } from '@/hooks/useConstant';
+
 import { CalendarEventMap, CalendarEventState, CalendarState } from './types';
+import { useFetchCalendarEvents } from './useFetchCalendarEvents';
 
 interface CalendarContextValue {
   calendarState: CalendarState;
@@ -20,7 +23,7 @@ interface Props {
  * Provider that shares global state within the Calendar component tree.
  */
 export function CalendarProvider({ children }: Props) {
-  const calendarState = useRef(
+  const calendarState = useConstant(() =>
     proxy<CalendarState>({
       activeStartDate: dayjs().set('day', 1),
       filters: {
@@ -30,9 +33,9 @@ export function CalendarProvider({ children }: Props) {
       },
       events: [],
     }),
-  ).current;
+  );
 
-  const eventState = useRef(
+  const eventState = useConstant(() =>
     derive({
       events(get) {
         const { events, filters } = get(calendarState);
@@ -53,7 +56,10 @@ export function CalendarProvider({ children }: Props) {
         return result;
       },
     }),
-  ).current;
+  );
+
+  // Fetch calendar events when the active month changes.
+  useFetchCalendarEvents(calendarState);
 
   return (
     <CalenderContext.Provider

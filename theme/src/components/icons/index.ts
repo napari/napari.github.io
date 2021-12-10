@@ -1,3 +1,4 @@
+export * from './Checkbox';
 export * from './ChevronDown';
 export * from './ChevronUp';
 export * from './Close';

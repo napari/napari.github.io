@@ -2,6 +2,8 @@ import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { set } from 'lodash';
 import { useSnapshot } from 'valtio';
 
+import { Checkbox as CheckboxIcon } from '@/components/icons';
+
 import { useCalendar } from './context';
 import { FilterKey } from './types';
 
@@ -30,6 +32,8 @@ function FilterCheckbox({ filterKey }: FilterCheckboxProps) {
     <FormControlLabel
       control={
         <Checkbox
+          checkedIcon={<CheckboxIcon checked />}
+          icon={<CheckboxIcon />}
           color="primary"
           checked={checked}
           onChange={(event) =>

@@ -1,3 +1,5 @@
+@import '@/scss/utils';
+
 /**
  * By default, `react-calendar` includes no styling, so we need to provide our
  * own using the Calendar component's CSS classes.
@@ -5,14 +7,16 @@
 
 // Styles to apply to the month view day tiles.
 .react-calendar__month-view__days__day {
-  @apply flex flex-col h-[7.625rem] space-y-1 cursor-default;
+  @apply flex flex-col space-y-1 cursor-default;
+
+  height: calculate-rem(122px);
 
   // Disable blue highlight when on tapping on webkit mobile devices.
   -webkit-tap-highlight-color: transparent;
 
   // Styles to apply to day tiles for the active week.
   &.active-week {
-    @apply h-[11.5625rem];
+    height: calculate-rem(185px);
 
     // Show active week day numbers in black box.
     abbr {

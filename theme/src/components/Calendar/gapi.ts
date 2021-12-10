@@ -86,8 +86,9 @@ export async function fetchEvents(
         type = 'other';
       }
 
-      const date = dayjs(event.start.dateTime ?? event.start.date ?? '');
-      const dateStr = date.toString();
+      const start = dayjs(event.start.dateTime ?? event.start.date ?? '');
+      const end = dayjs(event.end.dateTime ?? event.end.date ?? '');
+      const dateStr = start.toString();
 
       if (visitedDates.has(dateStr)) {
         return;
@@ -96,12 +97,12 @@ export async function fetchEvents(
       visitedDates.add(dateStr);
 
       events.push({
+        end,
+        start,
         title,
         type,
-        date,
         description: event.description,
         location: event.location ?? '',
-        recurrences: event.recurrence,
       });
     });
 

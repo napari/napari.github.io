@@ -1,6 +1,7 @@
 export type Styles = {
   dayList: string;
   popup: string;
+  popupMetadata: string;
 };
 
 export type ClassNames = keyof Styles;

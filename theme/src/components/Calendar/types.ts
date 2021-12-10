@@ -3,10 +3,10 @@ import type { Dayjs } from 'dayjs';
 export type MeetingType = 'community' | 'workingGroup' | 'other';
 
 export interface CalendarEvent {
-  date: Dayjs;
   description: string;
+  end: Dayjs;
   location: string;
-  recurrences: string[];
+  start: Dayjs;
   title: string;
   type: MeetingType;
 }

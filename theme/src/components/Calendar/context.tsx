@@ -43,7 +43,7 @@ export function CalendarProvider({ children }: Props) {
         const result: CalendarEventMap = {};
 
         for (const event of events) {
-          const key = getEventMapKey(event.date);
+          const key = getEventMapKey(event.start);
 
           if (!result[key]) {
             result[key] = [];
@@ -57,7 +57,7 @@ export function CalendarProvider({ children }: Props) {
         for (const [key, eventList] of Object.entries(result)) {
           if (eventList) {
             result[key] = eventList.sort((event1, event2) =>
-              event1.date.diff(event2.date),
+              event1.start.diff(event2.start),
             );
           }
         }

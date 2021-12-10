@@ -17,17 +17,9 @@ import { Checkbox as CheckboxIcon } from '@/components/icons';
 import { Media } from '@/components/media';
 
 import styles from './Calendar.module.scss';
+import { FILTER_LABEL_BY_KEY } from './constants';
 import { useCalendar } from './context';
 import { FilterKey } from './types';
-
-/**
- * Labels to render for a particular meeting type.
- */
-const FILTER_LABEL_BY_KEY: Record<FilterKey, string> = {
-  community: 'community meetings',
-  other: 'other meetings',
-  workingGroup: 'working groups',
-};
 
 interface FilterCheckboxProps {
   filterKey: FilterKey;

@@ -4,9 +4,10 @@ import { ReactNode } from 'react';
 import { useSnapshot } from 'valtio';
 
 import styles from './Calendar.module.scss';
+import { CalendarEventButton } from './CalendarEventButton';
 import { useCalendar } from './context';
 import { CalendarEvent } from './types';
-import { formatEventTime, getEventMapKey } from './utils';
+import { getEventMapKey } from './utils';
 
 interface CalendarDayListProps {
   date: dayjs.Dayjs;
@@ -43,21 +44,11 @@ function CalendarDayList({ date, events }: CalendarDayListProps) {
 
       <ul>
         {events.map((event) => (
-          <li>
-            <button
-              className="flex space-x-1"
-              onClick={() => {
-                alert('todo implmenet popup');
-              }}
-              type="button"
-            >
-              <span className="font-semibold">
-                {formatEventTime(event.date)}
-              </span>
-
-              <span>{event.title}</span>
-            </button>
-          </li>
+          <CalendarEventButton
+            date={event.start}
+            event={event}
+            key={event.title}
+          />
         ))}
       </ul>
     </div>

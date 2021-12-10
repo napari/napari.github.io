@@ -1,56 +1,37 @@
-import clsx from 'clsx';
-import dayjs from 'dayjs';
-import ReactCalendar from 'react-calendar';
-import { useSnapshot } from 'valtio';
+import { Media } from '@/components/media';
 
+import { CalendarMonthView } from './CalendarMonthView';
 import { CalendarNavigation } from './CalendarNavigation';
-import { CalendarTile } from './CalendarTile';
+import { CalendarWeekView } from './CalendarWeekView';
 import { CalendarFilter } from './CalenderFilter';
-import { CalendarProvider, useCalendar } from './context';
-
-/**
- * Wrapper component over `react-calendar`.
- */
-function CalendarWrapper() {
-  const { calendarState } = useCalendar();
-  const snap = useSnapshot(calendarState);
-
-  return (
-    <ReactCalendar
-      calendarType="US"
-      activeStartDate={snap.activeStartDate.toDate()}
-      showNavigation={false}
-      tileClassName={({ date: dateValue }) => {
-        const date = dayjs(dateValue);
-        const now = dayjs();
-
-        return clsx(
-          date.isSame(now, 'week') && [
-            'active-week',
-
-            date.isSame(now, 'day') && 'active-day',
-          ],
-        );
-      }}
-      // Need to pass nested component so that it's rendered within the
-      // CalendarProvider component.
-      tileContent={({ date }) => <CalendarTile date={dayjs(date)} />}
-      view="month"
-    />
-  );
-}
+import { CalendarProvider } from './context';
 
 /**
  * Component for showing napari Google Calendar events with controls for
  * filtering and copying events to the user's calendar.
+ *
+ * For screens smaller than 900px, a week view is rendered with events for the
+ * current week. Otherwise, a month view is used.
  */
 export function Calendar() {
   return (
     <CalendarProvider>
       <div className="border border-napari-light">
         <CalendarNavigation />
+
+        <Media lessThan="screen-900">
+          <CalendarNavigation week />
+        </Media>
+
         <CalendarFilter />
-        <CalendarWrapper />
+
+        <Media greaterThanOrEqual="screen-900">
+          <CalendarMonthView />
+        </Media>
+
+        <Media lessThan="screen-900">
+          <CalendarWeekView />
+        </Media>
       </div>
     </CalendarProvider>
   );

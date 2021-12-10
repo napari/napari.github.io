@@ -25,7 +25,7 @@ interface Props {
 export function CalendarProvider({ children }: Props) {
   const calendarState = useConstant(() =>
     proxy<CalendarState>({
-      activeStartDate: dayjs().set('day', 1),
+      activeStartDate: dayjs(),
       filters: {
         community: true,
         other: true,

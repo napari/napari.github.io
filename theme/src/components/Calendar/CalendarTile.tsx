@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { useSnapshot } from 'valtio';
 
 import { useCalendar } from './context';
+import { formatEventTime } from './utils';
 
 interface Props {
   date: dayjs.Dayjs;
@@ -35,9 +36,7 @@ export function CalendarTile({ date }: Props) {
               >
                 <div className="ml-1 flex space-x-1">
                   <span className="font-semibold">
-                    {eventDate.format(
-                      `h${eventDate.minute() > 0 ? ':mm' : ''}a`,
-                    )}
+                    {formatEventTime(eventDate)}
                   </span>
 
                   <span className="overflow-ellipsis flex-nowrap">

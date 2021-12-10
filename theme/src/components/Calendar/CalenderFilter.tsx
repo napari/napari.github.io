@@ -1,9 +1,22 @@
-import { Checkbox, FormControlLabel } from '@material-ui/core';
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+  Paper,
+  Popper,
+} from '@material-ui/core';
+import { Close, FilterList } from '@material-ui/icons';
+import clsx from 'clsx';
 import { set } from 'lodash';
+import { useCallback, useRef, useState } from 'react';
+import { useClickAway } from 'react-use';
 import { useSnapshot } from 'valtio';
 
 import { Checkbox as CheckboxIcon } from '@/components/icons';
+import { Media } from '@/components/media';
 
+import styles from './Calendar.module.scss';
 import { useCalendar } from './context';
 import { FilterKey } from './types';
 
@@ -54,14 +67,68 @@ const ENABLED_FILTERS: FilterKey[] = ['community', 'workingGroup', 'other'];
  * is used for filtering events by a specific type.
  */
 export function CalendarFilter() {
-  return (
-    <div className="flex justify-center">
-      <div className="flex space-x-2">
-        <p className="font-semibold">show:</p>
+  const [open, setOpen] = useState(false);
+  const anchorElRef = useRef<HTMLDivElement>(null);
+  const paperElRef = useRef<HTMLDivElement>(null);
 
-        {ENABLED_FILTERS.map((filterKey) => (
-          <FilterCheckbox filterKey={filterKey} key={filterKey} />
-        ))}
+  const closeFilter = useCallback(() => setOpen(false), []);
+
+  useClickAway(paperElRef, closeFilter);
+
+  return (
+    <div className="flex py-3 px-6 screen-900:justify-center">
+      <div
+        className={clsx(
+          'grid grid-cols-[2rem,1fr,min-content] items-center w-full',
+          'screen-900:flex screen-900:space-x-2 screen-900:flex-row',
+        )}
+        ref={anchorElRef}
+      >
+        <Media lessThan="screen-900">
+          <FilterList className="w-4 h-4" />
+        </Media>
+
+        <Media lessThan="screen-900">
+          <Button
+            classes={{
+              label: 'underline',
+            }}
+            onClick={() => setOpen((prev) => !prev)}
+            variant="text"
+          >
+            filter events
+          </Button>
+        </Media>
+
+        <Media lessThan="screen-900" className="justify-self-end">
+          <IconButton
+            className={clsx(open || 'opacity-0')}
+            onClick={closeFilter}
+          >
+            <Close className="text-black" />
+          </IconButton>
+        </Media>
+
+        <Popper open={open} anchorEl={anchorElRef.current}>
+          <Paper
+            className={clsx('col-start-2 p-2', styles.popup)}
+            ref={paperElRef}
+          >
+            <div
+              className={clsx(
+                'flex flex-col col-start-2',
+                'justify-center w-full',
+                'screen-900:flex-row screen-900:space-x-2',
+              )}
+            >
+              <p className="font-semibold !m-0">show:</p>
+
+              {ENABLED_FILTERS.map((filterKey) => (
+                <FilterCheckbox filterKey={filterKey} key={filterKey} />
+              ))}
+            </div>
+          </Paper>
+        </Popper>
       </div>
     </div>
   );

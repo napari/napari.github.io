@@ -13,40 +13,42 @@ interface Props {
  * Events for a particular day are rendered as a list sorted by time.
  */
 export function CalendarTile({ date }: Props) {
-  const { eventState } = useCalendar();
-  const eventSnap = useSnapshot(eventState);
+  const { calendarState, eventState } = useCalendar();
+  const { activeStartDate } = useSnapshot(calendarState);
+  const { events } = useSnapshot(eventState);
   const dayInMonth = date.date();
-  const eventList = eventSnap.events[dayInMonth] ?? [];
+  const eventList = events[dayInMonth] ?? [];
 
   return (
     <div className="flex overflow-y-auto">
       <ul className="flex flex-col space-y-1 m-0">
-        {eventList.map((event) => {
-          const eventDate = dayjs(event.date);
+        {date.isSame(activeStartDate, 'month') &&
+          eventList.map((event) => {
+            const eventDate = dayjs(event.date);
 
-          return (
-            <li>
-              <button
-                className="flex space-x-1 bg-napari-light"
-                onClick={(clickEvent) => {
-                  clickEvent.preventDefault();
-                  alert('TODO add popup');
-                }}
-                type="button"
-              >
-                <div className="ml-1 flex space-x-1">
-                  <span className="font-semibold">
-                    {formatEventTime(eventDate)}
-                  </span>
+            return (
+              <li>
+                <button
+                  className="flex space-x-1 bg-napari-light"
+                  onClick={(clickEvent) => {
+                    clickEvent.preventDefault();
+                    alert('TODO add popup');
+                  }}
+                  type="button"
+                >
+                  <div className="ml-1 flex space-x-1">
+                    <span className="font-semibold">
+                      {formatEventTime(eventDate)}
+                    </span>
 
-                  <span className="overflow-ellipsis flex-nowrap">
-                    {event.title}
-                  </span>
-                </div>
-              </button>
-            </li>
-          );
-        })}
+                    <span className="overflow-ellipsis flex-nowrap">
+                      {event.title}
+                    </span>
+                  </div>
+                </button>
+              </li>
+            );
+          })}
       </ul>
     </div>
   );

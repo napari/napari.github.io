@@ -128,7 +128,11 @@ export function CalendarFilter() {
         <Media lessThan="screen-900">
           <Popper open={open} anchorEl={anchorElRef.current}>
             <Paper
-              className={clsx('col-start-2 p-2', styles.popup)}
+              className={clsx(
+                'grid grid-cols-[2rem,1fr,min-content]',
+                'items-center px-9',
+                styles.popup,
+              )}
               ref={paperElRef}
             >
               {filterBody}

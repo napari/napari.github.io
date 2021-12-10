@@ -61,13 +61,20 @@ export async function fetchEvents(
 ): Promise<CalendarEvent[]> {
   const { result } = await gapi.client.calendar.events.list({
     calendarId,
-    timeMin: activeStartDate.startOf('month').toISOString(),
-    timeMax: activeStartDate.endOf('month').toISOString(),
+    // Expand recurring events into event instances so that the start times are
+    // within `timeMin` and `timeMax`:
+    // https://developers.google.com/calendar/api/v3/reference/events/list
+    singleEvents: true,
+    timeMin: activeStartDate.startOf('month').subtract(1, 'week').toISOString(),
+    timeMax: activeStartDate.endOf('month').add(1, 'week').toISOString(),
   });
 
-  return result.items
+  const events: CalendarEvent[] = [];
+  const visitedDates: Set<string> = new Set();
+
+  result.items
     .filter((event) => event.status === 'confirmed')
-    .map((event) => {
+    .forEach((event) => {
       const title = event.summary;
       let type: MeetingType;
 
@@ -79,13 +86,24 @@ export async function fetchEvents(
         type = 'other';
       }
 
-      return {
+      const date = dayjs(event.start.dateTime ?? event.start.date ?? '');
+      const dateStr = date.toString();
+
+      if (visitedDates.has(dateStr)) {
+        return;
+      }
+
+      visitedDates.add(dateStr);
+
+      events.push({
         title,
         type,
-        date: dayjs(event.start.dateTime ?? event.start.date ?? ''),
+        date,
         description: event.description,
         location: event.location ?? '',
         recurrences: event.recurrence,
-      };
+      });
     });
+
+  return events;
 }

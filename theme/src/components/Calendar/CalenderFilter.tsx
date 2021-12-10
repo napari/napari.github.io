@@ -75,6 +75,22 @@ export function CalendarFilter() {
 
   useClickAway(paperElRef, closeFilter);
 
+  const filterBody = (
+    <div
+      className={clsx(
+        'flex flex-col col-start-2',
+        'justify-center w-full',
+        'screen-900:flex-row screen-900:space-x-2',
+      )}
+    >
+      <p className="font-semibold !m-0">show:</p>
+
+      {ENABLED_FILTERS.map((filterKey) => (
+        <FilterCheckbox filterKey={filterKey} key={filterKey} />
+      ))}
+    </div>
+  );
+
   return (
     <div className="flex py-3 px-6 screen-900:justify-center">
       <div
@@ -109,26 +125,18 @@ export function CalendarFilter() {
           </IconButton>
         </Media>
 
-        <Popper open={open} anchorEl={anchorElRef.current}>
-          <Paper
-            className={clsx('col-start-2 p-2', styles.popup)}
-            ref={paperElRef}
-          >
-            <div
-              className={clsx(
-                'flex flex-col col-start-2',
-                'justify-center w-full',
-                'screen-900:flex-row screen-900:space-x-2',
-              )}
+        <Media lessThan="screen-900">
+          <Popper open={open} anchorEl={anchorElRef.current}>
+            <Paper
+              className={clsx('col-start-2 p-2', styles.popup)}
+              ref={paperElRef}
             >
-              <p className="font-semibold !m-0">show:</p>
+              {filterBody}
+            </Paper>
+          </Popper>
+        </Media>
 
-              {ENABLED_FILTERS.map((filterKey) => (
-                <FilterCheckbox filterKey={filterKey} key={filterKey} />
-              ))}
-            </div>
-          </Paper>
-        </Popper>
+        <Media greaterThanOrEqual="screen-900">{filterBody}</Media>
       </div>
     </div>
   );

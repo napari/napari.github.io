@@ -14,6 +14,10 @@
   // Disable blue highlight when on tapping on webkit mobile devices.
   -webkit-tap-highlight-color: transparent;
 
+  abbr {
+    @apply mt-1 ml-1 font-semibold;
+  }
+
   // Styles to apply to day tiles for the active week.
   &.active-week {
     height: calculate-rem(185px);
@@ -59,14 +63,10 @@
     & > li {
       @apply m-0 p-0 overflow-ellipsis whitespace-nowrap;
 
-      &:before {
+      &::before {
         @apply hidden;
       }
     }
-  }
-
-  abbr {
-    @apply mt-1 ml-1 font-semibold;
   }
 }
 

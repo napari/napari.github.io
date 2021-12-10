@@ -87,7 +87,7 @@ export function CalendarFilter() {
     <div className="flex py-3 px-6 screen-900:justify-center">
       <div
         className={clsx(
-          'grid grid-cols-[2rem,1fr,min-content] items-center w-full',
+          'grid grid-cols-[2rem,1fr,min-content] items-center',
           'screen-900:flex screen-900:space-x-2 screen-900:flex-row',
         )}
         ref={anchorElRef}

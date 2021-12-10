@@ -1,10 +1,23 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import ReactCalendar from 'react-calendar';
+import ReactCalendar, { CalendarType } from 'react-calendar';
 import { useSnapshot } from 'valtio';
 
 import { CalendarTile } from './CalendarTile';
+import { CALENDAR_TYPE_LOCALES } from './constants';
 import { useCalendar } from './context';
+
+function getCalendarType(): CalendarType {
+  const locale = navigator.language;
+
+  for (const [key, locales] of Object.entries(CALENDAR_TYPE_LOCALES)) {
+    if (locales.find((includeLocale) => locale.includes(includeLocale))) {
+      return key as CalendarType;
+    }
+  }
+
+  return 'ISO 8601';
+}
 
 /**
  * Calendar component that shows napari events for the current month.
@@ -15,7 +28,7 @@ export function CalendarMonthView() {
 
   return (
     <ReactCalendar
-      calendarType="US"
+      calendarType={getCalendarType()}
       activeStartDate={snap.activeStartDate.toDate()}
       showNavigation={false}
       tileClassName={({ date: dateValue }) => {

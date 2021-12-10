@@ -1,5 +1,6 @@
 import { Media } from '@/components/media';
 
+import { CalendarFooter } from './CalendarFooter';
 import { CalendarMonthView } from './CalendarMonthView';
 import { CalendarNavigation } from './CalendarNavigation';
 import { CalendarWeekView } from './CalendarWeekView';
@@ -32,6 +33,8 @@ export function Calendar() {
         <Media lessThan="screen-900">
           <CalendarWeekView />
         </Media>
+
+        <CalendarFooter />
       </div>
     </CalendarProvider>
   );

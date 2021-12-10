@@ -1,6 +1,7 @@
 import { PopperProps } from '@material-ui/core';
 import { Info, Label, LocationOn } from '@material-ui/icons';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import dompurify from 'dompurify';
 import { ComponentType, forwardRef } from 'react';
 
@@ -101,7 +102,8 @@ export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
             {event.start.format('dddd MMM D')}
           </p>
           <p className="font-bold">
-            {formatEventTime(event.start)}–{formatEventTime(event.end)} PST
+            {formatEventTime(event.start)}–{formatEventTime(event.end)}{' '}
+            {dayjs().format('z')}
           </p>
 
           <h2 className="text-2xl font-bold">{event.title}</h2>

@@ -46,9 +46,7 @@ export function CalendarEventButton({ date, event, width }: Props) {
         <div className="ml-1 flex space-x-1">
           <span className="font-semibold">{formatEventTime(date)}</span>
 
-          <span className="overflow-ellipsis flex-nowrap w-full">
-            {event.title}
-          </span>
+          <span className="overflow-ellipsis flex-nowrap">{event.title}</span>
         </div>
       </button>
     </li>

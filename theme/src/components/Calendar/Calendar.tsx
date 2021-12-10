@@ -6,6 +6,7 @@ import { CalendarNavigation } from './CalendarNavigation';
 import { CalendarWeekView } from './CalendarWeekView';
 import { CalendarFilter } from './CalenderFilter';
 import { CalendarProvider } from './context';
+import { CopyCalendarButton } from './CopyCalendarButton';
 
 /**
  * Component for showing napari Google Calendar events with controls for
@@ -17,6 +18,14 @@ import { CalendarProvider } from './context';
 export function Calendar() {
   return (
     <CalendarProvider>
+      <CopyCalendarButton
+        href={`https://calendar.google.com/calendar/u/0/r?cid=${
+          process.env.GOOGLE_CALENDAR_ID ?? ''
+        }`}
+      >
+        Copy to calendar
+      </CopyCalendarButton>
+
       <div className="border border-napari-light">
         <CalendarNavigation />
 

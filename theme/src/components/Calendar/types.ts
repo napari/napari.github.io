@@ -6,6 +6,7 @@ export interface CalendarEvent {
   calendarId: string;
   description: string;
   end: Dayjs;
+  htmlLink: string;
   location: string;
   recurringEventId?: string;
   start: Dayjs;

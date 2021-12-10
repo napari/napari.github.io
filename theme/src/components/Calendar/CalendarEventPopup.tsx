@@ -1,4 +1,4 @@
-import { PopperProps } from '@material-ui/core';
+import { Divider, PopperProps } from '@material-ui/core';
 import { Event, Info, Label, LocationOn } from '@material-ui/icons';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
@@ -8,10 +8,11 @@ import { ComponentType, forwardRef, useEffect, useState } from 'react';
 import { RRule } from 'rrule';
 
 import { Popup } from '@/components/Popup';
-import { isExternalUrl } from '@/utils/url';
+import { createUrl, isExternalUrl } from '@/utils/url';
 
 import styles from './Calendar.module.scss';
 import { FILTER_LABEL_BY_KEY } from './constants';
+import { CopyCalendarButton } from './CopyCalendarButton';
 import { fetchEvent } from './gapi';
 import { CalendarEvent } from './types';
 import { formatEventTime } from './utils';
@@ -128,6 +129,9 @@ export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
       },
     ].filter(({ label }) => label);
 
+    const eventHtmlId = createUrl(event.htmlLink).searchParams.get('eid');
+    const copyLink = `https://calendar.google.com/calendar/u/0/r/eventedit/copy/${eventHtmlId}`;
+
     return (
       <Popup
         ref={ref}
@@ -157,6 +161,14 @@ export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
                 />
               ))}
           </ul>
+
+          <Divider />
+
+          <div>
+            <CopyCalendarButton href={copyLink}>
+              Copy event to calendar
+            </CopyCalendarButton>
+          </div>
         </div>
       </Popup>
     );

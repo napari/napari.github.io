@@ -123,7 +123,14 @@ function Content() {
 
   return (
     <>
-      {calendarNode && createPortal(<Calendar />, calendarNode)}
+      {calendarNode &&
+        createPortal(
+          <div className="space-y-2">
+            <h3 className="font-semibold">Napari Meetings</h3>
+            <Calendar />
+          </div>,
+          calendarNode,
+        )}
 
       <div
         className={clsx(

@@ -103,6 +103,7 @@ export async function fetchEvents(
         title,
         type,
         description: event.description,
+        htmlLink: event.htmlLink,
         location: event.location ?? '',
         recurringEventId: event.recurringEventId,
       });

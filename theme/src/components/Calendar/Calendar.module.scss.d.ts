@@ -1,5 +1,6 @@
 export type Styles = {
   dayList: string;
+  fullWidth: string;
   popup: string;
   popupMetadata: string;
 };

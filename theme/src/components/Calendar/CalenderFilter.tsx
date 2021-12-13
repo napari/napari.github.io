@@ -54,11 +54,15 @@ function FilterCheckbox({ filterKey }: FilterCheckboxProps) {
 
 const ENABLED_FILTERS: FilterKey[] = ['community', 'workingGroup', 'other'];
 
+interface Props {
+  fullWidth?: boolean;
+}
+
 /**
  * Component that renders the filter toolbar above the calendar. This component
  * is used for filtering events by a specific type.
  */
-export function CalendarFilter() {
+export function CalendarFilter({ fullWidth }: Props) {
   const [open, setOpen] = useState(false);
   const anchorElRef = useRef<HTMLDivElement>(null);
   const paperElRef = useRef<HTMLDivElement>(null);
@@ -75,7 +79,7 @@ export function CalendarFilter() {
         'screen-900:flex-row screen-900:space-x-2',
       )}
     >
-      <p className="font-semibold !m-0">show:</p>
+      <span className="font-semibold">show:</span>
 
       {ENABLED_FILTERS.map((filterKey) => (
         <FilterCheckbox filterKey={filterKey} key={filterKey} />
@@ -87,8 +91,9 @@ export function CalendarFilter() {
     <div className="flex py-3 px-6 screen-900:justify-center">
       <div
         className={clsx(
-          'grid grid-cols-[2rem,1fr,min-content] items-center',
-          'screen-900:flex screen-900:space-x-2 screen-900:flex-row',
+          'grid grid-cols-[2rem,1fr,min-content] items-center w-full',
+          'screen-900:w-max screen-900:space-x-2',
+          'screen-900:flex screen-900:flex-row',
         )}
         ref={anchorElRef}
       >
@@ -124,8 +129,10 @@ export function CalendarFilter() {
                 'grid grid-cols-[2rem,1fr,min-content]',
                 'items-center px-9',
                 styles.popup,
+                fullWidth && styles.fullWidth,
               )}
               ref={paperElRef}
+              elevation={0}
             >
               {filterBody}
             </Paper>

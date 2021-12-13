@@ -9,8 +9,19 @@ $breakpoint: theme('screens.screen-495');
 .popup {
   @include popup-width(50px);
 
+  border-bottom: 1px solid #000;
+  border-left: 1px solid theme('colors.napari-light');
+  border-right: 1px solid theme('colors.napari-light');
+
   @media (max-width: $breakpoint) {
     @include popup-width(25px);
+  }
+
+  &.fullWidth {
+    @apply w-screen;
+
+    border-left: 0;
+    border-right: 0;
   }
 }
 

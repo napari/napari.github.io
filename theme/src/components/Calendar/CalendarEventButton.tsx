@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 
 import { CalendarEventPopup } from './CalendarEventPopup';
@@ -22,7 +22,9 @@ export function CalendarEventButton({ date, event, width }: Props) {
   const eventButtonRef = useRef<HTMLButtonElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
 
-  useClickAway(popupRef, () => setPopupOpen(false));
+  const onClose = useCallback(() => setPopupOpen(false), []);
+
+  useClickAway(popupRef, onClose);
 
   return (
     <li style={{ width }}>
@@ -31,6 +33,7 @@ export function CalendarEventButton({ date, event, width }: Props) {
         event={event}
         open={popupOpen}
         ref={popupRef}
+        onClose={onClose}
       />
 
       <button

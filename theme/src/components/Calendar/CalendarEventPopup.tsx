@@ -3,6 +3,7 @@ import { Event, Info, Label, LocationOn } from '@material-ui/icons';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import dompurify from 'dompurify';
+import FocusTrap from 'focus-trap-react';
 import { upperFirst } from 'lodash';
 import { ComponentType, forwardRef, useEffect, useState } from 'react';
 import { RRule } from 'rrule';
@@ -71,13 +72,14 @@ function CalendarMetadata({
 
 interface Props extends Omit<PopperProps, 'children' | 'ref'> {
   event: CalendarEvent;
+  onClose(): void;
 }
 
 /**
  * Component for rendering Google Calendar event information in a popup window.
  */
 export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
-  ({ event, open, ...props }, ref) => {
+  ({ onClose, event, open, ...props }, ref) => {
     const [recurrence, setRecurrence] = useState<string[]>([]);
 
     useEffect(() => {
@@ -140,36 +142,38 @@ export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
         open={open && !!(!event.recurringEventId || recurrence)}
         {...props}
       >
-        <div className="flex flex-col space-y-2 overflow-y-auto py-4 px-5">
-          <p className="font-bold uppercase">
-            {event.start.format('dddd MMM D')}
-          </p>
-          <p className="font-bold">
-            {formatEventTime(event.start)}–{formatEventTime(event.end)}{' '}
-            {dayjs().format('z')}
-          </p>
+        <FocusTrap focusTrapOptions={{ onDeactivate: onClose }}>
+          <div className="flex flex-col space-y-2 overflow-y-auto py-4 px-5">
+            <p className="font-bold uppercase">
+              {event.start.format('dddd MMM D')}
+            </p>
+            <p className="font-bold">
+              {formatEventTime(event.start)}–{formatEventTime(event.end)}{' '}
+              {dayjs().format('z')}
+            </p>
 
-          <h2 className="text-2xl font-bold">{event.title}</h2>
+            <h2 className="text-2xl font-bold">{event.title}</h2>
 
-          <ul className="space-y-2">
-            {metadata
-              .filter(({ label }) => label)
-              .map((metadataProps) => (
-                <CalendarMetadata
-                  {...metadataProps}
-                  key={metadataProps.label}
-                />
-              ))}
-          </ul>
+            <ul className="space-y-2">
+              {metadata
+                .filter(({ label }) => label)
+                .map((metadataProps) => (
+                  <CalendarMetadata
+                    {...metadataProps}
+                    key={metadataProps.label}
+                  />
+                ))}
+            </ul>
 
-          <Divider />
+            <Divider />
 
-          <div>
-            <CopyCalendarButton href={copyLink}>
-              Copy event to calendar
-            </CopyCalendarButton>
+            <div>
+              <CopyCalendarButton href={copyLink}>
+                Copy event to calendar
+              </CopyCalendarButton>
+            </div>
           </div>
-        </div>
+        </FocusTrap>
       </Popup>
     );
   },

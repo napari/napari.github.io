@@ -5,80 +5,110 @@
  * own using the Calendar component's CSS classes.
  */
 
-// Styles to apply to the month view day tiles.
-.react-calendar__month-view__days__day {
-  @apply flex flex-col space-y-1 cursor-default;
-
-  height: calculate-rem(122px);
-
-  // Disable blue highlight when on tapping on webkit mobile devices.
-  -webkit-tap-highlight-color: transparent;
-
-  abbr {
-    @apply mt-1 ml-1 font-semibold;
+.react-calendar {
+  &,
+  &__viewContainer {
+    @apply flex flex-1 flex-col;
   }
 
-  // Styles to apply to day tiles for the active week.
-  &.active-week {
-    height: calculate-rem(185px);
+  &__month-view {
+    &,
+    & > div,
+    & > div > div {
+      @apply flex flex-1 flex-col;
+    }
+  }
 
-    // Show active week day numbers in black box.
+  &__month-view__days {
+    @apply grid-cols-7 h-full;
+
+    display: grid !important;
+  }
+
+  // Styles to apply to the month view day tiles.
+  &__month-view__days__day {
+    @apply flex flex-col space-y-1 cursor-default;
+
+    // Disable blue highlight when on tapping on webkit mobile devices.
+    -webkit-tap-highlight-color: transparent;
+
+    max-width: 100% !important;
+    height: calculate-rem(122px);
+
+    &.full-width {
+      @apply min-h-full;
+    }
+
     abbr {
-      @apply bg-black text-white;
-      @apply flex items-center justify-center;
-
-      aspect-ratio: 1.2 / 1;
+      @apply mt-1 ml-1 font-semibold;
     }
 
-    // Show the current day in a blue circle.
-    &.active-day abbr {
-      @apply bg-napari-primary rounded-full text-black;
-    }
-  }
+    // Styles to apply to day tiles for the active week.
+    &.active-week {
+      height: calculate-rem(185px);
 
-  // Set tile background color based on row parity. Since `react-calendar`
-  // doesn't use rows for rendering each week, we need to use the `nth-child`
-  // selector to apply styles for the 7 days in a week.
-  $offset: 0;
-  @for $i from 0 through 8 {
-    &:nth-child(n + #{$offset}) {
-      @if $i % 2 == 0 {
-        @apply bg-napari-hover-gray;
-      } @else {
-        @apply bg-white;
+      .full-width & {
+        @apply min-h-full;
+      }
+
+      // Show active week day numbers in black box.
+      abbr {
+        @apply bg-black text-white;
+        @apply flex items-center justify-center;
+
+        aspect-ratio: 1.2 / 1;
+      }
+
+      // Show the current day in a blue circle.
+      &.active-day abbr {
+        @apply bg-napari-primary rounded-full text-black;
       }
     }
 
-    // Add 1 initially to apply styling to the last day.
-    @if $i == 0 {
-      $offset: $offset + 1;
+    // Set tile background color based on row parity. Since `react-calendar`
+    // doesn't use rows for rendering each week, we need to use the `nth-child`
+    // selector to apply styles for the 7 days in a week.
+    $offset: 0;
+    @for $i from 0 through 8 {
+      &:nth-child(n + #{$offset}) {
+        @if $i % 2 == 0 {
+          @apply bg-napari-hover-gray;
+        } @else {
+          @apply bg-white;
+        }
+      }
+
+      // Add 1 initially to apply styling to the last day.
+      @if $i == 0 {
+        $offset: $offset + 1;
+      }
+
+      $offset: $offset + 7;
     }
 
-    $offset: $offset + 7;
-  }
+    ul {
+      @apply mt-2;
 
-  ul {
-    @apply mt-2;
+      & > li {
+        @apply m-0 p-0 overflow-ellipsis whitespace-nowrap;
 
-    & > li {
-      @apply m-0 p-0 overflow-ellipsis whitespace-nowrap;
-
-      &::before {
-        @apply hidden;
+        &::before {
+          @apply hidden;
+        }
       }
     }
   }
-}
 
-.react-calendar__month-view__weekdays {
-  @apply border-b border-black;
-}
+  &__month-view__weekdays {
+    @apply border-b border-black;
+  }
 
-.react-calendar__month-view__weekdays__weekday {
-  @apply flex justify-center;
-  @apply font-bold uppercase;
+  &__month-view__weekdays__weekday {
+    @apply flex justify-center;
+    @apply font-bold uppercase;
 
-  abbr[title] {
-    @apply no-underline;
+    abbr[title] {
+      @apply no-underline;
+    }
   }
 }

@@ -24,7 +24,7 @@ function CalendarDayList({ date, events }: CalendarDayListProps) {
 
   return (
     <div className={clsx('flex px-4', styles.dayList)}>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center leading-7">
         <span className="font-bold uppercase">{date.format('ddd')}</span>
         <span
           className={clsx(
@@ -42,7 +42,7 @@ function CalendarDayList({ date, events }: CalendarDayListProps) {
         </span>
       </div>
 
-      <ul>
+      <ul className="my-6 space-y-1">
         {events.map((event) => (
           <CalendarEventButton
             date={event.start}

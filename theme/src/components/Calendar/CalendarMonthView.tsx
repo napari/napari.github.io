@@ -21,16 +21,21 @@ function getCalendarType(): CalendarType {
   return 'ISO 8601';
 }
 
+interface Props {
+  fullWidth?: boolean;
+}
+
 /**
  * Calendar component that shows napari events for the current month.
  */
-export function CalendarMonthView() {
+export function CalendarMonthView({ fullWidth }: Props) {
   const { calendarState } = useCalendar();
   const snap = useSnapshot(calendarState);
   const is18nEnabled = isFeatureFlagEnabled('calendari18n');
 
   return (
     <ReactCalendar
+      className={clsx(fullWidth && 'full-width')}
       calendarType={is18nEnabled ? getCalendarType() : 'US'}
       locale={is18nEnabled ? undefined : 'en-US'}
       activeStartDate={snap.activeStartDate.toDate()}
@@ -40,6 +45,8 @@ export function CalendarMonthView() {
         const now = dayjs();
 
         return clsx(
+          fullWidth && 'full-width',
+
           date.isSame(now, 'week') && [
             'active-week',
 

@@ -31,7 +31,7 @@
 
   // Styles to apply to the month view day tiles.
   &__month-view__days__day {
-    @apply flex flex-col space-y-1 min-h-full;
+    @apply flex flex-col space-y-1;
 
     // Calendar tile component is always a button, since there's currently no
     // way to customize the tile:
@@ -41,7 +41,6 @@
     // Disable blue highlight when on tapping on webkit mobile devices.
     -webkit-tap-highlight-color: transparent;
     max-width: 100% !important;
-    height: calculate-rem(122px);
 
     abbr {
       @apply mt-1 ml-1 font-semibold;
@@ -49,14 +48,11 @@
 
     // Styles to apply to day tiles for the active week.
     &.active-week {
-      @apply min-h-full;
-
       // Show active week day numbers in black box.
       abbr {
         @apply bg-black text-white;
         @apply flex items-center justify-center;
-
-        aspect-ratio: 1.2 / 1;
+        @apply w-6 h-6;
       }
 
       // Show the current day in a blue circle.
@@ -87,7 +83,7 @@
     }
 
     ul {
-      @apply mt-2;
+      @apply mt-2 mb-0;
 
       & > li {
         @apply m-0 p-0 overflow-ellipsis whitespace-nowrap;

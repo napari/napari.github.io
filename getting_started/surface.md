@@ -104,7 +104,7 @@ these brain surfaces rendered in 3D:
 
 +++
 
-![image: brain surface](../assets/tutorials/brain_surface.gif)
+![image: brain surface](assets/brain_surface.gif)
 
 +++
 

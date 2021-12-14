@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import ReactCalendar, { CalendarType } from 'react-calendar';
 import { useSnapshot } from 'valtio';
 
-import { isFeatureFlagEnabled } from '@/utils/featureFlags';
+import { useIsFeatureFlagEnabled } from '@/utils/featureFlags';
 
 import { CalendarTile } from './CalendarTile';
 import { CALENDAR_TYPE_LOCALES } from './constants';
@@ -27,7 +27,7 @@ function getCalendarType(): CalendarType {
 export function CalendarMonthView() {
   const { calendarState } = useCalendar();
   const snap = useSnapshot(calendarState);
-  const is18nEnabled = isFeatureFlagEnabled('calendari18n');
+  const is18nEnabled = useIsFeatureFlagEnabled('calendari18n');
 
   return (
     <ReactCalendar

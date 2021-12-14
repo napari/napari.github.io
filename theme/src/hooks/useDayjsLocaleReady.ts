@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import localeList from 'dayjs/locale.json';
 import { useEffect, useState } from 'react';
 
-import { isFeatureFlagEnabled } from '@/utils/featureFlags';
+import { useIsFeatureFlagEnabled } from '@/utils/featureFlags';
 
 async function loadDayjsLanguage(language: string) {
   const locale = localeList.find(({ key }) =>
@@ -40,9 +40,11 @@ async function loadDayjsLocale() {
 
 export function useDayjsLocaleReady(): boolean {
   const [localeReady, setLocaleReady] = useState(false);
+  const isCalendari18nEnabled = useIsFeatureFlagEnabled('calendari18n');
+
   useEffect(() => {
     async function loadLocale() {
-      if (isFeatureFlagEnabled('calendari18n')) {
+      if (isCalendari18nEnabled) {
         Object.assign(window, { dayjs });
         await loadDayjsLocale();
       }
@@ -52,7 +54,7 @@ export function useDayjsLocaleReady(): boolean {
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     loadLocale();
-  }, []);
+  }, [isCalendari18nEnabled]);
 
   return localeReady;
 }

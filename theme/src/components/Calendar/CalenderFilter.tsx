@@ -54,15 +54,11 @@ function FilterCheckbox({ filterKey }: FilterCheckboxProps) {
 
 const ENABLED_FILTERS: FilterKey[] = ['community', 'workingGroup', 'other'];
 
-interface Props {
-  fullWidth?: boolean;
-}
-
 /**
  * Component that renders the filter toolbar above the calendar. This component
  * is used for filtering events by a specific type.
  */
-export function CalendarFilter({ fullWidth }: Props) {
+export function CalendarFilter() {
   const [open, setOpen] = useState(false);
   const anchorElRef = useRef<HTMLDivElement>(null);
   const paperElRef = useRef<HTMLDivElement>(null);
@@ -129,7 +125,6 @@ export function CalendarFilter({ fullWidth }: Props) {
                 'grid grid-cols-[2rem,1fr,min-content]',
                 'items-center px-9',
                 styles.popup,
-                fullWidth && styles.fullWidth,
               )}
               ref={paperElRef}
               elevation={0}

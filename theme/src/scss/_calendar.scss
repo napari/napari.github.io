@@ -6,12 +6,14 @@
  */
 
 .react-calendar {
+  // Make containers fill empty space.
   &,
   &__viewContainer {
     @apply flex flex-1 flex-col;
   }
 
   &__month-view {
+    // Why does react-calendar have nested divs without class names :(
     &,
     & > div,
     & > div > div {
@@ -22,21 +24,24 @@
   &__month-view__days {
     @apply grid-cols-7 h-full;
 
+    // Override react-calendar display flex styling. The library uses the
+    // `style` attribute, so we need to use `!important` to override it.
     display: grid !important;
   }
 
   // Styles to apply to the month view day tiles.
   &__month-view__days__day {
-    @apply flex flex-col space-y-1 cursor-default;
+    @apply flex flex-col space-y-1 min-h-full;
+
+    // Calendar tile component is always a button, since there's currently no
+    // way to customize the tile:
+    // https://github.com/wojtekmaj/react-calendar/issues/572
+    @apply cursor-default;
 
     // Disable blue highlight when on tapping on webkit mobile devices.
     -webkit-tap-highlight-color: transparent;
     max-width: 100% !important;
     height: calculate-rem(122px);
-
-    &.full-width {
-      @apply min-h-full;
-    }
 
     abbr {
       @apply mt-1 ml-1 font-semibold;
@@ -44,11 +49,7 @@
 
     // Styles to apply to day tiles for the active week.
     &.active-week {
-      height: calculate-rem(185px);
-
-      .full-width & {
-        @apply min-h-full;
-      }
+      @apply min-h-full;
 
       // Show active week day numbers in black box.
       abbr {

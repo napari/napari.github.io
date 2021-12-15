@@ -101,7 +101,7 @@ in a zarr file:
 
 +++
 
-![image: lattice light sheet microscopy](../assets/tutorials/LLSM.gif)
+![image: lattice light sheet microscopy](assets/LLSM.gif)
 
 +++
 
@@ -122,7 +122,7 @@ part of the image that needs to be displayed:
 
 +++
 
-![image: pathology](../assets/tutorials/pathology.gif)
+![image: pathology](assets/pathology.gif)
 
 +++
 
@@ -147,21 +147,21 @@ example these cells undergoing mitosis in this volumetric timeseries:
 
 +++
 
-![image: mitorsis](../assets/tutorials/mitosis.gif)
+![image: mitorsis](assets/mitosis.gif)
 
 +++
 
 ## loading multichannel images
-Each channel in a multichannel image can be displayed as an individual layer 
+Each channel in a multichannel image can be displayed as an individual layer
 by using the `channel_axis` argument in `viewer.add_image()`. All the rest
 of the arguments to `viewer.add_image()` (e.g. name, colormap, contrast_limit)
 can take the form of a list of the same size as the number of channels.
 
 For example, the multichannel image below has dimensions (60, 2, 256, 256)
-with axes ordered ZCYX (so the channel axis has an index of 1). It is loaded into 
+with axes ordered ZCYX (so the channel axis has an index of 1). It is loaded into
 napari in one line.
 
-```{code cell} python
+```{code-cell} python
 import napari
 from skimage import data
 
@@ -171,12 +171,12 @@ cells = data.cells3d() #ZCYX image data
 viewer = napari.view_image(cells, channel_axis=1)
 
 # load multichannel image in one line, with additional options
-viewer = napari.view_image(cells, channel_axis=1, name=["membrane", "nuclei"], colormap=["green", "magenta"], contrast_limit=[[1000,20000],[1000,50000]]
+viewer = napari.view_image(cells, channel_axis=1, name=["membrane", "nuclei"], colormap=["green", "magenta"], contrast_limits=[[1000,20000],[1000,50000]])
 
 ```
 +++
 
-![image: multichannel image](../assets/tutorials/multichannel_cells.png)
+![image: multichannel image](assets/multichannel_cells.png)
 
 +++
 
@@ -373,7 +373,7 @@ labeled in different colors.
 
 For example:
 
-![image: blending](../assets/tutorials/blending.png)
+![image: blending](assets/blending.png)
 
 +++
 
@@ -399,7 +399,7 @@ biological images such as these cells growing in culture:
 
 +++
 
-![image: rendering](../assets/tutorials/rendering.png)
+![image: rendering](assets/rendering.png)
 
 +++
 

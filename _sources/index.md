@@ -47,8 +47,8 @@ theme:
 
 ````{important} Take our annual napari survey!
 
-Since we’re developing in the open, your feedback is vital! 
-We’re currently running our annual napari viewer survey to capture big feedback from our user community, to gauge napari’s progress over time, and to define strategic improvements.  
+Since we’re developing in the open, your feedback is vital!
+We’re currently running our annual napari viewer survey to capture big feedback from our user community, to gauge napari’s progress over time, and to define strategic improvements.
 You can take the eight minute survey [here](https://chanzuck.co1.qualtrics.com/jfe/form/SV_6Qh0nIs7z8lh2t0), and learn about last year’s survey insights [here](https://chanzuck.co1.qualtrics.com/reports/RC/public/Y2hhbnp1Y2stNjA5OWNiZmU2NjNiYjIwMDBmMmFhZjk0LVVSX2E2MzZjdjhTUDNSYUJOeg==).
 
 - [Take the annual napari survey here!](https://chanzuck.co1.qualtrics.com/jfe/form/SV_6Qh0nIs7z8lh2t0)
@@ -94,7 +94,7 @@ If you want to contribute back to the napari codebase, you should install from
 source code: see the [from source](#from-source) section.
 
 If you only wish to use napari as GUI app (and not from python code), the
-[bundled app](./tutorials/fundamentals/installation#installing-as-a-bundled-app)
+[bundled app](./getting_started/installation#installing-as-a-bundled-app)
 is the easiest way to install, it does not require having python pre-installed.
 
 If you are using napari from Python to programmatically interact with the app,
@@ -139,7 +139,7 @@ pip install -r requirements.txt
 ```
 
 For more information or troubleshooting see our [installation
-tutorial](./tutorials/fundamentals/installation)
+tutorial](./getting_started/installation)
 
 ````{admonition} Specifying a GUI Backend
 :class: tip
@@ -170,7 +170,7 @@ pip install "napari[pyside2]"  # for PySide2
 ## Getting started
 
  If you are new to napari, check out our
- [getting started guide](tutorials/fundamentals/getting_started.md).
+ [getting started guide](getting_started/getting_started.md).
 
 ### Example
 

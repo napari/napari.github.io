@@ -291,7 +291,7 @@ checked).
 
 **drawing a connected component**:
 
-![image: draw component](assets/draw_component.gif)
+![image: draw component](../assets/tutorials/draw_component.gif)
 
 +++
 
@@ -303,7 +303,7 @@ the contour to assign the label to all pixels of the object.
 
 **selecting a connected component**:
 
-![image: delete label](assets/delete_label.gif)
+![image: delete label](../assets/tutorials/delete_label.gif)
 
 +++
 
@@ -315,7 +315,7 @@ component to background.
 
 **merging connected components**:
 
-![image: merge labels](assets/merge_labels.gif)
+![image: merge labels](../assets/tutorials/merge_labels.gif)
 
 +++
 
@@ -326,7 +326,7 @@ filling the components to be merged with the fill bucket.
 
 **splitting a connected component**:
 
-![image: split label](assets/split_label.gif)
+![image: split label](../assets/tutorials/split_label.gif)
 
 +++
 

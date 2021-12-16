@@ -114,7 +114,7 @@ See here for the example from
 of a grid of vectors defined over a random image:
 
 ![image: add vectors overlaid on an
-image](assets/add_vectors_image.png)
+image](../assets/tutorials/add_vectors_image.png)
 
 +++
 
@@ -138,7 +138,7 @@ to see shapes in both 2D and 3D:
 
 +++
 
-![image: nD vectors](assets/nD_vectors.gif)
+![image: nD vectors](../assets/tutorials/nD_vectors.gif)
 
 +++
 
@@ -227,4 +227,7 @@ can use to store an arbitrary metadata dictionary on the layer.
 ## next steps
 
 Hopefully, this tutorial has given you a detailed understanding of the `Vectors`
-layer, including how to create one and control its properties.
+layer, including how to create one and control its properties. If you've
+explored all the other layer types that **napari** supports maybe checkout our
+[gallery](../gallery) for some cool examples of using napari with scientific
+data.

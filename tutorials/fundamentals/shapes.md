@@ -188,8 +188,8 @@ useful if you want to move around the shapes layer as you edit it.
 
 +++
 
-You can add new shapes to an existing `Shapes` layer programmatically by using
-the `add` method, which allows you to pass in a `shape_type` list when you
+You can add new shapes to an existing `Shapes` layer programmatically by using 
+the `add` method, which allows you to pass in a `shape_type` list when you 
 have mixed shape data.
 
 ```{code-cell} python
@@ -214,10 +214,10 @@ shapes_layer = viewer.add_shapes()
 
 # add mixed shapes using the `add` method
 shapes_layer.add(
-  mixed_shapes,
-  shape_type=['polygon', 'ellipse'],
+  mixed_shapes, 
+  shape_type=['polygon', 'ellipse'], 
   edge_width=5,
-  edge_color='coral',
+  edge_color='coral', 
   face_color='royalblue'
 )
 ```
@@ -263,9 +263,9 @@ shapes_layer = viewer.add_shapes()
 
 # add ellipses using their convenience method
 shapes_layer.add_ellipses(
-  ellipses,
+  ellipses, 
   edge_width=5,
-  edge_color='coral',
+  edge_color='coral', 
   face_color='royalblue'
 )
 ```
@@ -318,7 +318,7 @@ to see shapes in both 2D and 3D:
 
 +++
 
-![image: nD shapes](assets/nD_shapes.gif)
+![image: nD shapes](../assets/tutorials/nD_shapes.gif)
 
 +++
 
@@ -336,7 +336,7 @@ is possible to visualize them as 3D cylinders, see for example the
 
 +++
 
-![image: 3D paths](assets/3D_paths.png)
+![image: 3D paths](../assets/tutorials/3D_paths.png)
 
 +++
 
@@ -387,7 +387,7 @@ button in the layer controls panel or pressing the delete key.
 +++
 
 For example see below: ![image: shape
-resizing](assets/shape_resizing.gif)
+resizing](../assets/tutorials/shape_resizing.gif)
 
 +++
 
@@ -409,7 +409,7 @@ controls panel or pressing the `X` key while the shapes layer is selected.
 +++
 
 For example see below: ![image: shape vertex
-editing](assets/shape_vertex_editing.gif)
+editing](../assets/tutorials/shape_vertex_editing.gif)
 
 +++
 
@@ -550,7 +550,7 @@ their properties:
 
 +++
 
-![image: editing shapes](assets/editing_shapes.gif)
+![image: editing shapes](../assets/tutorials/editing_shapes.gif)
 
 +++
 

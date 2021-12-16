@@ -19,7 +19,7 @@ Welcome to the **napari** installation guide!
 
 This guide will teach you how to do a clean install of **napari** and launch the viewer.
 
-```{note}
+```{note} 
 If you want to contribute code back into napari, you should follow the [development installation instructions in the contributing guide](https://napari.org/developers/contributing.html) instead.
 ```
 
@@ -27,8 +27,8 @@ If you want to contribute code back into napari, you should follow the [developm
 
 Prerequisites differ depending on how you want to install napari.
 
-### Prerequisites for installing napari as a Python package
-This installation method allows you to use napari from Python to programmatically
+### Prerequisites for installing napari as a Python package 
+This installation method allows you to use napari from Python to programmatically 
 interact with the app. It is the best way to install napari and make full use of
 all its features.
 
@@ -42,11 +42,11 @@ You may also want:
 
 ### Prerequisites for installing napari as a bundled app
 This is the easiest way to install napari if you only wish to use it as a standalone GUI app.
-This installation method does not have any prerequisites.
+This installation method does not have any prerequisites. 
 
 ```{important}
 Note that the bundled app is still
-in active development, and may not be very stable. We strongly recommend
+in active development, and may not be very stable. We strongly recommend 
 [installing as a Python package instead](#choose-which-distribution-to-install).
 ```
 
@@ -104,7 +104,7 @@ conda-forge channel. You can install it with:
 conda install -c conda-forge napari
 ```
 
-You can then upgrade to a new version of napari using
+You can then upgrade to a new version of napari using 
 
 ```sh
 conda update napari
@@ -134,7 +134,7 @@ napari
 
 An empty napari viewer should appear as follows.
 
-![image: An empty napari viewer](assets/launch_cli_empty.png)
+![image: An empty napari viewer](../assets/tutorials/launch_cli_empty.png)
 
 ## Choosing a different Qt backend
 
@@ -181,7 +181,7 @@ are interested in and expand the `assets` tab to get a view that looks like
 this:
 
 ![image: release bundle
-assets](assets/installation/bundle_assets.png)
+assets](../assets/tutorials/installation/bundle_assets.png)
 
 You can then download the appropriate zip file for your platform.
 
@@ -194,20 +194,20 @@ window giving you the option to install napari into your `Applications` folder
 by dragging the `napari` icon onto the `Applications` icon.
 
 ![image: MacOS install to
-Applications](assets/installation/bundle_install.png)
+Applications](../assets/tutorials/installation/bundle_install.png)
 
 After you drag the `napari` icon onto the `Applications` icon napari will be
 installed in your Applications folder and available for opening by double
 clicking on it.
 
 ![image: MacOS Applications folder with
-napari](assets/installation/bundle_applications_folder.png)
+napari](../assets/tutorials/installation/bundle_applications_folder.png)
 
 The first time you try and open napari you will get the "unverified developer
 warning" that appears below:
 
 ![image: MacOS developer
-warning](assets/installation/bundle_dev_warning.png)
+warning](../assets/tutorials/installation/bundle_dev_warning.png)
 
 Don't be alarmed, this is because the napari team has not yet obtained a
 developer certificate from Apple, but we will be doing this promptly. It is safe
@@ -215,19 +215,19 @@ to click "Cancel". To get napari to open you must enter "Systems Preferences"
 and click the "Security & Privacy" icon, circled in red below:
 
 ![image: MacOS Security & Privacy
-settings](assets/installation/bundle_security_privacy.png)
+settings](../assets/tutorials/installation/bundle_security_privacy.png)
 
 Once inside the "Security & Privacy" tab, you should see a message about napari
 being blocked and an "Open Anyway" button, circled in red below:
 
 ![image: MacOS "Open Anyway"
-settings](assets/installation/bundle_open_anyway.png)
+settings](../assets/tutorials/installation/bundle_open_anyway.png)
 
 After clicking this button you'll get one final warning about napari not being
 verified, but now you'll have an "Open" button, as seen below:
 
 ![image: MacOS open bundle dialog
-box](assets/installation/bundle_open.png)
+box](../assets/tutorials/installation/bundle_open.png)
 
 After clicking "Open", the viewer should appear. Don't worry, you only have to
 go through this process once when you install a new bundle.
@@ -242,30 +242,30 @@ file, eg: `napari-0.3.7.msi`
 The napari setup wizard will then open. Click "Next" to begin the installation.
 
 ![image: Windows napari setup
-wizard](assets/installation/windows_bundle_installer_start.png)
+wizard](../assets/tutorials/installation/windows_bundle_installer_start.png)
 
 ![image: Windows napari setup wizard in
-progress](assets/installation/windows_bundle_installer_progress.png)
+progress](../assets/tutorials/installation/windows_bundle_installer_progress.png)
 
 After the setup wizard has installed napari, click "Finish" to exit.
 
 ![image: Windows napari setup wizard
-finished](assets/installation/windows_bundle_installer_finish.png)
+finished](../assets/tutorials/installation/windows_bundle_installer_finish.png)
 
 When you launch the bundled napari app on Windows, first you'll see an empty
 command terminal appear (do not close this window - you can ignore it). The
 command terminal will be followed by a napari splash screen, and then the main
 napari user interface window will appear a few seconds later. Note that errors
-which might occur during your napari session will appear on the command terminal -
+which might occur during your napari session will appear on the command terminal - 
 so if something is not working, it might pay to take a look at the terminal!
 
 ![image: Windows command terminal on napari
-launch](assets/installation/windows_bundle_command_terminal.png)
+launch](../assets/tutorials/installation/windows_bundle_command_terminal.png)
 
 You can launch napari from the Windows start menu.
 
 ![image: Windows launch napari from start
-menu](assets/installation/windows_launch_napari.png)
+menu](../assets/tutorials/installation/windows_launch_napari.png)
 
 The very first time you launch napari the startup time will be fairly slow, but
 after that you will find that napari launches more quickly.
@@ -285,7 +285,7 @@ contributing to napari please check our [contributing
 guidelines](../../developers/contributing.md)
 - if you are running into issues or bugs, please open a new issue on our [issue
 tracker](https://github.com/napari/napari/issues)
-    - include the output of `napari -info`
+    - include the output of `napari -info` 
     (or go to `Help>Info` in the viewer and copy paste the information)
 - if you want help using napari, we are a community partner on the [imagesc
 forum](https://forum.image.sc/tags/napari) and all usage support requests should

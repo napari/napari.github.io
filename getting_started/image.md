@@ -105,16 +105,18 @@ in a zarr file:
 
 +++
 
-## image pyramids
+## multiscale images
 
-For exceptionally large datasets napari supports image pyramids. An image
-pyramid is a list of arrays, where each array is downsampling of the previous
-array in the list, so that you end up with images of successively smaller and
-smaller shapes. A standard image pyramid might have a 2x downsampling at each
-level, but napari can support any type of pyramid as long as the shapes are
-getting smaller each time.
+For exceptionally large datasets napari supports multiscale images
+(sometimes called image pyramids).
+A multiscale image is a list of arrays, where each array is downsampling of
+the previous array in the list, so that you end up with images of successively
+smaller and smaller shapes.
+A standard multiscale image might have a 2x downsampling at each
+level, but napari can support any type of multiscale image as long as the shapes
+are getting smaller at each level.
 
-Image pyramids are especially useful for incredibly large 2D images when viewed
+Multiscale images are especially useful for incredibly large 2D images when viewed
 in 2D or incredibly large 3D images when viewed in 3D. For example this ~100k x
 200k pixel pathology image consists of 10 pyramid levels and can be easily
 browsed as at each moment in time we only load the level of the pyramid and the
@@ -126,14 +128,15 @@ part of the image that needs to be displayed:
 
 +++
 
-This example had precomputed image pyramids stored in a zarr file, which is best
-for performance. If, however you don't have a precomputed pyramid but try and
-show a exceptionally large image napari will try and compute pyramids for you
-unless you tell it not too.
+This example had a precomputed multiscale image stored in a zarr file,
+which is best for performance.
+If, however you don't have a precomputed multiscale image but try and
+show a exceptionally large image napari will try and compute the image pyramids
+for you by default.
 
-You can use the `multiscale` keyword argument to specify if your data is an
-image pyramid or not. If you don't provide this value, then will try and guess
-whether your data is or needs to be an image pyramid.
+You can use the `multiscale` keyword argument to specify if your data is a
+multiscale image or not. If you don't provide this value, then will try and guess
+whether your data is or needs to be a multiscale image pyramid.
 
 +++
 

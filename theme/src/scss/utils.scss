@@ -1,5 +1,7 @@
 /* stylelint-disable at-rule-no-unknown */
 
+@use "sass:math";
+
 $min-content: strip(theme('screens.screen-300'));
 $min-font-size: 11px;
 
@@ -24,5 +26,5 @@ $min-font-size: 11px;
  * https://stackoverflow.com/a/29512572
  */
 @function calculate-rem($value, $base-font-size: 16px) {
-  @return ($value / $base-font-size) * 1rem;
+  @return math.div($value, $base-font-size) * 1rem;
 }

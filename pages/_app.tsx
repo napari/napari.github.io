@@ -1,6 +1,7 @@
 import 'modern-normalize/modern-normalize.css';
 import '@/scss/tailwind.scss';
 import '@/scss/global.scss';
+import '@/utils/setupDayjsPlugins';
 
 import { AppProps } from 'next/app';
 

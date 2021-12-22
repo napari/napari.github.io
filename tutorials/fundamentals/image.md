@@ -122,7 +122,7 @@ part of the image that needs to be displayed:
 
 +++
 
-![image: pathology](../assets/tutorials/pathology.gif)
+![image: pathology](../assets/tutorials/pathology.webm)
 
 +++
 

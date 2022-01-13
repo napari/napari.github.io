@@ -70,7 +70,6 @@ export async function fetchEvents(
   });
 
   const events: CalendarEvent[] = [];
-  const visitedDates: Set<string> = new Set();
 
   result.items
     .filter((event) => event.status === 'confirmed')
@@ -88,13 +87,6 @@ export async function fetchEvents(
 
       const start = dayjs(event.start.dateTime ?? event.start.date ?? '');
       const end = dayjs(event.end.dateTime ?? event.end.date ?? '');
-      const dateStr = start.toString();
-
-      if (visitedDates.has(dateStr)) {
-        return;
-      }
-
-      visitedDates.add(dateStr);
 
       events.push({
         calendarId,

@@ -93,13 +93,18 @@ export const CalendarEventPopup = forwardRef<HTMLDivElement, Props>(
         const calendarEvent = await fetchEvent(calendarId, recurringEventId);
         const result: string[] = [];
 
-        for (const value of calendarEvent.recurrence ?? []) {
-          const rule = new RRule({
-            ...RRule.parseString(value),
-            dtstart: new Date(),
-          });
+        for (const ruleStr of calendarEvent.recurrence ?? []) {
+          try {
+            const rule = new RRule({
+              ...RRule.parseString(ruleStr),
+              dtstart: new Date(),
+            });
 
-          result.push(upperFirst(rule.toText()));
+            result.push(upperFirst(rule.toText()));
+          } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error('Error parsing rrule:', ruleStr);
+          }
         }
 
         setRecurrence(result);

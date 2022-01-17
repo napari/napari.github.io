@@ -45,7 +45,7 @@ theme:
 
 # napari
 
-## multi-dimensional image viewer for python
+## Multi-dimensional image viewer for python
 
 [![image.sc forum](https://img.shields.io/badge/dynamic/json.svg?label=forum&url=https%3A%2F%2Fforum.image.sc%2Ftags%2Fnapari.json&query=%24.topic_list.tags.0.topic_count&colorB=brightgreen&suffix=%20topics&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAABPklEQVR42m3SyyqFURTA8Y2BER0TDyExZ+aSPIKUlPIITFzKeQWXwhBlQrmFgUzMMFLKZeguBu5y+//17dP3nc5vuPdee6299gohUYYaDGOyyACq4JmQVoFujOMR77hNfOAGM+hBOQqB9TjHD36xhAa04RCuuXeKOvwHVWIKL9jCK2bRiV284QgL8MwEjAneeo9VNOEaBhzALGtoRy02cIcWhE34jj5YxgW+E5Z4iTPkMYpPLCNY3hdOYEfNbKYdmNngZ1jyEzw7h7AIb3fRTQ95OAZ6yQpGYHMMtOTgouktYwxuXsHgWLLl+4x++Kx1FJrjLTagA77bTPvYgw1rRqY56e+w7GNYsqX6JfPwi7aR+Y5SA+BXtKIRfkfJAYgj14tpOF6+I46c4/cAM3UhM3JxyKsxiOIhH0IO6SH/A1Kb1WBeUjbkAAAAAElFTkSuQmCC)](https://forum.image.sc/tag/napari)
 [![License](https://img.shields.io/pypi/l/napari.svg)](https://github.com/napari/napari/raw/master/LICENSE)
@@ -63,19 +63,22 @@ theme:
 **napari** is a fast, interactive, multi-dimensional image viewer for Python.
 It's designed for browsing, annotating, and analyzing large multi-dimensional
 images. It's built on top of `Qt` (for the GUI), `vispy` (for performant
-GPU-based rendering), and the scientific Python stack (`numpy`, `scipy`).
+GPU-based rendering), and the scientific Python stack (`numpy`, `scipy`). It
+includes critical viewer features out-of-the-box, such as support for large
+multi-dimensional data, and layering and annotation. By integrating closely with
+the Python ecosystem, **napari** can be easily coupled to leading machine
+learning and image analysis tools (e.g. `scikit-image`, `scikit-learn`,
+`TensorFlow`, `PyTorch`), enabling more user-friendly automated analysis.
 
 We're developing **napari** in the open! But the project is in an **alpha**
 stage, and there will still likely be **breaking changes** with each release.
-You can follow progress on this repository, test out new versions as we release
-them, and contribute ideas and code.
+You can follow progress
+[on our GitHub repository](https://github.com/napari/napari), test out new
+versions as we release them, and contribute ideas and code.
 
-We're working on [tutorials](./tutorials/index), but you can also quickly get started
-by looking below.
+## Installation
 
-## installation
-
-### which distribution to install
+### Which distribution to install
 
 If you want to contribute back to the napari codebase, you should install from
 source code: see the [from source](#from-source) section.
@@ -87,7 +90,7 @@ is the easiest way to install, it does not require having python pre-installed.
 If you are using napari from Python to programmatically interact with the app,
 you can install via pip, conda-forge, or from source.
 
-### from pip, with "batteries included"
+### From pip, with "batteries included"
 
 napari can be installed on most macOS, Linux, and Windows systems with Python
 3.7, 3.8, and 3.9 using pip:
@@ -111,7 +114,7 @@ pip install "napari[all]"
 ```
 ````
 
-### from source
+### From source
 
 To clone the repository locally and install in editable mode use
 
@@ -154,10 +157,15 @@ pip install "napari[pyside2]"  # for PySide2
 ```
 ````
 
-## simple example
+## Getting started
 
-(The examples below require the `scikit-image` package to run. We just use data
-samples from this package for demonstration purposes. If you change the examples
+ If you are new to napari, check out our
+ [getting started guide](tutorials/fundamentals/getting_started.md).
+
+### Example
+
+(The example below requires the `scikit-image` package to run. We just use data
+samples from this package for demonstration purposes. If you change the example
 to use your own dataset, you may not need to install this package.)
 
 From inside an IPython shell or jupyter notebook you can open up an interactive
@@ -183,7 +191,7 @@ viewer = napari.view_image(data.astronaut(), rgb=True)
 napari.run()  # start the event loop and show viewer
 ```
 
-## features
+## Features
 
 Check out the scripts in our `examples` folder to see some of the functionality
 we're developing!
@@ -205,30 +213,30 @@ the viewer programmatically.
 You can extend **napari** using custom shortcuts, key bindings, and mouse
 functions.
 
-## tutorials
+## Tutorials
 
 For more details on how to use `napari` checkout our [tutorials](./tutorials/index).
 These are still a work in progress, but we'll be updating them regularly.
 
-## mission, values, and roadmap
+## Mission, values, and roadmap
 
 For more information about our plans for `napari` you can read our [mission and
 values statement](./community/mission_and_values.md), which includes more
 details on our vision for supporting a plugin ecosystem around napari.
 
-## contributing
+## Contributing
 
 Contributions are encouraged! Please read our [contributing
 guide](./developers/contributing.md) to get started. Given that we're in an
 early stage, you may want to reach out on our [Github
 Issues](https://github.com/napari/napari/issues) before jumping in.
 
-## code of conduct
+## Code of conduct
 
 `napari` has a [Code of Conduct](./community/code_of_conduct) that should be
 honored by everyone who participates in the `napari` community.
 
-## governance
+## Governance
 
 You can learn more about how the `napari` project is organized and managed from
 our [governance model](./community/governance), which includes information
@@ -236,7 +244,7 @@ about, and ways to contact, the
 [@napari/steering-council](https://github.com/orgs/napari/teams/steering-council)
 and [@napari/core-devs](https://github.com/orgs/napari/teams/core-devs).
 
-## citing napari
+## Citing napari
 
 If you find `napari` useful please cite this repository using its DOI as
 follows:
@@ -249,7 +257,7 @@ please find the DOI of that version on our [zenodo
 page](https://zenodo.org/record/3555620). The DOI of the latest version is in
 the badge at the top of this page.
 
-## help
+## Help
 
 We're a community partner on the [image.sc
 forum](https://forum.image.sc/tags/napari) and all help and support requests

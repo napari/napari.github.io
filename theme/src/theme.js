@@ -22,6 +22,7 @@ const breakpoints = {
   'screen-300': 300,
   'screen-495': 495,
   'screen-875': 875,
+  'screen-900': 900,
   'screen-1150': 1150,
   'screen-1425': 1425,
 };

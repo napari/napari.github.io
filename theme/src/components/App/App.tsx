@@ -2,10 +2,12 @@ import clsx from 'clsx';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import slug from 'slug';
 
 import { AppBar } from '@/components/AppBar';
+import { Calendar } from '@/components/Calendar';
 import { DownloadButton } from '@/components/DownloadButton';
 import { Footer } from '@/components/Footer';
 import { GlobalTableOfContents } from '@/components/GlobalTableOfContents';
@@ -110,86 +112,109 @@ function Content() {
     }
   }, [router]);
 
+  const [calendarNode, setCalendarNode] = useState<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const node = document.getElementById('napari-calendar');
+    if (node) {
+      setCalendarNode(node as HTMLDivElement);
+    }
+  }, []);
+
   return (
-    <div
-      className={clsx(
-        'grid grid-cols-3',
-        'screen-1150:grid-cols-napari-4 screen-1425:grid-cols-napari-5',
+    <>
+      {calendarNode &&
+        createPortal(
+          <div className="space-y-2">
+            <h3 className="font-semibold">Napari Meetings</h3>
+            <Calendar />
+          </div>,
+          calendarNode,
+        )}
 
-        'justify-center gap-6 screen-495:gap-12',
-        'px-6 pt-4 screen-495:px-12 screen-495:pt-9',
-      )}
-    >
-      {/* Global table of contents */}
-      <Media greaterThanOrEqual="screen-1150">
-        <GlobalTableOfContents
-          headers={globalHeaders}
-          rootHeaders={rootGlobalHeaders}
-        />
-      </Media>
-
-      {/* Main content */}
       <div
         className={clsx(
-          'col-span-3 mb-6 screen-495:mb-12',
-          'screen-1425:col-start-2 screen-1425:col-span-3',
+          'grid grid-cols-3',
+          'screen-1150:grid-cols-napari-4 screen-1425:grid-cols-napari-5',
 
-          // Allow overflow for really long content. This can happen for things
-          // like long Python class names on the API reference pages.
-          'overflow-x-auto',
+          'justify-center gap-6 screen-495:gap-12',
+          'px-6 pt-4 screen-495:px-12 screen-495:pt-9',
         )}
       >
-        {/* Page title */}
-        <section className="mb-3 screen-875:mb-10">
-          <h1 className="text-5xl leading-tight font-bold inline">
-            {pageTitle}
-          </h1>
+        {/* Global table of contents */}
+        <Media greaterThanOrEqual="screen-1150">
+          <GlobalTableOfContents
+            headers={globalHeaders}
+            rootHeaders={rootGlobalHeaders}
+          />
+        </Media>
 
-          {isTutorial && <DownloadButton className="-mt-4" />}
-        </section>
-
-        {pageIntro && (
-          <h2 className="font-semibold text-xs screen-875:text-base mb-6">
-            {pageIntro}
-          </h2>
-        )}
-
-        {/* In page table of content that renders above the main content. */}
-        {!isSearch && (
-          <Media lessThan="screen-1425">
-            <InPageTableOfContents />
-          </Media>
-        )}
-
-        {/* In page table of contents that renders a TOC for sub-pages. */}
-        {subPageTocEnabled && (
-          <SubPageTableOfContents className="mt-6" headerId={currentPathname} />
-        )}
-
-        {/* Page content */}
+        {/* Main content */}
         <div
-          ref={pageContentRef}
           className={clsx(
-            'prose max-w-full',
-            styles.content,
-            isSearch && styles.search,
+            'col-span-3 mb-6 screen-495:mb-12',
+            'screen-1425:col-start-2 screen-1425:col-span-3',
+
+            // Allow overflow for really long content. This can happen for things
+            // like long Python class names on the API reference pages.
+            'overflow-x-auto',
           )}
-          // Role is used by the search engine to extract the text content of
-          // each page.
-          role="main"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: pageBodyHtml }}
-        />
+        >
+          {/* Page title */}
+          <section className="mb-3 screen-875:mb-10">
+            <h1 className="text-5xl leading-tight font-bold inline">
+              {pageTitle}
+            </h1>
 
-        {/* Render links + descriptions in a grid. */}
-        <QuickLinks className="mt-20" />
+            {isTutorial && <DownloadButton className="-mt-4" />}
+          </section>
+
+          {pageIntro && (
+            <h2 className="font-semibold text-xs screen-875:text-base mb-6">
+              {pageIntro}
+            </h2>
+          )}
+
+          {/* In page table of content that renders above the main content. */}
+          {!isSearch && (
+            <Media lessThan="screen-1425">
+              <InPageTableOfContents />
+            </Media>
+          )}
+
+          {/* In page table of contents that renders a TOC for sub-pages. */}
+          {subPageTocEnabled && (
+            <SubPageTableOfContents
+              className="mt-6"
+              headerId={currentPathname}
+            />
+          )}
+
+          {/* Page content */}
+          <div
+            ref={pageContentRef}
+            className={clsx(
+              'prose max-w-full',
+              styles.content,
+              isSearch && styles.search,
+            )}
+            // Role is used by the search engine to extract the text content of
+            // each page.
+            role="main"
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: pageBodyHtml }}
+          />
+
+          {/* Render links + descriptions in a grid. */}
+          <QuickLinks className="mt-20" />
+        </div>
+
+        {/* In page table of contents that renders to the right of the main content. */}
+        <Media greaterThanOrEqual="screen-1425">
+          <InPageTableOfContents />
+        </Media>
       </div>
-
-      {/* In page table of contents that renders to the right of the main content. */}
-      <Media greaterThanOrEqual="screen-1425">
-        <InPageTableOfContents />
-      </Media>
-    </div>
+    </>
   );
 }
 

@@ -52,6 +52,10 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         env:
           PLAUSIBLE: 'true'
+          ENV: prod
+          PLAUSIBLE: 'true'
+          GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_CALENDAR_ID }}
+          GOOGLE_CALENDAR_API_KEY: ${{ secrets.GOOGLE_CALENDAR_API_KEY }}
         with:
           run: yarn build
 

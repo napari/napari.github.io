@@ -1,4 +1,6 @@
-# Best practices when developing napari plugins
+(best-practices)=
+
+# Best practices
 
 There are a number of good and bad practices that may not be immediately obvious
 when developing a plugin.  This page covers some known practices that could
@@ -21,7 +23,7 @@ Here's what can go wrong if you *also* declare one of these backends in the
 
 - If they installed via `conda install napari` and then they install your plugin
   via `pip` (or via the builtin plugin installer, which currently uses `pip`),
-  then there *will* be a binary incompatibility between the their conda `pyqt`
+  then there *will* be a binary incompatibility between their conda `pyqt`
   installation, and the new pip "`PyQt5`" installation. *This will very likely
   lead to a broken environment, forcing the user to re-create their entire
   environment and re-install napari*. This is an unfortunate consequence of
@@ -94,7 +96,7 @@ will run into difficulties installing your plugin:
 
 ````{admonition} What about conda?
 **conda** also distributes & installs pre-compiled packages, though they aren't
-wheels.  While this definitely a fine way to install binary dependencies in a
+wheels.  While this is definitely a fine way to install binary dependencies in a
 reliable way, the built-in napari plugin installer doesn't currently work with
 conda.  If your dependency is only available on conda, but does not offer
 wheels,you *may* guide your users in using conda to install your package or one
@@ -120,7 +122,7 @@ Consider the following example plugin:
 
 ```ini
 [options.entry_points]
-napari.plugion =
+napari.plugin =
   plugin-name = mypackage.napari_plugin
 ```
 
@@ -205,67 +207,7 @@ dedicated to the stability of your plugin. Aim for 100%!
 Of course, simply having 100% coverage doesn't mean your code is bug-free, so
 make sure that you test all of the various ways that your code might be called.
 
-### Tips for testing napari plugins
-
-The most common issue people run into when designing tests for napari plugins is
-that they try to test everything as a full "integration test", starting from the
-napari event or action that would trigger their plugin to do something.  For
-example, let's say you have a dock widget that connects a mouse callback to the
-viewer:
-
-```py
-class MyWidget:
-    def __init__(self, viewer: 'napari.Viewer'):
-        self._viewer = viewer
-
-        @viewer.mouse_move_callbacks.append
-        def _on_mouse_move(viewer, event):
-            if 'Shift' in event.modifiers:
-                ...
-
-@napari_hook_implementation
-def napari_experimental_provide_dock_widget():
-    return MyWidget
-```
-
-You might think that you need to somehow simulate a mouse movement in napari in
-order to test this, but you don't! Just *trust* that napari will call this
-function with a `Viewer` and an `Event` when a mouse move has been made, and
-otherwise leave `napari` out of it.
-
-Instead, focus on "unit testing" your code: just call the function directly with
-objects that emulate, or "mock" the objects that your function expects to
-receive from napari. You may also need to slightly reorganize your code.  Let's
-modify the above widget to make it easier to test:
-
-```py
-class MyWidget:
-    def __init__(self, viewer: 'napari.Viewer'):
-        self._viewer = viewer
-        # connecting to a method rather than a local function
-        # makes it easier to test
-        viewer.mouse_move_callbacks.append(self._on_mouse_move)
-
-    def _on_mouse_move(self, viewer, event):
-        if 'Shift' in event.modifiers:
-            ...
-```
-
-To test this, we can often just instantiate the widget with our own viewer, and
-then call the methods directly. As for the `event` object, notice that all we
-care about in this plugin is that it has a `modifiers` attribute that may or may
-contain the string `"Shift"`.  So let's just fake it!
-
-```py
-class FakeEvent:
-    modifiers = {'Shift'}
-
-def test_mouse_callback(make_napari_viewer):
-    viewer = make_napari_viewer()
-    wdg = MyWidget(viewer)
-    wdg._on_mouse_move(viewer, FakeEvent())
-    # assert that what you expect to happen actually happened!
-```
+See our [Tips for testing napari plugins](plugin-testing-tips).
 
 ### How to check test coverage?
 
@@ -278,7 +220,7 @@ up to report test coverage, but you can test locally as well, using
 2. Run your tests with `pytest --cov=<your_package> --cov-report=html`
 3. Open the resulting report in your browser: `open htmlcov/index.html`
 4. The report will show line-by-line what is being tested, and what is being
-   missed. Continue writing tests until everything is covered!. If you have
+   missed. Continue writing tests until everything is covered! If you have
    lines that you *know* never need to be tested (like debugging code) you can
    [exempt specific
    lines](https://coverage.readthedocs.io/en/coverage-4.3.3/excluding.html#excluding-code-from-coverage-py)

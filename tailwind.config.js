@@ -21,7 +21,7 @@ function pixelsToRem(value) {
 module.exports = {
   mode: 'jit',
   darkMode: 'media',
-  purge: ['./theme/src/**/*.{mdx,tsx,scss}'],
+  purge: ['./theme/src/**/*.{mdx,tsx,scss}', './pages/**/*.tsx'],
   plugins: [typography],
   theme: {
     screens,

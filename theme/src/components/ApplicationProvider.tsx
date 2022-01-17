@@ -1,12 +1,19 @@
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import NextPlausibleProvider from 'next-plausible';
-import { ReactNode, useEffect } from 'react';
+import { Fragment, ReactNode, useEffect } from 'react';
 
 import { MediaContextProvider } from '@/components/media';
+import { useDayjsLocaleReady } from '@/hooks/useDayjsLocaleReady';
 import { theme } from '@/theme';
 
 interface ProviderProps {
   children: ReactNode;
+}
+
+function DayjsLocaleProvider({ children }: ProviderProps) {
+  const localeReady = useDayjsLocaleReady();
+  // Pass `localeReady` as key to force re-render when the locale is ready.
+  return <Fragment key={String(localeReady)}>{children}</Fragment>;
 }
 
 /**
@@ -59,10 +66,12 @@ function PlausibleProvider({ children }: ProviderProps) {
 
 export function ApplicationProvider({ children }: ProviderProps) {
   return (
-    <PlausibleProvider>
-      <MediaContextProvider>
-        <MaterialUIProvider>{children}</MaterialUIProvider>
-      </MediaContextProvider>
-    </PlausibleProvider>
+    <DayjsLocaleProvider>
+      <PlausibleProvider>
+        <MediaContextProvider>
+          <MaterialUIProvider>{children}</MaterialUIProvider>
+        </MediaContextProvider>
+      </PlausibleProvider>
+    </DayjsLocaleProvider>
   );
 }

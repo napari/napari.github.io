@@ -4,7 +4,7 @@ ImageJ is a Java-based image processing program that provides extensibility via 
 
 People who wish to try their hands on ImageJ can do so by downloading and installing it using this [link](https://imagej.net/Fiji/Downloads)
 
-### Reading images with ImageJ and viewing them with napari
+## Reading images with ImageJ and viewing them with napari
 
 Here we first cut at reading images with SCIFIO+Bio-Formats via PyimageJ into NumPy arrays
 and then display them with Napari.
@@ -40,8 +40,9 @@ viewer.grid_view()
 napari.run()
 ```
 
-### Using ImageJ and napari side-by-side
-#### Issues with using ImageJ and napari simultaneously
+## Using ImageJ and napari side-by-side
+
+### Issues with using ImageJ and napari simultaneously
 
 - Threading concerns with macOS i.e. to display the Fiji user interface, Java AWT must be started on the Cocoa event loop, however, attempting to invoke the napari viewer from the Cocoa event loop thread crashes the program with errors. 
 - If we code a script to open napari and ImageJ together then
@@ -49,11 +50,11 @@ napari.run()
   - But, the script blocks until the close of napari viewer window.
   - Even after closing the window, the ImageJ UI never appears even though the code to start ImageJ does then execute.
  
-#### Simultaneously using ImageJ and napari in various environments
+### Simultaneously using ImageJ and napari in various environments
 
 Due to behavioural differences between plain Python and IPython we use slightly different approaches to run ImageJ and python simultaneously in each different environment. 
 
-##### 1. Running napari+ImageJ from plain Python
+#### 1. Running napari+ImageJ from plain Python
 
 Firstly import napari:
 
@@ -102,7 +103,7 @@ To fix this we can use either of these 3 following methods :
 
 3. Using ImageJ’s [Script Editor](https://imagej.net/Using_the_Script_Editor)
 
-##### 2. Starting napari + ImageJ from plain Python (without napari's Qt Console)
+#### 2. Starting napari + ImageJ from plain Python (without napari's Qt Console)
 Here is a plain Python script that starts up Qt and spins up ImageJ without use of napari's Qt Console. 
 
 ``` python
@@ -128,7 +129,7 @@ if __name__ == "__main__":
 
 Note that the app.exec_() call blocks the main thread, because Qt takes it over as its GUI/main thread. On macOS, the main thread is the only thread that works for Qt to use as its GUI/main thread.
 
-##### 3. Starting napari+ImageJ from IPython
+#### 3. Starting napari+ImageJ from IPython
 
 A code that successfully starts ImageJ from IPython 
 

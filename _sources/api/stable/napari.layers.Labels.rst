@@ -26,7 +26,13 @@ napari.layers.Labels
       ~Labels.block_update_properties
    
    
+      ~Labels.click_plane_from_click_data
+   
+   
       ~Labels.create
+   
+   
+      ~Labels.data_to_world
    
    
       ~Labels.fill
@@ -48,6 +54,9 @@ napari.layers.Labels
    
    
       ~Labels.paint
+   
+   
+      ~Labels.projected_distance_from_mouse_drag
    
    
       ~Labels.redo
@@ -99,12 +108,14 @@ napari.layers.Labels
       ~Labels.cursor_size
       ~Labels.data
       ~Labels.data_level
+      ~Labels.data_raw
       ~Labels.downsample_factors
       ~Labels.dtype
       ~Labels.editable
       ~Labels.experimental_clipping_planes
       ~Labels.experimental_slicing_plane
       ~Labels.extent
+      ~Labels.features
       ~Labels.gamma
       ~Labels.help
       ~Labels.interactive

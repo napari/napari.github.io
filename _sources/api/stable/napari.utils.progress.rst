@@ -23,9 +23,6 @@ napari.utils.progress
       ~progress.close
    
    
-      ~progress.close_pbar
-   
-   
       ~progress.display
    
    

@@ -26,7 +26,13 @@ napari.layers.Vectors
       ~Vectors.block_update_properties
    
    
+      ~Vectors.click_plane_from_click_data
+   
+   
       ~Vectors.create
+   
+   
+      ~Vectors.data_to_world
    
    
       ~Vectors.get_ray_intersections
@@ -36,6 +42,9 @@ napari.layers.Vectors
    
    
       ~Vectors.get_value
+   
+   
+      ~Vectors.projected_distance_from_mouse_drag
    
    
       ~Vectors.refresh
@@ -76,6 +85,8 @@ napari.layers.Vectors
       ~Vectors.editable
       ~Vectors.experimental_clipping_planes
       ~Vectors.extent
+      ~Vectors.feature_defaults
+      ~Vectors.features
       ~Vectors.help
       ~Vectors.interactive
       ~Vectors.length

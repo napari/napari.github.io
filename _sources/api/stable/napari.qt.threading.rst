@@ -28,9 +28,8 @@
    .. rubric:: Functions
 
    
-   .. autofunction:: active_thread_count
    .. autofunction:: create_worker
-   .. autofunction:: set_max_thread_count
+   .. autofunction:: thread_worker
    
    
 

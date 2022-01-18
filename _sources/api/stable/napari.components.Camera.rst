@@ -20,6 +20,9 @@ napari.components.Camera
       ~Camera.asdict
    
    
+      ~Camera.calculate_nd_up_direction
+   
+   
       ~Camera.calculate_nd_view_direction
    
    
@@ -59,6 +62,9 @@ napari.components.Camera
       ~Camera.schema_json
    
    
+      ~Camera.set_view_direction
+   
+   
       ~Camera.update
    
    
@@ -77,6 +83,7 @@ napari.components.Camera
    .. autosummary::
    
       ~Camera.events
+      ~Camera.up_direction
       ~Camera.view_direction
    
    

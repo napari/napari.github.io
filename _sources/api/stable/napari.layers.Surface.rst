@@ -26,7 +26,13 @@ napari.layers.Surface
       ~Surface.block_update_properties
    
    
+      ~Surface.click_plane_from_click_data
+   
+   
       ~Surface.create
+   
+   
+      ~Surface.data_to_world
    
    
       ~Surface.get_ray_intersections
@@ -36,6 +42,9 @@ napari.layers.Surface
    
    
       ~Surface.get_value
+   
+   
+      ~Surface.projected_distance_from_mouse_drag
    
    
       ~Surface.refresh

@@ -47,7 +47,13 @@ napari.layers.Shapes
       ~Shapes.block_update_properties
    
    
+      ~Shapes.click_plane_from_click_data
+   
+   
       ~Shapes.create
+   
+   
+      ~Shapes.data_to_world
    
    
       ~Shapes.get_index_and_intersection
@@ -69,6 +75,9 @@ napari.layers.Shapes
    
    
       ~Shapes.move_to_front
+   
+   
+      ~Shapes.projected_distance_from_mouse_drag
    
    
       ~Shapes.refresh
@@ -130,6 +139,8 @@ napari.layers.Shapes
       ~Shapes.face_color_mode
       ~Shapes.face_colormap
       ~Shapes.face_contrast_limits
+      ~Shapes.feature_defaults
+      ~Shapes.features
       ~Shapes.help
       ~Shapes.interactive
       ~Shapes.loaded

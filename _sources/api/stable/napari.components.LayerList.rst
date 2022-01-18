@@ -38,6 +38,9 @@ napari.components.LayerList
       ~LayerList.insert
    
    
+      ~LayerList.link_layers
+   
+   
       ~LayerList.move
    
    
@@ -72,6 +75,9 @@ napari.components.LayerList
    
    
       ~LayerList.toggle_selected_visibility
+   
+   
+      ~LayerList.unlink_layers
    
    
    

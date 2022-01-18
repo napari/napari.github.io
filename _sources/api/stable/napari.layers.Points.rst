@@ -29,7 +29,13 @@ napari.layers.Points
       ~Points.block_update_properties
    
    
+      ~Points.click_plane_from_click_data
+   
+   
       ~Points.create
+   
+   
+      ~Points.data_to_world
    
    
       ~Points.get_ray_intersections
@@ -42,6 +48,9 @@ napari.layers.Points
    
    
       ~Points.interaction_box
+   
+   
+      ~Points.projected_distance_from_mouse_drag
    
    
       ~Points.refresh
@@ -93,6 +102,7 @@ napari.layers.Points
       ~Points.edge_contrast_limits
       ~Points.edge_width
       ~Points.editable
+      ~Points.experimental_canvas_size_limits
       ~Points.experimental_clipping_planes
       ~Points.extent
       ~Points.face_color
@@ -100,6 +110,8 @@ napari.layers.Points
       ~Points.face_color_mode
       ~Points.face_colormap
       ~Points.face_contrast_limits
+      ~Points.feature_defaults
+      ~Points.features
       ~Points.help
       ~Points.interactive
       ~Points.loaded
@@ -114,6 +126,7 @@ napari.layers.Points
       ~Points.rotate
       ~Points.scale
       ~Points.selected_data
+      ~Points.shading
       ~Points.shear
       ~Points.size
       ~Points.source

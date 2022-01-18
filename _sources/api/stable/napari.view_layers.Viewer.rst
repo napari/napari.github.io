@@ -50,6 +50,9 @@ napari.view\_layers.Viewer
       ~Viewer.close
    
    
+      ~Viewer.close_all
+   
+   
       ~Viewer.construct
    
    
@@ -87,6 +90,9 @@ napari.view\_layers.Viewer
    
    
       ~Viewer.reset_view
+   
+   
+      ~Viewer.rounded_division
    
    
       ~Viewer.schema

@@ -26,7 +26,13 @@ napari.layers.Image
       ~Image.block_update_properties
    
    
+      ~Image.click_plane_from_click_data
+   
+   
       ~Image.create
+   
+   
+      ~Image.data_to_world
    
    
       ~Image.get_ray_intersections
@@ -36,6 +42,9 @@ napari.layers.Image
    
    
       ~Image.get_value
+   
+   
+      ~Image.projected_distance_from_mouse_drag
    
    
       ~Image.refresh
@@ -76,6 +85,7 @@ napari.layers.Image
       ~Image.cursor_size
       ~Image.data
       ~Image.data_level
+      ~Image.data_raw
       ~Image.downsample_factors
       ~Image.dtype
       ~Image.editable
@@ -90,6 +100,7 @@ napari.layers.Image
       ~Image.level_shapes
       ~Image.loaded
       ~Image.metadata
+      ~Image.mode
       ~Image.name
       ~Image.ndim
       ~Image.opacity

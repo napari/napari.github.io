@@ -26,7 +26,13 @@ napari.layers.Tracks
       ~Tracks.block_update_properties
    
    
+      ~Tracks.click_plane_from_click_data
+   
+   
       ~Tracks.create
+   
+   
+      ~Tracks.data_to_world
    
    
       ~Tracks.get_ray_intersections
@@ -36,6 +42,9 @@ napari.layers.Tracks
    
    
       ~Tracks.get_value
+   
+   
+      ~Tracks.projected_distance_from_mouse_drag
    
    
       ~Tracks.refresh
@@ -75,6 +84,7 @@ napari.layers.Tracks
       ~Tracks.editable
       ~Tracks.experimental_clipping_planes
       ~Tracks.extent
+      ~Tracks.features
       ~Tracks.graph
       ~Tracks.graph_connex
       ~Tracks.graph_times

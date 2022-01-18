@@ -20,6 +20,9 @@ napari.qt.threading.GeneratorWorker
       ~GeneratorWorker.autoDelete
    
    
+      ~GeneratorWorker.await_workers
+   
+   
       ~GeneratorWorker.create
    
    

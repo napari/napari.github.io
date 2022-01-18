@@ -69,12 +69,9 @@ export async function fetchEvents(
     timeMax: activeStartDate.endOf('month').add(1, 'week').toISOString(),
   });
 
-  const events: CalendarEvent[] = [];
-  const visitedDates: Set<string> = new Set();
-
-  result.items
+  return result.items
     .filter((event) => event.status === 'confirmed')
-    .forEach((event) => {
+    .map((event) => {
       const title = event.summary;
       let type: MeetingType;
 
@@ -88,15 +85,8 @@ export async function fetchEvents(
 
       const start = dayjs(event.start.dateTime ?? event.start.date ?? '');
       const end = dayjs(event.end.dateTime ?? event.end.date ?? '');
-      const dateStr = start.toString();
 
-      if (visitedDates.has(dateStr)) {
-        return;
-      }
-
-      visitedDates.add(dateStr);
-
-      events.push({
+      return {
         calendarId,
         end,
         start,
@@ -106,10 +96,8 @@ export async function fetchEvents(
         htmlLink: event.htmlLink,
         location: event.location ?? '',
         recurringEventId: event.recurringEventId,
-      });
+      };
     });
-
-  return events;
 }
 
 /**

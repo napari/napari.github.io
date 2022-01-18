@@ -79,30 +79,24 @@ export function GlobalTableOfContents({ headers, rootHeaders }: Props) {
    * @returns True if the header ID is in a level 1 list that's expanded.
    */
   function isLevel1Expanded(headerId: string) {
-    // Use DFS to check if the header ID is in an expanded level 1 list.
-    const stack = [headerId];
-    const rootHeaderSet = new Set(rootHeaders);
-
-    while (stack.length > 0) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const currentHeaderId = stack.pop()!;
-
+    function isLevel1ExpandedHelper(currentHeaderId: string) {
       // If the current header is equal to the pathname, then the original
       // header should be within an expanded level 1 list.
-      if (
-        currentHeaderId === currentPathname &&
-        !rootHeaderSet.has(currentHeaderId)
-      ) {
+      if (currentHeaderId === currentPathname) {
         return true;
       }
 
       // Traverse down the header tree.
       for (const childId of headers[currentHeaderId].children ?? []) {
-        stack.push(childId);
+        if (isLevel1ExpandedHelper(childId)) {
+          return true;
+        }
       }
+
+      return false;
     }
 
-    return false;
+    return isLevel1ExpandedHelper(headerId);
   }
 
   /**

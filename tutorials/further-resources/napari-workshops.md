@@ -9,6 +9,7 @@ You can find more videos of talks, tutorials and demos on the
 ## Workshops
 
 *Workshops are listed from newest to oldest.*
+* January - May 2022 [napari plugin accelerator grant workshop series](https://chanzuckerberg.github.io/napari-plugin-accel-workshops/)
 
 * August 2021 [NDCN](https://chanzuckerberg.com/science/programs-resources/neurodegeneration-challenge/) Workshop / September 2021 [ZIDAS](https://www.zidas.org/) Workshop
   * [Read the workshop materials online](https://alisterburt.github.io/napari-workshops/home.html)

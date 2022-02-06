@@ -214,7 +214,7 @@ can use to store an arbitrary metadata dictionary on the layer.
 
 ## next steps
 
-Hopefully, this tutorial has given you a detailed understanding of the `Vectors`
+Hopefully, this tutorial has given you a detailed understanding of the `Surface`
 layer, including how to create one and control its properties. To learn more
 about some of the other layer types that **napari** supports checkout some more
 of our tutorials listed below. The [vectors layer](./vectors) tutorial is a

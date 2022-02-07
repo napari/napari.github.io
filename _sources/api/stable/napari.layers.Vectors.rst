@@ -95,6 +95,7 @@ napari.layers.Vectors
       ~Vectors.name
       ~Vectors.ndim
       ~Vectors.opacity
+      ~Vectors.out_of_slice_display
       ~Vectors.properties
       ~Vectors.property_choices
       ~Vectors.rotate

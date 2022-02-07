@@ -21,6 +21,9 @@
       :toctree:
    
       NapariPluginManager
+      PackageMetadata
+      Path
+      PluginManifest
    
    
 

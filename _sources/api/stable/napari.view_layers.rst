@@ -15,6 +15,7 @@
       :nosignatures:
       :toctree:
    
+      Dims
       Viewer
    
    

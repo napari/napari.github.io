@@ -100,6 +100,7 @@ napari.utils.progress
       ~progress.format_dict
       ~progress.monitor
       ~progress.monitor_interval
+      ~progress.total
    
    
 

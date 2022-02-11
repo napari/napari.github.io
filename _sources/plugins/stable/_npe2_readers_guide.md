@@ -34,7 +34,7 @@ ReaderFunction = Callable[[PathOrPaths], List[LayerData]]
 
 def get_reader(path: PathOrPaths) -> Optional[ReaderFunction]:
     # If we recognize the format, we return the actual reader function
-    if isinstance(path, str) and path.endswith("*.xyz"):
+    if isinstance(path, str) and path.endswith(".xyz"):
         return xyz_file_reader
     # otherwise we return None.
     return None
@@ -74,7 +74,7 @@ This demonstrates the now-deprecated `napari-plugin-engine` pattern.
 
 **python implementation**
 
-[hook specificiation](https://napari.org/plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_get_reader)
+[hook specification](https://napari.org/plugins/stable/npe1.html#napari.plugins.hook_specifications.napari_get_reader)
 
 ```python
 from napari_plugin_engine import napari_hook_implementation
@@ -83,7 +83,7 @@ from napari_plugin_engine import napari_hook_implementation
 @napari_hook_implementation
 def napari_get_reader(path: PathOrPaths) -> Optional[ReaderFunction]:
     # If we recognize the format, we return the actual reader function
-    if isinstance(path, str) and path.endswith("*.xyz"):
+    if isinstance(path, str) and path.endswith(".xyz"):
         return xyz_file_reader
     # otherwise we return None.
     return None

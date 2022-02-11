@@ -56,8 +56,7 @@ This demonstrates the now-deprecated `napari-plugin-engine` pattern.
 
 **python implementation**
 
-[hook specificiation](https://napari.org/plugins/stable/hook_specifications.html#napari.plugins.hook_specifications.napari_provide_sample_data)
-
+[hook specification](https://napari.org/plugins/stable/npe1.html#napari.plugins.hook_specifications.napari_provide_sample_data)
 
 ```python
 import numpy as np

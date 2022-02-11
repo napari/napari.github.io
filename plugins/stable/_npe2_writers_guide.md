@@ -31,7 +31,7 @@ by the corresponding writer contribution in the manifest).
    **attributes**, (e.g. `{'name': 'My Layer', 'opacity': 0.6}`)
 
    ```python
-   def single_layer_writer(path: str, data: Any, attributes: dict) -> Optional[str]:
+   def single_layer_writer(path: str, data: Any, attributes: dict) -> List[str]:
        ...
    ```
 
@@ -49,7 +49,7 @@ by the corresponding writer contribution in the manifest).
    [layer data tuples](layer-data-tuples).
 
    ```python
-   def multi_layer_writer(path: str, layer_data: List[FullLayerData) -> List[str]:
+   def multi_layer_writer(path: str, layer_data: List[FullLayerData]) -> List[str]:
        ...
    ```
 
@@ -145,7 +145,7 @@ This demonstrates the now-deprecated `napari-plugin-engine` pattern.
 
 **python implementation**
 
-[hook specification](https://napari.org/plugins/stable/hook_specifications.html#single-layers-io)
+[hook specification](https://napari.org/plugins/stable/npe1.html#single-layers-io)
 
 ```python
 from napari_plugin_engine import napari_hook_implementation

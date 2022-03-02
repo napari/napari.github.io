@@ -296,6 +296,9 @@
 <span class="sd">        &#39;translucent&#39; renders without lighting. &#39;iso_categorical&#39; uses isosurface</span>
 <span class="sd">        rendering to calculate lighting effects on labeled surfaces.</span>
 <span class="sd">        The default value is &#39;iso_categorical&#39;.</span>
+<span class="sd">    depiction : str</span>
+<span class="sd">        3D Depiction mode. Must be one of {&#39;volume&#39;, &#39;plane&#39;}.</span>
+<span class="sd">        The default value is &#39;volume&#39;.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
 <span class="sd">    multiscale : bool</span>
@@ -309,7 +312,7 @@
 <span class="sd">    cache : bool</span>
 <span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
 <span class="sd">        Currently, this only applies to dask arrays.</span>
-<span class="sd">    experimental_slicing_plane : dict or SlicingPlane</span>
+<span class="sd">    plane : dict or SlicingPlane</span>
 <span class="sd">        Properties defining plane rendering in 3D. Properties are defined in</span>
 <span class="sd">        data coordinates. Valid dictionary keys are</span>
 <span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;, and &#39;enabled&#39;}.</span>
@@ -384,7 +387,7 @@
 
 <span class="sd">        In ERASE mode the cursor functions similarly to PAINT mode, but to</span>
 <span class="sd">        paint with background label, which effectively removes the label.</span>
-<span class="sd">    experimental_slicing_plane : SlicingPlane</span>
+<span class="sd">    plane : SlicingPlane</span>
 <span class="sd">        Properties defining plane rendering in 3D.</span>
 <span class="sd">    experimental_clipping_planes : ClippingPlaneList</span>
 <span class="sd">        Clipping planes defined in data coordinates, used to clip the volume.</span>
@@ -417,10 +420,11 @@
         <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
         <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
         <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;iso_categorical&#39;</span><span class="p">,</span>
+        <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">experimental_slicing_plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -445,6 +449,7 @@
             <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
             <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
             <span class="n">rendering</span><span class="o">=</span><span class="n">rendering</span><span class="p">,</span>
+            <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
             <span class="n">iso_threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
             <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
@@ -458,7 +463,7 @@
             <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
             <span class="n">multiscale</span><span class="o">=</span><span class="n">multiscale</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
-            <span class="n">experimental_slicing_plane</span><span class="o">=</span><span class="n">experimental_slicing_plane</span><span class="p">,</span>
+            <span class="n">plane</span><span class="o">=</span><span class="n">plane</span><span class="p">,</span>
             <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -767,7 +772,8 @@
                 <span class="s1">&#39;num_colors&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">,</span>
                 <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
                 <span class="s1">&#39;rendering&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span><span class="p">,</span>
-                <span class="s1">&#39;experimental_slicing_plane&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">experimental_slicing_plane</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;depiction&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depiction</span><span class="p">,</span>
+                <span class="s1">&#39;plane&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
                 <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="p">[</span>
                     <span class="n">plane</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">plane</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span>
                 <span class="p">],</span>

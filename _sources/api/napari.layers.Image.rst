@@ -86,11 +86,11 @@ napari.layers.Image
       ~Image.data
       ~Image.data_level
       ~Image.data_raw
+      ~Image.depiction
       ~Image.downsample_factors
       ~Image.dtype
       ~Image.editable
       ~Image.experimental_clipping_planes
-      ~Image.experimental_slicing_plane
       ~Image.extent
       ~Image.gamma
       ~Image.help
@@ -104,6 +104,7 @@ napari.layers.Image
       ~Image.name
       ~Image.ndim
       ~Image.opacity
+      ~Image.plane
       ~Image.rendering
       ~Image.rotate
       ~Image.scale

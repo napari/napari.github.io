@@ -109,11 +109,11 @@ napari.layers.Labels
       ~Labels.data
       ~Labels.data_level
       ~Labels.data_raw
+      ~Labels.depiction
       ~Labels.downsample_factors
       ~Labels.dtype
       ~Labels.editable
       ~Labels.experimental_clipping_planes
-      ~Labels.experimental_slicing_plane
       ~Labels.extent
       ~Labels.features
       ~Labels.gamma
@@ -130,6 +130,7 @@ napari.layers.Labels
       ~Labels.ndim
       ~Labels.num_colors
       ~Labels.opacity
+      ~Labels.plane
       ~Labels.preserve_labels
       ~Labels.properties
       ~Labels.rendering

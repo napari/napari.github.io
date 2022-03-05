@@ -376,11 +376,16 @@ They are invoked whenever <code class="docutils literal notranslate"><span class
 command line, or when a user opens a file in the graphical user interface by
 dropping a file into the canvas, or using <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Open...</span></code></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">command</span></code> provided by a reader contribution is expected to be a function
-that accepts a path or a sequence of paths and either returns <code class="docutils literal notranslate"><span class="pre">None</span></code> (if it
-does not want to accept the given path) or returns a <em>new function</em>
-(a <code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code>) that is capable of doing the reading.</p>
+that accepts a path (<code class="docutils literal notranslate"><span class="pre">str</span></code>) or a list of paths and:</p>
+<ul class="simple">
+<li><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code> (if it does not want to accept the given path)</p></li>
+<li><p>returns a <em>new function</em> (a <code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code>) that is capable of doing the reading.</p></li>
+</ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code> will be passed the same path (or list of paths) and
 is expected to return a list of <a class="reference internal" href="#layer-data-tuples"><span class="std std-ref">LayerData tuples</span></a>.</p>
+<p>In the rare case that a reader plugin would like to “claim” a file, but <em>not</em>
+actually add any data to the viewer, the <code class="docutils literal notranslate"><span class="pre">ReaderFunction</span></code> may return
+the special value <code class="docutils literal notranslate"><span class="pre">[(None,)]</span></code>.</p>
 <div class="admonition-accepting-directories admonition">
 <p class="admonition-title">Accepting directories</p>
 <p>A reader may indicate that it accepts directories by
@@ -390,8 +395,8 @@ otherwise, they will not be invoked when a directory is passed to <code class="d
 <div class="section" id="reader-example">
 <h3>Reader example<a class="headerlink" href="#reader-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="97a6a0b3-3267-4670-9b13-77d704bae8d1" name="c94b859b-5fb5-48f8-a866-4bff7aae5088" type="radio">
-</input><label class="tabbed-label" for="97a6a0b3-3267-4670-9b13-77d704bae8d1">
+<input checked="checked" id="106506bf-eecd-4d3f-9b33-5c371b19de38" name="e9d601b8-2650-4195-8be4-a929ee0f068e" type="radio">
+</input><label class="tabbed-label" for="106506bf-eecd-4d3f-9b33-5c371b19de38">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -430,8 +435,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="0f3cbbbc-0002-41b3-aa61-4061dae347b8" name="c94b859b-5fb5-48f8-a866-4bff7aae5088" type="radio">
-</input><label class="tabbed-label" for="0f3cbbbc-0002-41b3-aa61-4061dae347b8">
+<input id="04489bad-701f-4bb7-a68c-1a18437faa0a" name="e9d601b8-2650-4195-8be4-a929ee0f068e" type="radio">
+</input><label class="tabbed-label" for="04489bad-701f-4bb7-a68c-1a18437faa0a">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -555,8 +560,8 @@ and a <code class="docutils literal notranslate"><span class="pre">vectors</span
 <div class="section" id="writer-example">
 <h3>Writer example<a class="headerlink" href="#writer-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="7a6a29ce-8a1f-46be-b8fb-72d3e621d388" name="b8d39f27-5c14-48fe-b17e-0298a258bd6f" type="radio">
-</input><label class="tabbed-label" for="7a6a29ce-8a1f-46be-b8fb-72d3e621d388">
+<input checked="checked" id="77dbbebe-0192-41dc-8ffa-9b4838a7999c" name="80bb79fe-a756-4171-a120-2ea67e6f6f64" type="radio">
+</input><label class="tabbed-label" for="77dbbebe-0192-41dc-8ffa-9b4838a7999c">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -585,8 +590,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="7c47afd8-79e0-4f1e-bd92-046f2eb0c84a" name="b8d39f27-5c14-48fe-b17e-0298a258bd6f" type="radio">
-</input><label class="tabbed-label" for="7c47afd8-79e0-4f1e-bd92-046f2eb0c84a">
+<input id="c175dd82-6e9f-490e-81f2-846432822d7a" name="80bb79fe-a756-4171-a120-2ea67e6f6f64" type="radio">
+</input><label class="tabbed-label" for="c175dd82-6e9f-490e-81f2-846432822d7a">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -676,8 +681,8 @@ field in the <a class="reference external" href="./contributions.html#contributi
 <div class="section" id="widget-example">
 <h3>Widget example<a class="headerlink" href="#widget-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="8197e6ae-e834-41c0-a4a7-9a7535a37188" name="117f8cd8-61a3-41db-968f-cb1b3e9e7259" type="radio">
-</input><label class="tabbed-label" for="8197e6ae-e834-41c0-a4a7-9a7535a37188">
+<input checked="checked" id="42e9ba0c-678e-42e2-956e-ca76d84d4e8c" name="539af533-c849-4ecc-94be-1e007917b935" type="radio">
+</input><label class="tabbed-label" for="42e9ba0c-678e-42e2-956e-ca76d84d4e8c">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -737,8 +742,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="c3c6aeba-a6a0-4ad0-8633-f32d19d0e973" name="117f8cd8-61a3-41db-968f-cb1b3e9e7259" type="radio">
-</input><label class="tabbed-label" for="c3c6aeba-a6a0-4ad0-8633-f32d19d0e973">
+<input id="b6e2127a-5e82-4937-9efc-1b8caab56673" name="539af533-c849-4ecc-94be-1e007917b935" type="radio">
+</input><label class="tabbed-label" for="b6e2127a-5e82-4937-9efc-1b8caab56673">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -808,8 +813,8 @@ or <strong>Sample Data Function</strong> that generates layer data on demand.</p
 <div class="section" id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="659f7cb0-cd88-4690-aec3-f5695286eb24" name="2defb9c6-76ce-4b05-b38b-4c76e820404e" type="radio">
-</input><label class="tabbed-label" for="659f7cb0-cd88-4690-aec3-f5695286eb24">
+<input checked="checked" id="bf453cfd-c6cb-4038-b1f3-526cf53b2718" name="ec0cc427-dd44-4ba6-a11b-42ac452e82c8" type="radio">
+</input><label class="tabbed-label" for="bf453cfd-c6cb-4038-b1f3-526cf53b2718">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -840,8 +845,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="58093374-f07c-4572-a2d6-307fac067e69" name="2defb9c6-76ce-4b05-b38b-4c76e820404e" type="radio">
-</input><label class="tabbed-label" for="58093374-f07c-4572-a2d6-307fac067e69">
+<input id="c1fc5109-4be7-439b-bbe9-d6b562be5268" name="ec0cc427-dd44-4ba6-a11b-42ac452e82c8" type="radio">
+</input><label class="tabbed-label" for="c1fc5109-4be7-439b-bbe9-d6b562be5268">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>

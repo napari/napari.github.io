@@ -637,6 +637,15 @@ the layer multiplicatively according to the scale values (one for each
 dimension). This property can be particularly useful for viewing anisotropic
 volumes where the size of the voxel in the z dimension might be different then
 the size in the x and y dimensions.</p>
+<p>In napari, you can scale the layers when creating an image layer or for an
+existing layer using the <code class="docutils literal notranslate"><span class="pre">scale</span></code> as a keyword argument or property respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># scaling while creating the image layer</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">retina</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;retina&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># scaling an existing layer</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;retina&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><img alt="image" src="../_images/scaling.gif" /></p>
 </div>
 <div class="section" id="translating-layers">
 <h2>Translating layers<a class="headerlink" href="#translating-layers" title="Permalink to this headline">¶</a></h2>

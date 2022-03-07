@@ -259,6 +259,14 @@ Plugins settings.
 * <small>Type: `Mapping[str, str]`.</small>
 * <small>Default: `{}`.</small>
 
+#### Plugin API
+
+*Use the following API for querying plugin information.*
+
+* <small>Access programmatically with `SETTINGS.plugins.plugin_api`.</small>
+* <small>Type: `PluginAPI`.</small>
+* <small>Default: `<PluginAPI.napari_hub: 'napari hub'>`.</small>
+* <small>UI: This setting can be configured via the preferences dialog.</small>
 
 ### SHORTCUTS
 

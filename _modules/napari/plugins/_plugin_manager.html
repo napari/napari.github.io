@@ -354,7 +354,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        call_order : CallOrderDict</span>
 <span class="sd">            mapping of hook_specification name, to a list of dicts with keys:</span>
-<span class="sd">            {&#39;plugin&#39;, &#39;enabled&#39;}.  Plugins earlier in the dict are called</span>
+<span class="sd">            {&#39;plugin&#39;, &#39;hook_impl&#39;, &#39;enabled&#39;}.  Plugins earlier in the dict are called</span>
 <span class="sd">            sooner.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -367,7 +367,10 @@
             <span class="c1"># no need to save call order if there is only a single item</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">impls</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">order</span><span class="p">[</span><span class="n">spec_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="p">{</span><span class="s1">&#39;plugin&#39;</span><span class="p">:</span> <span class="n">impl</span><span class="o">.</span><span class="n">plugin_name</span><span class="p">,</span> <span class="s1">&#39;enabled&#39;</span><span class="p">:</span> <span class="n">impl</span><span class="o">.</span><span class="n">enabled</span><span class="p">}</span>
+                    <span class="p">{</span>
+                        <span class="s1">&#39;plugin&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">impl</span><span class="o">.</span><span class="n">plugin_name</span><span class="si">}</span><span class="s1">--</span><span class="si">{</span><span class="n">impl</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;enabled&#39;</span><span class="p">:</span> <span class="n">impl</span><span class="o">.</span><span class="n">enabled</span><span class="p">,</span>
+                    <span class="p">}</span>
                     <span class="k">for</span> <span class="n">impl</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">impls</span><span class="p">)</span>
                 <span class="p">]</span>
         <span class="k">return</span> <span class="n">order</span></div>
@@ -390,11 +393,30 @@
                 <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">new_order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">spec_name</span><span class="p">,</span> <span class="p">[]):</span>
                     <span class="k">try</span><span class="p">:</span>
+                        <span class="n">plugin</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;plugin&#39;</span><span class="p">]</span>
+                        <span class="n">hook_impl_name</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="k">if</span> <span class="s1">&#39;--&#39;</span> <span class="ow">in</span> <span class="n">plugin</span><span class="p">:</span>
+                            <span class="n">plugin</span><span class="p">,</span> <span class="n">hook_impl_name</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">plugin</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">))</span>
+
+                        <span class="n">enabled</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;enabled&#39;</span><span class="p">]</span>
                         <span class="c1"># the plugin may not be there if its been disabled.</span>
-                        <span class="n">hook_caller</span><span class="o">.</span><span class="n">_set_plugin_enabled</span><span class="p">(</span>
-                            <span class="n">p</span><span class="p">[</span><span class="s1">&#39;plugin&#39;</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;enabled&#39;</span><span class="p">]</span>
+                        <span class="n">hook_caller</span><span class="o">.</span><span class="n">_set_plugin_enabled</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">enabled</span><span class="p">)</span>
+
+                        <span class="n">hook_impls</span> <span class="o">=</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_hookimpls</span><span class="p">()</span>
+                        <span class="c1"># get the HookImplementation objects matching this entry</span>
+                        <span class="n">hook_impl</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                            <span class="nb">filter</span><span class="p">(</span>
+                                <span class="c1"># plugin name has to match</span>
+                                <span class="k">lambda</span> <span class="n">impl</span><span class="p">:</span> <span class="n">impl</span><span class="o">.</span><span class="n">plugin_name</span> <span class="o">==</span> <span class="n">plugin</span>
+                                <span class="ow">and</span> <span class="p">(</span>
+                                    <span class="c1"># if we have a hook_impl_name it must match</span>
+                                    <span class="ow">not</span> <span class="n">hook_impl_name</span>
+                                    <span class="ow">or</span> <span class="n">impl</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">hook_impl_name</span>
+                                <span class="p">),</span>
+                                <span class="n">hook_impls</span><span class="p">,</span>
+                            <span class="p">)</span>
                         <span class="p">)</span>
-                        <span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;plugin&#39;</span><span class="p">])</span>
+                        <span class="n">order</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">hook_impl</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                         <span class="k">continue</span>
                 <span class="k">if</span> <span class="n">order</span><span class="p">:</span>

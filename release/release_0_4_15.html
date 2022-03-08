@@ -580,7 +580,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">
-   21 reviewers added to this release (alphabetical)
+   25 reviewers added to this release (alphabetical)
   </a>
  </li>
 </ul>
@@ -645,6 +645,12 @@ developers, which will help us prioritise and fix bugs that we might otherwise
 miss. See the project’s
 <a class="reference external" href="https://github.com/tlambert03/napari-error-reporter/#readme">README</a> for
 details.</p>
+<p>Finally, we have made some updates to how our application works. We now provide
+a bundle based on conda, which should help with plugin installation on
+different platforms (#3555). Additionally, the plugin listing inside the app is
+now based on the napari hub API, which allows plugin authors to distribute
+plugins on PyPI but have them not be listed in the app (#4074).</p>
+<p>Keep reading below for the full list of changes!</p>
 </div>
 <div class="section" id="new-features">
 <h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
@@ -669,6 +675,8 @@ details.</p>
 <li><p>reduce NumPy overhead in ScaleTranslate and Affine transform calls (#4094)</p></li>
 <li><p>Remove remaining references to requirements.txt (#4105)</p></li>
 <li><p>Try to standardise API as list of strings. (#4107)</p></li>
+<li><p>Prototype a conda-based bundle (#3555)</p></li>
+<li><p>Use napari hub api to list plugins (#4074)</p></li>
 </ul>
 </div>
 <div class="section" id="documentation">
@@ -691,6 +699,11 @@ details.</p>
 <li><p>improve examples/add_points_on_nD_shapes.py camera/dims setup (#4161)</p></li>
 <li><p>Add docs contributor’s guide and docs template (#4168)</p></li>
 <li><p>Adds calendar to docs  (#4176)</p></li>
+<li><p>add licensing page (#4185)</p></li>
+<li><p>Update release notes for 0.4.15rc1 (#4193)</p></li>
+<li><p>Fix plausible not added to docs (#4199)</p></li>
+<li><p>Documentation for scale in layers documentation (#4204)</p></li>
+<li><p>Fix EULA/licensing/signing issues post-merge (#4210)</p></li>
 </ul>
 </div>
 <div class="section" id="bug-fixes">
@@ -709,6 +722,10 @@ details.</p>
 <li><p>Fix bug in continuous autocontrast button, add tests (#4152)</p></li>
 <li><p>Tracks graph shader buffer order update (#4165)</p></li>
 <li><p>block points add mode in 3D when layer.ndim == 2 (#4184)</p></li>
+<li><p>fix bugs in setting plane orientation with nD data (#4197)</p></li>
+<li><p>Add value method to extension2reader widget (#4179)</p></li>
+<li><p>Add hook implementation name to order sorting (#4180)</p></li>
+<li><p>Add dependencies helper and fix pyside issue when filtering plugins (#4214)</p></li>
 </ul>
 </div>
 <div class="section" id="api-changes">
@@ -740,6 +757,7 @@ details.</p>
 <li><p>Refactor dummy text data for vispy (#4097)</p></li>
 <li><p>Add stateful StyleEncoding tests (#4113)</p></li>
 <li><p>Remove print statement (#4178)</p></li>
+<li><p>Adding tests missing from PR #4165 (#4170)</p></li>
 </ul>
 </div>
 <div class="section" id="authors-added-to-this-release-alphabetical">
@@ -767,19 +785,22 @@ details.</p>
 </ul>
 </div>
 <div class="section" id="reviewers-added-to-this-release-alphabetical">
-<h2>21 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+<h2>25 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">alisterburt</a> - &#64;alisterburt</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">Andy Sweet</a> - &#64;andy-sweet</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=chili-chiu">chili-chiu</a> - &#64;chili-chiu</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=DragaDoncila">Draga Doncila Pop</a> - &#64;DragaDoncila</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - &#64;goanpeca</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=grlee77">Gregory Lee</a> - &#64;grlee77</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Czaki">Grzegorz Bokota</a> - &#64;Czaki</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=JacksonMaxfield">Jackson Maxfield Brown</a> - &#64;JacksonMaxfield</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jaimergp">Jaime Rodríguez-Guerra</a> - &#64;jaimergp</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kolibril13">Jan-Hendrik Müller</a> - &#64;kolibril13</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=codemonkey800">Jeremy Asuncion</a> - &#64;codemonkey800</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=neuromusic">Justin Kiggins</a> - &#64;neuromusic</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=justinelarsen">Justine Larsen</a> - &#64;justinelarsen</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> - &#64;brisvag</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Carreau">Matthias Bussonnier</a> - &#64;Carreau</p></li>
@@ -790,6 +811,7 @@ details.</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=shahidhaider">shahidhaider</a> - &#64;shahidhaider</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=potating-potato">Ziyang Liu</a> - &#64;potating-potato</p></li>
 </ul>
 </div>
 </div>

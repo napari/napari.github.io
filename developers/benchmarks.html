@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Benchmarks &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -579,14 +580,14 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="benchmarks">
+  <section class="tex2jax_ignore mathjax_ignore" id="benchmarks">
 <span id="napari-benchmarks"></span><h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h1>
 <p>While not mandatory for most pull requests, we ask that performance related
 PRs include a benchmark in order to clearly depict the use-case that is being
 optimized for.</p>
 <p>In this section we will review how to setup the benchmarks,
 and three commands <code class="docutils literal notranslate"><span class="pre">asv</span> <span class="pre">dev</span></code>, <code class="docutils literal notranslate"><span class="pre">asv</span> <span class="pre">run</span></code> and <code class="docutils literal notranslate"><span class="pre">asv</span> <span class="pre">continuous</span></code>.</p>
-<div class="section" id="prerequisites">
+<section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>Begin by installing <a class="reference external" href="https://asv.readthedocs.io/en/stable/">airspeed velocity</a>
 in your development environment. Prior to installation, be sure to activate your
@@ -605,8 +606,8 @@ conda install asv
 </pre></div>
 </div>
 <p>To let airspeed velocity know more information about your machine.</p>
-</div>
-<div class="section" id="writing-a-benchmark">
+</section>
+<section id="writing-a-benchmark">
 <h2>Writing a benchmark<a class="headerlink" href="#writing-a-benchmark" title="Permalink to this headline">¶</a></h2>
 <p>To write  benchmark, add a file in the <code class="docutils literal notranslate"><span class="pre">napari/_benchmarks</span></code> directory which
 contains a class with one <code class="docutils literal notranslate"><span class="pre">setup</span></code> method and at least one method prefixed
@@ -643,8 +644,8 @@ included in the reported time of the benchmark.</p>
 <p>It is also possible to benchmark features such as peak memory usage. To learn
 more about the features of <code class="docutils literal notranslate"><span class="pre">asv</span></code>, please refer to the official
 <a class="reference external" href="http://asv.readthedocs.io/en/latest/writing_benchmarks.html">airspeed velocity documentation</a>.</p>
-</div>
-<div class="section" id="testing-the-benchmarks-locally">
+</section>
+<section id="testing-the-benchmarks-locally">
 <h2>Testing the benchmarks locally<a class="headerlink" href="#testing-the-benchmarks-locally" title="Permalink to this headline">¶</a></h2>
 <p>Prior to running the true benchmark, it is often worthwhile to test that the
 code is free of typos. To do so, you may use the command:</p>
@@ -653,8 +654,8 @@ code is free of typos. To do so, you may use the command:</p>
 </div>
 <p>Where the <code class="docutils literal notranslate"><span class="pre">ViewImageSuite</span></code> above will be run once in your current environment
 to test that everything is in order.</p>
-</div>
-<div class="section" id="running-your-benchmark">
+</section>
+<section id="running-your-benchmark">
 <h2>Running your benchmark<a class="headerlink" href="#running-your-benchmark" title="Permalink to this headline">¶</a></h2>
 <p>The command above is fast, but doesn’t test the performance of the code
 adequately. To do that you may want to run the benchmark in your current
@@ -665,8 +666,8 @@ of time since building napari can be a time consuming task:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv run -E existing -b ViewImageSuite
 </pre></div>
 </div>
-</div>
-<div class="section" id="comparing-results-to-main">
+</section>
+<section id="comparing-results-to-main">
 <h2>Comparing results to main<a class="headerlink" href="#comparing-results-to-main" title="Permalink to this headline">¶</a></h2>
 <p>Often, the goal of a PR is to compare the results of the modifications in terms
 of speed to a snapshot of the code that is in the main branch of the
@@ -693,8 +694,8 @@ BENCHMARKS NOT SIGNIFICANTLY CHANGED.
 </div>
 <p>In this case, the differences between HEAD on your-current-branch and main are not significant
 enough for airspeed velocity to report.</p>
-</div>
-<div class="section" id="profiling">
+</section>
+<section id="profiling">
 <h2>Profiling<a class="headerlink" href="#profiling" title="Permalink to this headline">¶</a></h2>
 <p>The airspeed velocity tool also supports code profiling using <a class="reference external" href="https://docs.python.org/3/library/profile.html#module-cProfile"><code class="docutils literal notranslate"><span class="pre">cProfile</span></code></a>. For detailed instructions on how to use the profiling functionality see the
 <a class="reference external" href="https://asv.readthedocs.io/en/stable/using.html#running-a-benchmark-in-the-profiler">asv profiling documentation</a>.</p>
@@ -716,8 +717,8 @@ which you can pip install with</p>
 </pre></div>
 </div>
 <p>and we use <code class="docutils literal notranslate"><span class="pre">--python=same</span></code> to profile against our current python environment.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

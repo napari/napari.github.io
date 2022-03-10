@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Layers at a glance &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -520,7 +521,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="layers-at-a-glance">
+  <section class="tex2jax_ignore mathjax_ignore" id="layers-at-a-glance">
 <h1>Layers at a glance<a class="headerlink" href="#layers-at-a-glance" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="../api/napari.layers.html#module-napari.layers" title="napari.layers"><span class="xref myst py py-mod">Layers</span></a> are the basic viewable objects that can be added to a
 viewer. <strong>napari</strong> supports seven main different layer types: <code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code>,
@@ -543,13 +544,13 @@ object created from <code class="docutils literal notranslate"><span class="pre"
 <a class="reference internal" href="../howtos/layers/index.html"><span class="doc std std-doc">Using layers how-to guides</span></a>. For a gentle
 introduction, check out the
 <a class="reference internal" href="../tutorials/fundamentals/viewer.html#layer-list"><span class="std std-ref">Layer list section in the napari viewer tutorial</span></a>.</p>
-<div class="section" id="layer-visibility">
+<section id="layer-visibility">
 <h2>Layer visibility<a class="headerlink" href="#layer-visibility" title="Permalink to this headline">¶</a></h2>
 <p>All our layers support a visibility toggle that allows you to set the <code class="docutils literal notranslate"><span class="pre">visible</span></code>
 property of each layer. This property is located inside the layer widget in the
 layers list and is represented by an eye icon.</p>
-</div>
-<div class="section" id="layer-opacity">
+</section>
+<section id="layer-opacity">
 <span id="id1"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Permalink to this headline">¶</a></h2>
 <p>All our layers support an opacity slider and <code class="docutils literal notranslate"><span class="pre">opacity</span></code> property that allow you
 to adjust the layer opacity between 0, fully invisible and 1, fully visible.</p>
@@ -567,8 +568,8 @@ globally to all the vectors in the layer.</p></li>
 <li><p>For the <a class="reference internal" href="../api/napari.layers.Tracks.html#napari.layers.Tracks" title="napari.layers.Tracks"><span class="xref myst py py-class">tracks layer</span></a>, the opacity value applies globally to all the tracks in the layer.</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="blending-layers">
+</section>
+<section id="blending-layers">
 <h2>Blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this headline">¶</a></h2>
 <p>All our layers support three blending modes: <code class="docutils literal notranslate"><span class="pre">translucent</span></code>, <code class="docutils literal notranslate"><span class="pre">additive</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">opaque</span></code>. These modes determine how the visuals for this layer get mixed with
@@ -587,8 +588,8 @@ colors.</p></li>
 </ul>
 <p>For example:</p>
 <p><img alt="image: blending" src="../_images/blending.png" /></p>
-</div>
-<div class="section" id="d-rendering-of-images">
+</section>
+<section id="d-rendering-of-images">
 <h2>3D rendering of images<a class="headerlink" href="#d-rendering-of-images" title="Permalink to this headline">¶</a></h2>
 <p>All our layers can be rendered in both 2D and 3D mode, and one of our viewer
 buttons can toggle between each mode. The number of dimensions sliders will be 2
@@ -601,8 +602,8 @@ example these cells undergoing mitosis in this volumetric timeseries:</p>
 <p>Switching to 3D mode for a very large data set could trigger computation that
 leads to a memory error.</p>
 </div>
-</div>
-<div class="section" id="layer-interpolation">
+</section>
+<section id="layer-interpolation">
 <h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this headline">¶</a></h2>
 <p>We support a variety of interpolation modes when viewing 2D slices. In the
 default mode <code class="docutils literal notranslate"><span class="pre">nearest</span></code> each pixel is represented as a small square of specified
@@ -612,8 +613,8 @@ example <code class="docutils literal notranslate"><span class="pre">bicubic</sp
 scientific use cases, <code class="docutils literal notranslate"><span class="pre">nearest</span></code> is recommended because it displays each data
 point, with no mixing of nearby data points. These modes have no effect when
 viewing 3D slices.</p>
-</div>
-<div class="section" id="layer-rendering">
+</section>
+<section id="layer-rendering">
 <h2>Layer rendering<a class="headerlink" href="#layer-rendering" title="Permalink to this headline">¶</a></h2>
 <p>When viewing 3D slices, we support a variety of rendering modes. The default
 mode <code class="docutils literal notranslate"><span class="pre">mip</span></code>, or maximum intensity projection, will combine voxels at different
@@ -622,15 +623,15 @@ the 2D image that is then displayed on the screen. This mode works well for many
 biological images such as these cells growing in culture:</p>
 <p><img alt="image: rendering" src="../_images/rendering.png" /></p>
 <p>When viewing 2D slices the rendering mode has no effect.</p>
-</div>
-<div class="section" id="naming-layers">
+</section>
+<section id="naming-layers">
 <h2>Naming layers<a class="headerlink" href="#naming-layers" title="Permalink to this headline">¶</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">name</span></code> property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
 into being unique so that you can use the name to index into <code class="docutils literal notranslate"><span class="pre">viewer.layers</span></code> to
 retrieve the layer object.</p>
-</div>
-<div class="section" id="scaling-layers">
+</section>
+<section id="scaling-layers">
 <h2>Scaling layers<a class="headerlink" href="#scaling-layers" title="Permalink to this headline">¶</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">scale</span></code> property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
@@ -646,19 +647,19 @@ existing layer using the <code class="docutils literal notranslate"><span class=
 </pre></div>
 </div>
 <p><img alt="image" src="../_images/scaling.gif" /></p>
-</div>
-<div class="section" id="translating-layers">
+</section>
+<section id="translating-layers">
 <h2>Translating layers<a class="headerlink" href="#translating-layers" title="Permalink to this headline">¶</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">translate</span></code> property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
 are trying to overlay two image tiles acquired with different stage positions.</p>
-</div>
-<div class="section" id="layer-metadata">
+</section>
+<section id="layer-metadata">
 <h2>Layer metadata<a class="headerlink" href="#layer-metadata" title="Permalink to this headline">¶</a></h2>
 <p>All our layers also support a <code class="docutils literal notranslate"><span class="pre">metadata</span></code> property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

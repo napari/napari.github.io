@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Contributions Reference &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -365,7 +366,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="contributions-reference">
+  <section class="tex2jax_ignore mathjax_ignore" id="contributions-reference">
 <span id="contributions-ref"></span><h1>Contributions Reference<a class="headerlink" href="#contributions-reference" title="Permalink to this headline">¶</a></h1>
 <p><strong>Contributions</strong> are a set of static declarations that you make in the
 <code class="docutils literal notranslate"><span class="pre">contributions</span></code> field of the <a class="reference internal" href="manifest.html"><span class="doc std std-doc">Plugin Manifest</span></a>. Your extension registers
@@ -382,7 +383,7 @@ Here is a list of all available <strong>Contributions</strong>:</p>
 <p>You may add as many contributions as you’d like to a single manifest. For
 clarity, the following examples include only the specific contribution that
 is being discussed.</p>
-<div class="section" id="contributions-commands">
+<section id="contributions-commands">
 <span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.commands</span></code><a class="headerlink" href="#contributions-commands" title="Permalink to this headline">¶</a></h2>
 <p>Contribute a <strong>command</strong> (a python callable) consisting of a unique <code class="docutils literal notranslate"><span class="pre">id</span></code>,
 a <code class="docutils literal notranslate"><span class="pre">title</span></code> and (optionally) a <code class="docutils literal notranslate"><span class="pre">python_path</span></code> that points to a fully qualified python
@@ -410,11 +411,11 @@ hotkey) but they can also show in other menus.</p>
 <em>(Optional: default=None).</em>
 Fully qualified name to a callable python object implementing this command. This usually takes the form of <code class="docutils literal notranslate"><span class="pre">{obj.__module__}:{obj.__qualname__}</span> <span class="pre">(e.g.</span> </code>my_package.a_module:some_function`)</p></li>
 </ul>
-<div class="section" id="commands-example">
+<section id="commands-example">
 <h3>Commands example<a class="headerlink" href="#commands-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="90352cc8-f502-48a5-9c40-2f6d331105fe" name="f20c302e-9b4c-4384-8fb4-abf9bef638f7" type="radio">
-</input><label class="tabbed-label" for="90352cc8-f502-48a5-9c40-2f6d331105fe">
+<input checked="checked" id="b4a9d076-193f-4270-92f5-460603da6ad5" name="29f642c9-f9b5-4c06-b7a4-dd814dac6c44" type="radio">
+</input><label class="tabbed-label" for="b4a9d076-193f-4270-92f5-460603da6ad5">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -423,8 +424,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="1123cfa5-38fa-46a5-8ecd-8248eece7378" name="f20c302e-9b4c-4384-8fb4-abf9bef638f7" type="radio">
-</input><label class="tabbed-label" for="1123cfa5-38fa-46a5-8ecd-8248eece7378">
+<input id="11e5d3eb-83b7-4a5e-b37e-ac01c521c322" name="29f642c9-f9b5-4c06-b7a4-dd814dac6c44" type="radio">
+</input><label class="tabbed-label" for="11e5d3eb-83b7-4a5e-b37e-ac01c521c322">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.hello_world&#39;</span><span class="w"></span>
@@ -433,9 +434,9 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="contributions-readers">
+</section>
+</section>
+<section id="contributions-readers">
 <span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.readers</span></code><a class="headerlink" href="#contributions-readers" title="Permalink to this headline">¶</a></h2>
 <p>Contribute a file reader.</p>
 <p>Readers may be associated with specific <strong>filename_patterns</strong> (e.g. “<em>.tif”,
@@ -452,11 +453,11 @@ for more details on implementing this contribution.</p>
 <em>(Optional: default=False).</em>
 Whether this reader accepts directories</p></li>
 </ul>
-<div class="section" id="readers-example">
+<section id="readers-example">
 <h3>Readers example<a class="headerlink" href="#readers-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="1ee08352-c24a-4f00-891b-1a2041dbb86b" name="63ccfd36-8cb4-4141-81db-d752bb5cd46f" type="radio">
-</input><label class="tabbed-label" for="1ee08352-c24a-4f00-891b-1a2041dbb86b">
+<input checked="checked" id="5b96f64d-62fc-49ec-a7be-d75b44763367" name="c6b85821-7537-4c11-b676-585281581130" type="radio">
+</input><label class="tabbed-label" for="5b96f64d-62fc-49ec-a7be-d75b44763367">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -471,8 +472,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="634a8893-835a-448f-a31a-54c3472d8501" name="63ccfd36-8cb4-4141-81db-d752bb5cd46f" type="radio">
-</input><label class="tabbed-label" for="634a8893-835a-448f-a31a-54c3472d8501">
+<input id="5371e6c5-4da3-4e40-ae72-74c80f72703b" name="c6b85821-7537-4c11-b676-585281581130" type="radio">
+</input><label class="tabbed-label" for="5371e6c5-4da3-4e40-ae72-74c80f72703b">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.read_xyz&#39;</span><span class="w"></span>
@@ -487,9 +488,9 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="contributions-writers">
+</section>
+</section>
+<section id="contributions-writers">
 <span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.writers</span></code><a class="headerlink" href="#contributions-writers" title="Permalink to this headline">¶</a></h2>
 <p>Contribute a layer writer.</p>
 <p>Writers accept data from one or more layers and write them to file. Writers declare
@@ -510,11 +511,11 @@ List of filename extensions compatible with this writer. The first entry is used
 <em>(Optional: default=).</em>
 Brief text used to describe this writer when presented. Empty by default. When present, this string is presented in the save dialog along side the plugin name and may be used to distinguish the kind of writer for the user. E.g. “lossy” or “lossless”.</p></li>
 </ul>
-<div class="section" id="writers-example">
+<section id="writers-example">
 <h3>Writers example<a class="headerlink" href="#writers-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="b02142ea-e34f-4a66-818b-f61dc9d8add2" name="d9799ad6-be3a-4f73-8c99-c8a5b5c51f61" type="radio">
-</input><label class="tabbed-label" for="b02142ea-e34f-4a66-818b-f61dc9d8add2">
+<input checked="checked" id="c51146e7-b084-409c-b805-5c2036f9bfe9" name="df03b686-a572-4cc8-b4b4-2b00dd7f4377" type="radio">
+</input><label class="tabbed-label" for="c51146e7-b084-409c-b805-5c2036f9bfe9">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -530,8 +531,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="c7abb1bd-5d6c-4fc0-9424-789f5c9a7cdb" name="d9799ad6-be3a-4f73-8c99-c8a5b5c51f61" type="radio">
-</input><label class="tabbed-label" for="c7abb1bd-5d6c-4fc0-9424-789f5c9a7cdb">
+<input id="3e1173a1-14f8-4180-b916-668e164f8760" name="df03b686-a572-4cc8-b4b4-2b00dd7f4377" type="radio">
+</input><label class="tabbed-label" for="3e1173a1-14f8-4180-b916-668e164f8760">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.write_points&#39;</span><span class="w"></span>
@@ -546,9 +547,9 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="contributions-widgets">
+</section>
+</section>
+<section id="contributions-widgets">
 <span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.widgets</span></code><a class="headerlink" href="#contributions-widgets" title="Permalink to this headline">¶</a></h2>
 <p>Contribute a widget that can be added to the napari viewer.</p>
 <p>Widget contributions point to a <strong>command</strong> that, when called, returns a widget
@@ -570,11 +571,11 @@ for more details on implementing this contribution.</p>
 <em>(Optional: default=False).</em>
 If true, a widget will be autogenerated from the signature of the associated command using <a class="reference external" href="https://napari.org/magicgui/">magicgui</a>.</p></li>
 </ul>
-<div class="section" id="widgets-example">
+<section id="widgets-example">
 <h3>Widgets example<a class="headerlink" href="#widgets-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="3319c8dd-72b0-44d3-bbb8-8d12899cadfd" name="c956edb3-6441-4ca7-bd58-cc0a000df8a5" type="radio">
-</input><label class="tabbed-label" for="3319c8dd-72b0-44d3-bbb8-8d12899cadfd">
+<input checked="checked" id="c1ecbef4-8d1b-4933-b9c5-f9fc4bac2e18" name="f616d8a3-f1a5-4f1f-8855-95b13f92b23f" type="radio">
+</input><label class="tabbed-label" for="c1ecbef4-8d1b-4933-b9c5-f9fc4bac2e18">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -598,8 +599,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="b674e9d7-a6b0-4644-953f-4f83a6ac8e0d" name="c956edb3-6441-4ca7-bd58-cc0a000df8a5" type="radio">
-</input><label class="tabbed-label" for="b674e9d7-a6b0-4644-953f-4f83a6ac8e0d">
+<input id="8f8a69dc-d0bc-4cd9-8b16-0387f3a7e019" name="f616d8a3-f1a5-4f1f-8855-95b13f92b23f" type="radio">
+</input><label class="tabbed-label" for="8f8a69dc-d0bc-4cd9-8b16-0387f3a7e019">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.my_widget&#39;</span><span class="w"></span>
@@ -632,15 +633,15 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="contributions-sample-data">
+</section>
+</section>
+<section id="contributions-sample-data">
 <span id="id5"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.sample_data</span></code><a class="headerlink" href="#contributions-sample-data" title="Permalink to this headline">¶</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>This contribution accepts 2 schema types</p>
 </div>
-<div class="section" id="sample-data-function">
+<section id="sample-data-function">
 <h3>1. Sample Data Function<a class="headerlink" href="#sample-data-function" title="Permalink to this headline">¶</a></h3>
 <p>Contribute a callable command that creates data on demand.</p>
 <p>See the <a class="reference external" href="./guides.html#sample-data-contribution-guide">Sample Data Guide</a>
@@ -651,8 +652,8 @@ for more details on implementing this contribution.</p>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.display_name</span></code></strong> : String to show in the UI when referring to this sample</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.command</span></code></strong> : Identifier of a command that returns layer data tuple.</p></li>
 </ul>
-</div>
-<div class="section" id="sample-data-uri">
+</section>
+<section id="sample-data-uri">
 <h3>2. Sample Data URI<a class="headerlink" href="#sample-data-uri" title="Permalink to this headline">¶</a></h3>
 <p>Contribute a URI to static local or remote data. This can be data included in
 the plugin package, or a URL to remote data.  The URI must be readable by either
@@ -668,12 +669,12 @@ for more details on implementing this contribution.</p>
 <em>(Optional: default=None).</em>
 Name of plugin to use to open URI</p></li>
 </ul>
-</div>
-<div class="section" id="sample-data-example">
+</section>
+<section id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="048ee09e-ec68-4c27-9b97-e479fdbaab3a" name="5afd65eb-e83d-485d-8cf5-981e92f34bcf" type="radio">
-</input><label class="tabbed-label" for="048ee09e-ec68-4c27-9b97-e479fdbaab3a">
+<input checked="checked" id="5e0fe40d-d23b-45ec-a684-cf5cd68574ed" name="203c8e5b-b8a7-4803-be0a-f4a03ae70585" type="radio">
+</input><label class="tabbed-label" for="5e0fe40d-d23b-45ec-a684-cf5cd68574ed">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -690,8 +691,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="31b9b3d9-48f8-4f3b-9815-7f2e427a4307" name="5afd65eb-e83d-485d-8cf5-981e92f34bcf" type="radio">
-</input><label class="tabbed-label" for="31b9b3d9-48f8-4f3b-9815-7f2e427a4307">
+<input id="d21053b0-fec6-4f13-a312-083b4e95cb0c" name="203c8e5b-b8a7-4803-be0a-f4a03ae70585" type="radio">
+</input><label class="tabbed-label" for="d21053b0-fec6-4f13-a312-083b4e95cb0c">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.data.fractal&#39;</span><span class="w"></span>
@@ -711,9 +712,9 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="contributions-themes">
+</section>
+</section>
+<section id="contributions-themes">
 <span id="id6"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.themes</span></code><a class="headerlink" href="#contributions-themes" title="Permalink to this headline">¶</a></h2>
 <p>Contribute a color theme to napari.</p>
 <p>You must specify an <strong>id</strong>, <strong>label</strong>, and whether the theme is a dark theme or a
@@ -735,11 +736,11 @@ dark/light theme colors.</p>
 </ul>
 </li>
 </ul>
-<div class="section" id="themes-example">
+<section id="themes-example">
 <h3>Themes example<a class="headerlink" href="#themes-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="23d5bc14-5430-4e57-9533-dd9804b8c448" name="ba723fdc-7737-4682-b708-9e4c06fd6158" type="radio">
-</input><label class="tabbed-label" for="23d5bc14-5430-4e57-9533-dd9804b8c448">
+<input checked="checked" id="6a98fe35-5fcf-434c-9f83-5bc932ce9cc4" name="4f22e5aa-87bb-42a6-b022-0ae151483a40" type="radio">
+</input><label class="tabbed-label" for="6a98fe35-5fcf-434c-9f83-5bc932ce9cc4">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">themes</span><span class="p">:</span><span class="w"></span>
@@ -760,8 +761,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="eeb2beaf-62dd-43ab-83fb-7ea104fa0375" name="ba723fdc-7737-4682-b708-9e4c06fd6158" type="radio">
-</input><label class="tabbed-label" for="eeb2beaf-62dd-43ab-83fb-7ea104fa0375">
+<input id="f147649e-b202-47cf-8683-15fb796097a1" name="4f22e5aa-87bb-42a6-b022-0ae151483a40" type="radio">
+</input><label class="tabbed-label" for="f147649e-b202-47cf-8683-15fb796097a1">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.themes]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;monokai&#39;</span><span class="w"></span>
@@ -783,9 +784,9 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             </div>

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Rendering in napari &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -569,17 +570,17 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="rendering-in-napari">
+  <section class="tex2jax_ignore mathjax_ignore" id="rendering-in-napari">
 <span id="rendering-explanation"></span><h1>Rendering in napari<a class="headerlink" href="#rendering-in-napari" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="status">
+<section id="status">
 <h2>Status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
 <p>As of napari version 0.4.3 there are two opt-in experimental features
 related to rendering. They can be accessed by setting the environment
 variables <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC=1</span></code> or <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE=1</span></code>. See the Guide on Rendering
 for specific information about those two features. This document is more of
 a general backgrounder on our approach to rendering.</p>
-</div>
-<div class="section" id="framerate">
+</section>
+<section id="framerate">
 <h2>Framerate<a class="headerlink" href="#framerate" title="Permalink to this headline">¶</a></h2>
 <p>The most common screen refresh rate is 60Hz, so most graphics applications
 try to draw at least 60Hz as well. If napari renders at 60Hz then any
@@ -628,8 +629,8 @@ has as few isolated slow frames as possible. A framerate that jumps around
 leads to something called <a class="reference external" href="http://jankfree.org/">jank</a>. For the best user
 experience we want a framerate that’s fast, but also one that’s
 consistently fast.</p>
-</div>
-<div class="section" id="array-like-interface">
+</section>
+<section id="array-like-interface">
 <h2>Array-like interface<a class="headerlink" href="#array-like-interface" title="Permalink to this headline">¶</a></h2>
 <p>Napari renders data out of an array-like interface. The data can be owned
 by any object that supports <code class="docutils literal notranslate"><span class="pre">NumPy</span></code>’s slicing syntax. One common such
@@ -639,8 +640,8 @@ that simple array accesses can result in the execution of arbitrary code.
 For example, an array access might result disk IO or network IO, or even a
 complex machine learning computation. This means array accesses can take an
 arbitrary long time to complete.</p>
-</div>
-<div class="section" id="asynchronous-rendering">
+</section>
+<section id="asynchronous-rendering">
 <h2>Asynchronous rendering<a class="headerlink" href="#asynchronous-rendering" title="Permalink to this headline">¶</a></h2>
 <p>Since we don’t know how long an array access will take, and we never want
 the GUI thread to block, we cannot access array-like objects in the GUI
@@ -662,8 +663,8 @@ to choose.</p>
 <a class="reference external" href="https://github.com/napari/napari/issues/845">#845</a>,
 <a class="reference external" href="https://github.com/napari/napari/issues/1300">#1300</a>, and
 <a class="reference external" href="https://github.com/napari/napari/issues/1320%5D">#1320</a>.</p>
-</div>
-<div class="section" id="ram-and-vram">
+</section>
+<section id="ram-and-vram">
 <h2>RAM and VRAM<a class="headerlink" href="#ram-and-vram" title="Permalink to this headline">¶</a></h2>
 <p>There is a two step process to prepare data for rendering. First the data
 needs to be loaded in RAM, then it needs to be transferred from RAM to
@@ -676,8 +677,8 @@ we cannot load data into VRAM in the background. Therefore to prevent
 hurting the framerate we need to budget how much time is spent copying data
 into VRAM, we can only do it for a few milliseconds per frame.</p>
 <p><img alt="paging-chunks" src="../_images/paging-chunks.png" /></p>
-</div>
-<div class="section" id="chunks">
+</section>
+<section id="chunks">
 <h2>Chunks<a class="headerlink" href="#chunks" title="Permalink to this headline">¶</a></h2>
 <p>For paging into both RAM and VRAM it’s a requirement that the data napari
 renders is broken down into “chunks”. A chunk is a deliberately vague term
@@ -689,8 +690,8 @@ too small is wasteful, since there is some overhead for each chunk.</p>
 <p>Napari’s chunks play a similar role as do packets on a network or blocks on
 a disk. In all cases the goal is to break down large data into digestible
 pieces of that can be processed smoothly one at a time.</p>
-</div>
-<div class="section" id="renderer-requirements">
+</section>
+<section id="renderer-requirements">
 <h2>Renderer requirements<a class="headerlink" href="#renderer-requirements" title="Permalink to this headline">¶</a></h2>
 <p>The above discussion leads to two rigid requirements for rendering:</p>
 <ol class="simple">
@@ -698,8 +699,8 @@ pieces of that can be processed smoothly one at a time.</p>
 what it will do or how long it will take.</p></li>
 <li><p>Always break data into chunks. The exact maximum chunk size is TBD.</p></li>
 </ol>
-</div>
-<div class="section" id="render-algorithm">
+</section>
+<section id="render-algorithm">
 <h2>Render algorithm<a class="headerlink" href="#render-algorithm" title="Permalink to this headline">¶</a></h2>
 <p>The renderer computes a <strong>working set</strong> of chunks based on the current
 view. The working set is the set of chunks that we want to draw in order to
@@ -726,7 +727,7 @@ chunk in the working set and do one of these three things:</p>
 <p>The important thing about this algorithm is that it never blocks. It draws
 what it can draw without blocking, and then it loads more data so that it
 can draw more in the future.</p>
-<div class="section" id="chunked-file-formats">
+<section id="chunked-file-formats">
 <h3>Chunked file formats<a class="headerlink" href="#chunked-file-formats" title="Permalink to this headline">¶</a></h3>
 <p>Napari’s rendering chunks will often correspond to blocks of contiguous
 memory inside a chunked file format like
@@ -743,8 +744,8 @@ operation. Using cubic chunks is nice because you get the same performance
 whether you are viewing the data in XY, XZ or YZ orientations. It’s also
 nice because you can scroll through slices quickly since on average 32
 slices above and below your current location are already in RAM.</p>
-</div>
-<div class="section" id="render-chunks">
+</section>
+<section id="render-chunks">
 <h3>Render chunks<a class="headerlink" href="#render-chunks" title="Permalink to this headline">¶</a></h3>
 <p>If a chunked file format is available, and those chunks are reasonably
 sized, then Napari can use those chunks for rendering. If chunks are not
@@ -758,9 +759,9 @@ image <strong>layers</strong> per slice. In that case the <em>image layers are o
 In general we can get creative with chunks, they can be spatial or
 non-spatial subdivisions. As long as something can be loaded and drawn
 independently it can be a chunk.</p>
-</div>
-</div>
-<div class="section" id="example-computed-layers">
+</section>
+</section>
+<section id="example-computed-layers">
 <h2>Example: Computed layers<a class="headerlink" href="#example-computed-layers" title="Permalink to this headline">¶</a></h2>
 <p>In <a class="reference external" href="https://github.com/napari/napari/issues/1320">#1320</a> the images are not
 chunked since they are very small, but there are 3 layers per slice. These
@@ -772,8 +773,8 @@ through the paged layers quickly, and then pause a bit to allow the
 computed layer to load in. Asynchronous rendering greatly improves the
 user’s experience in this case.</p>
 <p><img alt="example-1320" src="../_images/example-1320.png" /></p>
-</div>
-<div class="section" id="octree">
+</section>
+<section id="octree">
 <h2>Octree<a class="headerlink" href="#octree" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC</span></code> flag enables the experimental <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> which
 implements asynchronous loading. One step beyond this is <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code>
@@ -798,8 +799,8 @@ volumes. So we use the name Octree in the code for both cases.</p>
 one level of detail, it’s trivial to find the same data at a higher or
 lower level of detail. The data is spatially organized so it’s fast and
 easy to jump from one level fo detail to another.</p>
-</div>
-<div class="section" id="sparse-octree">
+</section>
+<section id="sparse-octree">
 <h2>Sparse Octree<a class="headerlink" href="#sparse-octree" title="Permalink to this headline">¶</a></h2>
 <p>Napari does not construct or maintain an Octree for the whole dataset. The
 Octree is created on the fly only for the portion of the data napari is
@@ -807,8 +808,8 @@ rendering. For some datasets level 0 of the Octree contains tens of
 millions of chunks. No matter how little data we stored per chunk, it would
 be slow and wasteful to create an octree that contains all of the data. So
 we only create the Octree where the camera is actively looking.</p>
-</div>
-<div class="section" id="beyond-images">
+</section>
+<section id="beyond-images">
 <h2>Beyond images<a class="headerlink" href="#beyond-images" title="Permalink to this headline">¶</a></h2>
 <p>Images are the marquee data type for napari, but napari can also display
 geometry such as points, shapes and meshes. The <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> and Octree
@@ -828,10 +829,10 @@ there might be pockets of super high density data. For example the data
 might have millions of points or triangles in a tiny geographic area.
 This might tax the rendering in new ways that images did not.</p></li>
 </ol>
-</div>
-<div class="section" id="appendix">
+</section>
+<section id="appendix">
 <h2>Appendix<a class="headerlink" href="#appendix" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="a-threads-and-processes">
+<section id="a-threads-and-processes">
 <h3>A. Threads and processes<a class="headerlink" href="#a-threads-and-processes" title="Permalink to this headline">¶</a></h3>
 <p>By default the <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> uses a <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> thread pool.
 Threads are fast and simple and well understood. All threads in a process
@@ -859,8 +860,8 @@ that napari should only support thread pools, and if you need processes you
 should use napari with Dask. Basically, we might outsource multi-processing
 to Dask. How exactly napari will interoperate with Dask is to be
 determined.</p>
-</div>
-<div class="section" id="b-number-of-workers">
+</section>
+<section id="b-number-of-workers">
 <h3>B. Number of workers<a class="headerlink" href="#b-number-of-workers" title="Permalink to this headline">¶</a></h3>
 <p>How many worker threads or processes should we use? The optimal number will
 obviously depend on the hardware, but it also might depend on the workload.
@@ -868,8 +869,8 @@ One thread per core is a reasonable starting point, but a different number
 of workers might be more efficient in certain situations. Our goal is to
 have reasonable defaults that most users can live with, but provide
 configuration settings for expert users to adjust if needed.</p>
-</div>
-<div class="section" id="c-asyncio">
+</section>
+<section id="c-asyncio">
 <h3>C. asyncio<a class="headerlink" href="#c-asyncio" title="Permalink to this headline">¶</a></h3>
 <p>Python also has a newer concurrency mechanism called
 <a class="reference external" href="https://docs.python.org/3/library/asyncio.html">asyncio</a> which is
@@ -882,8 +883,8 @@ parallel, but they can all be in progress in various states of completion
 and worked on round-robin. While we have no current plans to use <code class="docutils literal notranslate"><span class="pre">asyncio</span></code>
 for rendering, we should keep in mind that it exists and it might be
 something we can use down the road.</p>
-</div>
-<div class="section" id="d-vram-and-vispy">
+</section>
+<section id="d-vram-and-vispy">
 <h3>D. VRAM and Vispy<a class="headerlink" href="#d-vram-and-vispy" title="Permalink to this headline">¶</a></h3>
 <p>With OpenGL you cannot directly manage VRAM. Instead we will implicitly
 control what’s in VRAM based on what <a class="reference external" href="http://vispy.org/">vispy</a> objects
@@ -896,9 +897,9 @@ into VRAM by <code class="docutils literal notranslate"><span class="pre">vispy<
 many new vispy objects we create each frame. For example, we might find
 that we can only draw two or three new chunks per frame. So if we load ten
 chunks, we might need to page that data into VRAM over four or five frames.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             </div>

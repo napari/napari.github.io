@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>napari.utils.perf &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -520,7 +521,7 @@
             
             <div>
               
-  <div class="section" id="module-napari.utils.perf">
+  <section id="module-napari.utils.perf">
 <span id="napari-utils-perf"></span><h1>napari.utils.perf<a class="headerlink" href="#module-napari.utils.perf" title="Permalink to this headline">¶</a></h1>
 <p>Performance Monitoring.</p>
 <p>The perfmon module lets you instrument your code and visualize its run-time
@@ -533,7 +534,7 @@ behavior and timings in Chrome’s Tracing GUI.</p>
 PerfmonConfig docs for the spec of the config file.</p>
 </dd>
 </dl>
-<div class="section" id="chrome-tracing">
+<section id="chrome-tracing">
 <h2>Chrome Tracing<a class="headerlink" href="#chrome-tracing" title="Permalink to this headline">¶</a></h2>
 <p>Chrome has a nice built-in performance tool called chrome://tracing. Chrome
 can record traces of web applications. But the format is well-documented and
@@ -541,15 +542,15 @@ anyone can create the files and use the nice GUI. And other programs accept
 the format including:
 1) https://www.speedscope.app/ which does flamegraphs (Chrome doesn’t).
 2) Qt Creator’s performance tools.</p>
-</div>
-<div class="section" id="monkey-patching">
+</section>
+<section id="monkey-patching">
 <h2>Monkey Patching<a class="headerlink" href="#monkey-patching" title="Permalink to this headline">¶</a></h2>
 <p>The best way to add perf_timers is using the perfmon config file. You can
 list which methods or functions you want to time, and a perf_timer will be
 monkey-patched into each callable on startup. The monkey patching
 is done only if perfmon is enabled.</p>
-</div>
-<div class="section" id="trace-on-start">
+</section>
+<section id="trace-on-start">
 <h2>Trace On Start<a class="headerlink" href="#trace-on-start" title="Permalink to this headline">¶</a></h2>
 <p>Add a line to the config file like:</p>
 <blockquote>
@@ -557,8 +558,8 @@ is done only if perfmon is enabled.</p>
 </div></blockquote>
 <p>Perfmon will start tracing on startup. You must quit napari with the Quit
 command for napari to write trace file. See PerfmonConfig docs.</p>
-</div>
-<div class="section" id="manual-timing">
+</section>
+<section id="manual-timing">
 <h2>Manual Timing<a class="headerlink" href="#manual-timing" title="Permalink to this headline">¶</a></h2>
 <p>You can also manually add “perf_timer” context objects and
 “add_counter_event()” and “add_instant_event()” functions to your code. All
@@ -621,8 +622,8 @@ block_timer or perf_timer context objects explicitly at all.</p>
 <span class="sig-prename descclassname"><span class="pre">napari.utils.perf.</span></span><span class="sig-name descname"><span class="pre">perf_timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/perf/_timers.html#perf_timer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.perf.perf_timer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

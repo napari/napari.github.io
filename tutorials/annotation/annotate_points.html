@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Annotating videos with napari &#8212; napari</title>
   <link rel="stylesheet" href="../../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
@@ -521,7 +522,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="annotating-videos-with-napari">
+  <section class="tex2jax_ignore mathjax_ignore" id="annotating-videos-with-napari">
 <h1>Annotating videos with napari<a class="headerlink" href="#annotating-videos-with-napari" title="Permalink to this headline">¶</a></h1>
 <p><strong>Note</strong>: this tutorial has been updated and is now compatible with napari &gt; 0.4.5 and magicgui &gt; 0.2.5. For details, see <a class="reference external" href="https://github.com/napari/napari.github.io/pull/114">this pull request</a>.</p>
 <p>In this tutorial, we will use napari (requires version 0.3.2 or greater) to make a simple GUI application for annotating points in videos.
@@ -665,7 +666,7 @@ We will walk through the code in the following sections.</p>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
 </pre></div>
 </div>
-<div class="section" id="point-annotator">
+<section id="point-annotator">
 <h2><code class="docutils literal notranslate"><span class="pre">point_annotator()</span></code><a class="headerlink" href="#point-annotator" title="Permalink to this headline">¶</a></h2>
 <p>We will create the GUI within a function called <code class="docutils literal notranslate"><span class="pre">point_annotator()</span></code>.
 Wrapping the GUI creation in the function allows us to integrate it into other functions (e.g., a command line interface) and applications.
@@ -685,8 +686,8 @@ See below for the function definition.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="loading-the-video">
+</section>
+<section id="loading-the-video">
 <h2>Loading the video<a class="headerlink" href="#loading-the-video" title="Permalink to this headline">¶</a></h2>
 <p>First, we load the movie to be annotated.
 Since behavior movies can be quite long, we will use a lazy loading strategy (i.e., we will only load the frames as they are used).
@@ -700,8 +701,8 @@ For more explanation on using dask to lazily load images in napari, see <a class
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="annotating-with-points">
+</section>
+<section id="annotating-with-points">
 <h2>Annotating with points<a class="headerlink" href="#annotating-with-points" title="Permalink to this headline">¶</a></h2>
 <p>We will annotate the features of interest using points in a napari Points layer.
 Each feature will be given a different label so that we can track them across frames.
@@ -750,8 +751,8 @@ For example, the <a class="reference external" href="https://github.com/d3/d3-3.
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="adding-a-gui-for-selecting-points">
+</section>
+<section id="adding-a-gui-for-selecting-points">
 <h2>Adding a GUI for selecting points<a class="headerlink" href="#adding-a-gui-for-selecting-points" title="Permalink to this headline">¶</a></h2>
 <p>First, we will define a function  to create a GUI for select the labels for
 points. The function <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code> will take the points layer we created
@@ -816,8 +817,8 @@ To ensure the points layer is updated whenever the GUI selection is changed, we 
 <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="keybindings-for-switching-labels">
+</section>
+<section id="keybindings-for-switching-labels">
 <h2>Keybindings for switching labels<a class="headerlink" href="#keybindings-for-switching-labels" title="Permalink to this headline">¶</a></h2>
 <p>For convenience, we can also define functions to increment and decrement the currently selected label and bind them to key presses using the napari keybindings framework.</p>
 <p>First, we define a function to increment to the next label and decorate it with the viewer key binding decorator.
@@ -857,8 +858,8 @@ In this case, we are binding <code class="docutils literal notranslate"><span cl
     <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="mousebinding-to-iterate-through-labels">
+</section>
+<section id="mousebinding-to-iterate-through-labels">
 <h2>Mousebinding to iterate through labels<a class="headerlink" href="#mousebinding-to-iterate-through-labels" title="Permalink to this headline">¶</a></h2>
 <p>Like keybindings, we can also bind functions to mouse events such as clicking or dragging.
 Here, we create a function that will increment the label after a point is added (i.e., the mouse is clicked in the viewer canvas when in the point adding mode).
@@ -885,10 +886,10 @@ see the examples [<a class="reference external" href="https://github.com/napari/
 <span class="n">points_layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_on_click</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-the-gui">
+</section>
+<section id="using-the-gui">
 <h2>Using the GUI<a class="headerlink" href="#using-the-gui" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="launching-the-gui">
+<section id="launching-the-gui">
 <h3>Launching the GUI<a class="headerlink" href="#launching-the-gui" title="Permalink to this headline">¶</a></h3>
 <p>Now that you’ve put it all together, you should be ready to test! You can call the function as shown below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im_path</span> <span class="o">=</span> <span class="s1">&#39;&lt;path to directory with data&gt;/*.png&#39;</span>
@@ -896,8 +897,8 @@ see the examples [<a class="reference external" href="https://github.com/napari/
 <span class="n">point_annotator</span><span class="p">(</span><span class="n">im_path</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ear_l&#39;</span><span class="p">,</span> <span class="s1">&#39;ear_r&#39;</span><span class="p">,</span> <span class="s1">&#39;tail&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="saving-the-annotations">
+</section>
+<section id="saving-the-annotations">
 <h3>Saving the annotations<a class="headerlink" href="#saving-the-annotations" title="Permalink to this headline">¶</a></h3>
 <p>Once we are happy with the annotations, we can save them to a CSV file using the builing CSV writer for the points layer.
 To do so, first, select the “Points” layer in the layer list and then click “Save Selected layer(s)”  in the “File” menu or press control+S (cmd+S on Mac OS)  to bring up the file save dialog.
@@ -908,9 +909,9 @@ We can enter the command either in the script (e.g., bind a save function to a h
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points_layer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;path/to/file.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             </div>

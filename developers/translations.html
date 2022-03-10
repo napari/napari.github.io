@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Translations &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -591,7 +592,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="translations">
+  <section class="tex2jax_ignore mathjax_ignore" id="translations">
 <span id="id1"></span><h1>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">¶</a></h1>
 <p>Starting with version 0.4.7, napari codebase include internationalization
 (i18n) and now offers the possibility of installing language packs, which
@@ -602,7 +603,7 @@ translation, visit the <a class="reference external" href="https://github.com/na
 <p>This guide is limited to providing translations to the napari core codebase.
 We will soon provide more information on how to make your napari plugins
 localizable.</p>
-<div class="section" id="how-to-make-strings-translatable">
+<section id="how-to-make-strings-translatable">
 <h2>How to make strings translatable?<a class="headerlink" href="#how-to-make-strings-translatable" title="Permalink to this headline">¶</a></h2>
 <p>To make your code translatable (localizable), please use the <code class="docutils literal notranslate"><span class="pre">trans</span></code> helper
 provided by the napari utilities.</p>
@@ -619,7 +620,7 @@ custom exceptions.</p>
 <p><code class="docutils literal notranslate"><span class="pre">f-strings</span></code> do not work with localizable strings, so any strings that use them
 need to be converted. The <a class="reference external" href="#plural-strings">Plural strings section</a>
 below explains this in more detail.</p>
-<div class="section" id="singular-strings">
+<section id="singular-strings">
 <h3>Singular strings<a class="headerlink" href="#singular-strings" title="Permalink to this headline">¶</a></h3>
 <p>Strings that need to provide a 1:1 translation, can use the <code class="docutils literal notranslate"><span class="pre">trans._</span></code> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QWidget</span>
@@ -655,8 +656,8 @@ In this case:</p>
 <li><p>azul</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">trans._</span></code> is a wrapper on top of <a class="reference external" href="https://docs.python.org/3/library/gettext.html#gettext.gettext">gettext.gettext</a> with enhanced functionality.</p>
-</div>
-<div class="section" id="singular-strings-with-context">
+</section>
+<section id="singular-strings-with-context">
 <h3>Singular strings with context<a class="headerlink" href="#singular-strings-with-context" title="Permalink to this headline">¶</a></h3>
 <p>Strings that need some additional context to disambiguate the source string,
 can use the <code class="docutils literal notranslate"><span class="pre">trans._p</span></code> method:</p>
@@ -699,8 +700,8 @@ this case:</p>
 <li><p>pestaña</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">trans._p</span></code> is a wrapper on top of <a class="reference external" href="https://docs.python.org/3/library/gettext.html#gettext.pgettext">gettext.pgettext</a> with enhanced functionality.</p>
-</div>
-<div class="section" id="plural-strings">
+</section>
+<section id="plural-strings">
 <h3>Plural strings<a class="headerlink" href="#plural-strings" title="Permalink to this headline">¶</a></h3>
 <p>Some strings or sentences might need to be handled differently when needing
 pluralization, that is depending on the amount of items included in the
@@ -741,14 +742,14 @@ differently. Having clear variable names within strings (e.g. <code class="docut
 what the variable represents makes the internationalization process much
 easier and pleasant for translators.</p>
 <p><code class="docutils literal notranslate"><span class="pre">trans._n</span></code> is a wrapper on top of <a class="reference external" href="https://docs.python.org/3/library/gettext.html#gettext.ngettext">gettext.ngettext</a> with enhanced functionality.</p>
-</div>
-<div class="section" id="plural-strings-with-context">
+</section>
+<section id="plural-strings-with-context">
 <h3>Plural strings with context<a class="headerlink" href="#plural-strings-with-context" title="Permalink to this headline">¶</a></h3>
 <p>This is similar to plural strings, but an additional context can be supplied
 as explained in the <a class="reference external" href="#singular-strings-with-context">Singular strings with context</a> section.</p>
-</div>
-</div>
-<div class="section" id="deferred-translations">
+</section>
+</section>
+<section id="deferred-translations">
 <h2>Deferred translations<a class="headerlink" href="#deferred-translations" title="Permalink to this headline">¶</a></h2>
 <p>For some strings we might not want to provide a translation right away. This
 could be the case of running napari in scripts, where providing the original
@@ -764,8 +765,8 @@ the original string.</p>
 <p>With this, we can also provide the correct translations when using the napari
 application and displaying messages on the notifications manager in the
 language selected by the users.</p>
-</div>
-<div class="section" id="additional-arguments-inside-strings">
+</section>
+<section id="additional-arguments-inside-strings">
 <h2>Additional arguments inside strings<a class="headerlink" href="#additional-arguments-inside-strings" title="Permalink to this headline">¶</a></h2>
 <p>Since <code class="docutils literal notranslate"><span class="pre">f-strings</span></code> do not work with localizable strings, we loose their
 convenience and have to use <code class="docutils literal notranslate"><span class="pre">str.format</span></code>. However, when using deferred
@@ -790,16 +791,16 @@ used for rendering the deferred strings on demand.</p>
 <span class="n">normal_string</span> <span class="o">==</span> <span class="s2">&quot;¡Hola mundo!&quot;</span>  <span class="c1"># True</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="contributing-translations">
+</section>
+<section id="contributing-translations">
 <h2>Contributing translations<a class="headerlink" href="#contributing-translations" title="Permalink to this headline">¶</a></h2>
 <p>To be able to provide translations for different languages, the napari team
 chose to use the <code class="docutils literal notranslate"><span class="pre">Crowdin</span></code> which provides a simple web interface where the
 localizable strings can be translated one by one with the help of volunteers
 and the napari user community.</p>
 <p>To start translating, please visit the <a class="reference external" href="https://crowdin.com/project/napari">Crowdin project page</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

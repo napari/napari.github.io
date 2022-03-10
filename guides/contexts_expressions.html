@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Contexts and Expressions in napari &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -525,7 +526,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="contexts-and-expressions-in-napari">
+  <section class="tex2jax_ignore mathjax_ignore" id="contexts-and-expressions-in-napari">
 <span id="context-expressions"></span><h1>Contexts and Expressions in napari<a class="headerlink" href="#contexts-and-expressions-in-napari" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -550,7 +551,7 @@ doesn’t work.</p>
 second-generation napari plugin engine (npe2) that capture the abstract idea of
 “some condition” (an <code class="docutils literal notranslate"><span class="pre">Expression</span></code>) that can be evaluated at some later time,
 with a concrete set of keys and values (the <code class="docutils literal notranslate"><span class="pre">Context</span></code>).</p>
-<div class="section" id="python-expressions">
+<section id="python-expressions">
 <h2>Python expressions<a class="headerlink" href="#python-expressions" title="Permalink to this headline">¶</a></h2>
 <p>In Python, <strong>expressions</strong> are simple combinations of <strong>values</strong> and
 <strong>operations</strong> that can be reduced to a single value. For example, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&gt;</span> <span class="pre">5</span></code> is an
@@ -572,8 +573,8 @@ the variable <strong>names</strong> “<code class="docutils literal notranslate
 <span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="kc">False</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="napari-expressions">
+</section>
+<section id="napari-expressions">
 <h2>Napari expressions<a class="headerlink" href="#napari-expressions" title="Permalink to this headline">¶</a></h2>
 <p>Napari introduces <code class="docutils literal notranslate"><span class="pre">Expr</span></code> objects that represent an
 expression “without a context”, to be evaluated later.</p>
@@ -673,7 +674,7 @@ its <code class="docutils literal notranslate"><span class="pre">eval</span></co
 </tr>
 </tbody>
 </table>
-<div class="section" id="napari-context-keys">
+<section id="napari-context-keys">
 <h3>napari context keys<a class="headerlink" href="#napari-context-keys" title="Permalink to this headline">¶</a></h3>
 <p>To capture napari-specific conditions, napari will declare special
 <strong>names</strong> that can be used in a napari expression.  Taking the example above, a
@@ -717,8 +718,8 @@ to enable/disable a given command:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="contextkey-objects">
+</section>
+<section id="contextkey-objects">
 <h3><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> objects<a class="headerlink" href="#contextkey-objects" title="Permalink to this headline">¶</a></h3>
 <p>To track the special <strong>name</strong> strings that can be used in expressions, napari
 has the <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> class.  Instances of <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> subclass from
@@ -774,9 +775,9 @@ capabilities, and IDE autocompletion (for napari developers).</p>
 <p><img alt="context_types" src="../_images/context_type_hint.png" /></p>
 <p>A record of all registered context keys can be retrieved with the class method
 <code class="docutils literal notranslate"><span class="pre">ContextKey.info()</span></code></p>
-</div>
-</div>
-<div class="section" id="contexts">
+</section>
+</section>
+<section id="contexts">
 <h2>Contexts<a class="headerlink" href="#contexts" title="Permalink to this headline">¶</a></h2>
 <p>Now that we’ve seen how expression names are declared, let’s discuss the
 “context” in which these expressions are evaluated.</p>
@@ -791,7 +792,7 @@ Continuing with the example above, if the user clicks on a 4-dimensional layer,
 the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> would set the context key <code class="docutils literal notranslate"><span class="pre">active_layer_ndim</span></code> to <code class="docutils literal notranslate"><span class="pre">4</span></code>. napari
 would then be able to enable/disable various commands and menus that required a
 specific number of dimensions in the active layer.</p>
-<div class="section" id="the-context-class">
+<section id="the-context-class">
 <h3>The <code class="docutils literal notranslate"><span class="pre">Context</span></code> class<a class="headerlink" href="#the-context-class" title="Permalink to this headline">¶</a></h3>
 <p>The napari <code class="docutils literal notranslate"><span class="pre">Context</span></code> class is a subclass of
 <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.ChainMap"><code class="docutils literal notranslate"><span class="pre">collections.ChainMap</span></code></a>
@@ -838,8 +839,8 @@ the settings:</p>
 <span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="kc">False</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="updating-contexts">
+</section>
+<section id="updating-contexts">
 <h3>Updating Contexts<a class="headerlink" href="#updating-contexts" title="Permalink to this headline">¶</a></h3>
 <p>You may be wondering exactly how objects such as <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> update
 the keys in their contexts. The aforementioned
@@ -878,9 +879,9 @@ in <code class="docutils literal notranslate"><span class="pre">LayerListContext
 <span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="mi">1</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="summary-a-rough-full-picture">
+</section>
+</section>
+<section id="summary-a-rough-full-picture">
 <h2>Summary: A (rough) full picture<a class="headerlink" href="#summary-a-rough-full-picture" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>napari creates special context “names” using <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> and <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></p>
@@ -944,8 +945,8 @@ clauses (declared internally or externally in steps 3 and 4)</p>
 </div>
 </li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

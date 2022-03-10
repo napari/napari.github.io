@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Mission and Values &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -574,14 +575,14 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="mission-and-values">
+  <section class="tex2jax_ignore mathjax_ignore" id="mission-and-values">
 <span id="id1"></span><h1>Mission and Values<a class="headerlink" href="#mission-and-values" title="Permalink to this headline">¶</a></h1>
 <p>This document is meant to help guide decisions about the future of <code class="docutils literal notranslate"><span class="pre">napari</span></code>, be it in terms of
 whether to accept new functionality, changes to the styling of the code or graphical user interface (GUI),
 or whether to take on new dependencies, among other things. It serves as a point of reference for <a class="reference internal" href="../developers/core_dev_guide.html#core-dev-guide"><span class="std std-ref">core developers</span></a> actively working on the project, and an introduction for
 newcomers who want to learn a little more about where the project is going and what the team’s
 values are. You can also learn more about how the project is managed by looking at our <a class="reference internal" href="governance.html#napari-governance"><span class="std std-ref">governance model</span></a>.</p>
-<div class="section" id="our-founding-principles">
+<section id="our-founding-principles">
 <h2>Our founding principles<a class="headerlink" href="#our-founding-principles" title="Permalink to this headline">¶</a></h2>
 <p>The founding napari team came together around a shared vision for a Python based image viewer that is</p>
 <ul class="simple">
@@ -592,8 +593,8 @@ values are. You can also learn more about how the project is managed by looking 
 <li><p>with minimal new windows and pop-ups, choosing layering instead</p></li>
 </ul>
 <p>As the project has grown we’ve turned these original principles into the mission statement and set of values that we described below.</p>
-</div>
-<div class="section" id="our-mission">
+</section>
+<section id="our-mission">
 <h2>Our mission<a class="headerlink" href="#our-mission" title="Permalink to this headline">¶</a></h2>
 <p>napari aims to be the <strong>multi-dimensional image viewer for Python</strong> and to <strong>provide GUI access to a plugin ecosystem of image analysis tools for scientists</strong> to use in their daily work. We hope to accomplish this by:</p>
 <ul class="simple">
@@ -604,8 +605,8 @@ values are. You can also learn more about how the project is managed by looking 
 <li><p>providing a <strong>consistent and stable API</strong> to enable plugin developers to build on top of napari without their code constantly breaking and to enable advanced users to build out sophisticated Python workflows. Right now we are still making breaking changes with minor version numbers <code class="docutils literal notranslate"><span class="pre">0.x</span></code> and do not have a deprecation policy, but we will work to add one soon.</p></li>
 <li><p><strong>ensuring correctness</strong>. We strive for complete test coverage of both the code and GUI, with all code reviewed by a core developer before being included in the repository.</p></li>
 </ul>
-</div>
-<div class="section" id="our-values">
+</section>
+<section id="our-values">
 <h2>Our values<a class="headerlink" href="#our-values" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>We are <strong>inclusive</strong>. We welcome and mentor newcomers who are making their first contribution and strive to grow our most dedicated contributors into <a class="reference internal" href="../developers/core_dev_guide.html#core-dev-guide"><span class="std std-ref">core developers</span></a>. We have a <a class="reference internal" href="code_of_conduct.html#napari-coc"><span class="std std-ref">Code of Conduct</span></a> to make napari
@@ -619,20 +620,20 @@ a welcoming place for all.</p></li>
 <li><p>We value <strong>education and documentation</strong>. All functions should have docstrings, preferably with examples, and major functionality should be explained in our <a class="reference external" href="https://napari.org/tutorials">tutorials</a>. Core developers can take an active role in finishing documentation examples.</p></li>
 <li><p>We <strong>minimize <a class="reference external" href="https://en.wikipedia.org/wiki/Magic_(programming)">magic</a></strong> and always provide a way for users to opt out of magical behaviour and guessing by providing explicit ways to control functionality. We support NumPy array like objects and we prefer to educate users rather than make decisions on their behalf. This does not preclude the use of sensible defaults.</p></li>
 </ul>
-</div>
-<div class="section" id="our-vision-for-plugins">
+</section>
+<section id="our-vision-for-plugins">
 <h2>Our vision for plugins<a class="headerlink" href="#our-vision-for-plugins" title="Permalink to this headline">¶</a></h2>
 <p>As noted above, napari aims to support a plugin ecosystem for scientific image analysis. We have recently taken some of the first steps towards adopting the <a class="reference external" href="https://pluggy.readthedocs.io/en/latest/">pluggy</a> plugin management framework within napari for this purpose. See <a class="reference external" href="https://github.com/napari/napari/issues/936">#936</a> and linked issues for details. Pluggy is already widely used within the Python community, in particular by the <a class="reference external" href="https://docs.pytest.org/en/latest/index.html">pytest</a> testing framework, allowing us to benefit from years of development and community support.</p>
 <p>We will be adding more dedicated documentation around plugins shortly, and this section will likely continue to be significantly updated over the coming months as more work is done, but we will lay out here some of our motivation and vision for the plugin ecosystem.</p>
 <p>Image analysis is heterogeneous and often highly specialized within different domains of science. napari alone will not try to meet all the image analysis needs of the scientific community, but instead try to be a foundational visualization tool that provides access to domain specific analysis through community developed plugins.</p>
 <p>We want to make it as easy as possible for developers to build plugins for napari, with as little to no specific napari code in your plugin as possible. Philosophically a napari plugin without napari should just be Python, and they should always be importable and runnable as such. We are looking into using minimal typing and function annotations that don’t change the runtime of your functions, but lets napari know how to interpret the inputs and outputs of your functions and integrate them with our GUI code. We are also planning to leverage git for versioning and installation of plugins.</p>
 <p>As noted above, we’ll be beginning to actively work on the plugin infrastructure over coming months and would love to get the input of the community. You can follow and contribute to our discussions and progress using the <a class="reference external" href="https://github.com/napari/napari/labels/plugins"><code class="docutils literal notranslate"><span class="pre">plugin</span></code> label on our repository</a>.</p>
-</div>
-<div class="section" id="acknowledgements">
+</section>
+<section id="acknowledgements">
 <h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
 <p>We share a lot of our mission and values with the <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> project with whom we share founding members, and acknowledge the influence of their <a class="reference external" href="https://scikit-image.org/docs/dev/values.html">mission and values statement</a> on this document.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

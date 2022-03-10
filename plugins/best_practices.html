@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Best practices &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -303,12 +304,12 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="best-practices">
+  <section class="tex2jax_ignore mathjax_ignore" id="best-practices">
 <span id="id1"></span><h1>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h1>
 <p>There are a number of good and bad practices that may not be immediately obvious
 when developing a plugin.  This page covers some known practices that could
 affect the ability to install or use your plugin effectively.</p>
-<div class="section" id="don-t-include-pyside2-or-pyqt5-in-your-plugin-s-dependencies">
+<section id="don-t-include-pyside2-or-pyqt5-in-your-plugin-s-dependencies">
 <span id="best-practices-no-qt-backend"></span><h2>Don’t include <code class="docutils literal notranslate"><span class="pre">PySide2</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> in your plugin’s dependencies.<a class="headerlink" href="#don-t-include-pyside2-or-pyqt5-in-your-plugin-s-dependencies" title="Permalink to this headline">¶</a></h2>
 <p><em>This is important!</em></p>
 <p>Napari supports <em>both</em> PyQt and PySide backends for Qt.  It is up to the
@@ -339,8 +340,8 @@ layer</a> that will import from whatever
 backend is installed in the environment.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="try-not-to-depend-on-packages-that-require-c-compilation-but-do-not-offer-wheels">
+</section>
+<section id="try-not-to-depend-on-packages-that-require-c-compilation-but-do-not-offer-wheels">
 <h2>Try not to depend on packages that require C compilation, but do not offer “wheels”<a class="headerlink" href="#try-not-to-depend-on-packages-that-require-c-compilation-but-do-not-offer-wheels" title="Permalink to this headline">¶</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -396,8 +397,8 @@ wheels,you <em>may</em> guide your users in using conda to install your package 
 of your dependencies.  Just know that it may not work with the built-in plugin
 installer.</p>
 </div>
-</div>
-<div class="section" id="don-t-import-heavy-dependencies-at-the-top-of-your-module">
+</section>
+<section id="don-t-import-heavy-dependencies-at-the-top-of-your-module">
 <h2>Don’t import heavy dependencies at the top of your module<a class="headerlink" href="#don-t-import-heavy-dependencies-at-the-top-of-your-module" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -449,8 +450,8 @@ following slight modification will help napari load much faster:</p>
 </div>
 <p>(again, the second gen napari plugin engine will help improve this situation,
 but it’s still a good idea!)</p>
-</div>
-<div class="section" id="don-t-leave-resources-open">
+</section>
+<section id="don-t-leave-resources-open">
 <h2>Don’t leave resources open<a class="headerlink" href="#don-t-leave-resources-open" title="Permalink to this headline">¶</a></h2>
 <p>It’s always good practice to clean up resources like open file handles and
 databases.  As a napari plugin it’s particularly important to do this (and
@@ -472,8 +473,8 @@ using a context manager, but manually otherwise):</p>
     <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="write-extensive-tests-for-your-plugin">
+</section>
+<section id="write-extensive-tests-for-your-plugin">
 <h2>Write extensive tests for your plugin!<a class="headerlink" href="#write-extensive-tests-for-your-plugin" title="Permalink to this headline">¶</a></h2>
 <p>Programmer and author Bruce Eckel famously wrote:</p>
 <blockquote>
@@ -484,7 +485,7 @@ dedicated to the stability of your plugin. Aim for 100%!</p>
 <p>Of course, simply having 100% coverage doesn’t mean your code is bug-free, so
 make sure that you test all of the various ways that your code might be called.</p>
 <p>See our <a class="reference internal" href="test_deploy.html#plugin-testing-tips"><span class="std std-ref">Tips for testing napari plugins</span></a>.</p>
-<div class="section" id="how-to-check-test-coverage">
+<section id="how-to-check-test-coverage">
 <h3>How to check test coverage?<a class="headerlink" href="#how-to-check-test-coverage" title="Permalink to this headline">¶</a></h3>
 <p>The <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter
 template</a> is already set
@@ -503,9 +504,9 @@ from coverage with the comment <code class="docutils literal notranslate"><span 
 <li><p>In the cookiecutter, coverage tests from github actions will be uploaded to
 codecov.io</p></li>
 </ol>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             </div>

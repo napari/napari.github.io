@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Using the tracks layer &#8212; napari</title>
   <link rel="stylesheet" href="../../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
@@ -536,11 +537,11 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="using-the-tracks-layer">
+  <section class="tex2jax_ignore mathjax_ignore" id="using-the-tracks-layer">
 <h1>Using the tracks layer<a class="headerlink" href="#using-the-tracks-layer" title="Permalink to this headline">¶</a></h1>
 <p>In this document, you will learn about the <code class="docutils literal notranslate"><span class="pre">napari</span></code> <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer, including
 displaying tracks and defining relationships between tracks.</p>
-<div class="section" id="when-to-use-the-tracks-layer">
+<section id="when-to-use-the-tracks-layer">
 <h2>When to use the tracks layer<a class="headerlink" href="#when-to-use-the-tracks-layer" title="Permalink to this headline">¶</a></h2>
 <p>The tracks layer allows you to display trajectories in <code class="docutils literal notranslate"><span class="pre">nD+t</span></code> while visualizing
 the recent history of the track via a fading tail.</p>
@@ -548,8 +549,8 @@ the recent history of the track via a fading tail.</p>
 dictionary. These properties can be used to set the colors of the tracks.</p>
 <p>For example, when displaying tracks of different classes/types, one could
 automatically set color the individual tracks by their respective class/type.</p>
-</div>
-<div class="section" id="a-simple-example">
+</section>
+<section id="a-simple-example">
 <h2>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
 <p>You can create a new viewer and add a set of tracks in one go using the
 <code class="docutils literal notranslate"><span class="pre">napari.view_tracks</span></code> method, or if you already have an existing viewer, you can
@@ -586,8 +587,8 @@ telescope:</p>
 </pre></div>
 </div>
 <p><img alt="image: tracks simple demo" src="../../_images/tracks_simple_demo.gif" /></p>
-</div>
-<div class="section" id="arguments-of-view-tracks-and-add-tracks">
+</section>
+<section id="arguments-of-view-tracks-and-add-tracks">
 <h2>Arguments of <code class="docutils literal notranslate"><span class="pre">view_tracks</span></code> and <code class="docutils literal notranslate"><span class="pre">add_tracks</span></code><a class="headerlink" href="#arguments-of-view-tracks-and-add-tracks" title="Permalink to this headline">¶</a></h2>
 <p>Both <code class="docutils literal notranslate"><span class="pre">view_tracks</span></code> and <code class="docutils literal notranslate"><span class="pre">add_tracks</span></code> have the following doc strings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -645,8 +646,8 @@ telescope:</p>
 <span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="tracks-data">
+</section>
+<section id="tracks-data">
 <h2>Tracks data<a class="headerlink" href="#tracks-data" title="Permalink to this headline">¶</a></h2>
 <p>The input data to the tracks layer must be an <code class="docutils literal notranslate"><span class="pre">NxD+1</span></code> numpy array or list
 containing the coordinates of <code class="docutils literal notranslate"><span class="pre">N</span></code> vertices with a track ID and coordinate in <code class="docutils literal notranslate"><span class="pre">D</span></code>
@@ -711,8 +712,8 @@ shown above.  We can pass the example data above to the tracks layer as follows:
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="tracks-graph">
+</section>
+<section id="tracks-graph">
 <h2>Tracks graph<a class="headerlink" href="#tracks-graph" title="Permalink to this headline">¶</a></h2>
 <p>We can use the tracks <code class="docutils literal notranslate"><span class="pre">graph</span></code> argument to define the relationships between
 tracks (e.g., tracks merging or tracks splitting). The graph is defined as a
@@ -737,8 +738,8 @@ of track 3), the dictionary would become</p>
 </div>
 <p>For a full example of 3d+t tracks data with a parent graph, please see our
 <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/tracks_3d_with_graph.py"><code class="docutils literal notranslate"><span class="pre">tracks_3d_with_graph.py</span></code> example</a>.</p>
-</div>
-<div class="section" id="using-the-tracks-properties-dictionary">
+</section>
+<section id="using-the-tracks-properties-dictionary">
 <h2>Using the tracks properties dictionary<a class="headerlink" href="#using-the-tracks-properties-dictionary" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer can contain properties that annotate the vertices of each
 track. <code class="docutils literal notranslate"><span class="pre">Tracks.properties</span></code> stores the properties in a dictionary where each key
@@ -746,14 +747,14 @@ is the name of the property and the values are numpy arrays with a value for
 each vertex in the track (i.e., length <code class="docutils literal notranslate"><span class="pre">N</span></code> for <code class="docutils literal notranslate"><span class="pre">N</span></code> vertices in <code class="docutils literal notranslate"><span class="pre">Tracks.data</span></code>).
 As we will see below, we can use the values in a property to set the display
 properties of the tracks (e.g., the track color).</p>
-</div>
-<div class="section" id="d-rendering-of-tracks">
+</section>
+<section id="d-rendering-of-tracks">
 <h2>3D rendering of tracks<a class="headerlink" href="#d-rendering-of-tracks" title="Permalink to this headline">¶</a></h2>
 <p>All our layers can be rendered in both 2D and 3D mode, and one of our viewer
 buttons can toggle between each mode. The number of dimensions sliders will be 2
 or 3 less than the total number of dimensions of the layer.</p>
-</div>
-<div class="section" id="changing-track-width">
+</section>
+<section id="changing-track-width">
 <h2>Changing track width<a class="headerlink" href="#changing-track-width" title="Permalink to this headline">¶</a></h2>
 <p>We can specify the width of the tracks in pixels. The track width can be
 specified via the <code class="docutils literal notranslate"><span class="pre">tail_width</span></code> keyword argument in the <code class="docutils literal notranslate"><span class="pre">viewer.add_tracks()</span></code> and
@@ -769,8 +770,8 @@ we can set the track width via the <code class="docutils literal notranslate"><s
 </div>
 <p>Additionally, we can adjust the width of the track in the GUI using the “tail width” slider in the Tracks layer controls.</p>
 <p><img alt="image: tracks tail width" src="../../_images/tracks_tail_width.gif" /></p>
-</div>
-<div class="section" id="changing-tail-length">
+</section>
+<section id="changing-tail-length">
 <h2>Changing tail length<a class="headerlink" href="#changing-tail-length" title="Permalink to this headline">¶</a></h2>
 <p>We can specify the length of the tails of the tracks in time units. The tail is the portion of the track displayed from previous time steps. The track tail length can be specified via the <code class="docutils literal notranslate"><span class="pre">tail_length</span> </code> keyword argument in the <code class="docutils literal notranslate"><span class="pre">viewer.add_tracks()</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code> methods. From a layer that as already been constructed, we can set the track width via the <code class="docutils literal notranslate"><span class="pre">tail_length</span> </code> property.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a tracks layer with a tail length of 5 time units</span>
@@ -783,8 +784,8 @@ we can set the track width via the <code class="docutils literal notranslate"><s
 </div>
 <p>Additionally, we can adjust the width of the track in the GUI using the “tail length” slider in the Tracks layer controls.</p>
 <p><img alt="image: tracks tail length" src="../../_images/tracks_tail_length.gif" /></p>
-</div>
-<div class="section" id="setting-the-track-color-with-properties">
+</section>
+<section id="setting-the-track-color-with-properties">
 <h2>Setting the track color with properties<a class="headerlink" href="#setting-the-track-color-with-properties" title="Permalink to this headline">¶</a></h2>
 <p>We can color the tracks by mapping colors to the track properties defined in <code class="docutils literal notranslate"><span class="pre">Tracks.properties</span></code>. If we define properties and pass them via the properties keyword argument in the <code class="docutils literal notranslate"><span class="pre">viewer.add_tracks()</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.view_tracks()</span></code> methods, we can then select the property we would like to color the tracks by in the “color by” dropdown menu in the <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer controls. We can additionally specify the colormap used to map the property value to color via the “colormap” dropdown menu.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
@@ -821,13 +822,13 @@ we can set the track width via the <code class="docutils literal notranslate"><s
 </pre></div>
 </div>
 <p><img alt="image: tracks colored by properties" src="../../_images/tracks_color_by.gif" /></p>
-</div>
-<div class="section" id="putting-it-all-together">
+</section>
+<section id="putting-it-all-together">
 <h2>Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
 <p>Here you can see an example of 3D+t tracks. You can view the source code for this example <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/tracks_3d.py">here</a></p>
 <p><img alt="image: tracks 3D plus time" src="../../_images/tracks_3d_t.gif" /></p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>napari 0.4.3 &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -594,7 +595,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="napari-0-4-3">
+  <section class="tex2jax_ignore mathjax_ignore" id="napari-0-4-3">
 <h1>napari 0.4.3<a class="headerlink" href="#napari-0-4-3" title="Permalink to this headline">¶</a></h1>
 <p>We’re happy to announce the release of napari 0.4.3!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -603,7 +604,7 @@ images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).</p>
 <p>For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari</p>
-<div class="section" id="highlights">
+<section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
 <p>In this release we’ve added two new analysis and GUI focused <a class="reference external" href="https://napari.org/docs/dev/plugins/hook_specifications.html">hook specifications</a> for our plugin developers (#2080).</p>
 <p>The first one <code class="docutils literal notranslate"><span class="pre">napari_experimental_provide_function_widget</span></code> allows you to provide a function or list of functions that we
@@ -614,15 +615,15 @@ provide analysis functionality to napari without having to write GUI code.</p>
 <p>In this release we also seperate out more of the Qt functionality from napari making it easier to run headless (#2039, #2055). We also added a <code class="docutils literal notranslate"><span class="pre">napari.run</span></code> method as an alternative to using the <code class="docutils literal notranslate"><span class="pre">napari.gui_qt</span></code> context manager (#2056).</p>
 <p>We’ve also made good progress on our <code class="docutils literal notranslate"><span class="pre">experimental</span></code> support for an octree system for rendering large 2D multiscale images. You can try this functionality setting <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE=1</span></code> as an environment variable. See our <a class="reference external" href="https://napari.org/guides/stable/rendering.html">asynchronous rendering guide</a> for more details on how to use the octree and its current limitations.</p>
 <p>Finally we’ve added our <a class="reference external" href="https://napari.org/roadmaps/0_4.html">0.4 series roadmap</a> and a <a class="reference external" href="https://napari.org/roadmaps/0_3_retrospective.html">retrospective on our 0.3 roadmap</a>!</p>
-</div>
-<div class="section" id="new-features">
+</section>
+<section id="new-features">
 <h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Add support for function widgets (#1856)</p></li>
 <li><p>Gui hookspecs (#2080)</p></li>
 </ul>
-</div>
-<div class="section" id="improvements">
+</section>
+<section id="improvements">
 <h2>Improvements<a class="headerlink" href="#improvements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Use evented dataclass for dims (#1917)</p></li>
@@ -656,8 +657,8 @@ provide analysis functionality to napari without having to write GUI code.</p>
 <li><p>Better bound magicgui viewer (#2100)</p></li>
 <li><p>reduce call of _extent_data in layer (#2106)</p></li>
 </ul>
-</div>
-<div class="section" id="bug-fixes">
+</section>
+<section id="bug-fixes">
 <h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fix append and remove from layerlist (#1955)</p></li>
@@ -681,8 +682,8 @@ provide analysis functionality to napari without having to write GUI code.</p>
 <li><p>Fix overly strict magic kwargs (#2099)</p></li>
 <li><p>Undo calling pyrcc with python sys.executable (#2102)</p></li>
 </ul>
-</div>
-<div class="section" id="api-changes">
+</section>
+<section id="api-changes">
 <h2>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">axis</span></code> parameter is no longer present on the <code class="docutils literal notranslate"><span class="pre">current_step</span></code>, <code class="docutils literal notranslate"><span class="pre">range</span></code>, or <code class="docutils literal notranslate"><span class="pre">axis_labels</span></code> events. Instead a single event is emitted whenever the tuple changes (#1917)</p></li>
@@ -694,16 +695,16 @@ can still provide keymappings, but no longer handles keymappings from other obje
 <li><p><code class="docutils literal notranslate"><span class="pre">event.text</span></code> was renamed <code class="docutils literal notranslate"><span class="pre">event.value</span></code> for the events emitted when changing <code class="docutils literal notranslate"><span class="pre">Viewer.status</span></code>, <code class="docutils literal notranslate"><span class="pre">Viewer.title</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Viewer.help</span></code>, and <code class="docutils literal notranslate"><span class="pre">event.item</span></code> was renamed <code class="docutils literal notranslate"><span class="pre">event.value</span></code> for the event emitted when changing <code class="docutils literal notranslate"><span class="pre">Viewer.active_layer</span></code> (#2038)</p></li>
 </ul>
-</div>
-<div class="section" id="deprecations">
+</section>
+<section id="deprecations">
 <h2>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">Viewer.interactive</span></code> parameter has been deprecated, instead you should use <code class="docutils literal notranslate"><span class="pre">Viewer.camera.interactive</span></code> (#2008)</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">Viewer.palette</span></code> attribute has been deprecated. To access the palette you can get it using <code class="docutils literal notranslate"><span class="pre">napari.utils.theme.register_theme</span></code> dictionary using the <code class="docutils literal notranslate"><span class="pre">viewer.theme</span></code> as the key (#2031)</p></li>
 <li><p>Annotating a magicgui function with a return type of <code class="docutils literal notranslate"><span class="pre">napari.layers.Layer</span></code> is deprecated. To indicate that your function returns a layer data tuple, please use a return annotation of <code class="docutils literal notranslate"><span class="pre">napari.types.LayerDataTuple</span></code> or <code class="docutils literal notranslate"><span class="pre">List[napari.types.LayerDataTuple]</span></code>(#2079)</p></li>
 </ul>
-</div>
-<div class="section" id="build-tools-and-support">
+</section>
+<section id="build-tools-and-support">
 <h2>Build Tools and Support<a class="headerlink" href="#build-tools-and-support" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>0.4 roadmap (#1906)</p></li>
@@ -728,8 +729,8 @@ can still provide keymappings, but no longer handles keymappings from other obje
 <li><p>Add PR 2106 to 0.4.3 release notes (#2107)</p></li>
 <li><p>Fix <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">--pyargs</span> <span class="pre">napari</span></code> test on pip install. Add CI test (#2109)</p></li>
 </ul>
-</div>
-<div class="section" id="authors-added-to-this-release-alphabetical">
+</section>
+<section id="authors-added-to-this-release-alphabetical">
 <h2>9 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">Alister Burt</a> - &#64;alisterburt</p></li>
@@ -743,8 +744,8 @@ can still provide keymappings, but no longer handles keymappings from other obje
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ziyangczi">Ziyang Liu</a> - &#64;ziyangczi</p></li>
 </ul>
-</div>
-<div class="section" id="reviewers-added-to-this-release-alphabetical">
+</section>
+<section id="reviewers-added-to-this-release-alphabetical">
 <h2>7 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=GenevieveBuckley">Genevieve Buckley</a> - &#64;GenevieveBuckley</p></li>
@@ -755,8 +756,8 @@ can still provide keymappings, but no longer handles keymappings from other obje
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ziyangczi">Ziyang Liu</a> - &#64;ziyangczi</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

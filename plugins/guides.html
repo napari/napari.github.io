@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Contribution Guides &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -362,14 +363,14 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="contribution-guides">
+  <section class="tex2jax_ignore mathjax_ignore" id="contribution-guides">
 <h1>Contribution Guides<a class="headerlink" href="#contribution-guides" title="Permalink to this headline">¶</a></h1>
 <p>This page provides guides on many of the plugin contribution patterns.
 Each provides a general overview of the purpose of the contribution and
 an example implementation. For details on the type and meaning of each
 field in a specific contribution, See the
 <a class="reference internal" href="contributions.html"><span class="doc std std-doc">contributions reference</span></a></p>
-<div class="section" id="readers">
+<section id="readers">
 <span id="readers-contribution-guide"></span><h2>Readers<a class="headerlink" href="#readers" title="Permalink to this headline">¶</a></h2>
 <p>Reader plugins may add support for new filetypes to napari.
 They are invoked whenever <code class="docutils literal notranslate"><span class="pre">viewer.open('some/path')</span></code> is used on the
@@ -392,11 +393,11 @@ the special value <code class="docutils literal notranslate"><span class="pre">[
 setting <code class="docutils literal notranslate"><span class="pre">contributions.readers.&lt;reader&gt;.accepts_directories</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>;
 otherwise, they will not be invoked when a directory is passed to <code class="docutils literal notranslate"><span class="pre">viewer.open</span></code>.</p>
 </div>
-<div class="section" id="reader-example">
+<section id="reader-example">
 <h3>Reader example<a class="headerlink" href="#reader-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="5d581a71-9f17-4c8c-8388-7c9b53510ae4" name="ef9a2b10-26a3-4a38-9b1f-c7966b4b5f79" type="radio">
-</input><label class="tabbed-label" for="5d581a71-9f17-4c8c-8388-7c9b53510ae4">
+<input checked="checked" id="cc9b8636-9825-4e54-93b9-425776e780aa" name="9869cc4b-222c-4e63-869c-0884a3653795" type="radio">
+</input><label class="tabbed-label" for="cc9b8636-9825-4e54-93b9-425776e780aa">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -435,8 +436,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="1ee9cd22-d62b-4e5e-b669-582d3e13aeab" name="ef9a2b10-26a3-4a38-9b1f-c7966b4b5f79" type="radio">
-</input><label class="tabbed-label" for="1ee9cd22-d62b-4e5e-b669-582d3e13aeab">
+<input id="1bda0989-bccd-4a40-bb2b-0e34a53c32c7" name="9869cc4b-222c-4e63-869c-0884a3653795" type="radio">
+</input><label class="tabbed-label" for="1bda0989-bccd-4a40-bb2b-0e34a53c32c7">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -465,9 +466,9 @@ napari-plugin-engine</label><div class="tabbed-content docutils">
 </div>
 </div>
 <hr class="docutils" />
-</div>
-</div>
-<div class="section" id="writers">
+</section>
+</section>
+<section id="writers">
 <span id="writers-contribution-guide"></span><h2>Writers<a class="headerlink" href="#writers" title="Permalink to this headline">¶</a></h2>
 <p>Writer plugins add support for exporting data from napari.
 They are invoked whenever <code class="docutils literal notranslate"><span class="pre">viewer.layers.save('some/path.ext')</span></code>
@@ -480,7 +481,7 @@ or more layers in the graphical user interface with
 New plugins should no longer use the old <code class="docutils literal notranslate"><span class="pre">napari_get_writer</span></code> hook
 specification from the first generation <code class="docutils literal notranslate"><span class="pre">napari_plugin_engine</span></code>.</p>
 </div>
-<div class="section" id="writer-plugin-function-signatures">
+<section id="writer-plugin-function-signatures">
 <h3>Writer plugin function signatures<a class="headerlink" href="#writer-plugin-function-signatures" title="Permalink to this headline">¶</a></h3>
 <p>Writer plugins are <em>functions</em> that:</p>
 <ol class="simple">
@@ -491,7 +492,7 @@ specification from the first generation <code class="docutils literal notranslat
 <p>They must follow one of two calling conventions (where the convention used
 is determined by the <a class="reference external" href="#layer-type-constraints"><code class="docutils literal notranslate"><span class="pre">layer_type</span></code> constraints</a> provided
 by the corresponding writer contribution in the manifest).</p>
-<div class="section" id="single-layer-writer">
+<section id="single-layer-writer">
 <h4>1. single-layer writer<a class="headerlink" href="#single-layer-writer" title="Permalink to this headline">¶</a></h4>
 <p>Single-layer writers will receive a <strong>path</strong>, layer <strong>data</strong>, and a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of layer
 <strong>attributes</strong>, (e.g. <code class="docutils literal notranslate"><span class="pre">{'name':</span> <span class="pre">'My</span> <span class="pre">Layer',</span> <span class="pre">'opacity':</span> <span class="pre">0.6}</span></code>)</p>
@@ -505,8 +506,8 @@ by the corresponding writer contribution in the manifest).</p>
 <span class="n">SingleWriterFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataType</span><span class="p">,</span> <span class="n">LayerAttributes</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="multi-layer-writer">
+</section>
+<section id="multi-layer-writer">
 <h4>2. multi-layer writer<a class="headerlink" href="#multi-layer-writer" title="Permalink to this headline">¶</a></h4>
 <p>Multi-layer writers will receive a <strong>path</strong>, and a list of full
 <a class="reference internal" href="#layer-data-tuples"><span class="std std-ref">layer data tuples</span></a>.</p>
@@ -522,9 +523,9 @@ by the corresponding writer contribution in the manifest).</p>
 <span class="n">MultiWriterFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">FullLayerData</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="layer-type-constraints">
+</section>
+</section>
+<section id="layer-type-constraints">
 <h3>Layer type constraints<a class="headerlink" href="#layer-type-constraints" title="Permalink to this headline">¶</a></h3>
 <p>Individual writer contributions are determined to be <strong>single-layer writers</strong> or
 <strong>multi-layer writers</strong> based on their <strong><code class="docutils literal notranslate"><span class="pre">writer.layer_types</span></code></strong> constraints
@@ -556,12 +557,12 @@ compatible with that type.</p>
 <code class="docutils literal notranslate"><span class="pre">Points</span></code> layers are selected (i.e. the <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer is optional). This
 writer would <em>not</em> be selected when the user tries to save an <code class="docutils literal notranslate"><span class="pre">image</span></code>
 and a <code class="docutils literal notranslate"><span class="pre">vectors</span></code> layer, because <code class="docutils literal notranslate"><span class="pre">vectors</span></code> is not listed in the <code class="docutils literal notranslate"><span class="pre">layer_types</span></code>.</p>
-</div>
-<div class="section" id="writer-example">
+</section>
+<section id="writer-example">
 <h3>Writer example<a class="headerlink" href="#writer-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="22c09b55-a95a-45e1-9e8a-6484dacbdc55" name="53e2aa4a-0637-4ba6-9165-949d79f8d2f5" type="radio">
-</input><label class="tabbed-label" for="22c09b55-a95a-45e1-9e8a-6484dacbdc55">
+<input checked="checked" id="ba14a887-a469-48a7-8f19-af14c96d5e6b" name="d5b3f251-fb32-4153-9844-32183d01bdcb" type="radio">
+</input><label class="tabbed-label" for="ba14a887-a469-48a7-8f19-af14c96d5e6b">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -590,8 +591,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="8726e380-fff0-4173-9002-c7c776b50b01" name="53e2aa4a-0637-4ba6-9165-949d79f8d2f5" type="radio">
-</input><label class="tabbed-label" for="8726e380-fff0-4173-9002-c7c776b50b01">
+<input id="707026c4-6a97-4a3a-b2e9-bbc78cb1a5b1" name="d5b3f251-fb32-4153-9844-32183d01bdcb" type="radio">
+</input><label class="tabbed-label" for="707026c4-6a97-4a3a-b2e9-bbc78cb1a5b1">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -625,9 +626,9 @@ napari-plugin-engine</label><div class="tabbed-content docutils">
 </div>
 </div>
 <hr class="docutils" />
-</div>
-</div>
-<div class="section" id="widgets">
+</section>
+</section>
+<section id="widgets">
 <span id="widgets-contribution-guide"></span><h2>Widgets<a class="headerlink" href="#widgets" title="Permalink to this headline">¶</a></h2>
 <p>Widget plugins allow developers to contribute novel graphical
 elements (aka “widgets”) to the user interface.  These widgets can request
@@ -678,11 +679,11 @@ autogenerate a widget using <code class="docutils literal notranslate"><span cla
 hook specification.  In the new <code class="docutils literal notranslate"><span class="pre">npe2</span></code> pattern, one uses the <code class="docutils literal notranslate"><span class="pre">autogenerate</span></code>
 field in the <a class="reference external" href="./contributions.html#contributions-widgets">WidgetContribution</a>.</p></li>
 </ol>
-<div class="section" id="widget-example">
+<section id="widget-example">
 <h3>Widget example<a class="headerlink" href="#widget-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="5c4a4877-0876-439e-ac00-449cce23435e" name="13ebb4d7-af7e-4ab2-928f-88e3a8ba4d36" type="radio">
-</input><label class="tabbed-label" for="5c4a4877-0876-439e-ac00-449cce23435e">
+<input checked="checked" id="a6b93819-b15b-49e8-abcd-90c385058ab2" name="6ebfb5a5-c366-4d89-a445-95af54ac7fa6" type="radio">
+</input><label class="tabbed-label" for="a6b93819-b15b-49e8-abcd-90c385058ab2">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -742,8 +743,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="15a65f8c-6ac7-4388-b219-313cb4a6a05a" name="13ebb4d7-af7e-4ab2-928f-88e3a8ba4d36" type="radio">
-</input><label class="tabbed-label" for="15a65f8c-6ac7-4388-b219-313cb4a6a05a">
+<input id="f9fb9a6b-b914-4834-b9dc-06e1ffd84c39" name="6ebfb5a5-c366-4d89-a445-95af54ac7fa6" type="radio">
+</input><label class="tabbed-label" for="f9fb9a6b-b914-4834-b9dc-06e1ffd84c39">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -799,9 +800,9 @@ napari-plugin-engine</label><div class="tabbed-content docutils">
 </div>
 </div>
 <hr class="docutils" />
-</div>
-</div>
-<div class="section" id="sample-data">
+</section>
+</section>
+<section id="sample-data">
 <span id="sample-data-contribution-guide"></span><h2>Sample Data<a class="headerlink" href="#sample-data" title="Permalink to this headline">¶</a></h2>
 <p>This contribution point allows plugin developers to contribute sample data
 that will be accessible in the napari interface via the <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">Open</span> <span class="pre">Sample</span></code>
@@ -810,11 +811,11 @@ menu, or via the command line with <code class="docutils literal notranslate"><s
 It can take the form of a <strong>Sample Data URI</strong> that points to a static resource
 (such as a file included in the plugin distribution, or a remote resource),
 or <strong>Sample Data Function</strong> that generates layer data on demand.</p>
-<div class="section" id="sample-data-example">
+<section id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="86c5c838-d9f4-491f-8292-538ea8e56512" name="8b3834cd-f939-43ed-ae96-7aac6d7ec2f7" type="radio">
-</input><label class="tabbed-label" for="86c5c838-d9f4-491f-8292-538ea8e56512">
+<input checked="checked" id="42b1a076-9905-4e51-bb00-ee57ded5c57d" name="e191a4da-40b0-4a1d-aa5c-33f27bead14f" type="radio">
+</input><label class="tabbed-label" for="42b1a076-9905-4e51-bb00-ee57ded5c57d">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -845,8 +846,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="2be6844e-e51b-4fab-b1d6-31a1a95068da" name="8b3834cd-f939-43ed-ae96-7aac6d7ec2f7" type="radio">
-</input><label class="tabbed-label" for="2be6844e-e51b-4fab-b1d6-31a1a95068da">
+<input id="3eabc6e3-c976-453c-9c81-44355c3f5668" name="e191a4da-40b0-4a1d-aa5c-33f27bead14f" type="radio">
+</input><label class="tabbed-label" for="3eabc6e3-c976-453c-9c81-44355c3f5668">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -876,15 +877,15 @@ napari-plugin-engine</label><div class="tabbed-content docutils">
 </div>
 </div>
 <hr class="docutils" />
-</div>
-</div>
-<div class="section" id="the-layerdata-tuple">
+</section>
+</section>
+<section id="the-layerdata-tuple">
 <span id="layer-data-tuples"></span><h2>The LayerData tuple<a class="headerlink" href="#the-layerdata-tuple" title="Permalink to this headline">¶</a></h2>
 <p>When transfering data to and from plugins, napari does not pass <code class="docutils literal notranslate"><span class="pre">Layer</span></code> objects
 directly. Instead, it passes (mostly) pure-python and array-like types,
 deconstructed into a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> that we refer to as a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple.  This type shows
 up often in plugins and is explained here.</p>
-<div class="section" id="informal-description">
+<section id="informal-description">
 <h3>Informal description<a class="headerlink" href="#informal-description" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">attributes</span><span class="p">,</span> <span class="p">[</span><span class="n">layer_type</span><span class="p">]])</span>
 </pre></div>
@@ -899,8 +900,8 @@ keyword arguments to the corresponding layer constructor (e.g. <code class="docu
 <code class="docutils literal notranslate"><span class="pre">'labels'</span></code>, etc…).  If not provided (i.e. if the tuple is only of length 2), the
 layer type is assumed to be <code class="docutils literal notranslate"><span class="pre">'image</span></code>’.</p></li>
 </ol>
-</div>
-<div class="section" id="formal-type-definition">
+</section>
+<section id="formal-type-definition">
 <h3>Formal type definition<a class="headerlink" href="#formal-type-definition" title="Permalink to this headline">¶</a></h3>
 <p>Formally, the typing for <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> looks like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LayerData</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">DataType</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataType</span><span class="p">,</span> <span class="n">LayerProps</span><span class="p">],</span> <span class="n">FullLayerData</span><span class="p">]</span>
@@ -930,8 +931,8 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <span class="c1"># typing than literal array types (e.g. numpy, dask, xarray, etc...)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="examples">
+</section>
+<section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
 <p>Assume that <code class="docutils literal notranslate"><span class="pre">data</span></code> is a numpy array:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -951,8 +952,8 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;My Labels&#39;</span><span class="p">,</span> <span class="s1">&#39;blending&#39;</span><span class="p">:</span> <span class="s1">&#39;additive&#39;</span><span class="p">},</span> <span class="s1">&#39;labels&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="creation-from-a-layer-instance">
+</section>
+<section id="creation-from-a-layer-instance">
 <h3>Creation from a <code class="docutils literal notranslate"><span class="pre">Layer</span></code> instance.<a class="headerlink" href="#creation-from-a-layer-instance" title="Permalink to this headline">¶</a></h3>
 <p>Note, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">as_layer_data_tuple()</span></code> method will create a layer data
 tuple from a given layer</p>
@@ -989,9 +990,9 @@ tuple from a given layer</p>
 <span class="go">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             </div>

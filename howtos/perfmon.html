@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Performance monitoring &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -580,7 +581,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="performance-monitoring">
+  <section class="tex2jax_ignore mathjax_ignore" id="performance-monitoring">
 <span id="perfmon"></span><h1>Performance monitoring<a class="headerlink" href="#performance-monitoring" title="Permalink to this headline">¶</a></h1>
 <p>If napari is not performing well, you can use
 <a class="reference internal" href="../api/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> to help
@@ -592,7 +593,7 @@ diagnose the problem.</p>
 <li><p>Write JSON trace files viewable with <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>.</p></li>
 <li><p>Time any function that you specify in the config file.</p></li>
 </ol>
-<div class="section" id="monitoring-vs-profiling">
+<section id="monitoring-vs-profiling">
 <h2>Monitoring vs. profiling<a class="headerlink" href="#monitoring-vs-profiling" title="Permalink to this headline">¶</a></h2>
 <p>Profiling is similar to performance monitoring. However profiling usually
 involves running an external tool to acquire timing data on every function
@@ -604,8 +605,8 @@ With performance monitoring napari can run at close to full speed in many
 cases. This document discusses only napari’s performance monitoring
 features. Profiling napari might be useful as well, but it is not discussed
 here.</p>
-</div>
-<div class="section" id="enabling-perfmon">
+</section>
+<section id="enabling-perfmon">
 <h2>Enabling perfmon<a class="headerlink" href="#enabling-perfmon" title="Permalink to this headline">¶</a></h2>
 <p>There are two ways to enable performance monitoring. Set the environment
 variable <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON=1</span></code> or set <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON</span></code> to the path of
@@ -622,8 +623,8 @@ creating a napari <code class="docutils literal notranslate"><span class="pre">V
 <li><p>Shows the dockable <strong>performance</strong> widget.</p></li>
 <li><p>Reveals the <strong>Debug</strong> menu which you can use to create a trace file.</p></li>
 </ol>
-</div>
-<div class="section" id="configuration-file-format">
+</section>
+<section id="configuration-file-format">
 <h2>Configuration file format<a class="headerlink" href="#configuration-file-format" title="Permalink to this headline">¶</a></h2>
 <p>Example configuration file:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
@@ -641,34 +642,34 @@ creating a napari <code class="docutils literal notranslate"><span class="pre">V
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="configuration-options">
+</section>
+<section id="configuration-options">
 <h2>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="trace-qt-events">
+<section id="trace-qt-events">
 <h3><code class="docutils literal notranslate"><span class="pre">trace_qt_events</span></code><a class="headerlink" href="#trace-qt-events" title="Permalink to this headline">¶</a></h3>
 <p>If true perfmon will time the duration of all Qt Events. You might
 want to turn this off if the overhead is noticeable, or if you want
 your trace file to be less cluttered.</p>
-</div>
-<div class="section" id="trace-file-on-start">
+</section>
+<section id="trace-file-on-start">
 <h3><code class="docutils literal notranslate"><span class="pre">trace_file_on_start</span></code><a class="headerlink" href="#trace-file-on-start" title="Permalink to this headline">¶</a></h3>
 <p>If a path is given, napari will start tracing immediately on start. In many
 cases this is much more convenient than using the <strong>Debug</strong> Menu. Be sure to
 exit napari using the <strong>Quit</strong> command. The trace file will be written on
 exit.</p>
-</div>
-<div class="section" id="trace-callables">
+</section>
+<section id="trace-callables">
 <h3><code class="docutils literal notranslate"><span class="pre">trace_callables</span></code><a class="headerlink" href="#trace-callables" title="Permalink to this headline">¶</a></h3>
 <p>Specify which <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> you want to trace. You can have many
 <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> defined, but this setting says which should be traced.</p>
-</div>
-<div class="section" id="callable-lists">
+</section>
+<section id="callable-lists">
 <h3><code class="docutils literal notranslate"><span class="pre">callable_lists</span></code><a class="headerlink" href="#callable-lists" title="Permalink to this headline">¶</a></h3>
 <p>These lists can be referenced by the <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> option. You might
 want multiple lists so they can be enabled separately.</p>
-</div>
-</div>
-<div class="section" id="trace-file">
+</section>
+</section>
+<section id="trace-file">
 <h2>Trace file<a class="headerlink" href="#trace-file" title="Permalink to this headline">¶</a></h2>
 <p>The trace file that napari produces is viewable in Chrome. Go to the
 special URL <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>. Use the <strong>Load</strong> button inside the Chrome
@@ -681,12 +682,12 @@ It is similar to <code class="docutils literal notranslate"><span class="pre">ch
 Google Doc. The format is well-documented, but there are no pictures so
 it’s not always clear how a given feature actually looks in the Chrome
 Tracing GUI.</p>
-</div>
-<div class="section" id="example-investigation">
+</section>
+<section id="example-investigation">
 <h2>Example investigation<a class="headerlink" href="#example-investigation" title="Permalink to this headline">¶</a></h2>
 <p>This is an example showing how you might use the
 <a class="reference internal" href="../api/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> module.</p>
-<div class="section" id="add-a-sleep">
+<section id="add-a-sleep">
 <h3>Add a sleep<a class="headerlink" href="#add-a-sleep" title="Permalink to this headline">¶</a></h3>
 <p>To simulate a performance problem in napari, add a <code class="docutils literal notranslate"><span class="pre">sleep()</span></code> call to the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code> method, this
@@ -699,8 +700,8 @@ will make the method take at least 100 ms:</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_history</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-a-perfmon-config-file">
+</section>
+<section id="create-a-perfmon-config-file">
 <h3>Create a perfmon config file<a class="headerlink" href="#create-a-perfmon-config-file" title="Permalink to this headline">¶</a></h3>
 <p>Create a minimal perfmon config file <code class="docutils literal notranslate"><span class="pre">/tmp/perfmon.json</span></code> that looks like this:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
@@ -714,8 +715,8 @@ will make the method take at least 100 ms:</p>
 only written on exit, and you must exit with the <strong>Quit</strong> commmand. Using
 <code class="docutils literal notranslate"><span class="pre">trace_file_on_start</span></code> is often easier than manually starting a trace using
 the <strong>Debug</strong> menu.</p>
-</div>
-<div class="section" id="run-napari">
+</section>
+<section id="run-napari">
 <h3>Run napari<a class="headerlink" href="#run-napari" title="Permalink to this headline">¶</a></h3>
 <p>Now run napari’s <code class="docutils literal notranslate"><span class="pre">add_labels</span></code> example like this:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>    <span class="nv">NAPARI_PERFMON</span><span class="o">=</span>/tmp/perfmon.json python examples/add_labels.py
@@ -729,8 +730,8 @@ is running slow:</p>
 <p>The trace file will give you much more information than the <strong>performance</strong>
 widget. Exit napari using the <strong>Quit</strong> command so that it writes the trace
 file on exit.</p>
-</div>
-<div class="section" id="view-trace-in-chrome">
+</section>
+<section id="view-trace-in-chrome">
 <h3>View trace in Chrome<a class="headerlink" href="#view-trace-in-chrome" title="Permalink to this headline">¶</a></h3>
 <p>Run Chrome and go to the URL <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>. Drag and drop
 <code class="docutils literal notranslate"><span class="pre">/tmp/latest.json</span></code> into the Chrome window, or use the <strong>Load</strong> button to
@@ -746,8 +747,8 @@ why are <code class="docutils literal notranslate"><span class="pre">MouseButton
 question we can add more timers. In this case we know the answer, but often
 you will have to guess or experiment. You might add some timers and then
 find out they actually run fast, so you can remove them.</p>
-</div>
-<div class="section" id="add-paint-method">
+</section>
+<section id="add-paint-method">
 <h3>Add paint method<a class="headerlink" href="#add-paint-method" title="Permalink to this headline">¶</a></h3>
 <p>To add the <a class="reference internal" href="../api/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> method to
 the trace, create a new list of callables named <code class="docutils literal notranslate"><span class="pre">labels</span></code> and put the
@@ -767,13 +768,13 @@ that list.</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-the-new-trace-file">
+</section>
+<section id="create-the-new-trace-file">
 <h3>Create the new trace File<a class="headerlink" href="#create-the-new-trace-file" title="Permalink to this headline">¶</a></h3>
 <p>Run <code class="docutils literal notranslate"><span class="pre">add_labels</span></code> as before, click with the paint tool, exit with the <strong>Quit</strong>
 command.</p>
-</div>
-<div class="section" id="view-the-new-trace-file">
+</section>
+<section id="view-the-new-trace-file">
 <h3>View the new trace File<a class="headerlink" href="#view-the-new-trace-file" title="Permalink to this headline">¶</a></h3>
 <p>Drop <code class="docutils literal notranslate"><span class="pre">/tmp/latest.json</span></code> into Chrome again. Now we can see that
 <code class="docutils literal notranslate"><span class="pre">MouseButtonPress</span></code> calls
@@ -789,8 +790,8 @@ add a timer that’s called thousands of times, it will add overhead and will
 clutter the trace file. In general we want to trace important and
 interesting functions. If we create a large <code class="docutils literal notranslate"><span class="pre">callable_list</span></code> we can save it
 for future use.</p>
-</div>
-<div class="section" id="advanced">
+</section>
+<section id="advanced">
 <h3>Advanced<a class="headerlink" href="#advanced" title="Permalink to this headline">¶</a></h3>
 <p>Experiment with the <a class="reference internal" href="../api/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> features and
 you will find your own tricks and techniques.</p>
@@ -815,9 +816,9 @@ prints”, things you add while investigating a problem, but you do not leave
 them in the code permanently.</p>
 <p>You can save JSON files so that you can compare how things looked
 before and after your changes.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             </div>

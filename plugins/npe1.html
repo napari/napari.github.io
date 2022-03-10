@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>1st Gen Plugin Guide (Deprecated) &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -344,7 +345,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="st-gen-plugin-guide-deprecated">
+  <section class="tex2jax_ignore mathjax_ignore" id="st-gen-plugin-guide-deprecated">
 <span id="napari-plugin-engine"></span><h1>1st Gen Plugin Guide (<em>Deprecated</em>)<a class="headerlink" href="#st-gen-plugin-guide-deprecated" title="Permalink to this headline">¶</a></h1>
 <div class="warning admonition">
 <p class="admonition-title">DEPRECATED</p>
@@ -358,7 +359,7 @@ existing plugins consider migrating soon. See the
 <a class="reference external" href="https://github.com/napari/napari-plugin-engine"><code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code></a>
 and exists for archival reference purposes during the deprecation period.</p>
 </div>
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">napari</span></code> supports plugin development through <strong>hooks</strong>:
 specific places in the napari codebase where functionality can be extended.</p>
@@ -368,7 +369,7 @@ specific places in the napari codebase where functionality can be extended.</p>
 “contract”) that a plugin developer must adhere to when writing their function
 that we promise to call somewhere in the napari codebase.
 See <a class="reference internal" href="#plugins-hook-spec"><span class="std std-ref">Step 1: Choose a hook specification to implement</span></a>.</p></li>
-<li><p><strong>Hook implementations</strong>: To make a plugin, plugin developers then write functions (“<em>hook
+<li><p><strong>Hook implementations</strong>: To make a plugin, plugin developers then write functions (”<em>hook
 implementations</em>”) and mark that function as meeting the requirements of a
 specific <em>hook specification</em> offered by napari.
 See <a class="reference internal" href="#plugins-hook-implement"><span class="std std-ref">Step 2: Write your hook implementation</span></a>.</p></li>
@@ -382,7 +383,7 @@ with <code class="docutils literal notranslate"><span class="pre">napari-plugin<
 Your plugin will then be available for users on the
 <a class="reference external" href="https://napari-hub.org/">napari hub</a>. See <a class="reference internal" href="#plugin-sharing"><span class="std std-ref">Step 4: Deploy your plugin</span></a>.</p></li>
 </ol>
-<div class="section" id="step-1-choose-a-hook-specification-to-implement">
+<section id="step-1-choose-a-hook-specification-to-implement">
 <span id="plugins-hook-spec"></span><h3>Step 1: Choose a hook specification to implement<a class="headerlink" href="#step-1-choose-a-hook-specification-to-implement" title="Permalink to this headline">¶</a></h3>
 <p>The functionality of plugins, as currently designed and implemented in
 <code class="docutils literal notranslate"><span class="pre">napari</span></code>, is rather specific in scope: They are <em>not</em> just independent code
@@ -415,8 +416,8 @@ read) and returns a <code class="docutils literal notranslate"><span class="pre"
 of <code class="docutils literal notranslate"><span class="pre">(data,)</span></code>, <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta)</span></code>, or <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta,</span> <span class="pre">layer_type)</span></code>.</p>
 <p>That seems like a bit of a mouthful! But it’s a precise (though flexible)
 contract that you can follow, and know that napari will handle the rest.</p>
-</div>
-<div class="section" id="step-2-write-your-hook-implementation">
+</section>
+<section id="step-2-write-your-hook-implementation">
 <span id="plugins-hook-implement"></span><h3>Step 2: Write your hook implementation<a class="headerlink" href="#step-2-write-your-hook-implementation" title="Permalink to this headline">¶</a></h3>
 <p>Once you have identified the <a class="reference internal" href="#hook-specifications-reference"><span class="std std-ref">hook specification</span></a> that you want to implement, you have to create
 a <em>hook implementation</em>: a function that accepts the arguments specified by the
@@ -446,7 +447,7 @@ with <a class="reference external" href="https://numpy.org/doc/stable/reference/
       <span class="k">return</span> <span class="kc">None</span>
 </pre></div>
 </div>
-<div class="section" id="decorating-your-function-with-hookimplementationmarker">
+<section id="decorating-your-function-with-hookimplementationmarker">
 <span id="hookimplementation-decorator"></span><h4>Decorating your function with <code class="docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code><a class="headerlink" href="#decorating-your-function-with-hookimplementationmarker" title="Permalink to this headline">¶</a></h4>
 <p>In order to let <code class="docutils literal notranslate"><span class="pre">napari</span></code> know that one of your functions satisfies the API of
 one of the napari <em>hook specifications</em>, you must decorate your function with
@@ -461,7 +462,7 @@ only standard lib python).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>   <span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
 </pre></div>
 </div>
-<div class="section" id="matching-hook-implementations-to-specifications">
+<section id="matching-hook-implementations-to-specifications">
 <h5>Matching hook implementations to specifications<a class="headerlink" href="#matching-hook-implementations-to-specifications" title="Permalink to this headline">¶</a></h5>
 <p>By default, <code class="docutils literal notranslate"><span class="pre">napari</span></code> matches your implementation to one of our hook
 specifications by looking at the <em>name</em> of your decorated function. So in the
@@ -484,10 +485,10 @@ implementation decorator:</p>
 </div>
 <p>This allows you to specify multiple hook implementations of the same hook
 specification in the same module or class, without needing a separate entry point.</p>
-</div>
-</div>
-</div>
-<div class="section" id="step-3-make-your-plugin-discoverable">
+</section>
+</section>
+</section>
+<section id="step-3-make-your-plugin-discoverable">
 <span id="plugin-discovery"></span><h3>Step 3: Make your plugin discoverable<a class="headerlink" href="#step-3-make-your-plugin-discoverable" title="Permalink to this headline">¶</a></h3>
 <p>Packages and modules installed in the same environment as <code class="docutils literal notranslate"><span class="pre">napari</span></code> may make
 themselves “discoverable” to napari using package metadata, as outlined in the
@@ -514,14 +515,14 @@ functionality by simply installing your package along with napari:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   pip install napari mypackage
 </pre></div>
 </div>
-</div>
-<div class="section" id="step-4-deploy-your-plugin">
+</section>
+<section id="step-4-deploy-your-plugin">
 <span id="plugin-sharing"></span><h3>Step 4: Deploy your plugin<a class="headerlink" href="#step-4-deploy-your-plugin" title="Permalink to this headline">¶</a></h3>
 <p>See <a class="reference internal" href="test_deploy.html"><span class="doc std std-doc">testing and deploying</span></a> your plugin.  (This hasn’t changed
 significantly with the secod generation (<code class="docutils literal notranslate"><span class="pre">npe2</span></code>) plugin engine).</p>
-</div>
-</div>
-<div class="section" id="cookiecutter-template">
+</section>
+</section>
+<section id="cookiecutter-template">
 <span id="plugin-cookiecutter-template"></span><h2>Cookiecutter template<a class="headerlink" href="#cookiecutter-template" title="Permalink to this headline">¶</a></h2>
 <p>To quickly generate a new napari plugin project, you may wish to use the
 <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template. This uses
@@ -536,8 +537,8 @@ cookiecutter https://github.com/napari/cookiecutter-napari-plugin
 </div>
 <p>See the <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">readme</a> for details</p>
 <hr class="docutils" />
-</div>
-<div class="section" id="hook-specification-reference">
+</section>
+<section id="hook-specification-reference">
 <span id="hook-specifications-reference"></span><h2>Hook Specification Reference<a class="headerlink" href="#hook-specification-reference" title="Permalink to this headline">¶</a></h2>
 <p>All napari hook specifications for pluggable functionality are defined here.</p>
 <p>A <em>hook specification</em> is a function signature (with documentation) that
@@ -564,7 +565,7 @@ convention in napari is to name them more explicitly:
 <code class="docutils literal notranslate"><span class="pre">napari_hook_specification</span></code> and <code class="docutils literal notranslate"><span class="pre">napari_hook_implementation</span></code>,
 respectively.</p>
 </div>
-<div class="section" id="io-hooks">
+<section id="io-hooks">
 <h3>IO hooks<a class="headerlink" href="#io-hooks" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="napari.plugins.hook_specifications.napari_provide_sample_data">
@@ -730,7 +731,7 @@ path or write the layer_data, must return <code class="docutils literal notransl
 </dl>
 </dd></dl>
 
-<div class="section" id="single-layers-io">
+<section id="single-layers-io">
 <span id="write-single-layer-hookspecs"></span><h4>Single Layers IO<a class="headerlink" href="#single-layers-io" title="Permalink to this headline">¶</a></h4>
 <p>The following hook specifications will be called when a user saves a single
 layer in napari, and should save the layer to the requested format and return
@@ -906,9 +907,9 @@ Otherwise, if nothing was done, return <code class="docutils literal notranslate
 </dl>
 </dd></dl>
 
-</div>
-</div>
-<div class="section" id="analysis-hooks">
+</section>
+</section>
+<section id="analysis-hooks">
 <h3>Analysis hooks<a class="headerlink" href="#analysis-hooks" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="napari.plugins.hook_specifications.napari_experimental_provide_function">
@@ -946,8 +947,8 @@ them.</p>
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="gui-hooks">
+</section>
+<section id="gui-hooks">
 <h3>GUI hooks<a class="headerlink" href="#gui-hooks" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="napari.plugins.hook_specifications.napari_experimental_provide_theme">
@@ -1070,16 +1071,16 @@ or class.</p>
 </div>
 </dd></dl>
 
-</div>
-</div>
-<div class="section" id="help">
+</section>
+</section>
+<section id="help">
 <h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
 <p>If you run into trouble creating your plugin, please don’t hesitate to reach
 out for help in the <a class="reference external" href="https://forum.image.sc/tag/napari">Image.sc Forum</a>.
 Alternatively, if you find a bug or have a specific feature request for plugin
 support, please open an issue at our <a class="reference external" href="https://github.com/napari/napari/issues/new/choose">GitHub issue tracker</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

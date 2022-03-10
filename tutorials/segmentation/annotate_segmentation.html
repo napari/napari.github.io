@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Annotating segmentation with text and bounding boxes &#8212; napari</title>
   <link rel="stylesheet" href="../../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
@@ -495,7 +496,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="annotating-segmentation-with-text-and-bounding-boxes">
+  <section class="tex2jax_ignore mathjax_ignore" id="annotating-segmentation-with-text-and-bounding-boxes">
 <h1>Annotating segmentation with text and bounding boxes<a class="headerlink" href="#annotating-segmentation-with-text-and-bounding-boxes" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu’s method, but this same approach could also be used to visualize the results of other image processing algorithms such as <a class="reference external" href="https://www.tensorflow.org/lite/models/object_detection/overview">object detection with neural networks</a>.</p>
 <p><img alt="image: annotated bounding box" src="../../_images/annotated_bbox.png" /></p>
@@ -631,7 +632,7 @@
 
 </pre></div>
 </div>
-<div class="section" id="segmentation">
+<section id="segmentation">
 <h2>Segmentation<a class="headerlink" href="#segmentation" title="Permalink to this headline">¶</a></h2>
 <p>We start by defining a function to perform segmentation of an image based on intensity. Based on the <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding.html">skimage segmentation example</a>, we determine the threshold intensity that separates the foreground and background pixels using <a class="reference external" href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu’s method</a>. We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
@@ -677,8 +678,8 @@
 </pre></div>
 </div>
 <p><img alt="image: segmentation labels" src="../../_images/segmentation_labels.png" /></p>
-</div>
-<div class="section" id="analyzing-the-segmentation">
+</section>
+<section id="analyzing-the-segmentation">
 <h2>Analyzing the segmentation<a class="headerlink" href="#analyzing-the-segmentation" title="Permalink to this headline">¶</a></h2>
 <p>Next, we use <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table"><code class="docutils literal notranslate"><span class="pre">regionprops_table</span></code></a> from skimage to quantify some parameters of each detection object (e.g., area and perimeter).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the properties dictionary</span>
@@ -767,8 +768,8 @@
 <span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">properties</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="visualizing-the-segmentation-results">
+</section>
+<section id="visualizing-the-segmentation-results">
 <h2>Visualizing the segmentation results<a class="headerlink" href="#visualizing-the-segmentation-results" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have performed out analysis, we can visualize the results in napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels, and (3) Shapes.</p>
 <p>As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows:</p>
@@ -792,8 +793,8 @@
 </div>
 <p><img alt="image: segmentation bounding box" src="../../_images/segmentation_bbox.png" /></p>
 <p>The first positional argument (<code class="docutils literal notranslate"><span class="pre">bbox_rects</span></code>) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (<code class="docutils literal notranslate"><span class="pre">face_color='transparent'</span></code>) and the edges of the bounding box are green (<code class="docutils literal notranslate"><span class="pre">edge_color='green'</span></code>). Finally, the name of the layer displayed in the layer list in the napari GUI is <code class="docutils literal notranslate"><span class="pre">bounding</span> <span class="pre">box</span></code> (<code class="docutils literal notranslate"><span class="pre">name='bounding</span> <span class="pre">box'</span></code>).</p>
-</div>
-<div class="section" id="annotating-shapes-with-text">
+</section>
+<section id="annotating-shapes-with-text">
 <h2>Annotating shapes with text<a class="headerlink" href="#annotating-shapes-with-text" title="Permalink to this headline">¶</a></h2>
 <p>We can further annotate our analysis by using text to display properties of each segmentation. The code to create a shapes layer with text is pasted here and explained below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
@@ -865,13 +866,13 @@
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="summary">
+</section>
+<section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>In this tutorial, we have used napari to view and annotate segmentation results.</p>
 <p><img alt="image: annotated bounding box" src="../../_images/annotated_bbox.png" /></p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

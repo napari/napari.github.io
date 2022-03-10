@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Asynchronous rendering &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -551,14 +552,14 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="asynchronous-rendering">
+  <section class="tex2jax_ignore mathjax_ignore" id="asynchronous-rendering">
 <span id="rendering"></span><h1>Asynchronous rendering<a class="headerlink" href="#asynchronous-rendering" title="Permalink to this headline">¶</a></h1>
 <p>As discussed in the explanations document on rendering, asynchronous
 rendering is a feature that allows napari to stay usable and responsive
 even when data is loading slowly. There are two experimental asynchronous
 rendering features, they can be enabled using the environment variables
 <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC</span></code> and <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code>.</p>
-<div class="section" id="napari-async">
+<section id="napari-async">
 <h2>NAPARI_ASYNC<a class="headerlink" href="#napari-async" title="Permalink to this headline">¶</a></h2>
 <p>Running napari with <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC=1</span></code> enables asynchronous rendering using
 the existing <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> class. The
@@ -575,7 +576,7 @@ call <code class="docutils literal notranslate"><span class="pre">np.asarray()</
 it will call <code class="xref py py-meth docutils literal notranslate"><span class="pre">on_chunk_loaded()</span></code> with
 the loaded data. The next frame <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>
 can display the new data.</p>
-<div class="section" id="time-series-data">
+<section id="time-series-data">
 <h3>Time-series data<a class="headerlink" href="#time-series-data" title="Permalink to this headline">¶</a></h3>
 <p>Without <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC</span></code> napari will block when switching slices. Napari
 will hang until the new slice has loaded. If the slice loads slowly enough
@@ -584,8 +585,8 @@ is hung.</p>
 <p>Asynchronous rendering allows the user to interrupt the loading of a slice
 at any time. The user can freely move the slice slider. This is especially
 nice for remote or slow-loading data.</p>
-</div>
-<div class="section" id="multi-scale-images">
+</section>
+<section id="multi-scale-images">
 <h3>Multi-scale images<a class="headerlink" href="#multi-scale-images" title="Permalink to this headline">¶</a></h3>
 <p>With today’s <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> class there are no
 tiles or chunks. Instead, whenever the camera is panned or zoomed napari
@@ -604,9 +605,9 @@ or tiles when the image is panned the existing tiles are translated and
 re-used. Then the viewer only needs to fetch tiles which newly slid onto
 the screen. This style of rendering what our <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code> flag
 enables.</p>
-</div>
-</div>
-<div class="section" id="napari-octree">
+</section>
+</section>
+<section id="napari-octree">
 <h2>NAPARI_OCTREE<a class="headerlink" href="#napari-octree" title="Permalink to this headline">¶</a></h2>
 <p>Set <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE=1</span></code> to use the experimental
 <code class="xref py py-class docutils literal notranslate"><span class="pre">OctreeImage</span></code> class
@@ -625,7 +626,7 @@ may not function with 3D images or multiple images. Improving support
 for 3D and multiple images is part of future work on the <code class="docutils literal notranslate"><span class="pre">OCTREE</span></code>.</p>
 </div>
 <p>See <a class="reference internal" href="#octree-config"><span class="std std-ref">Octree configuration file</span></a> for Octree configuration options.</p>
-<div class="section" id="octree-visuals">
+<section id="octree-visuals">
 <h3>Octree visuals<a class="headerlink" href="#octree-visuals" title="Permalink to this headline">¶</a></h3>
 <p>The visual portion of Octree rendering is implemented by three classes:
 <code class="xref py py-class docutils literal notranslate"><span class="pre">VispyTiledImageLayer</span></code>,
@@ -659,8 +660,8 @@ scene graph changes and shader rebuilds. At the time the scene graph
 changes were causing crashes with <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>, but the atlas approach is better
 for multiple reasons, so even if that crash were fixed the atlas is a
 better solution.</p>
-</div>
-<div class="section" id="octree-rendering">
+</section>
+<section id="octree-rendering">
 <h3>Octree rendering<a class="headerlink" href="#octree-rendering" title="Permalink to this headline">¶</a></h3>
 <p>The interface between the visuals and the Octree is the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">OctreeImage</span></code> method
@@ -726,8 +727,8 @@ shows how many ideal chunks are “covered” by a chunk at a higher level:</p>
 <p>Although data 3 levels above will be quite blurry, it’s pretty amazing you
 can load one chunk and it will cover 64 ideal chunks. This is the heart of
 the power of Octrees, Quadtrees or image pyramids.</p>
-</div>
-<div class="section" id="octree-configuration-file">
+</section>
+<section id="octree-configuration-file">
 <span id="octree-config"></span><h3>Octree configuration file<a class="headerlink" href="#octree-configuration-file" title="Permalink to this headline">¶</a></h3>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE=1</span></code> enables Octree rendering with the default
 configuration. To customize the configuration set <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code> to be
@@ -818,8 +819,8 @@ loading chunks at the ideal level or one above. While the second with key
 <p>Each loader uses the <code class="docutils literal notranslate"><span class="pre">loader_defaults</span></code> but you can override the
 <code class="docutils literal notranslate"><span class="pre">num_workers</span></code>, <code class="docutils literal notranslate"><span class="pre">auto_sync_ms</span></code> and <code class="docutils literal notranslate"><span class="pre">delay_queue_ms</span></code> values in
 each loader defined in <code class="docutils literal notranslate"><span class="pre">loaders</span></code>.</p>
-</div>
-<div class="section" id="multiple-loaders">
+</section>
+<section id="multiple-loaders">
 <h3>Multiple loaders<a class="headerlink" href="#multiple-loaders" title="Permalink to this headline">¶</a></h3>
 <p>We allow multiple loaders to improve loading performance. There are a lot
 of different strategies one could use when loading chunks. For example,
@@ -846,8 +847,8 @@ start loading the ideal chunks.</p>
 to experiment to figure out the best configuration. And figure out how that
 configuration needs to vary based on the latency of the data or other
 considerations.</p>
-</div>
-<div class="section" id="future-work-compatibility-with-the-existing-image-class">
+</section>
+<section id="future-work-compatibility-with-the-existing-image-class">
 <h3>Future work: Compatibility with the existing Image class<a class="headerlink" href="#future-work-compatibility-with-the-existing-image-class" title="Permalink to this headline">¶</a></h3>
 <p>The focus for initial Octree development was Octree-specific behaviors and
 infrastructure. Loading chunks asynchronously and rendering them as
@@ -872,15 +873,15 @@ on. This might involve chaining to the base class or it could mean
 duplicating that functionality somehow in the derived class.</p>
 <p>Some <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> functionality that needs to
 be duplicated in Octree code:</p>
-<div class="section" id="contrast-limits-and-color-transforms">
+<section id="contrast-limits-and-color-transforms">
 <h4>Contrast limits and color transforms<a class="headerlink" href="#contrast-limits-and-color-transforms" title="Permalink to this headline">¶</a></h4>
 <p>The contrast limit code in Vispy’s <code class="docutils literal notranslate"><span class="pre">ImageVisual</span></code> needs to be moved into
 the tiled visual’s
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_build_texture()</span></code>.
 Instead operating on <code class="docutils literal notranslate"><span class="pre">self.data</span></code> it needs to transform tile’s which are newly
 being added to the visual. The color transform similarly needs to be per-tile.</p>
-</div>
-<div class="section" id="blending-and-opacity">
+</section>
+<section id="blending-and-opacity">
 <h4>Blending and opacity<a class="headerlink" href="#blending-and-opacity" title="Permalink to this headline">¶</a></h4>
 <p>It might be hard to get opacity working correctly for tiles where loads are
 in progress. The way
@@ -907,8 +908,8 @@ loaded). Aside from blending, this would address a common complaint with
 tiled image viewers: you often can’t tell if the data is still being
 loaded. This could be a big issue for scientific uses, you don’t want
 people drawing the wrong conclusions from the data.</p>
-</div>
-<div class="section" id="time-series-multiscale">
+</section>
+<section id="time-series-multiscale">
 <h4>Time-series multiscale<a class="headerlink" href="#time-series-multiscale" title="Permalink to this headline">¶</a></h4>
 <p>To make time-series multiscale work should not be too hard. We just need to
 correctly create a new
@@ -918,9 +919,9 @@ time the slice changes.</p>
 to stop creating the “extra” downsampled levels, as described in <a class="reference internal" href="#future-work-atlas-2d"><span class="std std-ref">Future work: Extending TextureAtlas2D</span></a>. We need to make sure constructing and
 tearing down the Octree is fast enough, and make sure loads for the
 previous slices are canceled and everything is cleaned up.</p>
-</div>
-</div>
-<div class="section" id="future-work-extending-textureatlas2d">
+</section>
+</section>
+<section id="future-work-extending-textureatlas2d">
 <span id="future-work-atlas-2d"></span><h3>Future work: Extending TextureAtlas2D<a class="headerlink" href="#future-work-extending-textureatlas2d" title="Permalink to this headline">¶</a></h3>
 <p>We could improve our
 <code class="xref py py-class docutils literal notranslate"><span class="pre">TextureAtlas2D</span></code> class in
@@ -955,8 +956,8 @@ though, we need to render small images just as efficiently as the
 Octree rendering to worsen cases which work well today. To keep today’s
 performance for smaller images we probably need to add support for variable
 size tiles.</p>
-</div>
-<div class="section" id="future-work-level-zero-only-octrees">
+</section>
+<section id="future-work-level-zero-only-octrees">
 <h3>Future work: Level-zero-only Octrees<a class="headerlink" href="#future-work-level-zero-only-octrees" title="Permalink to this headline">¶</a></h3>
 <p>In issue <a class="reference external" href="https://github.com/napari/napari/issues/1300">#1300</a> it takes
 1500ms to switch slices. There we are rendering a (16384, 16384) image that
@@ -979,8 +980,8 @@ grid of tiles. How would this look to the user? With this approach
 switching slices would be similar to panning and zooming a multiscale
 Octree image, you’d see the new tiles loading in over time, but the
 framerate would not tank, and you could switch slices at any time.</p>
-</div>
-<div class="section" id="future-work-caching">
+</section>
+<section id="future-work-caching">
 <h3>Future work: Caching<a class="headerlink" href="#future-work-caching" title="Permalink to this headline">¶</a></h3>
 <p>Basically no work has gone into caching or memory management for Octree
 data. It’s very likely there are leaks and extended usage will run out of
@@ -999,9 +1000,9 @@ what we are currently drawing.</p>
 <code class="docutils literal notranslate"><span class="pre">OctreeChunks</span></code> and tiles in VRAM, so that reviewing the same data is
 nearly instant. This is adding complexity, but the performance might be
 worth it.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             </div>

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Organization of Documentation for napari &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -559,22 +560,22 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="organization-of-documentation-for-napari">
+  <section class="tex2jax_ignore mathjax_ignore" id="organization-of-documentation-for-napari">
 <span id="docs-dev"></span><h1>Organization of Documentation for napari<a class="headerlink" href="#organization-of-documentation-for-napari" title="Permalink to this headline">¶</a></h1>
 <p>The organization of documentation for the napari project is currently split into three repositories:
 the <a class="reference external" href="https://github.com/napari/napari"><code class="docutils literal notranslate"><span class="pre">napari/napari</span></code></a> repo which houses the source code for napari, the <a class="reference external" href="https://github.com/napari/docs"><code class="docutils literal notranslate"><span class="pre">napari/docs</span></code></a> repo which contains legacy and version-specific API documentation and guides, and the <a class="reference external" href="https://github.com/napari/napari.github.io"><code class="docutils literal notranslate"><span class="pre">napari/napari.github.io</span></code></a> repo that makes up the main <a class="reference external" href="https://napari.org">napari.org</a> site, comprising of tutorials and copied-over files from the <a class="reference external" href="https://github.com/napari/napari"><code class="docutils literal notranslate"><span class="pre">napari/napari</span></code></a> repo.</p>
-<div class="section" id="location-of-documentation-sources">
+<section id="location-of-documentation-sources">
 <h2>Location of documentation sources<a class="headerlink" href="#location-of-documentation-sources" title="Permalink to this headline">¶</a></h2>
 <p>API docs, guides, plugins, roadmaps, releases, developer guides, developer resources, and community resources live in the <a class="reference external" href="https://github.com/napari/napari"><code class="docutils literal notranslate"><span class="pre">napari/napari</span></code></a> repo under the <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory. For backwards compatibility with the previous structure as used in <a class="reference external" href="https://github.com/napari/docs"><code class="docutils literal notranslate"><span class="pre">napari/docs</span></code></a>, some files are “duplicated” by using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/sphinx/use.html#include-a-file-from-outside-the-docs-folder-like-readme-md">MyST <code class="docutils literal notranslate"><span class="pre">include</span></code> directive</a>.</p>
 <p>Tutorials, the main index page, and the WIP sphinx theme are in the <a class="reference external" href="https://github.com/napari/napari.github.io"><code class="docutils literal notranslate"><span class="pre">napari/napari.github.io</span></code></a> repo.</p>
 <p>The <a class="reference external" href="https://github.com/napari/docs"><code class="docutils literal notranslate"><span class="pre">napari/docs</span></code></a> repo contains no original documentation sources.</p>
-</div>
-<div class="section" id="bringing-it-all-together">
+</section>
+<section id="bringing-it-all-together">
 <h2>Bringing it all together<a class="headerlink" href="#bringing-it-all-together" title="Permalink to this headline">¶</a></h2>
 <p>For the <a class="reference external" href="https://github.com/napari/docs"><code class="docutils literal notranslate"><span class="pre">napari/docs</span></code></a> repo, files are built in <code class="docutils literal notranslate"><span class="pre">docs/_build/html</span></code> in the main <a class="reference external" href="https://github.com/napari/napari"><code class="docutils literal notranslate"><span class="pre">napari/napari</span></code></a> repo and then copied over to the appropriate version number or <code class="docutils literal notranslate"><span class="pre">dev</span></code> using an automated process.</p>
 <p>Documentation sources are copied over to <code class="docutils literal notranslate"><span class="pre">napari.github.io</span></code> using the <code class="docutils literal notranslate"><span class="pre">copy-docs.py</span></code> script (found in the <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory of <a class="reference external" href="https://github.com/napari/napari"><code class="docutils literal notranslate"><span class="pre">napari/napari</span></code></a>). Duplicate files are excluded and the table of contents is automatically updated. Specifying which files should be copied / excluded can be modified in the script itself. This script is automatically run in continuous integration and the changes are pushed to the <a class="reference external" href="https://github.com/napari/napari.github.io"><code class="docutils literal notranslate"><span class="pre">napari/napari.github.io</span></code></a> repo, which will then automatically build and update the site.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

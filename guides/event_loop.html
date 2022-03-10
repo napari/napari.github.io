@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>An introduction to the event loop in napari &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -509,14 +510,14 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="an-introduction-to-the-event-loop-in-napari">
+  <section class="tex2jax_ignore mathjax_ignore" id="an-introduction-to-the-event-loop-in-napari">
 <span id="intro-to-event-loop"></span><h1>An introduction to the event loop in napari<a class="headerlink" href="#an-introduction-to-the-event-loop-in-napari" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="brief-summary">
+<section id="brief-summary">
 <h2>Brief summary<a class="headerlink" href="#brief-summary" title="Permalink to this headline">¶</a></h2>
 <p>It is not necessary to have a deep understanding of Qt or event loops to use
 napari. napari attempts to use “sane defaults” for most scenarios. Here are the
 most important details:</p>
-<div class="section" id="in-ipython-or-jupyter-notebook">
+<section id="in-ipython-or-jupyter-notebook">
 <h3>In IPython or Jupyter Notebook<a class="headerlink" href="#in-ipython-or-jupyter-notebook" title="Permalink to this headline">¶</a></h3>
 <p>napari will detect if you are running an IPython or Jupyter shell, and will
 automatically use the <a class="reference external" href="https://ipython.readthedocs.io/en/stable/config/eventloops.html#integrating-with-gui-event-loops">IPython GUI event
@@ -541,8 +542,8 @@ event loop for you in IPython, then you can disable it with:</p>
 </div>
 <p>… but then you will have to start the program yourself as described <a class="reference external" href="#in-a-script">below</a>.</p>
 </div>
-</div>
-<div class="section" id="in-a-script">
+</section>
+<section id="in-a-script">
 <h3>In a script<a class="headerlink" href="#in-a-script" title="Permalink to this headline">¶</a></h3>
 <p>Outside of IPython, you must tell napari when to “start the program” using
 <a class="reference internal" href="../api/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a>.  This will <em>block</em> execution of your script at that point,
@@ -559,10 +560,10 @@ closes, execution of the script will proceed.</p>
 <span class="c1"># Anything below here will execute only after the viewer is closed.</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 <hr class="docutils" />
-<div class="section" id="more-in-depth">
+<section id="more-in-depth">
 <h2>More in depth…<a class="headerlink" href="#more-in-depth" title="Permalink to this headline">¶</a></h2>
 <p>Like most applications with a graphical user interface (GUI), napari operates
 within an <strong>event loop</strong> that waits for – and responds to – events triggered by
@@ -584,8 +585,8 @@ like this (in pseudo-code):</p>
 </div>
 <p>Actions taken by the user add events to the queue (e.g. “button pressed”,
 “slider moved”, etc…), and the event loop handles them one at a time.</p>
-</div>
-<div class="section" id="qt-applications-and-event-loops">
+</section>
+<section id="qt-applications-and-event-loops">
 <h2>Qt applications and event loops<a class="headerlink" href="#qt-applications-and-event-loops" title="Permalink to this headline">¶</a></h2>
 <p>Currently, napari uses Qt as its GUI backend, and the main loop handling events
 in napari is the <a class="reference external" href="https://wiki.qt.io/Threads_Events_QObjects#Events_and_the_event_loop">Qt
@@ -612,7 +613,7 @@ application’s event loop:</p>
 </div>
 </li>
 </ol>
-<div class="section" id="napari-s-qapplication">
+<section id="napari-s-qapplication">
 <h3>napari’s <code class="docutils literal notranslate"><span class="pre">QApplication</span></code><a class="headerlink" href="#napari-s-qapplication" title="Permalink to this headline">¶</a></h3>
 <p>In napari, the initial step of creating the <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> is handled by
 <code class="xref py py-func docutils literal notranslate"><span class="pre">napari.qt.get_app()</span></code>.  (Note however, that napari will do this for you
@@ -652,9 +653,9 @@ usage of napari.</p>
 </div>
 <p>Now that you have an understanding of how napari creates the event loop, you may
 wish to learn more about <a class="reference internal" href="../howtos/connecting_events.html#connecting-events"><span class="std std-ref">hooking up your own actions</span></a> and callbacks to specific events.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             </div>

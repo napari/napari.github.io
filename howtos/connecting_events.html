@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Hooking up your own events &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -490,7 +491,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="hooking-up-your-own-events">
+  <section class="tex2jax_ignore mathjax_ignore" id="hooking-up-your-own-events">
 <span id="connecting-events"></span><h1>Hooking up your own events<a class="headerlink" href="#hooking-up-your-own-events" title="Permalink to this headline">¶</a></h1>
 <p>If you’re coming from a background of scripting or working with python in an
 interactive console, thinking in terms of the “event loop” can feel a bit
@@ -507,7 +508,7 @@ to find examples of creating and handling internal events, respectively.</p>
 <p>If you would like to set up a custom event listener then you need to hook into
 the napari event loop. We offer a couple of convenience decorators to easily
 connect functions to key and mouse events.</p>
-<div class="section" id="listening-for-keypress-events">
+<section id="listening-for-keypress-events">
 <h2>Listening for keypress events<a class="headerlink" href="#listening-for-keypress-events" title="Permalink to this headline">¶</a></h2>
 <p>One option is to use keybindings, that will listen for keypresses and then call
 some callback whenever pressed, with the viewer instance passed as an argument
@@ -535,8 +536,8 @@ pressed:</p>
 </div>
 <p>See also this <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/custom_key_bindings.py">custom key bindings
 example</a>.</p>
-</div>
-<div class="section" id="listening-for-mouse-events">
+</section>
+<section id="listening-for-mouse-events">
 <h2>Listening for mouse events<a class="headerlink" href="#listening-for-mouse-events" title="Permalink to this headline">¶</a></h2>
 <p>You can also listen for and react to mouse events, like a click or drag event,
 as shown here where we update the image with random data every time it is
@@ -570,8 +571,8 @@ functions</a>
 and <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/mouse_drag_callback.py">mouse drag
 callback</a>
 examples.</p>
-</div>
-<div class="section" id="connection-functions-to-native-napari-events">
+</section>
+<section id="connection-functions-to-native-napari-events">
 <h2>Connection functions to native napari events<a class="headerlink" href="#connection-functions-to-native-napari-events" title="Permalink to this headline">¶</a></h2>
 <p>If you want something to happen following some event that happens <em>within</em>
 napari, the trick becomes knowing which native signals any given napari object
@@ -598,8 +599,8 @@ function that accepts the event object:</p>
 <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">print_layer_name</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="long-running-blocking-functions">
+</section>
+<section id="long-running-blocking-functions">
 <h2>Long-running, blocking functions<a class="headerlink" href="#long-running-blocking-functions" title="Permalink to this headline">¶</a></h2>
 <p>An important detail here is that the napari event loop is running in a <em>single
 thread</em>.  This works just fine if the handling of each event is very short, as
@@ -619,8 +620,8 @@ must wait!</p>
 event can be processed until it’s done</em>.  In this scenario, it’s best to put
 your long-running function into another thread or process.  <code class="docutils literal notranslate"><span class="pre">napari</span></code> provides a
 convenience for that, described in <a class="reference internal" href="../guides/threading.html#multithreading-in-napari"><span class="std std-ref">Multithreading in napari</span></a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

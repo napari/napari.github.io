@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>napari 0.4.5 &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -599,7 +600,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="napari-0-4-5">
+  <section class="tex2jax_ignore mathjax_ignore" id="napari-0-4-5">
 <h1>napari 0.4.5<a class="headerlink" href="#napari-0-4-5" title="Permalink to this headline">¶</a></h1>
 <p>We’re happy to announce the release of napari 0.4.5!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -608,7 +609,7 @@ images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-based
 rendering), and the scientific Python stack (numpy, scipy).</p>
 <p>For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari</p>
-<div class="section" id="highlights">
+<section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
 <p>This release is our first release using Jupyter Book to build our documentation (#2187)
 which can be seen at https://napari.org/docs/dev/, or
@@ -618,14 +619,14 @@ together. You can read more about our website reorganization in (#764).</p>
 <p>We’ve also added exprimental support for the ability to link attribute in layers which could
 be useful for synchronizing attribute values across layers, for example to
 set matching contrast limits for multiple channels (#2226).</p>
-</div>
-<div class="section" id="new-features">
+</section>
+<section id="new-features">
 <h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Add experimental link_layers (#2226)</p></li>
 </ul>
-</div>
-<div class="section" id="improvements">
+</section>
+<section id="improvements">
 <h2>Improvements<a class="headerlink" href="#improvements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Replace evented dataclasses with pydantic evented model on viewer (#2042)</p></li>
@@ -638,8 +639,8 @@ set matching contrast limits for multiple channels (#2226).</p>
 <li><p>Support equality checking for arrays (or other unusual types) in EventedModel. (#2232)</p></li>
 <li><p>Make get_stylesheet public (#2241)</p></li>
 </ul>
-</div>
-<div class="section" id="bug-fixes">
+</section>
+<section id="bug-fixes">
 <h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fix show/ hide plugin widgets (#2173)</p></li>
@@ -648,14 +649,14 @@ set matching contrast limits for multiple channels (#2226).</p>
 <li><p>Fix close procedure (#2220)</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">napari.run</span></code>, prevent double-blocking (#2225)</p></li>
 </ul>
-</div>
-<div class="section" id="documentation">
+</section>
+<section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Convert docs to use Jupyter Book (#2187)</p></li>
 </ul>
-</div>
-<div class="section" id="api-changes">
+</section>
+<section id="api-changes">
 <h2>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Removed github searching for plugin discovery, instead the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifer should be used (#2228)</p></li>
@@ -664,14 +665,14 @@ set matching contrast limits for multiple channels (#2226).</p>
 <li><p>The deprecated <code class="docutils literal notranslate"><span class="pre">Viewer.palette</span></code> attribute has been removed. To access the palette you can get it using <code class="docutils literal notranslate"><span class="pre">napari.utils.theme.register_theme</span></code> dictionary using the <code class="docutils literal notranslate"><span class="pre">viewer.theme</span></code> as the key (#2198)</p></li>
 <li><p>The deprecated approach of annotating a magicgui function with a return type of <code class="docutils literal notranslate"><span class="pre">napari.layers.Layer</span></code> has been removed. To indicate that your function returns a layer data tuple, please use a return annotation of <code class="docutils literal notranslate"><span class="pre">napari.types.LayerDataTuple</span></code> or <code class="docutils literal notranslate"><span class="pre">List[napari.types.LayerDataTuple]</span></code>(#2198)</p></li>
 </ul>
-</div>
-<div class="section" id="deprecations">
+</section>
+<section id="deprecations">
 <h2>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">asdict</span></code> method has been renamed <code class="docutils literal notranslate"><span class="pre">dict</span></code> and is now deprecated on <code class="docutils literal notranslate"><span class="pre">Axes</span></code>, <code class="docutils literal notranslate"><span class="pre">Camera</span></code>, <code class="docutils literal notranslate"><span class="pre">Cursor</span></code>, <code class="docutils literal notranslate"><span class="pre">Dims,</span> </code>GridCanvas<code class="docutils literal notranslate"><span class="pre">,</span> </code>ScaleBar` (#2197)</p></li>
 </ul>
-</div>
-<div class="section" id="build-tools-and-support">
+</section>
+<section id="build-tools-and-support">
 <h2>Build Tools and Support<a class="headerlink" href="#build-tools-and-support" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Use napari-console package (#2118)</p></li>
@@ -689,8 +690,8 @@ set matching contrast limits for multiple channels (#2226).</p>
 <li><p>Update napari_plugin_tester docstring (#2251)</p></li>
 <li><p>Remove pluginmanager fixture in favor of devtools repo (#2252)</p></li>
 </ul>
-</div>
-<div class="section" id="authors-added-to-this-release-alphabetical">
+</section>
+<section id="authors-added-to-this-release-alphabetical">
 <h2>9 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - &#64;goanpeca</p></li>
@@ -703,8 +704,8 @@ set matching contrast limits for multiple channels (#2226).</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ziyangczi">Ziyang Liu</a> - &#64;ziyangczi</p></li>
 </ul>
-</div>
-<div class="section" id="reviewers-added-to-this-release-alphabetical">
+</section>
+<section id="reviewers-added-to-this-release-alphabetical">
 <h2>10 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=goanpeca">Gonzalo Peña-Castellanos</a> - &#64;goanpeca</p></li>
@@ -718,8 +719,8 @@ set matching contrast limits for multiple channels (#2226).</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=sofroniewn">Nicholas Sofroniew</a> - &#64;sofroniewn</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

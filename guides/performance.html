@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>napari performance &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -556,7 +557,7 @@
             
             <div>
               
-  <div class="tex2jax_ignore mathjax_ignore section" id="napari-performance">
+  <section class="tex2jax_ignore mathjax_ignore" id="napari-performance">
 <span id="id1"></span><h1>napari performance<a class="headerlink" href="#napari-performance" title="Permalink to this headline">¶</a></h1>
 <p>With offline analysis tools performance dictates how long the user has to wait
 for a result, however with an interactive tool like napari performance is even
@@ -584,10 +585,10 @@ better scientific results.</p>
 <p>Both types of performance are important. No amount of slickness can make up for
 an application that is fundamentally too slow. And even a relatively fast
 application can feel clunky or frustrating if not designed well.</p>
-<div class="section" id="objective-performance">
+<section id="objective-performance">
 <h2>Objective performance<a class="headerlink" href="#objective-performance" title="Permalink to this headline">¶</a></h2>
 <p>How to keep napari objectively fast:</p>
-<div class="section" id="focus-on-real-use-cases">
+<section id="focus-on-real-use-cases">
 <h3>Focus on real use cases<a class="headerlink" href="#focus-on-real-use-cases" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Focus on cases that matter to lots of people.</p></li>
@@ -596,8 +597,8 @@ notice.</p></li>
 <li><p>If a dataset is unreasonable or out of scope or fringe, don’t spend too
 many resources trying to make it run fast.</p></li>
 </ul>
-</div>
-<div class="section" id="always-be-timing">
+</section>
+<section id="always-be-timing">
 <h3>Always be timing<a class="headerlink" href="#always-be-timing" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Build timers into the software that always run.</p></li>
@@ -616,23 +617,23 @@ many resources trying to make it run fast.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="performance-system-tests">
+</section>
+<section id="performance-system-tests">
 <h3>Performance system tests<a class="headerlink" href="#performance-system-tests" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Create automatic tests that time specific operations in specific known datasets.</p></li>
 <li><p>Time many different operations on a nice selection of different datasets.</p></li>
 </ul>
-</div>
-<div class="section" id="performance-unit-tests">
+</section>
+<section id="performance-unit-tests">
 <h3>Performance unit tests<a class="headerlink" href="#performance-unit-tests" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Time one small operation to monitor for regressions.</p></li>
 <li><p>Napari has some of these today as “benchmarks”.</p></li>
 <li><p>Interesting to see how different hardware performs as time goes on.</p></li>
 </ul>
-</div>
-<div class="section" id="run-all-tests-every-merge">
+</section>
+<section id="run-all-tests-every-merge">
 <h3>Run all tests every merge<a class="headerlink" href="#run-all-tests-every-merge" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Save results to a database maybe using <a class="reference external" href="https://asv.readthedocs.io/en/stable/index.html">ASV</a>.</p></li>
@@ -640,12 +641,12 @@ many resources trying to make it run fast.</p></li>
 months later.</p></li>
 <li><p>See how new features run on large datasets no one tested.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="subjective-performance">
+</section>
+</section>
+<section id="subjective-performance">
 <h2>Subjective performance<a class="headerlink" href="#subjective-performance" title="Permalink to this headline">¶</a></h2>
 <p>Napari should strive to have these properties:</p>
-<div class="section" id="responsive">
+<section id="responsive">
 <h3>Responsive<a class="headerlink" href="#responsive" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>React to input one of two ways:</p>
@@ -661,8 +662,8 @@ frame.</p></li>
 <li><p>The UI should never seem dead, the user should never be left wondering if
 napari has crashed.</p></li>
 </ul>
-</div>
-<div class="section" id="interruptible">
+</section>
+<section id="interruptible">
 <h3>Interruptible<a class="headerlink" href="#interruptible" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Modeless operations are best. They can interrupted by simply performing some
@@ -672,8 +673,8 @@ interrupt it just by navigating to somewhere else.</p></li>
 unless they are very short.</p></li>
 <li><p>The user should never feel “trapped”.</p></li>
 </ul>
-</div>
-<div class="section" id="progressive">
+</section>
+<section id="progressive">
 <h3>Progressive<a class="headerlink" href="#progressive" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Show intermediate results as they become available instead of showing nothing
@@ -681,8 +682,8 @@ until the full result is ready.</p></li>
 <li><p>Sometimes progressive results are better even if they slow things down a bit,
 which is not necessarily intuitive.</p></li>
 </ul>
-</div>
-<div class="section" id="informative">
+</section>
+<section id="informative">
 <h3>Informative<a class="headerlink" href="#informative" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Clearly show what controls are enabled or disabled.</p></li>
@@ -692,12 +693,12 @@ which is not necessarily intuitive.</p></li>
 <li><p>Let power users see timings, bandwidth, FPS, etc.</p></li>
 <li><p>Revealing internal state that explains why it’s taking time is helpful.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="performance-is-never-done">
+</section>
+</section>
+<section id="performance-is-never-done">
 <h2>Performance is never done<a class="headerlink" href="#performance-is-never-done" title="Permalink to this headline">¶</a></h2>
 <p>Performance is never “done” for several reasons:</p>
-<div class="section" id="new-features">
+<section id="new-features">
 <h3>New features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>The objective and subjective performance of new features should be scrutinized
@@ -707,16 +708,16 @@ before merging to main.</p></li>
 <li><p>It can be hard to impossible to “add performance in later”. The best time to
 ensure the new feature performs well is when the feature is first added.</p></li>
 </ul>
-</div>
-<div class="section" id="regressions">
+</section>
+<section id="regressions">
 <h3>Regressions*<a class="headerlink" href="#regressions" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>We must be on guard for new features slowing down existing features.</p></li>
 <li><p>New versions of dependencies can slow things down.</p></li>
 <li><p>New hardware generally helps performance but not always.</p></li>
 </ul>
-</div>
-<div class="section" id="scope-changes">
+</section>
+<section id="scope-changes">
 <h3>Scope changes<a class="headerlink" href="#scope-changes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>As new types of users adopt napari they will have new use cases.</p></li>
@@ -724,15 +725,15 @@ ensure the new feature performs well is when the feature is first added.</p></li
 <li><p>New file formats will be invented or become more common.</p></li>
 <li><p>New data types or sizes will become more common.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="conclusion">
+</section>
+</section>
+<section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
 <p>Achieving and maintaining performance requires an extreme amount of effort and
 diligence, but the payoff will be felt in every minute of usage. The end result
 is delighted and productive users.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             </div>

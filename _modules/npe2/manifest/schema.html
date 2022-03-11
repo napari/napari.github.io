@@ -299,8 +299,8 @@
         <span class="n">_validators</span><span class="o">.</span><span class="n">python_name</span>
     <span class="p">)</span>
 
-    <span class="n">contributions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ContributionPoints</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="kc">None</span><span class="p">,</span>
+    <span class="n">contributions</span><span class="p">:</span> <span class="n">ContributionPoints</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">ContributionPoints</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;An object describing the plugin&#39;s &quot;</span>
         <span class="s2">&quot;[contributions](./contributions)&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -313,6 +313,9 @@
         <span class="s2">&quot;setup.cfg&quot;</span><span class="p">,</span>
         <span class="n">hide_docs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_version</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">license</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -329,6 +332,10 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">author</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_metadata</span><span class="o">.</span><span class="n">author</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_metadata</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;contributions&quot;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_coerce_none_contributions</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">value</span>
 
     <span class="nd">@root_validator</span>
     <span class="k">def</span> <span class="nf">_validate_root</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -361,6 +368,9 @@
 <span class="s2">            &quot;&quot;&quot;</span>
                 <span class="p">)</span>
             <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;display_name&quot;</span><span class="p">):</span>
+            <span class="n">values</span><span class="p">[</span><span class="s2">&quot;display_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mf_name</span>
 
         <span class="k">return</span> <span class="n">values</span>
 
@@ -450,7 +460,13 @@
                         <span class="n">pm</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_entrypoint</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
                         <span class="k">yield</span> <span class="n">DiscoverResults</span><span class="p">(</span><span class="n">pm</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
                     <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Invalid schema </span><span class="si">{</span><span class="n">ep</span><span class="o">.</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">module_name</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                            <span class="s2">&quot;Invalid schema for package </span><span class="si">%r</span><span class="s2">, please run&quot;</span>
+                            <span class="s2">&quot; &#39;npe2 validate </span><span class="si">%s</span><span class="s2">&#39; to check for manifest errors.&quot;</span><span class="p">,</span>
+                            <span class="n">module_name</span><span class="p">,</span>
+                            <span class="n">module_name</span><span class="p">,</span>
+                        <span class="p">)</span>
                         <span class="k">yield</span> <span class="n">DiscoverResults</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>

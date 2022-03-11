@@ -191,7 +191,7 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">constr</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">constr</span><span class="p">,</span> <span class="n">root_validator</span>
 <span class="kn">from</span> <span class="nn">pydantic.fields</span> <span class="kn">import</span> <span class="n">SHAPE_LIST</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>
 
@@ -219,7 +219,9 @@
     <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
         <span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">ignore</span>
 
-    <span class="n">metadata_version</span><span class="p">:</span> <span class="n">MetadataVersion</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Version of the file format&quot;</span><span class="p">)</span>
+    <span class="n">metadata_version</span><span class="p">:</span> <span class="n">MetadataVersion</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="s2">&quot;1.0&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Version of the file format&quot;</span>
+    <span class="p">)</span>
     <span class="n">name</span><span class="p">:</span> <span class="n">PackageName</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
         <span class="o">...</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The name of the distribution. The name field &quot;</span>
@@ -230,13 +232,14 @@
     <span class="c1"># but it will fail on some dev versions, and it&#39;s not worth it.</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="o">...</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the distribution’s version number. &quot;</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the distribution&#39;s version number. &quot;</span>
         <span class="s2">&quot;This field must be in the format specified in PEP 440.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">dynamic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the name of another core metadata &quot;</span>
         <span class="s2">&quot;field. The field names Name and Version may not be specified in this field.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;2.2&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">platform</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
@@ -249,6 +252,7 @@
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Binary distributions containing a PKG-INFO file will use the &quot;</span>
         <span class="s2">&quot;Supported-Platform field in their metadata to specify the OS and CPU for &quot;</span>
         <span class="s2">&quot;which the binary distribution was compiled&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">summary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A one-line summary of what the distribution does.&quot;</span>
@@ -261,8 +265,10 @@
     <span class="n">description_content_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string stating the markup syntax (if any) used in the &quot;</span>
-        <span class="s2">&quot;distribution’s description, so that tools can intelligently render the &quot;</span>
-        <span class="s2">&quot;description.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;distribution&#39;s description, so that tools can intelligently render the &quot;</span>
+        <span class="s2">&quot;description. The type/subtype part has only a few legal values: &quot;</span>
+        <span class="s2">&quot;text/plain, text/x-rst, text/markdown&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;2.1&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">keywords</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
@@ -271,33 +277,36 @@
     <span class="p">)</span>
     <span class="n">home_page</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the URL for the distribution’s home page.&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the URL for the distribution&#39;s home page.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">download_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the URL from which THIS version of the &quot;</span>
         <span class="s2">&quot;distribution can be downloaded.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">author</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the author’s name at a minimum; &quot;</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the author&#39;s name at a minimum; &quot;</span>
         <span class="s2">&quot;additional contact information may be provided.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">author_email</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the author’s e-mail address. It can contain &quot;</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the author&#39;s e-mail address. It can contain &quot;</span>
         <span class="s2">&quot;a name and e-mail address in the legal forms for a RFC-822 From: header.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">maintainer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the maintainer’s name at a minimum; &quot;</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the maintainer&#39;s name at a minimum; &quot;</span>
         <span class="s2">&quot;additional contact information may be provided.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">maintainer_email</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the maintainer’s e-mail address. It can &quot;</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the maintainer&#39;s e-mail address. It can &quot;</span>
         <span class="s2">&quot;contain a name and e-mail address in the legal forms for a &quot;</span>
         <span class="s2">&quot;RFC-822 From: header.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">license</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
@@ -312,12 +321,14 @@
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Each entry is a string giving a single classification value for &quot;</span>
         <span class="s2">&quot;the distribution. Classifiers are described in PEP 301, and the Python &quot;</span>
         <span class="s2">&quot;Package Index publishes a dynamic list of currently defined classifiers.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">requires_dist</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The field format specification was relaxed to accept the syntax &quot;</span>
         <span class="s2">&quot;used by popular publishing tools. Each entry contains a string naming some &quot;</span>
         <span class="s2">&quot;other distutils project required by this distribution.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">requires_python</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
@@ -325,6 +336,7 @@
         <span class="s2">&quot;is guaranteed to be compatible with. Installation tools may look at this &quot;</span>
         <span class="s2">&quot;when picking which version of a project to install. &quot;</span>
         <span class="s2">&quot;The value must be in the format specified in Version specifiers (PEP 440).&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">requires_external</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
@@ -333,22 +345,33 @@
         <span class="s2">&quot;some dependency in the system that the distribution is to be used. This &quot;</span>
         <span class="s2">&quot;field is intended to serve as a hint to downstream project maintainers, and &quot;</span>
         <span class="s2">&quot;has no semantics which are meaningful to the distutils distribution.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">project_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing a browsable URL for the project and a label &quot;</span>
         <span class="s2">&quot;for it, separated by a comma.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">provides_extra</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A string containing the name of an optional feature. Must be a &quot;</span>
         <span class="s2">&quot;valid Python identifier. May be used to make a dependency conditional on &quot;</span>
         <span class="s2">&quot;whether the optional feature has been requested.&quot;</span><span class="p">,</span>
+        <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;2.1&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="c1"># rarely_used</span>
-    <span class="n">provides_dist</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">obsoletes_dist</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">provides_dist</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.2&quot;</span><span class="p">)</span>
+    <span class="n">obsoletes_dist</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_ver</span><span class="o">=</span><span class="s2">&quot;1.2&quot;</span><span class="p">)</span>
+
+    <span class="nd">@root_validator</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_validate_root</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;metadata_version&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="n">fields</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span>
+            <span class="n">mins</span> <span class="o">=</span> <span class="p">{</span><span class="n">fields</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">field_info</span><span class="o">.</span><span class="n">extra</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;min_ver&quot;</span><span class="p">,</span> <span class="s2">&quot;1.0&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">values</span><span class="p">}</span>
+            <span class="n">values</span><span class="p">[</span><span class="s2">&quot;metadata_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mins</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">values</span>
 
 <div class="viewcode-block" id="PackageMetadata.for_package"><a class="viewcode-back" href="../../../api/napari.plugins.PackageMetadata.html#napari.plugins.PackageMetadata.for_package">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">for_package</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PackageMetadata&quot;</span><span class="p">:</span>
@@ -366,7 +389,10 @@
                 <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parse_obj</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parse_obj</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_norm</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

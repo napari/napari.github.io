@@ -545,6 +545,22 @@
 <p>The path can only be set once per session.</p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="napari.plugins.lru_cache">
+<span class="sig-prename descclassname"><span class="pre">napari.plugins.</span></span><span class="sig-name descname"><span class="pre">lru_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functools.html#lru_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.lru_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Least-recently-used cache decorator.</p>
+<p>If <em>maxsize</em> is set to None, the LRU features are disabled and the cache
+can grow without bound.</p>
+<p>If <em>typed</em> is True, arguments of different types will be cached separately.
+For example, f(3.0) and f(3) will be treated as distinct calls with
+distinct results.</p>
+<p>Arguments to the cached function must be hashable.</p>
+<p>View the cache statistics named tuple (hits, misses, maxsize, currsize)
+with f.cache_info().  Clear the cache and statistics with f.cache_clear().
+Access the underlying function with f.__wrapped__.</p>
+<p>See:  <a class="reference external" href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU">https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU</a>)</p>
+</dd></dl>
+
 </section>
 
 

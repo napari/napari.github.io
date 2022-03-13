@@ -184,7 +184,8 @@
             <div>
               
   <h1>Source code for napari.viewer</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">typing</span>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakSet</span>
 
@@ -219,7 +220,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_window</span><span class="p">:</span> <span class="s1">&#39;Window&#39;</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
-    <span class="n">_instances</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span><span class="p">[</span><span class="n">WeakSet</span><span class="p">]</span> <span class="o">=</span> <span class="n">WeakSet</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+        <span class="n">_instances</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span><span class="p">[</span><span class="n">WeakSet</span><span class="p">]</span> <span class="o">=</span> <span class="n">WeakSet</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_instances</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span><span class="p">[</span><span class="n">WeakSet</span><span class="p">[</span><span class="s1">&#39;Viewer&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">WeakSet</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

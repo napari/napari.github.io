@@ -198,6 +198,7 @@
     <span class="n">Iterator</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Set</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
 <span class="p">)</span>
@@ -262,6 +263,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="p">:</span> <span class="n">EventedSet</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">EventedSet</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_blocked_change</span><span class="p">)</span>
 
+        <span class="c1"># set of package names to skip when discovering, used for skipping</span>
+        <span class="c1"># npe2 stuff</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_skip_packages</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">discovery_blocked</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_hookspecs</span><span class="p">(</span><span class="n">hook_specifications</span><span class="p">)</span>
 
@@ -301,6 +306,17 @@
         <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">registered</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">name</span></div>
+
+<div class="viewcode-block" id="NapariPluginManager.iter_available"><a class="viewcode-back" href="../../../api/napari.plugins.NapariPluginManager.html#napari.plugins.NapariPluginManager.iter_available">[docs]</a>    <span class="k">def</span> <span class="nf">iter_available</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">entry_point</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
+        <span class="c1"># overriding to skip npe2 plugins</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">iter_available</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">entry_point</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_skip_packages</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">item</span></div>
 
 <div class="viewcode-block" id="NapariPluginManager.unregister"><a class="viewcode-back" href="../../../api/napari.plugins.NapariPluginManager.html#napari.plugins.NapariPluginManager.unregister">[docs]</a>    <span class="k">def</span> <span class="nf">unregister</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

@@ -386,6 +386,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="3D_interactivity.html">
+     3D interactivity
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="rendering-explanation.html">
      Rendering in napari
     </a>
@@ -401,13 +406,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3D_interactivity.html">
-     3D interactivity
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="events_reference.html">
-     Events reference
+    <a class="reference internal" href="preferences.html">
+     Preferences
     </a>
    </li>
    <li class="toctree-l2">
@@ -416,8 +416,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="preferences.html">
-     Preferences
+    <a class="reference internal" href="events_reference.html">
+     Events reference
     </a>
    </li>
   </ul>
@@ -444,9 +444,24 @@
             
             <div class="toc-item">
               
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advanced-usage">
+   Advanced usage
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#architecture-documents">
+   Architecture documents
+  </a>
+ </li>
+</ul>
+
 </nav>
             </div>
             
@@ -468,7 +483,17 @@
               
   <section class="tex2jax_ignore mathjax_ignore" id="in-depth-explanations">
 <h1>In-depth explanations<a class="headerlink" href="#in-depth-explanations" title="Permalink to this headline">¶</a></h1>
-<p>To learn about using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari, see the <a class="reference internal" href="magicgui.html#magicgui"><span class="std std-ref">Using magicgui in napari</span></a> guide.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These pages describe advanced usage and how napari works internally. If you are
+just getting started, check out our <a class="reference internal" href="../tutorials/index.html"><span class="doc std std-doc">tutorials</span></a> or
+<a class="reference internal" href="../howtos/index.html"><span class="doc std std-doc">how-to guides</span></a> instead.</p>
+</div>
+<section id="advanced-usage">
+<h2>Advanced usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h2>
+<p>magicgui is a python package that assists in building small, composable
+graphical user interfaces (widgets). To learn about using <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> in napari,
+see the <a class="reference internal" href="magicgui.html#magicgui"><span class="std std-ref">Using magicgui in napari</span></a> guide.</p>
 <p>If you’d like to start customizing the behavior of napari, it pays to
 familiarize yourself with the concept of an Event Loop. For an introduction to
 event loops and connecting your own functions to events in napari, see the
@@ -477,12 +502,20 @@ event loops and connecting your own functions to events in napari, see the
 computations, and would like to avoid having the viewer become unresponsive
 while you wait for a computation to finish, you may benefit from reading about
 <a class="reference internal" href="threading.html#multithreading-in-napari"><span class="std std-ref">Multithreading in napari</span></a>.</p>
-<p>See <a class="reference internal" href="rendering-explanation.html#rendering-explanation"><span class="std std-ref">Rendering in napari</span></a> for two experimental features than can optionally be enabled to add non-blocking rendering to napari. You can also check out the <a class="reference internal" href="rendering.html#rendering"><span class="std std-ref">dedicated guide on asynchronous rendering in napari</span></a>.</p>
-<p>To understand how to test and measure performance in napari, see <a class="reference internal" href="performance.html#napari-performance"><span class="std std-ref">napari performance</span></a>.</p>
 <p>If you are interested in using napari to explore 3D objects, see <a class="reference internal" href="3D_interactivity.html#d-interactivity"><span class="std std-ref">3D interactivity</span></a>.</p>
-<p>See <a class="reference internal" href="preferences.html#napari-preferences"><span class="std std-ref">Preferences</span></a> for the list of preferences that can be set via the
-preferences dialog.</p>
-<p>You can also read about the concept of <a class="reference internal" href="contexts_expressions.html#context-expressions"><span class="std std-ref">Contexts and Expressions in napari</span></a>.</p>
+<p>See <a class="reference internal" href="rendering-explanation.html#rendering-explanation"><span class="std std-ref">Rendering in napari</span></a> for two experimental features than can
+optionally be enabled to add non-blocking rendering to napari. You can also
+check out the <a class="reference internal" href="rendering.html#rendering"><span class="std std-ref">dedicated guide on asynchronous rendering in napari</span></a>.</p>
+<p>To understand how to test and measure performance in napari, see <a class="reference internal" href="performance.html#napari-performance"><span class="std std-ref">napari performance</span></a>.</p>
+</section>
+<section id="architecture-documents">
+<h2>Architecture documents<a class="headerlink" href="#architecture-documents" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="preferences.html#napari-preferences"><span class="std std-ref">Preferences</span></a> for the list of preferences that can be set via
+the preferences dialog.</p>
+<p>If you are writing a plugin manifest, or are interested in contributing to
+napari, you can also read about the concept of <a class="reference internal" href="contexts_expressions.html#context-expressions"><span class="std std-ref">Contexts and Expressions in napari</span></a>.</p>
+<p>For a full list of events you may connect to, see <a class="reference internal" href="events_reference.html#events-reference"><span class="std std-ref">Events reference</span></a>.</p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>

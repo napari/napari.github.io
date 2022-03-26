@@ -269,13 +269,27 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Viewer.screenshot"><a class="viewcode-back" href="../../api/napari.view_layers.Viewer.html#napari.Viewer.screenshot">[docs]</a>    <span class="k">def</span> <span class="nf">screenshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">canvas_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Viewer.screenshot"><a class="viewcode-back" href="../../api/napari.view_layers.Viewer.html#napari.Viewer.screenshot">[docs]</a>    <span class="k">def</span> <span class="nf">screenshot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">canvas_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        path : str</span>
 <span class="sd">            Filename for saving screenshot image.</span>
+<span class="sd">        size : tuple (int, int)</span>
+<span class="sd">            Size (resolution) of the screenshot. By default, the currently displayed size.</span>
+<span class="sd">            Only used if `canvas_only` is True.</span>
+<span class="sd">        scale : float</span>
+<span class="sd">            Scale factor used to increase resolution of canvas for the screenshot. By default, the currently displayed resolution.</span>
+<span class="sd">            Only used if `canvas_only` is True.</span>
 <span class="sd">        canvas_only : bool</span>
 <span class="sd">            If True, screenshot shows only the image display canvas, and</span>
 <span class="sd">            if False include the napari viewer frame in the screenshot,</span>
@@ -292,7 +306,11 @@
 <span class="sd">            upper-left corner of the rendered region.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span>
-            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="n">flash</span><span class="p">,</span> <span class="n">canvas_only</span><span class="o">=</span><span class="n">canvas_only</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+            <span class="n">flash</span><span class="o">=</span><span class="n">flash</span><span class="p">,</span>
+            <span class="n">canvas_only</span><span class="o">=</span><span class="n">canvas_only</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Viewer.show"><a class="viewcode-back" href="../../api/napari.view_layers.Viewer.html#napari.Viewer.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>

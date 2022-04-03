@@ -1098,8 +1098,15 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span>
 
-        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">s</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">],</span> <span class="n">shape</span><span class="p">)):</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">])]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">):</span>
+            <span class="c1"># handle 3D views of 2D data by omitting extra coordinate</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[[</span><span class="n">d</span> <span class="o">+</span> <span class="n">offset</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">s</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span> <span class="n">shape</span><span class="p">)):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coord</span><span class="p">)]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
 

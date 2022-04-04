@@ -59,7 +59,7 @@ add_image APIs
     face_color_cycle = ['blue', 'green']
 
     text = {
-        'text': 'Confidence is {confidence:.2f}',
+        'string': 'Confidence is {confidence:.2f}',
         'size': 20,
         'color': 'green',
         'translation': np.array([-30, 0]),

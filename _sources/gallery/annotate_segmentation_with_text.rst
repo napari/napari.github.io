@@ -141,7 +141,7 @@ bounding boxes and text
 
     # specify the display parameters for the text
     text_parameters = {
-        'text': 'label: {label}\ncirc: {circularity:.2f}',
+        'string': 'label: {label}\ncirc: {circularity:.2f}',
         'size': 12,
         'color': 'green',
         'anchor': 'upper_left',

@@ -50,7 +50,7 @@ nD shapes with text
     shape = [[[n, 40, 40], [n, 40, 60], [n + 20, 60, 60], [n + 20, 60, 40]]]
 
     features = {'z_index': [n]}
-    text = {'text': 'z_index', 'color': 'green', 'anchor': 'upper_left'}
+    text = {'string': 'z_index', 'color': 'green', 'anchor': 'upper_left'}
 
     shapes_layer = viewer.add_shapes(
         shape,

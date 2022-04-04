@@ -42,10 +42,6 @@ Displays an nD multiscale image
     /home/runner/work/napari/napari/examples/nD_multiscale_image_non_uniform.py:18: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
       pyramid_gaussian(base, downscale=2, max_layer=3, multichannel=True)
     multiscale level shapes:  [(6, 1536, 1536, 3), (6, 768, 768, 3), (6, 384, 384, 3), (6, 192, 192, 3)]
-    /opt/hostedtoolcache/Python/3.9.10/x64/lib/python3.9/site-packages/vispy/gloo/glir.py:850: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-      elif LooseVersion(this_version) < '2.1':
-    /opt/hostedtoolcache/Python/3.9.10/x64/lib/python3.9/site-packages/setuptools/_distutils/version.py:351: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-      other = LooseVersion(other)
 
 
 

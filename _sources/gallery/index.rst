@@ -492,27 +492,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a dask array">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_dask_nD_image_thumb.png
-     :alt: Dask nD image
-
-     :ref:`sphx_glr_gallery_dask_nD_image.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/dask_nD_image
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="This example generates an image of vectors Vector data is an array of shape (M, N, P, 3) Each v...">
 
 .. only:: html
@@ -594,6 +573,27 @@ Examples of napari usage.
    :hidden:
 
    /gallery/nD_multiscale_image
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a dask array">
+
+.. only:: html
+
+ .. figure:: /gallery/images/thumb/sphx_glr_dask_nD_image_thumb.png
+     :alt: Dask nD image
+
+     :ref:`sphx_glr_gallery_dask_nD_image.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/dask_nD_image
 
 .. raw:: html
 

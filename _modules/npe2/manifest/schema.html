@@ -192,11 +192,11 @@
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">util</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">dedent</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">ValidationError</span><span class="p">,</span> <span class="n">root_validator</span><span class="p">,</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">pydantic.error_wrappers</span> <span class="kn">import</span> <span class="n">ErrorWrapper</span>
@@ -205,33 +205,29 @@
 <span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">PythonName</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">_validators</span>
 <span class="kn">from</span> <span class="nn">._bases</span> <span class="kn">import</span> <span class="n">ImportExportModel</span>
+<span class="kn">from</span> <span class="nn">._package_metadata</span> <span class="kn">import</span> <span class="n">PackageMetadata</span>
 <span class="kn">from</span> <span class="nn">.contributions</span> <span class="kn">import</span> <span class="n">ContributionPoints</span>
-<span class="kn">from</span> <span class="nn">.package_metadata</span> <span class="kn">import</span> <span class="n">PackageMetadata</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">Version</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">metadata</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">importlib_metadata</span> <span class="k">as</span> <span class="nn">metadata</span>  <span class="c1"># type: ignore</span>
-
-<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">importlib.metadata</span> <span class="kn">import</span> <span class="n">EntryPoint</span>
-
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <span class="n">SCHEMA_VERSION</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span>
 <span class="n">ENTRY_POINT</span> <span class="o">=</span> <span class="s2">&quot;napari.manifest&quot;</span>
+<span class="n">NPE1_ENTRY_POINT</span> <span class="o">=</span> <span class="s2">&quot;napari.plugin&quot;</span>
 
 
 <span class="k">class</span> <span class="nc">DiscoverResults</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
     <span class="n">manifest</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PluginManifest</span><span class="p">]</span>
-    <span class="n">entrypoint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntryPoint</span><span class="p">]</span>
+    <span class="n">distribution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">metadata</span><span class="o">.</span><span class="n">Distribution</span><span class="p">]</span>
     <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="PluginManifest"><a class="viewcode-back" href="../../../api/napari.plugins.PluginManifest.html#napari.plugins.PluginManifest">[docs]</a><span class="k">class</span> <span class="nc">PluginManifest</span><span class="p">(</span><span class="n">ImportExportModel</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">underscore_attrs_are_private</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span>
+        <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="c1"># VS Code uses &lt;publisher&gt;.&lt;name&gt; as a unique ID for the extension</span>
     <span class="c1"># should this just be the package name ... not the module name? (yes)</span>
@@ -317,7 +313,17 @@
         <span class="s2">&quot;For normal (non-dynamic) plugins, this data will come from the package&#39;s &quot;</span>
         <span class="s2">&quot;setup.cfg&quot;</span><span class="p">,</span>
         <span class="n">hide_docs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">exclude</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_metadata</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">package_metadata</span> <span class="o">=</span> <span class="n">PackageMetadata</span><span class="o">.</span><span class="n">from_dist_metadata</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">metadata</span><span class="o">.</span><span class="n">PackageNotFoundError</span><span class="p">:</span>
+                <span class="k">pass</span>
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_version</span><span class="p">))</span>
@@ -405,23 +411,16 @@
 <span class="sd">            If the manifest is not valid</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dist</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># may raise PackageNotFoundError</span>
-        <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">entry_points</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">ep</span><span class="o">.</span><span class="n">group</span> <span class="o">==</span> <span class="n">ENTRY_POINT</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">PluginManifest</span><span class="o">.</span><span class="n">_from_entrypoint</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Distribution </span><span class="si">{name!r}</span><span class="s2"> exists but does not provide a napari manifest&quot;</span>
-        <span class="p">)</span></div>
-
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-        <span class="n">underscore_attrs_are_private</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span>
-        <span class="n">validate_assignment</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">pm</span> <span class="o">=</span> <span class="n">_from_dist</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pm</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Distribution </span><span class="si">{name!r}</span><span class="s2"> exists but does not provide a napari manifest&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">pm</span></div>
 
 <div class="viewcode-block" id="PluginManifest.discover"><a class="viewcode-back" href="../../../api/napari.plugins.PluginManifest.html#napari.plugins.PluginManifest.discover">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">discover</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span>
-        <span class="n">entry_point_group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">ENTRY_POINT</span><span class="p">,</span>
-        <span class="n">paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]]</span> <span class="o">=</span> <span class="p">()</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">DiscoverResults</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Discover manifests in the environment.</span>
 
@@ -447,8 +446,6 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        entry_point_group : str, optional</span>
-<span class="sd">            name of entry point group to discover, by default &#39;napari.manifest&#39;</span>
 <span class="sd">        paths : Sequence[str], optional</span>
 <span class="sd">            paths to add to sys.path while discovering.</span>
 
@@ -459,36 +456,34 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="n">_temporary_path_additions</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">dist</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">distributions</span><span class="p">():</span>
-                <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">entry_points</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">ep</span><span class="o">.</span><span class="n">group</span> <span class="o">!=</span> <span class="n">entry_point_group</span><span class="p">:</span>
-                        <span class="k">continue</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">pm</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_entrypoint</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
-                        <span class="k">yield</span> <span class="n">DiscoverResults</span><span class="p">(</span><span class="n">pm</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="n">module_name</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                            <span class="s2">&quot;Invalid schema for package </span><span class="si">%r</span><span class="s2">, please run&quot;</span>
-                            <span class="s2">&quot; &#39;npe2 validate </span><span class="si">%s</span><span class="s2">&#39; to check for manifest errors.&quot;</span><span class="p">,</span>
-                            <span class="n">module_name</span><span class="p">,</span>
-                            <span class="n">module_name</span><span class="p">,</span>
-                        <span class="p">)</span>
-                        <span class="k">yield</span> <span class="n">DiscoverResults</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%r</span><span class="s2"> could not be imported: </span><span class="si">%s</span><span class="s2">&quot;</span>
-                            <span class="o">%</span> <span class="p">(</span><span class="n">entry_point_group</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-                        <span class="p">)</span>
-                        <span class="k">yield</span> <span class="n">DiscoverResults</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">pm</span> <span class="o">=</span> <span class="n">_from_dist</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">pm</span><span class="p">:</span>
+                        <span class="k">yield</span> <span class="n">DiscoverResults</span><span class="p">(</span><span class="n">pm</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s2">&quot;Invalid schema for package </span><span class="si">%r</span><span class="s2">, please run&quot;</span>
+                        <span class="s2">&quot; &#39;npe2 validate </span><span class="si">%s</span><span class="s2">&#39; to check for manifest errors.&quot;</span><span class="p">,</span>
+                        <span class="n">dist</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">],</span>
+                        <span class="n">dist</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">],</span>
+                    <span class="p">)</span>
+                    <span class="k">yield</span> <span class="n">DiscoverResults</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%r</span><span class="s2"> could not be imported: </span><span class="si">%s</span><span class="s2">&quot;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">ENTRY_POINT</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">],</span> <span class="n">e</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="k">yield</span> <span class="n">DiscoverResults</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_from_entrypoint</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
-        <span class="n">entry_point</span><span class="p">:</span> <span class="n">EntryPoint</span><span class="p">,</span>
+        <span class="n">entry_point</span><span class="p">:</span> <span class="n">metadata</span><span class="o">.</span><span class="n">EntryPoint</span><span class="p">,</span>
         <span class="n">distribution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">metadata</span><span class="o">.</span><span class="n">Distribution</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PluginManifest</span><span class="p">:</span>
 
-        <span class="n">match</span> <span class="o">=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">entry_point</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">match</span> <span class="o">:=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">entry_point</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
         <span class="n">module</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
 
         <span class="n">spec</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">module</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -498,7 +493,7 @@
                 <span class="sa">f</span><span class="s2">&quot;entrypoint: </span><span class="si">{</span><span class="n">entry_point</span><span class="o">.</span><span class="n">value</span><span class="si">!r}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">match</span> <span class="o">=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">entry_point</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">match</span> <span class="o">:=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">entry_point</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
         <span class="n">fname</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;attr&quot;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">submodule_search_locations</span> <span class="ow">or</span> <span class="p">[]:</span>
@@ -561,6 +556,10 @@
                     <span class="s2">&quot;package name or a file..&quot;</span>
                 <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
+    <span class="k">def</span> <span class="nf">_serialized_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;exclude&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;package_metadata&quot;</span><span class="p">})</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_serialized_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
 <div class="viewcode-block" id="PluginManifest.validate_imports"><a class="viewcode-back" href="../../../api/napari.plugins.PluginManifest.html#napari.plugins.PluginManifest.validate_imports">[docs]</a>    <span class="k">def</span> <span class="nf">validate_imports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Checks recursively that all `python_name` fields are actually importable.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">import_python_name</span>
@@ -589,8 +588,24 @@
     <span class="n">ValidationError</span> <span class="o">=</span> <span class="n">ValidationError</span>  <span class="c1"># for convenience of access</span></div>
 
 
+<span class="k">def</span> <span class="nf">_noop</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[]</span>  <span class="c1"># pragma: no cover</span>
+
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">discovery_blocked</span><span class="p">():</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">PluginManifest</span><span class="o">.</span><span class="n">discover</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">PluginManifest</span><span class="p">,</span> <span class="s2">&quot;discover&quot;</span><span class="p">,</span> <span class="n">_noop</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">PluginManifest</span><span class="p">,</span> <span class="s2">&quot;discover&quot;</span><span class="p">,</span> <span class="n">orig</span><span class="p">)</span>
+
+
 <span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">_temporary_path_additions</span><span class="p">(</span><span class="n">paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]]</span> <span class="o">=</span> <span class="p">()):</span>
+    <span class="k">if</span> <span class="n">paths</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;paths must be a sequence of strings&quot;</span><span class="p">)</span>  <span class="c1"># pragma: no cover</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
     <span class="k">try</span><span class="p">:</span>
@@ -598,6 +613,26 @@
     <span class="k">finally</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_from_dist</span><span class="p">(</span><span class="n">dist</span><span class="p">:</span> <span class="n">metadata</span><span class="o">.</span><span class="n">Distribution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PluginManifest</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Return PluginManifest or NPE1Adapter for a metadata.Distribution object.</span>
+
+<span class="sd">    ...depending on which entry points are available.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_npe1</span><span class="p">,</span> <span class="n">_npe2</span> <span class="o">=</span> <span class="p">[],</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">entry_points</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ep</span><span class="o">.</span><span class="n">group</span> <span class="o">==</span> <span class="n">NPE1_ENTRY_POINT</span><span class="p">:</span>
+            <span class="n">_npe1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ep</span><span class="o">.</span><span class="n">group</span> <span class="o">==</span> <span class="n">ENTRY_POINT</span><span class="p">:</span>
+            <span class="n">_npe2</span> <span class="o">=</span> <span class="n">ep</span>
+    <span class="k">if</span> <span class="n">_npe2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">PluginManifest</span><span class="o">.</span><span class="n">_from_entrypoint</span><span class="p">(</span><span class="n">_npe2</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">_npe1</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">._npe1_adapter</span> <span class="kn">import</span> <span class="n">NPE1Adapter</span>
+
+        <span class="k">return</span> <span class="n">NPE1Adapter</span><span class="p">(</span><span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

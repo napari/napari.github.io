@@ -1593,13 +1593,7 @@
 
         <span class="c1"># create the bounding box in data coordinates</span>
         <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">world</span><span class="p">:</span>
-            <span class="c1"># VisPy considers the coordinate system origin to be the canvas</span>
-            <span class="c1"># corner, while napari considers the origin to be the **center** of</span>
-            <span class="c1"># the corner pixel. To get the correct value under the mouse</span>
-            <span class="c1"># cursor, we need to shift the position by 0.5 pixels on each</span>
-            <span class="c1"># axis.</span>
-            <span class="n">position</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">position</span><span class="p">)</span>
+
         <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_ray_intersections</span><span class="p">(</span>
             <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
             <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
@@ -1608,6 +1602,10 @@
             <span class="n">bounding_box</span><span class="o">=</span><span class="n">bounding_box</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_offset_data_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Adjust position for offset between viewer and data coordinates.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">position</span>
 
     <span class="k">def</span> <span class="nf">_get_ray_intersections</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1660,6 +1658,10 @@
                 <span class="n">position</span><span class="p">,</span> <span class="n">dims_displayed</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
+
+            <span class="c1"># adjust for any offset between viewer and data coordinates</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_offset_data_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
             <span class="n">view_dir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span>
             <span class="n">click_pos_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span>
 

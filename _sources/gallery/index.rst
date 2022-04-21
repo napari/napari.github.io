@@ -1269,27 +1269,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Add points on nD shapes in 3D using a mouse callback">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_add_points_on_nD_shapes_thumb.png
-     :alt: Add points on nD shapes
-
-     :ref:`sphx_glr_gallery_add_points_on_nD_shapes.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/add_points_on_nD_shapes
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Using dask array operations, one can dynamically take arbitrary slices and computations of a so...">
 
 .. only:: html
@@ -1413,6 +1392,27 @@ Examples of napari usage.
    :hidden:
 
    /gallery/interactive_move_rectangle_3d
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Add points on nD shapes in 3D using a mouse callback">
+
+.. only:: html
+
+ .. figure:: /gallery/images/thumb/sphx_glr_add_points_on_nD_shapes_thumb.png
+     :alt: Add points on nD shapes
+
+     :ref:`sphx_glr_gallery_add_points_on_nD_shapes.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/add_points_on_nD_shapes
 
 .. raw:: html
 

@@ -37,7 +37,9 @@
    .. autofunction:: capture_exception
    .. autofunction:: install_error_reporter
    .. autofunction:: show_console_notification
+   .. autofunction:: show_error
    .. autofunction:: show_info
+   .. autofunction:: show_warning
    
    
 

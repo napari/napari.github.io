@@ -228,6 +228,7 @@
     <span class="s1">&#39;WarningNotification&#39;</span><span class="p">,</span>
     <span class="s1">&#39;NotificationManager&#39;</span><span class="p">,</span>
     <span class="s1">&#39;show_info&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;show_error&#39;</span><span class="p">,</span>
     <span class="s1">&#39;show_console_notification&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 
@@ -327,6 +328,10 @@
 
 
 <div class="viewcode-block" id="ErrorNotification"><a class="viewcode-back" href="../../../api/napari.utils.notifications.ErrorNotification.html#napari.utils.notifications.ErrorNotification">[docs]</a><span class="k">class</span> <span class="nc">ErrorNotification</span><span class="p">(</span><span class="n">Notification</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Notification at an Error severity level.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -359,6 +364,10 @@
 
 
 <div class="viewcode-block" id="WarningNotification"><a class="viewcode-back" href="../../../api/napari.utils.notifications.WarningNotification.html#napari.utils.notifications.WarningNotification">[docs]</a><span class="k">class</span> <span class="nc">WarningNotification</span><span class="p">(</span><span class="n">Notification</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Notification at a Warning severity level.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -507,10 +516,36 @@
 
 
 <div class="viewcode-block" id="show_info"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_info">[docs]</a><span class="k">def</span> <span class="nf">show_info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="n">notification_manager</span><span class="o">.</span><span class="n">receive_info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Show an info message in the notification manager.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
+        <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="show_warning"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_warning">[docs]</a><span class="k">def</span> <span class="nf">show_warning</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Show a warning in the notification manager.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
+        <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="show_error"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_error">[docs]</a><span class="k">def</span> <span class="nf">show_error</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Show an error in the notification manager.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
+        <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="show_console_notification"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_console_notification">[docs]</a><span class="k">def</span> <span class="nf">show_console_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Show a notification in the console.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 

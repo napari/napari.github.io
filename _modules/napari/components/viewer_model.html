@@ -212,10 +212,17 @@
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">validator</span>
 
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">from</span> <span class="nn">..errors</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">MissingAssociatedReaderError</span><span class="p">,</span>
+    <span class="n">MultipleReaderError</span><span class="p">,</span>
+    <span class="n">NoAvailableReaderError</span><span class="p">,</span>
+    <span class="n">ReaderPluginError</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..layers</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">..layers._source</span> <span class="kn">import</span> <span class="n">layer_source</span>
 <span class="kn">from</span> <span class="nn">..layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
 <span class="kn">from</span> <span class="nn">..layers.utils.stack_utils</span> <span class="kn">import</span> <span class="n">split_channels</span>
+<span class="kn">from</span> <span class="nn">..plugins.utils</span> <span class="kn">import</span> <span class="n">get_potential_readers</span><span class="p">,</span> <span class="n">get_preferred_reader</span>
 <span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span> <span class="nn">..utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
 <span class="kn">from</span> <span class="nn">..utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
@@ -1076,24 +1083,14 @@
 <span class="sd">        layers : list</span>
 <span class="sd">            A list of any layers that were added to the viewer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span> <span class="k">else</span> <span class="n">path</span>
-        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>  <span class="c1"># PathObjects -&gt; str</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;&#39;path&#39; argument must be a string, list, or tuple&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
-                <span class="n">paths</span><span class="p">,</span>
-                <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
-                <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
-                <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
+            <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_or_raise_error</span><span class="p">(</span>
+                <span class="n">paths</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">,</span> <span class="n">stack</span>
             <span class="p">)</span>
+            <span class="k">return</span> <span class="n">layers</span>
 
         <span class="n">added</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
         <span class="k">with</span> <span class="n">progress</span><span class="p">(</span>
@@ -1104,16 +1101,149 @@
             <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># indeterminate bar for 1 file</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">pbr</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">_path</span> <span class="ow">in</span> <span class="n">pbr</span><span class="p">:</span>
-                <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
-                        <span class="p">[</span><span class="n">_path</span><span class="p">],</span>
-                        <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
-                        <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                        <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
-                        <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
+                <span class="k">if</span> <span class="n">plugin</span><span class="p">:</span>
+                    <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
+                            <span class="p">[</span><span class="n">_path</span><span class="p">],</span>
+                            <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                            <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
+                            <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
+                            <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
+                        <span class="p">)</span>
                     <span class="p">)</span>
-                <span class="p">)</span>
+                <span class="c1"># no plugin choice was made</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_or_raise_error</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">_path</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">,</span> <span class="n">stack</span>
+                    <span class="p">)</span>
+                    <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">added</span></div>
+
+    <span class="k">def</span> <span class="nf">_open_or_raise_error</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Open paths if plugin choice is unambiguous, raising any errors.</span>
+
+<span class="sd">        This function will open paths if there is no plugin choice to be made</span>
+<span class="sd">        i.e. there is a preferred reader associated with this file extension,</span>
+<span class="sd">        or there is only one plugin available. Any errors that occur during</span>
+<span class="sd">        the opening process are raised. If multiple plugins</span>
+<span class="sd">        are available to read these paths, an error is raised specifying</span>
+<span class="sd">        this.</span>
+
+<span class="sd">        Errors are also raised by this function when the given paths are not</span>
+<span class="sd">        a list or tuple, or if no plugins are available to read the files.</span>
+<span class="sd">        This assumes all files have the same extension, as other cases</span>
+<span class="sd">        are not yet supported.</span>
+
+<span class="sd">        This function is called from ViewerModel.open, which raises any</span>
+<span class="sd">        errors returned. The QtViewer also calls this method but catches</span>
+<span class="sd">        exceptions and opens a dialog for users to make a plugin choice.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        paths : List[Path | str]</span>
+<span class="sd">            list of file paths to open</span>
+<span class="sd">        kwargs : Dict[str, Any], optional</span>
+<span class="sd">            keyword arguments to pass to layer adding method, by default {}</span>
+<span class="sd">        layer_type : Optional[str], optional</span>
+<span class="sd">            layer type for paths, by default None</span>
+<span class="sd">        stack : bool, optional</span>
+<span class="sd">            True if files should be opened as a stack, by default False</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        added</span>
+<span class="sd">            list of layers added</span>
+<span class="sd">        plugin</span>
+<span class="sd">            plugin used to try opening paths, if any</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            when paths is *not* a list or tuple</span>
+<span class="sd">        NoAvailableReaderError</span>
+<span class="sd">            when no plugins are available to read path</span>
+<span class="sd">        ReaderPluginError</span>
+<span class="sd">            when reading with only available or prefered plugin fails</span>
+<span class="sd">        MultipleReaderError</span>
+<span class="sd">            when multiple readers are available to read the path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>  <span class="c1"># PathObjects -&gt; str</span>
+
+        <span class="n">added</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">plugin</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">_path</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># we want to display the paths nicely so make a help string here</span>
+        <span class="n">path_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">_path</span><span class="si">}</span><span class="s2">], ...]&quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_path</span>
+
+        <span class="n">readers</span> <span class="o">=</span> <span class="n">get_potential_readers</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">readers</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoAvailableReaderError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;No plugin found capable of reading </span><span class="si">{path_message}</span><span class="s1">.&#39;</span><span class="p">,</span>
+                    <span class="n">path_message</span><span class="o">=</span><span class="n">path_message</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">paths</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">plugin</span> <span class="o">=</span> <span class="n">get_preferred_reader</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+
+        <span class="c1"># preferred plugin exists, or we just have one plugin available</span>
+        <span class="k">if</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">readers</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">plugin</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">readers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">plugin</span> <span class="o">=</span> <span class="n">plugin</span> <span class="ow">or</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">readers</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">added</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
+                    <span class="n">paths</span><span class="p">,</span>
+                    <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                    <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
+                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
+                    <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="c1"># plugin failed</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ReaderPluginError</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s1">&#39;Tried opening with </span><span class="si">{plugin}</span><span class="s1">, but failed.&#39;</span><span class="p">,</span>
+                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">plugin</span><span class="p">,</span>
+                    <span class="n">paths</span><span class="p">,</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+        <span class="c1"># preferred plugin doesn&#39;t exist</span>
+        <span class="k">elif</span> <span class="n">plugin</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MissingAssociatedReaderError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;Can&#39;t find </span><span class="si">{plugin}</span><span class="s2"> plugin associated with </span><span class="si">{extension}</span><span class="s2"> files.&quot;</span><span class="p">,</span>
+                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
+                    <span class="n">extension</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">plugin</span><span class="p">,</span>
+                <span class="n">paths</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># multiple plugins</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MultipleReaderError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;Multiple plugins found capable of reading </span><span class="si">{path_message}</span><span class="s2">. Select plugin from </span><span class="si">{plugins}</span><span class="s2"> and pass to reading function e.g. `viewer.open(..., plugin=...)`.&quot;</span><span class="p">,</span>
+                    <span class="n">path_message</span><span class="o">=</span><span class="n">path_message</span><span class="p">,</span>
+                    <span class="n">plugins</span><span class="o">=</span><span class="n">readers</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="nb">list</span><span class="p">(</span><span class="n">readers</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+                <span class="n">paths</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">added</span>
 
     <span class="k">def</span> <span class="nf">_add_layers_with_plugins</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

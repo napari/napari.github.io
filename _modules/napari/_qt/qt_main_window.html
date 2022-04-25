@@ -650,6 +650,15 @@
 
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="c1"># Ensure the controls dock uses the minimum height</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resizeDocks</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockLayerControls</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockLayerList</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockLayerControls</span><span class="o">.</span><span class="n">minimumHeight</span><span class="p">(),</span> <span class="mi">10000</span><span class="p">],</span>
+                <span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_setup_existing_themes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This function is only executed once at the startup of napari</span>

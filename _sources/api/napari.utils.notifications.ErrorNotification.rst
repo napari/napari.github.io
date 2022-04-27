@@ -20,6 +20,9 @@ napari.utils.notifications.ErrorNotification
       ~ErrorNotification.as_html
    
    
+      ~ErrorNotification.as_text
+   
+   
       ~ErrorNotification.from_exception
    
    

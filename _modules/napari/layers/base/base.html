@@ -304,23 +304,24 @@
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
 <span class="sd">    blending : Blending</span>
 <span class="sd">        Determines how RGB and alpha values get mixed.</span>
-<span class="sd">            Blending.OPAQUE</span>
-<span class="sd">                Allows for only the top layer to be visible and corresponds to</span>
-<span class="sd">                depth_test=True, cull_face=False, blend=False.</span>
-<span class="sd">            Blending.TRANSLUCENT</span>
-<span class="sd">                Allows for multiple layers to be blended with different opacity</span>
-<span class="sd">                and corresponds to depth_test=True, cull_face=False,</span>
-<span class="sd">                blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;).</span>
-<span class="sd">            Blending.TRANSLUCENT_NO_DEPTH</span>
-<span class="sd">                Allows for multiple layers to be blended with different opacity,</span>
-<span class="sd">                but no depth testing is performed.</span>
-<span class="sd">                and corresponds to depth_test=False, cull_face=False,</span>
-<span class="sd">                blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;).</span>
-<span class="sd">            Blending.ADDITIVE</span>
-<span class="sd">                Allows for multiple layers to be blended together with</span>
-<span class="sd">                different colors and opacity. Useful for creating overlays. It</span>
-<span class="sd">                corresponds to depth_test=False, cull_face=False, blend=True,</span>
-<span class="sd">                blend_func=(&#39;src_alpha&#39;, &#39;one&#39;).</span>
+
+<span class="sd">        * ``Blending.OPAQUE``</span>
+<span class="sd">          Allows for only the top layer to be visible and corresponds to</span>
+<span class="sd">          ``depth_test=True``, ``cull_face=False``, ``blend=False``.</span>
+<span class="sd">        * ``Blending.TRANSLUCENT``</span>
+<span class="sd">          Allows for multiple layers to be blended with different opacity and</span>
+<span class="sd">          corresponds to ``depth_test=True``, ``cull_face=False``,</span>
+<span class="sd">          ``blend=True``, ``blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;)``.</span>
+<span class="sd">        * ``Blending.TRANSLUCENT_NO_DEPTH``</span>
+<span class="sd">          Allows for multiple layers to be blended with different opacity, but</span>
+<span class="sd">          no depth testing is performed. Corresponds to ``depth_test=False``,</span>
+<span class="sd">          ``cull_face=False``, ``blend=True``,</span>
+<span class="sd">          ``blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;)``.</span>
+<span class="sd">        * ``Blending.ADDITIVE``</span>
+<span class="sd">          Allows for multiple layers to be blended together with different</span>
+<span class="sd">          colors and opacity. Useful for creating overlays. It corresponds to</span>
+<span class="sd">          ``depth_test=False``, ``cull_face=False``, ``blend=True``,</span>
+<span class="sd">          ``blend_func=(&#39;src_alpha&#39;, &#39;one&#39;)``.</span>
 <span class="sd">    scale : tuple of float</span>
 <span class="sd">        Scale factors for the layer.</span>
 <span class="sd">    translate : tuple of float</span>
@@ -381,12 +382,14 @@
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    Must define the following:</span>
-<span class="sd">        * `_extent_data`: property</span>
-<span class="sd">        * `data` property (setter &amp; getter)</span>
+
+<span class="sd">    * `_extent_data`: property</span>
+<span class="sd">    * `data` property (setter &amp; getter)</span>
 
 <span class="sd">    May define the following:</span>
-<span class="sd">        * `_set_view_slice()`: called to set currently viewed slice</span>
-<span class="sd">        * `_basename()`: base/default name of the layer</span>
+
+<span class="sd">    * `_set_view_slice()`: called to set currently viewed slice</span>
+<span class="sd">    * `_basename()`: base/default name of the layer</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>

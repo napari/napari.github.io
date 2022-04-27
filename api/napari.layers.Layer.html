@@ -726,28 +726,26 @@ smallest.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Layer.blending">
 <span class="sig-name descname"><span class="pre">blending</span></span><a class="headerlink" href="#napari.layers.Layer.blending" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Determines how RGB and alpha values get mixed.</dt><dd><dl class="simple">
-<dt>Blending.OPAQUE</dt><dd><p>Allows for only the top layer to be visible and corresponds to
-depth_test=True, cull_face=False, blend=False.</p>
-</dd>
-<dt>Blending.TRANSLUCENT</dt><dd><p>Allows for multiple layers to be blended with different opacity
-and corresponds to depth_test=True, cull_face=False,
-blend=True, blend_func=(‘src_alpha’, ‘one_minus_src_alpha’).</p>
-</dd>
-<dt>Blending.TRANSLUCENT_NO_DEPTH</dt><dd><p>Allows for multiple layers to be blended with different opacity,
-but no depth testing is performed.
-and corresponds to depth_test=False, cull_face=False,
-blend=True, blend_func=(‘src_alpha’, ‘one_minus_src_alpha’).</p>
-</dd>
-<dt>Blending.ADDITIVE</dt><dd><p>Allows for multiple layers to be blended together with
-different colors and opacity. Useful for creating overlays. It
-corresponds to depth_test=False, cull_face=False, blend=True,
-blend_func=(‘src_alpha’, ‘one’).</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<dd><p>Determines how RGB and alpha values get mixed.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Blending.OPAQUE</span></code>
+Allows for only the top layer to be visible and corresponds to
+<code class="docutils literal notranslate"><span class="pre">depth_test=True</span></code>, <code class="docutils literal notranslate"><span class="pre">cull_face=False</span></code>, <code class="docutils literal notranslate"><span class="pre">blend=False</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Blending.TRANSLUCENT</span></code>
+Allows for multiple layers to be blended with different opacity and
+corresponds to <code class="docutils literal notranslate"><span class="pre">depth_test=True</span></code>, <code class="docutils literal notranslate"><span class="pre">cull_face=False</span></code>,
+<code class="docutils literal notranslate"><span class="pre">blend=True</span></code>, <code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one_minus_src_alpha')</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Blending.TRANSLUCENT_NO_DEPTH</span></code>
+Allows for multiple layers to be blended with different opacity, but
+no depth testing is performed. Corresponds to <code class="docutils literal notranslate"><span class="pre">depth_test=False</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cull_face=False</span></code>, <code class="docutils literal notranslate"><span class="pre">blend=True</span></code>,
+<code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one_minus_src_alpha')</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Blending.ADDITIVE</span></code>
+Allows for multiple layers to be blended together with different
+colors and opacity. Useful for creating overlays. It corresponds to
+<code class="docutils literal notranslate"><span class="pre">depth_test=False</span></code>, <code class="docutils literal notranslate"><span class="pre">cull_face=False</span></code>, <code class="docutils literal notranslate"><span class="pre">blend=True</span></code>,
+<code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one')</span></code>.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>Blending</p>
@@ -992,18 +990,16 @@ depends on the current zoom level.</p>
 </dd></dl>
 
 <p class="rubric">Notes</p>
-<dl class="simple">
-<dt>Must define the following:</dt><dd><ul class="simple">
+<p>Must define the following:</p>
+<ul class="simple">
 <li><p><cite>_extent_data</cite>: property</p></li>
 <li><p><cite>data</cite> property (setter &amp; getter)</p></li>
 </ul>
-</dd>
-<dt>May define the following:</dt><dd><ul class="simple">
+<p>May define the following:</p>
+<ul class="simple">
 <li><p><cite>_set_view_slice()</cite>: called to set currently viewed slice</p></li>
 <li><p><cite>_basename()</cite>: base/default name of the layer</p></li>
 </ul>
-</dd>
-</dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>

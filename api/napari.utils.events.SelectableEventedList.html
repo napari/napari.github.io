@@ -660,31 +660,23 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.utils.events.</span></span><span class="sig-name descname"><span class="pre">SelectableEventedList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_selectable_list.html#SelectableEventedList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.SelectableEventedList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">napari.utils.events.containers._selection.Selectable</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">napari.utils.events.containers._selectable_list._T</span></code>], <a class="reference internal" href="napari.utils.events.EventedList.html#napari.utils.events.EventedList" title="napari.utils.events.containers._evented_list.EventedList"><code class="xref py py-class docutils literal notranslate"><span class="pre">napari.utils.events.containers._evented_list.EventedList</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">napari.utils.events.containers._selectable_list._T</span></code>]</p>
 <p>List model that also supports selection.</p>
-<dl class="simple">
-<dt>inserting (index: int)</dt><dd><p>emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p>
-</dd>
-<dt>inserted (index: int, value: T)</dt><dd><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p>
-</dd>
-<dt>removing (index: int)</dt><dd><p>emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p>
-</dd>
-<dt>removed (index: int, value: T)</dt><dd><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p>
-</dd>
-<dt>moving (index: int, new_index: int)</dt><dd><p>emitted before an item is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p>
-</dd>
-<dt>moved (index: int, new_index: int, value: T)</dt><dd><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p>
-</dd>
-<dt>changed (index: int, old_value: T, value: T)</dt><dd><p>emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p>
-</dd>
-<dt>changed &lt;OVERLOAD&gt; (index: slice, old_value: List[_T], value: List[_T])</dt><dd><p>emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p>
-</dd>
-<dt>reordered (value: self)</dt><dd><p>emitted when the list is reordered (eg. moved/reversed).</p>
-</dd>
-<dt>selection.changed (added: Set[_T], removed: Set[_T])</dt><dd><p>Emitted when the set changes, includes item(s) that have been added
-and/or removed from the set.</p>
-</dd>
-<dt>selection.active (value: _T)</dt><dd><p>emitted when the current item has changed.</p>
-</dd>
-<dt>selection._current (value: _T)</dt><dd><p>emitted when the current item has changed. (Private event)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Events</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inserting (index</strong> (<em>int)</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>inserted (index</strong> (<em>int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>removing (index</strong> (<em>int)</em>) – emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>removed (index</strong> (<em>int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>moving (index</strong> (<em>int, new_index: int)</em>) – emitted before an item is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></li>
+<li><p><strong>moved (index</strong> (<em>int, new_index: int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></li>
+<li><p><strong>changed (index</strong> (<em>int, old_value: T, value: T)</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+<li><p><strong>changed &lt;OVERLOAD&gt; (index</strong> (<em>slice, old_value: List[_T], value: List[_T])</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+<li><p><strong>reordered (value</strong> (<em>self)</em>) – emitted when the list is reordered (eg. moved/reversed).</p></li>
+<li><p><strong>selection.changed (added</strong> (<em>Set[_T], removed: Set[_T])</em>) – Emitted when the set changes, includes item(s) that have been added
+and/or removed from the set.</p></li>
+<li><p><strong>selection.active (value</strong> (<em>_T)</em>) – emitted when the current item has changed.</p></li>
+<li><p><strong>selection._current (value</strong> (<em>_T)</em>) – emitted when the current item has changed. (Private event)</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Methods</p>

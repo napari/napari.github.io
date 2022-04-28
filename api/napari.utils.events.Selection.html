@@ -659,8 +659,8 @@
 <dt class="sig sig-object py" id="napari.utils.events.Selection">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.utils.events.</span></span><span class="sig-name descname"><span class="pre">Selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><span class="pre">napari.utils.events.containers._selection._T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_selection.html#Selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.Selection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="napari.utils.events.EventedSet.html#napari.utils.events.EventedSet" title="napari.utils.events.containers._set.EventedSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">napari.utils.events.containers._set.EventedSet</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">napari.utils.events.containers._selection._T</span></code>]</p>
-<p>An model of selected items, with a <cite>active</cite> and <cite>current</cite> item.</p>
-<p>There can only be one <cite>active</cite> and one <cite>current</cite> item, but there can be
+<p>A model of selected items, with <code class="docutils literal notranslate"><span class="pre">active</span></code> and <code class="docutils literal notranslate"><span class="pre">current</span></code> item.</p>
+<p>There can only be one <code class="docutils literal notranslate"><span class="pre">active</span></code> and one <a href="#id1"><span class="problematic" id="id2">``</span></a>current` item, but there can be
 multiple selected items.  An “active” item is defined as a single selected
 item (if multiple items are selected, there is no active item).  The
 “current” item is mostly useful for (e.g.) keyboard actions: even with
@@ -701,50 +701,16 @@ handling mouse/key events.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.utils.events.Selection.Events">
-<span class="sig-name descname"><span class="pre">Events</span></span><a class="headerlink" href="#napari.utils.events.Selection.Events" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">------</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">changed</span> <span class="pre">(added</span></span></dt>
-<dd><p>Emitted when the set changes, includes item(s) that have been added
-and/or removed from the set.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Set[_T], removed: Set[_T])</p>
+<dt class="field-odd">Events</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>changed (added</strong> (<em>Set[_T], removed: Set[_T])</em>) – Emitted when the set changes, includes item(s) that have been added
+and/or removed from the set.</p></li>
+<li><p><strong>active (value</strong> (<em>_T)</em>) – emitted when the current item has changed.</p></li>
+<li><p><strong>_current (value</strong> (<em>_T)</em>) – emitted when the current item has changed. (Private event)</p></li>
+</ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">active</span> <span class="pre">(value</span></span></dt>
-<dd><p>emitted when the current item has changed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>_T)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">_current</span> <span class="pre">(value</span></span></dt>
-<dd><p>emitted when the current item has changed. (Private event)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>_T)</p>
-</dd>
-</dl>
-</dd></dl>
-
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>

@@ -668,22 +668,16 @@ changing).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>Mapping</em><em>, </em><em>optional</em>) – Dictionary to initialize the class with.</p></li>
 <li><p><strong>basetype</strong> (<em>type of sequence of types</em><em>, </em><em>optional</em>) – Type of the element in the dictionary.</p></li>
-<li><p><strong>Events</strong> – </p></li>
-<li><p><strong>------</strong> – </p></li>
-<li><p><strong>(</strong><strong>key</strong> (<em>updated</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">key</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
-<li><p><strong>(</strong><strong>key</strong> – emitted before an item is added to the dictionary with <code class="docutils literal notranslate"><span class="pre">key</span></code></p></li>
-<li><p><strong>(</strong><strong>key</strong> – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> was added to the dictionary with <code class="docutils literal notranslate"><span class="pre">key</span></code></p></li>
-<li><p><strong>(</strong><strong>key</strong> – emitted before <code class="docutils literal notranslate"><span class="pre">key</span></code> is removed from the dictionary</p></li>
-<li><p><strong>(</strong><strong>key</strong> – emitted after <code class="docutils literal notranslate"><span class="pre">key</span></code> was removed from the dictionary</p></li>
-<li><p><strong>(</strong><strong>key</strong> – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> of <code class="docutils literal notranslate"><span class="pre">key</span></code> was changed. Only implemented by
-subclasses to give them an option to trigger some update after <code class="docutils literal notranslate"><span class="pre">value</span></code>
-was changed and this class did not register it. This can be useful if
-the <code class="docutils literal notranslate"><span class="pre">basetype</span></code> is not an evented object.</p></li>
-<li><p><strong>K</strong> – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> of <code class="docutils literal notranslate"><span class="pre">key</span></code> was changed. Only implemented by
-subclasses to give them an option to trigger some update after <code class="docutils literal notranslate"><span class="pre">value</span></code>
-was changed and this class did not register it. This can be useful if
-the <code class="docutils literal notranslate"><span class="pre">basetype</span></code> is not an evented object.</p></li>
-<li><p><strong>value</strong> – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> of <code class="docutils literal notranslate"><span class="pre">key</span></code> was changed. Only implemented by
+</ul>
+</dd>
+<dt class="field-even">Events</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>changed (key</strong> (<em>K, old_value: T, value: T)</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">key</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+<li><p><strong>adding (key</strong> (<em>K)</em>) – emitted before an item is added to the dictionary with <code class="docutils literal notranslate"><span class="pre">key</span></code></p></li>
+<li><p><strong>added (key</strong> (<em>K, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> was added to the dictionary with <code class="docutils literal notranslate"><span class="pre">key</span></code></p></li>
+<li><p><strong>removing (key</strong> (<em>K)</em>) – emitted before <code class="docutils literal notranslate"><span class="pre">key</span></code> is removed from the dictionary</p></li>
+<li><p><strong>removed (key</strong> (<em>K, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">key</span></code> was removed from the dictionary</p></li>
+<li><p><strong>updated (key, K, value</strong> (<em>T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> of <code class="docutils literal notranslate"><span class="pre">key</span></code> was changed. Only implemented by
 subclasses to give them an option to trigger some update after <code class="docutils literal notranslate"><span class="pre">value</span></code>
 was changed and this class did not register it. This can be useful if
 the <code class="docutils literal notranslate"><span class="pre">basetype</span></code> is not an evented object.</p></li>

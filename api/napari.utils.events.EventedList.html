@@ -670,17 +670,19 @@ setting, and moving).</p>
 <li><p><strong>basetype</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.10)"><em>type</em></a><em> or </em><em>sequence of types</em><em>, </em><em>optional</em>) – Type of the elements in the list.</p></li>
 <li><p><strong>lookup</strong> (<em>dict of Type</em><em>[</em><em>L</em><em>] </em><em>: function</em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a><em>) </em><em>-&gt; L</em>) – Mapping between a type, and a function that converts items in the list
 to that type.</p></li>
-<li><p><strong>Events</strong> – </p></li>
-<li><p><strong>------</strong> – </p></li>
-<li><p><strong>(</strong><strong>index</strong> (<em>changed &lt;OVERLOAD&gt;</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
-<li><p><strong>(</strong><strong>index</strong> – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
-<li><p><strong>(</strong><strong>index</strong> – emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
-<li><p><strong>(</strong><strong>index</strong> – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
-<li><p><strong>(</strong><strong>index</strong> – emitted before an item is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></li>
-<li><p><strong>(</strong><strong>index</strong> – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></li>
-<li><p><strong>(</strong><strong>index</strong> – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
-<li><p><strong>(</strong><strong>index</strong> – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
-<li><p><strong>(</strong><strong>value</strong> (<em>reordered</em>) – emitted when the list is reordered (eg. moved/reversed).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Events</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>inserting (index</strong> (<em>int)</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>inserted (index</strong> (<em>int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>removing (index</strong> (<em>int)</em>) – emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>removed (index</strong> (<em>int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>moving (index</strong> (<em>int, new_index: int)</em>) – emitted before an item is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></li>
+<li><p><strong>moved (index</strong> (<em>int, new_index: int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></li>
+<li><p><strong>changed (index</strong> (<em>int, old_value: T, value: T)</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+<li><p><strong>changed &lt;OVERLOAD&gt; (index</strong> (<em>slice, old_value: List[_T], value: List[_T])</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+<li><p><strong>reordered (value</strong> (<em>self)</em>) – emitted when the list is reordered (eg. moved/reversed).</p></li>
 </ul>
 </dd>
 </dl>

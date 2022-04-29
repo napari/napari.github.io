@@ -664,140 +664,24 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>iterable</em>) – Iterable of napari.layer.Layer</p>
 </dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.inserting">
-<span class="sig-name descname"><span class="pre">inserting</span></span><a class="headerlink" href="#napari.components.LayerList.inserting" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(index: int)</p>
+<dt class="field-even">Events</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>inserting</strong> (<em>(index: int)</em>) – emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>inserted</strong> (<em>(index: int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>removing</strong> (<em>(index: int)</em>) – emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>removed</strong> (<em>(index: int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p><strong>moving</strong> (<em>(index: int, new_index: int)</em>) – emitted before an item is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></li>
+<li><p><strong>moved</strong> (<em>(index: int, new_index: int, value: T)</em>) – emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></li>
+<li><p><strong>changed</strong> (<em>(index: int, old_value: T, value: T)</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+<li><p><strong>changed &lt;OVERLOAD&gt;</strong> (<em>(index: slice, old_value: List[_T], value: List[_T])</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+<li><p><strong>reordered</strong> (<em>(value: self)</em>) – emitted when the list is reordered (eg. moved/reversed).</p></li>
+<li><p><strong>selection.changed</strong> (<em>(added: Set[_T], removed: Set[_T])</em>) – emitted when the set changes, includes item(s) that have been added
+and/or removed from the set.</p></li>
+<li><p><strong>selection.active</strong> (<em>(value: _T)</em>) – emitted when the current item has changed.</p></li>
+<li><p><strong>selection._current</strong> (<em>(value: _T)</em>) – emitted when the current item has changed. (Private event)</p></li>
+</ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.inserted">
-<span class="sig-name descname"><span class="pre">inserted</span></span><a class="headerlink" href="#napari.components.LayerList.inserted" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(index: int, value: T)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.removing">
-<span class="sig-name descname"><span class="pre">removing</span></span><a class="headerlink" href="#napari.components.LayerList.removing" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(index: int)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.removed">
-<span class="sig-name descname"><span class="pre">removed</span></span><a class="headerlink" href="#napari.components.LayerList.removed" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(index: int, value: T)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.moving">
-<span class="sig-name descname"><span class="pre">moving</span></span><a class="headerlink" href="#napari.components.LayerList.moving" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted before an item is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(index: int, new_index: int)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.moved">
-<span class="sig-name descname"><span class="pre">moved</span></span><a class="headerlink" href="#napari.components.LayerList.moved" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(index: int, new_index: int, value: T)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.changed">
-<span class="sig-name descname"><span class="pre">changed</span></span><a class="headerlink" href="#napari.components.LayerList.changed" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(index: int, old_value: T, value: T)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">changed</span> <span class="pre">&lt;OVERLOAD&gt;</span></span></dt>
-<dd><p>emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(index: slice, old_value: List[_T], value: List[_T])</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.reordered">
-<span class="sig-name descname"><span class="pre">reordered</span></span><a class="headerlink" href="#napari.components.LayerList.reordered" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted when the list is reordered (eg. moved/reversed).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(value: self)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.selection.changed">
-<span class="sig-prename descclassname"><span class="pre">selection.</span></span><span class="sig-name descname"><span class="pre">changed</span></span><a class="headerlink" href="#napari.components.LayerList.selection.changed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Emitted when the set changes, includes item(s) that have been added
-and/or removed from the set.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(added: Set[_T], removed: Set[_T])</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.selection.active">
-<span class="sig-prename descclassname"><span class="pre">selection.</span></span><span class="sig-name descname"><span class="pre">active</span></span><a class="headerlink" href="#napari.components.LayerList.selection.active" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted when the current item has changed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(value: _T)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.LayerList.selection._current">
-<span class="sig-prename descclassname"><span class="pre">selection.</span></span><span class="sig-name descname"><span class="pre">_current</span></span><a class="headerlink" href="#napari.components.LayerList.selection._current" title="Permalink to this definition">¶</a></dt>
-<dd><p>emitted when the current item has changed. (Private event)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>(value: _T)</p>
-</dd>
-</dl>
-</dd></dl>
-
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>

@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -1932,8 +1932,8 @@ has the <code class="docutils literal notranslate"><span class="pre">ContextKey<
 a variable name in an expression. Additionally, they have a <code class="docutils literal notranslate"><span class="pre">description</span></code> that
 can be used in documentation, a <code class="docutils literal notranslate"><span class="pre">default_value</span></code>, and a <code class="docutils literal notranslate"><span class="pre">getter</span></code> function that
 can be called to retrieve the current value (the parameters passed to the
-<code class="docutils literal notranslate"><span class="pre">getter</span></code> will depend on the context key… see <a class="reference external" href="#updating-contexts">Updating
-Contexts</a> below for more).</p>
+<code class="docutils literal notranslate"><span class="pre">getter</span></code> will depend on the context key… see <span class="xref myst">Updating
+Contexts</span> below for more).</p>
 <p>In order to keep related keys together, <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> instances will usually be
 declared as class attributes on a <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> class:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># all of the getters here receive an instance of viewer.layers.selection</span>
@@ -2049,7 +2049,7 @@ the settings:</p>
 <h3>Updating Contexts<a class="headerlink" href="#updating-contexts" title="Permalink to this headline">¶</a></h3>
 <p>You may be wondering exactly how objects such as <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> update
 the keys in their contexts. The aforementioned
-<a class="reference external" href="#contextkey-objects"><code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></a> comes into play here again.  A
+<span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></span> comes into play here again.  A
 <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> can be instantiated, and bound to a specific <code class="docutils literal notranslate"><span class="pre">Context</span></code>
 instance.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
@@ -2069,7 +2069,7 @@ setters!) of their respective <code class="docutils literal notranslate"><span c
 <p>Finally, the <code class="docutils literal notranslate"><span class="pre">update</span></code> method can be used to trigger an update of all of the
 <code class="docutils literal notranslate"><span class="pre">ContextKeys</span></code> in a given <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> whenever a specific event occurs,
 (the value is updated by passing the <code class="docutils literal notranslate"><span class="pre">event.source</span></code> to the <code class="docutils literal notranslate"><span class="pre">getter</span></code> function
-that was declared in the <a class="reference external" href="#contextkey-objects"><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> constructor</a>)</p>
+that was declared in the <span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> constructor</span>)</p>
 <p>The following example works because <em>all</em> of the <code class="docutils literal notranslate"><span class="pre">getter</span></code> methods declared
 in <code class="docutils literal notranslate"><span class="pre">LayerListContextKeys</span></code> take an instance of <code class="docutils literal notranslate"><span class="pre">layers.selection</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">llck</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
@@ -2088,7 +2088,7 @@ in <code class="docutils literal notranslate"><span class="pre">LayerListContext
 </section>
 <section id="summary-a-rough-full-picture">
 <h2>Summary: A (rough) full picture<a class="headerlink" href="#summary-a-rough-full-picture" title="Permalink to this headline">¶</a></h2>
-<ol>
+<ol class="arabic">
 <li><p>napari creates special context “names” using <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> and <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LayerListContextKeys</span><span class="p">(</span><span class="n">ContextNamespace</span><span class="p">):</span>
     <span class="n">active_layer_type</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
@@ -2131,7 +2131,7 @@ image.</p>
 <p>When this manifest is parsed, those expressions will be converted into
 napari <code class="docutils literal notranslate"><span class="pre">Expr</span></code> objects internally.</p>
 </li>
-<li><p>During runtime, napari maintains and <a class="reference external" href="#updating-contexts">updates contexts</a></p></li>
+<li><p>During runtime, napari maintains and <span class="xref myst">updates contexts</span></p></li>
 <li><p>As these contexts are updated, they emit events that allow menus, keybindings,
 and other things to update themselves accordingly.  For example, the layer-list
 context menu might update the items in the menu that are visible and/or enabled:</p>

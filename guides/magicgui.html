@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -1863,7 +1863,7 @@ function inputs easy:</p>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to &#39;/tmp/runtime-runner&#39;
 </pre></div>
 </div>
-<img alt="../_images/magicgui_1_1.png" src="../_images/magicgui_1_1.png" />
+<img alt="../_images/93282e30d6c346f5391dba0c0b0e223cc4e10bad620f2de70136a92e60cf977e.png" src="../_images/93282e30d6c346f5391dba0c0b0e223cc4e10bad620f2de70136a92e60cf977e.png" />
 </div>
 </div>
 <p><em>Add caption here</em></p>
@@ -2028,7 +2028,7 @@ in which the widget is docked, you can annotate one of your parameters as a
 <p class="admonition-title">Caution</p>
 <p>Please use this sparingly, as a last resort. If you need to <em>add</em> layers
 to the viewer from your function, prefer one of the return-annotation methods
-described <a class="reference external" href="#adding-layers-to-napari-from-your-magicgui-function">below</a>.
+described <span class="xref myst">below</span>.
 If you find that you require the viewer instance because of functionality that
 is otherwise missing here, please consider opening an issue in the
 <a class="reference external" href="https://github.com/napari/napari/issues/new/choose">napari issue tracker</a>,
@@ -2099,7 +2099,7 @@ example). In this case, you may use a return type annotation of one the special
 returned by your function to be turned into the corresponding
 <a class="reference internal" href="../api/napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a> type, and added to the viewer.</p>
 <p>For example, in combination with the <a class="reference internal" href="../api/napari.types.html#napari.types.ImageData" title="napari.types.ImageData"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ImageData</span></code></a> paramater
-annotation <a class="reference external" href="#annotating-as-napari-types-data">described above</a>:</p>
+annotation <span class="xref myst">described above</span>:</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="n">LabelsData</span><span class="p">,</span> <span class="n">ImageData</span>
@@ -2127,7 +2127,7 @@ it gives you full control over the layer that will be created and added to the
 viewer.  (It also lets you update an existing layer with a matching name).</p>
 <p>A <a class="reference internal" href="../api/napari.types.html#napari.types.LayerDataTuple" title="napari.types.LayerDataTuple"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LayerDataTuple</span></code></a> is a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> in one of the
 following three forms:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">(layer_data,)</span></code></p>
 <ul class="simple">
 <li><p>a single item tuple containing only layer data (will be interpreted as an image).</p></li>
@@ -2286,7 +2286,7 @@ returns a widget instance).  There are two ways to acheive this with <code class
 <p>In most cases, the <a class="reference external" href="https://napari.org/magicgui/api/magicgui.html#magicgui.magicgui" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">&#64;magicgui</span></code></a> decorator used in the
 preceding examples can simply be replaced with the <code class="xref py py-func docutils literal notranslate"><span class="pre">&#64;magic_factory</span></code>
 decorator, to use it as a plugin dock widget.</p>
-<p>For example, the threshold widget <a class="reference external" href="#returning-napari-types-data">shown above</a>
+<p>For example, the threshold widget <span class="xref myst">shown above</span>
 could be provided as a napari plugin as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">magic_factory</span>
 <span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>

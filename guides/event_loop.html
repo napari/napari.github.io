@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -1745,7 +1745,7 @@ event loop for you in IPython, then you can disable it with:</p>
 <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">ipy_interactive</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
-<p>… but then you will have to start the program yourself as described <a class="reference external" href="#in-a-script">below</a>.</p>
+<p>… but then you will have to start the program yourself as described <span class="xref myst">below</span>.</p>
 </div>
 </section>
 <section id="in-a-script">
@@ -1799,7 +1799,7 @@ EventLoop</a>.</p>
 <p>A deep dive into the Qt event loop is beyond the scope of this document, but
 it’s worth being aware of two critical steps in the “lifetime” of a Qt
 Application:</p>
-<ol>
+<ol class="arabic">
 <li><p>Any program that would like to create a
 <a class="reference external" href="https://doc.qt.io/qt-5/qwidget.html"><code class="docutils literal notranslate"><span class="pre">QWidget</span></code></a> (the class from which all
 napari’s graphical elements are subclassed), must create a
@@ -1846,14 +1846,14 @@ all napari examples included this <code class="docutils literal notranslate"><sp
 </pre></div>
 </div>
 <p>On entering the context, <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> would create a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code>, and on exiting
-the context, it would start the event loop (the two critical steps <a class="reference external" href="#qt-applications-and-event-loops">mentioned
-above</a>).</p>
+the context, it would start the event loop (the two critical steps <span class="xref myst">mentioned
+above</span>).</p>
 <p>Unlike a typical context manager, however, it did not actually <em>destroy</em> the
 <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> (since it may still be needed in the same session)… and future
 calls to <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> were only needed to start the event loop.  By auto-creating
 the <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> during <a class="reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a> creation, introducing the
-explicit <a class="reference internal" href="../api/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a> function, and using the <a class="reference external" href="#in-ipython-or-jupyter-notebook">integrated IPython event
-loop</a> when applicable, we hope to simplify the
+explicit <a class="reference internal" href="../api/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a> function, and using the <span class="xref myst">integrated IPython event
+loop</span> when applicable, we hope to simplify the
 usage of napari.</p>
 </div>
 <p>Now that you have an understanding of how napari creates the event loop, you may

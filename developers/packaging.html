@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -850,7 +850,7 @@ a path to a PFX certificate and then have the Windows SDK <code class="docutils 
 <p>Many of the features here listed were not available on <code class="docutils literal notranslate"><span class="pre">constructor</span></code> when we started working on it.
 We have added them to the relevant parts of the stack as needed, but that has resulted in a lot of
 moving pieces being juggled to make this work. Let’s begin by enumerating the stack components:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">constructor</span></code> is the command-line tool that <em>builds</em> the installer. It depends on <code class="docutils literal notranslate"><span class="pre">conda</span></code> to
 solve the <code class="docutils literal notranslate"><span class="pre">specs</span></code> request. It also requires a copy of <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code> (a PyInstaller-frozen
 version of <code class="docutils literal notranslate"><span class="pre">conda</span></code>) to be present at build time so it can be bundled in the installer. This
@@ -874,7 +874,7 @@ forks. It is configured to use GitHub Actions (instead of Azure) and upload to t
 (instead of <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>).</p>
 <p>For example, if a patch is introduced in <code class="docutils literal notranslate"><span class="pre">menuinst</span></code>, the following needs to happen before it makes
 it to the final napari installer:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Write and test the patch. Make sure it passes its own CI.</p></li>
 <li><p>Make sure <code class="docutils literal notranslate"><span class="pre">conda</span></code> still works with the new changes. It needs to call <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> after all.</p></li>
 <li><p>Create the <code class="docutils literal notranslate"><span class="pre">menuinst</span></code> package and upload it to Anaconda.org.</p></li>

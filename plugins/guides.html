@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -400,8 +400,8 @@ otherwise, they will not be invoked when a directory is passed to <code class="d
 <section id="reader-example">
 <h3>Reader example<a class="headerlink" href="#reader-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="67f89e7f-660e-48f3-a4ef-9b551dd7bc39" name="c0f0da3a-94ef-4e21-83cc-691f1f42e1d4" type="radio">
-</input><label class="tabbed-label" for="67f89e7f-660e-48f3-a4ef-9b551dd7bc39">
+<input checked="checked" id="0403bc8a-a0bd-4b3b-96d4-e2893d908b13" name="65d41630-48d6-4b6e-bd4e-209ccd8abfdc" type="radio">
+</input><label class="tabbed-label" for="0403bc8a-a0bd-4b3b-96d4-e2893d908b13">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -437,7 +437,7 @@ npe2</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 <p><strong>manifest</strong></p>
-<p>See <a class="reference external" href="./contributions.html#contributions-readers">Readers contribution reference</a>
+<p>See <span class="xref myst">Readers contribution reference</span>
 for field details.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -452,8 +452,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="d598e387-7ce4-451e-8018-a33cb4db8a10" name="c0f0da3a-94ef-4e21-83cc-691f1f42e1d4" type="radio">
-</input><label class="tabbed-label" for="d598e387-7ce4-451e-8018-a33cb4db8a10">
+<input id="1f98b934-2557-4b32-af47-3c417103ec33" name="65d41630-48d6-4b6e-bd4e-209ccd8abfdc" type="radio">
+</input><label class="tabbed-label" for="1f98b934-2557-4b32-af47-3c417103ec33">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -500,13 +500,13 @@ specification from the first generation <code class="docutils literal notranslat
 <section id="writer-plugin-function-signatures">
 <h3>Writer plugin function signatures<a class="headerlink" href="#writer-plugin-function-signatures" title="Permalink to this headline">¶</a></h3>
 <p>Writer plugins are <em>functions</em> that:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Accept a destination path and data from one or more layers in the viewer</p></li>
 <li><p>Write layer data and associated attributes to disk</p></li>
 <li><p>Return a list of strings containing the path(s) that were successfully written.</p></li>
 </ol>
 <p>They must follow one of two calling conventions (where the convention used
-is determined by the <a class="reference external" href="#layer-type-constraints"><code class="docutils literal notranslate"><span class="pre">layer_type</span></code> constraints</a> provided
+is determined by the <span class="xref myst"><code class="docutils literal notranslate"><span class="pre">layer_type</span></code> constraints</span> provided
 by the corresponding writer contribution in the manifest).</p>
 <section id="single-layer-writer">
 <h4>1. single-layer writer<a class="headerlink" href="#single-layer-writer" title="Permalink to this headline">¶</a></h4>
@@ -545,7 +545,7 @@ by the corresponding writer contribution in the manifest).</p>
 <h3>Layer type constraints<a class="headerlink" href="#layer-type-constraints" title="Permalink to this headline">¶</a></h3>
 <p>Individual writer contributions are determined to be <strong>single-layer writers</strong> or
 <strong>multi-layer writers</strong> based on their <strong><code class="docutils literal notranslate"><span class="pre">writer.layer_types</span></code></strong> constraints
-provided in the <a class="reference external" href="./contributions.html#contributions-writers">contribution metadata</a>.</p>
+provided in the <span class="xref myst">contribution metadata</span>.</p>
 <p>A writer plugin declares that it can accept between <em>m</em> and <em>n</em> layers of a
 specific <em>type</em> (where <em>0 ≤ m ≤ n</em>), using regex-like syntax with the special
 characters <strong><code class="docutils literal notranslate"><span class="pre">?</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">+</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">*</span></code></strong>:</p>
@@ -577,8 +577,8 @@ and a <code class="docutils literal notranslate"><span class="pre">vectors</span
 <section id="writer-example">
 <h3>Writer example<a class="headerlink" href="#writer-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="d399605e-c31b-46a4-ab53-850240641a0e" name="099c5056-93ce-4262-99b5-f45955db3005" type="radio">
-</input><label class="tabbed-label" for="d399605e-c31b-46a4-ab53-850240641a0e">
+<input checked="checked" id="610dff78-d477-418e-acd6-2d3b67300a8b" name="7ad04451-790f-4c28-8836-cc4561d49df6" type="radio">
+</input><label class="tabbed-label" for="610dff78-d477-418e-acd6-2d3b67300a8b">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -591,7 +591,7 @@ npe2</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 <p><strong>manifest</strong></p>
-<p>See <a class="reference external" href="./contributions.html#contributions-writers">Writers contribution reference</a>
+<p>See <span class="xref myst">Writers contribution reference</span>
 for field details.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -607,8 +607,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="5bc140fd-bf63-48db-a621-9a9c463c9734" name="099c5056-93ce-4262-99b5-f45955db3005" type="radio">
-</input><label class="tabbed-label" for="5bc140fd-bf63-48db-a621-9a9c463c9734">
+<input id="5f33785f-adb6-4a01-b76f-944b76e018bc" name="7ad04451-790f-4c28-8836-cc4561d49df6" type="radio">
+</input><label class="tabbed-label" for="5f33785f-adb6-4a01-b76f-944b76e018bc">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -665,7 +665,7 @@ specifically requested by the user.</p>
 (where a “widget” is an instance of <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or <code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code>).</p>
 <p>There are a few commonly used patterns that fulfill this <code class="docutils literal notranslate"><span class="pre">Callable[...,</span> <span class="pre">Widget]</span></code>
 specification:</p>
-<ol>
+<ol class="arabic">
 <li><p>Provide a <code class="docutils literal notranslate"><span class="pre">class</span></code> object directly, such as a <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or
 <code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code> subclass:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
@@ -693,13 +693,13 @@ just as we need for the widget specification.)</em></p>
 autogenerate a widget using <code class="docutils literal notranslate"><span class="pre">magicgui.magicgui</span></code>.  In the first generation
 <code class="docutils literal notranslate"><span class="pre">napari_plugin_engine</span></code>, this was the <code class="docutils literal notranslate"><span class="pre">napari_experimental_provide_function</span></code>
 hook specification.  In the new <code class="docutils literal notranslate"><span class="pre">npe2</span></code> pattern, one uses the <code class="docutils literal notranslate"><span class="pre">autogenerate</span></code>
-field in the <a class="reference external" href="./contributions.html#contributions-widgets">WidgetContribution</a>.</p></li>
+field in the <span class="xref myst">WidgetContribution</span>.</p></li>
 </ol>
 <section id="widget-example">
 <h3>Widget example<a class="headerlink" href="#widget-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="d4d11586-bc7d-4f9f-85ed-4852e1112f37" name="ff725866-ff82-42b0-b184-2c1b40bcc59e" type="radio">
-</input><label class="tabbed-label" for="d4d11586-bc7d-4f9f-85ed-4852e1112f37">
+<input checked="checked" id="51547340-9800-4636-a17b-f10780213b68" name="7ef78713-360b-4c11-b7d1-7d14b0d00aad" type="radio">
+</input><label class="tabbed-label" for="51547340-9800-4636-a17b-f10780213b68">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -761,7 +761,7 @@ npe2</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 <p><strong>manifest</strong></p>
-<p>See <a class="reference external" href="./contributions.html#contributions-widgets">Widgets contribution reference</a>
+<p>See <span class="xref myst">Widgets contribution reference</span>
 for field details.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -785,8 +785,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="e437d038-e725-4a0c-9c07-aa40435da61b" name="ff725866-ff82-42b0-b184-2c1b40bcc59e" type="radio">
-</input><label class="tabbed-label" for="e437d038-e725-4a0c-9c07-aa40435da61b">
+<input id="68bcf57e-288c-4d08-abe3-9ffd8275a235" name="7ef78713-360b-4c11-b7d1-7d14b0d00aad" type="radio">
+</input><label class="tabbed-label" for="68bcf57e-288c-4d08-abe3-9ffd8275a235">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -856,8 +856,8 @@ or <strong>Sample Data Function</strong> that generates layer data on demand.</p
 <section id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="c5aaab1a-4387-453a-a5c9-d6b5ae3ffb6a" name="015a27e1-5093-4fae-930c-88f2f174e478" type="radio">
-</input><label class="tabbed-label" for="c5aaab1a-4387-453a-a5c9-d6b5ae3ffb6a">
+<input checked="checked" id="207d8769-30cf-4d83-af7d-4e08d981831e" name="6426c91b-0998-4065-b639-b00a28f2c6f8" type="radio">
+</input><label class="tabbed-label" for="207d8769-30cf-4d83-af7d-4e08d981831e">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -871,7 +871,7 @@ npe2</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 <p><strong>manifest</strong></p>
-<p>See <a class="reference external" href="./contributions.html#contributions-sample-data">Sample Data contribution reference</a>
+<p>See <span class="xref myst">Sample Data contribution reference</span>
 for field details.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -888,8 +888,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="6cb17a3f-ecf1-437b-a03e-09a49f45792b" name="015a27e1-5093-4fae-930c-88f2f174e478" type="radio">
-</input><label class="tabbed-label" for="6cb17a3f-ecf1-437b-a03e-09a49f45792b">
+<input id="91ea7ca9-45d6-4872-b109-582628ae4dbb" name="6426c91b-0998-4065-b639-b00a28f2c6f8" type="radio">
+</input><label class="tabbed-label" for="91ea7ca9-45d6-4872-b109-582628ae4dbb">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -933,7 +933,7 @@ up often in plugins and is explained here.</p>
 </pre></div>
 </div>
 <p>A <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple is a tuple of length 1, 2, or 3 whose items, in order, are:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">data</span></code> object that would be used for <code class="docutils literal notranslate"><span class="pre">layer.data</span></code> (such as a numpy array
 for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer)</p></li>
 <li><p><em>(Optional).</em> A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> of layer attributes, suitable for passing as

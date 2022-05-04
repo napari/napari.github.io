@@ -1469,7 +1469,6 @@
 <span class="sd">            the color cycle map or colormap), set update_color_mapping=False.</span>
 <span class="sd">            Default value is False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_color</span><span class="p">(</span><span class="s1">&#39;face&#39;</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_color</span><span class="p">(</span><span class="s1">&#39;edge&#39;</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span></div>
 
@@ -1497,7 +1496,6 @@
             <span class="k">if</span> <span class="n">color_mode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">]:</span>
                 <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_color</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
-
                 <span class="n">color_event</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color&#39;</span><span class="p">)</span>
                 <span class="n">color_event</span><span class="p">()</span>
 
@@ -1767,6 +1765,13 @@
 <span class="sd">        anchor_y : str</span>
 <span class="sd">            The vispy text anchor for the y axis</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># short circuit if no text present</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">compute_text_coords</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span>
+            <span class="p">)</span>
+
         <span class="c1"># get the coordinates of the vertices for the shapes in view</span>
         <span class="n">in_view_shapes_coords</span> <span class="o">=</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span>
@@ -2420,19 +2425,35 @@
 
     <span class="k">def</span> <span class="nf">_add_shapes_to_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape_inputs</span><span class="p">,</span> <span class="n">data_view</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Build new shapes and add them to the _data_view&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ec</span><span class="p">,</span> <span class="n">fc</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">shape_inputs</span><span class="p">:</span>
 
-            <span class="n">shape_cls</span> <span class="o">=</span> <span class="n">shape_classes</span><span class="p">[</span><span class="n">ShapeType</span><span class="p">(</span><span class="n">st</span><span class="p">)]</span>
-            <span class="n">shape</span> <span class="o">=</span> <span class="n">shape_cls</span><span class="p">(</span>
-                <span class="n">d</span><span class="p">,</span>
-                <span class="n">edge_width</span><span class="o">=</span><span class="n">ew</span><span class="p">,</span>
-                <span class="n">z_index</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                <span class="n">dims_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">,</span>
-                <span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">,</span>
+        <span class="n">shape_inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape_inputs</span><span class="p">)</span>
+
+        <span class="c1"># build all shapes</span>
+        <span class="n">sh_inp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">shape_classes</span><span class="p">[</span><span class="n">ShapeType</span><span class="p">(</span><span class="n">st</span><span class="p">)](</span>
+                    <span class="n">d</span><span class="p">,</span>
+                    <span class="n">edge_width</span><span class="o">=</span><span class="n">ew</span><span class="p">,</span>
+                    <span class="n">z_index</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
+                    <span class="n">dims_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">,</span>
+                    <span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">ec</span><span class="p">,</span>
+                <span class="n">fc</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ec</span><span class="p">,</span> <span class="n">fc</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">shape_inputs</span>
+        <span class="p">)</span>
 
-            <span class="c1"># Add shape</span>
-            <span class="n">data_view</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">ec</span><span class="p">,</span> <span class="n">face_color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">z_refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">shapes</span><span class="p">,</span> <span class="n">edge_colors</span><span class="p">,</span> <span class="n">face_colors</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">sh_inp</span><span class="p">))</span>
+
+        <span class="c1"># Add all shapes at once (faster than adding them one by one)</span>
+        <span class="n">data_view</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span>
+            <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span>
+            <span class="n">face_color</span><span class="o">=</span><span class="n">face_colors</span><span class="p">,</span>
+            <span class="n">z_refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="n">data_view</span><span class="o">.</span><span class="n">_update_z_order</span><span class="p">()</span>
 
     <span class="nd">@property</span>

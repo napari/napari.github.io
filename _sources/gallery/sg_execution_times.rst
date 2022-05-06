@@ -5,164 +5,164 @@
 
 Computation times
 =================
-**02:33.642** total execution time for **gallery** files:
+**02:04.013** total execution time for **gallery** files:
 
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_new_theme.py` (``new_theme.py``)                                             | 00:36.695 | 0.0 MB |
+| :ref:`sphx_glr_gallery_new_theme.py` (``new_theme.py``)                                             | 00:27.647 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_image_depth.py` (``image_depth.py``)                                         | 00:06.791 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_multiscale_image.py` (``add_multiscale_image.py``)                       | 00:05.139 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_multiscale_image.py` (``add_multiscale_image.py``)                       | 00:04.983 | 0.0 MB |
+| :ref:`sphx_glr_gallery_image_depth.py` (``image_depth.py``)                                         | 00:04.630 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_scale_bar.py` (``scale_bar.py``)                                             | 00:03.660 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_image.py` (``add_image.py``)                                             | 00:03.519 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_vectors.py` (``nD_vectors.py``)                                           | 00:03.442 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_vectors.py` (``nD_vectors.py``)                                           | 00:02.776 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_shapes.py` (``nD_shapes.py``)                                             | 00:03.255 | 0.0 MB |
+| :ref:`sphx_glr_gallery_scale_bar.py` (``scale_bar.py``)                                             | 00:02.716 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_multiscale_image_non_uniform.py` (``nD_multiscale_image_non_uniform.py``) | 00:03.146 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_shapes.py` (``nD_shapes.py``)                                             | 00:02.470 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_points_on_nD_shapes.py` (``add_points_on_nD_shapes.py``)                 | 00:02.546 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_multiscale_image_non_uniform.py` (``nD_multiscale_image_non_uniform.py``) | 00:02.279 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_points-over-time.py` (``points-over-time.py``)                               | 00:02.475 | 0.0 MB |
+| :ref:`sphx_glr_gallery_points-over-time.py` (``points-over-time.py``)                               | 00:02.029 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_mixed-dimensions-labels.py` (``mixed-dimensions-labels.py``)                 | 00:02.388 | 0.0 MB |
+| :ref:`sphx_glr_gallery_swap_dims.py` (``swap_dims.py``)                                             | 00:01.936 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_shapes_with_text.py` (``nD_shapes_with_text.py``)                         | 00:02.365 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_points.py` (``nD_points.py``)                                             | 00:01.848 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_swap_dims.py` (``swap_dims.py``)                                             | 00:02.308 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_points_on_nD_shapes.py` (``add_points_on_nD_shapes.py``)                 | 00:01.807 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_points.py` (``nD_points.py``)                                             | 00:02.287 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_shapes_with_text.py` (``nD_shapes_with_text.py``)                         | 00:01.733 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_to_screenshot.py` (``to_screenshot.py``)                                     | 00:02.155 | 0.0 MB |
+| :ref:`sphx_glr_gallery_paint-nd.py` (``paint-nd.py``)                                               | 00:01.727 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_volume_plane_rendering.py` (``volume_plane_rendering.py``)                   | 00:02.078 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_image.py` (``nD_image.py``)                                               | 00:01.719 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_3D_paths.py` (``3D_paths.py``)                                               | 00:01.980 | 0.0 MB |
+| :ref:`sphx_glr_gallery_volume_plane_rendering.py` (``volume_plane_rendering.py``)                   | 00:01.700 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_dynamic-projections-dask.py` (``dynamic-projections-dask.py``)               | 00:01.948 | 0.0 MB |
+| :ref:`sphx_glr_gallery_mixed-dimensions-labels.py` (``mixed-dimensions-labels.py``)                 | 00:01.693 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_paint-nd.py` (``paint-nd.py``)                                               | 00:01.947 | 0.0 MB |
+| :ref:`sphx_glr_gallery_to_screenshot.py` (``to_screenshot.py``)                                     | 00:01.628 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_multiscale_image.py` (``nD_multiscale_image.py``)                         | 00:01.915 | 0.0 MB |
+| :ref:`sphx_glr_gallery_dask_nD_image.py` (``dask_nD_image.py``)                                     | 00:01.624 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_dask_nD_image.py` (``dask_nD_image.py``)                                     | 00:01.864 | 0.0 MB |
+| :ref:`sphx_glr_gallery_dynamic-projections-dask.py` (``dynamic-projections-dask.py``)               | 00:01.577 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_image.py` (``add_image.py``)                                             | 00:01.834 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_multiscale_image.py` (``nD_multiscale_image.py``)                         | 00:01.556 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_update_console.py` (``update_console.py``)                                   | 00:01.764 | 0.0 MB |
+| :ref:`sphx_glr_gallery_3D_paths.py` (``3D_paths.py``)                                               | 00:01.543 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_image.py` (``nD_image.py``)                                               | 00:01.763 | 0.0 MB |
+| :ref:`sphx_glr_gallery_update_console.py` (``update_console.py``)                                   | 00:01.411 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_shapes_to_labels.py` (``shapes_to_labels.py``)                               | 00:01.555 | 0.0 MB |
+| :ref:`sphx_glr_gallery_shapes_to_labels.py` (``shapes_to_labels.py``)                               | 00:01.280 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_cursor_ray.py` (``cursor_ray.py``)                                           | 00:01.535 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_volume.py` (``add_volume.py``)                                           | 00:01.259 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_volume.py` (``add_volume.py``)                                           | 00:01.482 | 0.0 MB |
+| :ref:`sphx_glr_gallery_cursor_position.py` (``cursor_position.py``)                                 | 00:01.145 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_volume.py` (``nD_volume.py``)                                             | 00:01.463 | 0.0 MB |
+| :ref:`sphx_glr_gallery_cursor_ray.py` (``cursor_ray.py``)                                           | 00:01.143 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_multiple_viewers.py` (``multiple_viewers.py``)                               | 00:01.410 | 0.0 MB |
+| :ref:`sphx_glr_gallery_multiple_viewers.py` (``multiple_viewers.py``)                               | 00:01.140 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_annotate_segmentation_with_text.py` (``annotate_segmentation_with_text.py``) | 00:01.410 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_shapes_with_text.py` (``add_shapes_with_text.py``)                       | 00:01.118 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_tracks_3d.py` (``tracks_3d.py``)                                             | 00:01.380 | 0.0 MB |
+| :ref:`sphx_glr_gallery_annotate_segmentation_with_text.py` (``annotate_segmentation_with_text.py``) | 00:01.117 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_labels-2d.py` (``labels-2d.py``)                                             | 00:01.372 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_volume.py` (``nD_volume.py``)                                             | 00:01.110 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_interactive_move_point_3d.py` (``interactive_move_point_3d.py``)             | 00:01.365 | 0.0 MB |
+| :ref:`sphx_glr_gallery_tracks_3d.py` (``tracks_3d.py``)                                             | 00:01.106 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_affine_transforms.py` (``affine_transforms.py``)                             | 00:01.330 | 0.0 MB |
+| :ref:`sphx_glr_gallery_interactive_move_point_3d.py` (``interactive_move_point_3d.py``)             | 00:01.103 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_vectors_image.py` (``nD_vectors_image.py``)                               | 00:01.329 | 0.0 MB |
+| :ref:`sphx_glr_gallery_labels-2d.py` (``labels-2d.py``)                                             | 00:01.066 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_shapes_with_text.py` (``add_shapes_with_text.py``)                       | 00:01.322 | 0.0 MB |
+| :ref:`sphx_glr_gallery_bbox_annotator.py` (``bbox_annotator.py``)                                   | 00:01.034 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_layers.py` (``layers.py``)                                                   | 00:01.310 | 0.0 MB |
+| :ref:`sphx_glr_gallery_set_theme.py` (``set_theme.py``)                                             | 00:01.023 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_cursor_position.py` (``cursor_position.py``)                                 | 00:01.289 | 0.0 MB |
+| :ref:`sphx_glr_gallery_affine_transforms.py` (``affine_transforms.py``)                             | 00:01.018 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_bbox_annotator.py` (``bbox_annotator.py``)                                   | 00:01.247 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_vectors_image.py` (``nD_vectors_image.py``)                               | 00:01.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_surface_normals_wireframe.py` (``surface_normals_wireframe.py``)             | 00:01.232 | 0.0 MB |
+| :ref:`sphx_glr_gallery_surface_normals_wireframe.py` (``surface_normals_wireframe.py``)             | 00:00.997 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_set_theme.py` (``set_theme.py``)                                             | 00:01.215 | 0.0 MB |
+| :ref:`sphx_glr_gallery_layers.py` (``layers.py``)                                                   | 00:00.974 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_interactive_move_rectangle_3d.py` (``interactive_move_rectangle_3d.py``)     | 00:01.199 | 0.0 MB |
+| :ref:`sphx_glr_gallery_annotate-2d.py` (``annotate-2d.py``)                                         | 00:00.950 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_tracks_3d_with_graph.py` (``tracks_3d_with_graph.py``)                       | 00:01.179 | 0.0 MB |
+| :ref:`sphx_glr_gallery_interactive_move_rectangle_3d.py` (``interactive_move_rectangle_3d.py``)     | 00:00.944 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_points_with_text.py` (``add_points_with_text.py``)                       | 00:01.151 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_shapes.py` (``add_shapes.py``)                                           | 00:00.936 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_shapes_with_features.py` (``add_shapes_with_features.py``)               | 00:01.142 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_points.py` (``add_points.py``)                                           | 00:00.933 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_shapes.py` (``add_shapes.py``)                                           | 00:01.130 | 0.0 MB |
+| :ref:`sphx_glr_gallery_tracks_3d_with_graph.py` (``tracks_3d_with_graph.py``)                       | 00:00.923 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_vectors_image.py` (``add_vectors_image.py``)                             | 00:01.122 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_points_with_text.py` (``add_points_with_text.py``)                       | 00:00.920 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_points_with_features.py` (``add_points_with_features.py``)               | 00:01.121 | 0.0 MB |
+| :ref:`sphx_glr_gallery_tracks_2d.py` (``tracks_2d.py``)                                             | 00:00.895 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_annotate-2d.py` (``annotate-2d.py``)                                         | 00:01.099 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_shapes_with_features.py` (``add_shapes_with_features.py``)               | 00:00.887 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_tracks_2d.py` (``tracks_2d.py``)                                             | 00:01.087 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_points_with_features.py` (``add_points_with_features.py``)               | 00:00.885 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_points.py` (``add_points.py``)                                           | 00:01.073 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_points_with_features.py` (``nD_points_with_features.py``)                 | 00:00.877 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_vectors_color_by_angle.py` (``add_vectors_color_by_angle.py``)           | 00:01.062 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_vectors_color_by_angle.py` (``add_vectors_color_by_angle.py``)           | 00:00.862 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_points_with_features.py` (``nD_points_with_features.py``)                 | 00:01.053 | 0.0 MB |
+| :ref:`sphx_glr_gallery_spherical_points.py` (``spherical_points.py``)                               | 00:00.860 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_action_manager.py` (``action_manager.py``)                                   | 00:01.024 | 0.0 MB |
+| :ref:`sphx_glr_gallery_action_manager.py` (``action_manager.py``)                                   | 00:00.847 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_mouse_drag_callback.py` (``mouse_drag_callback.py``)                         | 00:01.017 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_vectors.py` (``add_vectors.py``)                                         | 00:00.835 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_labels.py` (``nD_labels.py``)                                             | 00:01.012 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_labels.py` (``nD_labels.py``)                                             | 00:00.834 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_show_points_based_on_feature.py` (``show_points_based_on_feature.py``)       | 00:00.999 | 0.0 MB |
+| :ref:`sphx_glr_gallery_show_points_based_on_feature.py` (``show_points_based_on_feature.py``)       | 00:00.820 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_spherical_points.py` (``spherical_points.py``)                               | 00:00.996 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_vectors_image.py` (``add_vectors_image.py``)                             | 00:00.817 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_set_colormaps.py` (``set_colormaps.py``)                                     | 00:00.977 | 0.0 MB |
+| :ref:`sphx_glr_gallery_mouse_drag_callback.py` (``mouse_drag_callback.py``)                         | 00:00.816 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_vectors.py` (``add_vectors.py``)                                         | 00:00.964 | 0.0 MB |
+| :ref:`sphx_glr_gallery_magic_parameter_sweep.py` (``magic_parameter_sweep.py``)                     | 00:00.808 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_labels_with_features.py` (``add_labels_with_features.py``)               | 00:00.951 | 0.0 MB |
+| :ref:`sphx_glr_gallery_set_colormaps.py` (``set_colormaps.py``)                                     | 00:00.805 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_magic_parameter_sweep.py` (``magic_parameter_sweep.py``)                     | 00:00.947 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_labels_with_features.py` (``add_labels_with_features.py``)               | 00:00.785 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_pass_colormaps.py` (``pass_colormaps.py``)                                   | 00:00.920 | 0.0 MB |
+| :ref:`sphx_glr_gallery_pass_colormaps.py` (``pass_colormaps.py``)                                   | 00:00.760 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_interaction_box_points.py` (``interaction_box_points.py``)                   | 00:00.913 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_labels.py` (``add_labels.py``)                                           | 00:00.756 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_labels.py` (``add_labels.py``)                                           | 00:00.897 | 0.0 MB |
+| :ref:`sphx_glr_gallery_interaction_box_points.py` (``interaction_box_points.py``)                   | 00:00.755 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_magic_image_arithmetic.py` (``magic_image_arithmetic.py``)                   | 00:00.891 | 0.0 MB |
+| :ref:`sphx_glr_gallery_magic_image_arithmetic.py` (``magic_image_arithmetic.py``)                   | 00:00.717 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_custom_mouse_functions.py` (``custom_mouse_functions.py``)                   | 00:00.878 | 0.0 MB |
+| :ref:`sphx_glr_gallery_without_gui_qt.py` (``without_gui_qt.py``)                                   | 00:00.704 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_linked_layers.py` (``linked_layers.py``)                                     | 00:00.833 | 0.0 MB |
+| :ref:`sphx_glr_gallery_linked_layers.py` (``linked_layers.py``)                                     | 00:00.699 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_without_gui_qt.py` (``without_gui_qt.py``)                                   | 00:00.798 | 0.0 MB |
+| :ref:`sphx_glr_gallery_custom_mouse_functions.py` (``custom_mouse_functions.py``)                   | 00:00.692 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_nD_surface.py` (``nD_surface.py``)                                           | 00:00.756 | 0.0 MB |
+| :ref:`sphx_glr_gallery_nD_surface.py` (``nD_surface.py``)                                           | 00:00.650 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_interactive_scripting.py` (``interactive_scripting.py``)                     | 00:00.743 | 0.0 MB |
+| :ref:`sphx_glr_gallery_interactive_scripting.py` (``interactive_scripting.py``)                     | 00:00.619 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_viewer_fps_label.py` (``viewer_fps_label.py``)                               | 00:00.729 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_grayscale_image.py` (``add_grayscale_image.py``)                         | 00:00.618 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_grayscale_image.py` (``add_grayscale_image.py``)                         | 00:00.710 | 0.0 MB |
+| :ref:`sphx_glr_gallery_interaction_box_image.py` (``interaction_box_image.py``)                     | 00:00.606 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_interaction_box_image.py` (``interaction_box_image.py``)                     | 00:00.708 | 0.0 MB |
+| :ref:`sphx_glr_gallery_custom_key_bindings.py` (``custom_key_bindings.py``)                         | 00:00.588 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_custom_key_bindings.py` (``custom_key_bindings.py``)                         | 00:00.707 | 0.0 MB |
+| :ref:`sphx_glr_gallery_viewer_fps_label.py` (``viewer_fps_label.py``)                               | 00:00.555 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_surface_2D.py` (``add_surface_2D.py``)                                   | 00:00.620 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_surface_2D.py` (``add_surface_2D.py``)                                   | 00:00.538 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_add_image_transformed.py` (``add_image_transformed.py``)                     | 00:00.618 | 0.0 MB |
+| :ref:`sphx_glr_gallery_add_image_transformed.py` (``add_image_transformed.py``)                     | 00:00.532 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_magic_viewer.py` (``magic_viewer.py``)                                       | 00:00.414 | 0.0 MB |
+| :ref:`sphx_glr_gallery_magic_viewer.py` (``magic_viewer.py``)                                       | 00:00.341 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_get_current_viewer.py` (``get_current_viewer.py``)                           | 00:00.356 | 0.0 MB |
+| :ref:`sphx_glr_gallery_get_current_viewer.py` (``get_current_viewer.py``)                           | 00:00.293 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr_gallery_reader_plugin.py` (``reader_plugin.py``)                                     | 00:00.010 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------+-----------+--------+

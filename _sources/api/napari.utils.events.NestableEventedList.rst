@@ -61,7 +61,7 @@ napari.utils.events.NestableEventedList
 
    .. autosummary::
    
-      ~NestableEventedList.events
+      
    
    
 

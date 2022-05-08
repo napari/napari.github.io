@@ -106,10 +106,10 @@ napari.layers.Vectors
       ~Vectors.translate
       ~Vectors.translate_grid
       ~Vectors.visible
-      ~Vectors.mouse_move_callbacks
-      ~Vectors.mouse_wheel_callbacks
-      ~Vectors.mouse_drag_callbacks
-      ~Vectors.mouse_double_click_callbacks
+      
+      
+      
+      
    
    
 

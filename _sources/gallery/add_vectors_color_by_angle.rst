@@ -34,8 +34,23 @@ The color of the vectors is mapped to their 'angle' feature.
    :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/imageio/__init__.py:89: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning dissapear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
+      warnings.warn(
+    /home/runner/work/napari/napari/napari/utils/colormaps/colormap_utils.py:397: DeprecationWarning: Colormap 'husl' has been deprecated since vispy 0.7. Please import and create 'vispy.color.colormap.HSLuv' directly instead.
+      cmap = get_colormap(name)
 
 
+
+
+
+
+|
 
 .. code-block:: default
 

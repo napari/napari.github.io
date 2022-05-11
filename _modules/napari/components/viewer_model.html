@@ -1004,6 +1004,9 @@
                 <span class="n">data</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">_sample_data</span><span class="p">[</span><span class="n">plugin</span><span class="p">][</span><span class="n">sample</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="n">available</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">plugin_manager</span><span class="o">.</span><span class="n">available_samples</span><span class="p">())</span>
+        <span class="c1"># npe2 uri sample data, extract the path so we can use viewer.open</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">uri</span>
 
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>

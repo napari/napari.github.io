@@ -39,6 +39,8 @@ Displays an image and sets the theme to new custom theme.
 
  .. code-block:: none
 
+    /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/imageio/__init__.py:89: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning dissapear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
+      warnings.warn(
     Originally themes ('dark', 'light', 'system')
     New themes ('dark', 'light', 'blue', 'system')
 
@@ -87,7 +89,7 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  27.918 seconds)
+   **Total running time of the script:** ( 0 minutes  28.342 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:

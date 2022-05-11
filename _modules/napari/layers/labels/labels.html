@@ -834,10 +834,9 @@
     <span class="k">def</span> <span class="nf">color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LabelColorMode</span><span class="p">]):</span>
         <span class="n">color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="p">(</span><span class="n">color_mode</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span>
-            <span class="p">(</span>
-                <span class="n">custom_colormap</span><span class="p">,</span>
-                <span class="n">label_color_index</span><span class="p">,</span>
-            <span class="p">)</span> <span class="o">=</span> <span class="n">color_dict_to_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+            <span class="n">custom_colormap</span><span class="p">,</span> <span class="n">label_color_index</span> <span class="o">=</span> <span class="n">color_dict_to_colormap</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
+            <span class="p">)</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">custom_colormap</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_label_color_index</span> <span class="o">=</span> <span class="n">label_color_index</span>
         <span class="k">elif</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>

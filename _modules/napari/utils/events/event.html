@@ -559,6 +559,34 @@
     <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_is_core_callback</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">CallbackRef</span><span class="p">,</span> <span class="n">Callback</span><span class="p">],</span> <span class="n">core</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the callback is a core callback</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        callback : Union[CallbackRef, Callback]</span>
+<span class="sd">            The callback to check. Callback could be function or</span>
+<span class="sd">            weak reference to object method coded using weakreference</span>
+<span class="sd">            to object and method name stored in tuple.</span>
+<span class="sd">        core : str</span>
+<span class="sd">            Name of core module, for example &#39;napari&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">partial</span><span class="p">):</span>
+                <span class="n">callback</span> <span class="o">=</span> <span class="n">callback</span><span class="o">.</span><span class="n">func</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">callback</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">core</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">callback</span><span class="p">[</span><span class="mi">0</span><span class="p">]()</span>  <span class="c1"># get object behind weakref</span>
+            <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># object is dead</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">core</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
 <div class="viewcode-block" id="EventEmitter.connect"><a class="viewcode-back" href="../../../../api/napari.utils.notifications.EventEmitter.html#napari.utils.events.EventEmitter.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">callback</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callback</span><span class="p">,</span> <span class="n">CallbackRef</span><span class="p">,</span> <span class="n">CallbackStr</span><span class="p">,</span> <span class="s1">&#39;EventEmitter&#39;</span><span class="p">],</span>
@@ -663,12 +691,26 @@
                     <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
+        <span class="n">core_callbacks_indexes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">i</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_core_callback</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;napari&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">core_callbacks_count</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">max</span><span class="p">(</span><span class="n">core_callbacks_indexes</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">core_callbacks_indexes</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_core_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="s1">&#39;napari&#39;</span><span class="p">):</span>
+            <span class="n">callback_bounds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">core_callbacks_count</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">callback_bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">core_callbacks_count</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">callback_refs</span><span class="p">))</span>
 
         <span class="c1"># bounds: upper &amp; lower bnds (inclusive) of possible cb locs</span>
-        <span class="n">bounds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">bounds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">ri</span><span class="p">,</span> <span class="n">criteria</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">criteria</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">criteria</span> <span class="o">==</span> <span class="p">[]:</span>
-                <span class="n">bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">callback_refs</span><span class="p">)</span> <span class="k">if</span> <span class="n">ri</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">callback_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">ri</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">callback_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">criteria</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                     <span class="n">criteria</span> <span class="o">=</span> <span class="p">[</span><span class="n">criteria</span><span class="p">]</span>

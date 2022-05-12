@@ -37,8 +37,6 @@ Action manager
 
  .. code-block:: none
 
-    /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/imageio/__init__.py:89: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning dissapear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
-      warnings.warn(
     /home/runner/work/napari/napari/examples/action_manager.py:42: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
     v0.5.0. It is considered an "implementation detail" of the napari
     application, not part of the napari viewer model. If your use case
@@ -46,9 +44,9 @@ Action manager
       layer_buttons = viewer.window.qt_viewer.layerButtons
     /home/runner/work/napari/napari/examples/action_manager.py:47: FutureWarning: viewer argument is deprecated and should not be used
       rot_button = QtViewerPushButton(None, 'warning')
-    calling <function register_action at 0x7f176a7ff310>
-    calling <function bind_shortcut at 0x7f176a7ff3a0>
-    calling <function bind_button at 0x7f176a7ff430>
+    calling <function bind_button at 0x7f6bf1ca01f0>
+    calling <function bind_shortcut at 0x7f6bf1ca0160>
+    calling <function register_action at 0x7f6bf1ca00d0>
 
 
 

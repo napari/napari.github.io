@@ -39,8 +39,8 @@ Displays an nD multiscale image
 
  .. code-block:: none
 
-    /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/imageio/__init__.py:89: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning dissapear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
-      warnings.warn(
+    /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/skimage/io/_plugins/imageio_plugin.py:10: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning dissapear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
+      return np.asarray(imageio_imread(*args, **kwargs))
     /home/runner/work/napari/napari/examples/nD_multiscale_image_non_uniform.py:18: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
       pyramid_gaussian(base, downscale=2, max_layer=3, multichannel=True)
     multiscale level shapes:  [(6, 1536, 1536, 3), (6, 768, 768, 3), (6, 384, 384, 3), (6, 192, 192, 3)]

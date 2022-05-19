@@ -214,7 +214,6 @@
 
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">layers</span>
 <span class="kn">from</span> <span class="nn">..errors</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">MissingAssociatedReaderError</span><span class="p">,</span>
     <span class="n">MultipleReaderError</span><span class="p">,</span>
     <span class="n">NoAvailableReaderError</span><span class="p">,</span>
     <span class="n">ReaderPluginError</span><span class="p">,</span>
@@ -1220,9 +1219,26 @@
             <span class="p">)</span>
 
         <span class="n">plugin</span> <span class="o">=</span> <span class="n">get_preferred_reader</span><span class="p">(</span><span class="n">_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">plugin</span> <span class="ow">and</span> <span class="n">plugin</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">readers</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="ne">RuntimeWarning</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Can&#39;t find </span><span class="si">{</span><span class="n">plugin</span><span class="si">}</span><span class="s2"> plugin associated with </span><span class="si">{</span><span class="n">path_message</span><span class="si">}</span><span class="s2"> files. &quot;</span><span class="p">,</span>
+                        <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
+                        <span class="n">path_message</span><span class="o">=</span><span class="n">path_message</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="o">+</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s2">&quot;This may be because you&#39;ve switched environments, or have uninstalled the plugin without updating the reader preference. &quot;</span>
+                    <span class="p">)</span>
+                    <span class="o">+</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s2">&quot;You can remove this preference in the preference dialog, or by editing `settings.plugins.extension2reader`.&quot;</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">plugin</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># preferred plugin exists, or we just have one plugin available</span>
-        <span class="k">if</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">readers</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">plugin</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">readers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">plugin</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">readers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">plugin</span> <span class="o">=</span> <span class="n">plugin</span> <span class="ow">or</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">readers</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">added</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
@@ -1243,19 +1259,6 @@
                     <span class="n">plugin</span><span class="p">,</span>
                     <span class="n">paths</span><span class="p">,</span>
                 <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-
-        <span class="c1"># preferred plugin doesn&#39;t exist</span>
-        <span class="k">elif</span> <span class="n">plugin</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">MissingAssociatedReaderError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Can&#39;t find </span><span class="si">{plugin}</span><span class="s2"> plugin associated with </span><span class="si">{extension}</span><span class="s2"> files.&quot;</span><span class="p">,</span>
-                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                    <span class="n">extension</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
-                <span class="n">plugin</span><span class="p">,</span>
-                <span class="n">paths</span><span class="p">,</span>
-            <span class="p">)</span>
         <span class="c1"># multiple plugins</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MultipleReaderError</span><span class="p">(</span>

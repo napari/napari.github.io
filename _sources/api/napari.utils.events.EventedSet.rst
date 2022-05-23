@@ -79,7 +79,7 @@ napari.utils.events.EventedSet
 
    .. autosummary::
    
-      
+      ~EventedSet.events
    
    
 

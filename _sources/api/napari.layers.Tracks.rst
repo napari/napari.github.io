@@ -113,10 +113,10 @@ napari.layers.Tracks
       ~Tracks.translate_grid
       ~Tracks.use_fade
       ~Tracks.visible
-      
-      
-      
-      
+      ~Tracks.mouse_move_callbacks
+      ~Tracks.mouse_wheel_callbacks
+      ~Tracks.mouse_drag_callbacks
+      ~Tracks.mouse_double_click_callbacks
    
    
 

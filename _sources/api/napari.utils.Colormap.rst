@@ -75,10 +75,10 @@ napari.utils.Colormap
    
       ~Colormap.colorbar
       ~Colormap.events
-      ~Colormap.colors
-      ~Colormap.name
-      ~Colormap.interpolation
-      ~Colormap.controls
+      
+      
+      
+      
    
    
 

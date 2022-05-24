@@ -44,7 +44,7 @@ napari.utils.notifications.ErrorNotification
       ~ErrorNotification.source
       ~ErrorNotification.sources
       ~ErrorNotification.type
-      ~ErrorNotification.exception
+      
    
    
 

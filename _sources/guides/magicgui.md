@@ -127,7 +127,7 @@ viewer.window.add_dock_widget(my_widget)
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-nbscreenshot(viewer, alt_text="A magicgui widget using an image layer parameter annotation")
+nbscreenshot(viewer, alt_text=" ")
 ```
 
 ### Annotating as `Layer`
@@ -242,7 +242,7 @@ my_widget()  # "call the widget" to call the function.
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-nbscreenshot(viewer, alt_text="A magicgui widget using an image layer return annotation")
+nbscreenshot(viewer, alt_text=" ")
 ```
 
 ```{note}
@@ -286,7 +286,7 @@ threshold()  # "call the widget" to call the function.
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-nbscreenshot(viewer, alt_text="A magicgui widget returning a layer attribute")
+nbscreenshot(viewer, alt_text=" ")
 ```
 
 ### Returning `napari.types.LayerDataTuple`
@@ -350,7 +350,7 @@ make_points()  # "call the widget" to call the function.
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-nbscreenshot(viewer, alt_text="A magicgui widget returning a LayerDataTuple")
+nbscreenshot(viewer, alt_text=" ")
 ```
 
 ### Returning `List[napari.types.LayerDataTuple]`
@@ -405,7 +405,7 @@ make_points()
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-nbscreenshot(viewer, alt_text="A magicgui widget updating an existing layer")
+nbscreenshot(viewer, alt_text=" ")
 ```
 
 ## Avoid imports with forward references

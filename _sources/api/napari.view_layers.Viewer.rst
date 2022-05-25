@@ -128,24 +128,24 @@ napari.view\_layers.Viewer
       ~Viewer.events
       ~Viewer.experimental
       ~Viewer.window
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      ~Viewer.axes
+      ~Viewer.camera
+      ~Viewer.cursor
+      ~Viewer.dims
+      ~Viewer.grid
+      ~Viewer.layers
+      ~Viewer.scale_bar
+      ~Viewer.text_overlay
+      ~Viewer.overlays
+      ~Viewer.help
+      ~Viewer.status
+      ~Viewer.tooltip
+      ~Viewer.theme
+      ~Viewer.title
+      ~Viewer.mouse_move_callbacks
+      ~Viewer.mouse_wheel_callbacks
+      ~Viewer.mouse_drag_callbacks
+      ~Viewer.mouse_double_click_callbacks
    
    
 

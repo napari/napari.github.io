@@ -25,7 +25,7 @@ napari.utils.events.SupportsEvents
 
    .. autosummary::
    
-      
+      ~SupportsEvents.events
    
    
 

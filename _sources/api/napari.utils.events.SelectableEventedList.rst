@@ -74,7 +74,7 @@ napari.utils.events.SelectableEventedList
    .. autosummary::
    
       ~SelectableEventedList.selection
-      ~SelectableEventedList.events
+      
    
    
 

@@ -114,10 +114,10 @@ napari.layers.Image
       ~Image.translate
       ~Image.translate_grid
       ~Image.visible
-      ~Image.mouse_move_callbacks
-      ~Image.mouse_wheel_callbacks
-      ~Image.mouse_drag_callbacks
-      ~Image.mouse_double_click_callbacks
+      
+      
+      
+      
    
    
 

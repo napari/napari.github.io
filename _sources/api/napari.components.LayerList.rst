@@ -91,7 +91,7 @@ napari.components.LayerList
       ~LayerList.extent
       ~LayerList.ndim
       ~LayerList.selection
-      ~LayerList.events
+      
    
    
 

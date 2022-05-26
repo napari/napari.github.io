@@ -1056,7 +1056,7 @@
         <span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;builtins&#39;</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
@@ -1077,9 +1077,11 @@
 <span class="sd">            ``False``, then the ``path`` list is broken up and passed to plugin</span>
 <span class="sd">            readers one by one.  by default False.</span>
 <span class="sd">        plugin : str, optional</span>
-<span class="sd">            Name of a plugin to use.  If provided, will force ``path`` to be</span>
-<span class="sd">            read with the specified ``plugin``.  If the requested plugin cannot</span>
-<span class="sd">            read ``path``, an exception will be raised.</span>
+<span class="sd">            Name of a plugin to use, by default builtins.  If provided, will</span>
+<span class="sd">            force ``path`` to be read with the specified ``plugin``.</span>
+<span class="sd">            If None, ``plugin`` will be read from preferences or inferred if just</span>
+<span class="sd">            one reader is compatible.</span>
+<span class="sd">            If the requested plugin cannot read ``path``, an exception will be raised.</span>
 <span class="sd">        layer_type : str, optional</span>
 <span class="sd">            If provided, will force data read from ``path`` to be passed to the</span>
 <span class="sd">            corresponding ``add_&lt;layer_type&gt;`` method (along with any</span>

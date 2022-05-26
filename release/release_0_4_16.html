@@ -289,22 +289,15 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <h2>File Opening Changes in 0.4.16<a class="headerlink" href="#file-opening-changes-in-0-4-16" title="Permalink to this headline">¶</a></h2>
 <p>Prior to <code class="docutils literal notranslate"><span class="pre">npe2</span></code>, file opening with plugins worked through a cascade of function calls trying different readers until one worked, or all failed, in which case an error would be raised. Preferences for readers could be set by reordering hook implementations in the Call Order preference dialog.</p>
 <p>This behavior was slow, confusing, and often led to unexpected results. You can see more discussion on this in issue <a class="reference external" href="https://github.com/napari/napari/issues/4000">#4000</a>. <code class="docutils literal notranslate"><span class="pre">npe2</span></code> supports readers declaring a list of accepted filename patterns, and PR <a class="reference external" href="https://github.com/napari/napari/pull/3799">#3799</a> added a dialog for users to select a plugin to read their file (if more than one was available), and save a preference for that file extension.</p>
-<p>Before removing plugin call order, we want to ensure that file opening behavior is unified across the GUI and the command line, and that users have access to a smooth workflow for choosing plugins and saving preferences.</p>
-<p>After discussion in <a class="reference external" href="https://github.com/napari/napari/pull/4102">#4102</a> and <a class="reference external" href="https://github.com/napari/napari/discussions/4111">#4111</a>, we decided that as a guiding principle, napari will not choose a reader when multiple are compatible with the given file path. This decision has led to the following changes:</p>
+<p>Before removing plugin call order, we want to make sure that file opening behavior across the GUI and command line is predictable, reproducible and explicit.</p>
+<p>After discussion in <a class="reference external" href="https://github.com/napari/napari/pull/4102">#4102</a>, <a class="reference external" href="https://github.com/napari/napari/discussions/4111">#4111</a> and <a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/212875-general/topic/.60viewer.2Eopen.60.20.26.20multiple.20plugins">this zulip thread</a>, we decided that as a guiding principle, calling <code class="docutils literal notranslate"><span class="pre">viewer.open</span></code> should not infer a plugin choice for you, and any inference behavior should be opt in.</p>
+<p>This has led to the following API and GUI changes</p>
 <ul>
-<li><p>Calling <code class="docutils literal notranslate"><span class="pre">viewer.open</span></code> <em>without</em> passing a plugin will result in an error if you have not saved a reader preference for that file pattern <em>and</em> multiple plugins can claim the file</p>
-<ul class="simple">
-<li><p>You can address this error by associating a preference for the file pattern, or calling `viewer.open(file_path, plugin=…)</p></li>
-<li><p>To save a preference for a file pattern in Python, use:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
-<span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">extension2reader</span><span class="p">[</span><span class="s1">&#39;*.tif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari_tifffile&#39;</span>
-<span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">extension2reader</span><span class="p">[</span><span class="s1">&#39;*.zarr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari-ome-zarr&#39;</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>To specify a plugin in a Python script:</p></li>
-</ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">builtins</span></code> is now the default value for the <code class="docutils literal notranslate"><span class="pre">plugin</span></code> argument in <code class="docutils literal notranslate"><span class="pre">viewer.open</span></code>. This means</p>
+<ul>
+<li><p>you should <strong>always</strong> explicitly pass a plugin to <code class="docutils literal notranslate"><span class="pre">viewer.open</span></code>, if you don’t want to use <code class="docutils literal notranslate"><span class="pre">builtins</span></code> (and we encourage you to pass the argument anyway).</p>
+<ul>
+<li><p>To specify a plugin in a Python script:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
@@ -312,20 +305,48 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;my-path.tif&#39;</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="s1">&#39;napari_tifffile&#39;</span><span class="p">)</span> <span class="c1"># this won&#39;t</span>
 </pre></div>
 </div>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">viewer.open</span></code> will <strong>not</strong> inspect your file extension preferences, and will not choose among available plugins</p></li>
+<li><p>if you wish to opt into the “gui-like” behavior where your preferences are respected and we infer a plugin if just one is compatible with your file path, you must explicitly use <code class="docutils literal notranslate"><span class="pre">plugin=None</span></code></p>
+<ul>
+<li><p>To opt into plugin inference behavior:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;my-path.nd2&#39;</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>If multiple plugins could read your file, you will see a <code class="docutils literal notranslate"><span class="pre">MultipleReaderError</span></code></p></li>
+<li><p>A preferred reader missing from current plugins will trigger a warning, but the preference will be otherwise ignored</p></li>
+<li><p>A preferred reader failing to read your file will result in an error e.g. if you saved <code class="docutils literal notranslate"><span class="pre">napari_tifffile</span></code> as a preference for TIFFs but then tried to open a broken file</p></li>
+<li><p>To save a preference for a file pattern in Python, use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+<span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">extension2reader</span><span class="p">[</span><span class="s1">&#39;*.tif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari_tifffile&#39;</span>
+<span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">extension2reader</span><span class="p">[</span><span class="s1">&#39;*.zarr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari-ome-zarr&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>When opening a file through a GUI pathway (drag &amp; drop, File -&gt; Open, Open Sample) with no preferences saved, you are provided with a dialog allowing you to choose among the various plugins that are compatible with your file</p>
+<ul class="simple">
+<li><p>This dialog also allows you to save a preference for files and folders with extensions</p></li>
+<li><p>This dialog also pops up if a preferred reader fails to open your file</p></li>
+<li><p>This dialog does not pop up if only one plugin can open your file</p></li>
+</ul>
+</li>
+<li><p>Running <code class="docutils literal notranslate"><span class="pre">napari</span> <span class="pre">path</span></code> in the shell will also provide the reader dialog. You can still pass through a plugin choice, or layer keyword arguments</p>
 <ul class="simple">
 <li><p>To specify a plugin at the command line, use:</p></li>
 </ul>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>napari my-path.tif --plugin napari_tifffile
 </pre></div>
 </div>
-</li>
-<li><p>A preferred reader missing from current plugins will trigger a warning, but the preference will be otherwise ignored</p></li>
-<li><p>A preferred reader failing to read your file will result in an error e.g. if you saved <code class="docutils literal notranslate"><span class="pre">napari_tifffile</span></code> as a preference for TIFFs but then tried to open a broken file</p></li>
-<li><p>When opening a file through a GUI pathway (drag &amp; drop, File -&gt; Open, Open Sample) you are provided with a dialog allowing you to choose among the various plugins that are compatible with your file</p>
-<ul class="simple">
-<li><p>This dialog also allows you to save a preference for files and folders with extensions</p></li>
-<li><p>This dialog also pops up if a preferred reader fails to open your file</p></li>
-</ul>
 </li>
 <li><p>Preference saving for file reading is now supported for filename patterns accepted by <code class="docutils literal notranslate"><span class="pre">npe2</span></code> readers, rather than strictly file extensions</p>
 <ul class="simple">
@@ -458,6 +479,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <ul class="simple">
 <li><p>Update file opening behavior to ensure consistency across command line and GUI. (#4347)</p></li>
 <li><p>Warn user when preferred plugin for a file is missing (#4545)</p></li>
+<li><p>Make <code class="docutils literal notranslate"><span class="pre">builtins</span></code> default plugin for <code class="docutils literal notranslate"><span class="pre">viewer.open</span></code> (#4574)</p></li>
 </ul>
 </section>
 <section id="ui-changes">

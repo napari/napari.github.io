@@ -51,11 +51,11 @@ napari.qt.threading.FunctionWorker
    
       ~FunctionWorker.abort_requested
       ~FunctionWorker.is_running
-      
-      
-      
-      
-      
+      ~FunctionWorker.returned
+      ~FunctionWorker.errored
+      ~FunctionWorker.warned
+      ~FunctionWorker.started
+      ~FunctionWorker.finished
    
    
 

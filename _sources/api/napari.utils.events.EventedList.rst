@@ -61,7 +61,7 @@ napari.utils.events.EventedList
 
    .. autosummary::
    
-      
+      ~EventedList.events
    
    
 

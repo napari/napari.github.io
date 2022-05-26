@@ -138,7 +138,7 @@ napari.plugins.NapariPluginManager
    
       ~NapariPluginManager.ENTRY_POINT
       ~NapariPluginManager.hooks
-      
+      ~NapariPluginManager.plugins
    
    
 

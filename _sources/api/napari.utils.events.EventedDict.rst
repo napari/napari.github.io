@@ -58,7 +58,7 @@ napari.utils.events.EventedDict
 
    .. autosummary::
    
-      
+      ~EventedDict.events
    
    
 

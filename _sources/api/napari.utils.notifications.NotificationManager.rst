@@ -46,7 +46,7 @@ napari.utils.notifications.NotificationManager
 
    .. autosummary::
    
-      
+      ~NotificationManager.records
    
    
 

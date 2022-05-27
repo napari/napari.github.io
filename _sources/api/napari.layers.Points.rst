@@ -140,10 +140,10 @@ napari.layers.Points
       ~Points.translate
       ~Points.translate_grid
       ~Points.visible
-      ~Points.mouse_move_callbacks
-      ~Points.mouse_wheel_callbacks
-      ~Points.mouse_drag_callbacks
-      ~Points.mouse_double_click_callbacks
+      
+      
+      
+      
    
    
 

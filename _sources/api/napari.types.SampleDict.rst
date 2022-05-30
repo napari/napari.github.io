@@ -58,8 +58,8 @@ napari.types.SampleDict
 
    .. autosummary::
    
-      
-      
+      ~SampleDict.display_name
+      ~SampleDict.data
    
    
 

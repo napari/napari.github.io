@@ -189,20 +189,16 @@
               
   <h1>Source code for napari.layers.surface.surface</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span>
 <span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span> <span class="nn">...utils.geometry</span> <span class="kn">import</span> <span class="n">find_nearest_triangle_intersection</span>
 <span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">..intensity_mixin</span> <span class="kn">import</span> <span class="n">IntensityVisualizationMixin</span>
-<span class="kn">from</span> <span class="nn">..utils.interactivity_utils</span> <span class="kn">import</span> <span class="n">nd_line_segment_to_displayed_data_ray</span>
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">calc_data_range</span>
 <span class="kn">from</span> <span class="nn">._surface_constants</span> <span class="kn">import</span> <span class="n">Shading</span>
-<span class="kn">from</span> <span class="nn">._surface_utils</span> <span class="kn">import</span> <span class="n">calculate_barycentric_coordinates</span>
 <span class="kn">from</span> <span class="nn">.normals</span> <span class="kn">import</span> <span class="n">SurfaceNormals</span>
 <span class="kn">from</span> <span class="nn">.wireframe</span> <span class="kn">import</span> <span class="n">SurfaceWireframe</span>
 
@@ -641,72 +637,7 @@
 <span class="sd">        value : None</span>
 <span class="sd">            Value of the data at the coord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="k">def</span> <span class="nf">_get_value_3d</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">start_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">end_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the layer data value along a ray</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        start_point : np.ndarray</span>
-<span class="sd">            The start position of the ray used to interrogate the data.</span>
-<span class="sd">        end_point : np.ndarray</span>
-<span class="sd">            The end position of the ray used to interrogate the data.</span>
-<span class="sd">        dims_displayed : List[int]</span>
-<span class="sd">            The indices of the dimensions currently displayed in the Viewer.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        value</span>
-<span class="sd">            The data value along the supplied ray.</span>
-<span class="sd">        vertex : None</span>
-<span class="sd">            Index of vertex if any that is at the coordinates. Always returns `None`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="c1"># only applies to 3D</span>
-            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">start_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">end_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="c1"># return None if the ray doesn&#39;t intersect the data bounding box</span>
-            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-
-        <span class="n">start_position</span><span class="p">,</span> <span class="n">ray_direction</span> <span class="o">=</span> <span class="n">nd_line_segment_to_displayed_data_ray</span><span class="p">(</span>
-            <span class="n">start_point</span><span class="o">=</span><span class="n">start_point</span><span class="p">,</span>
-            <span class="n">end_point</span><span class="o">=</span><span class="n">end_point</span><span class="p">,</span>
-            <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="c1"># get the mesh triangles</span>
-        <span class="n">mesh_triangles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span><span class="p">]</span>
-
-        <span class="c1"># get the triangles intersection</span>
-        <span class="n">intersection_index</span><span class="p">,</span> <span class="n">intersection</span> <span class="o">=</span> <span class="n">find_nearest_triangle_intersection</span><span class="p">(</span>
-            <span class="n">ray_position</span><span class="o">=</span><span class="n">start_position</span><span class="p">,</span>
-            <span class="n">ray_direction</span><span class="o">=</span><span class="n">ray_direction</span><span class="p">,</span>
-            <span class="n">triangles</span><span class="o">=</span><span class="n">mesh_triangles</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">intersection_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-
-        <span class="c1"># add the full nD coords to intersection</span>
-        <span class="n">intersection_point</span> <span class="o">=</span> <span class="n">start_point</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">intersection_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span> <span class="o">=</span> <span class="n">intersection</span>
-
-        <span class="c1"># calculate the value from the intersection</span>
-        <span class="n">triangle_vertex_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span><span class="p">[</span><span class="n">intersection_index</span><span class="p">]</span>
-        <span class="n">triangle_vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="p">[</span><span class="n">triangle_vertex_indices</span><span class="p">]</span>
-        <span class="n">barycentric_coordinates</span> <span class="o">=</span> <span class="n">calculate_barycentric_coordinates</span><span class="p">(</span>
-            <span class="n">intersection</span><span class="p">,</span> <span class="n">triangle_vertices</span>
-        <span class="p">)</span>
-        <span class="n">vertex_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span><span class="p">[</span><span class="n">triangle_vertex_indices</span><span class="p">]</span>
-        <span class="n">intersection_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">barycentric_coordinates</span> <span class="o">*</span> <span class="n">vertex_values</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">intersection_value</span><span class="p">,</span> <span class="n">intersection_index</span></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
             </div>

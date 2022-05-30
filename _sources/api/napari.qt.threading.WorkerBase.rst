@@ -51,11 +51,11 @@ napari.qt.threading.WorkerBase
    
       ~WorkerBase.abort_requested
       ~WorkerBase.is_running
-      
-      
-      
-      
-      
+      ~WorkerBase.returned
+      ~WorkerBase.errored
+      ~WorkerBase.warned
+      ~WorkerBase.started
+      ~WorkerBase.finished
    
    
 

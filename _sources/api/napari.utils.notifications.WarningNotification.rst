@@ -38,7 +38,7 @@ napari.utils.notifications.WarningNotification
       ~WarningNotification.source
       ~WarningNotification.sources
       ~WarningNotification.type
-      
+      ~WarningNotification.warning
    
    
 

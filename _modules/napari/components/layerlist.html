@@ -238,12 +238,12 @@
 <span class="sd">        emitted when ``index`` is set from ``old_value`` to ``value``</span>
 <span class="sd">    reordered : (value: self)</span>
 <span class="sd">        emitted when the list is reordered (eg. moved/reversed).</span>
-<span class="sd">    selection.events.changed : (added: Set[_T], removed: Set[_T])</span>
+<span class="sd">    selection.changed : (added: Set[_T], removed: Set[_T])</span>
 <span class="sd">        emitted when the set changes, includes item(s) that have been added</span>
 <span class="sd">        and/or removed from the set.</span>
-<span class="sd">    selection.events.active : (value: _T)</span>
+<span class="sd">    selection.active : (value: _T)</span>
 <span class="sd">        emitted when the current item has changed.</span>
-<span class="sd">    selection.events._current : (value: _T)</span>
+<span class="sd">    selection._current : (value: _T)</span>
 <span class="sd">        emitted when the current item has changed. (Private event)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -323,6 +323,31 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
         <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_layer</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LayerList.move_selected"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.move_selected">[docs]</a>    <span class="k">def</span> <span class="nf">move_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">insert</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reorder list by moving the item at index and inserting it</span>
+<span class="sd">        at the insert index. If additional items are selected these will</span>
+<span class="sd">        get inserted at the insert index too. This allows for rearranging</span>
+<span class="sd">        the list based on dragging and dropping a selection of items, where</span>
+<span class="sd">        index is the index of the primary item being dragged, and insert is</span>
+<span class="sd">        the index of the drop location, and the selection indicates if</span>
+<span class="sd">        multiple items are being dragged. If the moved layer is not selected</span>
+<span class="sd">        select it.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index : int</span>
+<span class="sd">            Index of primary item to be moved</span>
+<span class="sd">        insert : int</span>
+<span class="sd">            Index that item(s) will be inserted at</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">select_only</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="n">moving</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">moving</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">]</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">insert</span> <span class="o">&gt;=</span> <span class="n">index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_multiple</span><span class="p">(</span><span class="n">moving</span><span class="p">,</span> <span class="n">insert</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LayerList.toggle_selected_visibility"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.toggle_selected_visibility">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_selected_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Toggle visibility of selected layers&quot;&quot;&quot;</span>

@@ -86,7 +86,7 @@ napari.utils.events.Selection
    .. autosummary::
    
       ~Selection.active
-      
+      ~Selection.events
    
    
 

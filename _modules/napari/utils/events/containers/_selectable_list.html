@@ -188,8 +188,7 @@
             <div>
               
   <h1>Source code for napari.utils.events.containers._selectable_list</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
 
 <span class="kn">from</span> <span class="nn">...translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">._evented_list</span> <span class="kn">import</span> <span class="n">EventedList</span>
@@ -268,50 +267,9 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">):</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">new</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="n">do_add</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">new</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="n">_idx</span> <span class="o">=</span> <span class="n">idx</span>
-            <span class="n">new</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,)</span> <span class="k">if</span> <span class="n">_idx</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-            <span class="n">do_add</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">new</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">do_add</span><span class="p">:</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">new</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">new</span><span class="p">])</span></div>
-
-<div class="viewcode-block" id="SelectableEventedList.move_selected"><a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.move_selected">[docs]</a>    <span class="k">def</span> <span class="nf">move_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">insert</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reorder list by moving the item at index and inserting it</span>
-<span class="sd">        at the insert index. If additional items are selected these will</span>
-<span class="sd">        get inserted at the insert index too. This allows for rearranging</span>
-<span class="sd">        the list based on dragging and dropping a selection of items, where</span>
-<span class="sd">        index is the index of the primary item being dragged, and insert is</span>
-<span class="sd">        the index of the drop location, and the selection indicates if</span>
-<span class="sd">        multiple items are being dragged. If the moved layer is not selected</span>
-<span class="sd">        select it.</span>
-
-<span class="sd">        This method is deprecated. Please use layers.move_multiple</span>
-<span class="sd">        with layers.selection instead.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        index : int</span>
-<span class="sd">            Index of primary item to be moved</span>
-<span class="sd">        insert : int</span>
-<span class="sd">            Index that item(s) will be inserted at</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># this is just here for now to support the old layerlist API</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;move_selected is deprecated. Please use layers.move_multiple &quot;</span>
-            <span class="s2">&quot;with layers.selection instead.&quot;</span><span class="p">,</span>
-            <span class="ne">FutureWarning</span><span class="p">,</span>
-            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">select_only</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-            <span class="n">moving</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">moving</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">]</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="n">insert</span> <span class="o">&gt;=</span> <span class="n">index</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">move_multiple</span><span class="p">(</span><span class="n">moving</span><span class="p">,</span> <span class="n">insert</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SelectableEventedList.select_next"><a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.select_next">[docs]</a>    <span class="k">def</span> <span class="nf">select_next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Selects next item from list.&quot;&quot;&quot;</span>

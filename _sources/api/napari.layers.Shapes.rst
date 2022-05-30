@@ -164,10 +164,10 @@ napari.layers.Shapes
       ~Shapes.translate_grid
       ~Shapes.visible
       ~Shapes.z_index
-      
-      
-      
-      
+      ~Shapes.mouse_move_callbacks
+      ~Shapes.mouse_wheel_callbacks
+      ~Shapes.mouse_drag_callbacks
+      ~Shapes.mouse_double_click_callbacks
    
    
 

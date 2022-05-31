@@ -64,15 +64,15 @@ napari.qt.threading.GeneratorWorker
       ~GeneratorWorker.abort_requested
       ~GeneratorWorker.is_paused
       ~GeneratorWorker.is_running
-      ~GeneratorWorker.yielded
-      ~GeneratorWorker.paused
-      ~GeneratorWorker.resumed
-      ~GeneratorWorker.aborted
-      ~GeneratorWorker.returned
-      ~GeneratorWorker.errored
-      ~GeneratorWorker.warned
-      ~GeneratorWorker.started
-      ~GeneratorWorker.finished
+      
+      
+      
+      
+      
+      
+      
+      
+      
    
    
 

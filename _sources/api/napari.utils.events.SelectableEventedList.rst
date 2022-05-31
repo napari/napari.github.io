@@ -44,6 +44,9 @@ napari.utils.events.SelectableEventedList
       ~SelectableEventedList.move_multiple
    
    
+      ~SelectableEventedList.move_selected
+   
+   
       ~SelectableEventedList.pop
    
    
@@ -74,7 +77,7 @@ napari.utils.events.SelectableEventedList
    .. autosummary::
    
       ~SelectableEventedList.selection
-      ~SelectableEventedList.events
+      
    
    
 

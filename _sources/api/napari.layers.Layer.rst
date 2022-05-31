@@ -91,10 +91,10 @@ napari.layers.Layer
       ~Layer.translate
       ~Layer.translate_grid
       ~Layer.visible
-      ~Layer.mouse_move_callbacks
-      ~Layer.mouse_wheel_callbacks
-      ~Layer.mouse_drag_callbacks
-      ~Layer.mouse_double_click_callbacks
+      
+      
+      
+      
    
    
 

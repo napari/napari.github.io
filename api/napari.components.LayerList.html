@@ -675,10 +675,10 @@
 <li><p><strong>changed</strong> (<em>(index: int, old_value: T, value: T)</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
 <li><p><strong>changed &lt;OVERLOAD&gt;</strong> (<em>(index: slice, old_value: List[_T], value: List[_T])</em>) – emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
 <li><p><strong>reordered</strong> (<em>(value: self)</em>) – emitted when the list is reordered (eg. moved/reversed).</p></li>
-<li><p><strong>selection.changed</strong> (<em>(added: Set[_T], removed: Set[_T])</em>) – emitted when the set changes, includes item(s) that have been added
+<li><p><strong>selection.events.changed</strong> (<em>(added: Set[_T], removed: Set[_T])</em>) – emitted when the set changes, includes item(s) that have been added
 and/or removed from the set.</p></li>
-<li><p><strong>selection.active</strong> (<em>(value: _T)</em>) – emitted when the current item has changed.</p></li>
-<li><p><strong>selection._current</strong> (<em>(value: _T)</em>) – emitted when the current item has changed. (Private event)</p></li>
+<li><p><strong>selection.events.active</strong> (<em>(value: _T)</em>) – emitted when the current item has changed.</p></li>
+<li><p><strong>selection.events._current</strong> (<em>(value: _T)</em>) – emitted when the current item has changed. (Private event)</p></li>
 </ul>
 </dd>
 </dl>
@@ -879,7 +879,7 @@ index (in pre-move space), by default 0… which has the effect of
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.LayerList.move_selected">
-<span class="sig-name descname"><span class="pre">move_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/components/layerlist.html#LayerList.move_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.LayerList.move_selected" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">move_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.LayerList.move_selected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reorder list by moving the item at index and inserting it
 at the insert index. If additional items are selected these will
 get inserted at the insert index too. This allows for rearranging
@@ -888,6 +888,8 @@ index is the index of the primary item being dragged, and insert is
 the index of the drop location, and the selection indicates if
 multiple items are being dragged. If the moved layer is not selected
 select it.</p>
+<p>This method is deprecated. Please use layers.move_multiple
+with layers.selection instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

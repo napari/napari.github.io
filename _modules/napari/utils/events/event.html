@@ -1267,13 +1267,19 @@
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span>
 
 <div class="viewcode-block" id="EmitterGroup.block_all"><a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup.block_all">[docs]</a>    <span class="k">def</span> <span class="nf">block_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Block all emitters in this group.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Block all emitters in this group by increase counter of semaphores for each event emitter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">block</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">em</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">em</span><span class="o">.</span><span class="n">block</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="EmitterGroup.unblock_all"><a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup.unblock_all">[docs]</a>    <span class="k">def</span> <span class="nf">unblock_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Unblock all emitters in this group.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unblock all emitters in this group, by decrease counter of semaphores for each event emitter.</span>
+<span class="sd">        if block is called twice and unblock is called once, then events will be still blocked</span>
+<span class="sd">        https://en.wikipedia.org/wiki/Semaphore_(programming)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unblock</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">em</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">em</span><span class="o">.</span><span class="n">unblock</span><span class="p">()</span></div>

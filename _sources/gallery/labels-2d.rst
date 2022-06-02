@@ -40,9 +40,7 @@ add_image APIs
 
  .. code-block:: none
 
-    /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/skimage/io/_plugins/imageio_plugin.py:10: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning dissapear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
-      return np.asarray(imageio_imread(*args, **kwargs))
-    /opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/skimage/_shared/utils.py:338: FutureWarning: `multichannel` is a deprecated argument name for `slic`. It will be removed in version 1.0. Please use `channel_axis` instead.
+    /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/skimage/_shared/utils.py:338: FutureWarning: `multichannel` is a deprecated argument name for `slic`. It will be removed in version 1.0. Please use `channel_axis` instead.
       warnings.warn(self.warning_msg.format(
     The color of label 5 is [0.28053862 0.22821146 0.62640917 1.        ]
 

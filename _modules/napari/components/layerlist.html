@@ -316,8 +316,31 @@
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_name</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_ensure_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">allow</span><span class="o">=</span><span class="p">()):</span>
+        <span class="n">bad</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">allow</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">values</span><span class="p">,)</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bad</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s2">&quot;Layer &#39;</span><span class="si">{v}</span><span class="s2">&#39; is already present in layer list&quot;</span><span class="p">,</span>
+                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="k">return</span> <span class="n">values</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_unique</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">old</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="p">(</span><span class="n">value</span><span class="p">,)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_unique</span><span class="p">((</span><span class="n">value</span><span class="p">,),</span> <span class="p">(</span><span class="n">old</span><span class="p">,))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
 <div class="viewcode-block" id="LayerList.insert"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Insert ``value`` before index.&quot;&quot;&quot;</span>
+        <span class="p">(</span><span class="n">value</span><span class="p">,)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_unique</span><span class="p">((</span><span class="n">value</span><span class="p">,))</span>
         <span class="n">new_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="n">new_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_name</span><span class="p">(</span><span class="n">new_layer</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>

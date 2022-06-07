@@ -32,6 +32,9 @@ napari.utils.events.NestableEventedList
       ~NestableEventedList.extend
    
    
+      ~NestableEventedList.has_index
+   
+   
       ~NestableEventedList.index
    
    

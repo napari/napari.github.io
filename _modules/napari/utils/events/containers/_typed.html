@@ -214,11 +214,6 @@
 <span class="n">_L</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_L&quot;</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">MutableSequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
-    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
-
-
 <div class="viewcode-block" id="TypedMutableSequence"><a class="viewcode-back" href="../../../../../api/napari.utils.events.TypedMutableSequence.html#napari.utils.events.TypedMutableSequence">[docs]</a><span class="k">class</span> <span class="nc">TypedMutableSequence</span><span class="p">(</span><span class="n">MutableSequence</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;List mixin that enforces item type, and enables custom indexing.</span>
 
@@ -414,13 +409,8 @@
             <span class="n">stop</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="n">convert</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">_noop</span><span class="p">)</span>
-        <span class="n">special_lookup</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup</span>
-        <span class="c1"># A &quot;special lookup&quot; means that they type of the value being searched</span>
-        <span class="c1"># is in the `self._lookups` dict.  The most common internal use of this</span>
-        <span class="c1"># pattern is `layers[&#39;name&#39;]`.  So we do a &quot;deep&quot; traversal in that</span>
-        <span class="c1"># case, which will let the nestable variant search throughout.</span>
-        <span class="c1"># we may or may not want that behavior?</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_indices</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="n">special_lookup</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_indices</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">):</span>
             <span class="n">v</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="n">value</span> <span class="ow">or</span> <span class="n">v</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">i</span>
@@ -433,7 +423,7 @@
             <span class="p">)</span>
         <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Iter indices from start to stop.</span>
 
 <span class="sd">        While this is trivial for this basic sequence type, this method lets</span>
@@ -443,7 +433,7 @@
 
     <span class="k">def</span> <span class="nf">_ipython_key_completions_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">str</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lookup</span><span class="p">[</span><span class="nb">str</span><span class="p">](</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span></div>
+            <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lookup</span><span class="p">[</span><span class="nb">str</span><span class="p">](</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
 
 
 <span class="k">def</span> <span class="nf">_noop</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>

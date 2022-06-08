@@ -446,8 +446,15 @@
             <span class="n">data</span> <span class="o">=</span> <span class="n">MultiScaleData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="c1"># Determine if rgb</span>
-        <span class="k">if</span> <span class="n">rgb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">rgb</span> <span class="o">=</span> <span class="n">guess_rgb</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">rgb_guess</span> <span class="o">=</span> <span class="n">guess_rgb</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rgb</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rgb_guess</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;rgb&#39; was set to True but data does not have suitable dimensions.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">rgb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rgb</span> <span class="o">=</span> <span class="n">rgb_guess</span>
 
         <span class="c1"># Determine dimensionality of the data</span>
         <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>

@@ -50,6 +50,11 @@ Display one image using the ``add_image`` API.
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.118 seconds)
+
+
 .. _sphx_glr_download_gallery_add_image.py:
 
 

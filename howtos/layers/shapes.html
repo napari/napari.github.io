@@ -2249,10 +2249,10 @@ controls panel or pressing the <code class="docutils literal notranslate"><span 
 initially set these colors by providing a list of colors to the <code class="docutils literal notranslate"><span class="pre">edge_color</span></code> or
 <code class="docutils literal notranslate"><span class="pre">face_color</span></code> keyword arguments respectively, or you can edit them from the GUI.
 The colors of each of the shapes are available as lists under the
-<code class="docutils literal notranslate"><span class="pre">layer.edge_colors</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.face_colors</span></code> properties. These properties are
-different from the <code class="docutils literal notranslate"><span class="pre">layer.edge_color</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.face_color</span></code> properties that
-will determine the color of the next shape to be added or any currently selected
-shapes.</p>
+<code class="docutils literal notranslate"><span class="pre">layer.edge_color</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.face_color</span></code> properties. These properties are
+different from the <code class="docutils literal notranslate"><span class="pre">layer.current_edge_color</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.current_face_color</span></code>
+properties that will determine the color of the next shape to be added or any
+currently selected shapes.</p>
 <p>To change the shape color properties from the GUI you must first select the
 shape whose properties you want to change, otherwise you will just be
 initializing the property for the next shape you add.</p>
@@ -2262,10 +2262,10 @@ initializing the property for the next shape you add.</p>
 <p>Individual shapes can each have different edge widths. You can initially set the
 edge widths by providing a list of values to the <code class="docutils literal notranslate"><span class="pre">edge_width</span></code> keyword arguments
 respectively, or you can edit them from the GUI. The widths of each of the
-shapes are available as a list under the <code class="docutils literal notranslate"><span class="pre">layer.edge_widths</span></code> property. Similar
+shapes are available as a list under the <code class="docutils literal notranslate"><span class="pre">layer.edge_width</span></code> property. Similar
 to the edge and face colors, these property is different from the
-<code class="docutils literal notranslate"><span class="pre">layer.edge_width</span></code> property that will determine the edge width of the next shape
-to be added or any currently selected shapes.</p>
+<code class="docutils literal notranslate"><span class="pre">layer.current_edge_width</span></code> property that will determine the edge width of the
+next shape to be added or any currently selected shapes.</p>
 <p>To change the edge with property from the GUI you must first select the shape
 whose properties you want to change, otherwise you will just be initializing the
 property for the next shape you add.</p>
@@ -2288,14 +2288,12 @@ will be updated with the new slice values.</p>
 </section>
 <section id="shapes-layer-opacity">
 <h2>Shapes layer opacity<a class="headerlink" href="#shapes-layer-opacity" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../guides/layers.html#layer-opacity"><span class="std std-ref">opacity value</span></a> applies individually to each shape in
-the layer, and so you must have shapes selected for it to have an effect. You
-can initialize the shape opacities using the <code class="docutils literal notranslate"><span class="pre">opacity</span></code> keyword argument which
-accepts either a list of opacities or a single opacity value that will be
-applied globally. You can then access the opacity of every shape using the
-<code class="docutils literal notranslate"><span class="pre">layer.opacities</span></code> property. Note that this property is different from the
-<code class="docutils literal notranslate"><span class="pre">layer.opacity</span></code> property that determines the opacity of the next shape to be
-added.</p>
+<p>The <a class="reference internal" href="../../guides/layers.html#layer-opacity"><span class="std std-ref">opacity value</span></a> applies to all shapes. You can
+initialize the shape opacities using the <code class="docutils literal notranslate"><span class="pre">opacity</span></code> keyword argument which
+accepts a single opacity value that will be applied globally. You can then
+access the opacity using the <code class="docutils literal notranslate"><span class="pre">layer.opacity</span></code> property. In order to adjust the
+opacity of individual shapes you need to adjust the alpha value in the
+<code class="docutils literal notranslate"><span class="pre">layer.edge_color</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.face_color</span></code> properties.</p>
 </section>
 <section id="putting-it-all-together">
 <h2>Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>

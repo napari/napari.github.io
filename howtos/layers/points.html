@@ -2069,10 +2069,10 @@ your selection.</p>
 <h2>Changing points size<a class="headerlink" href="#changing-points-size" title="Permalink to this headline">¶</a></h2>
 <p>Each point can have a different size. You can pass a list or 1-dimensional array
 of points through the size keyword argument to initialize the layer with points
-of different sizes. These sizes are then accessible through the <code class="docutils literal notranslate"><span class="pre">sizes</span></code>
+of different sizes. These sizes are then accessible through the <code class="docutils literal notranslate"><span class="pre">size</span></code>
 property. If you pass a single size then all points will get initialized with
-that size. Points can be pseduo-visualized as n-dimensionsal if the
-<code class="docutils literal notranslate"><span class="pre">n-dimensional</span></code> property is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> or the <code class="docutils literal notranslate"><span class="pre">n-dimensional</span></code> checkbox is
+that size. Points can be pseudo-visualized as n-dimensional if the
+<code class="docutils literal notranslate"><span class="pre">out_of_slice_display</span></code> property is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> or the <code class="docutils literal notranslate"><span class="pre">out</span> <span class="pre">of</span> <span class="pre">slice</span></code> checkbox is
 checked. In this setting when viewing different slices of the layer points will
 appear in the neighbouring slices to the ones in which they are located with a
 size scaled by the distance from their center to that slice. This feature can be
@@ -2082,8 +2082,8 @@ volume.</p>
 adjusting the point size slider. If no points are selected, then adjusting the
 slider value will only serve to initialize the size for new points that are
 about to be added. The value of the size of the next point to be added can be
-found in the <code class="docutils literal notranslate"><span class="pre">layer.size</span></code> property. Note this property is different from
-<code class="docutils literal notranslate"><span class="pre">layer.sizes</span></code> which contains the current sizes of all the points.</p>
+found in the <code class="docutils literal notranslate"><span class="pre">layer.current_size</span></code> property. Note this property is different from
+<code class="docutils literal notranslate"><span class="pre">layer.size</span></code> which contains the current sizes of all the points.</p>
 </section>
 <section id="changing-points-edge-and-face-color">
 <h2>Changing points edge and face color<a class="headerlink" href="#changing-points-edge-and-face-color" title="Permalink to this headline">¶</a></h2>
@@ -2091,10 +2091,11 @@ found in the <code class="docutils literal notranslate"><span class="pre">layer.
 initially set these colors by providing a list of colors to the <code class="docutils literal notranslate"><span class="pre">edge_color</span></code> or
 <code class="docutils literal notranslate"><span class="pre">face_color</span></code> keyword arguments respectively, or you can edit them from the GUI.
 The colors of each of the points are available as lists under the
-<code class="docutils literal notranslate"><span class="pre">layer.edge_colors</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.face_colors</span></code> properties. Similar to the <code class="docutils literal notranslate"><span class="pre">sizes</span></code>
-and <code class="docutils literal notranslate"><span class="pre">size</span></code> properties these properties are different from the <code class="docutils literal notranslate"><span class="pre">layer.edge_color</span></code>
-and <code class="docutils literal notranslate"><span class="pre">layer.face_color</span></code> properties that will determine the color of the next
-point to be added or any currently selected points.</p>
+<code class="docutils literal notranslate"><span class="pre">layer.edge_color</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.face_color</span></code> properties. Similar to the <code class="docutils literal notranslate"><span class="pre">size</span></code>
+and <code class="docutils literal notranslate"><span class="pre">current_size</span></code> properties these properties are different from the
+<code class="docutils literal notranslate"><span class="pre">layer.current_edge_color</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.current_face_color</span></code> properties that will
+determine the color of the next point to be added or any currently selected
+points.</p>
 <p>To change the point color properties from the GUI you must first select the
 points whose properties you want to change, otherwise you will just be
 initializing the property for the next point you add.</p>

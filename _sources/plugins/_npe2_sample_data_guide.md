@@ -19,7 +19,7 @@ or **Sample Data Function** that generates layer data on demand.
 # example_plugin.some_module
 def create_fractal() -> List[LayerData]:
     """An example of a  Sample Data Function.
-    
+
     Note: Sample Data with URIs don't need python code.
     """
     data = ...  # do something cool to create a fractal

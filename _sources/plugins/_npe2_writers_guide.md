@@ -109,7 +109,7 @@ and a `vectors` layer, because `vectors` is not listed in the `layer_types`.
 ```python
 # example_plugin.some_module
 def write_points(path: str, layer_data: Any, attributes: Dict[str, Any]) -> List[str]:
-    with open(path, "w") as fh:
+    with open(path, "w"):
         ...  # save layer_data and attributes to file
 
     # return path to any file(s) that were successfully written

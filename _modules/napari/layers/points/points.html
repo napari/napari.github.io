@@ -1565,6 +1565,12 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">compute_text_coords</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_view_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the colors of the text elements at the given indices.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_view_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the sizes of the points in view</span>
 
@@ -1655,10 +1661,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get a list of the data for the points in this slice</span>
         <span class="n">not_disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">)</span>
-        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dims_indices</span><span class="p">)</span>
+        <span class="c1"># We want a numpy array so we can use fancy indexing with the non-displayed</span>
+        <span class="c1"># indices, but as dims_indices can (and often/always does) contain slice</span>
+        <span class="c1"># objects, the array has dtype=object which is then very slow for the</span>
+        <span class="c1"># arithmetic below. As Points._round_index is always False, we can safely</span>
+        <span class="c1"># convert to float to get a major performance improvement.</span>
+        <span class="n">not_disp_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dims_indices</span><span class="p">)[</span><span class="n">not_disp</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">distances</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">-</span> <span class="n">indices</span><span class="p">[</span><span class="n">not_disp</span><span class="p">])</span>
+                <span class="n">distances</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">-</span> <span class="n">not_disp_indices</span><span class="p">)</span>
                 <span class="n">sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
                 <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">distances</span> <span class="o">&lt;=</span> <span class="n">sizes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">size_match</span> <span class="o">=</span> <span class="n">sizes</span><span class="p">[</span><span class="n">matches</span><span class="p">]</span>
@@ -1670,7 +1681,7 @@
                 <span class="k">return</span> <span class="n">slice_indices</span><span class="p">,</span> <span class="n">scale</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span>
-                <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">indices</span><span class="p">[</span><span class="n">not_disp</span><span class="p">])</span>
+                <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">not_disp_indices</span><span class="p">)</span>
                 <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">distances</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">slice_indices</span><span class="p">,</span> <span class="mi">1</span>

@@ -237,25 +237,13 @@ otherwise, they will not be invoked when a directory is passed to <code class="d
 <section id="reader-example">
 <h2>Reader example<a class="headerlink" href="#reader-example" title="Permalink to this headline">¶</a></h2>
 <div class="tabbed-set docutils">
-<input checked="checked" id="2a3e8bc6-f7a5-4cd0-a864-9b349d2a3bef" name="2e2ec553-918f-41d7-a848-f40aef4fee33" type="radio">
-</input><label class="tabbed-label" for="2a3e8bc6-f7a5-4cd0-a864-9b349d2a3bef">
+<input checked="checked" id="767003d8-0666-4844-9aab-5e316cff6a2c" name="d6d95fcb-66ee-4988-8e5d-63f661d352c4" type="radio">
+</input><label class="tabbed-label" for="767003d8-0666-4844-9aab-5e316cff6a2c">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
 <span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span>
 <span class="n">PathOrPaths</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]]</span>
-<span class="k">def</span> <span class="nf">_ensure_str_or_seq_str</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Path</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Path</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">])</span>
-    <span class="p">):</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;Npe2 receive a `Path` or a list of `Path`s, instead of `str`,&quot;</span>
-            <span class="s2">&quot; this will  become an error in the future and is likely a&quot;</span>
-            <span class="s2">&quot; napari bug. Please fill and issue.&quot;</span><span class="p">,</span>
-            <span class="ne">UserWarning</span><span class="p">,</span>
-            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-        <span class="p">)</span>
-
 <span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
 
 
@@ -289,8 +277,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="bed9726a-906e-44d2-b5c4-aecf9c011d26" name="2e2ec553-918f-41d7-a848-f40aef4fee33" type="radio">
-</input><label class="tabbed-label" for="bed9726a-906e-44d2-b5c4-aecf9c011d26">
+<input id="5258c4d4-a4da-448b-b471-f4aad2906b99" name="d6d95fcb-66ee-4988-8e5d-63f661d352c4" type="radio">
+</input><label class="tabbed-label" for="5258c4d4-a4da-448b-b471-f4aad2906b99">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>

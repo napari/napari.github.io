@@ -427,20 +427,20 @@
 <span class="sd">        This function searches for installed python packages with a matching</span>
 <span class="sd">        entry point group and then attempts to resolve the manifest file.</span>
 
-<span class="sd">        The manifest file should be specified in the plugin&#39;s `setup.cfg` or</span>
-<span class="sd">        `setup.py` file using the [entry point group][1]: &quot;napari.manifest&quot;.</span>
+<span class="sd">        The manifest file should be specified in the plugin&#39;s ``setup.cfg`` or</span>
+<span class="sd">        ``setup.py`` file using the [entry point group][1]: &quot;napari.manifest&quot;.</span>
 <span class="sd">        For example, this would be the section for a plugin &quot;npe-tester&quot; with</span>
 <span class="sd">        &quot;napari.yaml&quot; as the manifest file:</span>
 
-<span class="sd">        ```cfg</span>
-<span class="sd">        [options.entry_points]</span>
-<span class="sd">        napari.manifest =</span>
-<span class="sd">            npe2-tester = npe2_tester:napari.yaml</span>
-<span class="sd">        ```</span>
+<span class="sd">        .. code-block:: cfg</span>
+
+<span class="sd">            [options.entry_points]</span>
+<span class="sd">            napari.manifest =</span>
+<span class="sd">                npe2-tester = npe2_tester:napari.yaml</span>
 
 <span class="sd">        The manifest file is specified relative to the submodule root path.</span>
 <span class="sd">        So for the example it will be loaded from:</span>
-<span class="sd">        `&lt;path/to/npe2-tester&gt;/napari.yaml`.</span>
+<span class="sd">        ``&lt;path/to/npe2-tester&gt;/napari.yaml``.</span>
 
 <span class="sd">        [1]: https://packaging.python.org/specifications/entry-points/</span>
 

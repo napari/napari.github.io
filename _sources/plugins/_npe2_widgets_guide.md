@@ -63,18 +63,6 @@ specification:
 
 ```python
 # example_plugin.some_module
-def _ensure_str_or_seq_str(path):
-    if isinstance(path, Path) or (
-        isinstance(path, (list, tuple)) and any([isinstance(p, Path) for p in path])
-    ):
-        warnings.warn(
-            "Npe2 receive a `Path` or a list of `Path`s, instead of `str`,"
-            " this will  become an error in the future and is likely a"
-            " napari bug. Please fill and issue.",
-            UserWarning,
-            stacklevel=3,
-        )
-
 Widget = Union["magicgui.widgets.Widget", "qtpy.QtWidgets.QWidget"]
 
 
@@ -84,20 +72,6 @@ class MyWidget(QWidget):
     def __init__(self, viewer: "napari.viewer.Viewer", parent=None):
         super().__init__(parent)
         ...
-
-def _ensure_str_or_seq_str(path):
-    if isinstance(path, Path) or (
-        isinstance(path, (list, tuple)) and any([isinstance(p, Path) for p in path])
-    ):
-        warnings.warn(
-            "Npe2 receive a `Path` or a list of `Path`s, instead of `str`,"
-            " this will  become an error in the future and is likely a"
-            " napari bug. Please fill and issue.",
-            UserWarning,
-            stacklevel=3,
-        )
-
-
 
 @magic_factory
 def widget_factory(

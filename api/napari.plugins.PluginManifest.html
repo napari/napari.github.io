@@ -797,20 +797,18 @@ the new model: you should trust this data</p></li>
 <dd><p>Discover manifests in the environment.</p>
 <p>This function searches for installed python packages with a matching
 entry point group and then attempts to resolve the manifest file.</p>
-<p>The manifest file should be specified in the plugin’s <cite>setup.cfg</cite> or
-<cite>setup.py</cite> file using the [entry point group][1]: “napari.manifest”.
+<p>The manifest file should be specified in the plugin’s <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> or
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file using the [entry point group][1]: “napari.manifest”.
 For example, this would be the section for a plugin “npe-tester” with
 “napari.yaml” as the manifest file:</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>cfg
-[options.entry_points]
-napari.manifest =</p>
-<blockquote>
-<div><p>npe2-tester = npe2_tester:napari.yaml</p>
-</div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<div class="highlight-cfg notranslate"><div class="highlight"><pre><span></span><span class="k">[options.entry_points]</span><span class="w"></span>
+<span class="na">napari.manifest</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="na">npe2-tester</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">npe2_tester:napari.yaml</span><span class="w"></span>
+</pre></div>
+</div>
 <p>The manifest file is specified relative to the submodule root path.
 So for the example it will be loaded from:
-<cite>&lt;path/to/npe2-tester&gt;/napari.yaml</cite>.</p>
+<code class="docutils literal notranslate"><span class="pre">&lt;path/to/npe2-tester&gt;/napari.yaml</span></code>.</p>
 <p>[1]: <a class="reference external" href="https://packaging.python.org/specifications/entry-points/">https://packaging.python.org/specifications/entry-points/</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

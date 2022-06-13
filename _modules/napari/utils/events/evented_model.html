@@ -376,8 +376,7 @@
         <span class="c1"># https://pydantic-docs.helpmanual.io/usage/models/#private-model-attributes</span>
         <span class="n">underscore_attrs_are_private</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1"># whether to validate field defaults (default: False)</span>
-        <span class="c1"># see https://github.com/napari/napari/pull/4138 before changing.</span>
-        <span class="n">validate_all</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">validate_all</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1"># https://pydantic-docs.helpmanual.io/usage/exporting_models/#modeljson</span>
         <span class="c1"># NOTE: json_encoders are also added EventedMetaclass.__new__ if the</span>
         <span class="c1"># field declares a _json_encode method.</span>
@@ -388,13 +387,21 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="c1"># add event emitters for each field which is mutable</span>
-        <span class="n">event_names</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">field_events</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">name</span>
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">field_info</span><span class="o">.</span><span class="n">allow_mutation</span>
         <span class="p">]</span>
-        <span class="n">event_names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__property_setters__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">event_names</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="o">**</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">field_events</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__property_setters__</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="c1"># while seemingly redundant, this next line is very important to maintain</span>
+        <span class="c1"># correct sources; see https://github.com/napari/napari/pull/4138</span>
+        <span class="c1"># we solve it by re-setting the source after initial validation, which allows</span>
+        <span class="c1"># us to use `validate_all = True`</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_event_source</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_super_setattr_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># pydantic will raise a ValueError if extra fields are not allowed</span>
@@ -431,6 +438,21 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EmitterGroup</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span>
+
+    <span class="k">def</span> <span class="nf">_reset_event_source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set the event sources of self and all the children to the correct values</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># events are all messed up due to objects being probably</span>
+        <span class="c1"># recreated arbitrarily during validation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
+            <span class="n">child</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
+                <span class="c1"># TODO: this isinstance check should be EventedMutables in the future</span>
+                <span class="n">child</span><span class="o">.</span><span class="n">_reset_event_source</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">emitters</span><span class="p">:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="bp">self</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

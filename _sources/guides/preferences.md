@@ -23,6 +23,14 @@ The settings are grouped by sections and napari core provides the following:
 Main application settings.
 
 
+#### Confirm window closing
+
+*Ask for confirmation before closing window with Ctrl+W*
+
+* <small>Access programmatically with `SETTINGS.application.confirm_close_window`.</small>
+* <small>Type: `bool`.</small>
+* <small>Default: `True`.</small>
+* <small>UI: This setting can be configured via the preferences dialog.</small>
 #### Console notification level
 
 *Select the notification level for the console.*

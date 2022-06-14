@@ -198,11 +198,7 @@
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gmean</span>
 
 <span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span>
-<span class="kn">from</span> <span class="nn">...utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">get_color_namelist</span><span class="p">,</span>
-    <span class="n">hex_to_name</span><span class="p">,</span>
-    <span class="n">rgb_to_hex</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">...utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="n">hex_to_name</span><span class="p">,</span> <span class="n">rgb_to_hex</span>
 <span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">...utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
 <span class="kn">from</span> <span class="nn">...utils.geometry</span> <span class="kn">import</span> <span class="n">project_points_onto_plane</span><span class="p">,</span> <span class="n">rotate_points</span>
@@ -552,8 +548,6 @@
             <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">feature_defaults</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span> <span class="o">=</span> <span class="n">get_color_namelist</span><span class="p">()</span>
 
         <span class="c1"># Save the point coordinates</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>

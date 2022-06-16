@@ -23,9 +23,9 @@ The settings are grouped by sections and napari core provides the following:
 Main application settings.
 
 
-#### Confirm window closing
+#### Confirm window or application closing
 
-*Ask for confirmation before closing window with Ctrl+W*
+*Ask for confirmation before closing a napari window or application (all napari windows).*
 
 * <small>Access programmatically with `SETTINGS.application.confirm_close_window`.</small>
 * <small>Type: `bool`.</small>

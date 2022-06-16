@@ -261,27 +261,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D surface">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_nD_surface_thumb.png
-     :alt: nD surface
-
-     :ref:`sphx_glr_gallery_nD_surface.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/nD_surface
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs">
 
 .. only:: html
@@ -300,6 +279,27 @@ Examples of napari usage.
    :hidden:
 
    /gallery/nD_labels
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D surface">
+
+.. only:: html
+
+ .. figure:: /gallery/images/thumb/sphx_glr_nD_surface_thumb.png
+     :alt: nD surface
+
+     :ref:`sphx_glr_gallery_nD_surface.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/nD_surface
 
 .. raw:: html
 

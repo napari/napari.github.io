@@ -275,6 +275,18 @@ Plugins settings.
 * <small>Type: `PluginAPI`.</small>
 * <small>Default: `<PluginAPI.napari_hub: 'napari hub'>`.</small>
 * <small>UI: This setting can be configured via the preferences dialog.</small>
+#### Use npe2 adaptor
+
+*Use npe2-adaptor for first generation plugins.
+When an npe1 plugin is found, this option will
+import its contributions and create/cache
+a 'shim' npe2 manifest that allows it to be treated
+like an npe2 plugin (with delayed imports, etc...)*
+
+* <small>Access programmatically with `SETTINGS.plugins.use_npe2_adaptor`.</small>
+* <small>Type: `bool`.</small>
+* <small>Default: `False`.</small>
+* <small>UI: This setting can be configured via the preferences dialog.</small>
 
 ### SHORTCUTS
 

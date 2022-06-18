@@ -388,6 +388,23 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-npe2-adapter">
+   The npe2 adapter
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#benefits">
+     Benefits
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#caveats">
+     Caveats
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
 </nav>
@@ -809,6 +826,50 @@ code in the plugin package!</p>
 </pre></div>
 </div>
 </section>
+</section>
+</section>
+<section id="the-npe2-adapter">
+<h2>The npe2 adapter<a class="headerlink" href="#the-npe2-adapter" title="Permalink to this headline">¶</a></h2>
+<p>Starting with napari v0.4.17+ napari will begin allowing users to use their
+npe1 plugins as if they were npe2 plugins using a “npe1 -&gt; npe2 adaptor”
+(this option is at <code class="docutils literal notranslate"><span class="pre">Preferences</span> <span class="pre">&gt;</span> <span class="pre">Plugins</span> <span class="pre">&gt;</span> <span class="pre">Use</span> <span class="pre">npe2</span> <span class="pre">adaptor</span></code>)</p>
+<p>When this option is enabled and a plugin using the legacy plugin manager API
+is loaded for the first time, the plugin will be imported as usual and
+contributions will be discovered. A “shim” npe2 manifest representing the
+plugin’s contributions will be created and cached locally.  On all future
+launches of napari, that cached manifest will be used and the plugin will
+<em>not</em> be imported immediately when napari boots.</p>
+<section id="benefits">
+<h3>Benefits<a class="headerlink" href="#benefits" title="Permalink to this headline">¶</a></h3>
+<p>The benefits for an end-user opting in to the npe2 adaptor are:</p>
+<ul class="simple">
+<li><p>dramatically reduced time to load napari.  By avoiding importing all plugins
+at launch, napari can boot <em>significantly</em> faster.</p></li>
+<li><p>Plugins are imported lazily, only after one of their commands or menu items
+has been requested.</p></li>
+<li><p>It will become clearer to the user which plugin has errored (if any), since it
+will only occur when the plugin’s functionality has been requested.</p></li>
+<li><p>For napari, the internal codebase becomes <em>much</em> simpler since only the npe2 API
+needs to be used.</p></li>
+</ul>
+</section>
+<section id="caveats">
+<h3>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h3>
+<p>There are a couple npe1 features that are no longer supported in npe2, and the
+following things will be “ignored” for a user using the npe2 adaptor:</p>
+<ul class="simple">
+<li><p>The “plugin sort order” preference is deprecated, and will not be used when
+loading npe2 plugins or npe1 plugins loaded with the npe2 adaptor.</p></li>
+<li><p>arguments for <code class="docutils literal notranslate"><span class="pre">add_dock_widget</span></code> returned from
+<code class="docutils literal notranslate"><span class="pre">napari_experimental_provide_dock_widget</span></code> (such as <code class="docutils literal notranslate"><span class="pre">area=</span></code> or
+<code class="docutils literal notranslate"><span class="pre">add_vertical_stretch=</span></code>) will no longer do anything:  <code class="docutils literal notranslate"><span class="pre">area</span></code> will always be
+<code class="docutils literal notranslate"><span class="pre">'right'</span></code> and <code class="docutils literal notranslate"><span class="pre">add_vertical_stretch</span></code> will always be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+<p>There is nothing a plugin can do to prevent a user from using the npe2 adaptor,
+it is a user decision.  Furthermore, as we deprecate the legacy
+napari-plugin-engine API, the npe2 adapter will likely become the only way that
+npe1 plugins are supported in the future, and the option to <em>not</em> use the npe2
+adaptor will be removed.</p>
 </section>
 </section>
 </section>

@@ -1858,7 +1858,18 @@
         <span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
         <span class="c1"># get the indices of points in view</span>
         <span class="n">indices</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="n">scale</span>
+
+        <span class="c1"># Update the _view_size_scale in accordance to the self._indices_view setter.</span>
+        <span class="c1"># If out_of_slice_display is False, scale is a number and not an array.</span>
+        <span class="c1"># Therefore we have an additional if statement checking for</span>
+        <span class="c1"># self._view_size_scale being an integer.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shown</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="n">scale</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">shown</span><span class="p">[</span><span class="n">indices</span><span class="p">]]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
         <span class="c1"># get the selected points that are in view</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>

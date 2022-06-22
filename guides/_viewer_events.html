@@ -315,82 +315,94 @@
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.colored</span></code></p></td>
-<td><p>If scale bar are colored or not. If colored then default color is magenta. If not colored than scale bar color is the opposite of the canvas background.</p></td>
+<td><p>If scale bar are colored or not. If colored then default color is magenta. If not colored than scale bar color is the opposite of the canvas background or the background box.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.ticks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.color</span></code></p></td>
+<td><p>Scalebar and text color. Can be any color name recognized by vispy or hex value if starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>. If array-like must be 1-dimensional array with 3 or 4 elements.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Array</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.ticks</span></code></p></td>
 <td><p>If scale bar has ticks at ends or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.position</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.position</span></code></p></td>
 <td><p>Position of the scale bar in the canvas. Must be one of ‘top left’, ‘top right’, ‘bottom right’, ‘bottom left’. Default value is ‘bottom right’.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Position</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.font_size</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.font_size</span></code></p></td>
 <td><p>The font size (in points) of the text.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.unit</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.box</span></code></p></td>
+<td><p>If background box is visible or not.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.box_color</span></code></p></td>
+<td><p>Background box color. Can be any color name recognized by vispy or hex value if starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>. If array-like must be 1-dimensional array with 3 or 4 elements.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Array</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.unit</span></code></p></td>
 <td><p>Unit to be used by the scale bar. The value can be set to <code class="docutils literal notranslate"><span class="pre">None</span></code> to display no units.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.visible</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.visible</span></code></p></td>
 <td><p>If text overlay is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.color</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.color</span></code></p></td>
 <td><p>A (4,) color array of the text overlay.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Array</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.font_size</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.font_size</span></code></p></td>
 <td><p>The font size (in points) of the text.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.position</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.position</span></code></p></td>
 <td><p>Position of the text overlay in the canvas. Must be one  of ‘top left’, ‘top right’, ‘top center’, ‘bottom right’, ‘bottom left’, ‘bottom_center’. Default value is ‘top left’</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">TextOverlayPosition</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.text</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.text</span></code></p></td>
 <td><p>Text to be displayed in the canvas.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.visible</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.visible</span></code></p></td>
 <td><p>If tooltip is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.text</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.tooltip.events.text</span></code></p></td>
 <td><p>text of tooltip</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
 <td><p>The title of the viewer window.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.help</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.status</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.theme</span></code></p></td>
 <td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.events.title</span></code></p></td>
 <td><p>The title of the viewer window. by default ‘napari’.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>

@@ -190,6 +190,7 @@
   <h1>Source code for napari.layers.labels.labels</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -218,7 +219,11 @@
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
 <span class="kn">from</span> <span class="nn">._labels_constants</span> <span class="kn">import</span> <span class="n">LabelColorMode</span><span class="p">,</span> <span class="n">LabelsRendering</span><span class="p">,</span> <span class="n">Mode</span>
 <span class="kn">from</span> <span class="nn">._labels_mouse_bindings</span> <span class="kn">import</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pick</span>
-<span class="kn">from</span> <span class="nn">._labels_utils</span> <span class="kn">import</span> <span class="n">indices_in_shape</span><span class="p">,</span> <span class="n">sphere_indices</span>
+<span class="kn">from</span> <span class="nn">._labels_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">indices_in_shape</span><span class="p">,</span>
+    <span class="n">interpolate_coordinates</span><span class="p">,</span>
+    <span class="n">sphere_indices</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">_REV_SHAPE_HELP</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;enter paint or fill mode to edit labels&#39;</span><span class="p">):</span> <span class="p">{</span>
@@ -487,6 +492,7 @@
             <span class="n">brush_shape</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">contour</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">paint</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span> <span class="o">=</span> <span class="n">_FeatureTable</span><span class="o">.</span><span class="n">from_layer</span><span class="p">(</span>
@@ -507,7 +513,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_preserve_labels</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_help</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;enter paint or fill mode to edit labels&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_block_saving</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">()</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
@@ -1268,6 +1273,42 @@
     <span class="k">def</span> <span class="nf">_reset_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_history_limit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_history_limit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="Labels.block_history"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.block_history">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">block_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Context manager to group history-editing operations together.</span>
+
+<span class="sd">        While in the context, history atoms are grouped together into a</span>
+<span class="sd">        &quot;staged&quot; history. When exiting the context, that staged history is</span>
+<span class="sd">        committed to the undo history queue, and an event is emitted</span>
+<span class="sd">        containing the change.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_commit_staged_history</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span> <span class="o">=</span> <span class="n">prev</span></div>
+
+    <span class="k">def</span> <span class="nf">_commit_staged_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save staged history to undo history and clear it.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_append_to_undo_history</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_append_to_undo_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Append item to history and emit paint event.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        item : List[Tuple[ndarray, ndarray, int]]</span>
+<span class="sd">            list of history atoms to append to undo history.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_save_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save a history &quot;atom&quot; to the undo history.</span>
@@ -1289,11 +1330,11 @@
 <span class="sd">            - the values corresponding to those elements before the change</span>
 <span class="sd">            - the value(s) after the change</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_saving</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">value</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_undo_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_append_to_undo_history</span><span class="p">([</span><span class="n">value</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_load_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">,</span> <span class="n">undoing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load a history item and apply it to the array.</span>
@@ -1401,19 +1442,39 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">match_indices</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_save_history</span><span class="p">(</span>
-            <span class="p">(</span>
-                <span class="n">match_indices</span><span class="p">,</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">match_indices</span><span class="p">],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                <span class="n">new_label</span><span class="p">,</span>
-            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">match_indices</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">last_cursor_coord</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Paint into coordinates, accounting for mode and cursor movement.</span>
+
+<span class="sd">        The draw operation depends on the current mode of the layer.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            value of label to paint</span>
+<span class="sd">        last_cursor_coord : sequence</span>
+<span class="sd">            last painted cursor coordinates</span>
+<span class="sd">        coordinates : sequence</span>
+<span class="sd">            new cursor coordinates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">ndisplay</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="n">interp_coord</span> <span class="o">=</span> <span class="n">interpolate_coordinates</span><span class="p">(</span>
+            <span class="n">last_cursor_coord</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span>
         <span class="p">)</span>
-
-        <span class="c1"># Replace target pixels with new_label</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">match_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_label</span>
-
-        <span class="k">if</span> <span class="n">refresh</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span></div>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">interp_coord</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))]</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Labels.paint"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.paint">[docs]</a>    <span class="k">def</span> <span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Paint over existing labels with a new label, using the selected</span>
@@ -1481,18 +1542,36 @@
                 <span class="n">keep_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
             <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sc</span><span class="p">[</span><span class="n">keep_coords</span><span class="p">]</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">slice_coord</span><span class="p">)</span>
 
-        <span class="c1"># save the existing values to the history</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Labels.data_setitem"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.data_setitem">[docs]</a>    <span class="k">def</span> <span class="nf">data_setitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set `indices` in `data` to `value`, while writing to edit history.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        indices : tuple of int, slice, or sequence of int</span>
+<span class="sd">            Indices in data to overwrite. Can be any valid NumPy indexing</span>
+<span class="sd">            expression [1]_.</span>
+<span class="sd">        value : int or array of int</span>
+<span class="sd">            New label value(s). If more than one value, must match or</span>
+<span class="sd">            broadcast with the given indices.</span>
+<span class="sd">        refresh : bool, default True</span>
+<span class="sd">            whether to refresh the view, by default True</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ..[1] https://numpy.org/doc/stable/user/basics.indexing.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_history</span><span class="p">(</span>
             <span class="p">(</span>
-                <span class="n">slice_coord</span><span class="p">,</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                <span class="n">new_label</span><span class="p">,</span>
+                <span class="n">indices</span><span class="p">,</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="n">value</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># update the labels image</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_label</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">if</span> <span class="n">refresh</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span></div>
 

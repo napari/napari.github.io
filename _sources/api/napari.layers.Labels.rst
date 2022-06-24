@@ -23,6 +23,9 @@ napari.layers.Labels
       ~Labels.bind_key
    
    
+      ~Labels.block_history
+   
+   
       ~Labels.block_update_properties
    
    
@@ -30,6 +33,9 @@ napari.layers.Labels
    
    
       ~Labels.create
+   
+   
+      ~Labels.data_setitem
    
    
       ~Labels.data_to_world

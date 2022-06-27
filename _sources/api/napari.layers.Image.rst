@@ -96,6 +96,8 @@ napari.layers.Image
       ~Image.help
       ~Image.interactive
       ~Image.interpolation
+      ~Image.interpolation2d
+      ~Image.interpolation3d
       ~Image.iso_threshold
       ~Image.level_shapes
       ~Image.loaded

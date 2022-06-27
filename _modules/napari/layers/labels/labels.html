@@ -461,7 +461,8 @@
             <span class="n">rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">colormap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="p">,</span>
             <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
-            <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
+            <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
+            <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
             <span class="n">rendering</span><span class="o">=</span><span class="n">rendering</span><span class="p">,</span>
             <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
             <span class="n">iso_threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
@@ -968,10 +969,7 @@
     <span class="k">def</span> <span class="nf">_set_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set editable mode based on layer properties.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">editable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">editable</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>

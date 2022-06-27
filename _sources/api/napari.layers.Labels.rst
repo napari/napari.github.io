@@ -126,6 +126,8 @@ napari.layers.Labels
       ~Labels.help
       ~Labels.interactive
       ~Labels.interpolation
+      ~Labels.interpolation2d
+      ~Labels.interpolation3d
       ~Labels.iso_threshold
       ~Labels.level_shapes
       ~Labels.loaded

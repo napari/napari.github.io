@@ -659,6 +659,293 @@
 <dt class="sig sig-object py" id="napari.layers.Image">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.layers.</span></span><span class="sig-name descname"><span class="pre">Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rgb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gray'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation2d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nearest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation3d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rendering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mip'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iso_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attenuation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depiction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'volume'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plane</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/image/image.html#Image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">napari.layers.image.image._ImageBase</span></code></p>
+<p>Image layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em><em> or </em><em>list of array</em>) – Image data. Can be N &gt;= 2 dimensional. If the last dimension has length
+3 or 4 can be interpreted as RGB or RGBA if rgb is <cite>True</cite>. If a
+list and arrays are decreasing in shape then the data is treated as
+a multiscale image. Please note multiscale rendering is only
+supported in 2D. In 3D, only the lowest resolution scale is
+displayed.</p></li>
+<li><p><strong>rgb</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the image is rgb RGB or RGBA. If not specified by user and
+the last dimension of the data has length 3 or 4 it will be set as
+<cite>True</cite>. If <cite>False</cite> the image is interpreted as a luminance image.</p></li>
+<li><p><strong>colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Colormap to use for luminance images. If a string must be the name
+of a supported colormap from vispy or matplotlib. If a tuple the
+first value must be a string to assign as a name to a colormap and
+the second item must be a Colormap. If a dict the key must be a
+string to assign as a name to a colormap and the value must be a
+Colormap.</p></li>
+<li><p><strong>contrast_limits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> (</em><em>2</em><em>,</em><em>)</em>) – Color limits to be used for determining the colormap bounds for
+luminance images. If not passed is calculated as the min and max of
+the image.</p></li>
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Gamma correction for determining colormap linearity. Defaults to 1.</p></li>
+<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Interpolation mode used by vispy. Must be one of our supported
+modes.</p></li>
+<li><p><strong>rendering</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Rendering mode used by vispy. Must be one of our supported
+modes.</p></li>
+<li><p><strong>depiction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – 3D Depiction mode. Must be one of {‘volume’, ‘plane’}.
+The default value is ‘volume’.</p></li>
+<li><p><strong>iso_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Threshold for isosurface.</p></li>
+<li><p><strong>attenuation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Attenuation rate for attenuated maximum intensity projection.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the layer.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Layer metadata.</p></li>
+<li><p><strong>scale</strong> (<em>tuple of float</em>) – Scale factors for the layer.</p></li>
+<li><p><strong>translate</strong> (<em>tuple of float</em>) – Translation values for the layer.</p></li>
+<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
+angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
+pitch, roll convention. Otherwise assume an nD rotation. Angles are
+assumed to be in degrees. They can be converted from radians with
+np.degrees if needed.</p></li>
+<li><p><strong>shear</strong> (<em>1-D array</em><em> or </em><em>n-D array</em>) – Either a vector of upper triangular values, or an nD shear matrix with
+ones along the main diagonal.</p></li>
+<li><p><strong>affine</strong> (<em>n-D array</em><em> or </em><em>napari.utils.transforms.Affine</em>) – (N+1, N+1) affine transformation matrix in homogeneous coordinates.
+The first (N, N) entries correspond to a linear transform and
+the final column is a length N translation vector and a 1 or a napari
+<cite>Affine</cite> transform object. Applied as an extra transform on top of the
+provided scale, rotate, and shear values.</p></li>
+<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
+<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
+alpha values of the layer visual get mixed. Allowed values are
+{‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
+<li><p><strong>multiscale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the data is a multiscale image or not. Multiscale data is
+represented by a list of array like image data. If not specified by
+the user and if the data is a list of arrays that decrease in shape
+then it will be taken to be multiscale. The first image in the list
+should be the largest. Please note multiscale rendering is only
+supported in 2D. In 3D, only the lowest resolution scale is
+displayed.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
+Currently, this only applies to dask arrays.</p></li>
+<li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em> or </em><em>SlicingPlane</em>) – Properties defining plane rendering in 3D. Properties are defined in
+data coordinates. Valid dictionary keys are
+{‘position’, ‘normal’, ‘thickness’, and ‘enabled’}.</p></li>
+<li><p><strong>experimental_clipping_planes</strong> (<em>list of dicts</em><em>, </em><em>list of ClippingPlane</em><em>, or </em><em>ClippingPlaneList</em>) – Each dict defines a clipping plane in 3D in data coordinates.
+Valid dictionary keys are {‘position’, ‘normal’, and ‘enabled’}.
+Values on the negative side of the normal are discarded if the plane is enabled.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#napari.layers.Image.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Image data. Can be N dimensional. If the last dimension has length
+3 or 4 can be interpreted as RGB or RGBA if rgb is <cite>True</cite>. If a list
+and arrays are decreasing in shape then the data is treated as a
+multiscale image. Please note multiscale rendering is only
+supported in 2D. In 3D, only the lowest resolution scale is
+displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array or list of array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><a class="headerlink" href="#napari.layers.Image.metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Image metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.rgb">
+<span class="sig-name descname"><span class="pre">rgb</span></span><a class="headerlink" href="#napari.layers.Image.rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the image is rgb RGB or RGBA if rgb. If not
+specified by user and the last dimension of the data has length 3 or 4
+it will be set as <cite>True</cite>. If <cite>False</cite> the image is interpreted as a
+luminance image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.multiscale">
+<span class="sig-name descname"><span class="pre">multiscale</span></span><a class="headerlink" href="#napari.layers.Image.multiscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the data is a multiscale image or not. Multiscale data is
+represented by a list of array like image data. The first image in the
+list should be the largest. Please note multiscale rendering is only
+supported in 2D. In 3D, only the lowest resolution scale is
+displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#napari.layers.Image.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interactive mode. The normal, default mode is PAN_ZOOM, which
+allows for normal interactivity with the canvas.</p>
+<p>In TRANSFORM mode the image can be transformed interactively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.colormap">
+<span class="sig-name descname"><span class="pre">colormap</span></span><a class="headerlink" href="#napari.layers.Image.colormap" title="Permalink to this definition">¶</a></dt>
+<dd><p>The first is the name of the current colormap, and the second value is
+the colormap. Colormaps are used for luminance images, if the image is
+rgb the colormap is ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>2-tuple of str, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.colormaps">
+<span class="sig-name descname"><span class="pre">colormaps</span></span><a class="headerlink" href="#napari.layers.Image.colormaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Names of the available colormaps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>tuple of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.contrast_limits">
+<span class="sig-name descname"><span class="pre">contrast_limits</span></span><a class="headerlink" href="#napari.layers.Image.contrast_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Color limits to be used for determining the colormap bounds for
+luminance images. If the image is rgb the contrast_limits is ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a> (2,) of float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.contrast_limits_range">
+<span class="sig-name descname"><span class="pre">contrast_limits_range</span></span><a class="headerlink" href="#napari.layers.Image.contrast_limits_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Range for the color limits for luminance images. If the image is
+rgb the contrast_limits_range is ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a> (2,) of float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.gamma">
+<span class="sig-name descname"><span class="pre">gamma</span></span><a class="headerlink" href="#napari.layers.Image.gamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gamma correction for determining colormap linearity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.interpolation">
+<span class="sig-name descname"><span class="pre">interpolation</span></span><a class="headerlink" href="#napari.layers.Image.interpolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolation mode used by vispy. Must be one of our supported
+modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.rendering">
+<span class="sig-name descname"><span class="pre">rendering</span></span><a class="headerlink" href="#napari.layers.Image.rendering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rendering mode used by vispy. Must be one of our supported
+modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.depiction">
+<span class="sig-name descname"><span class="pre">depiction</span></span><a class="headerlink" href="#napari.layers.Image.depiction" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D Depiction mode used by vispy. Must be one of our supported modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.iso_threshold">
+<span class="sig-name descname"><span class="pre">iso_threshold</span></span><a class="headerlink" href="#napari.layers.Image.iso_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Threshold for isosurface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.attenuation">
+<span class="sig-name descname"><span class="pre">attenuation</span></span><a class="headerlink" href="#napari.layers.Image.attenuation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attenuation rate for attenuated maximum intensity projection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.plane">
+<span class="sig-name descname"><span class="pre">plane</span></span><a class="headerlink" href="#napari.layers.Image.plane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properties defining plane rendering in 3D. Valid dictionary keys are
+{‘position’, ‘normal’, ‘thickness’}.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>SlicingPlane or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Image.experimental_clipping_planes">
+<span class="sig-name descname"><span class="pre">experimental_clipping_planes</span></span><a class="headerlink" href="#napari.layers.Image.experimental_clipping_planes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clipping planes defined in data coordinates, used to clip the volume.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ClippingPlaneList</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>_data_view<span class="classifier">array (N, M), (N, M, 3), or (N, M, 4)</span></dt><dd><p>Image data for the currently viewed slice. Must be 2D image data, but
+can be multidimensional for RGB or RGBA images if multidimensional is
+<cite>True</cite>.</p>
+</dd>
+<dt>_colorbar<span class="classifier">array</span></dt><dd><p>Colorbar for current colormap.</p>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>
@@ -726,7 +1013,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.affine" title="napari.layers.Image.affine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">affine</span></code></a></p></td>
 <td><p>Extra affine transform to go from physical to world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.attenuation" title="napari.layers.Image.attenuation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attenuation</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id0" title="napari.layers.Image.attenuation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attenuation</span></code></a></p></td>
 <td><p>attenuation rate for attenuated_mip rendering.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.blending" title="napari.layers.Image.blending"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blending</span></code></a></p></td>
@@ -735,16 +1022,16 @@
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">class_keymap</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.colormap" title="napari.layers.Image.colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">colormap</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id1" title="napari.layers.Image.colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">colormap</span></code></a></p></td>
 <td><p>colormap for luminance images.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.colormaps" title="napari.layers.Image.colormaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">colormaps</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id2" title="napari.layers.Image.colormaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">colormaps</span></code></a></p></td>
 <td><p>names of available colormaps.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.contrast_limits" title="napari.layers.Image.contrast_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contrast_limits</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id3" title="napari.layers.Image.contrast_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contrast_limits</span></code></a></p></td>
 <td><p>Limits to use for the colormap.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.contrast_limits_range" title="napari.layers.Image.contrast_limits_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contrast_limits_range</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id4" title="napari.layers.Image.contrast_limits_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contrast_limits_range</span></code></a></p></td>
 <td><p>The current valid range of the contrast limits.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.cursor" title="napari.layers.Image.cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor</span></code></a></p></td>
@@ -753,7 +1040,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.cursor_size" title="napari.layers.Image.cursor_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor_size</span></code></a></p></td>
 <td><p>Size of cursor if custom.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.data" title="napari.layers.Image.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id5" title="napari.layers.Image.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></td>
 <td><p>Data, possibly in multiscale wrapper.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.data_level" title="napari.layers.Image.data_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_level</span></code></a></p></td>
@@ -762,7 +1049,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.data_raw" title="napari.layers.Image.data_raw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_raw</span></code></a></p></td>
 <td><p>Data, exactly as provided by the user.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.depiction" title="napari.layers.Image.depiction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">depiction</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id6" title="napari.layers.Image.depiction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">depiction</span></code></a></p></td>
 <td><p>The current 3D depiction mode.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.downsample_factors" title="napari.layers.Image.downsample_factors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">downsample_factors</span></code></a></p></td>
@@ -774,13 +1061,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.editable" title="napari.layers.Image.editable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">editable</span></code></a></p></td>
 <td><p>Whether the current layer data is editable from the viewer.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">experimental_clipping_planes</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.experimental_clipping_planes" title="napari.layers.Image.experimental_clipping_planes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">experimental_clipping_planes</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.extent" title="napari.layers.Image.extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extent</span></code></a></p></td>
 <td><p>Extent of layer in data and world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.gamma" title="napari.layers.Image.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.help" title="napari.layers.Image.help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">help</span></code></a></p></td>
@@ -789,7 +1076,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.interactive" title="napari.layers.Image.interactive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interactive</span></code></a></p></td>
 <td><p>Determine if canvas pan/zoom interactivity is enabled.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.interpolation" title="napari.layers.Image.interpolation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolation</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id7" title="napari.layers.Image.interpolation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolation</span></code></a></p></td>
 <td><p>Return current interpolation mode.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolation2d</span></code></p></td>
@@ -798,7 +1085,7 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolation3d</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.iso_threshold" title="napari.layers.Image.iso_threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iso_threshold</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id8" title="napari.layers.Image.iso_threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iso_threshold</span></code></a></p></td>
 <td><p>threshold for isosurface.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.level_shapes" title="napari.layers.Image.level_shapes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">level_shapes</span></code></a></p></td>
@@ -807,10 +1094,10 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.loaded" title="napari.layers.Image.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
 <td><p>Has the data for this layer been loaded yet.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.metadata" title="napari.layers.Image.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id9" title="napari.layers.Image.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
 <td><p>Key/value map for user-stored data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.mode" title="napari.layers.Image.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id10" title="napari.layers.Image.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
 <td><p>Interactive mode</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.name" title="napari.layers.Image.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
@@ -822,10 +1109,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.opacity" title="napari.layers.Image.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
 <td><p>Opacity value between 0.0 and 1.0.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plane</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.plane" title="napari.layers.Image.plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plane</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Image.rendering" title="napari.layers.Image.rendering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rendering</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id11" title="napari.layers.Image.rendering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rendering</span></code></a></p></td>
 <td><p>Return current rendering mode.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.rotate" title="napari.layers.Image.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
@@ -867,8 +1154,8 @@
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.attenuation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attenuation</span></span><a class="headerlink" href="#napari.layers.Image.attenuation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id0">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attenuation</span></span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
 <dd><p>attenuation rate for attenuated_mip rendering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -982,8 +1269,8 @@ coordinates, centered on the centre of rotation of the camera.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.colormap">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">colormap</span></span><a class="headerlink" href="#napari.layers.Image.colormap" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">colormap</span></span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
 <dd><p>colormap for luminance images.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -993,8 +1280,8 @@ coordinates, centered on the centre of rotation of the camera.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.colormaps">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">colormaps</span></span><a class="headerlink" href="#napari.layers.Image.colormaps" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">colormaps</span></span><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
 <dd><p>names of available colormaps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1004,8 +1291,8 @@ coordinates, centered on the centre of rotation of the camera.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.contrast_limits">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contrast_limits</span></span><a class="headerlink" href="#napari.layers.Image.contrast_limits" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id3">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contrast_limits</span></span><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limits to use for the colormap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1015,8 +1302,8 @@ coordinates, centered on the centre of rotation of the camera.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.contrast_limits_range">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contrast_limits_range</span></span><a class="headerlink" href="#napari.layers.Image.contrast_limits_range" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id4">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contrast_limits_range</span></span><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
 <dd><p>The current valid range of the contrast limits.</p>
 </dd></dl>
 
@@ -1083,8 +1370,8 @@ specified layer_type.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.data">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers._data_protocols.LayerDataProtocol</span></em><a class="headerlink" href="#napari.layers.Image.data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id5">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers._data_protocols.LayerDataProtocol</span></em><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
 <dd><p>Data, possibly in multiscale wrapper. Obeys LayerDataProtocol.</p>
 </dd></dl>
 
@@ -1125,8 +1412,8 @@ dimensions will be used.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.depiction">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">depiction</span></span><a class="headerlink" href="#napari.layers.Image.depiction" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id6">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">depiction</span></span><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
 <dd><p>The current 3D depiction mode.</p>
 <dl class="simple">
 <dt>Selects a preset depiction mode in vispy</dt><dd><ul class="simple">
@@ -1279,8 +1566,8 @@ and converted into data coordinates. False by default.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.interpolation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interpolation</span></span><a class="headerlink" href="#napari.layers.Image.interpolation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id7">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interpolation</span></span><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return current interpolation mode.</p>
 <p>Selects a preset interpolation mode in vispy that determines how volume
 is displayed.  Makes use of the two Texture2D interpolation methods and
@@ -1301,8 +1588,8 @@ vispy/gloo/glsl/misc/spatial_filters.frag</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.iso_threshold">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iso_threshold</span></span><a class="headerlink" href="#napari.layers.Image.iso_threshold" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id8">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iso_threshold</span></span><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
 <dd><p>threshold for isosurface.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1331,14 +1618,14 @@ for the current slice has not been loaded.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.metadata">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></em><a class="headerlink" href="#napari.layers.Image.metadata" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id9">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></em><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
 <dd><p>Key/value map for user-stored data.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.mode">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#napari.layers.Image.mode" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id10">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interactive mode</p>
 <p>Interactive mode. The normal, default mode is PAN_ZOOM, which
 allows for normal interactivity with the canvas.</p>
@@ -1417,8 +1704,8 @@ coordinates.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Image.rendering">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rendering</span></span><a class="headerlink" href="#napari.layers.Image.rendering" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id11">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rendering</span></span><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return current rendering mode.</p>
 <p>Selects a preset rendering mode in vispy that determines how
 volume is displayed.  Options include:</p>

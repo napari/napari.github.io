@@ -35,6 +35,9 @@ napari.window.Window
       ~Window.close
    
    
+      ~Window.geometry
+   
+   
       ~Window.remove_dock_widget
    
    
@@ -42,6 +45,9 @@ napari.window.Window
    
    
       ~Window.screenshot
+   
+   
+      ~Window.set_geometry
    
    
       ~Window.show

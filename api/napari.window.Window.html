@@ -756,14 +756,20 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.close" title="napari.window.Window.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
 <td><p>Close the viewer window and cleanup sub-widgets.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.remove_dock_widget" title="napari.window.Window.remove_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_dock_widget</span></code></a>(widget[, menu])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.geometry" title="napari.window.Window.geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geometry</span></code></a>()</p></td>
+<td><p>Get the geometry of the widget</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.remove_dock_widget" title="napari.window.Window.remove_dock_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_dock_widget</span></code></a>(widget[, menu])</p></td>
 <td><p>Removes specified dock widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.resize" title="napari.window.Window.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>(width, height)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.resize" title="napari.window.Window.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>(width, height)</p></td>
 <td><p>Resize the window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.screenshot" title="napari.window.Window.screenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screenshot</span></code></a>([path, size, scale, flash, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.screenshot" title="napari.window.Window.screenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screenshot</span></code></a>([path, size, scale, flash, ...])</p></td>
 <td><p>Take currently displayed viewer and convert to an image array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.window.Window.set_geometry" title="napari.window.Window.set_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_geometry</span></code></a>(left, top, width, height)</p></td>
+<td><p>Set the geometry of the widget</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.window.Window.show" title="napari.window.Window.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>(*[, block])</p></td>
 <td><p>Resize, show, and bring forward the window.</p></td>
@@ -903,6 +909,23 @@ By default, True.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="napari.window.Window.geometry">
+<span class="sig-name descname"><span class="pre">geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the geometry of the widget</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>left</strong> (<em>int</em>) – X coordinate of the upper left border.</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – Y coordinate of the upper left border.</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – Width of the rectangle shape of the window.</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – Height of the rectangle shape of the window.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="napari.window.Window.remove_dock_widget">
 <span class="sig-name descname"><span class="pre">remove_dock_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PyQt5.QtWidgets.QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.remove_dock_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.remove_dock_widget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes specified dock widget.</p>
@@ -955,6 +978,22 @@ upper-left corner of the rendered region.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari.window.Window.set_geometry">
+<span class="sig-name descname"><span class="pre">set_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.set_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.set_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the geometry of the widget</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – X coordinate of the upper left border.</p></li>
+<li><p><strong>top</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Y coordinate of the upper left border.</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Width of the rectangle shape of the window.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Height of the rectangle shape of the window.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

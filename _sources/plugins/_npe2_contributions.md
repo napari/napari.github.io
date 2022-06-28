@@ -372,7 +372,7 @@ dark/light theme colors.
 **Fields**
 - **`themes.id`** : Identifier of the color theme as used in the user settings.
 - **`themes.label`** : Label of the color theme as shown in the UI.
-- **`themes.type`** : Base theme type, used for icons and filling in unprovided colors. Must be either `'dark'` or 
+- **`themes.type`** : Base theme type, used for icons and filling in unprovided colors. Must be either `'dark'` or  `'light'`.
 - **`themes.colors`** : Theme colors. Valid keys include: `canvas`, `console`, `background`, `foreground`, `primary`, `secondary`, `highlight`, `text`, `icon`, `warning`, `current`. All keys are optional. Color values can be defined via:
    - name: `"Black"`, `"azure"`
    - hexadecimal value: `"0x000"`, `"#FFFFFF"`, `"7fffd4"`

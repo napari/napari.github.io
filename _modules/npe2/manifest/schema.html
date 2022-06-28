@@ -246,11 +246,13 @@
 
     <span class="n">display_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;User-facing text to display as the name of this plugin&quot;</span><span class="p">,</span>
-        <span class="c1"># Must be 3-40 characters long, containing printable word characters,</span>
-        <span class="c1"># and must not begin or end with an underscore, white space, or</span>
-        <span class="c1"># non-word character.</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;User-facing text to display as the name of this plugin. &quot;</span>
+        <span class="s2">&quot;Must be 3-40 characters long, containing printable word characters, &quot;</span>
+        <span class="s2">&quot;and must not begin or end with an underscore, white space, or &quot;</span>
+        <span class="s2">&quot;non-word character. If not provided, the manifest `name` will be used as the &quot;</span>
+        <span class="s2">&quot;display name.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
+
     <span class="n">_validate_display_name</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="s2">&quot;display_name&quot;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span>
         <span class="n">_validators</span><span class="o">.</span><span class="n">display_name</span>
     <span class="p">)</span>

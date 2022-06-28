@@ -33,7 +33,7 @@ All fields are optional except those in **bold**.
 | Name | Details |
 |------|---------|
 |  **`name`**  | The name of the plugin. Though this field is mandatory, it *must* match the package `name` as defined in the python package metadata.|
-|  `display_name`  | User-facing text to display as the name of this plugin|
+|  `display_name`  | User-facing text to display as the name of this plugin. Must be 3-40 characters long, containing printable word characters, and must not begin or end with an underscore, white space, or non-word character. If not provided, the manifest `name` will be used as the display name.|
 |  `schema_version`  | A SemVer compatible version string matching the napari plugin schema version that the plugin is compatible with.|
 |  `on_activate`  | Fully qualified python path to a function that will be called upon plugin activation (e.g. `'my_plugin.some_module:activate'`). The activate function can be used to connect command ids to python callables, or perform other side-effects. A plugin will be 'activated' when one of its contributions is requested by the user (such as a widget, or reader).|
 |  `on_deactivate`  | Fully qualified python path to a function that will be called when a user deactivates a plugin (e.g. `'my_plugin.some_module:deactivate'`). This is optional, and may be used to perform any plugin cleanup.|

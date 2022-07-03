@@ -227,6 +227,7 @@
     <span class="s1">&#39;Counter&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Deque&#39;</span><span class="p">,</span>
     <span class="s1">&#39;DefaultDict&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NamedTuple&#39;</span><span class="p">,</span>
     <span class="s1">&#39;OrderedDict&#39;</span><span class="p">,</span>
     <span class="s1">&#39;TypedDict&#39;</span><span class="p">,</span>
 
@@ -570,6 +571,46 @@
     <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">_get_protocol_attrs</span><span class="p">(</span><span class="bp">cls</span><span class="p">))</span>
 
 
+<span class="k">def</span> <span class="nf">_maybe_adjust_parameters</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper function used in Protocol.__init_subclass__ and _TypedDictMeta.__new__.</span>
+
+<span class="sd">    The contents of this function are very similar</span>
+<span class="sd">    to logic found in typing.Generic.__init_subclass__</span>
+<span class="sd">    on the CPython main branch.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tvars</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="s1">&#39;__orig_bases__&#39;</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+        <span class="n">tvars</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_collect_type_vars</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__orig_bases__</span><span class="p">)</span>
+        <span class="c1"># Look for Generic[T1, ..., Tn] or Protocol[T1, ..., Tn].</span>
+        <span class="c1"># If found, tvars must be a subset of it.</span>
+        <span class="c1"># If not found, tvars is it.</span>
+        <span class="c1"># Also check for and reject plain Generic,</span>
+        <span class="c1"># and reject multiple Generic[...] and/or Protocol[...].</span>
+        <span class="n">gvars</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__orig_bases__</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">_GenericAlias</span><span class="p">)</span> <span class="ow">and</span>
+                    <span class="n">base</span><span class="o">.</span><span class="n">__origin__</span> <span class="ow">in</span> <span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">)):</span>
+                <span class="c1"># for error messages</span>
+                <span class="n">the_base</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">__origin__</span><span class="o">.</span><span class="vm">__name__</span>
+                <span class="k">if</span> <span class="n">gvars</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s2">&quot;Cannot inherit from Generic[...]&quot;</span>
+                        <span class="s2">&quot; and/or Protocol[...] multiple types.&quot;</span><span class="p">)</span>
+                <span class="n">gvars</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">__parameters__</span>
+        <span class="k">if</span> <span class="n">gvars</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">gvars</span> <span class="o">=</span> <span class="n">tvars</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tvarset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tvars</span><span class="p">)</span>
+            <span class="n">gvarset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">gvars</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">tvarset</span> <span class="o">&lt;=</span> <span class="n">gvarset</span><span class="p">:</span>
+                <span class="n">s_vars</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tvars</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gvarset</span><span class="p">)</span>
+                <span class="n">s_args</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">gvars</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Some type variables (</span><span class="si">{</span><span class="n">s_vars</span><span class="si">}</span><span class="s2">) are&quot;</span>
+                                <span class="sa">f</span><span class="s2">&quot; not listed in </span><span class="si">{</span><span class="n">the_base</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">s_args</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+            <span class="n">tvars</span> <span class="o">=</span> <span class="n">gvars</span>
+    <span class="bp">cls</span><span class="o">.</span><span class="n">__parameters__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">tvars</span><span class="p">)</span>
+
+
 <span class="c1"># 3.8+</span>
 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typing</span><span class="p">,</span> <span class="s1">&#39;Protocol&#39;</span><span class="p">):</span>
     <span class="n">Protocol</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">Protocol</span>
@@ -666,43 +707,13 @@
             <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">_GenericAlias</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="n">tvars</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">if</span> <span class="s1">&#39;__orig_bases__&#39;</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
                 <span class="n">error</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__orig_bases__</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">error</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__bases__</span>
             <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot inherit from plain Generic&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s1">&#39;__orig_bases__&#39;</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-                <span class="n">tvars</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_collect_type_vars</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__orig_bases__</span><span class="p">)</span>
-                <span class="c1"># Look for Generic[T1, ..., Tn] or Protocol[T1, ..., Tn].</span>
-                <span class="c1"># If found, tvars must be a subset of it.</span>
-                <span class="c1"># If not found, tvars is it.</span>
-                <span class="c1"># Also check for and reject plain Generic,</span>
-                <span class="c1"># and reject multiple Generic[...] and/or Protocol[...].</span>
-                <span class="n">gvars</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__orig_bases__</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">_GenericAlias</span><span class="p">)</span> <span class="ow">and</span>
-                            <span class="n">base</span><span class="o">.</span><span class="n">__origin__</span> <span class="ow">in</span> <span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">)):</span>
-                        <span class="c1"># for error messages</span>
-                        <span class="n">the_base</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">__origin__</span><span class="o">.</span><span class="vm">__name__</span>
-                        <span class="k">if</span> <span class="n">gvars</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                                <span class="s2">&quot;Cannot inherit from Generic[...]&quot;</span>
-                                <span class="s2">&quot; and/or Protocol[...] multiple types.&quot;</span><span class="p">)</span>
-                        <span class="n">gvars</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">__parameters__</span>
-                <span class="k">if</span> <span class="n">gvars</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">gvars</span> <span class="o">=</span> <span class="n">tvars</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">tvarset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tvars</span><span class="p">)</span>
-                    <span class="n">gvarset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">gvars</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">tvarset</span> <span class="o">&lt;=</span> <span class="n">gvarset</span><span class="p">:</span>
-                        <span class="n">s_vars</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tvars</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gvarset</span><span class="p">)</span>
-                        <span class="n">s_args</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">gvars</span><span class="p">)</span>
-                        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Some type variables (</span><span class="si">{</span><span class="n">s_vars</span><span class="si">}</span><span class="s2">) are&quot;</span>
-                                        <span class="sa">f</span><span class="s2">&quot; not listed in </span><span class="si">{</span><span class="n">the_base</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">s_args</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-                    <span class="n">tvars</span> <span class="o">=</span> <span class="n">gvars</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">__parameters__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">tvars</span><span class="p">)</span>
+            <span class="n">_maybe_adjust_parameters</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
 
             <span class="c1"># Determine if this is a protocol or a concrete subclass.</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_is_protocol&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
@@ -803,6 +814,7 @@
     <span class="c1"># keyword with old-style TypedDict().  See https://bugs.python.org/issue42059</span>
     <span class="c1"># The standard library TypedDict below Python 3.11 does not store runtime</span>
     <span class="c1"># information about optional and required keys when using Required or NotRequired.</span>
+    <span class="c1"># Generic TypedDicts are also impossible using typing.TypedDict on Python &lt;3.11.</span>
     <span class="n">TypedDict</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypedDict</span>
     <span class="n">_TypedDictMeta</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_TypedDictMeta</span>
     <span class="n">is_typeddict</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">is_typeddict</span>
@@ -885,7 +897,15 @@
             <span class="c1"># Subclasses and instances of TypedDict return actual dictionaries</span>
             <span class="c1"># via _dict_new.</span>
             <span class="n">ns</span><span class="p">[</span><span class="s1">&#39;__new__&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_typeddict_new</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;TypedDict&#39;</span> <span class="k">else</span> <span class="n">_dict_new</span>
+            <span class="c1"># Don&#39;t insert typing.Generic into __bases__ here,</span>
+            <span class="c1"># or Generic.__init_subclass__ will raise TypeError</span>
+            <span class="c1"># in the super().__new__() call.</span>
+            <span class="c1"># Instead, monkey-patch __bases__ onto the class after it&#39;s been created.</span>
             <span class="n">tp_dict</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,),</span> <span class="n">ns</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">issubclass</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="p">)</span> <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">):</span>
+                <span class="n">tp_dict</span><span class="o">.</span><span class="vm">__bases__</span> <span class="o">=</span> <span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+                <span class="n">_maybe_adjust_parameters</span><span class="p">(</span><span class="n">tp_dict</span><span class="p">)</span>
 
             <span class="n">annotations</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">own_annotations</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__annotations__&#39;</span><span class="p">,</span> <span class="p">{})</span>
@@ -2148,6 +2168,95 @@
 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typing</span><span class="p">,</span> <span class="s2">&quot;TypeVarTuple&quot;</span><span class="p">):</span>
     <span class="n">typing</span><span class="o">.</span><span class="n">_collect_type_vars</span> <span class="o">=</span> <span class="n">_collect_type_vars</span>
     <span class="n">typing</span><span class="o">.</span><span class="n">_check_generic</span> <span class="o">=</span> <span class="n">_check_generic</span>
+
+
+<span class="c1"># Backport typing.NamedTuple as it exists in Python 3.11.</span>
+<span class="c1"># In 3.11, the ability to define generic `NamedTuple`s was supported.</span>
+<span class="c1"># This was explicitly disallowed in 3.9-3.10, and only half-worked in &lt;=3.8.</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="n">NamedTuple</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">NamedTuple</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_caller</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__main__&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>  <span class="c1"># For platforms without _getframe()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_make_nmtuple</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">()):</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">types</span><span class="p">]</span>
+        <span class="n">annotations</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;field </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> annotation must be a type&quot;</span><span class="p">)</span>
+                       <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">types</span><span class="p">}</span>
+        <span class="n">nm_tpl</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span>
+                                        <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">)</span>
+        <span class="n">nm_tpl</span><span class="o">.</span><span class="vm">__annotations__</span> <span class="o">=</span> <span class="n">nm_tpl</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__annotations__</span> <span class="o">=</span> <span class="n">annotations</span>
+        <span class="c1"># The `_field_types` attribute was removed in 3.9;</span>
+        <span class="c1"># in earlier versions, it is the same as the `__annotations__` attribute</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+            <span class="n">nm_tpl</span><span class="o">.</span><span class="n">_field_types</span> <span class="o">=</span> <span class="n">annotations</span>
+        <span class="k">return</span> <span class="n">nm_tpl</span>
+
+    <span class="n">_prohibited_namedtuple_fields</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_prohibited</span>
+    <span class="n">_special_namedtuple_fields</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s1">&#39;__module__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__annotations__&#39;</span><span class="p">})</span>
+
+    <span class="k">class</span> <span class="nc">_NamedTupleMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">typename</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">_NamedTuple</span> <span class="ow">in</span> <span class="n">bases</span>
+            <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_NamedTuple</span> <span class="ow">and</span> <span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s1">&#39;can only inherit from a NamedTuple type and Generic&#39;</span><span class="p">)</span>
+            <span class="n">bases</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">tuple</span> <span class="k">if</span> <span class="n">base</span> <span class="ow">is</span> <span class="n">_NamedTuple</span> <span class="k">else</span> <span class="n">base</span> <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">)</span>
+            <span class="n">types</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__annotations__&#39;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">default_names</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">:</span>
+                    <span class="n">default_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field_name</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">default_names</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Non-default namedtuple field </span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> &quot;</span>
+                                    <span class="sa">f</span><span class="s2">&quot;cannot follow default field&quot;</span>
+                                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;s&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">default_names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2"> &quot;</span>
+                                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_names</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">nm_tpl</span> <span class="o">=</span> <span class="n">_make_nmtuple</span><span class="p">(</span>
+                <span class="n">typename</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>
+                <span class="n">defaults</span><span class="o">=</span><span class="p">[</span><span class="n">ns</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">default_names</span><span class="p">],</span>
+                <span class="n">module</span><span class="o">=</span><span class="n">ns</span><span class="p">[</span><span class="s1">&#39;__module__&#39;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">nm_tpl</span><span class="o">.</span><span class="vm">__bases__</span> <span class="o">=</span> <span class="n">bases</span>
+            <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">:</span>
+                <span class="n">class_getitem</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="o">.</span><span class="n">__class_getitem__</span><span class="o">.</span><span class="vm">__func__</span>
+                <span class="n">nm_tpl</span><span class="o">.</span><span class="n">__class_getitem__</span> <span class="o">=</span> <span class="nb">classmethod</span><span class="p">(</span><span class="n">class_getitem</span><span class="p">)</span>
+            <span class="c1"># update from user namespace without overriding special namedtuple attributes</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">_prohibited_namedtuple_fields</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Cannot overwrite NamedTuple attribute &quot;</span> <span class="o">+</span> <span class="n">key</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_special_namedtuple_fields</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nm_tpl</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">nm_tpl</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">ns</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">:</span>
+                <span class="n">nm_tpl</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">nm_tpl</span>
+
+    <span class="k">def</span> <span class="nf">NamedTuple</span><span class="p">(</span><span class="n">__typename</span><span class="p">,</span> <span class="n">__fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">__fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">__fields</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Either list of fields or keywords&quot;</span>
+                            <span class="s2">&quot; can be provided to NamedTuple, not both&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_make_nmtuple</span><span class="p">(</span><span class="n">__typename</span><span class="p">,</span> <span class="n">__fields</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="n">_caller</span><span class="p">())</span>
+
+    <span class="n">NamedTuple</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">NamedTuple</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="n">_NamedTuple</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">_NamedTupleMeta</span><span class="p">,</span> <span class="s1">&#39;NamedTuple&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{})</span>
+
+    <span class="c1"># On 3.8+, alter the signature so that it matches typing.NamedTuple.</span>
+    <span class="c1"># The signature of typing.NamedTuple on &gt;=3.8 is invalid syntax in Python 3.7,</span>
+    <span class="c1"># so just leave the signature as it is on 3.7.</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+        <span class="n">NamedTuple</span><span class="o">.</span><span class="n">__text_signature__</span> <span class="o">=</span> <span class="s1">&#39;(typename, fields=None, /, **kwargs)&#39;</span>
+
+    <span class="k">def</span> <span class="nf">_namedtuple_mro_entries</span><span class="p">(</span><span class="n">bases</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">NamedTuple</span> <span class="ow">in</span> <span class="n">bases</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">_NamedTuple</span><span class="p">,)</span>
+
+    <span class="n">NamedTuple</span><span class="o">.</span><span class="n">__mro_entries__</span> <span class="o">=</span> <span class="n">_namedtuple_mro_entries</span>
 </pre></div>
 
             </div>

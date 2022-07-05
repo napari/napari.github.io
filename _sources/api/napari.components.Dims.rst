@@ -65,6 +65,9 @@ napari.components.Dims
       ~Dims.set_range
    
    
+      ~Dims.transpose
+   
+   
       ~Dims.update
    
    

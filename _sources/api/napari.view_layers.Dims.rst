@@ -65,6 +65,9 @@ napari.view\_layers.Dims
       ~Dims.set_range
    
    
+      ~Dims.transpose
+   
+   
       ~Dims.update
    
    

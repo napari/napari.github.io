@@ -266,10 +266,6 @@
 <span class="sd">    as_html : bool</span>
 <span class="sd">        if True, info will be returned as HTML, suitable for a QTextEdit widget</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">npe2</span> <span class="kn">import</span> <span class="n">PluginManager</span> <span class="k">as</span> <span class="n">Npe2PluginManager</span>
-
-    <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">plugin_manager</span>
-
     <span class="n">sys_version</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;napari&lt;/b&gt;: </span><span class="si">{</span><span class="n">napari</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
@@ -342,32 +338,6 @@
             <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - screen </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: resolution </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span><span class="si">}</span><span class="s2">, scale </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">devicePixelRatio</span><span class="p">()</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - failed to load screen information </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="n">plugin_manager</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
-    <span class="n">plugin_strings</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">list_plugin_metadata</span><span class="p">():</span>
-        <span class="n">plugin_name</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plugin_name&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">plugin_name</span> <span class="o">==</span> <span class="s1">&#39;builtins&#39;</span><span class="p">:</span>
-            <span class="k">continue</span>
-        <span class="n">version</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">)</span>
-        <span class="n">version_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;: </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">version</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">plugin_strings</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">plugin_name</span><span class="si">}{</span><span class="n">version_string</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="n">npe2_plugin_manager</span> <span class="o">=</span> <span class="n">Npe2PluginManager</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">manifest</span> <span class="ow">in</span> <span class="n">npe2_plugin_manager</span><span class="o">.</span><span class="n">iter_manifests</span><span class="p">():</span>
-        <span class="n">plugin_name</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">name</span>
-        <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;napari&quot;</span><span class="p">,</span> <span class="s2">&quot;builtins&quot;</span><span class="p">):</span>
-            <span class="k">continue</span>
-        <span class="n">version</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">package_version</span>
-        <span class="n">version_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;: </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">version</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">plugin_strings</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">plugin_name</span><span class="si">}{</span><span class="n">version_string</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;br&gt;&lt;b&gt;Plugins&lt;/b&gt;:&#39;</span>
-    <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span>
-        <span class="p">(</span><span class="s2">&quot;&lt;br&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">plugin_strings</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
-        <span class="k">if</span> <span class="n">plugin_strings</span>
-        <span class="k">else</span> <span class="s1">&#39;  None&#39;</span>
-    <span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">as_html</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">=</span> <span class="p">(</span>

@@ -194,11 +194,12 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">validator</span>
 
+<span class="kn">from</span> <span class="nn">napari.utils.color</span> <span class="kn">import</span> <span class="n">ColorArray</span>
+
 <span class="kn">from</span> <span class="nn">..events</span> <span class="kn">import</span> <span class="n">EventedModel</span>
 <span class="kn">from</span> <span class="nn">..events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
 <span class="kn">from</span> <span class="nn">..translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.colorbars</span> <span class="kn">import</span> <span class="n">make_colorbar</span>
-<span class="kn">from</span> <span class="nn">.standardize_color</span> <span class="kn">import</span> <span class="n">transform_color</span>
 
 
 <span class="k">class</span> <span class="nc">ColormapInterpolationMode</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
@@ -236,7 +237,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># fields</span>
-    <span class="n">colors</span><span class="p">:</span> <span class="n">Array</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+    <span class="n">colors</span><span class="p">:</span> <span class="n">ColorArray</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;custom&#39;</span>
     <span class="n">_display_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">interpolation</span><span class="p">:</span> <span class="n">ColormapInterpolationMode</span> <span class="o">=</span> <span class="n">ColormapInterpolationMode</span><span class="o">.</span><span class="n">LINEAR</span>
@@ -248,11 +249,6 @@
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">=</span> <span class="n">display_name</span>
-
-    <span class="c1"># validators</span>
-    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;colors&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_ensure_color_array</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
     <span class="c1"># controls validator must be called even if None for correct initialization</span>
     <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;controls&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

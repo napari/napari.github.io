@@ -1760,7 +1760,7 @@ event loop for you in IPython, then you can disable it with:</p>
 <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">ipy_interactive</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
-<p>… but then you will have to start the program yourself as described <span class="xref myst">below</span>.</p>
+<p>… but then you will have to start the program yourself as described <a class="reference internal" href="#in-a-script"><span class="std std-doc">below</span></a>.</p>
 </div>
 </section>
 <section id="in-a-script">
@@ -1861,14 +1861,14 @@ all napari examples included this <code class="docutils literal notranslate"><sp
 </pre></div>
 </div>
 <p>On entering the context, <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> would create a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code>, and on exiting
-the context, it would start the event loop (the two critical steps <span class="xref myst">mentioned
-above</span>).</p>
+the context, it would start the event loop (the two critical steps <a class="reference internal" href="#qt-applications-and-event-loops"><span class="std std-doc">mentioned
+above</span></a>).</p>
 <p>Unlike a typical context manager, however, it did not actually <em>destroy</em> the
 <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> (since it may still be needed in the same session)… and future
 calls to <code class="docutils literal notranslate"><span class="pre">gui_qt</span></code> were only needed to start the event loop.  By auto-creating
 the <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> during <a class="reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a> creation, introducing the
-explicit <a class="reference internal" href="../api/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a> function, and using the <span class="xref myst">integrated IPython event
-loop</span> when applicable, we hope to simplify the
+explicit <a class="reference internal" href="../api/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a> function, and using the <a class="reference internal" href="#in-ipython-or-jupyter-notebook"><span class="std std-doc">integrated IPython event
+loop</span></a> when applicable, we hope to simplify the
 usage of napari.</p>
 </div>
 <p>Now that you have an understanding of how napari creates the event loop, you may

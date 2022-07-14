@@ -599,11 +599,6 @@
        Potential Risks
       </a>
      </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#tasks">
-       Tasks
-      </a>
-     </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -623,12 +618,7 @@
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id23">
-       Tasks
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#risks">
-       Risks
+       Potential risks
       </a>
      </li>
     </ul>
@@ -659,24 +649,52 @@
     <a class="reference internal nav-link" href="#id29">
      Milestone 1: Distributing napari and plugins on conda-forge
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#tasks">
+       Tasks
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id30">
      Milestone 2: Building conda-based installers for napari
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id32">
+       Tasks
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id32">
+    <a class="reference internal nav-link" href="#id33">
      Milestone 3: Adding support for conda packages in the plugin manager
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id34">
+       Tasks
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id35">
+    <a class="reference internal nav-link" href="#id38">
      Milestone 4: Enabling in-app napari version updates
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id40">
+       Tasks
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id37">
+    <a class="reference internal nav-link" href="#id41">
      Milestone 5: Deprecating Briefcase-based installers
     </a>
    </li>
@@ -765,7 +783,7 @@ not exposed to package managers and command-line interfaces might prefer other o
 native to their operating system of choice. This is usually achieved through graphical
 installers with a step-by-step interface.</p>
 <p>This NAP discusses how we will use and adapt tools borrowed from the <code class="docutils literal notranslate"><span class="pre">conda</span></code> packaging
-ecosystem to build platform-specific installers and implement update strategies for napari and
+world to build platform-specific installers and implement update strategies for napari and
 its plugin ecosystem.</p>
 </section>
 <section id="motivation-and-scope">
@@ -780,9 +798,11 @@ however, presents a series of limitations for the napari ecosystem:</p>
 <li><p>No standardized building infrastructure. PyPI accepts submissions from any user without requiring
 any validation or review. As a result, packages can be built using arbitrary toolchains or
 expecting different libraries in the system. <code class="docutils literal notranslate"><span class="pre">cibuildwheel</span></code> <a class="footnote-reference brackets" href="#cibuildwheel" id="id4">4</a> and related tools
-<a class="footnote-reference brackets" href="#audithwheel" id="id5">5</a> <a class="footnote-reference brackets" href="#delocate" id="id6">6</a> <a class="footnote-reference brackets" href="#delvewheel" id="id7">7</a> can definitely help users who want to do it in the right
-way, but again, there’s no guarantee is being used. This can result in ABI incompatibilities with
-the target system and within the plugin ecosystem, specially when some packages vendor specific
+<a class="footnote-reference brackets" href="#audithwheel" id="id5">5</a> <a class="footnote-reference brackets" href="#delocate" id="id6">6</a> <a class="footnote-reference brackets" href="#delvewheel" id="id7">7</a> can definitely help users who want
+to follow community packaging practices,
+but there is no guarantee of it being used by individual packages.
+This can result in ABI incompatibilities with
+the target system and within the plugin ecosystem, especially when some packages vendor specific
 libraries <a class="footnote-reference brackets" href="#pypi-parallelism-abi" id="id8">8</a>.</p></li>
 <li><p>PyPI metadata is often not detailed enough. This is a byproduct of the previous point, which
 makes it difficult for the different clients (pip, poetry, etc) to guarantee that the
@@ -794,8 +814,9 @@ different languages to build their pipeline. If we want a thriving plugin ecosys
 restricting the packaging options to a language-specific repository can be limiting.</p></li>
 <li><p>PyPI only provides Python <em>packages</em>. It does not distribute Python itself, leaving that to the
 installer infrastructure. In the case of Briefcase, this is obtained via their own distribution
-mechanisms <a class="footnote-reference brackets" href="#briefcase-python" id="id9">9</a>. One more moving piece that can result in incompatibilities with
-the target system if not controlled properly (see issues <a class="footnote-reference brackets" href="#appimage-crash" id="id10">10</a><a class="footnote-reference brackets" href="#appimage-crash2" id="id11">11</a>).</p></li>
+mechanisms <a class="footnote-reference brackets" href="#briefcase-python" id="id9">9</a>. This presents one more moving piece that can
+result in incompatibilities with the target system if not controlled properly
+(see issues <a class="footnote-reference brackets" href="#appimage-crash" id="id10">10</a><a class="footnote-reference brackets" href="#appimage-crash2" id="id11">11</a>).</p></li>
 </ul>
 <p>In contrast, <code class="docutils literal notranslate"><span class="pre">conda</span></code>-based packaging offers some benefits in those points:</p>
 <ul class="simple">
@@ -809,13 +830,30 @@ allowing corrections to be made over time without building new artifacts.</p></l
 automated way that ensures binary compatibility across packages and languages. Every
 submission needs to be reviewed and approved by humans after successfully passing the CI.
 This adds guarantees for provenance, transparency and debugging.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span></code> has the notion of optional version constrains. A package can provide constrains for other
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span></code> has the notion of optional version constrains. A package can provide constraints for other
 packages that <em>could</em> be installed alongside, without depending on them. This offers a lot of
 flexibility to manage a plugin ecosystem with potentially wildly different requirements, which
 would risk conflicts.</p></li>
 </ul>
-<p>This NAP proposes to add a <code class="docutils literal notranslate"><span class="pre">conda</span></code>-based distribution mechanism for napari, supported by five key
-milestones:</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span></code> packaging also has its own downsides compared to <code class="docutils literal notranslate"><span class="pre">pip</span></code>, though:</p>
+<ul class="simple">
+<li><p>pip and PyPI are the <em>de facto</em> standard in Python packaging, which means
+more developers are aware of them and familiar with them, and how to create
+packages for them. Conda in contrast presents a community education
+challenge.</p></li>
+<li><p>Even with a well-developed community of practice among napari and napari
+plugin developers, some significant industry-provided packages, such as
+Apple’s tensorflow-metal, may <em>never</em> be available no conda-forge.</p></li>
+<li><p>Although the conda-forge review process is an advantage with regards to
+correctness and reliability, it presents a scalability challenge in the
+absence of broader community education about conda packaging.</p></li>
+<li><p>pip can install packages from a simple local directory, from a zip file, or
+from a GitHub repository. These simple installation methods are favored by
+small labs and institutions that want to create plugins for internal use,
+rather than for broad distribution.</p></li>
+</ul>
+<p>This NAP proposes to add a <code class="docutils literal notranslate"><span class="pre">conda</span></code>-based distribution mechanism for the napari
+application and plugins, supported by five key milestones:</p>
 <ol class="arabic simple">
 <li><p>Distributing napari and plugins on conda-forge</p></li>
 <li><p>Building conda-based installers for napari</p></li>
@@ -823,6 +861,10 @@ milestones:</p>
 <li><p>Enabling in-app napari version updates</p></li>
 <li><p>Deprecating Briefcase-based installers</p></li>
 </ol>
+<p>Throughout the process, we will aim to minimize conda’s downsides by providing
+local conda-based installation options and documentation about how to use them.
+We will also provide users an opt-in, “use at your own risk” method to install
+PyPI packages where they do not exist on conda-forge.</p>
 </section>
 <section id="detailed-description">
 <h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
@@ -832,29 +874,29 @@ milestones:</p>
 <p>napari 0.2.12 was submitted to conda-forge <a class="footnote-reference brackets" href="#staged-recipes-napari" id="id12">12</a> in Oct 2019 and the PR was
 merged some months later. As a result, napari is available on conda-forge since Feb 2020
 <a class="footnote-reference brackets" href="#napari-feedstock-creation" id="id13">13</a>. The conda-forge bots auto-submit PRs to build the new versions
-once detected on PyPI. This means that releases on conda-forge can be slightly lag behind PyPI.
+once detected on PyPI. This means that releases on conda-forge can slightly lag behind PyPI.
 To avoid accidental delays in the releases, conda-forge packaging needs to be considered part
 of the release guide <a class="footnote-reference brackets" href="#release-guide" id="id14">14</a>.</p>
 <p>Pre-release packages are additionally built in our CI by cloning the conda-forge feedstock and
 patching it to use the local source. The artifacts are uploaded to the <code class="docutils literal notranslate"><span class="pre">napari</span></code> channel at
 Anaconda.org <a class="footnote-reference brackets" href="#napari-channel" id="id15">15</a>.</p>
-<p>While napari itself is on conda-forge for some years now, the plugin ecosystem was still
-relying on PyPI. In the case of napari users that relied on conda packages, that means that the
-plugin manager would use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the plugin and its dependencies in the conda
-environment, potentially mixing PyPI packages with conda-forge packages and causing conflicts
-due to binary incompatibilities.</p>
-<p>To avoid this risk, the recommended way forward is to package all existing napari plugins (and
-their dependencies!) on conda-forge too. This (ongoing) effort started in Jan 2022, resulting
-in ~200 PRs to date <a class="footnote-reference brackets" href="#staged-recipes-all-plugins" id="id16">16</a>.</p>
+<p>While napari itself has been on conda-forge for some years now, until recently, the plugin
+ecosystem still broadly relied on PyPI. In the case of napari users that relied on conda packages,
+that means that the plugin manager would use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the plugin and its dependencies in
+the conda environment, potentially mixing PyPI packages with conda-forge packages and causing
+conflicts due to binary incompatibilities.</p>
+<p>To avoid this risk, this NAP recommends packaging all existing napari plugins (and
+their dependencies) on conda-forge too. This (ongoing) effort started in Jan 2022, resulting
+in ~200 pull requests (PRs) to date <a class="footnote-reference brackets" href="#staged-recipes-all-plugins" id="id16">16</a>.</p>
 <p>That said, that is only the initial migration. We need a way to ensure that new plugins are also
 packaged on conda-forge. We recommend adding it to the plugin development documentation, as well
 as adding support for the relevant metadata on napari hub.</p>
-<p>Lastly, in order to get the maximum compatibility across plugins, the napari project should also
+<p>Lastly, in order to ensure maximum compatibility across plugins, the napari project should also
 provide documentation and guidelines on what versions of major scientific packages are supported
 on each napari release. For example, we should control the version bounds for <code class="docutils literal notranslate"><span class="pre">numpy</span></code>,
 <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> and similar members of the PyData ecosystem. Otherwise, we might arrive to a
 situation where plugin developers are choosing wildly different <code class="docutils literal notranslate"><span class="pre">numpy</span></code> versions for their projects,
-making then non-installable together. In conda jargon, the set of conditional restrains are called
+making them non-installable together. In conda jargon, the set of conditional restraints are called
 pinnings and implemented as part of a metapackage (a package that doesn’t distribute files, only
 provides metadata). From now on we will refer to them as <em>napari pinnings</em>.</p>
 <blockquote>
@@ -887,44 +929,34 @@ publication. The list of problems include vendoring other packages, licensing is
 redistribution, inadequate dependencies metadata (too strict or too vague). The packaging team
 at napari can help here, but this will not scale if the plugin ecosystem keeps growing.</p>
 <p>As a result, some plugins might end up being available on PyPI but not on conda-forge. This further
-reinforces the idea that conda-forge packaging is a second-class citizen for the plugin
-ecosystem. We would recommend making packaging guidelines part of the documentation for plugin
-developers, but also part of the <em>requirements</em> to be accepted on Napari hub listings. Otherwise,
-we risk supporting plugins which do not play nicely with the rest of the ecosystem.</p>
-</section>
-<section id="tasks">
-<h4>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h4>
-<ul class="contains-task-list simple">
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add conda-forge packaging to the release check list</p></li>
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add packaging requirements to the plugin development documentation, aided by tooling if
-necessary</p></li>
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Decide which packages need to be governed by the <em>napari pinnings</em> metapackage</p></li>
-</ul>
+reinforces the idea that conda-forge packaging is a second-class citizen for the plugin ecosystem.
+This NAP recommends including packaging guidelines as part of the documentation for plugin
+developers to alleviate these issues. That said, PyPI packages will still be allowed as a fallback
+option for those projects that are not (yet) available on conda-forge.</p>
 </section>
 </section>
 <section id="milestone-2-building-conda-based-installers-for-napari">
 <h3>Milestone 2: Building conda-based installers for napari<a class="headerlink" href="#milestone-2-building-conda-based-installers-for-napari" title="Permalink to this headline">¶</a></h3>
 <p>Anaconda releases their Anaconda and Miniconda distributions with platform specific installers:</p>
 <ul class="simple">
-<li><p>On Windows, the offer an EXE built with NSIS</p></li>
+<li><p>On Windows, they offer an EXE built with NSIS</p></li>
 <li><p>On Linux, a text-based installer is offered as a fat SH script</p></li>
 <li><p>On macOS, a native, graphical PKG installer is provided in addition to the text-based option</p></li>
 </ul>
 <p>These three products are created using <code class="docutils literal notranslate"><span class="pre">constructor</span></code> <a class="footnote-reference brackets" href="#constructor" id="id20">20</a>, their own tool to gather
 the required conda dependencies and add the logic to install them on the target machine.
-However, <code class="docutils literal notranslate"><span class="pre">constructor</span></code> hasn’t been well maintained during the last years (only small fixes),
-which means that some work will be needed to make it behave the way we want and need. More
-specifically:</p>
+However, <code class="docutils literal notranslate"><span class="pre">constructor</span></code> hasn’t been well maintained in recent years (only small fixes),
+which means that some work is needed to meet our needs. More specifically:</p>
 <ul class="simple">
-<li><p>Shortcut creation is only supported on Windows</p></li>
+<li><p>Application shortcut creation is only supported on Windows</p></li>
 <li><p>PKG installers are created with hardcoded Anaconda branding</p></li>
 <li><p>Some conda-specific options cannot be removed (only disabled by default), which might distract
 users in the installers</p></li>
 </ul>
 <p>In order to have <code class="docutils literal notranslate"><span class="pre">constructor</span></code> cover our needs, we need to add the features ourselves. Upstream
-maintenance is meant to be improve over the year, but for now the reviews are coming in slow. As
+maintenance is expected to improve in the coming years, but for now the reviews are coming in slow. As
 a result, we are temporarily forking the project and developing the features as needed while
-submitting PRs to upstream <a class="footnote-reference brackets" href="#constructor-upstream" id="id21">21</a> to keep things tidy. Our improved <code class="docutils literal notranslate"><span class="pre">constructor</span></code>
+submitting PRs upstream <a class="footnote-reference brackets" href="#constructor-upstream" id="id21">21</a> to keep things tidy. Our improved <code class="docutils literal notranslate"><span class="pre">constructor</span></code>
 fork has the following features:</p>
 <ul class="simple">
 <li><p>Cross-platform shortcut creation for the distributed application thanks to a complete <code class="docutils literal notranslate"><span class="pre">menuinst</span></code>
@@ -956,11 +988,11 @@ installed in the same environment due to conflicting dependencies (more details 
 Milestone 3).</p></li>
 </ul>
 <p>The installer relies on conda-forge to obtain the needed packages. Pre-release installers
-can be built thanks to the nightlies available on the napari channel.</p>
+can be built thanks to the nightlies available on the napari channel in Anaconda.org.</p>
 </section>
 <section id="milestone-3-adding-support-for-conda-packages-in-the-plugin-manager">
 <h3>Milestone 3: Adding support for conda packages in the plugin manager<a class="headerlink" href="#milestone-3-adding-support-for-conda-packages-in-the-plugin-manager" title="Permalink to this headline">¶</a></h3>
-<p>napari has its own plugin manager, which so far relied on <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages available on
+<p>napari has its own plugin manager, which so far has relied on <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages available on
 PyPI. To make it compatible with conda packaging, three key changes are needed:</p>
 <ol class="arabic simple">
 <li><p>The list of packages on conda-forge does not necessarily match the one coming from PyPI. Right
@@ -969,28 +1001,34 @@ future if some napari plugins become available on conda-forge but not PyPI due t
 limitations (e.g. availability of dependencies). As a result, the plugin manager needs to source
 the list of plugins from a repository-agnostic source: the napari hub API. It must be noted that
 napari hub currently uses PyPI as the ground truth for the list of published plugins and the
-available versions. This might need to change in the future if the scenario described in this
-bullet point becomes a reality.</p></li>
-<li><p>Once the napari hub API is feeding the list, the plugin manager should only list those available
-on conda-forge, marking the packages only published on PyPI as unavailable for now. In the
-future, we might explore how to deal with PyPI packages within conda in a safe way, but this is
-an open packaging question that is extremely difficult to tackle robustly, way beyond the scope
-of this document.</p></li>
+available versions.</p></li>
+<li><p>Once the napari hub API is feeding the list, the plugin manager will also list those available
+on conda-forge. Packages that are only available on PyPI can also be installed as long as:</p>
+<ul class="simple">
+<li><p>The dependencies of the PyPI package are on conda-forge</p></li>
+<li><p>The PyPI package is pure Python (no compiled libraries)
+In the future, we might explore how to deal with PyPI packages within conda in a safer way, but
+this is an open packaging question that is extremely difficult to tackle robustly.</p></li>
+</ul>
+</li>
 <li><p>Instrument the plugin manager backend so it can use <code class="docutils literal notranslate"><span class="pre">conda</span></code> or <code class="docutils literal notranslate"><span class="pre">mamba</span></code> to run the plugin
-installation, update or removal.</p></li>
-<li><p>Control the dependency landscape of the plugin ecosystem using the <code class="docutils literal notranslate"><span class="pre">napari-pinnings</span></code> metapackage
-mentioned in Milestone 1.</p></li>
+installation, update or removal. Some level of customizability is needed to configure extra
+channels (e.g. a laboratory published their conda packages into their own private channel) and
+local sources (e.g. drag&amp;drop a conda tarball).</p></li>
+<li><p>Add some control to the dependency landscape of the plugin ecosystem using the
+<code class="docutils literal notranslate"><span class="pre">napari-pinnings</span></code> metapackage mentioned in Milestone 1.</p></li>
 </ol>
 <p>There are some technical limitations we need to work out as well, namely:</p>
 <ul class="simple">
-<li><p>Some updates might fail because some files are in use already. For example, a plugin requires
-a more recent build of numpy (still allowed in our pinnings), but numpy has been imported already,
-so Windows has blocked the library files. An off-process update will be needed on Windows for the
-installation to succeed. On Unix systems this might not be a problem, but the update will still be
-incomplete without a napari restart (because numpy was already imported). This can be solved by
-watching the imported modules and the files involved in the conda transaction. On Windows, we can
-write a one-off activation script that will run before <code class="docutils literal notranslate"><span class="pre">napari</span></code> starts the next time. On Unix
-systems, a notification saying “Restart needed for full effect” might be enough.</p></li>
+<li><p>Some plugin updates might fail because some files are in use already. For example, a plugin
+requires a more recent build of numpy (still allowed in our pinnings); however, numpy has been
+imported already and Windows has blocked the library files. An off-process update will be needed
+on Windows for the installation to succeed. On Unix systems this might not be a problem, but the
+update will still be incomplete without a napari restart (because <code class="docutils literal notranslate"><span class="pre">numpy</span></code> was already imported).
+This can be solved by watching the imported modules and the files involved in the conda
+transaction. On Windows, we can write a one-off activation script that will run before <code class="docutils literal notranslate"><span class="pre">napari</span></code>
+starts the next time. On Unix systems, a notification saying “Restart needed for full effect”
+might be enough.</p></li>
 <li><p>The plugin manager was designed to install one package at a time with <code class="docutils literal notranslate"><span class="pre">pip</span></code>. We have extended it
 to use <code class="docutils literal notranslate"><span class="pre">conda</span></code> or <code class="docutils literal notranslate"><span class="pre">mamba</span></code>, but it still works on a package-by-package basis. It would be preferred
 to offer the possibility of installing several packages together for more efficient solves, but
@@ -1015,7 +1053,7 @@ that specific version (1.21) in every solve, unless the user asks for a differen
 explicitly (thus overriding the historic preference). For napari, this means that every plugin
 installation will be recorded in the history file, accumulating over time. If we compound this
 with <code class="docutils literal notranslate"><span class="pre">napari</span></code> updates, the problem gets larger with every new release.</p></li>
-<li><p>Guarantee of success: updating an environment to the latest napari release might now work right
+<li><p>Guarantee of success: updating an environment to the latest napari release might not work right
 away, specially if the user has installed plugins that have conflicting packaging metadata. Even
 if the installation succeeds, insufficient/incorrect metadata might result in the wrong packages
 being installed, rendering the napari installation non-operational!</p></li>
@@ -1040,16 +1078,7 @@ compatible with (either by running some kind of CI ourselves or making this anal
 submission procedure), we could simply query the API to anticipate which packages are installable
 before running the update.</p>
 <section id="id23">
-<h4>Tasks<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
-<ul class="contains-task-list simple">
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Detect availability of new napari versions</p></li>
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Create new environment with only napari</p></li>
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Migrate plugins over to the new environment</p></li>
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Implement “co-installability” analysis</p></li>
-</ul>
-</section>
-<section id="risks">
-<h4>Risks<a class="headerlink" href="#risks" title="Permalink to this headline">¶</a></h4>
+<h4>Potential risks<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
 <p>Co-installability of plugins is ultimately a matter of metadata and good practices. The risks here
 are similar to the concerns shared in Milestone 1.</p>
 </section>
@@ -1080,7 +1109,7 @@ executables are immutable).</p></li>
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <p>This NAP has described the whole strategy to implement a successful and comprehensive conda
 packaging story for napari. This work involves many moving pieces across different projects and
-tools, hence why a single PR is out of the question. In the following sections, we wll list the
+tools, hence why a single PR is out of the question. In the following sections, we will list the
 relevant PRs opened so far. Before that, though, we will propose a general strategy on how this
 infrastructure will be maintained and governed.</p>
 <section id="general-strategy">
@@ -1108,8 +1137,16 @@ and then migrating all the plugins over to conda-forge.</p>
 </ul>
 <p>At the time of writing, the plugin migration to conda-forge can be considered 90% done, but a long
 tail of non-trivial packages need to be worked on. This is caused by vendored binaries,
-non-compliant licensing schemes or bad packaging practices. Looking forward, a set of guidelines
-in the plugin development documentation should be added.</p>
+non-compliant licensing schemes or bad packaging practices.</p>
+<section id="tasks">
+<h4>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h4>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add documentation about conda-forge in the release guide</p></li>
+<li><p>[ ] Add documentation about conda-forge in the plugin developer guide</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Ensure the cookiecutter template has some notion of conda packaging</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Decide which packages need to be governed by the <em>napari pinnings</em> metapackage</p></li>
+</ul>
+</section>
 </section>
 <section id="id30">
 <h3>Milestone 2: Building conda-based installers for napari<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
@@ -1146,9 +1183,20 @@ the installation process.</p></li>
 <p>The full list of PRs is available on
 <a class="reference external" href="https://github.com/napari/napari/issues/4248#issuecomment-1066574137">this issue comment</a>.
 A complete list of features can be found in the packaging documentation <a class="footnote-reference brackets" href="#napari-packaging-docs" id="id31">28</a>.</p>
-</section>
 <section id="id32">
-<h3>Milestone 3: Adding support for conda packages in the plugin manager<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<h4>Tasks<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Create <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> and migrate the conda bundle CI there, along with the relevant
+metadata</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add detailed documentation about how the installers are structured and how they work
+internally</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add PyPI-conda consistency checks to ensure the metadata at <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> and
+<code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> match</p></li>
+</ul>
+</section>
+</section>
+<section id="id33">
+<h3>Milestone 3: Adding support for conda packages in the plugin manager<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
 <p>Support for conda/mamba handling of plugin installations was implemented in a base PR and then
 extended with different PRs:</p>
 <ul class="simple">
@@ -1163,47 +1211,30 @@ plugins with conda/mamba)</p></li>
 </ul>
 </li>
 </ul>
-<p>Adding the necessary functionality to the plugin dialog, including:</p>
-<ul class="simple">
-<li><p>Adapting the current <code class="docutils literal notranslate"><span class="pre">Installer</span></code> class to support not only <code class="docutils literal notranslate"><span class="pre">pip</span></code> but also <code class="docutils literal notranslate"><span class="pre">conda/mamba</span></code> in a
-single code base.</p></li>
-<li><p>Adding support for <code class="docutils literal notranslate"><span class="pre">install</span></code>, <code class="docutils literal notranslate"><span class="pre">uninstall</span></code>, and <code class="docutils literal notranslate"><span class="pre">update</span></code> commands.</p></li>
-<li><p>Populating the listing with data obtained from the napari hub API <a class="footnote-reference brackets" href="#napari-hub-api" id="id33">29</a>.</p></li>
-<li><p>Updating the listing to filter and mark plugins based on their availability on conda-forge.</p></li>
-</ul>
-<p>Some UX/UI improvements that are not part of this milestone but could be explored in future
-releases may include:</p>
-<ul class="simple">
-<li><p>Making the plugin dialog a side panel / side dockwidget (similar to VS Code
-<a class="footnote-reference brackets" href="#vscode-extensions-ui" id="id34">30</a>)</p></li>
-<li><p>Allow for simultaneous install of plugins. Currently multiple plugins can be selected for
+<p>Some more work is needed to offer full support to the plugin ecosystem, as detailed below.</p>
+<section id="id34">
+<h4>Tasks<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Make the <code class="docutils literal notranslate"><span class="pre">Installer</span></code> class  [^napari-installer-classs] conda/mamba-aware</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Populate the plugin listing with data obtained from the napari hub API <a class="footnote-reference brackets" href="#napari-hub-api" id="id35">29</a></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Detect which plugins can be installed directly from conda-forge and which ones need a
+combination of <code class="docutils literal notranslate"><span class="pre">conda</span></code> channels and PyPI sources</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add support for custom conda channels and local sources in the UI</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Allow for simultaneous install of plugins. Currently multiple plugins can be selected for
 install, uninstall and update, but each on of these actions, are queued and run sequentially.</p></li>
-<li><p>Enable installation of conda packages from custom channels and/or dropped tarballs. Technically,
-this is already possible via environment variables or the shipped <code class="docutils literal notranslate"><span class="pre">.condarc</span></code> file, but some UI
-would be desirable.</p></li>
-<li><p>Allow advanced users to install packages from PyPI. This presents many risks that could
-irreversibly disrupt the installation, though, so it needs to be studied very carefully. Some
-ideas for consideration:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code> should only install the package, with no dependencies. Dependencies should be provided
-with <code class="docutils literal notranslate"><span class="pre">conda</span></code> whenever possible.</p></li>
-<li><p>Run some analysis on the package metadata to infer the potential for disruption (trickier than
-it sounds, given the dynamic nature of PyPI metadata!).</p></li>
-<li><p>Devise some experimental hybrid conda/pip automations. See example workflow in
-<a class="reference external" href="https://github.com/napari/napari/issues/3223#issuecomment-972189348">this issue comment</a>.</p></li>
-</ul>
-</li>
 </ul>
 <blockquote>
-<div><p>Note: This is uncharted territory at the borders of PyPI and conda ecosystems. They can be
-considered global packaging problems in the Python community; problems we might not be able to
-fully solve on our own as a project. All we can do for now is to provide “best-effort workarounds”
-while making sure we don’t break anything…</p>
+<div><p>Note: Using both <code class="docutils literal notranslate"><span class="pre">conda</span></code> and <code class="docutils literal notranslate"><span class="pre">pip</span></code> presents certain risks that could irreversibly disrupt the
+installation, so it needs to be studied very carefully. Dependencies should be
+provided from <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> whenever possible (see previous experiments on this kind of automation
+<a class="footnote-reference brackets" href="#conda-pip-issue-comment" id="id36">30</a> <a class="footnote-reference brackets" href="#pamba" id="id37">31</a>), but PyPI packages can still be used as long as the user
+consents to a warning detailing the risks and recovery options.</p>
 </div></blockquote>
 </section>
-<section id="id35">
-<h3>Milestone 4: Enabling in-app napari version updates<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
-<p>Our first attempts <a class="footnote-reference brackets" href="#in-app-update-pr" id="id36">31</a> to implement this consisted of a pop-up dialog that would
+</section>
+<section id="id38">
+<h3>Milestone 4: Enabling in-app napari version updates<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<p>Our first attempts <a class="footnote-reference brackets" href="#in-app-update-pr" id="id39">32</a> to implement this consisted of a pop-up dialog that would
 notify the user about the available updates. Accepting the dialog would trigger the creation of a
 new environment (e.g. <code class="docutils literal notranslate"><span class="pre">napari-0.4.16</span></code>) alongside the existing one (e.g. <code class="docutils literal notranslate"><span class="pre">napari-0.4.15</span></code>). While it
 could be argued that this is not an “update” per se, but a new installation, it fulfills the same
@@ -1231,9 +1262,23 @@ found, the server will run the update on its own. In essence, all <code class="d
 <p>The governance of <code class="docutils literal notranslate"><span class="pre">napari-updater</span></code> part will still fall under the <code class="docutils literal notranslate"><span class="pre">napari</span></code> organization (much like
 <code class="docutils literal notranslate"><span class="pre">magicgui</span></code>) but it will be usable outside of the napari project, following the same philosophy we
 adopted for the constructor work.</p>
+<section id="id40">
+<h4>Tasks<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h4>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Start a simple CLI tool to prototype the role of <code class="docutils literal notranslate"><span class="pre">napari-updater</span></code>, initially under the
+<code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> repo. This will contain the new version detection code as well as the
+logic to install the new napari environment. Note that we will need to provide a way to
+distribute a “frozen” napari environment, identical to the one being bundled in the
+installers, to ensure that every user gets the same napari installation regardless the
+mechanism used (fresh install from downloaded executable, or updated via <code class="docutils literal notranslate"><span class="pre">napari-updater</span></code>).</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Refactor the prototype into its own separate project and evolve its feature set to satisfy
+the community feedback (this might include adding a UI, environment management tools,
+installation diagnostics, plugin “co-installability” analysis, etc).</p></li>
+</ul>
 </section>
-<section id="id37">
-<h3>Milestone 5: Deprecating Briefcase-based installers<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id41">
+<h3>Milestone 5: Deprecating Briefcase-based installers<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
 <p>See the corresponding section in “Detailed description”.</p>
 </section>
 </section>
@@ -1243,7 +1288,13 @@ adopted for the constructor work.</p>
 just want to run napari. That said, <code class="docutils literal notranslate"><span class="pre">constructor</span></code> does not support the AppImage format for
 Linux or DMG for macOS, which were the ones previously used with Briefcase. We don’t see this
 as a problem though, given the small number of downloads each format enjoyed in previous
-releases <a class="footnote-reference brackets" href="#napari-releases-json" id="id38">32</a>.</p>
+releases <a class="footnote-reference brackets" href="#napari-releases-json" id="id42">33</a>.</p>
+<p>It’s very important that napari users can still rely on PyPI packages to install plugins. While
+conda packaging offers a series of benefits, it can also constitute an access barrier for some
+developers and users. For that reason, PyPI packages will still be available on the plugin manager
+as an alternative installation method. To enable this mode, the user will need to accept a warning
+that details the potential problems it can cause, and how to use the <code class="docutils literal notranslate"><span class="pre">napari-updater</span></code> tool to fix
+it, if needed.</p>
 </section>
 <section id="future-work">
 <h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">¶</a></h2>
@@ -1258,7 +1309,7 @@ the future, if it makes sense, we can talk about adding a UI on top.</p>
 <p>For Milestone 4 “Enabling in-app napari version updates”, we considered other options before
 deciding to use the currently proposed one. Namely:</p>
 <ul class="simple">
-<li><p>Each napari installation only contains a single conda environemnt and version. Users can update
+<li><p>Each napari installation only contains a single conda environment and version. Users can update
 by downloading the newer installer, possibly after having received a notification in a running
 napari instance. This was discarded because it required too many user actions to succeed.</p></li>
 <li><p>Each napari installation contains several environments, one per napari version. Each napari
@@ -1275,29 +1326,32 @@ packaging policies established by the napari community.</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4404">PR #4404</a> (Switch to a more declarative configuration
 for conda packaging)</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4519">PR #4519</a> (Initial draft of this NAP and discussion)</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/pull/4602">PR #4602</a> (PR to discuss the approval of this NAP)</p></li>
+<li><p><a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/322105-naps/topic/Proposal.20to.20accept.20NAP-2">Zulip thread</a>
+to discuss the approval of this NAP</p></li>
 </ul>
 </section>
 <section id="references-and-footnotes">
 <h2>References and Footnotes<a class="headerlink" href="#references-and-footnotes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Napari on PyPI <a class="footnote-reference brackets" href="#pypi-napari" id="id39">1</a></p></li>
-<li><p>Napari on conda-forge <a class="footnote-reference brackets" href="#napari-feedstock" id="id40">2</a></p></li>
-<li><p>Installation analysis of all napari plugins <a class="footnote-reference brackets" href="#installability-notebook" id="id41">33</a></p></li>
-<li><p>Scientific packaging glossary <a class="footnote-reference brackets" href="#glossary" id="id42">34</a></p></li>
+<li><p>Napari on PyPI <a class="footnote-reference brackets" href="#pypi-napari" id="id43">1</a></p></li>
+<li><p>Napari on conda-forge <a class="footnote-reference brackets" href="#napari-feedstock" id="id44">2</a></p></li>
+<li><p>Installation analysis of all napari plugins <a class="footnote-reference brackets" href="#installability-notebook" id="id45">34</a></p></li>
+<li><p>Scientific packaging glossary <a class="footnote-reference brackets" href="#glossary" id="id46">35</a></p></li>
 </ul>
 </section>
 <section id="copyright">
 <h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this headline">¶</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
-license <a class="footnote-reference brackets" href="#cc0" id="id43">35</a>. Attribution to this source is encouraged where appropriate, as per
-CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id44">36</a>.</p>
+license <a class="footnote-reference brackets" href="#cc0" id="id47">36</a>. Attribution to this source is encouraged where appropriate, as per
+CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id48">37</a>.</p>
 <!-- Links -->
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
-<dt class="label" id="pypi-napari"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id39">2</a>)</span></dt>
+<dt class="label" id="pypi-napari"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id43">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://pypi.org/project/napari/">https://pypi.org/project/napari/</a></p>
 </dd>
-<dt class="label" id="napari-feedstock"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id40">2</a>)</span></dt>
+<dt class="label" id="napari-feedstock"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id44">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://github.com/conda-forge/napari-feedstock">https://github.com/conda-forge/napari-feedstock</a></p>
 </dd>
 <dt class="label" id="briefcase"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
@@ -1378,29 +1432,32 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id44">36</a>.</p
 <dt class="label" id="napari-packaging-docs"><span class="brackets"><a class="fn-backref" href="#id31">28</a></span></dt>
 <dd><p><a class="reference external" href="https://napari.org/developers/packaging.html">https://napari.org/developers/packaging.html</a></p>
 </dd>
-<dt class="label" id="napari-hub-api"><span class="brackets"><a class="fn-backref" href="#id33">29</a></span></dt>
+<dt class="label" id="napari-hub-api"><span class="brackets"><a class="fn-backref" href="#id35">29</a></span></dt>
 <dd><p>https://api.napari-hub.org/plugins</p>
 </dd>
-<dt class="label" id="vscode-extensions-ui"><span class="brackets"><a class="fn-backref" href="#id34">30</a></span></dt>
-<dd><p>https://code.visualstudio.com/docs/editor/extension-marketplace</p>
+<dt class="label" id="conda-pip-issue-comment"><span class="brackets"><a class="fn-backref" href="#id36">30</a></span></dt>
+<dd><p>https://github.com/napari/napari/issues/3223#issuecomment-972189348</p>
 </dd>
-<dt class="label" id="in-app-update-pr"><span class="brackets"><a class="fn-backref" href="#id36">31</a></span></dt>
+<dt class="label" id="pamba"><span class="brackets"><a class="fn-backref" href="#id37">31</a></span></dt>
+<dd><p>https://github.com/tlambert03/pamba</p>
+</dd>
+<dt class="label" id="in-app-update-pr"><span class="brackets"><a class="fn-backref" href="#id39">32</a></span></dt>
 <dd><p>https://github.com/napari/napari/pull/4422</p>
 </dd>
-<dt class="label" id="napari-releases-json"><span class="brackets"><a class="fn-backref" href="#id38">32</a></span></dt>
+<dt class="label" id="napari-releases-json"><span class="brackets"><a class="fn-backref" href="#id42">33</a></span></dt>
 <dd><p><a class="reference external" href="https://api.github.com/repos/napari/napari/releases">https://api.github.com/repos/napari/napari/releases</a></p>
 </dd>
-<dt class="label" id="installability-notebook"><span class="brackets"><a class="fn-backref" href="#id41">33</a></span></dt>
+<dt class="label" id="installability-notebook"><span class="brackets"><a class="fn-backref" href="#id45">34</a></span></dt>
 <dd><p>https://colab.research.google.com/drive/1QxbBZYe9-AThGuRsTfwYzT72_UkamXmk</p>
 </dd>
-<dt class="label" id="glossary"><span class="brackets"><a class="fn-backref" href="#id42">34</a></span></dt>
+<dt class="label" id="glossary"><span class="brackets"><a class="fn-backref" href="#id46">35</a></span></dt>
 <dd><p>https://jaimergp.github.io/scientific-packaging-glossary/</p>
 </dd>
-<dt class="label" id="cc0"><span class="brackets"><a class="fn-backref" href="#id43">35</a></span></dt>
+<dt class="label" id="cc0"><span class="brackets"><a class="fn-backref" href="#id47">36</a></span></dt>
 <dd><p>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication,
 <a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">https://creativecommons.org/publicdomain/zero/1.0/</a></p>
 </dd>
-<dt class="label" id="cc0by"><span class="brackets"><a class="fn-backref" href="#id44">36</a></span></dt>
+<dt class="label" id="cc0by"><span class="brackets"><a class="fn-backref" href="#id48">37</a></span></dt>
 <dd><p><a class="reference external" href="https://dancohen.org/2013/11/26/cc0-by/">https://dancohen.org/2013/11/26/cc0-by/</a></p>
 </dd>
 </dl>

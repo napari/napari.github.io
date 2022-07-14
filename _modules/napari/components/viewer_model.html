@@ -1068,7 +1068,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -1083,12 +1083,14 @@
 <span class="sd">        ----------</span>
 <span class="sd">        path : str or list of str</span>
 <span class="sd">            A filepath, directory, or URL (or a list of any) to open.</span>
-<span class="sd">        stack : bool, optional</span>
-<span class="sd">            If a list of strings is passed and ``stack`` is ``True``, then the</span>
+<span class="sd">        stack : bool or list[list[str]], optional</span>
+<span class="sd">            If a list of strings is passed as ``path`` and ``stack`` is ``True``, then the</span>
 <span class="sd">            entire list will be passed to plugins.  It is then up to individual</span>
 <span class="sd">            plugins to know how to handle a list of paths.  If ``stack`` is</span>
 <span class="sd">            ``False``, then the ``path`` list is broken up and passed to plugin</span>
 <span class="sd">            readers one by one.  by default False.</span>
+<span class="sd">            If the stack option is a list of lists containing individual paths,</span>
+<span class="sd">            the inner lists are passedto the reader and will be stacked.</span>
 <span class="sd">        plugin : str, optional</span>
 <span class="sd">            Name of a plugin to use, by default builtins.  If provided, will</span>
 <span class="sd">            force ``path`` to be read with the specified ``plugin``.</span>
@@ -1117,26 +1119,19 @@
             <span class="p">)</span>
             <span class="n">plugin</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
 
-        <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)]</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span>
             <span class="k">else</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">]</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">plugin</span><span class="p">:</span>
-                <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
-                    <span class="n">paths</span><span class="p">,</span>
-                    <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
-                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                    <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
-                    <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_or_raise_error</span><span class="p">(</span>
-                    <span class="n">paths</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">,</span> <span class="n">stack</span>
-                <span class="p">)</span>
-            <span class="k">return</span> <span class="n">layers</span>
+        <span class="c1"># If stack is a bool and True, add an additional layer of nesting.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">paths</span><span class="p">]</span>
+
+        <span class="c1"># If stack is a list and True, extend the paths with the inner lists.</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="n">paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
 
         <span class="n">added</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># for layers that get added</span>
         <span class="k">with</span> <span class="n">progress</span><span class="p">(</span>
@@ -1147,20 +1142,24 @@
             <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># indeterminate bar for 1 file</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">pbr</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">_path</span> <span class="ow">in</span> <span class="n">pbr</span><span class="p">:</span>
+                <span class="c1"># If _path is a list, set stack to True</span>
+                <span class="n">_stack</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="kc">False</span>
+                <span class="c1"># If _path is not a list already, make it a list.</span>
+                <span class="n">_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">_path</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">_path</span>
                 <span class="k">if</span> <span class="n">plugin</span><span class="p">:</span>
                     <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_add_layers_with_plugins</span><span class="p">(</span>
-                            <span class="p">[</span><span class="n">_path</span><span class="p">],</span>
+                            <span class="n">_path</span><span class="p">,</span>
                             <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
                             <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
                             <span class="n">layer_type</span><span class="o">=</span><span class="n">layer_type</span><span class="p">,</span>
-                            <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
+                            <span class="n">stack</span><span class="o">=</span><span class="n">_stack</span><span class="p">,</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
                 <span class="c1"># no plugin choice was made</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_or_raise_error</span><span class="p">(</span>
-                        <span class="p">[</span><span class="n">_path</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">,</span> <span class="n">stack</span>
+                        <span class="n">_path</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">,</span> <span class="n">_stack</span>
                     <span class="p">)</span>
                     <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span>
 
@@ -1171,7 +1170,7 @@
         <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
         <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Open paths if plugin choice is unambiguous, raising any errors.</span>
 
@@ -1199,8 +1198,9 @@
 <span class="sd">            keyword arguments to pass to layer adding method, by default {}</span>
 <span class="sd">        layer_type : Optional[str], optional</span>
 <span class="sd">            layer type for paths, by default None</span>
-<span class="sd">        stack : bool, optional</span>
-<span class="sd">            True if files should be opened as a stack, by default False</span>
+<span class="sd">        stack : bool or list[list[str]], optional</span>
+<span class="sd">            True if files should be opened as a stack, by default False.</span>
+<span class="sd">            Can also be a list containing lists of files to stack.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>

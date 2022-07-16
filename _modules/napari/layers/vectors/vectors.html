@@ -419,15 +419,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
-
-        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span> <span class="o">=</span> <span class="n">_FeatureTable</span><span class="o">.</span><span class="n">from_layer</span><span class="p">(</span>
             <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
@@ -471,14 +466,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fix_data_vectors</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
         <span class="n">n_vectors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
-        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
         <span class="c1"># Adjust the props/color arrays when the number of vectors has changed</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
@@ -641,14 +629,7 @@
     <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
 
-        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_width</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
@@ -662,14 +643,7 @@
     <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
 
-        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_length</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
@@ -873,14 +847,7 @@
 
         <span class="n">indices</span><span class="p">,</span> <span class="n">alphas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span><span class="p">:</span>
-            <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
         <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span>
         <span class="n">disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
@@ -980,7 +947,20 @@
 <span class="sd">        value : None</span>
 <span class="sd">            Value of the data at the coord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_update_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generate a new vector mesh and update the stored vertices and</span>
+<span class="sd">        trianges for the mesh.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span></div>
 </pre></div>
 
             </div>

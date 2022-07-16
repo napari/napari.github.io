@@ -5,12 +5,12 @@
 **Contributions** to extend various functionalities within napari.
 Here is a list of all available **Contributions**:
 
-- [`commands`](#contributions-commands)
-- [`readers`](#contributions-readers)
-- [`writers`](#contributions-writers)
-- [`widgets`](#contributions-widgets)
-- [`sample_data`](#contributions-sample-data)
-- [`themes`](#contributions-themes)
+- [`commands`](contributions-commands)
+- [`readers`](contributions-readers)
+- [`writers`](contributions-writers)
+- [`widgets`](contributions-widgets)
+- [`sample_data`](contributions-sample-data)
+- [`themes`](contributions-themes)
 
 You may add as many contributions as you'd like to a single manifest. For
 clarity, the following examples include only the specific contribution that
@@ -83,7 +83,7 @@ command line, or when a user opens a file in the graphical user interface by
 dropping a file into the canvas, or using `File -> Open...`
 
 
-See the [Readers Guide](./guides.html#readers-contribution-guide)
+See the [Readers Guide](readers-contribution-guide)
 for more details on implementing this contribution.
 
 
@@ -141,7 +141,7 @@ requests to save one or more layers in the graphical user interface with `File -
 Save Selected Layer(s)...` or `Save All Layers...`
 
 
-See the [Writers Guide](./guides.html#writers-contribution-guide)
+See the [Writers Guide](writers-contribution-guide)
 for more details on implementing this contribution.
 
 
@@ -207,7 +207,7 @@ command needn't return a widget instance; it can be any function suitable as an
 argument to `magicgui.magicgui()`.)
 
 
-See the [Widgets Guide](./guides.html#widgets-contribution-guide)
+See the [Widgets Guide](widgets-contribution-guide)
 for more details on implementing this contribution.
 
 
@@ -278,7 +278,7 @@ display_name = 'Threshold'
 ```
 ````
 
-(contributions-sample_data)=
+(contributions-sample-data)=
 ## `contributions.sample_data`
 
 ```{tip}
@@ -288,7 +288,7 @@ This contribution accepts 2 schema types
 Contribute a callable command that creates data on demand.
 
 
-See the [Sample Data Guide](./guides.html#sample-data-contribution-guide)
+See the [Sample Data Guide](sample-data-contribution-guide)
 for more details on implementing this contribution.
 
 
@@ -303,7 +303,7 @@ the plugin package, or a URL to remote data.  The URI must be readable by either
 napari's builtin reader, or by a plugin that is included/required.
 
 
-See the [Sample Data Guide](./guides.html#sample-data-contribution-guide)
+See the [Sample Data Guide](sample-data-contribution-guide)
 for more details on implementing this contribution.
 
 

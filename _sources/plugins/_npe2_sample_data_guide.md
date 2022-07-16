@@ -28,7 +28,7 @@ def create_fractal() -> List[LayerData]:
 
 **manifest**
 
-See [Sample Data contribution reference](./contributions.html#contributions-sample-data)
+See [Sample Data contribution reference](contributions-sample-data)
 for field details.
 
 ```yaml

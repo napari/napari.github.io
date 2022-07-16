@@ -53,7 +53,7 @@ specification:
    autogenerate a widget using `magicgui.magicgui`.  In the first generation
    `napari_plugin_engine`, this was the `napari_experimental_provide_function`
    hook specification.  In the new `npe2` pattern, one uses the `autogenerate`
-   field in the [WidgetContribution](./contributions.html#contributions-widgets).
+   field in the [WidgetContribution](contributions-widgets).
 
 
 ### Widget example
@@ -96,8 +96,7 @@ def threshold(
 
 **manifest**
 
-See [Widgets contribution reference](./contributions.html#contributions-widgets)
-for field details.
+See [Widgets contribution reference](contributions-widgets) for field details.
 
 ```yaml
 contributions:

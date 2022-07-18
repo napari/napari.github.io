@@ -1101,27 +1101,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer with text using multiple face colors mapped fro...">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_add_points_with_multicolor_text_thumb.png
-     :alt: Add points with multicolor text
-
-     :ref:`sphx_glr_gallery_add_points_with_multicolor_text.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/add_points_with_multicolor_text
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ...">
 
 .. only:: html
@@ -1140,6 +1119,27 @@ Examples of napari usage.
    :hidden:
 
    /gallery/mouse_drag_callback
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer with text using multiple face colors mapped fro...">
+
+.. only:: html
+
+ .. figure:: /gallery/images/thumb/sphx_glr_add_points_with_multicolor_text_thumb.png
+     :alt: Add points with multicolor text
+
+     :ref:`sphx_glr_gallery_add_points_with_multicolor_text.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/add_points_with_multicolor_text
 
 .. raw:: html
 

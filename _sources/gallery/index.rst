@@ -1686,6 +1686,27 @@ Examples of napari usage.
    :hidden:
 
    /gallery/bbox_annotator
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example also contain option to enable cross that will be moved to the current dims point (...">
+
+.. only:: html
+
+ .. figure:: /gallery/images/thumb/sphx_glr_multiple_viewer_widget_thumb.png
+     :alt: This is an example on how to have more than one viewer in the same napari window.
+
+     :ref:`sphx_glr_gallery_multiple_viewer_widget.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/multiple_viewer_widget
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>

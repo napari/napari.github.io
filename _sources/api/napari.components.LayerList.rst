@@ -32,6 +32,9 @@ napari.components.LayerList
       ~LayerList.extend
    
    
+      ~LayerList.get_extent
+   
+   
       ~LayerList.index
    
    

@@ -447,20 +447,38 @@
     <span class="k">def</span> <span class="nf">_get_step_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_extent_list</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">scales</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
-            <span class="n">min_scales</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_size_from_scales</span><span class="p">(</span><span class="n">scales</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">min_scales</span>
 
-    <span class="nd">@cached_property</span>
-    <span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layers in data and world coordinates.&quot;&quot;&quot;</span>
-        <span class="n">extent_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
+        <span class="n">scales</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_size_from_scales</span><span class="p">(</span><span class="n">scales</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LayerList.get_extent"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.get_extent">[docs]</a>    <span class="k">def</span> <span class="nf">get_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Layer</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return extent for a given layer list.</span>
+<span class="sd">        This function is useful for calculating the extent of a subset of layers</span>
+<span class="sd">        when preparing and updating some supplementary layers.</span>
+<span class="sd">        For example see the cross Vectors layer in the `multiple_viewer_widget` example.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layers : list of Layer</span>
+<span class="sd">            list of layers for which extent should be calculated</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        extent : Extent</span>
+<span class="sd">             extent for selected layers</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extent_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">Extent</span><span class="p">(</span>
             <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">world</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_extent_world</span><span class="p">(</span><span class="n">extent_list</span><span class="p">),</span>
             <span class="n">step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_step_size</span><span class="p">(</span><span class="n">extent_list</span><span class="p">),</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Extent of layers in data and world coordinates.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_extent</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>

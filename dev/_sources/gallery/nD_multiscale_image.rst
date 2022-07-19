@@ -40,7 +40,7 @@ Displays an nD multiscale image
  .. code-block:: none
 
     base shape (8, 1536, 1536)
-    /home/melissa/projects/napari/examples/nD_multiscale_image.py:18: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
+    /home/runner/work/napari/napari/examples/nD_multiscale_image.py:18: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
       pyramid_gaussian(base, downscale=2, max_layer=2, multichannel=False)
     multiscale level shapes:  [(8, 1536, 1536), (4, 768, 768), (2, 384, 384)]
 

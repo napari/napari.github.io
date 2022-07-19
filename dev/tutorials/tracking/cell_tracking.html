@@ -119,7 +119,7 @@
       
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
-    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
         <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -137,13 +137,6 @@
 -->
 
 <script type="text/javascript">
-// Construct the target URL from the JSON components
-function buildURL(entry) {
-    var template = "None";  // supplied by jinja
-    template = template.replace("{version}", entry.version);
-    return template;
-}
-
 // Check if corresponding page path exists in other version of docs
 // and, if so, go there instead of the homepage of the other docs version
 function checkPageExistsAndRedirect(event) {
@@ -179,16 +172,16 @@ function checkPageExistsAndRedirect(event) {
             const node = document.createElement("a");
             node.setAttribute("class", "list-group-item list-group-item-action py-1");
             node.textContent = `${entry.name}`;
-            // get the base URL for that doc version, add the current page's
-            // path to it, and set as `href`
-            if (!("url" in entry)) {
-                entry.url = buildURL(entry);
-            }
             node.setAttribute("href", `${entry.url}${currentFilePath}`);
             // on click, AJAX calls will check if the linked page exists before
             // trying to redirect, and if not, will redirect to the homepage
             // for that version of the docs.
             node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
             // this version, rather than using sphinx's dev variable.
@@ -196,11 +189,9 @@ function checkPageExistsAndRedirect(event) {
             // version's entry
             if (entry.version == "latest") {
                 node.classList.add("active");
-                $("#version_switcher_button_text").text(entry.name);
-                // Add extra class to the button for the selected entry
-                if ("extra_classes" in entry) {
-                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
-                }
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
             }
         });
     });
@@ -593,13 +584,13 @@ function checkPageExistsAndRedirect(event) {
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../gallery/nD_surface.html">
-     nD surface
+    <a class="reference internal" href="../../gallery/nD_labels.html">
+     nD labels
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../gallery/nD_labels.html">
-     nD labels
+    <a class="reference internal" href="../../gallery/nD_surface.html">
+     nD surface
     </a>
    </li>
    <li class="toctree-l2">
@@ -793,13 +784,13 @@ function checkPageExistsAndRedirect(event) {
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../gallery/mouse_drag_callback.html">
-     Mouse drag callback
+    <a class="reference internal" href="../../gallery/add_points_with_multicolor_text.html">
+     Add points with multicolor text
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../gallery/add_points_with_multicolor_text.html">
-     Add points with multicolor text
+    <a class="reference internal" href="../../gallery/mouse_drag_callback.html">
+     Mouse drag callback
     </a>
    </li>
    <li class="toctree-l2">
@@ -1158,13 +1149,13 @@ function checkPageExistsAndRedirect(event) {
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../gallery/nD_surface.html">
-     nD surface
+    <a class="reference internal" href="../../gallery/nD_labels.html">
+     nD labels
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../gallery/nD_labels.html">
-     nD labels
+    <a class="reference internal" href="../../gallery/nD_surface.html">
+     nD surface
     </a>
    </li>
    <li class="toctree-l2">
@@ -1358,13 +1349,13 @@ function checkPageExistsAndRedirect(event) {
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../gallery/mouse_drag_callback.html">
-     Mouse drag callback
+    <a class="reference internal" href="../../gallery/add_points_with_multicolor_text.html">
+     Add points with multicolor text
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../gallery/add_points_with_multicolor_text.html">
-     Add points with multicolor text
+    <a class="reference internal" href="../../gallery/mouse_drag_callback.html">
+     Mouse drag callback
     </a>
    </li>
    <li class="toctree-l2">
@@ -2179,8 +2170,9 @@ We create it with the following code:</p>
   <span>napari</span>
 </a>
 
-<a href="https://napari-hub.org" target="_blank" rel="noreferrer">
+<a class="footer-icon__hover-blue" href="https://napari-hub.org" target="_blank" rel="noreferrer">
   <svg
+  class="footer-icon__regular"
   width="487"
   height="512"
   viewBox="0 0 487 512"
@@ -2269,11 +2261,108 @@ We create it with the following code:</p>
     stroke-linejoin="round"
   ></path>
 </svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="17"
+  height="17"
+  viewBox="0 0 17 17"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g clip-path="url(#clip0_307_186)">
+    <circle
+      cx="8.50002"
+      cy="8.49935"
+      r="2.83333"
+      fill="#D2EFFF"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+    />
+    <circle cx="8.50004" cy="1.41667" r="1.41667" fill="#D2EFFF" />
+    <circle cx="8.50004" cy="15.5846" r="1.41667" fill="#D2EFFF" />
+    <path
+      d="M8.50006 0.943359L8.50006 4.72114"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M8.50006 12.2773L8.50006 16.0551"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle
+      cx="2.36574"
+      cy="4.95803"
+      r="1.41667"
+      transform="rotate(-60 2.36574 4.95803)"
+      fill="#D2EFFF"
+    />
+    <circle
+      cx="14.6344"
+      cy="12.0401"
+      r="1.41667"
+      transform="rotate(-60 14.6344 12.0401)"
+      fill="#D2EFFF"
+    />
+    <path
+      d="M1.95673 4.72266L5.22838 6.61155"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M11.7717 10.3887L15.0434 12.2776"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle
+      cx="2.3657"
+      cy="12.0433"
+      r="1.41667"
+      transform="rotate(-120 2.3657 12.0433)"
+      fill="#D2EFFF"
+    />
+    <circle
+      cx="14.6345"
+      cy="4.95933"
+      r="1.41667"
+      transform="rotate(-120 14.6345 4.95933)"
+      fill="#D2EFFF"
+    />
+    <path
+      d="M1.95673 12.2773L5.22838 10.3885"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M11.7717 6.61133L15.0434 4.72244"
+      stroke="#D2EFFF"
+      stroke-width="1.86421"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+  <defs>
+    <clipPath id="clip0_307_186">
+      <rect width="17" height="17" fill="white" />
+    </clipPath>
+  </defs>
+</svg>
   <span>napari hub</span>
 </a>
 
-<a href="https://github.com/napari/napari" target="_blank" rel="noreferrer">
+<a class="footer-icon__hover-blue" href="https://github.com/napari/napari" target="_blank" rel="noreferrer">
   <svg
+  class="footer-icon__regular"
   width="14"
   height="14"
   viewBox="0 0 14 14"
@@ -2286,11 +2375,25 @@ We create it with the following code:</p>
     fill="white"
   ></path>
 </svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M8 0C3.58 0 0 3.582 0 8C0 11.5353 2.292 14.5333 5.47 15.59C5.87 15.6653 6.01667 15.418 6.01667 15.2053C6.01667 15.0153 6.01 14.512 6.00667 13.8453C3.78133 14.328 3.312 12.772 3.312 12.772C2.948 11.8487 2.422 11.602 2.422 11.602C1.69733 11.106 2.478 11.116 2.478 11.116C3.28133 11.172 3.70333 11.94 3.70333 11.94C4.41667 13.1633 5.576 12.81 6.03333 12.6053C6.10533 12.088 6.31133 11.7353 6.54 11.5353C4.76333 11.3353 2.896 10.6473 2.896 7.582C2.896 6.70867 3.206 5.99533 3.71933 5.43533C3.62933 5.23333 3.35933 4.42 3.78933 3.318C3.78933 3.318 4.45933 3.10333 5.98933 4.138C6.62933 3.96 7.30933 3.872 7.98933 3.868C8.66933 3.872 9.34933 3.96 9.98933 4.138C11.5093 3.10333 12.1793 3.318 12.1793 3.318C12.6093 4.42 12.3393 5.23333 12.2593 5.43533C12.7693 5.99533 13.0793 6.70867 13.0793 7.582C13.0793 10.6553 11.2093 11.332 9.42933 11.5287C9.70933 11.7687 9.96933 12.2593 9.96933 13.0087C9.96933 14.0793 9.95933 14.9393 9.95933 15.1993C9.95933 15.4093 10.0993 15.6593 10.5093 15.5793C13.71 14.53 16 11.53 16 8C16 3.582 12.418 0 8 0"
+    fill="#D2EFFF"
+  />
+</svg>
   <span>GitHub</span>
 </a>
 
-<a href="https://twitter.com/napari_imaging" target="_blank" rel="noreferrer">
+<a class="footer-icon__hover-blue" href="https://twitter.com/napari_imaging" target="_blank" rel="noreferrer">
   <svg
+  class="footer-icon__regular"
   width="15"
   height="13"
   viewBox="0 0 15 13"
@@ -2303,11 +2406,25 @@ We create it with the following code:</p>
     fill="white"
   ></path>
 </svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M15.9687 3.04705C15.3697 3.31079 14.7351 3.48488 14.0853 3.56372C14.7694 3.15255 15.2816 2.50775 15.5273 1.74838C14.8933 2.11838 14.1907 2.38772 13.4427 2.53772C12.9492 2.01 12.2952 1.66 11.5824 1.54205C10.8696 1.4241 10.1378 1.54482 9.50062 1.88544C8.86345 2.22607 8.35657 2.76755 8.0587 3.4258C7.76083 4.08405 7.68864 4.82223 7.85333 5.52572C5.12667 5.39705 2.71133 4.08705 1.09333 2.10838C0.799196 2.60826 0.645776 3.1784 0.649333 3.75838C0.649333 4.89838 1.22933 5.90038 2.108 6.48905C1.58724 6.47247 1.07798 6.33167 0.622667 6.07838V6.11838C0.622371 6.87598 0.884179 7.61034 1.36367 8.19689C1.84316 8.78343 2.51081 9.18603 3.25333 9.33638C2.7722 9.4653 2.26828 9.48467 1.77867 9.39305C1.98941 10.0451 2.39844 10.615 2.94868 11.0234C3.49891 11.4318 4.1629 11.6582 4.848 11.671C3.68769 12.5817 2.25498 13.0759 0.78 13.0744C0.52 13.0744 0.260667 13.0591 0 13.0297C1.50381 13.9926 3.25234 14.5037 5.038 14.5024C11.0733 14.5024 14.37 9.50505 14.37 5.17905C14.37 5.03905 14.37 4.89905 14.36 4.75905C15.004 4.29563 15.5595 3.72026 16 3.06038L15.9687 3.04705Z"
+    fill="#D2EFFF"
+  />
+</svg>
   <span>Twitter</span>
 </a>
 
-<a href="https://forum.image.sc/tag/napari" target="_blank" rel="noreferrer">
+<a class="footer-icon__hover-blue" href="https://forum.image.sc/tag/napari" target="_blank" rel="noreferrer">
   <svg
+  class="footer-icon__regular"
   width="20"
   height="20"
   viewBox="0 0 20 20"
@@ -2346,11 +2463,51 @@ We create it with the following code:</p>
     stroke-width="2.34286"
   ></path>
 </svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M10.3989 3.72445V1.61071C10.3989 1.60566 10.3948 1.60156 10.3898 1.60156H5.56237C5.55732 1.60156 5.55322 1.60566 5.55322 1.61071V6.43813C5.55322 6.44319 5.55732 6.44727 5.56237 6.44727H8.77605"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M5.55322 12.2794V14.3932C5.55322 14.3982 5.55732 14.4023 5.56237 14.4023H10.3898C10.3948 14.4023 10.3989 14.3982 10.3989 14.3932V9.56576C10.3989 9.56072 10.3948 9.55664 10.3898 9.55664H7.17608"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M12.8916 7.96164L14.7221 6.90477C14.7265 6.90224 14.728 6.89665 14.7255 6.89228L12.3118 2.7116C12.3092 2.70723 12.3036 2.70573 12.2993 2.70826L8.1186 5.12197C8.11428 5.12449 8.11276 5.13008 8.11524 5.13446L9.72212 7.91762"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M3.06062 8.04297L1.23007 9.09985C1.22569 9.10233 1.2242 9.10793 1.22672 9.11233L3.64044 13.293C3.64296 13.2974 3.64856 13.2989 3.65292 13.2963L7.8336 10.8826C7.83797 10.8801 7.83948 10.8745 7.83695 10.8701L6.23009 8.08697"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M10.4688 12.2401L12.2994 13.297C12.3037 13.2996 12.3093 13.298 12.3119 13.2936L14.7255 9.11299C14.7281 9.10859 14.7266 9.10299 14.7222 9.10051L10.5415 6.68677C10.5371 6.68425 10.5315 6.68575 10.5291 6.69012L8.92218 9.47331"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+  <path
+    d="M5.48348 3.76513L3.65292 2.70825C3.64855 2.70573 3.64296 2.70723 3.64043 2.71161L1.22672 6.89228C1.22419 6.89665 1.2257 6.90225 1.23007 6.90477L5.41075 9.3185C5.41511 9.32098 5.42071 9.31954 5.42323 9.31514L7.03009 6.53198"
+    stroke="#D2EFFF"
+    stroke-width="1.87535"
+  />
+</svg>
   <span>image.sc</span>
 </a>
 
-<a href="https://napari.zulipchat.com" target="_blank" rel="noreferrer">
+<a class="footer-icon__hover-blue" href="https://napari.zulipchat.com" target="_blank" rel="noreferrer">
   <svg
+  class="footer-icon__regular"
   width="16"
   height="16"
   viewBox="0 0 16 16"
@@ -2367,6 +2524,26 @@ We create it with the following code:</p>
   <defs>
     <clipPath id="clip0">
       <rect width="16" height="16" fill="white"></rect>
+    </clipPath>
+  </defs>
+</svg>
+  <svg
+  class="footer-icon__light-blue"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g clip-path="url(#clip0_307_219)">
+    <path
+      d="M15.178 2.39267C15.178 3.19867 14.816 3.91467 14.2647 4.34867L8.90866 9.13133C8.80932 9.21667 8.67999 9.07933 8.75199 8.96467L10.716 5.03133C10.7713 4.92133 10.7 4.786 10.5867 4.786H2.96799C1.78799 4.786 0.821991 3.70933 0.821991 2.39267C0.821991 1.07733 1.78799 3.09431e-07 2.96799 3.09431e-07H13.032C14.212 -0.000666357 15.178 1.076 15.178 2.39267V2.39267ZM2.96799 16H13.032C14.212 16 15.178 14.9227 15.178 13.6067C15.178 12.2907 14.212 11.2133 13.032 11.2133H5.41332C5.29999 11.2133 5.22866 11.0787 5.28399 10.9687L7.24799 7.03533C7.31999 6.92067 7.19066 6.78333 7.09132 6.86867L1.73599 11.6507C1.18399 12.084 0.822658 12.8007 0.822658 13.6067C0.822658 14.9227 1.78799 16 2.96799 16V16Z"
+      fill="#D2EFFF"
+    />
+  </g>
+  <defs>
+    <clipPath id="clip0_307_219">
+      <rect width="16" height="16" fill="white" />
     </clipPath>
   </defs>
 </svg>

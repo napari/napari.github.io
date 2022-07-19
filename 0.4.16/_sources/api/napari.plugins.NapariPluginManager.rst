@@ -138,11 +138,7 @@ napari.plugins.NapariPluginManager
    
       ~NapariPluginManager.ENTRY_POINT
       ~NapariPluginManager.hooks
-<<<<<<< HEAD:_sources/api/napari.plugins.NapariPluginManager.rst
-      
-=======
       ~NapariPluginManager.plugins
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.plugins.NapariPluginManager.rst
    
    
 

@@ -70,7 +70,7 @@ labels_layer = viewer.add_labels(label_image, name='segmentation')
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="Segmentation of coins in an image, displayed using a labels layer")
+nbscreenshot(viewer)
 ```
 
 ```{code-cell} python
@@ -101,9 +101,9 @@ and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/core.html). A
 0.
 
 Because the labels layer subclasses the image layer it inherits the great
-properties of the image layer, like supporting lazy loading and multiscale
-images for big data layers. For more information about both these concepts see
-the details in the [image layer guide](./image).
+properties of the image layer, like supporting lazy loading and image pyramids
+for big data layers. For more information about both these concepts see the
+details in the [image layer guide](./image).
 
 ## Creating a new labels layer
 
@@ -120,7 +120,7 @@ property of the layer to `False`.
 
 As note in the section on 3D rendering, when using 3D rendering the labels layer
 is not editable. Similarly, for now, a labels layer where the data is
-represented as a multiscale image is not editable.
+represented as an image pyramid is not editable.
 
 ## 3D rendering of labels
 
@@ -146,7 +146,7 @@ viewer.dims.ndisplay = 3
 # programmatically adjust the camera angle
 viewer.camera.zoom = 2
 viewer.camera.angles = (3, 38, 53)
-nbscreenshot(viewer, alt_text="A 3D view of a labels layer on top of 3D blobs")
+nbscreenshot(viewer)
 ```
 
 Note though that when entering 3D rendering mode the colorpicker, paintbrush,

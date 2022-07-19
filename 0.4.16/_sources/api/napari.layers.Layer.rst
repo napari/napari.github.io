@@ -91,17 +91,10 @@ napari.layers.Layer
       ~Layer.translate
       ~Layer.translate_grid
       ~Layer.visible
-<<<<<<< HEAD:_sources/api/napari.layers.Layer.rst
-      
-      
-      
-      
-=======
       ~Layer.mouse_move_callbacks
       ~Layer.mouse_wheel_callbacks
       ~Layer.mouse_drag_callbacks
       ~Layer.mouse_double_click_callbacks
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.layers.Layer.rst
    
    
 

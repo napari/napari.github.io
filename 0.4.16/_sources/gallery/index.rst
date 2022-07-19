@@ -261,27 +261,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_nD_labels_thumb.png
-     :alt: nD labels
-
-     :ref:`sphx_glr_gallery_nD_labels.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/nD_labels
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D surface">
 
 .. only:: html
@@ -300,6 +279,27 @@ Examples of napari usage.
    :hidden:
 
    /gallery/nD_surface
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs">
+
+.. only:: html
+
+ .. figure:: /gallery/images/thumb/sphx_glr_nD_labels_thumb.png
+     :alt: nD labels
+
+     :ref:`sphx_glr_gallery_nD_labels.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/nD_labels
 
 .. raw:: html
 
@@ -1122,27 +1122,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer with text using multiple face colors mapped fro...">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_add_points_with_multicolor_text_thumb.png
-     :alt: Add points with multicolor text
-
-     :ref:`sphx_glr_gallery_add_points_with_multicolor_text.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/add_points_with_multicolor_text
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display one points layer ontop of one 4-D image layer using the add_points and add_image APIs, ...">
 
 .. only:: html
@@ -1686,27 +1665,6 @@ Examples of napari usage.
    :hidden:
 
    /gallery/bbox_annotator
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example also contain option to enable cross that will be moved to the current dims point (...">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_multiple_viewer_widget_thumb.png
-     :alt: This is an example on how to have more than one viewer in the same napari window.
-
-     :ref:`sphx_glr_gallery_multiple_viewer_widget.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/multiple_viewer_widget
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>

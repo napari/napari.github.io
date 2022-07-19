@@ -107,10 +107,10 @@ napari.layers.Surface
       ~Surface.vertex_values
       ~Surface.vertices
       ~Surface.visible
-      
-      
-      
-      
+      ~Surface.mouse_move_callbacks
+      ~Surface.mouse_wheel_callbacks
+      ~Surface.mouse_drag_callbacks
+      ~Surface.mouse_double_click_callbacks
    
    
 

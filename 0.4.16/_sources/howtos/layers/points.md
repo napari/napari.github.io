@@ -59,11 +59,7 @@ points_layer = viewer.add_points(points, size=30)
 
 from napari.utils import nbscreenshot
 
-<<<<<<< HEAD:_sources/howtos/layers/points.md
-nbscreenshot(viewer, alt_text="3 points overlaid on an astronaut image")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/howtos/layers/points.md
 ```
 
 ```{code-cell} python
@@ -173,10 +169,10 @@ your selection.
 
 Each point can have a different size. You can pass a list or 1-dimensional array
 of points through the size keyword argument to initialize the layer with points
-of different sizes. These sizes are then accessible through the `size`
+of different sizes. These sizes are then accessible through the `sizes`
 property. If you pass a single size then all points will get initialized with
-that size. Points can be pseudo-visualized as n-dimensional if the
-`out_of_slice_display` property is set to `True` or the `out of slice` checkbox is
+that size. Points can be pseduo-visualized as n-dimensionsal if the
+`n-dimensional` property is set to `True` or the `n-dimensional` checkbox is
 checked. In this setting when viewing different slices of the layer points will
 appear in the neighbouring slices to the ones in which they are located with a
 size scaled by the distance from their center to that slice. This feature can be
@@ -187,8 +183,8 @@ Points can also be resized within the GUI by first selecting them and then
 adjusting the point size slider. If no points are selected, then adjusting the
 slider value will only serve to initialize the size for new points that are
 about to be added. The value of the size of the next point to be added can be
-found in the `layer.current_size` property. Note this property is different from
-`layer.size` which contains the current sizes of all the points.
+found in the `layer.size` property. Note this property is different from
+`layer.sizes` which contains the current sizes of all the points.
 
 ## Changing points edge and face color
 
@@ -196,11 +192,10 @@ Individual points can each have different edge and face colors. You can
 initially set these colors by providing a list of colors to the `edge_color` or
 `face_color` keyword arguments respectively, or you can edit them from the GUI.
 The colors of each of the points are available as lists under the
-`layer.edge_color` and `layer.face_color` properties. Similar to the `size`
-and `current_size` properties these properties are different from the
-`layer.current_edge_color` and `layer.current_face_color` properties that will
-determine the color of the next point to be added or any currently selected
-points.
+`layer.edge_colors` and `layer.face_colors` properties. Similar to the `sizes`
+and `size` properties these properties are different from the `layer.edge_color`
+and `layer.face_color` properties that will determine the color of the next
+point to be added or any currently selected points.
 
 To change the point color properties from the GUI you must first select the
 points whose properties you want to change, otherwise you will just be
@@ -251,11 +246,7 @@ points_layer = viewer.add_points(
 
 ```{code-cell} python
 :tags: [hide-input]
-<<<<<<< HEAD:_sources/howtos/layers/points.md
-nbscreenshot(viewer, alt_text="3 points overlaid on an astronaut image, where the edge color of the points has been changed to a color cycle")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/howtos/layers/points.md
 ```
 
 ```{code-cell} python
@@ -276,13 +267,8 @@ strings or a (M x 4) array of M RGBA colors).
 
 ### Setting edge or face color with a colormap
 
-<<<<<<< HEAD:_sources/howtos/layers/points.md
-Here we will set the face color of the markers with a colormap on a property.
-To do the same for an edge color, substitute `face` for `edge` in the
-=======
 Here we will set the face color of the markers with a color cycle on a property.
 To do the same for a face color, substitute `edge_color` for `face_color` in the
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/howtos/layers/points.md
 example snippet below.
 
 ```{code-cell} python
@@ -303,11 +289,7 @@ points_layer = viewer.add_points(
 
 ```{code-cell} python
 :tags: [hide-input]
-<<<<<<< HEAD:_sources/howtos/layers/points.md
-nbscreenshot(viewer, alt_text="3 points overlaid on an astronaut image, where the face color of the points has been changed to a colormap")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/howtos/layers/points.md
 ```
 
 ```{code-cell} python

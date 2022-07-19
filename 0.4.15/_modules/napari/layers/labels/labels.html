@@ -21,11 +21,6 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
@@ -36,6 +31,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
@@ -113,6 +109,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables _modules/napari/layers/labels/labels and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "_modules/napari/layers/labels/labels.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "_modules/napari/layers/labels/labels.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -195,8 +273,6 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
-
-<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">_is_array_type</span>
 
 <span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">config</span>
 <span class="kn">from</span> <span class="nn">...utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span>
@@ -486,7 +562,6 @@
             <span class="n">color_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">brush_shape</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">contour</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span> <span class="o">=</span> <span class="n">_FeatureTable</span><span class="o">.</span><span class="n">from_layer</span><span class="p">(</span>
@@ -603,11 +678,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
 
-    <span class="nd">@_ImageBase</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colormap</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
-
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">num_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;int: Number of unique colors to use in colormap.&quot;&quot;&quot;</span>
@@ -660,7 +730,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">set_values</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_label_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_label_index</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">features</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -834,14 +903,15 @@
     <span class="k">def</span> <span class="nf">color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LabelColorMode</span><span class="p">]):</span>
         <span class="n">color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="p">(</span><span class="n">color_mode</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span>
-            <span class="n">custom_colormap</span><span class="p">,</span> <span class="n">label_color_index</span> <span class="o">=</span> <span class="n">color_dict_to_colormap</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
-            <span class="p">)</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">custom_colormap</span><span class="p">)</span>
+            <span class="p">(</span>
+                <span class="n">custom_colormap</span><span class="p">,</span>
+                <span class="n">label_color_index</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">color_dict_to_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="n">custom_colormap</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_label_color_index</span> <span class="o">=</span> <span class="n">label_color_index</span>
         <span class="k">elif</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_label_color_index</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Unsupported Color Mode&quot;</span><span class="p">))</span>
@@ -1394,12 +1464,9 @@
                     <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">match_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_idx</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">))</span>
+            <span class="n">match_indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">match_indices</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">match_indices</span> <span class="o">=</span> <span class="n">match_indices_local</span>
-
-        <span class="n">match_indices</span> <span class="o">=</span> <span class="n">_coerce_indices_for_vectorization</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">match_indices</span>
-        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_history</span><span class="p">(</span>
             <span class="p">(</span>
@@ -1469,7 +1536,18 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">slice_coord_temp</span>
 
-        <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">_coerce_indices_for_vectorization</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">slice_coord</span><span class="p">)</span>
+        <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">)</span>
+
+        <span class="c1"># Fix indexing for xarray if necessary</span>
+        <span class="c1"># See http://xarray.pydata.org/en/stable/indexing.html#vectorized-indexing</span>
+        <span class="c1"># for difference from indexing numpy</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
+                <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">slice_coord</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">pass</span>
 
         <span class="c1"># slice coord is a tuple of coordinate arrays per dimension</span>
         <span class="c1"># subset it if we want to only paint into background/only erase</span>
@@ -1625,21 +1703,6 @@
 
 <div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels">[docs]</a>    <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">Labels</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>
         <span class="k">pass</span></div>
-
-
-<span class="k">def</span> <span class="nf">_coerce_indices_for_vectorization</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Coerces indices so that they can be used for vectorized indexing in the given data array.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">_is_array_type</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="s1">&#39;xarray.DataArray&#39;</span><span class="p">):</span>
-        <span class="c1"># Fix indexing for xarray if necessary</span>
-        <span class="c1"># See http://xarray.pydata.org/en/stable/indexing.html#vectorized-indexing</span>
-        <span class="c1"># for difference from indexing numpy</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-
-            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-            <span class="k">pass</span>
-    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
 </pre></div>
 
             </div>

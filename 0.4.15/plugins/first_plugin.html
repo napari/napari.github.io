@@ -22,11 +22,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -36,6 +31,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Manifest Reference" href="manifest.html" />
@@ -115,6 +111,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/first_plugin and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/first_plugin.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/first_plugin.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -407,20 +485,19 @@ and navigate into it.</p>
 <p>In your root <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> folder, create a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file,
 then create a <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> directory with a single <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file inside of it.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="2c4d01ea-d596-46c5-b5d6-9324ffc14f9b" name="fffd2b3f-5623-4b7e-aa32-9aa954599378" type="radio">
-</input><label class="tabbed-label" for="2c4d01ea-d596-46c5-b5d6-9324ffc14f9b">
+<input checked="checked" id="3de7d827-4322-4893-88ff-ec50cc25945b" name="46ba47cd-4941-487a-a816-b54a195c5c84" type="radio">
+</input><label class="tabbed-label" for="3de7d827-4322-4893-88ff-ec50cc25945b">
 macOS / Linux</label><div class="tabbed-content docutils">
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir napari_hello
-touch napari_hello/__init__.py napari_hello/napari.yaml pyproject.toml setup.cfg
+touch napari_hello/__init__.py pyproject.toml setup.cfg
 </pre></div>
 </div>
 </div>
-<input id="b8b45876-87ec-4a2f-8413-dbfc168fe1ff" name="fffd2b3f-5623-4b7e-aa32-9aa954599378" type="radio">
-</input><label class="tabbed-label" for="b8b45876-87ec-4a2f-8413-dbfc168fe1ff">
+<input id="29707610-9008-4418-8178-c1cde2407a5c" name="46ba47cd-4941-487a-a816-b54a195c5c84" type="radio">
+</input><label class="tabbed-label" for="29707610-9008-4418-8178-c1cde2407a5c">
 Windows</label><div class="tabbed-content docutils">
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">mkdir</span> napari_hello
 <span class="k">copy</span> /b napari_hello\__init__.py +,,
-<span class="k">copy</span> /b napari_hello\napari.yaml +,,
 <span class="k">copy</span> /b pyproject.toml +,,
 <span class="k">copy</span> /b setup.cfg +,,
 </pre></div>
@@ -430,8 +507,7 @@ Windows</label><div class="tabbed-content docutils">
 <p>Your project should now look like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~/napari-hello/
 ├── napari_hello/
-│   ├── __init__.py
-│   └── napari.yaml
+│   └── __init__.py
 ├── pyproject.toml
 ├── setup.cfg
 </pre></div>
@@ -458,7 +534,7 @@ single top-level module, called <code class="docutils literal notranslate"><span
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is a standard file (introduced in
-<a class="reference external" href="https://peps.python.org/pep-0518/">PEP518</a>, May 2016) that tells
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0518/">PEP518</a>, May 2016) that tells
 the Python package installer <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> how to
 build your package. For more background, see
 <a class="reference external" href="https://snarky.ca/clarifying-pep-518/">Clarifying PEP 518</a> and
@@ -515,7 +591,7 @@ autogeneration capabilities to turn this function into a widget)</em></p>
 </section>
 <section id="add-a-napari-yaml-manifest">
 <h3>Add a <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> manifest<a class="headerlink" href="#add-a-napari-yaml-manifest" title="Permalink to this headline">¶</a></h3>
-<p>If you haven’t already, create an empty <a class="reference internal" href="manifest.html"><span class="doc std std-doc">plugin manifest</span></a> file at <code class="docutils literal notranslate"><span class="pre">napari_hello/napari.yaml</span></code>
+<p>Create an empty <a class="reference internal" href="manifest.html"><span class="doc std std-doc">plugin manifest</span></a> file at <code class="docutils literal notranslate"><span class="pre">napari_hello/napari.yaml</span></code>
 We will use this file to tell napari:</p>
 <ol class="arabic simple">
 <li><p>That our plugin contributes a <a class="reference internal" href="contributions.html#contributions-commands"><span class="std std-ref"><strong>command</strong></span></a>

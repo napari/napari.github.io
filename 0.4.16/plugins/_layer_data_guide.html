@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The LayerData tuple &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,18 +29,20 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -113,6 +114,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/_layer_data_guide and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/_layer_data_guide.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/_layer_data_guide.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -232,19 +324,19 @@
             
             <div>
               
-  <section id="the-layerdata-tuple">
-<span id="layer-data-tuples"></span><h1>The LayerData tuple<a class="headerlink" href="#the-layerdata-tuple" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="the-layerdata-tuple">
+<span id="layer-data-tuples"></span><h1>The LayerData tuple<a class="headerlink" href="#the-layerdata-tuple" title="Permalink to this heading">¶</a></h1>
 <p>When transfering data to and from plugins, napari does not pass <code class="docutils literal notranslate"><span class="pre">Layer</span></code> objects
 directly. Instead, it passes (mostly) pure-python and array-like types,
 deconstructed into a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> that we refer to as a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple.  This type shows
 up often in plugins and is explained here.</p>
-<section id="informal-description">
-<h2>Informal description<a class="headerlink" href="#informal-description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="informal-description">
+<h2>Informal description<a class="headerlink" href="#informal-description" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="n">attributes</span><span class="p">,</span> <span class="p">[</span><span class="n">layer_type</span><span class="p">]])</span>
 </pre></div>
 </div>
 <p>A <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple is a tuple of length 1, 2, or 3 whose items, in order, are:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">data</span></code> object that would be used for <code class="docutils literal notranslate"><span class="pre">layer.data</span></code> (such as a numpy array
 for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer)</p></li>
 <li><p><em>(Optional).</em> A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> of layer attributes, suitable for passing as
@@ -253,9 +345,9 @@ keyword arguments to the corresponding layer constructor (e.g. <code class="docu
 <code class="docutils literal notranslate"><span class="pre">'labels'</span></code>, etc…).  If not provided (i.e. if the tuple is only of length 2), the
 layer type is assumed to be <code class="docutils literal notranslate"><span class="pre">'image</span></code>’.</p></li>
 </ol>
-</section>
-<section id="formal-type-definition">
-<h2>Formal type definition<a class="headerlink" href="#formal-type-definition" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="formal-type-definition">
+<h2>Formal type definition<a class="headerlink" href="#formal-type-definition" title="Permalink to this heading">¶</a></h2>
 <p>Formally, the typing for <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> looks like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LayerData</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">DataType</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataType</span><span class="p">,</span> <span class="n">LayerProps</span><span class="p">],</span> <span class="n">FullLayerData</span><span class="p">]</span>
 </pre></div>
@@ -284,9 +376,9 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <span class="c1"># typing than literal array types (e.g. numpy, dask, xarray, etc...)</span>
 </pre></div>
 </div>
-</section>
-<section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <p>Assume that <code class="docutils literal notranslate"><span class="pre">data</span></code> is a numpy array:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
@@ -305,9 +397,9 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;My Labels&#39;</span><span class="p">,</span> <span class="s1">&#39;blending&#39;</span><span class="p">:</span> <span class="s1">&#39;additive&#39;</span><span class="p">},</span> <span class="s1">&#39;labels&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="creation-from-a-layer-instance">
-<h2>Creation from a <code class="docutils literal notranslate"><span class="pre">Layer</span></code> instance.<a class="headerlink" href="#creation-from-a-layer-instance" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="creation-from-a-layer-instance">
+<h2>Creation from a <code class="docutils literal notranslate"><span class="pre">Layer</span></code> instance.<a class="headerlink" href="#creation-from-a-layer-instance" title="Permalink to this heading">¶</a></h2>
 <p>Note, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">as_layer_data_tuple()</span></code> method will create a layer data
 tuple from a given layer</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -343,8 +435,8 @@ tuple from a given layer</p>
 <span class="go">)</span>
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -641,7 +733,7 @@ tuple from a given layer</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

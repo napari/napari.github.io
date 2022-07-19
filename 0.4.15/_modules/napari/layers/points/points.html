@@ -21,11 +21,6 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
@@ -36,6 +31,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
@@ -113,6 +109,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables _modules/napari/layers/points/points and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "_modules/napari/layers/points/points.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "_modules/napari/layers/points/points.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -331,11 +409,10 @@
 <span class="sd">        Currently, this only applies to dask arrays.</span>
 <span class="sd">    shading : str, Shading</span>
 <span class="sd">        Render lighting and shading on points. Options are:</span>
-
-<span class="sd">        * &#39;none&#39;</span>
-<span class="sd">          No shading is added to the points.</span>
-<span class="sd">        * &#39;spherical&#39;</span>
-<span class="sd">          Shading and depth buffer are changed to give a 3D spherical look to the points</span>
+<span class="sd">            * &#39;none&#39;</span>
+<span class="sd">                No shading is added to the points.</span>
+<span class="sd">            * &#39;spherical&#39;</span>
+<span class="sd">                Shading and depth buffer are changed to give a 3D spherical look to the points</span>
 <span class="sd">    experimental_canvas_size_limits : tuple of float</span>
 <span class="sd">        Lower and upper limits for the size of points in canvas pixels.</span>
 <span class="sd">    shown : 1-D array of bool</span>
@@ -549,8 +626,6 @@
             <span class="n">shading</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">_antialias</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">experimental_canvas_size_limits</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">feature_defaults</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span> <span class="o">=</span> <span class="n">get_color_namelist</span><span class="p">()</span>
@@ -567,7 +642,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="o">=</span> <span class="n">TextManager</span><span class="o">.</span><span class="n">_from_layer</span><span class="p">(</span>
             <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
-            <span class="n">features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
+            <span class="n">n_text</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width_is_relative</span> <span class="o">=</span> <span class="kc">False</span>
@@ -664,7 +740,6 @@
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">cur_npoints</span><span class="p">:</span>
                         <span class="c1"># If there are now fewer points, remove the size and colors of the</span>
                         <span class="c1"># extra ones</span>
@@ -720,6 +795,8 @@
                             <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cur_npoints</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
                         <span class="p">)</span>
 
+                        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">,</span> <span class="n">adding</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_editable</span><span class="p">()</span>
@@ -762,9 +839,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_color_manager</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="p">,</span> <span class="s2">&quot;edge_color&quot;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_text</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">features</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">feature_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -832,10 +909,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_update_current_properties</span><span class="p">(</span><span class="n">current_properties</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_properties</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">update_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">features</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TextManager</span><span class="p">:</span>
@@ -846,15 +919,16 @@
     <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_text</span><span class="o">.</span><span class="n">_update_from_layer</span><span class="p">(</span>
             <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
-            <span class="n">features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
+            <span class="n">n_text</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Points.refresh_text"><a class="viewcode-back" href="../../../../api/napari.layers.Points.html#napari.layers.Points.refresh_text">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Refresh the text values.</span>
 
-<span class="sd">        This is generally used if the features were updated without changing the data</span>
+<span class="sd">        This is generally used if the properties were updated without changing the data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
@@ -1397,12 +1471,7 @@
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span> <span class="o">=</span> <span class="n">face_color</span>
 
-        <span class="c1"># Calculate the mean size across the displayed dimensions for</span>
-        <span class="c1"># each point to be consistent with `_view_size`.</span>
-        <span class="n">mean_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">mean_size</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">index</span><span class="p">})</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
@@ -1544,9 +1613,6 @@
 <span class="sd">        text : (N x 1) np.ndarray</span>
 <span class="sd">            Array of text strings for the N text elements in view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># This may be triggered when the string encoding instance changed,</span>
-        <span class="c1"># in which case it has no cached values, so generate them here.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">view_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -1999,7 +2065,8 @@
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_face</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span><span class="n">indices_to_remove</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
@@ -2058,11 +2125,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
             <span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">])</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_paste</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
-
             <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
                 <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;edge_width&#39;</span><span class="p">]),</span>
@@ -2081,12 +2143,20 @@
                 <span class="p">),</span>
             <span class="p">)</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">])</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
                 <span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="n">npoints</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]))</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
                 <span class="nb">range</span><span class="p">(</span><span class="n">totpoints</span><span class="p">,</span> <span class="n">totpoints</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]))</span>
             <span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+                <span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_copy_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2102,8 +2172,14 @@
                 <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">,</span>
-                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="n">index</span><span class="p">),</span>
             <span class="p">}</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
 

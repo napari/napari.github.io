@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manifest Reference &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contributions Reference" href="contributions.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/manifest and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/manifest.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/manifest.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -274,8 +366,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="manifest-reference">
-<span id="plugin-manifest"></span><h1>Manifest Reference<a class="headerlink" href="#manifest-reference" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="manifest-reference">
+<span id="plugin-manifest"></span><h1>Manifest Reference<a class="headerlink" href="#manifest-reference" title="Permalink to this heading">¶</a></h1>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Plugin manifests are a feature of the second generation napari plugin engine
@@ -299,8 +391,8 @@ your package metadata:</p>
 <span class="na">example-plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">napari.yaml</span><span class="w"></span>
 </pre></div>
 </div>
-<section id="fields">
-<h2>Fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fields">
+<h2>Fields<a class="headerlink" href="#fields" title="Permalink to this heading">¶</a></h2>
 <p>All fields are optional except those in <strong>bold</strong>.</p>
 <table class="colwidths-auto table">
 <thead>
@@ -335,9 +427,9 @@ your package metadata:</p>
 <a class="reference external" href="https://packaging.python.org/en/latest/specifications/core-metadata/">package metadata</a>
 from your <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file will also be parsed for version, license, and other info.</p>
 </div>
-</section>
-<section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
 <p>Here is a complete example of what the manifest of a plugin providing <em>all</em>
 contributions might look like. (Note: a plugin needn’t implement
 more than a single contribution type).</p>
@@ -347,8 +439,8 @@ more than a single contribution type).</p>
 manifest formats, though YAML is the “default” and more common format.</p>
 </div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="fdd322a2-d340-4b48-b631-dcb7106ee66c" name="1295f685-8705-43af-a462-7c7ef4878313" type="radio">
-</input><label class="tabbed-label" for="fdd322a2-d340-4b48-b631-dcb7106ee66c">
+<input checked="checked" id="c0dda8e7-e8f5-4bbb-8f55-109e6c3e028d" name="8839d75a-1dc7-4dd2-a70f-7996f2f0a8a7" type="radio">
+</input><label class="tabbed-label" for="c0dda8e7-e8f5-4bbb-8f55-109e6c3e028d">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin</span><span class="w"></span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example Plugin</span><span class="w"></span>
@@ -419,8 +511,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="74faf80b-787c-4307-b5af-53424395139e" name="1295f685-8705-43af-a462-7c7ef4878313" type="radio">
-</input><label class="tabbed-label" for="74faf80b-787c-4307-b5af-53424395139e">
+<input id="34adf601-600e-4ce7-bc25-21b88ec7b3b3" name="8839d75a-1dc7-4dd2-a70f-7996f2f0a8a7" type="radio">
+</input><label class="tabbed-label" for="34adf601-600e-4ce7-bc25-21b88ec7b3b3">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Example Plugin&#39;</span><span class="w"></span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin&#39;</span><span class="w"></span>
@@ -513,8 +605,8 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -850,7 +942,7 @@ toml</label><div class="tabbed-content docutils">
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

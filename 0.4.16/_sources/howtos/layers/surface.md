@@ -52,11 +52,7 @@ viewer = napari.view_surface(surface)  # add the surface
 
 from napari.utils import nbscreenshot
 
-<<<<<<< HEAD:_sources/howtos/layers/surface.md
-nbscreenshot(viewer, alt_text="A viewer with a surface")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/howtos/layers/surface.md
 ```
 
 ```{code-cell} python

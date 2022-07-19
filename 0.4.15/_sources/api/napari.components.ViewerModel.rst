@@ -112,28 +112,24 @@ napari.components.ViewerModel
       ~ViewerModel.class_keymap
       ~ViewerModel.events
       ~ViewerModel.experimental
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-<<<<<<<< HEAD:0.4.16/_sources/api/napari.components.ViewerModel.rst
-      
-========
->>>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.15/_sources/api/napari.components.ViewerModel.rst
+      ~ViewerModel.axes
+      ~ViewerModel.camera
+      ~ViewerModel.cursor
+      ~ViewerModel.dims
+      ~ViewerModel.grid
+      ~ViewerModel.layers
+      ~ViewerModel.scale_bar
+      ~ViewerModel.text_overlay
+      ~ViewerModel.overlays
+      ~ViewerModel.help
+      ~ViewerModel.status
+      ~ViewerModel.tooltip
+      ~ViewerModel.theme
+      ~ViewerModel.title
+      ~ViewerModel.mouse_move_callbacks
+      ~ViewerModel.mouse_wheel_callbacks
+      ~ViewerModel.mouse_drag_callbacks
+      ~ViewerModel.mouse_double_click_callbacks
    
    
 

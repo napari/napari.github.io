@@ -34,7 +34,7 @@ add shapes to it using `viewer.add_vectors`. The api of both methods is the
 same. In these examples we'll mainly use `add_vectors` to overlay shapes onto on
 an existing image.
 
-In this example, we will overlay some shapes on the image of a photographer:
+In this example of we will overlay some shapes on the image of a photographer:
 
 ```{code-cell} python
 import napari
@@ -63,7 +63,7 @@ vectors_layer = viewer.add_vectors(vectors, edge_width=3)
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="Vectors overlaid on an image")
+nbscreenshot(viewer)
 ```
 
 ```{code-cell} python

@@ -64,17 +64,6 @@ napari.qt.threading.GeneratorWorker
       ~GeneratorWorker.abort_requested
       ~GeneratorWorker.is_paused
       ~GeneratorWorker.is_running
-<<<<<<< HEAD:_sources/api/napari.qt.threading.GeneratorWorker.rst
-      
-      
-      
-      
-      
-      
-      
-      
-      
-=======
       ~GeneratorWorker.yielded
       ~GeneratorWorker.paused
       ~GeneratorWorker.resumed
@@ -84,7 +73,6 @@ napari.qt.threading.GeneratorWorker
       ~GeneratorWorker.warned
       ~GeneratorWorker.started
       ~GeneratorWorker.finished
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.qt.threading.GeneratorWorker.rst
    
    
 

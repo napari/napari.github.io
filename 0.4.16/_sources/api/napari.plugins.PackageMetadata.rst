@@ -67,33 +67,6 @@ napari.plugins.PackageMetadata
 
    .. autosummary::
    
-<<<<<<< HEAD:_sources/api/napari.plugins.PackageMetadata.rst
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-=======
       ~PackageMetadata.metadata_version
       ~PackageMetadata.name
       ~PackageMetadata.version
@@ -119,7 +92,6 @@ napari.plugins.PackageMetadata
       ~PackageMetadata.provides_extra
       ~PackageMetadata.provides_dist
       ~PackageMetadata.obsoletes_dist
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.plugins.PackageMetadata.rst
    
    
 

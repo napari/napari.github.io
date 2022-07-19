@@ -75,17 +75,10 @@ napari.utils.Colormap
    
       ~Colormap.colorbar
       ~Colormap.events
-<<<<<<< HEAD:_sources/api/napari.utils.Colormap.rst
-      
-      
-      
-      
-=======
       ~Colormap.colors
       ~Colormap.name
       ~Colormap.interpolation
       ~Colormap.controls
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.utils.Colormap.rst
    
    
 

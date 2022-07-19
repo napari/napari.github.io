@@ -21,11 +21,6 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
@@ -36,6 +31,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
@@ -113,6 +109,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables _modules/napari/layers/shapes/shapes and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "_modules/napari/layers/shapes/shapes.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "_modules/napari/layers/shapes/shapes.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -216,7 +294,6 @@
     <span class="n">transform_color_cycle</span><span class="p">,</span>
     <span class="n">transform_color_with_defaults</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..utils.interactivity_utils</span> <span class="kn">import</span> <span class="n">nd_line_segment_to_displayed_data_ray</span>
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
 <span class="kn">from</span> <span class="nn">..utils.text_manager</span> <span class="kn">import</span> <span class="n">TextManager</span>
 <span class="kn">from</span> <span class="nn">._shape_list</span> <span class="kn">import</span> <span class="n">ShapeList</span>
@@ -674,8 +751,6 @@
             <span class="n">current_face_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">current_properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">highlight</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">feature_defaults</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Flag set to false to block thumbnail refresh</span>
@@ -775,7 +850,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="o">=</span> <span class="n">TextManager</span><span class="o">.</span><span class="n">_from_layer</span><span class="p">(</span>
             <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
-            <span class="n">features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
+            <span class="n">n_text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
@@ -875,7 +951,7 @@
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
             <span class="n">shape_type</span><span class="o">=</span><span class="n">shape_type</span><span class="p">,</span>
@@ -942,10 +1018,9 @@
                 <span class="ne">RuntimeWarning</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
-
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_text</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">features</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">feature_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1061,10 +1136,7 @@
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">update_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">features</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_properties</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shape_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1470,6 +1542,7 @@
 <span class="sd">            the color cycle map or colormap), set update_color_mapping=False.</span>
 <span class="sd">            Default value is False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_color</span><span class="p">(</span><span class="s1">&#39;face&#39;</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_color</span><span class="p">(</span><span class="s1">&#39;edge&#39;</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span></div>
 
@@ -1497,6 +1570,7 @@
             <span class="k">if</span> <span class="n">color_mode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ColorMode</span><span class="o">.</span><span class="n">CYCLE</span><span class="p">,</span> <span class="n">ColorMode</span><span class="o">.</span><span class="n">COLORMAP</span><span class="p">]:</span>
                 <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_color</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">)</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+
                 <span class="n">color_event</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s1">_color&#39;</span><span class="p">)</span>
                 <span class="n">color_event</span><span class="p">()</span>
 
@@ -1748,9 +1822,6 @@
 <span class="sd">        text : (N x 1) np.ndarray</span>
 <span class="sd">            Array of text strings for the N text elements in view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># This may be triggered when the string encoding instance changed,</span>
-        <span class="c1"># in which case it has no cached values, so generate them here.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">view_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -1766,13 +1837,6 @@
 <span class="sd">        anchor_y : str</span>
 <span class="sd">            The vispy text anchor for the y axis</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># short circuit if no text present</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">compute_text_coords</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span>
-            <span class="p">)</span>
-
         <span class="c1"># get the coordinates of the vertices for the shapes in view</span>
         <span class="n">in_view_shapes_coords</span> <span class="o">=</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span>
@@ -2208,9 +2272,23 @@
             <span class="n">z_index</span> <span class="o">=</span> <span class="n">z_index</span> <span class="ow">or</span> <span class="mi">0</span>
 
         <span class="k">if</span> <span class="n">n_new_shapes</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">first_prop_key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">))</span>
+                <span class="n">n_prop_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">first_prop_key</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">n_prop_values</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">total_shapes</span> <span class="o">=</span> <span class="n">n_new_shapes</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">total_shapes</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">total_shapes</span> <span class="o">&gt;</span> <span class="n">n_prop_values</span><span class="p">:</span>
+                <span class="n">n_props_to_add</span> <span class="o">=</span> <span class="n">total_shapes</span> <span class="o">-</span> <span class="n">n_prop_values</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span><span class="p">,</span> <span class="n">n_props_to_add</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">total_shapes</span> <span class="o">&lt;</span> <span class="n">n_prop_values</span><span class="p">:</span>
+                <span class="n">n_props_to_remove</span> <span class="o">=</span> <span class="n">n_prop_values</span> <span class="o">-</span> <span class="n">total_shapes</span>
+                <span class="n">indices_to_remove</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_prop_values</span><span class="p">)[</span>
+                    <span class="o">-</span><span class="n">n_props_to_remove</span><span class="p">:</span>
+                <span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">indices_to_remove</span><span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_shapes</span><span class="p">(</span>
                 <span class="n">data</span><span class="p">,</span>
                 <span class="n">shape_type</span><span class="o">=</span><span class="n">shape_type</span><span class="p">,</span>
@@ -2426,35 +2504,19 @@
 
     <span class="k">def</span> <span class="nf">_add_shapes_to_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape_inputs</span><span class="p">,</span> <span class="n">data_view</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Build new shapes and add them to the _data_view&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ec</span><span class="p">,</span> <span class="n">fc</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">shape_inputs</span><span class="p">:</span>
 
-        <span class="n">shape_inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape_inputs</span><span class="p">)</span>
-
-        <span class="c1"># build all shapes</span>
-        <span class="n">sh_inp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="p">(</span>
-                <span class="n">shape_classes</span><span class="p">[</span><span class="n">ShapeType</span><span class="p">(</span><span class="n">st</span><span class="p">)](</span>
-                    <span class="n">d</span><span class="p">,</span>
-                    <span class="n">edge_width</span><span class="o">=</span><span class="n">ew</span><span class="p">,</span>
-                    <span class="n">z_index</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                    <span class="n">dims_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">,</span>
-                    <span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">,</span>
-                <span class="p">),</span>
-                <span class="n">ec</span><span class="p">,</span>
-                <span class="n">fc</span><span class="p">,</span>
+            <span class="n">shape_cls</span> <span class="o">=</span> <span class="n">shape_classes</span><span class="p">[</span><span class="n">ShapeType</span><span class="p">(</span><span class="n">st</span><span class="p">)]</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">shape_cls</span><span class="p">(</span>
+                <span class="n">d</span><span class="p">,</span>
+                <span class="n">edge_width</span><span class="o">=</span><span class="n">ew</span><span class="p">,</span>
+                <span class="n">z_index</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
+                <span class="n">dims_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">,</span>
+                <span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ec</span><span class="p">,</span> <span class="n">fc</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">shape_inputs</span>
-        <span class="p">)</span>
 
-        <span class="n">shapes</span><span class="p">,</span> <span class="n">edge_colors</span><span class="p">,</span> <span class="n">face_colors</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">sh_inp</span><span class="p">))</span>
-
-        <span class="c1"># Add all shapes at once (faster than adding them one by one)</span>
-        <span class="n">data_view</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-            <span class="n">shape</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span>
-            <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span>
-            <span class="n">face_color</span><span class="o">=</span><span class="n">face_colors</span><span class="p">,</span>
-            <span class="n">z_refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="p">)</span>
-
+            <span class="c1"># Add shape</span>
+            <span class="n">data_view</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">ec</span><span class="p">,</span> <span class="n">face_color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">z_refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">data_view</span><span class="o">.</span><span class="n">_update_z_order</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -2466,7 +2528,8 @@
     <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_text</span><span class="o">.</span><span class="n">_update_from_layer</span><span class="p">(</span>
             <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
-            <span class="n">features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
+            <span class="n">n_text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span><span class="p">,</span>
+            <span class="n">properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Shapes.refresh_text"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.refresh_text">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2474,7 +2537,7 @@
 
 <span class="sd">        This is generally used if the properties were updated without changing the data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set the view given the slicing indices.&quot;&quot;&quot;</span>
@@ -2736,14 +2799,9 @@
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update thumbnail with current shapes and colors.&quot;&quot;&quot;</span>
-        <span class="c1"># Set the thumbnail to black, opacity 1</span>
-        <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">)</span>
-        <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="c1"># if the shapes layer is empty, don&#39;t update, just leave it black</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
+
         <span class="c1"># don&#39;t update the thumbnail if dragging a shape</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_moving</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_thumbnail_update</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_moving</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_thumbnail_update</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="c1"># calculate min vals for the vertices and pad with 0.5</span>
             <span class="c1"># the offset is needed to ensure that the top left corner of the shapes</span>
             <span class="c1"># corresponds to the top left corner of the thumbnail</span>
@@ -2952,7 +3010,7 @@
         <span class="n">start_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">end_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Get the shape index and intersection point of the first shape</span>
 <span class="sd">        (i.e., closest to start_point) along the specified 3D line segment.</span>
 
@@ -2972,34 +3030,41 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        value Union[None, float, int]</span>
+<span class="sd">        value</span>
 <span class="sd">            The data value along the supplied ray.</span>
-<span class="sd">        intersection_point : Union[None, np.ndarray]</span>
+<span class="sd">        intersection_point : np.ndarray</span>
 <span class="sd">            (n,) array containing the point where the ray intersects the first shape</span>
 <span class="sd">            (i.e., the shape most in the foreground). The coordinate is in layer</span>
 <span class="sd">            coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="c1"># return None if in 2D mode</span>
-            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">start_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">end_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="c1"># return None if the ray doesn&#39;t intersect the data bounding box</span>
-            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">start_point</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">end_point</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="c1"># Get the normal vector of the click plane</span>
+                <span class="n">start_position_view</span> <span class="o">=</span> <span class="n">start_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span>
+                <span class="n">end_position_view</span> <span class="o">=</span> <span class="n">end_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span>
+                <span class="n">ray_direction</span> <span class="o">=</span> <span class="n">end_position_view</span> <span class="o">-</span> <span class="n">start_position_view</span>
+                <span class="n">ray_direction_normed</span> <span class="o">=</span> <span class="n">ray_direction</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+                    <span class="n">ray_direction</span>
+                <span class="p">)</span>
+                <span class="c1"># step the start position back a little bit to be able to detect shapes</span>
+                <span class="c1"># that contain the start_position</span>
+                <span class="n">start_position_view</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">start_position_view</span> <span class="o">-</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">ray_direction_normed</span>
+                <span class="p">)</span>
+                <span class="n">value</span><span class="p">,</span> <span class="n">intersection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_inside_3d</span><span class="p">(</span>
+                    <span class="n">start_position_view</span><span class="p">,</span> <span class="n">ray_direction_normed</span>
+                <span class="p">)</span>
 
-        <span class="c1"># Get the normal vector of the click plane</span>
-        <span class="n">start_position</span><span class="p">,</span> <span class="n">ray_direction</span> <span class="o">=</span> <span class="n">nd_line_segment_to_displayed_data_ray</span><span class="p">(</span>
-            <span class="n">start_point</span><span class="o">=</span><span class="n">start_point</span><span class="p">,</span>
-            <span class="n">end_point</span><span class="o">=</span><span class="n">end_point</span><span class="p">,</span>
-            <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">value</span><span class="p">,</span> <span class="n">intersection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_inside_3d</span><span class="p">(</span>
-            <span class="n">start_position</span><span class="p">,</span> <span class="n">ray_direction</span>
-        <span class="p">)</span>
+                <span class="c1"># add the full nD coords to intersection</span>
+                <span class="n">intersection_point</span> <span class="o">=</span> <span class="n">start_point</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">intersection_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span> <span class="o">=</span> <span class="n">intersection</span>
 
-        <span class="c1"># add the full nD coords to intersection</span>
-        <span class="n">intersection_point</span> <span class="o">=</span> <span class="n">start_point</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">intersection_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span> <span class="o">=</span> <span class="n">intersection</span>
-
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">intersection_point</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">intersection_point</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">intersection_point</span>
 
 <div class="viewcode-block" id="Shapes.get_index_and_intersection"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.get_index_and_intersection">[docs]</a>    <span class="k">def</span> <span class="nf">get_index_and_intersection</span><span class="p">(</span>
@@ -3078,8 +3143,11 @@
                 <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_face_color</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">,</span>
-                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="n">index</span><span class="p">),</span>
             <span class="p">}</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -3094,7 +3162,6 @@
             <span class="p">]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_paste</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
 
             <span class="c1"># Add new shape data</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]):</span>
@@ -3108,6 +3175,11 @@
                 <span class="n">edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;edge_color&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
                     <span class="n">shape</span><span class="p">,</span> <span class="n">face_color</span><span class="o">=</span><span class="n">face_color</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_color</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
                 <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>

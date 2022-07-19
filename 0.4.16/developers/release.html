@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Release guide &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Testing" href="testing.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables developers/release and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "developers/release.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "developers/release.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -659,64 +751,64 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="release-guide">
-<h1>Release guide<a class="headerlink" href="#release-guide" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="release-guide">
+<h1>Release guide<a class="headerlink" href="#release-guide" title="Permalink to this heading">¶</a></h1>
 <p>This guide documents <code class="docutils literal notranslate"><span class="pre">napari</span></code>’s release process.
 Currently, it only handles distribution, but as the project matures,
 it will include generating release notes, documentation, etc.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="timeline">
-<h1>Timeline<a class="headerlink" href="#timeline" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="timeline">
+<h1>Timeline<a class="headerlink" href="#timeline" title="Permalink to this heading">¶</a></h1>
 <p>New versions of <code class="docutils literal notranslate"><span class="pre">napari</span></code> will be released every two months. The first release candidate will be available one week prior to release for testing purposes. Multiple release candidates may become available during the week prior to release. Upcoming releases can be found in our public calendar.</p>
 <p>The latest release candidate can be installed with</p>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--pre</span> <span class="pre">napari</span></code></p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="release-management">
-<h1>Release management<a class="headerlink" href="#release-management" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="release-management">
+<h1>Release management<a class="headerlink" href="#release-management" title="Permalink to this heading">¶</a></h1>
 <p>The release will be coordinated by a release manager whose responsibilities include…</p>
-<section id="two-weeks-before-release-one-week-before-release-candidate">
-<h2>Two weeks before release (one week before release candidate)<a class="headerlink" href="#two-weeks-before-release-one-week-before-release-candidate" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="two-weeks-before-release-one-week-before-release-candidate">
+<h2>Two weeks before release (one week before release candidate)<a class="headerlink" href="#two-weeks-before-release-one-week-before-release-candidate" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Look through currently open PRs and get a sense of what would be good to merge before the first release candidate</p></li>
 <li><p>Create a zulip thread in the release channel letting people know the release candidate is coming and pointing out PRs that would be nice to merge before release</p></li>
 </ul>
 <p>At this stage, bug fixes and features that are close to landing should be prioritized. The release manager will follow up with PR authors, reviewing and merging as needed.</p>
-</section>
-<section id="nine-days-before-release-two-days-before-release-candidate">
-<h2>Nine days before release (two days before release candidate)<a class="headerlink" href="#nine-days-before-release-two-days-before-release-candidate" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="nine-days-before-release-two-days-before-release-candidate">
+<h2>Nine days before release (two days before release candidate)<a class="headerlink" href="#nine-days-before-release-two-days-before-release-candidate" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Generate release notes with the script in the release folder</p></li>
 <li><p>Fill in the release highlights and make a PR with the release notes</p></li>
 </ul>
 <p>At this point the release manager should ideally be the only person merging PRs on the repo for the next week.</p>
-</section>
-<section id="one-week-before-release">
-<h2>One week before release<a class="headerlink" href="#one-week-before-release" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="one-week-before-release">
+<h2>One week before release<a class="headerlink" href="#one-week-before-release" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Add any recently merged PRs to release notes</p></li>
 <li><p>Merge release notes</p></li>
 <li><p>Make the release candidate</p></li>
 <li><p>Announce to release stream on zulip that the first release candidate is available for testing</p></li>
 </ul>
-</section>
-<section id="the-week-before-release">
-<h2>The week before release<a class="headerlink" href="#the-week-before-release" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="the-week-before-release">
+<h2>The week before release<a class="headerlink" href="#the-week-before-release" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Merge any PRs and update release notes accordingly</p></li>
 <li><p>Make new release candidates as necessary and announce them on zulip</p></li>
 </ul>
 <p>At this stage PRs merged should focus mainly on regressions and bug fixes. New features should wait until after release.</p>
-</section>
-<section id="the-day-of-release">
-<h2>The day of release<a class="headerlink" href="#the-day-of-release" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="the-day-of-release">
+<h2>The day of release<a class="headerlink" href="#the-day-of-release" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>make sure final rc has been tested</p></li>
 <li><p>ensure all PRs have been added to release notes and then make release and announce on zulip</p></li>
 </ul>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="release-process">
-<h1>Release process<a class="headerlink" href="#release-process" title="Permalink to this headline">¶</a></h1>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="release-process">
+<h1>Release process<a class="headerlink" href="#release-process" title="Permalink to this heading">¶</a></h1>
 <p>Additional <code class="docutils literal notranslate"><span class="pre">release</span></code> dependencies (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[release]</span></code>) are required to complete the release process.</p>
 <blockquote>
 <div><p><a class="reference external" href="https://github.com/napari/napari/blob/main/MANIFEST.in"><code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code></a> determines which non-Python files are included.
@@ -727,8 +819,8 @@ This likely has been done already, but if it has not, follow
 <a class="reference external" href="https://pypi.org/help/#apitoken">this guide</a> to gain a token and
 <a class="reference external" href="https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets">this guide</a>
 to add it as a secret.</p>
-<section id="determining-the-version">
-<h2>Determining the version<a class="headerlink" href="#determining-the-version" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="determining-the-version">
+<h2>Determining the version<a class="headerlink" href="#determining-the-version" title="Permalink to this heading">¶</a></h2>
 <p>The version of <code class="docutils literal notranslate"><span class="pre">napari</span></code> is automatically determined at install time by
 <a class="reference external" href="https://github.com/pypa/setuptools_scm"><code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code></a> from the latest
 <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Basics-Tagging"><code class="docutils literal notranslate"><span class="pre">git</span></code> tag</a> beginning with
@@ -736,10 +828,10 @@ to add it as a secret.</p>
 <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Internals-Git-References">reference</a> with
 the new version number. It is likely something like <code class="docutils literal notranslate"><span class="pre">X.Y.Z</span></code>. Before making a
 release though we need to generate the release notes.</p>
-</section>
-<section id="generating-release-notes">
-<h2>Generating release notes<a class="headerlink" href="#generating-release-notes" title="Permalink to this headline">¶</a></h2>
-<ol>
+</div>
+<div class="section" id="generating-release-notes">
+<h2>Generating release notes<a class="headerlink" href="#generating-release-notes" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic">
 <li><p>Make a list of merges, contributors, and reviewers by running
 <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">docs/release/generate_release_notes.py</span> <span class="pre">-h</span></code> and following that file’s usage.
 For each release generate the list to include everything since the last release for which there
@@ -757,9 +849,9 @@ consequences. If possible, organize semantically close PRs in groups.</p></li>
 <li><p>Make sure the file name is of the form <code class="docutils literal notranslate"><span class="pre">doc/release/release_&lt;major&gt;_&lt;minor&gt;_&lt;release&gt;.md</span></code>.</p></li>
 <li><p>Make and merge a PR with these release notes before moving onto the next steps.</p></li>
 </ol>
-</section>
-<section id="update-translation-strings">
-<h2>Update translation strings<a class="headerlink" href="#update-translation-strings" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="update-translation-strings">
+<h2>Update translation strings<a class="headerlink" href="#update-translation-strings" title="Permalink to this heading">¶</a></h2>
 <p>As new code is included in the codebase, some of the strings that need to be translated might
 not yet be using the <code class="docutils literal notranslate"><span class="pre">trans</span></code> methods. To help keep the codebase up to date in terms
 of translations we added a test script that
@@ -769,7 +861,7 @@ strings.</p>
 <p>The test script is available on the <code class="docutils literal notranslate"><span class="pre">/tools/test_strings.py</span></code> file and it relies on an additional
 file <code class="docutils literal notranslate"><span class="pre">/tools/strings_list.py</span></code> to include strings to skip safely from translation.</p>
 <p>The test checks:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><strong>Untranslated strings</strong>: not using the <code class="docutils literal notranslate"><span class="pre">trans</span></code> methods.</p></li>
 <li><p><strong>Outdated skip strings</strong>: should no longer be included in the <code class="docutils literal notranslate"><span class="pre">/tools/strings_list.py</span></code> file.</p></li>
 <li><p><strong>Translation usage errors</strong>: where translation strings may be missing interpolation variables.</p></li>
@@ -779,9 +871,9 @@ on the <code class="docutils literal notranslate"><span class="pre">stdout</span
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest tools/ --tb<span class="o">=</span>short
 </pre></div>
 </div>
-</section>
-<section id="tagging-the-new-release-candidate">
-<h2>Tagging the new release candidate<a class="headerlink" href="#tagging-the-new-release-candidate" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="tagging-the-new-release-candidate">
+<h2>Tagging the new release candidate<a class="headerlink" href="#tagging-the-new-release-candidate" title="Permalink to this heading">¶</a></h2>
 <p>First we will generate a release candidate, which will contain the letters <code class="docutils literal notranslate"><span class="pre">rc</span></code>.
 Using release candidates allows us to test releases on PyPI without using up the actual
 release number.</p>
@@ -796,9 +888,9 @@ release number.</p>
 <p>Note here how we are using <code class="docutils literal notranslate"><span class="pre">rc</span></code> for release candidate to create a version of our release we can test
 before making the real release.</p>
 <p>You can read more on tagging <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">here</a>.</p>
-</section>
-<section id="testing-the-release-candidate">
-<h2>Testing the release candidate<a class="headerlink" href="#testing-the-release-candidate" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="testing-the-release-candidate">
+<h2>Testing the release candidate<a class="headerlink" href="#testing-the-release-candidate" title="Permalink to this heading">¶</a></h2>
 <p>Our CI automatically makes a release, copying the release notes to the tag and uploading the distribution to PyPI.
 You can trigger this by pushing the new tag to <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git push upstream --tags
@@ -812,17 +904,17 @@ You can trigger this by pushing the new tag to <code class="docutils literal not
 <p>If the release candidate is not what you want, make your changes and repeat the process from the beginning but
 incrementing the number after <code class="docutils literal notranslate"><span class="pre">rc</span></code> on tag (e.g. <code class="docutils literal notranslate"><span class="pre">vX.Y.Zrc2</span></code>).</p>
 <p>Once you are satisfied with the release candidate it is time to generate the actual release.</p>
-</section>
-<section id="generating-the-actual-release">
-<h2>Generating the actual release<a class="headerlink" href="#generating-the-actual-release" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="generating-the-actual-release">
+<h2>Generating the actual release<a class="headerlink" href="#generating-the-actual-release" title="Permalink to this heading">¶</a></h2>
 <p>To generate the actual release you will now repeat the processes above but now dropping the <code class="docutils literal notranslate"><span class="pre">rc</span></code>.
 For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Z main
 git push upstream --tags
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -1158,7 +1250,7 @@ git push upstream --tags
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

@@ -32,12 +32,6 @@ napari.utils.events.NestableEventedList
       ~NestableEventedList.extend
    
    
-<<<<<<< HEAD:_sources/api/napari.utils.events.NestableEventedList.rst
-      ~NestableEventedList.has_index
-   
-   
-=======
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.utils.events.NestableEventedList.rst
       ~NestableEventedList.index
    
    
@@ -67,11 +61,7 @@ napari.utils.events.NestableEventedList
 
    .. autosummary::
    
-<<<<<<< HEAD:_sources/api/napari.utils.events.NestableEventedList.rst
-      
-=======
       ~NestableEventedList.events
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.utils.events.NestableEventedList.rst
    
    
 

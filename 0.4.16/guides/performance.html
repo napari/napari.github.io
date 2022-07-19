@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>napari performance &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Preferences" href="preferences.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/performance and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/performance.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/performance.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1762,8 +1854,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="napari-performance">
-<span id="id1"></span><h1>napari performance<a class="headerlink" href="#napari-performance" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="napari-performance">
+<span id="id1"></span><h1>napari performance<a class="headerlink" href="#napari-performance" title="Permalink to this heading">¶</a></h1>
 <p>With offline analysis tools performance dictates how long the user has to wait
 for a result, however with an interactive tool like napari performance is even
 more critical. Therefore performance is a core feature of napari.</p>
@@ -1773,14 +1865,14 @@ their data altogether. In contrast, excellent performance will create a joyful
 experience that encourages longer and more intensive exploration, yielding
 better scientific results.</p>
 <p>There are two main types of performance:</p>
-<ol class="simple">
-<li><p><a class="reference external" href="#objective-performance">Objective performance</a></p>
+<ol class="arabic simple">
+<li><p><span class="xref myst">Objective performance</span></p>
 <ul class="simple">
 <li><p>How long operations take when timed with a stopwatch.</p></li>
 <li><p>Most times will vary based on the data being viewed.</p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="#subjective-performance">Subjective performance</a></p>
+<li><p><span class="xref myst">Subjective performance</span></p>
 <ul class="simple">
 <li><p>The user’s experience as it relates to performance.</p></li>
 <li><p>Is the user’s experience pleasant or frustrating? Does napari “seem fast”?</p></li>
@@ -1790,11 +1882,11 @@ better scientific results.</p>
 <p>Both types of performance are important. No amount of slickness can make up for
 an application that is fundamentally too slow. And even a relatively fast
 application can feel clunky or frustrating if not designed well.</p>
-<section id="objective-performance">
-<h2>Objective performance<a class="headerlink" href="#objective-performance" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="objective-performance">
+<h2>Objective performance<a class="headerlink" href="#objective-performance" title="Permalink to this heading">¶</a></h2>
 <p>How to keep napari objectively fast:</p>
-<section id="focus-on-real-use-cases">
-<h3>Focus on real use cases<a class="headerlink" href="#focus-on-real-use-cases" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="focus-on-real-use-cases">
+<h3>Focus on real use cases<a class="headerlink" href="#focus-on-real-use-cases" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Focus on cases that matter to lots of people.</p></li>
 <li><p>It’s easy to waste time optimizing things no one cares about or no one will
@@ -1802,9 +1894,9 @@ notice.</p></li>
 <li><p>If a dataset is unreasonable or out of scope or fringe, don’t spend too
 many resources trying to make it run fast.</p></li>
 </ul>
-</section>
-<section id="always-be-timing">
-<h3>Always be timing<a class="headerlink" href="#always-be-timing" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="always-be-timing">
+<h3>Always be timing<a class="headerlink" href="#always-be-timing" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Build timers into the software that always run.</p></li>
 <li><p>If not always visible, power users and developers should be able to toggle them on.</p></li>
@@ -1822,37 +1914,37 @@ many resources trying to make it run fast.</p></li>
 </ul>
 </li>
 </ul>
-</section>
-<section id="performance-system-tests">
-<h3>Performance system tests<a class="headerlink" href="#performance-system-tests" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="performance-system-tests">
+<h3>Performance system tests<a class="headerlink" href="#performance-system-tests" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Create automatic tests that time specific operations in specific known datasets.</p></li>
 <li><p>Time many different operations on a nice selection of different datasets.</p></li>
 </ul>
-</section>
-<section id="performance-unit-tests">
-<h3>Performance unit tests<a class="headerlink" href="#performance-unit-tests" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="performance-unit-tests">
+<h3>Performance unit tests<a class="headerlink" href="#performance-unit-tests" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Time one small operation to monitor for regressions.</p></li>
 <li><p>Napari has some of these today as “benchmarks”.</p></li>
 <li><p>Interesting to see how different hardware performs as time goes on.</p></li>
 </ul>
-</section>
-<section id="run-all-tests-every-merge">
-<h3>Run all tests every merge<a class="headerlink" href="#run-all-tests-every-merge" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="run-all-tests-every-merge">
+<h3>Run all tests every merge<a class="headerlink" href="#run-all-tests-every-merge" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Save results to a database maybe using <a class="reference external" href="https://asv.readthedocs.io/en/stable/index.html">ASV</a>.</p></li>
 <li><p>Catch a regression right when it happens and not weeks or
 months later.</p></li>
 <li><p>See how new features run on large datasets no one tested.</p></li>
 </ul>
-</section>
-</section>
-<section id="subjective-performance">
-<h2>Subjective performance<a class="headerlink" href="#subjective-performance" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="subjective-performance">
+<h2>Subjective performance<a class="headerlink" href="#subjective-performance" title="Permalink to this heading">¶</a></h2>
 <p>Napari should strive to have these properties:</p>
-<section id="responsive">
-<h3>Responsive<a class="headerlink" href="#responsive" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="responsive">
+<h3>Responsive<a class="headerlink" href="#responsive" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>React to input one of two ways:</p>
 <ul>
@@ -1867,9 +1959,9 @@ frame.</p></li>
 <li><p>The UI should never seem dead, the user should never be left wondering if
 napari has crashed.</p></li>
 </ul>
-</section>
-<section id="interruptible">
-<h3>Interruptible<a class="headerlink" href="#interruptible" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="interruptible">
+<h3>Interruptible<a class="headerlink" href="#interruptible" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Modeless operations are best. They can interrupted by simply performing some
 other action. For example if imagery is loading in the background you can
@@ -1878,18 +1970,18 @@ interrupt it just by navigating to somewhere else.</p></li>
 unless they are very short.</p></li>
 <li><p>The user should never feel “trapped”.</p></li>
 </ul>
-</section>
-<section id="progressive">
-<h3>Progressive<a class="headerlink" href="#progressive" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="progressive">
+<h3>Progressive<a class="headerlink" href="#progressive" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Show intermediate results as they become available instead of showing nothing
 until the full result is ready.</p></li>
 <li><p>Sometimes progressive results are better even if they slow things down a bit,
 which is not necessarily intuitive.</p></li>
 </ul>
-</section>
-<section id="informative">
-<h3>Informative<a class="headerlink" href="#informative" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="informative">
+<h3>Informative<a class="headerlink" href="#informative" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Clearly show what controls are enabled or disabled.</p></li>
 <li><p>If progressive display is not possible, show a progress bar.</p></li>
@@ -1898,13 +1990,13 @@ which is not necessarily intuitive.</p></li>
 <li><p>Let power users see timings, bandwidth, FPS, etc.</p></li>
 <li><p>Revealing internal state that explains why it’s taking time is helpful.</p></li>
 </ul>
-</section>
-</section>
-<section id="performance-is-never-done">
-<h2>Performance is never done<a class="headerlink" href="#performance-is-never-done" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="performance-is-never-done">
+<h2>Performance is never done<a class="headerlink" href="#performance-is-never-done" title="Permalink to this heading">¶</a></h2>
 <p>Performance is never “done” for several reasons:</p>
-<section id="new-features">
-<h3>New features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="new-features">
+<h3>New features<a class="headerlink" href="#new-features" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The objective and subjective performance of new features should be scrutinized
 before merging to main.</p></li>
@@ -1913,32 +2005,32 @@ before merging to main.</p></li>
 <li><p>It can be hard to impossible to “add performance in later”. The best time to
 ensure the new feature performs well is when the feature is first added.</p></li>
 </ul>
-</section>
-<section id="regressions">
-<h3>Regressions*<a class="headerlink" href="#regressions" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="regressions">
+<h3>Regressions*<a class="headerlink" href="#regressions" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>We must be on guard for new features slowing down existing features.</p></li>
 <li><p>New versions of dependencies can slow things down.</p></li>
 <li><p>New hardware generally helps performance but not always.</p></li>
 </ul>
-</section>
-<section id="scope-changes">
-<h3>Scope changes<a class="headerlink" href="#scope-changes" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="scope-changes">
+<h3>Scope changes<a class="headerlink" href="#scope-changes" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>As new types of users adopt napari they will have new use cases.</p></li>
 <li><p>Existing users will change their usage over time such as more remote viewing.</p></li>
 <li><p>New file formats will be invented or become more common.</p></li>
 <li><p>New data types or sizes will become more common.</p></li>
 </ul>
-</section>
-</section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
 <p>Achieving and maintaining performance requires an extreme amount of effort and
 diligence, but the payoff will be felt in every minute of usage. The end result
 is delighted and productive users.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -2274,7 +2366,7 @@ is delighted and productive users.</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

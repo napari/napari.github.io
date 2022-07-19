@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Your First Plugin &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Manifest Reference" href="manifest.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/first_plugin and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/first_plugin.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/first_plugin.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -357,8 +449,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="your-first-plugin">
-<h1>Your First Plugin<a class="headerlink" href="#your-first-plugin" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="your-first-plugin">
+<h1>Your First Plugin<a class="headerlink" href="#your-first-plugin" title="Permalink to this heading">¶</a></h1>
 <p>In this tutorial, we’ll step through the fundamental concepts for building a
 <strong>bare minimum</strong> “hello napari” plugin from scratch.</p>
 <p>At the end, we’ll point you to a “cookiecutter” template
@@ -369,8 +461,8 @@ of conveniences for testing, maintaining, and deploying your plugin.</p>
 <p>This page describes the creation of a plugin targeting <code class="docutils literal notranslate"><span class="pre">npe2</span></code>, the second
 generation plugin engine.</p>
 </div>
-<section id="before-you-start">
-<h2>Before you start<a class="headerlink" href="#before-you-start" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="before-you-start">
+<h2>Before you start<a class="headerlink" href="#before-you-start" title="Permalink to this heading">¶</a></h2>
 <p>We assume you’ve set up a Python virtual environment (using a virtual
 environment instead of a global python installation is <strong>highly
 recommended</strong>). If you are new to virtual environments, we recommend
@@ -382,41 +474,41 @@ you will need a working installation of napari in your active Python
 environment to use and test your plugin.
 See the <a class="reference internal" href="../tutorials/fundamentals/installation.html#installation"><span class="std std-ref">installation guide</span></a> if this is your first time
 installing napari.</p>
-</section>
-<section id="what-is-a-plugin">
-<h2>What is a plugin?<a class="headerlink" href="#what-is-a-plugin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="what-is-a-plugin">
+<h2>What is a plugin?<a class="headerlink" href="#what-is-a-plugin" title="Permalink to this heading">¶</a></h2>
 <p>Napari plugins are just Python packages. <em>Minimally</em>, they must:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Include a static <a class="reference internal" href="manifest.html"><span class="doc std std-doc">plugin manifest</span></a> file that details the
 <a class="reference internal" href="contributions.html"><span class="doc std std-doc">contributions</span></a> contained in the plugin.</p></li>
 <li><p>Declare a <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> <a class="reference external" href="https://packaging.python.org/en/latest/specifications/entry-points/">entry point</a> that allows
 napari to detect the plugin at runtime.</p></li>
 </ol>
-</section>
-<section id="create-a-new-directory">
-<h2>1. Create a new directory<a class="headerlink" href="#create-a-new-directory" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="create-a-new-directory">
+<h2>1. Create a new directory<a class="headerlink" href="#create-a-new-directory" title="Permalink to this heading">¶</a></h2>
 <p>Let’s create a new folder called <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> for your plugin files,
 and navigate into it.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir napari-hello
 <span class="nb">cd</span> napari-hello
 </pre></div>
 </div>
-</section>
-<section id="add-standard-python-package-metadata-files">
-<h2>2. Add standard Python package metadata files<a class="headerlink" href="#add-standard-python-package-metadata-files" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="add-standard-python-package-metadata-files">
+<h2>2. Add standard Python package metadata files<a class="headerlink" href="#add-standard-python-package-metadata-files" title="Permalink to this heading">¶</a></h2>
 <p>In your root <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> folder, create a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file,
 then create a <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> directory with a single <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file inside of it.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="831d1c22-4c5f-4fb2-b506-1bdaec65ffda" name="ffc98e63-e04d-42c8-ba3d-5c4a653c93c7" type="radio">
-</input><label class="tabbed-label" for="831d1c22-4c5f-4fb2-b506-1bdaec65ffda">
+<input checked="checked" id="96972d78-2ea9-428c-8192-33acca03195c" name="d9823b05-36e9-4e55-af51-8540b7bf8e7e" type="radio">
+</input><label class="tabbed-label" for="96972d78-2ea9-428c-8192-33acca03195c">
 macOS / Linux</label><div class="tabbed-content docutils">
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir napari_hello
 touch napari_hello/__init__.py napari_hello/napari.yaml pyproject.toml setup.cfg
 </pre></div>
 </div>
 </div>
-<input id="64688969-1bc9-45d9-8460-ff9004d893f9" name="ffc98e63-e04d-42c8-ba3d-5c4a653c93c7" type="radio">
-</input><label class="tabbed-label" for="64688969-1bc9-45d9-8460-ff9004d893f9">
+<input id="5dd2fc8a-6f54-4729-a66a-15c4cc1722bb" name="d9823b05-36e9-4e55-af51-8540b7bf8e7e" type="radio">
+</input><label class="tabbed-label" for="5dd2fc8a-6f54-4729-a66a-15c4cc1722bb">
 Windows</label><div class="tabbed-content docutils">
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">mkdir</span> napari_hello
 <span class="k">copy</span> /b napari_hello\__init__.py +,,
@@ -453,8 +545,8 @@ single top-level module, called <code class="docutils literal notranslate"><span
 </div>
 </div>
 <p>Next, we will populate <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code></p>
-<section id="pyproject-toml">
-<h3><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code><a class="headerlink" href="#pyproject-toml" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pyproject-toml">
+<h3><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code><a class="headerlink" href="#pyproject-toml" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is a standard file (introduced in
@@ -471,9 +563,9 @@ for packaging our plugin.  Paste the following text into <code class="docutils l
 <span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;setuptools.build_meta&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="setup-cfg">
-<h3><code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#setup-cfg" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="setup-cfg">
+<h3><code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#setup-cfg" title="Permalink to this heading">¶</a></h3>
 <p>This file is where <a class="reference external" href="https://setuptools.pypa.io/en/latest/">setuptools</a>
 looks for package metadata. Here, we provide the bare minimum package metadata
 (name and version), along with a <a class="reference external" href="https://pypi.org/classifiers/">PyPI classifier</a>
@@ -492,16 +584,16 @@ that identifies the package as a napari plugin.</p>
 <p>There is a <em>lot</em> more than can go in the package metadata.
 See the <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/quickstart.html">setuptools quickstart</a>
 for more.</p>
-</section>
-</section>
-<section id="implement-the-plugin">
-<h2>3. Implement the plugin<a class="headerlink" href="#implement-the-plugin" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="implement-the-plugin">
+<h2>3. Implement the plugin<a class="headerlink" href="#implement-the-plugin" title="Permalink to this heading">¶</a></h2>
 <p>So far, we’ve done nothing napari-specific.  Let’s create the actual plugin and add
 some Python code. We’re going to add a
 <a class="reference internal" href="contributions.html#contributions-widgets"><span class="std std-ref">Widget contribution</span></a>
 with a single button that shows a “Hello, world!” message when clicked.</p>
-<section id="add-plugin-functionality-to-napari-hello-init-py">
-<h3>Add plugin functionality to <code class="docutils literal notranslate"><span class="pre">napari_hello/__init__.py</span></code><a class="headerlink" href="#add-plugin-functionality-to-napari-hello-init-py" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="add-plugin-functionality-to-napari-hello-init-py">
+<h3>Add plugin functionality to <code class="docutils literal notranslate"><span class="pre">napari_hello/__init__.py</span></code><a class="headerlink" href="#add-plugin-functionality-to-napari-hello-init-py" title="Permalink to this heading">¶</a></h3>
 <p>Copy and paste the following text into the file at <code class="docutils literal notranslate"><span class="pre">napari_hello/__init__.py</span></code>.
 It just uses the napari notifications API to show a message:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils.notifications</span> <span class="kn">import</span> <span class="n">show_info</span>
@@ -512,12 +604,12 @@ It just uses the napari notifications API to show a message:</p>
 </div>
 <p><em>(It doesn’t look like a widget yet! We’re going to use napari’s widget
 autogeneration capabilities to turn this function into a widget)</em></p>
-</section>
-<section id="add-a-napari-yaml-manifest">
-<h3>Add a <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> manifest<a class="headerlink" href="#add-a-napari-yaml-manifest" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="add-a-napari-yaml-manifest">
+<h3>Add a <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> manifest<a class="headerlink" href="#add-a-napari-yaml-manifest" title="Permalink to this heading">¶</a></h3>
 <p>If you haven’t already, create an empty <a class="reference internal" href="manifest.html"><span class="doc std std-doc">plugin manifest</span></a> file at <code class="docutils literal notranslate"><span class="pre">napari_hello/napari.yaml</span></code>
 We will use this file to tell napari:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>That our plugin contributes a <a class="reference internal" href="contributions.html#contributions-commands"><span class="std std-ref"><strong>command</strong></span></a>
 (we give the command an ID of <code class="docutils literal notranslate"><span class="pre">napari-hello.say_hi</span></code>. It must start with our plugin
 name, and be unique).</p></li>
@@ -547,11 +639,11 @@ need to go in the top <code class="docutils literal notranslate"><span class="pr
 of the corresponding <code class="docutils literal notranslate"><span class="pre">command</span></code> in the manifest points to the correct
 <code class="docutils literal notranslate"><span class="pre">&lt;module_name&gt;:&lt;function_name&gt;</span></code>.</p>
 </div>
-</section>
-<section id="update-setup-cfg">
-<h3>Update <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#update-setup-cfg" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="update-setup-cfg">
+<h3>Update <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#update-setup-cfg" title="Permalink to this heading">¶</a></h3>
 <p>Lastly, let’s make a few small changes to <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.</p>
-<ol>
+<ol class="arabic">
 <li><p>Because we are directly using the <code class="docutils literal notranslate"><span class="pre">napari.utils.notifications</span></code> API in our,
 <code class="docutils literal notranslate"><span class="pre">show_hello_message</span></code> function, we need to add <code class="docutils literal notranslate"><span class="pre">napari</span></code> to our package
 <strong><code class="docutils literal notranslate"><span class="pre">install_requires</span></code></strong>. (You should add <em>all</em> of your package dependencies
@@ -589,10 +681,10 @@ advertise components it provides to be discovered and used by other code.</p>
 <span class="w">    </span><span class="na">napari-hello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">napari_hello:napari.yaml</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="install-your-plugin-and-try-it-out">
-<h2>4. Install your plugin and try it out!<a class="headerlink" href="#install-your-plugin-and-try-it-out" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="install-your-plugin-and-try-it-out">
+<h2>4. Install your plugin and try it out!<a class="headerlink" href="#install-your-plugin-and-try-it-out" title="Permalink to this heading">¶</a></h2>
 <p>With that, we’re ready to go.  Let’s install our package in the environment
 and then run napari.  Note: we’re using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> here to install our
 package (in the current working directory) in <a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs">“editable” mode</a>.
@@ -604,9 +696,9 @@ napari
 </div>
 <p>Once napari starts, select <code class="docutils literal notranslate"><span class="pre">napari-hello:</span> <span class="pre">Hello</span> <span class="pre">World</span></code> from the
 <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> menu, then click the <code class="docutils literal notranslate"><span class="pre">Run</span></code> button to see the message.</p>
-</section>
-<section id="get-going-quickly-with-cookiecutter">
-<h2>Get going quickly with cookiecutter<a class="headerlink" href="#get-going-quickly-with-cookiecutter" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="get-going-quickly-with-cookiecutter">
+<h2>Get going quickly with cookiecutter<a class="headerlink" href="#get-going-quickly-with-cookiecutter" title="Permalink to this heading">¶</a></h2>
 <p>Now that you’ve learned all of the critical steps for creating a plugin,
 you can use our <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter template repository</a>
 to get up and running quickly with each new plugin.
@@ -618,17 +710,17 @@ management, and deployment hooks.</p>
 cookiecutter https://github.com/napari/cookiecutter-napari-plugin
 </pre></div>
 </div>
-</section>
-<section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <p>Plugins can do a lot more than just say hi!  You can see the complete list
 of available contributions and their fields in the
 <a class="reference internal" href="contributions.html"><span class="doc std std-doc">Contributions Reference</span></a>, and learn more about each
 specific contribution type in the <a class="reference internal" href="guides.html"><span class="doc std std-doc">Guides</span></a>.</p>
 <p>Review the <a class="reference internal" href="best_practices.html"><span class="doc std std-doc">Best Practices</span></a> when developing plugins and,
 when you’re ready to share your plugin, see <a class="reference internal" href="test_deploy.html"><span class="doc std std-doc">Testing and Deployment</span></a>.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -964,7 +1056,7 @@ when you’re ready to share your plugin, see <a class="reference internal" href
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

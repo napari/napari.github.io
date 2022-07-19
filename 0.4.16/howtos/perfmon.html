@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Performance monitoring &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="In-depth explanations" href="../guides/index.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables howtos/perfmon and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "howtos/perfmon.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "howtos/perfmon.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1786,20 +1878,20 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="performance-monitoring">
-<span id="perfmon"></span><h1>Performance monitoring<a class="headerlink" href="#performance-monitoring" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="performance-monitoring">
+<span id="perfmon"></span><h1>Performance monitoring<a class="headerlink" href="#performance-monitoring" title="Permalink to this heading">¶</a></h1>
 <p>If napari is not performing well, you can use
 <a class="reference internal" href="../api/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> to help
 diagnose the problem.</p>
 <p>The module can do several things:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Time Qt Events</p></li>
 <li><p>Display a dockable <strong>performance</strong> widget.</p></li>
 <li><p>Write JSON trace files viewable with <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>.</p></li>
 <li><p>Time any function that you specify in the config file.</p></li>
 </ol>
-<section id="monitoring-vs-profiling">
-<h2>Monitoring vs. profiling<a class="headerlink" href="#monitoring-vs-profiling" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="monitoring-vs-profiling">
+<h2>Monitoring vs. profiling<a class="headerlink" href="#monitoring-vs-profiling" title="Permalink to this heading">¶</a></h2>
 <p>Profiling is similar to performance monitoring. However profiling usually
 involves running an external tool to acquire timing data on every function
 in the program. Sometimes this will cause the program to run so slowly it’s
@@ -1810,9 +1902,9 @@ With performance monitoring napari can run at close to full speed in many
 cases. This document discusses only napari’s performance monitoring
 features. Profiling napari might be useful as well, but it is not discussed
 here.</p>
-</section>
-<section id="enabling-perfmon">
-<h2>Enabling perfmon<a class="headerlink" href="#enabling-perfmon" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="enabling-perfmon">
+<h2>Enabling perfmon<a class="headerlink" href="#enabling-perfmon" title="Permalink to this heading">¶</a></h2>
 <p>There are two ways to enable performance monitoring. Set the environment
 variable <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON=1</span></code> or set <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON</span></code> to the path of
 a JSON configuration file, for example <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON=/tmp/perfmon.json</span></code>.</p>
@@ -1823,14 +1915,14 @@ If you are using <code class="docutils literal notranslate"><span class="pre">NA
 creating a napari <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>.</p>
 </div>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">NAPARI_PERFMON=1</span></code> does three things:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Times Qt Events</p></li>
 <li><p>Shows the dockable <strong>performance</strong> widget.</p></li>
 <li><p>Reveals the <strong>Debug</strong> menu which you can use to create a trace file.</p></li>
 </ol>
-</section>
-<section id="configuration-file-format">
-<h2>Configuration file format<a class="headerlink" href="#configuration-file-format" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="configuration-file-format">
+<h2>Configuration file format<a class="headerlink" href="#configuration-file-format" title="Permalink to this heading">¶</a></h2>
 <p>Example configuration file:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;trace_qt_events&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -1847,35 +1939,35 @@ creating a napari <code class="docutils literal notranslate"><span class="pre">V
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="configuration-options">
-<h2>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h2>
-<section id="trace-qt-events">
-<h3><code class="docutils literal notranslate"><span class="pre">trace_qt_events</span></code><a class="headerlink" href="#trace-qt-events" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="configuration-options">
+<h2>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="trace-qt-events">
+<h3><code class="docutils literal notranslate"><span class="pre">trace_qt_events</span></code><a class="headerlink" href="#trace-qt-events" title="Permalink to this heading">¶</a></h3>
 <p>If true perfmon will time the duration of all Qt Events. You might
 want to turn this off if the overhead is noticeable, or if you want
 your trace file to be less cluttered.</p>
-</section>
-<section id="trace-file-on-start">
-<h3><code class="docutils literal notranslate"><span class="pre">trace_file_on_start</span></code><a class="headerlink" href="#trace-file-on-start" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="trace-file-on-start">
+<h3><code class="docutils literal notranslate"><span class="pre">trace_file_on_start</span></code><a class="headerlink" href="#trace-file-on-start" title="Permalink to this heading">¶</a></h3>
 <p>If a path is given, napari will start tracing immediately on start. In many
 cases this is much more convenient than using the <strong>Debug</strong> Menu. Be sure to
 exit napari using the <strong>Quit</strong> command. The trace file will be written on
 exit.</p>
-</section>
-<section id="trace-callables">
-<h3><code class="docutils literal notranslate"><span class="pre">trace_callables</span></code><a class="headerlink" href="#trace-callables" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="trace-callables">
+<h3><code class="docutils literal notranslate"><span class="pre">trace_callables</span></code><a class="headerlink" href="#trace-callables" title="Permalink to this heading">¶</a></h3>
 <p>Specify which <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> you want to trace. You can have many
 <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> defined, but this setting says which should be traced.</p>
-</section>
-<section id="callable-lists">
-<h3><code class="docutils literal notranslate"><span class="pre">callable_lists</span></code><a class="headerlink" href="#callable-lists" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="callable-lists">
+<h3><code class="docutils literal notranslate"><span class="pre">callable_lists</span></code><a class="headerlink" href="#callable-lists" title="Permalink to this heading">¶</a></h3>
 <p>These lists can be referenced by the <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> option. You might
 want multiple lists so they can be enabled separately.</p>
-</section>
-</section>
-<section id="trace-file">
-<h2>Trace file<a class="headerlink" href="#trace-file" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="trace-file">
+<h2>Trace file<a class="headerlink" href="#trace-file" title="Permalink to this heading">¶</a></h2>
 <p>The trace file that napari produces is viewable in Chrome. Go to the
 special URL <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>. Use the <strong>Load</strong> button inside the Chrome
 window, or just drag-n-drop your JSON trace file into the Chrome window.
@@ -1887,13 +1979,13 @@ It is similar to <code class="docutils literal notranslate"><span class="pre">ch
 Google Doc. The format is well-documented, but there are no pictures so
 it’s not always clear how a given feature actually looks in the Chrome
 Tracing GUI.</p>
-</section>
-<section id="example-investigation">
-<h2>Example investigation<a class="headerlink" href="#example-investigation" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="example-investigation">
+<h2>Example investigation<a class="headerlink" href="#example-investigation" title="Permalink to this heading">¶</a></h2>
 <p>This is an example showing how you might use the
 <a class="reference internal" href="../api/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> module.</p>
-<section id="add-a-sleep">
-<h3>Add a sleep<a class="headerlink" href="#add-a-sleep" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="add-a-sleep">
+<h3>Add a sleep<a class="headerlink" href="#add-a-sleep" title="Permalink to this heading">¶</a></h3>
 <p>To simulate a performance problem in napari, add a <code class="docutils literal notranslate"><span class="pre">sleep()</span></code> call to the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code> method, this
 will make the method take at least 100 ms:</p>
@@ -1905,9 +1997,9 @@ will make the method take at least 100 ms:</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_history</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
-<section id="create-a-perfmon-config-file">
-<h3>Create a perfmon config file<a class="headerlink" href="#create-a-perfmon-config-file" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="create-a-perfmon-config-file">
+<h3>Create a perfmon config file<a class="headerlink" href="#create-a-perfmon-config-file" title="Permalink to this heading">¶</a></h3>
 <p>Create a minimal perfmon config file <code class="docutils literal notranslate"><span class="pre">/tmp/perfmon.json</span></code> that looks like this:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;trace_qt_events&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -1920,9 +2012,9 @@ will make the method take at least 100 ms:</p>
 only written on exit, and you must exit with the <strong>Quit</strong> commmand. Using
 <code class="docutils literal notranslate"><span class="pre">trace_file_on_start</span></code> is often easier than manually starting a trace using
 the <strong>Debug</strong> menu.</p>
-</section>
-<section id="run-napari">
-<h3>Run napari<a class="headerlink" href="#run-napari" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="run-napari">
+<h3>Run napari<a class="headerlink" href="#run-napari" title="Permalink to this heading">¶</a></h3>
 <p>Now run napari’s <code class="docutils literal notranslate"><span class="pre">add_labels</span></code> example like this:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>    <span class="nv">NAPARI_PERFMON</span><span class="o">=</span>/tmp/perfmon.json python examples/add_labels.py
 </pre></div>
@@ -1935,9 +2027,9 @@ is running slow:</p>
 <p>The trace file will give you much more information than the <strong>performance</strong>
 widget. Exit napari using the <strong>Quit</strong> command so that it writes the trace
 file on exit.</p>
-</section>
-<section id="view-trace-in-chrome">
-<h3>View trace in Chrome<a class="headerlink" href="#view-trace-in-chrome" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="view-trace-in-chrome">
+<h3>View trace in Chrome<a class="headerlink" href="#view-trace-in-chrome" title="Permalink to this heading">¶</a></h3>
 <p>Run Chrome and go to the URL <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code>. Drag and drop
 <code class="docutils literal notranslate"><span class="pre">/tmp/latest.json</span></code> into the Chrome window, or use the <strong>Load</strong> button to
 load the JSON file. You will usually need to pan and zoom the trace to
@@ -1952,9 +2044,9 @@ why are <code class="docutils literal notranslate"><span class="pre">MouseButton
 question we can add more timers. In this case we know the answer, but often
 you will have to guess or experiment. You might add some timers and then
 find out they actually run fast, so you can remove them.</p>
-</section>
-<section id="add-paint-method">
-<h3>Add paint method<a class="headerlink" href="#add-paint-method" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="add-paint-method">
+<h3>Add paint method<a class="headerlink" href="#add-paint-method" title="Permalink to this heading">¶</a></h3>
 <p>To add the <a class="reference internal" href="../api/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> method to
 the trace, create a new list of callables named <code class="docutils literal notranslate"><span class="pre">labels</span></code> and put the
 <a class="reference internal" href="../api/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> method into
@@ -1973,14 +2065,14 @@ that list.</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="create-the-new-trace-file">
-<h3>Create the new trace File<a class="headerlink" href="#create-the-new-trace-file" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="create-the-new-trace-file">
+<h3>Create the new trace File<a class="headerlink" href="#create-the-new-trace-file" title="Permalink to this heading">¶</a></h3>
 <p>Run <code class="docutils literal notranslate"><span class="pre">add_labels</span></code> as before, click with the paint tool, exit with the <strong>Quit</strong>
 command.</p>
-</section>
-<section id="view-the-new-trace-file">
-<h3>View the new trace File<a class="headerlink" href="#view-the-new-trace-file" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="view-the-new-trace-file">
+<h3>View the new trace File<a class="headerlink" href="#view-the-new-trace-file" title="Permalink to this heading">¶</a></h3>
 <p>Drop <code class="docutils literal notranslate"><span class="pre">/tmp/latest.json</span></code> into Chrome again. Now we can see that
 <code class="docutils literal notranslate"><span class="pre">MouseButtonPress</span></code> calls
 <a class="reference internal" href="../api/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> and that
@@ -1995,9 +2087,9 @@ add a timer that’s called thousands of times, it will add overhead and will
 clutter the trace file. In general we want to trace important and
 interesting functions. If we create a large <code class="docutils literal notranslate"><span class="pre">callable_list</span></code> we can save it
 for future use.</p>
-</section>
-<section id="advanced">
-<h3>Advanced<a class="headerlink" href="#advanced" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="advanced">
+<h3>Advanced<a class="headerlink" href="#advanced" title="Permalink to this heading">¶</a></h3>
 <p>Experiment with the <a class="reference internal" href="../api/napari.utils.perf.html#module-napari.utils.perf" title="napari.utils.perf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.utils.perf</span></code></a> features and
 you will find your own tricks and techniques.</p>
 <p>Create multiple <code class="docutils literal notranslate"><span class="pre">callable_lists</span></code> and toggle them on or off depending on
@@ -2021,9 +2113,9 @@ prints”, things you add while investigating a problem, but you do not leave
 them in the code permanently.</p>
 <p>You can save JSON files so that you can compare how things looked
 before and after your changes.</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -2359,7 +2451,7 @@ before and after your changes.</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

@@ -10,11 +10,7 @@ Python](https://realpython.com/python-testing/)
 
 We recommend using
 [pytest](https://docs.pytest.org/en/6.2.x/getting-started.html) for testing your
-<<<<<<< HEAD:_sources/plugins/test_deploy.md
-plugin. Aim for [100% test coverage](./best_practices.md#how-to-check-test-coverage)!
-=======
 plugin. Aim for [100% test coverage](best_practices.html#how-to-check-test-coverage)!
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/plugins/test_deploy.md
 
 ### The `make_napari_viewer` fixture
 

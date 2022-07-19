@@ -16,8 +16,7 @@ kernelspec:
 In this document, you will learn how to use the `napari` image layer, including
 the types of images that can be displayed, and how to set properties like the
 contrast, opacity, colormaps and blending mode. You will also understand how
-to add and manipulate a variety of different types of images both from the GUI
-and from the console.
+to add and manipulate a variety of different types of images both from the
 
 ## A simple example
 
@@ -41,7 +40,7 @@ viewer = napari.view_image(cells, colormap='magma')
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="Cells")
+nbscreenshot(viewer)
 ```
 
 ```{code-cell} python
@@ -73,7 +72,7 @@ object that you can index into and when you call
 [`np.asarray`](https://numpy.org/doc/stable/reference/generated/numpy.asarray.html)
 on it you get back a numpy array.
 
-The great thing about napari support of array-like objects is that you get to keep
+The great thing about napari support array-like objects is that you get to keep
 on using your favorite array libraries without worrying about any conversions as
 we'll handle all of that for you.
 
@@ -160,7 +159,7 @@ viewer = napari.view_image(data.astronaut(), rgb=True)
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="napari viewer with the left sidebar layer controls and an image of astronaut Eileen Collins. In the layer controls, the colormap is fixed to RGB")
+nbscreenshot(viewer)
 ```
 
 ```{code-cell} python
@@ -224,7 +223,7 @@ viewer = napari.view_image(image, colormap=('diverging', cmap))
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="napari viewer with colormap example using random data")
+nbscreenshot(viewer)
 ```
 
 Note in this example how we passed the colormap keyword argument as a tuple
@@ -267,7 +266,7 @@ viewer.layers['moon'].contrast_limits=(100, 175)
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="A viewer where the contrast limits have been adjusted")
+nbscreenshot(viewer)
 ```
 
 ```{code-cell} python

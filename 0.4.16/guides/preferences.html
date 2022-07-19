@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preferences &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contexts and Expressions in napari" href="contexts_expressions.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/preferences and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/preferences.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/preferences.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1925,8 +2017,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="preferences">
-<span id="napari-preferences"></span><h1>Preferences<a class="headerlink" href="#preferences" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="preferences">
+<span id="napari-preferences"></span><h1>Preferences<a class="headerlink" href="#preferences" title="Permalink to this heading">¶</a></h1>
 <p>Starting with version 0.4.6, napari provides persistent settings.</p>
 <p>Settings are managed by getting the global settings object:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
@@ -1936,14 +2028,14 @@
 <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
 </pre></div>
 </div>
-<section id="sections">
-<h2>Sections<a class="headerlink" href="#sections" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sections">
+<h2>Sections<a class="headerlink" href="#sections" title="Permalink to this heading">¶</a></h2>
 <p>The settings are grouped by sections and napari core provides the following:</p>
-<section id="application">
-<h3>APPLICATION<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="application">
+<h3>APPLICATION<a class="headerlink" href="#application" title="Permalink to this heading">¶</a></h3>
 <p>Main application settings.</p>
-<section id="console-notification-level">
-<h4>Console notification level<a class="headerlink" href="#console-notification-level" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="console-notification-level">
+<h4>Console notification level<a class="headerlink" href="#console-notification-level" title="Permalink to this heading">¶</a></h4>
 <p><em>Select the notification level for the console.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.console_notification_level</span></code>.</small></p></li>
@@ -1951,18 +2043,18 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;NotificationSeverity.NONE:</span> <span class="pre">'none'&gt;</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="first-time">
-<h4>First time<a class="headerlink" href="#first-time" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="first-time">
+<h4>First time<a class="headerlink" href="#first-time" title="Permalink to this heading">¶</a></h4>
 <p><em>Indicate if napari is running for the first time. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.first_time</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="grid-height">
-<h4>Grid Height<a class="headerlink" href="#grid-height" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="grid-height">
+<h4>Grid Height<a class="headerlink" href="#grid-height" title="Permalink to this heading">¶</a></h4>
 <p><em>Number of rows in the grid.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_height</span></code>.</small></p></li>
@@ -1970,9 +2062,9 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="grid-stride">
-<h4>Grid Stride<a class="headerlink" href="#grid-stride" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="grid-stride">
+<h4>Grid Stride<a class="headerlink" href="#grid-stride" title="Permalink to this heading">¶</a></h4>
 <p><em>Number of layers to place in each grid square.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_stride</span></code>.</small></p></li>
@@ -1980,9 +2072,9 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="grid-width">
-<h4>Grid Width<a class="headerlink" href="#grid-width" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="grid-width">
+<h4>Grid Width<a class="headerlink" href="#grid-width" title="Permalink to this heading">¶</a></h4>
 <p><em>Number of columns in the grid.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.grid_width</span></code>.</small></p></li>
@@ -1990,9 +2082,9 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="gui-notification-level">
-<h4>GUI notification level<a class="headerlink" href="#gui-notification-level" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="gui-notification-level">
+<h4>GUI notification level<a class="headerlink" href="#gui-notification-level" title="Permalink to this heading">¶</a></h4>
 <p><em>Select the notification level for the user interface.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.gui_notification_level</span></code>.</small></p></li>
@@ -2000,18 +2092,18 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;NotificationSeverity.INFO:</span> <span class="pre">'info'&gt;</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="ipython-interactive">
-<h4>IPython interactive<a class="headerlink" href="#ipython-interactive" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="ipython-interactive">
+<h4>IPython interactive<a class="headerlink" href="#ipython-interactive" title="Permalink to this heading">¶</a></h4>
 <p><em>Toggle the use of interactive <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code> event loop when creating napari Viewers in IPython.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.ipy_interactive</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="language">
-<h4>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="language">
+<h4>Language<a class="headerlink" href="#language" title="Permalink to this heading">¶</a></h4>
 <p><em>Select the display language for the user interface.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.language</span></code>.</small></p></li>
@@ -2019,18 +2111,18 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">'en'</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="opened-folders-history">
-<h4>Opened folders history<a class="headerlink" href="#opened-folders-history" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="opened-folders-history">
+<h4>Opened folders history<a class="headerlink" href="#opened-folders-history" title="Permalink to this heading">¶</a></h4>
 <p><em>Last saved list of opened folders. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.open_history</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">List[str]</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="playback-frames-per-second">
-<h4>Playback frames per second<a class="headerlink" href="#playback-frames-per-second" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="playback-frames-per-second">
+<h4>Playback frames per second<a class="headerlink" href="#playback-frames-per-second" title="Permalink to this heading">¶</a></h4>
 <p><em>Playback speed in frames per second.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.playback_fps</span></code>.</small></p></li>
@@ -2038,9 +2130,9 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="playback-loop-mode">
-<h4>Playback loop mode<a class="headerlink" href="#playback-loop-mode" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="playback-loop-mode">
+<h4>Playback loop mode<a class="headerlink" href="#playback-loop-mode" title="Permalink to this heading">¶</a></h4>
 <p><em>Loop mode for playback.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.playback_mode</span></code>.</small></p></li>
@@ -2048,27 +2140,27 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;LoopMode.LOOP:</span> <span class="pre">'loop'&gt;</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="preferences-size">
-<h4>Preferences size<a class="headerlink" href="#preferences-size" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="preferences-size">
+<h4>Preferences size<a class="headerlink" href="#preferences-size" title="Permalink to this heading">¶</a></h4>
 <p><em>Last saved width and height for the preferences dialog. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.preferences_size</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int,</span> <span class="pre">int]]</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="saved-folders-history">
-<h4>Saved folders history<a class="headerlink" href="#saved-folders-history" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="saved-folders-history">
+<h4>Saved folders history<a class="headerlink" href="#saved-folders-history" title="Permalink to this heading">¶</a></h4>
 <p><em>Last saved list of saved folders. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.save_history</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">List[str]</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="save-window-geometry">
-<h4>Save window geometry<a class="headerlink" href="#save-window-geometry" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="save-window-geometry">
+<h4>Save window geometry<a class="headerlink" href="#save-window-geometry" title="Permalink to this heading">¶</a></h4>
 <p><em>Toggle saving the main window size and position.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.save_window_geometry</span></code>.</small></p></li>
@@ -2076,9 +2168,9 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="save-window-state">
-<h4>Save window state<a class="headerlink" href="#save-window-state" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="save-window-state">
+<h4>Save window state<a class="headerlink" href="#save-window-state" title="Permalink to this heading">¶</a></h4>
 <p><em>Toggle saving the main window state of widgets.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.save_window_state</span></code>.</small></p></li>
@@ -2086,67 +2178,67 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="window-fullscreen">
-<h4>Window fullscreen<a class="headerlink" href="#window-fullscreen" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="window-fullscreen">
+<h4>Window fullscreen<a class="headerlink" href="#window-fullscreen" title="Permalink to this heading">¶</a></h4>
 <p><em>Last saved fullscreen state for the main window. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_fullscreen</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="window-maximized-state">
-<h4>Window maximized state<a class="headerlink" href="#window-maximized-state" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="window-maximized-state">
+<h4>Window maximized state<a class="headerlink" href="#window-maximized-state" title="Permalink to this heading">¶</a></h4>
 <p><em>Last saved maximized state for the main window. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_maximized</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="window-position">
-<h4>Window position<a class="headerlink" href="#window-position" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="window-position">
+<h4>Window position<a class="headerlink" href="#window-position" title="Permalink to this heading">¶</a></h4>
 <p><em>Last saved x and y coordinates for the main window. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_position</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int,</span> <span class="pre">int]]</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="window-size">
-<h4>Window size<a class="headerlink" href="#window-size" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="window-size">
+<h4>Window size<a class="headerlink" href="#window-size" title="Permalink to this heading">¶</a></h4>
 <p><em>Last saved width and height for the main window. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_size</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int,</span> <span class="pre">int]]</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="window-state">
-<h4>Window state<a class="headerlink" href="#window-state" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="window-state">
+<h4>Window state<a class="headerlink" href="#window-state" title="Permalink to this heading">¶</a></h4>
 <p><em>Last saved state of dockwidgets and toolbars for the main window. This setting is managed by the application.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_state</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="show-status-bar">
-<h4>Show status bar<a class="headerlink" href="#show-status-bar" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="show-status-bar">
+<h4>Show status bar<a class="headerlink" href="#show-status-bar" title="Permalink to this heading">¶</a></h4>
 <p><em>Toggle diplaying the status bar for the main window.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.application.window_statusbar</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</small></p></li>
 </ul>
-</section>
-</section>
-<section id="appearance">
-<h3>APPEARANCE<a class="headerlink" href="#appearance" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="appearance">
+<h3>APPEARANCE<a class="headerlink" href="#appearance" title="Permalink to this heading">¶</a></h3>
 <p>User interface appearance settings.</p>
-<section id="highlight-thickness">
-<h4>Highlight thickness<a class="headerlink" href="#highlight-thickness" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="highlight-thickness">
+<h4>Highlight thickness<a class="headerlink" href="#highlight-thickness" title="Permalink to this heading">¶</a></h4>
 <p><em>Select the highlight thickness when hovering over shapes/points.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.highlight_thickness</span></code>.</small></p></li>
@@ -2154,9 +2246,9 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="show-layer-tooltips">
-<h4>Show layer tooltips<a class="headerlink" href="#show-layer-tooltips" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="show-layer-tooltips">
+<h4>Show layer tooltips<a class="headerlink" href="#show-layer-tooltips" title="Permalink to this heading">¶</a></h4>
 <p><em>Toggle to display a tooltip on mouse hover.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.layer_tooltip_visibility</span></code>.</small></p></li>
@@ -2164,9 +2256,9 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="theme">
-<h4>Theme<a class="headerlink" href="#theme" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="theme">
+<h4>Theme<a class="headerlink" href="#theme" title="Permalink to this heading">¶</a></h4>
 <p><em>Select the user interface theme.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.appearance.theme</span></code>.</small></p></li>
@@ -2174,13 +2266,13 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">'dark'</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-</section>
-<section id="plugins">
-<h3>PLUGINS<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="plugins">
+<h3>PLUGINS<a class="headerlink" href="#plugins" title="Permalink to this heading">¶</a></h3>
 <p>Plugins settings.</p>
-<section id="plugin-sort-order">
-<h4>Plugin sort order<a class="headerlink" href="#plugin-sort-order" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="plugin-sort-order">
+<h4>Plugin sort order<a class="headerlink" href="#plugin-sort-order" title="Permalink to this heading">¶</a></h4>
 <p><em>Sort plugins for each action in the order to be called.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.call_order</span></code>.</small></p></li>
@@ -2188,18 +2280,18 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="disabled-plugins">
-<h4>Disabled plugins<a class="headerlink" href="#disabled-plugins" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="disabled-plugins">
+<h4>Disabled plugins<a class="headerlink" href="#disabled-plugins" title="Permalink to this heading">¶</a></h4>
 <p><em>Plugins to disable on application start.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.disabled_plugins</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Set[str]</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">set()</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="file-extension-readers">
-<h4>File extension readers<a class="headerlink" href="#file-extension-readers" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="file-extension-readers">
+<h4>File extension readers<a class="headerlink" href="#file-extension-readers" title="Permalink to this heading">¶</a></h4>
 <p><em>Assign file extensions to specific reader plugins</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.extension2reader</span></code>.</small></p></li>
@@ -2207,18 +2299,18 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="writer-plugin-extension-association">
-<h4>Writer plugin extension association.<a class="headerlink" href="#writer-plugin-extension-association" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="writer-plugin-extension-association">
+<h4>Writer plugin extension association.<a class="headerlink" href="#writer-plugin-extension-association" title="Permalink to this heading">¶</a></h4>
 <p><em>Assign file extensions to specific writer plugins</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.extension2writer</span></code>.</small></p></li>
 <li><p><small>Type: <code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code>.</small></p></li>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</small></p></li>
 </ul>
-</section>
-<section id="plugin-api">
-<h4>Plugin API<a class="headerlink" href="#plugin-api" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="plugin-api">
+<h4>Plugin API<a class="headerlink" href="#plugin-api" title="Permalink to this heading">¶</a></h4>
 <p><em>Use the following API for querying plugin information.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.plugins.plugin_api</span></code>.</small></p></li>
@@ -2226,13 +2318,13 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">&lt;PluginAPI.napari_hub:</span> <span class="pre">'napari</span> <span class="pre">hub'&gt;</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-</section>
-<section id="shortcuts">
-<h3>SHORTCUTS<a class="headerlink" href="#shortcuts" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="shortcuts">
+<h3>SHORTCUTS<a class="headerlink" href="#shortcuts" title="Permalink to this heading">¶</a></h3>
 <p>Shortcut settings.</p>
-<section id="id1">
-<h4>shortcuts<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id1">
+<h4>shortcuts<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
 <p><em>Set keyboard shortcuts for actions.</em></p>
 <ul class="simple">
 <li><p><small>Access programmatically with <code class="docutils literal notranslate"><span class="pre">SETTINGS.shortcuts.shortcuts</span></code>.</small></p></li>
@@ -2240,13 +2332,13 @@
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">{'napari:toggle_console_visibility':</span> <span class="pre">['Control-Shift-C'],</span> <span class="pre">'napari:reset_scroll_progress':</span> <span class="pre">['Control'],</span> <span class="pre">'napari:toggle_ndisplay':</span> <span class="pre">['Control-Y'],</span> <span class="pre">'napari:toggle_theme':</span> <span class="pre">['Control-Shift-T'],</span> <span class="pre">'napari:reset_view':</span> <span class="pre">['Control-R'],</span> <span class="pre">'napari:increment_dims_left':</span> <span class="pre">['Left'],</span> <span class="pre">'napari:increment_dims_right':</span> <span class="pre">['Right'],</span> <span class="pre">'napari:focus_axes_up':</span> <span class="pre">['Alt-Up'],</span> <span class="pre">'napari:focus_axes_down':</span> <span class="pre">['Alt-Down'],</span> <span class="pre">'napari:roll_axes':</span> <span class="pre">['Control-E'],</span> <span class="pre">'napari:transpose_axes':</span> <span class="pre">['Control-T'],</span> <span class="pre">'napari:toggle_grid':</span> <span class="pre">['Control-G'],</span> <span class="pre">'napari:toggle_selected_visibility':</span> <span class="pre">['V'],</span> <span class="pre">'napari:activate_label_erase_mode':</span> <span class="pre">['1'],</span> <span class="pre">'napari:activate_fill_mode':</span> <span class="pre">['3'],</span> <span class="pre">'napari:activate_paint_mode':</span> <span class="pre">['2'],</span> <span class="pre">'napari:activate_label_pan_zoom_mode':</span> <span class="pre">['5'],</span> <span class="pre">'napari:activate_label_picker_mode':</span> <span class="pre">['4'],</span> <span class="pre">'napari:new_label':</span> <span class="pre">['M'],</span> <span class="pre">'napari:decrease_label_id':</span> <span class="pre">['-'],</span> <span class="pre">'napari:increase_label_id':</span> <span class="pre">['='],</span> <span class="pre">'napari:activate_points_add_mode':</span> <span class="pre">['2'],</span> <span class="pre">'napari:activate_points_select_mode':</span> <span class="pre">['3'],</span> <span class="pre">'napari:activate_points_pan_zoom_mode':</span> <span class="pre">['4'],</span> <span class="pre">'napari:select_all':</span> <span class="pre">['A'],</span> <span class="pre">'napari:delete_selected_points':</span> <span class="pre">['Backspace',</span> <span class="pre">'Delete',</span> <span class="pre">'1'],</span> <span class="pre">'napari:activate_add_rectangle_mode':</span> <span class="pre">['R'],</span> <span class="pre">'napari:activate_add_ellipse_mode':</span> <span class="pre">['E'],</span> <span class="pre">'napari:activate_add_line_mode':</span> <span class="pre">['L'],</span> <span class="pre">'napari:activate_add_path_mode':</span> <span class="pre">['T'],</span> <span class="pre">'napari:activate_add_polygon_mode':</span> <span class="pre">['P'],</span> <span class="pre">'napari:activate_direct_mode':</span> <span class="pre">['4'],</span> <span class="pre">'napari:activate_select_mode':</span> <span class="pre">['5'],</span> <span class="pre">'napari:activate_shape_pan_zoom_mode':</span> <span class="pre">['6'],</span> <span class="pre">'napari:activate_vertex_insert_mode':</span> <span class="pre">['2'],</span> <span class="pre">'napari:activate_vertex_remove_mode':</span> <span class="pre">['1'],</span> <span class="pre">'napari:copy_selected_shapes':</span> <span class="pre">['Control-C'],</span> <span class="pre">'napari:paste_shape':</span> <span class="pre">['Control-V'],</span> <span class="pre">'napari:select_all_shapes':</span> <span class="pre">['A'],</span> <span class="pre">'napari:delete_selected_shapes':</span> <span class="pre">['Backspace',</span> <span class="pre">'Delete',</span> <span class="pre">'3'],</span> <span class="pre">'napari:finish_drawing_shape':</span> <span class="pre">['Escape'],</span> <span class="pre">'napari:reset_active_layer_affine':</span> <span class="pre">['Control-Shift-R'],</span> <span class="pre">'napari:transform_active_layer':</span> <span class="pre">['Control-Shift-A']}</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-</section>
-<section id="experimental">
-<h3>EXPERIMENTAL<a class="headerlink" href="#experimental" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="experimental">
+<h3>EXPERIMENTAL<a class="headerlink" href="#experimental" title="Permalink to this heading">¶</a></h3>
 <p>Experimental settings.</p>
-<section id="render-images-asynchronously">
-<h4>Render Images Asynchronously<a class="headerlink" href="#render-images-asynchronously" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="render-images-asynchronously">
+<h4>Render Images Asynchronously<a class="headerlink" href="#render-images-asynchronously" title="Permalink to this heading">¶</a></h4>
 <p><em>Asynchronous loading of image data.
 This setting partially loads data while viewing.
 You must restart napari for changes of this setting to apply.</em></p>
@@ -2256,9 +2348,9 @@ You must restart napari for changes of this setting to apply.</em></p>
 <li><p><small>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</small></p></li>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
-</section>
-<section id="enable-asynchronous-tiling-of-images">
-<h4>Enable Asynchronous Tiling of Images<a class="headerlink" href="#enable-asynchronous-tiling-of-images" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="enable-asynchronous-tiling-of-images">
+<h4>Enable Asynchronous Tiling of Images<a class="headerlink" href="#enable-asynchronous-tiling-of-images" title="Permalink to this heading">¶</a></h4>
 <p><em>Renders images asynchronously using tiles.
 You must restart napari for changes of this setting to apply.</em></p>
 <ul class="simple">
@@ -2268,56 +2360,56 @@ You must restart napari for changes of this setting to apply.</em></p>
 <li><p><small>UI: This setting can be configured via the preferences dialog.</small></p></li>
 </ul>
 <p><strong>Support for plugin specific settings will be provided in an upcoming release.</strong></p>
-</section>
-</section>
-</section>
-<section id="changing-settings-programmatically">
-<h2>Changing settings programmatically<a class="headerlink" href="#changing-settings-programmatically" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="section" id="changing-settings-programmatically">
+<h2>Changing settings programmatically<a class="headerlink" href="#changing-settings-programmatically" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
 
 <span class="n">SETTINGS</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="s2">&quot;light&quot;</span>
 </pre></div>
 </div>
-</section>
-<section id="reset-to-defaults-via-cli">
-<h2>Reset to defaults via CLI<a class="headerlink" href="#reset-to-defaults-via-cli" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="reset-to-defaults-via-cli">
+<h2>Reset to defaults via CLI<a class="headerlink" href="#reset-to-defaults-via-cli" title="Permalink to this heading">¶</a></h2>
 <p>To reset all napari settings to the default values:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari --reset
 </pre></div>
 </div>
-</section>
-<section id="the-preferences-dialog">
-<h2>The preferences dialog<a class="headerlink" href="#the-preferences-dialog" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="the-preferences-dialog">
+<h2>The preferences dialog<a class="headerlink" href="#the-preferences-dialog" title="Permalink to this heading">¶</a></h2>
 <p>Starting with version 0.4.6, napari provides a preferences dialog to manage
 some of the provided options.</p>
-<section id="id2">
-<h3>Application<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>Application<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <p><img alt="application" src="../_images/preferences-application.png" /></p>
-</section>
-<section id="id3">
-<h3>Appearance<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id3">
+<h3>Appearance<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p><img alt="appearance" src="../_images/preferences-appearance.png" /></p>
-</section>
-<section id="id4">
-<h3>Plugins<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id4">
+<h3>Plugins<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p><img alt="plugins" src="../_images/preferences-plugins.png" /></p>
-</section>
-<section id="id5">
-<h3>Shortcuts<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id5">
+<h3>Shortcuts<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <p><img alt="shortcuts" src="../_images/preferences-shortcuts.png" /></p>
-</section>
-<section id="id6">
-<h3>Experimental<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id6">
+<h3>Experimental<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p><img alt="experimental" src="../_images/preferences-experimental.png" /></p>
-</section>
-<section id="reset-to-defaults-via-ui">
-<h3>Reset to defaults via UI<a class="headerlink" href="#reset-to-defaults-via-ui" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="reset-to-defaults-via-ui">
+<h3>Reset to defaults via UI<a class="headerlink" href="#reset-to-defaults-via-ui" title="Permalink to this heading">¶</a></h3>
 <p>To reset the preferences click on the <code class="docutils literal notranslate"><span class="pre">Restore</span> <span class="pre">defaults</span></code> button and continue
 by clicking on <code class="docutils literal notranslate"><span class="pre">Restore</span></code>.</p>
 <p><img alt="" src="../_images/preferences-reset.png" /></p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -2653,7 +2745,7 @@ by clicking on <code class="docutils literal notranslate"><span class="pre">Rest
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

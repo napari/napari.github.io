@@ -21,11 +21,6 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
@@ -36,6 +31,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
@@ -113,6 +109,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables _modules/napari/layers/base/base and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "_modules/napari/layers/base/base.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "_modules/napari/layers/base/base.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -304,24 +382,23 @@
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
 <span class="sd">    blending : Blending</span>
 <span class="sd">        Determines how RGB and alpha values get mixed.</span>
-
-<span class="sd">        * ``Blending.OPAQUE``</span>
-<span class="sd">          Allows for only the top layer to be visible and corresponds to</span>
-<span class="sd">          ``depth_test=True``, ``cull_face=False``, ``blend=False``.</span>
-<span class="sd">        * ``Blending.TRANSLUCENT``</span>
-<span class="sd">          Allows for multiple layers to be blended with different opacity and</span>
-<span class="sd">          corresponds to ``depth_test=True``, ``cull_face=False``,</span>
-<span class="sd">          ``blend=True``, ``blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;)``.</span>
-<span class="sd">        * ``Blending.TRANSLUCENT_NO_DEPTH``</span>
-<span class="sd">          Allows for multiple layers to be blended with different opacity, but</span>
-<span class="sd">          no depth testing is performed. Corresponds to ``depth_test=False``,</span>
-<span class="sd">          ``cull_face=False``, ``blend=True``,</span>
-<span class="sd">          ``blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;)``.</span>
-<span class="sd">        * ``Blending.ADDITIVE``</span>
-<span class="sd">          Allows for multiple layers to be blended together with different</span>
-<span class="sd">          colors and opacity. Useful for creating overlays. It corresponds to</span>
-<span class="sd">          ``depth_test=False``, ``cull_face=False``, ``blend=True``,</span>
-<span class="sd">          ``blend_func=(&#39;src_alpha&#39;, &#39;one&#39;)``.</span>
+<span class="sd">            Blending.OPAQUE</span>
+<span class="sd">                Allows for only the top layer to be visible and corresponds to</span>
+<span class="sd">                depth_test=True, cull_face=False, blend=False.</span>
+<span class="sd">            Blending.TRANSLUCENT</span>
+<span class="sd">                Allows for multiple layers to be blended with different opacity</span>
+<span class="sd">                and corresponds to depth_test=True, cull_face=False,</span>
+<span class="sd">                blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;).</span>
+<span class="sd">            Blending.TRANSLUCENT_NO_DEPTH</span>
+<span class="sd">                Allows for multiple layers to be blended with different opacity,</span>
+<span class="sd">                but no depth testing is performed.</span>
+<span class="sd">                and corresponds to depth_test=False, cull_face=False,</span>
+<span class="sd">                blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;).</span>
+<span class="sd">            Blending.ADDITIVE</span>
+<span class="sd">                Allows for multiple layers to be blended together with</span>
+<span class="sd">                different colors and opacity. Useful for creating overlays. It</span>
+<span class="sd">                corresponds to depth_test=False, cull_face=False, blend=True,</span>
+<span class="sd">                blend_func=(&#39;src_alpha&#39;, &#39;one&#39;).</span>
 <span class="sd">    scale : tuple of float</span>
 <span class="sd">        Scale factors for the layer.</span>
 <span class="sd">    translate : tuple of float</span>
@@ -382,14 +459,12 @@
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    Must define the following:</span>
-
-<span class="sd">    * `_extent_data`: property</span>
-<span class="sd">    * `data` property (setter &amp; getter)</span>
+<span class="sd">        * `_extent_data`: property</span>
+<span class="sd">        * `data` property (setter &amp; getter)</span>
 
 <span class="sd">    May define the following:</span>
-
-<span class="sd">    * `_set_view_slice()`: called to set currently viewed slice</span>
-<span class="sd">    * `_basename()`: base/default name of the layer</span>
+<span class="sd">        * `_set_view_slice()`: called to set currently viewed slice</span>
+<span class="sd">        * `_basename()`: base/default name of the layer</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -699,8 +774,6 @@
 
     <span class="nd">@scale</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">scale</span><span class="p">()</span>
@@ -983,7 +1056,6 @@
             <span class="s1">&#39;translate&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">),</span>
             <span class="s1">&#39;rotate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">],</span>
             <span class="s1">&#39;shear&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shear</span><span class="p">),</span>
-            <span class="s1">&#39;affine&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">affine_matrix</span><span class="p">,</span>
             <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">,</span>
             <span class="s1">&#39;blending&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">blending</span><span class="p">,</span>
             <span class="s1">&#39;visible&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span>
@@ -1597,7 +1669,6 @@
 
         <span class="c1"># create the bounding box in data coordinates</span>
         <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span>
-
         <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_ray_intersections</span><span class="p">(</span>
             <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
             <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
@@ -1606,10 +1677,6 @@
             <span class="n">bounding_box</span><span class="o">=</span><span class="n">bounding_box</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span></div>
-
-    <span class="k">def</span> <span class="nf">_get_offset_data_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Adjust position for offset between viewer and data coordinates.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">position</span>
 
     <span class="k">def</span> <span class="nf">_get_ray_intersections</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1662,10 +1729,6 @@
                 <span class="n">position</span><span class="p">,</span> <span class="n">dims_displayed</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-
-            <span class="c1"># adjust for any offset between viewer and data coordinates</span>
-            <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_offset_data_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
-
             <span class="n">view_dir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span>
             <span class="n">click_pos_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span>
 
@@ -1673,6 +1736,7 @@
         <span class="n">front_face_normal</span><span class="p">,</span> <span class="n">back_face_normal</span> <span class="o">=</span> <span class="n">find_front_back_face</span><span class="p">(</span>
             <span class="n">click_pos_data</span><span class="p">,</span> <span class="n">bounding_box</span><span class="p">,</span> <span class="n">view_dir</span>
         <span class="p">)</span>
+
         <span class="k">if</span> <span class="n">front_face_normal</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">back_face_normal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># click does not intersect the data bounding box</span>
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>

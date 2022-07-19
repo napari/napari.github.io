@@ -96,11 +96,6 @@ napari.layers.Image
       ~Image.help
       ~Image.interactive
       ~Image.interpolation
-<<<<<<< HEAD:_sources/api/napari.layers.Image.rst
-      ~Image.interpolation2d
-      ~Image.interpolation3d
-=======
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.layers.Image.rst
       ~Image.iso_threshold
       ~Image.level_shapes
       ~Image.loaded
@@ -119,17 +114,10 @@ napari.layers.Image
       ~Image.translate
       ~Image.translate_grid
       ~Image.visible
-<<<<<<< HEAD:_sources/api/napari.layers.Image.rst
-      
-      
-      
-      
-=======
       ~Image.mouse_move_callbacks
       ~Image.mouse_wheel_callbacks
       ~Image.mouse_drag_callbacks
       ~Image.mouse_double_click_callbacks
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.layers.Image.rst
    
    
 

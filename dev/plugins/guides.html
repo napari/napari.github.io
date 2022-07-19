@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -42,29 +42,29 @@
     <link rel="next" title="Test and Deploy" href="test_deploy.html" />
     <link rel="prev" title="Contributions Reference" href="contributions.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
-    
+
 
     <!-- Google Analytics -->
-    
+
 
   </head>
   <body>
-    
+
     <div class="container-fluid" id="banner"></div>
 
-    
+
     <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
   <div id="navbar-start">
-    
+
     <!-- A small template snippet for theme testing -->
 <a class="navbar-brand" href="../index.html">
   napari
 </a>
-    
+
   </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,10 +75,10 @@
 </svg>
   </button>
 
-  
+
   <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
     <div id="navbar-center" class="mr-auto">
-      
+
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
@@ -105,18 +105,18 @@
  </a>
 </li>
 
-    
+
     <li class="nav-item">
         <a class="nav-link nav-external" href="https://napari-hub.org">napari hub<i class="fas fa-external-link-alt"></i></a>
     </li>
-    
+
 </ul>
       </div>
-      
+
     </div>
 
     <div id="navbar-end">
-      
+
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
@@ -198,7 +198,7 @@ function checkPageExistsAndRedirect(event) {
 })();
 </script>
       </div>
-      
+
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
         <li class="nav-item">
@@ -207,16 +207,16 @@ function checkPageExistsAndRedirect(event) {
         </li>
       </ul>
       </div>
-      
+
     </div>
   </div>
 </div>
     </nav>
-    
+
 
     <div class="napari-page">
-        
-          
+
+
           <!-- Only show if we have sidebars configured, else just a small margin  -->
           <div class="bd-sidebar">
             <div class="sidebar-start-items"><form
@@ -311,15 +311,15 @@ function checkPageExistsAndRedirect(event) {
             <div class="sidebar-end-items">
             </div>
           </div>
-          
-        
 
-        
+
+
+
         <div class="bd-toc">
-          
-            
+
+
             <div class="toc-item">
-              
+
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
     On this page
 </div>
@@ -433,23 +433,23 @@ function checkPageExistsAndRedirect(event) {
 
 </nav>
             </div>
-            
-            <div class="toc-item">
-              
-            </div>
-            
-          
-        </div>
-        
 
-        
-        
-          
-        
+            <div class="toc-item">
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
         <main class="col-md-9 col-xl-7 bd-content" role="main">
-            
+
             <div>
-              
+
   <section class="tex2jax_ignore mathjax_ignore" id="contribution-guides">
 <h1>Contribution Guides<a class="headerlink" href="#contribution-guides" title="Permalink to this headline">¶</a></h1>
 <p>This page provides guides on many of the plugin contribution patterns.
@@ -571,7 +571,7 @@ specification from the first generation <code class="docutils literal notranslat
 <section id="writer-plugin-function-signatures">
 <h3>Writer plugin function signatures<a class="headerlink" href="#writer-plugin-function-signatures" title="Permalink to this headline">¶</a></h3>
 <p>Writer plugins are <em>functions</em> that:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p>Accept a destination path and data from one or more layers in the viewer</p></li>
 <li><p>Write layer data and associated attributes to disk</p></li>
 <li><p>Return a list of strings containing the path(s) that were successfully written.</p></li>
@@ -736,7 +736,7 @@ specifically requested by the user.</p>
 (where a “widget” is an instance of <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or <code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code>).</p>
 <p>There are a few commonly used patterns that fulfill this <code class="docutils literal notranslate"><span class="pre">Callable[...,</span> <span class="pre">Widget]</span></code>
 specification:</p>
-<ol class="arabic">
+<ol>
 <li><p>Provide a <code class="docutils literal notranslate"><span class="pre">class</span></code> object directly, such as a <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or
 <code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code> subclass:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
@@ -977,7 +977,7 @@ up often in plugins and is explained here.</p>
 </pre></div>
 </div>
 <p>A <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple is a tuple of length 1, 2, or 3 whose items, in order, are:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">data</span></code> object that would be used for <code class="docutils literal notranslate"><span class="pre">layer.data</span></code> (such as a numpy array
 for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer)</p></li>
 <li><p><em>(Optional).</em> A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> of layer attributes, suitable for passing as
@@ -1082,8 +1082,8 @@ tuple from a given layer</p>
 
 
             </div>
-            
-            
+
+
             <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="contributions.html" title="previous page">
@@ -1126,14 +1126,14 @@ tuple from a given layer</p>
     </svg>
     </a>
 </div>
-            
+
         </main>
-        
+
 
     </div>
 
     <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
-  
+
     <div class="footer-item">
       <a href="/">
   <svg
@@ -1586,7 +1586,7 @@ tuple from a given layer</p>
   <span>Zulip</span>
 </a>
     </div>
-  
+
     <div class="footer-item">
       <div class="napari-copyright">
   <p class="copyright">
@@ -1599,13 +1599,13 @@ tuple from a given layer</p>
       <a href="http://sphinx-doc.org/">Sphinx</a>
     </div>
 
-    
+
       <span>4.5.0</span>
-    
+
   </div>
 </div>
     </div>
-  
+
 </footer>
   </body>
 </html>

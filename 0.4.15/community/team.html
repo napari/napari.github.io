@@ -22,11 +22,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -36,6 +31,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Code of Conduct" href="code_of_conduct.html" />
@@ -115,6 +111,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables community/team and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "community/team.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "community/team.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -211,65 +289,23 @@
   </a>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../developers/contributing.html">
-     Contributing guide
+    <a class="reference internal" href="../developers/benchmarks.html">
+     Benchmarks
     </a>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-    <label for="toctree-checkbox-2">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../naps/index.html">
-     napari Advancement Proposals (NAPs)
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../naps/0-nap-process.html">
-       NAP 0 — Purpose and Process
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../naps/1-institutional-funding-partners.html">
-       NAP-1 — Institutional and Funding Partners
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../naps/2-conda-based-packaging.html">
-       NAP-2 — Distributing napari with conda-based packaging
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../naps/template.html">
-       NAP-X — Template and Instructions
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-    <label for="toctree-checkbox-3">
-     <img src="../_static/icons/sidebar-triangle.png"/>
-    </label>
-    <a class="reference internal" href="../developers/documentation/index.html">
-     Contributing Documentation
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../developers/documentation/docs_template.html">
-       Docs template
-      </a>
-     </li>
-    </ul>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../developers/translations.html">
-     Translations
+    <a class="reference internal" href="../developers/contributing.html">
+     Contributing guide
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../developers/core_dev_guide.html">
      Core Developer guide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../developers/profiling.html">
+     Profiling
     </a>
    </li>
    <li class="toctree-l2">
@@ -283,25 +319,36 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../developers/profiling.html">
-     Profiling
+    <a class="reference internal" href="../developers/docs.html">
+     Organization of Documentation for napari
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../developers/benchmarks.html">
-     Benchmarks
+    <a class="reference internal" href="../developers/translations.html">
+     Translations
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../developers/packaging.html">
-     Packaging
+   <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
+    <a class="reference internal" href="../developers/documentation/index.html">
+     Contributing Documentation
     </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../developers/documentation/docs_template.html">
+       Docs template
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <img src="../_static/icons/sidebar-triangle.png"/>
   </label>
   <a class="reference internal" href="../release/index.html">
@@ -511,8 +558,8 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <img src="../_static/icons/sidebar-triangle.png"/>
   </label>
   <a class="reference internal" href="../roadmaps/index.html">
@@ -580,8 +627,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#institutional-and-funding-partners">
-   Institutional and funding Partners
+  <a class="reference internal nav-link" href="#funding-and-support">
+   Funding and support
   </a>
  </li>
 </ul>
@@ -642,22 +689,18 @@
 <p>Over time, napari has grown to over 80 direct contributors. Talley Lambert, from Harvard Medical School, began contributing around the time of Juan’s blog post, and has been a critical driver of napari’s development ever since. We have core developers located in three continents and three biweekly community calls spread across the day to try to accommodate users and contributors in any time zone.</p>
 <p>Read more about napari’s <a class="reference external" href="https://napari.org/community/mission_and_values.html">mission and values</a>, how to get started as a <a class="reference external" href="https://napari.org/developers/contributing.html">contributor</a> or join us in our <a class="reference external" href="https://napari.zulipchat.com/login/">zulip chat</a> for a more synchronous conversation. You can also follow us on <a class="reference external" href="https://twitter.com/napari_imaging">twitter</a>.</p>
 </section>
-<section id="institutional-and-funding-partners">
-<h2>Institutional and funding Partners<a class="headerlink" href="#institutional-and-funding-partners" title="Permalink to this headline">¶</a></h2>
+<section id="funding-and-support">
+<h2>Funding and support<a class="headerlink" href="#funding-and-support" title="Permalink to this headline">¶</a></h2>
+<p>The napari project and community have been generously supported by the <a class="reference external" href="https://chanzuckerberg.com/science/programs-resources/imaging/">CZI Science Imaging Program</a>.</p>
+<p><img alt="CZI logo" src="https://chanzuckerberg.com/wp-content/themes/czi/img/logo.svg" /></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://chanzuckerberg.com/science">Chan Zuckberg Initiative Foundation.</a> Representative <a class="reference external" href="https://github.com/sofroniewn">Nicholas Sofroniew</a>.</p>
-<ul>
-<li><p>The napari project and community have been generously supported by the <a class="reference external" href="https://chanzuckerberg.com/science/programs-resources/imaging/">CZI Science Imaging Program.</a></p></li>
 <li><p>Since late 2018, Juan Nunez-Iglesias has been supported by a CZI Imaging Software Fellowship.</p></li>
-<li><p>The CZI Imaging Tech Team, under the leadership of Nicholas Sofroniew and engineering management of Justine Larsen, has been making direct engineering and design contributions to improve and expand napari.</p></li>
+<li><p>The CZI Imaging Technology Team, under the leadership of Nicholas Sofroniew and engineering management of Justine Larsen, has been making direct engineering and design contributions to improve and expand napari.</p></li>
 <li><p>The CZI Imaging Tech Team has supported <a class="reference external" href="https://www.quansight.com/labs">Quansight Labs</a> and independent contractors to improve and expand napari.</p></li>
 <li><p>The CZI Imaging Tech Team, through an effort led by Justin Kiggins, has created <a class="reference external" href="https://www.napari-hub.org/">napari-hub.org</a>, a site to make discovering and sharing napari plugins easier.</p></li>
 <li><p>CZI has launched a <a class="reference external" href="https://chanzuckerberg.com/rfa/napari-plugin-accelerator-grants/">grant program</a> to help accelerate the napari plugin developer community.</p></li>
 </ul>
-</li>
-</ul>
-<p>The current representative of the Insitutional and Funding Partner Advisory Council on the napari steering council is Nicholas Sofroniew.</p>
-<p>If you or your organization are interested in also supporting the napari project and becoming an Institutional and Funding Partner, please email the napari steering council at <code class="docutils literal notranslate"><span class="pre">napari-steering-council&#64;googlegroups.com</span></code>.</p>
+<p>If you or your organization are interested in also supporting the napari project, please email the napari steering council at <code class="docutils literal notranslate"><span class="pre">napari-steering-council&#64;googlegroups.com</span></code>.</p>
 </section>
 </section>
 

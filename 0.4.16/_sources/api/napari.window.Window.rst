@@ -35,12 +35,6 @@ napari.window.Window
       ~Window.close
    
    
-<<<<<<< HEAD:_sources/api/napari.window.Window.rst
-      ~Window.geometry
-   
-   
-=======
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.window.Window.rst
       ~Window.remove_dock_widget
    
    
@@ -50,12 +44,6 @@ napari.window.Window
       ~Window.screenshot
    
    
-<<<<<<< HEAD:_sources/api/napari.window.Window.rst
-      ~Window.set_geometry
-   
-   
-=======
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.window.Window.rst
       ~Window.show
    
    

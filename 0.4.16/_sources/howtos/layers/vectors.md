@@ -63,11 +63,7 @@ vectors_layer = viewer.add_vectors(vectors, edge_width=3)
 
 from napari.utils import nbscreenshot
 
-<<<<<<< HEAD:_sources/howtos/layers/vectors.md
-nbscreenshot(viewer, alt_text="Vectors overlaid on an image")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/howtos/layers/vectors.md
 ```
 
 ```{code-cell} python

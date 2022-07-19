@@ -51,19 +51,11 @@ napari.qt.threading.FunctionWorker
    
       ~FunctionWorker.abort_requested
       ~FunctionWorker.is_running
-<<<<<<< HEAD:_sources/api/napari.qt.threading.FunctionWorker.rst
-      
-      
-      
-      
-      
-=======
       ~FunctionWorker.returned
       ~FunctionWorker.errored
       ~FunctionWorker.warned
       ~FunctionWorker.started
       ~FunctionWorker.finished
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.qt.threading.FunctionWorker.rst
    
    
 

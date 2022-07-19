@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test and Deploy &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Best practices" href="best_practices.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/test_deploy and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/test_deploy.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/test_deploy.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -297,18 +389,18 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="test-and-deploy">
-<span id="plugin-test-deploy"></span><h1>Test and Deploy<a class="headerlink" href="#test-and-deploy" title="Permalink to this headline">¶</a></h1>
-<section id="tips-for-testing-napari-plugins">
-<span id="plugin-testing-tips"></span><h2>Tips for testing napari plugins<a class="headerlink" href="#tips-for-testing-napari-plugins" title="Permalink to this headline">¶</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="test-and-deploy">
+<span id="plugin-test-deploy"></span><h1>Test and Deploy<a class="headerlink" href="#test-and-deploy" title="Permalink to this heading">¶</a></h1>
+<div class="section" id="tips-for-testing-napari-plugins">
+<span id="plugin-testing-tips"></span><h2>Tips for testing napari plugins<a class="headerlink" href="#tips-for-testing-napari-plugins" title="Permalink to this heading">¶</a></h2>
 <p>Testing is a big topic!  If you are completely new to writing tests in python,
 consider reading this post on <a class="reference external" href="https://realpython.com/python-testing/">Getting Started With Testing in
 Python</a></p>
 <p>We recommend using
 <a class="reference external" href="https://docs.pytest.org/en/6.2.x/getting-started.html">pytest</a> for testing your
-plugin. Aim for <a class="reference external" href="best_practices.html#how-to-check-test-coverage">100% test coverage</a>!</p>
-<section id="the-make-napari-viewer-fixture">
-<h3>The <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture<a class="headerlink" href="#the-make-napari-viewer-fixture" title="Permalink to this headline">¶</a></h3>
+plugin. Aim for <span class="xref myst">100% test coverage</span>!</p>
+<div class="section" id="the-make-napari-viewer-fixture">
+<h3>The <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture<a class="headerlink" href="#the-make-napari-viewer-fixture" title="Permalink to this heading">¶</a></h3>
 <p>Testing a napari <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> requires some setup and teardown each time.  We have
 created a <a class="reference external" href="https://docs.pytest.org/en/6.2.x/fixture.html">pytest fixture</a> called
 <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> that you can use (this requires that you have napari
@@ -321,9 +413,9 @@ create a napari viewer for testing:</p>
     <span class="o">...</span>  <span class="c1"># carry on with your test</span>
 </pre></div>
 </div>
-</section>
-<section id="prefer-smaller-unit-tests-when-possible">
-<h3>Prefer smaller unit tests when possible<a class="headerlink" href="#prefer-smaller-unit-tests-when-possible" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="prefer-smaller-unit-tests-when-possible">
+<h3>Prefer smaller unit tests when possible<a class="headerlink" href="#prefer-smaller-unit-tests-when-possible" title="Permalink to this heading">¶</a></h3>
 <p>The most common issue people run into when designing tests for napari plugins is
 that they try to test everything as a full “integration test”, starting from the
 napari event or action that would trigger their plugin to do something.  For
@@ -377,10 +469,10 @@ not contain the string <code class="docutils literal notranslate"><span class="p
     <span class="c1"># assert that what you expect to happen actually happened!</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="preparing-for-release">
-<h2>Preparing for release<a class="headerlink" href="#preparing-for-release" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="preparing-for-release">
+<h2>Preparing for release<a class="headerlink" href="#preparing-for-release" title="Permalink to this heading">¶</a></h2>
 <p>To help users find your plugin, make sure to use the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code>
 <a class="reference external" href="https://pypi.org/classifiers/">classifier</a> in your package’s core metadata. (If you used the cookiecutter,
 this has already been done for you.)</p>
@@ -410,9 +502,9 @@ guide</a>.</p>
 <p>Finally, once you have curated your package metadata and description, you can
 preview your metadata, and check any missing fields using the
 napari hub preview page service. Check out <a class="reference external" href="https://github.com/chanzuckerberg/napari-hub/blob/main/docs/setting-up-preview.md">this guide</a> for instructions on how to set it up.</p>
-</section>
-<section id="deployment">
-<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this heading">¶</a></h2>
 <p>When you are ready to share your plugin, <a class="reference external" href="https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives">upload the Python package to
 PyPI</a> after which it will be installable using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&lt;yourpackage&gt;</span></code>, or (assuming you added the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier)
 in the builtin plugin installer dialog.</p>
@@ -429,8 +521,8 @@ directly installing from conda.</p>
 </div>
 <p>When you are ready for users, announce your plugin on the <a class="reference external" href="https://forum.image.sc/tag/napari">Image.sc
 forum</a>.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -766,7 +858,7 @@ forum</a>.</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

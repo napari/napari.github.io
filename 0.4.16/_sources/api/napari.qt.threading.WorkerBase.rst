@@ -51,19 +51,11 @@ napari.qt.threading.WorkerBase
    
       ~WorkerBase.abort_requested
       ~WorkerBase.is_running
-<<<<<<< HEAD:_sources/api/napari.qt.threading.WorkerBase.rst
-      
-      
-      
-      
-      
-=======
       ~WorkerBase.returned
       ~WorkerBase.errored
       ~WorkerBase.warned
       ~WorkerBase.started
       ~WorkerBase.finished
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.qt.threading.WorkerBase.rst
    
    
 

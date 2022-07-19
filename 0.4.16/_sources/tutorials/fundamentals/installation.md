@@ -35,11 +35,7 @@ interact with the app. It is the best way to install napari and make full use of
 all its features.
 
 It requires:
-<<<<<<< HEAD:_sources/tutorials/fundamentals/installation.md
-- [Python 3.8 or higher](https://www.python.org/downloads/)
-=======
 - [Python 3.7 or higher](https://www.python.org/downloads/)
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/tutorials/fundamentals/installation.md
 - the ability to install python packages via [pip](https://pypi.org/project/pip/) OR [conda-forge](https://conda-forge.org/docs/user/introduction.html)
 
 You may also want:
@@ -53,17 +49,10 @@ This installation method does not have any prerequisites.
 ```{important}
 Note that the bundled app is still
 in active development, and may not be very stable. We strongly recommend 
-<<<<<<< HEAD:_sources/tutorials/fundamentals/installation.md
-[installing as a Python package instead](#install-as-python-package-recommended).
-```
-
-[Click here](#install-as-a-bundled-app) to see instructions
-=======
 [installing as a Python package instead](#choose-which-distribution-to-install).
 ```
 
 [Click here](#installing-as-a-bundled-app) to see instructions
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/tutorials/fundamentals/installation.md
 for installing the bundled app.
 
 ## Install as Python package (recommended)
@@ -124,15 +113,6 @@ conda update napari
 ```
 ````
 
-<<<<<<< HEAD:_sources/tutorials/fundamentals/installation.md
-If you want to install napari with PySide2 as the backend you need to install it using
-
-```sh
-conda install -c conda-forge "napari=*=*pyside2"
-```  
-
-````
-
 
 ````{admonition} **3. From the main branch on Github**
 :class: dropdown
@@ -144,19 +124,6 @@ python -m pip install "git+https://github.com/napari/napari.git#egg=napari[all]"
 ```
 ````
 
-=======
-
-````{admonition} **3. From the main branch on Github**
-:class: dropdown
-
-To install the latest version with yet to be released features from github via pip, call
-
-```sh
-python -m pip install "git+https://github.com/napari/napari.git#egg=napari[all]"
-```
-````
-
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/tutorials/fundamentals/installation.md
 <!-- #region -->
 ## Checking it worked
 

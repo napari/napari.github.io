@@ -83,13 +83,14 @@ napari.plugins.PluginManifest
       ~PluginManifest.description
       ~PluginManifest.license
       ~PluginManifest.package_version
-      
-      
-      
-      
-      
-      
-      
+      ~PluginManifest.name
+      ~PluginManifest.display_name
+      ~PluginManifest.schema_version
+      ~PluginManifest.on_activate
+      ~PluginManifest.on_deactivate
+      ~PluginManifest.contributions
+      ~PluginManifest.package_metadata
+      ~PluginManifest.npe1_shim
    
    
 

@@ -32,9 +32,6 @@ napari.components.LayerList
       ~LayerList.extend
    
    
-      ~LayerList.get_extent
-   
-   
       ~LayerList.index
    
    
@@ -94,11 +91,7 @@ napari.components.LayerList
       ~LayerList.extent
       ~LayerList.ndim
       ~LayerList.selection
-<<<<<<< HEAD:_sources/api/napari.components.LayerList.rst
-      
-=======
       ~LayerList.events
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.components.LayerList.rst
    
    
 

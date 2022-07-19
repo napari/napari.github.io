@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Multithreading in napari &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3D interactivity" href="3D_interactivity.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/threading and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/threading.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/threading.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1754,8 +1846,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="multithreading-in-napari">
-<span id="id1"></span><h1>Multithreading in napari<a class="headerlink" href="#multithreading-in-napari" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="multithreading-in-napari">
+<span id="id1"></span><h1>Multithreading in napari<a class="headerlink" href="#multithreading-in-napari" title="Permalink to this heading">¶</a></h1>
 <p>As described in <a class="reference internal" href="event_loop.html#intro-to-event-loop"><span class="std std-ref">An introduction to the event loop in napari</span></a>, <code class="docutils literal notranslate"><span class="pre">napari</span></code>, like most GUI
 applications, runs in an event loop that is continually receiving and
 responding to events like button presses and mouse events.  This works fine
@@ -1776,13 +1868,13 @@ completely unresponsive viewer.  The example used there was:</p>
 </div>
 <p>In order to avoid freezing the viewer during a long-running blocking function,
 you must run your function in another thread or process.</p>
-<section id="processes-threads-and-asyncio">
-<h2>Processes, threads, and <code class="docutils literal notranslate"><span class="pre">asyncio</span></code><a class="headerlink" href="#processes-threads-and-asyncio" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="processes-threads-and-asyncio">
+<h2>Processes, threads, and <code class="docutils literal notranslate"><span class="pre">asyncio</span></code><a class="headerlink" href="#processes-threads-and-asyncio" title="Permalink to this heading">¶</a></h2>
 <p>There are multiple ways to achieve “concurrency” (multiple things happening at
 the same time) in python, each with their own advantages and disadvantages.
 It’s a rich, complicated topic, and a full treatment is well beyond the scope
 of this document, but strategies generally fall into one of three camps:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Multithreading</p></li>
 <li><p>Multprocessing</p></li>
 <li><p>Single-thread concurrency with
@@ -1802,9 +1894,9 @@ and <a class="reference external" href="https://docs.python.org/3/library/asynci
 immediately leverage them in napari.  <code class="docutils literal notranslate"><span class="pre">napari</span></code> also provides a few
 convenience functions that allow you to easily run your long-running
 methods in another thread.</p>
-</section>
-<section id="threading-in-napari-with-thread-worker">
-<h2>Threading in napari with <code class="docutils literal notranslate"><span class="pre">&#64;thread_worker</span></code><a class="headerlink" href="#threading-in-napari-with-thread-worker" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="threading-in-napari-with-thread-worker">
+<h2>Threading in napari with <code class="docutils literal notranslate"><span class="pre">&#64;thread_worker</span></code><a class="headerlink" href="#threading-in-napari-with-thread-worker" title="Permalink to this heading">¶</a></h2>
 <p>The simplest way to run a function in another thread in napari is to decorate
 your function with the
 <a class="reference internal" href="../api/napari.qt.threading.html#napari.qt.threading.thread_worker" title="napari.qt.threading.thread_worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">&#64;thread_worker</span></code></a> decorator.
@@ -1860,9 +1952,9 @@ by default when the decorated function is called.  Otherwise the thread must
 be manually started by calling
 <a class="reference internal" href="../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.start" title="napari.qt.threading.WorkerBase.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">worker.start()</span></code></a>.</p>
 </div>
-</section>
-<section id="responding-to-feedback-from-threads">
-<h2>Responding to feedback from threads<a class="headerlink" href="#responding-to-feedback-from-threads" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="responding-to-feedback-from-threads">
+<h2>Responding to feedback from threads<a class="headerlink" href="#responding-to-feedback-from-threads" title="Permalink to this heading">¶</a></h2>
 <p>As shown above, the <code class="docutils literal notranslate"><span class="pre">worker</span></code> object returned by a function decorated with
 <a class="reference internal" href="../api/napari.qt.threading.html#napari.qt.threading.thread_worker" title="napari.qt.threading.thread_worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">&#64;thread_worker</span></code></a> has a number of
 signals that are emitted in response to certain events.  The base signals
@@ -1874,8 +1966,8 @@ provided by the <code class="docutils literal notranslate"><span class="pre">wor
 <li><p><code class="docutils literal notranslate"><span class="pre">errored</span></code> [<em>exception</em>] - emitted with an <code class="docutils literal notranslate"><span class="pre">Exception</span></code> object if an
 exception is raised in the thread.</p></li>
 </ul>
-<section id="example-custom-exception-handler">
-<h3>Example: Custom exception handler<a class="headerlink" href="#example-custom-exception-handler" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="example-custom-exception-handler">
+<h3>Example: Custom exception handler<a class="headerlink" href="#example-custom-exception-handler" title="Permalink to this heading">¶</a></h3>
 <p>Because debugging issues in multithreaded applications can be tricky, the
 default behavior of a <code class="docutils literal notranslate"><span class="pre">&#64;thread_worker</span></code> - decorated function is to re-raise
 any exceptions in the main thread.  But just as we connected the
@@ -1892,10 +1984,10 @@ also connect your own custom handler to the <code class="docutils literal notran
     <span class="o">...</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="generators-for-the-win">
-<h2>Generators for the win!<a class="headerlink" href="#generators-for-the-win" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="generators-for-the-win">
+<h2>Generators for the win!<a class="headerlink" href="#generators-for-the-win" title="Permalink to this heading">¶</a></h2>
 <div class="admonition-quick-reminder admonition">
 <p class="admonition-title">quick reminder</p>
 <p>A generator function is a
@@ -1926,8 +2018,8 @@ methods on the <code class="docutils literal notranslate"><span class="pre">work
 <li><p><code class="docutils literal notranslate"><span class="pre">toggle_pause</span></code> - send a request to toggle the running state of the worker</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">quit</span></code> - send a request to abort the worker</p></li>
 </ul>
-<section id="retrieving-intermediate-results">
-<h3>Retrieving intermediate results<a class="headerlink" href="#retrieving-intermediate-results" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="retrieving-intermediate-results">
+<h3>Retrieving intermediate results<a class="headerlink" href="#retrieving-intermediate-results" title="Permalink to this heading">¶</a></h3>
 <p>The most obvious benefit of using a generator is that you can monitor
 intermediate results back in the main thread.  Continuing with our example of
 taking the mean projection of a large stack, if we yield the cumulative average
@@ -1972,8 +2064,8 @@ that the image in the viewer is updated every time a new image is yielded.</p>
 shorter-running yield statements like this, you not only benefit from the
 increased responsiveness in the viewer, you can often save on precious memory
 resources.</p>
-<section id="flow-control-and-escape-hatches">
-<h4>Flow control and escape hatches<a class="headerlink" href="#flow-control-and-escape-hatches" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="flow-control-and-escape-hatches">
+<h4>Flow control and escape hatches<a class="headerlink" href="#flow-control-and-escape-hatches" title="Permalink to this heading">¶</a></h4>
 <p>A perhaps even more useful aspect of yielding periodically in our long running
 function is that we provide a “hook” for the main thread to control the flow of
 our long running function.  When you use the
@@ -2017,9 +2109,9 @@ yielding generator, but add a button that aborts the worker when clicked:</p>
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
-<section id="graceful-exit">
-<h4>Graceful exit<a class="headerlink" href="#graceful-exit" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="graceful-exit">
+<h4>Graceful exit<a class="headerlink" href="#graceful-exit" title="Permalink to this heading">¶</a></h4>
 <p>A side-effect of this added flow control is that <code class="docutils literal notranslate"><span class="pre">napari</span></code> can gracefully
 shutdown any still-running workers when you try to quit the program.  Try the
 example above, but quit the program <em>without</em> pressing the “STOP” button.  No
@@ -2032,11 +2124,11 @@ thread to finish because there is no good way to communicate the request that
 it quit!  If you had a <em>very</em> long function, you’d be left with no choice but
 to force quit your program.</p>
 <p>So whenever possible, sprinkle your long-running functions with <code class="docutils literal notranslate"><span class="pre">yield</span></code>.</p>
-</section>
-</section>
-</section>
-<section id="full-two-way-communication">
-<h2>Full two-way communication<a class="headerlink" href="#full-two-way-communication" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="section" id="full-two-way-communication">
+<h2>Full two-way communication<a class="headerlink" href="#full-two-way-communication" title="Permalink to this heading">¶</a></h2>
 <p>So far we’ve mostly been <em>receiving</em> results from the threaded function, but we
 can send values <em>into</em> a generator-based thread as well using
 <a class="reference internal" href="../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.send" title="napari.qt.threading.GeneratorWorker.send"><code class="xref py py-meth docutils literal notranslate"><span class="pre">worker.send()</span></code></a> This works
@@ -2105,7 +2197,7 @@ hits “0”:</p>
 </pre></div>
 </div>
 <p>Let’s break it down:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>As usual, we decorate our generator function with
 <a class="reference internal" href="../api/napari.qt.threading.html#napari.qt.threading.thread_worker" title="napari.qt.threading.thread_worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">&#64;thread_worker</span></code></a> and instantiate
 it to create a <code class="docutils literal notranslate"><span class="pre">worker</span></code>.</p></li>
@@ -2129,9 +2221,9 @@ returning the string <code class="docutils literal notranslate"><span class="pre
 computation in another thread.  But it demonstrates some of the power and
 features provided when decorating a generator function with the
 <a class="reference internal" href="../api/napari.qt.threading.html#napari.qt.threading.thread_worker" title="napari.qt.threading.thread_worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">&#64;thread_worker</span></code></a> decorator.</p>
-</section>
-<section id="syntactic-sugar">
-<h2>Syntactic sugar<a class="headerlink" href="#syntactic-sugar" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="syntactic-sugar">
+<h2>Syntactic sugar<a class="headerlink" href="#syntactic-sugar" title="Permalink to this heading">¶</a></h2>
 <p>The <a class="reference internal" href="../api/napari.qt.threading.html#napari.qt.threading.thread_worker" title="napari.qt.threading.thread_worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">&#64;thread_worker</span></code></a> decorator is
 just syntactic sugar for calling <a class="reference internal" href="../api/napari.qt.threading.html#napari.qt.threading.create_worker" title="napari.qt.threading.create_worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_worker()</span></code></a> on
 your function.  In turn, <a class="reference internal" href="../api/napari.qt.threading.html#napari.qt.threading.create_worker" title="napari.qt.threading.create_worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_worker()</span></code></a> is just a
@@ -2169,14 +2261,14 @@ depending on your function type. The following three examples are equivalent:</p
 the <code class="docutils literal notranslate"><span class="pre">FunctionWorker</span></code> class is that <code class="docutils literal notranslate"><span class="pre">create_worker</span></code> will automatically
 dispatch the appropriate type of <code class="docutils literal notranslate"><span class="pre">Worker</span></code> class depending on whether the
 function is a generator or not).</p>
-</section>
-<section id="using-a-custom-worker-class">
-<h2>Using a custom worker class<a class="headerlink" href="#using-a-custom-worker-class" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="using-a-custom-worker-class">
+<h2>Using a custom worker class<a class="headerlink" href="#using-a-custom-worker-class" title="Permalink to this heading">¶</a></h2>
 <p>If you need even more control over the worker – such as the ability to define
 custom methods or signals that the worker can emit, then you can subclass the
 napari <a class="reference internal" href="../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase" title="napari.qt.threading.WorkerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkerBase</span></code></a> class.  When doing so, please
 keep in mind the following guidelines:</p>
-<ol>
+<ol class="arabic">
 <li><p>The subclass must either implement the
 <a class="reference internal" href="../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.work" title="napari.qt.threading.WorkerBase.work"><code class="xref py py-meth docutils literal notranslate"><span class="pre">work()</span></code></a> method (preferred), or in
 extreme cases, may directly reimplement the
@@ -2214,8 +2306,8 @@ look at the two main concrete subclasses in napari:
 <a class="reference internal" href="../api/napari.qt.threading.FunctionWorker.html#napari.qt.threading.FunctionWorker" title="napari.qt.threading.FunctionWorker"><code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionWorker</span></code></a> and
 <a class="reference internal" href="../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker" title="napari.qt.threading.GeneratorWorker"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratorWorker</span></code></a>.  You may also wish to simply
 subclass one of those two classes.</p>
-<section id="adding-custom-signals">
-<h3>Adding custom signals<a class="headerlink" href="#adding-custom-signals" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="adding-custom-signals">
+<h3>Adding custom signals<a class="headerlink" href="#adding-custom-signals" title="Permalink to this heading">¶</a></h3>
 <p>In order to emit signals, an object must inherit from <code class="docutils literal notranslate"><span class="pre">QObject</span></code>.  However,
 due to challenges with multiple inheritance in Qt, the signals for
 <a class="reference internal" href="../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase" title="napari.qt.threading.WorkerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkerBase</span></code></a> objects actually live in the
@@ -2256,9 +2348,9 @@ initializing the superclass in your <code class="docutils literal notranslate"><
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">SignalsClass</span><span class="o">=</span><span class="n">MyWorkerSignals</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -2594,7 +2686,7 @@ initializing the superclass in your <code class="docutils literal notranslate"><
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

@@ -113,17 +113,10 @@ napari.layers.Tracks
       ~Tracks.translate_grid
       ~Tracks.use_fade
       ~Tracks.visible
-<<<<<<< HEAD:_sources/api/napari.layers.Tracks.rst
-      
-      
-      
-      
-=======
       ~Tracks.mouse_move_callbacks
       ~Tracks.mouse_wheel_callbacks
       ~Tracks.mouse_drag_callbacks
       ~Tracks.mouse_double_click_callbacks
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.layers.Tracks.rst
    
    
 

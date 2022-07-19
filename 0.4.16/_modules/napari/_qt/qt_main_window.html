@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,6 +29,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
@@ -36,12 +37,13 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -113,6 +115,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables _modules/napari/_qt/qt_main_window and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "_modules/napari/_qt/qt_main_window.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "_modules/napari/_qt/qt_main_window.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -192,8 +285,6 @@
 <span class="sd">Custom Qt widgets that serve as native objects that the public-facing elements</span>
 <span class="sd">wrap.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -208,8 +299,6 @@
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">Union</span><span class="p">,</span>
-    <span class="n">cast</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakValueDictionary</span>
 
@@ -240,7 +329,7 @@
 <span class="kn">from</span> <span class="nn">.dialogs.qt_activity_dialog</span> <span class="kn">import</span> <span class="n">QtActivityDialog</span>
 <span class="kn">from</span> <span class="nn">.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
 <span class="kn">from</span> <span class="nn">.qt_event_loop</span> <span class="kn">import</span> <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span> <span class="n">get_app</span><span class="p">,</span> <span class="n">quit_app</span>
-<span class="kn">from</span> <span class="nn">.qt_resources</span> <span class="kn">import</span> <span class="n">get_stylesheet</span>
+<span class="kn">from</span> <span class="nn">.qt_resources</span> <span class="kn">import</span> <span class="n">get_stylesheet</span><span class="p">,</span> <span class="n">register_napari_themes</span>
 <span class="kn">from</span> <span class="nn">.qt_viewer</span> <span class="kn">import</span> <span class="n">QtViewer</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">QImg2array</span><span class="p">,</span> <span class="n">qbytearray_to_str</span><span class="p">,</span> <span class="n">str_to_qbytearray</span>
 <span class="kn">from</span> <span class="nn">.widgets.qt_viewer_dock_widget</span> <span class="kn">import</span> <span class="p">(</span>
@@ -252,7 +341,6 @@
 <span class="n">_sentinel</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">magicgui.widgets</span> <span class="kn">import</span> <span class="n">Widget</span>
     <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QImage</span>
 
     <span class="kn">from</span> <span class="nn">..viewer</span> <span class="kn">import</span> <span class="n">Viewer</span>
@@ -277,7 +365,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_quit_app</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_window_icon</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WidgetAttribute</span><span class="o">.</span><span class="n">WA_DeleteOnClose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WA_DeleteOnClose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setUnifiedTitleAndToolBarOnMac</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">center</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">center</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">QHBoxLayout</span><span class="p">())</span>
@@ -325,7 +413,7 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">current</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;_QtMainWindow&#39;</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">current</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instances</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instances</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@classmethod</span>
@@ -333,28 +421,27 @@
         <span class="n">window</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span> <span class="k">if</span> <span class="n">window</span> <span class="k">else</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">QEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ToolTip</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">ToolTip</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span>
         <span class="p">):</span>
-            <span class="c1"># globalPos is for Qt5 e.globalPosition().toPoint() is for QT6</span>
-            <span class="c1"># https://doc-snapshots.qt.io/qt6-dev/qmouseevent-obsolete.html#globalPos</span>
-            <span class="n">pnt</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">e</span><span class="o">.</span><span class="n">globalPosition</span><span class="p">()</span><span class="o">.</span><span class="n">toPoint</span><span class="p">()</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;globalPosition&quot;</span><span class="p">)</span>
-                <span class="k">else</span> <span class="n">e</span><span class="o">.</span><span class="n">globalPos</span><span class="p">()</span>
+            <span class="n">QToolTip</span><span class="o">.</span><span class="n">showText</span><span class="p">(</span>
+                <span class="n">e</span><span class="o">.</span><span class="n">globalPos</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span>
             <span class="p">)</span>
-            <span class="n">QToolTip</span><span class="o">.</span><span class="n">showText</span><span class="p">(</span><span class="n">pnt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">Close</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Close</span><span class="p">:</span>
             <span class="c1"># when we close the MainWindow, remove it from the instances list</span>
-            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
                 <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">WindowActivate</span><span class="p">,</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">ZOrderChange</span><span class="p">}:</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="n">QEvent</span><span class="o">.</span><span class="n">WindowActivate</span><span class="p">,</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">ZOrderChange</span><span class="p">}:</span>
             <span class="c1"># upon activation or raise_, put window at the end of _instances</span>
-            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
                 <span class="n">inst</span> <span class="o">=</span> <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">_instances</span>
                 <span class="n">inst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -370,7 +457,7 @@
             <span class="n">window_position</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">window_position</span>
-            <span class="n">screen_geo</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">primaryScreen</span><span class="p">()</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+            <span class="n">screen_geo</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">desktop</span><span class="p">()</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">screen_geo</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">width</span> <span class="ow">or</span> <span class="n">screen_geo</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">:</span>
                 <span class="n">window_position</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
 
@@ -417,7 +504,7 @@
 <span class="sd">        Symmetric to the &#39;get_window_settings&#39; accessor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setUpdatesEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowState</span><span class="o">.</span><span class="n">WindowNoState</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowNoState</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">window_position</span><span class="p">:</span>
             <span class="n">window_position</span> <span class="o">=</span> <span class="n">QPoint</span><span class="p">(</span><span class="o">*</span><span class="n">window_position</span><span class="p">)</span>
@@ -436,10 +523,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">window_fullscreen</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowState</span><span class="o">.</span><span class="n">WindowFullScreen</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowFullScreen</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_maximized_flag</span> <span class="o">=</span> <span class="n">window_maximized</span>
         <span class="k">elif</span> <span class="n">window_maximized</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowState</span><span class="o">.</span><span class="n">WindowMaximized</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowMaximized</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setUpdatesEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
@@ -485,19 +572,18 @@
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">parent</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;_parent&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">block</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span> <span class="o">=</span> <span class="n">QEventLoop</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">changeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Handle window state changes.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">WindowStateChange</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">WindowStateChange</span><span class="p">:</span>
             <span class="c1"># TODO: handle maximization issue. When double clicking on the</span>
             <span class="c1"># title bar on Mac the resizeEvent is called an varying amount</span>
             <span class="c1"># of times which makes it hard to track the original size before</span>
@@ -545,7 +631,7 @@
 
         <span class="c1"># Close any floating dockwidgets</span>
         <span class="k">for</span> <span class="n">dock</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="n">QtViewerDockWidget</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dock</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dock</span><span class="o">.</span><span class="n">isFloating</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">dock</span><span class="o">.</span><span class="n">isFloating</span><span class="p">():</span>
                 <span class="n">dock</span><span class="o">.</span><span class="n">setFloating</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_current_window_settings</span><span class="p">()</span>
@@ -555,7 +641,7 @@
         <span class="c1"># test to complete its draw cycle, then pop back out of fullscreen.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
                 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
                 <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
 
@@ -598,7 +684,8 @@
 <span class="sd">        Help menu.</span>
 <span class="sd">    main_menu : qtpy.QtWidgets.QMainWindow.menuBar</span>
 <span class="sd">        Main menubar.</span>
-
+<span class="sd">    qt_viewer : QtViewer</span>
+<span class="sd">        Contained viewer widget.</span>
 <span class="sd">    view_menu : qtpy.QtWidgets.QMenu</span>
 <span class="sd">        View menu.</span>
 <span class="sd">    window_menu : qtpy.QtWidgets.QMenu</span>
@@ -621,6 +708,7 @@
         <span class="c1"># connect theme events before collecting plugin-provided themes</span>
         <span class="c1"># to ensure icons from the plugins are generated correctly.</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">added</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_theme</span><span class="p">)</span>
+        <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">added</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">register_napari_themes</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_remove_theme</span><span class="p">)</span>
 
         <span class="c1"># discover any themes provided by plugins</span>
@@ -662,7 +750,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockLayerList</span><span class="p">,</span>
                 <span class="p">],</span>
                 <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockLayerControls</span><span class="o">.</span><span class="n">minimumHeight</span><span class="p">(),</span> <span class="mi">10000</span><span class="p">],</span>
-                <span class="n">Qt</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">Vertical</span><span class="p">,</span>
+                <span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_setup_existing_themes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
@@ -691,7 +779,7 @@
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
-        <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">icon</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
+        <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">icon</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme_icon_changed</span><span class="p">)</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_set_theme_change</span><span class="p">(</span>
                 <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span>
@@ -715,7 +803,7 @@
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
-        <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">icon</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_no_event</span><span class="p">)</span>
+        <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">icon</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme_icon_changed</span><span class="p">)</span>
         <span class="n">theme</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_set_theme_change</span><span class="p">(</span>
                 <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span>
@@ -740,6 +828,22 @@
         <span class="sd">&quot;&quot;&quot;Remove theme and disconnect events.&quot;&quot;&quot;</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_theme_icon_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Trigger rebuild of theme and all resources.</span>
+
+<span class="sd">        This is really only required whenever there are changes to the `icon`</span>
+<span class="sd">        attribute on the `Theme` model. Most other attributes simply update</span>
+<span class="sd">        the stylesheet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.._qt.qt_resources</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">_register_napari_resources</span><span class="p">,</span>
+            <span class="n">_unregister_napari_resources</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">_unregister_napari_resources</span><span class="p">()</span>
+        <span class="n">_register_napari_resources</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_rebuild</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">qt_viewer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -804,16 +908,24 @@
 <span class="sd">        menubar is visible.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
 
-    <span class="k">def</span> <span class="nf">_toggle_fullscreen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_tooltip_visibility_toggle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">layer_tooltip_visibility</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_tooltip_visibility_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tooltip_menu</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span>
+            <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">layer_tooltip_visibility</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_toggle_fullscreen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Toggle fullscreen mode.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">showFullScreen</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_toggle_play</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_toggle_play</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Toggle play.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">is_playing</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
@@ -846,7 +958,8 @@
         <span class="n">Widget</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">dock_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="n">result</span> <span class="o">:=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_widget_contribution</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_widget_contribution</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
             <span class="n">Widget</span><span class="p">,</span> <span class="n">widget_name</span> <span class="o">=</span> <span class="n">result</span>
 
         <span class="k">if</span> <span class="n">Widget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -866,9 +979,7 @@
                 <span class="n">wdg</span> <span class="o">=</span> <span class="n">wdg</span><span class="o">.</span><span class="n">_magic_widget</span>
             <span class="k">return</span> <span class="n">dock_widget</span><span class="p">,</span> <span class="n">wdg</span>
 
-        <span class="n">wdg</span> <span class="o">=</span> <span class="n">_instantiate_dock_widget</span><span class="p">(</span>
-            <span class="n">Widget</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="n">wdg</span> <span class="o">=</span> <span class="n">_instantiate_dock_widget</span><span class="p">(</span><span class="n">Widget</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
 
         <span class="c1"># Add dock widget</span>
         <span class="n">dock_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -900,7 +1011,7 @@
 
 <div class="viewcode-block" id="Window.add_dock_widget"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.window.Window.add_dock_widget">[docs]</a>    <span class="k">def</span> <span class="nf">add_dock_widget</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">widget</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">QWidget</span><span class="p">,</span> <span class="s1">&#39;Widget&#39;</span><span class="p">],</span>
+        <span class="n">widget</span><span class="p">:</span> <span class="n">QWidget</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="n">area</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span>
@@ -946,8 +1057,11 @@
 <span class="sd">            `dock_widget` that can pass viewer events.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
             <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                 <span class="s2">&quot;Dock widget </span><span class="si">{number}</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="n">number</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span><span class="p">,</span>
@@ -1030,9 +1144,7 @@
                 <span class="n">_wdg</span> <span class="o">=</span> <span class="n">current_dws_in_area</span> <span class="o">+</span> <span class="p">[</span><span class="n">dock_widget</span><span class="p">]</span>
                 <span class="c1"># add sizes to push lower widgets up</span>
                 <span class="n">sizes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_wdg</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resizeDocks</span><span class="p">(</span>
-                    <span class="n">_wdg</span><span class="p">,</span> <span class="n">sizes</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">Vertical</span>
-                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resizeDocks</span><span class="p">(</span><span class="n">_wdg</span><span class="p">,</span> <span class="n">sizes</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">menu</span><span class="p">:</span>
             <span class="n">action</span> <span class="o">=</span> <span class="n">dock_widget</span><span class="o">.</span><span class="n">toggleViewAction</span><span class="p">()</span>
@@ -1079,7 +1191,6 @@
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">QDockWidget</span><span class="p">):</span>
-            <span class="n">dw</span><span class="p">:</span> <span class="n">QDockWidget</span>
             <span class="k">for</span> <span class="n">dw</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="n">QDockWidget</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">dw</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span> <span class="ow">is</span> <span class="n">widget</span><span class="p">:</span>
                     <span class="n">_dw</span><span class="p">:</span> <span class="n">QDockWidget</span> <span class="o">=</span> <span class="n">dw</span>
@@ -1191,39 +1302,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Window.set_geometry"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.window.Window.set_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">set_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the geometry of the widget</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        left : int</span>
-<span class="sd">            X coordinate of the upper left border.</span>
-<span class="sd">        top : int</span>
-<span class="sd">            Y coordinate of the upper left border.</span>
-<span class="sd">        width : int</span>
-<span class="sd">            Width of the rectangle shape of the window.</span>
-<span class="sd">        height : int</span>
-<span class="sd">            Height of the rectangle shape of the window.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Window.geometry"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.window.Window.geometry">[docs]</a>    <span class="k">def</span> <span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the geometry of the widget</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        left : int</span>
-<span class="sd">            X coordinate of the upper left border.</span>
-<span class="sd">        top : int</span>
-<span class="sd">            Y coordinate of the upper left border.</span>
-<span class="sd">        width : int</span>
-<span class="sd">            Width of the rectangle shape of the window.</span>
-<span class="sd">        height : int</span>
-<span class="sd">            Height of the rectangle shape of the window.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">rect</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">top</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span></div>
-
 <div class="viewcode-block" id="Window.show"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.window.Window.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Resize, show, and bring forward the window.</span>
 
@@ -1301,19 +1379,21 @@
     <span class="k">def</span> <span class="nf">_update_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update widget color theme.&quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
-        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">event</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">value</span>
                 <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">value</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">get_system_theme</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span> <span class="o">==</span> <span class="s2">&quot;system&quot;</span>
-                    <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">theme</span>
-                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span> <span class="o">==</span> <span class="s2">&quot;system&quot;</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">get_system_theme</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">theme</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">get_stylesheet</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
+            <span class="c1"># wrapped C/C++ object may have been deleted?</span>
+            <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">_status_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update status bar.</span>
@@ -1460,11 +1540,14 @@
         <span class="sd">&quot;&quot;&quot;Carry out various teardown tasks such as event disconnection.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_setup_existing_themes</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">added</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_theme</span><span class="p">)</span>
+        <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">added</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">register_napari_themes</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_remove_theme</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">menu</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">_INSTANCES</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
                 <span class="n">menu</span><span class="o">.</span><span class="n">_destroy</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="k">pass</span>
 
 <div class="viewcode-block" id="Window.close"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.window.Window.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Close the viewer window and cleanup sub-widgets.&quot;&quot;&quot;</span>
@@ -1587,9 +1670,8 @@
   <span>napari</span>
 </a>
 
-<a class="footer-icon__hover-blue" href="https://napari-hub.org" target="_blank" rel="noreferrer">
+<a href="https://napari-hub.org" target="_blank" rel="noreferrer">
   <svg
-  class="footer-icon__regular"
   width="487"
   height="512"
   viewBox="0 0 487 512"
@@ -1678,108 +1760,11 @@
     stroke-linejoin="round"
   ></path>
 </svg>
-  <svg
-  class="footer-icon__light-blue"
-  width="17"
-  height="17"
-  viewBox="0 0 17 17"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <g clip-path="url(#clip0_307_186)">
-    <circle
-      cx="8.50002"
-      cy="8.49935"
-      r="2.83333"
-      fill="#D2EFFF"
-      stroke="#D2EFFF"
-      stroke-width="1.86421"
-    />
-    <circle cx="8.50004" cy="1.41667" r="1.41667" fill="#D2EFFF" />
-    <circle cx="8.50004" cy="15.5846" r="1.41667" fill="#D2EFFF" />
-    <path
-      d="M8.50006 0.943359L8.50006 4.72114"
-      stroke="#D2EFFF"
-      stroke-width="1.86421"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M8.50006 12.2773L8.50006 16.0551"
-      stroke="#D2EFFF"
-      stroke-width="1.86421"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <circle
-      cx="2.36574"
-      cy="4.95803"
-      r="1.41667"
-      transform="rotate(-60 2.36574 4.95803)"
-      fill="#D2EFFF"
-    />
-    <circle
-      cx="14.6344"
-      cy="12.0401"
-      r="1.41667"
-      transform="rotate(-60 14.6344 12.0401)"
-      fill="#D2EFFF"
-    />
-    <path
-      d="M1.95673 4.72266L5.22838 6.61155"
-      stroke="#D2EFFF"
-      stroke-width="1.86421"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11.7717 10.3887L15.0434 12.2776"
-      stroke="#D2EFFF"
-      stroke-width="1.86421"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <circle
-      cx="2.3657"
-      cy="12.0433"
-      r="1.41667"
-      transform="rotate(-120 2.3657 12.0433)"
-      fill="#D2EFFF"
-    />
-    <circle
-      cx="14.6345"
-      cy="4.95933"
-      r="1.41667"
-      transform="rotate(-120 14.6345 4.95933)"
-      fill="#D2EFFF"
-    />
-    <path
-      d="M1.95673 12.2773L5.22838 10.3885"
-      stroke="#D2EFFF"
-      stroke-width="1.86421"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11.7717 6.61133L15.0434 4.72244"
-      stroke="#D2EFFF"
-      stroke-width="1.86421"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </g>
-  <defs>
-    <clipPath id="clip0_307_186">
-      <rect width="17" height="17" fill="white" />
-    </clipPath>
-  </defs>
-</svg>
   <span>napari hub</span>
 </a>
 
-<a class="footer-icon__hover-blue" href="https://github.com/napari/napari" target="_blank" rel="noreferrer">
+<a href="https://github.com/napari/napari" target="_blank" rel="noreferrer">
   <svg
-  class="footer-icon__regular"
   width="14"
   height="14"
   viewBox="0 0 14 14"
@@ -1792,25 +1777,11 @@
     fill="white"
   ></path>
 </svg>
-  <svg
-  class="footer-icon__light-blue"
-  width="16"
-  height="16"
-  viewBox="0 0 16 16"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M8 0C3.58 0 0 3.582 0 8C0 11.5353 2.292 14.5333 5.47 15.59C5.87 15.6653 6.01667 15.418 6.01667 15.2053C6.01667 15.0153 6.01 14.512 6.00667 13.8453C3.78133 14.328 3.312 12.772 3.312 12.772C2.948 11.8487 2.422 11.602 2.422 11.602C1.69733 11.106 2.478 11.116 2.478 11.116C3.28133 11.172 3.70333 11.94 3.70333 11.94C4.41667 13.1633 5.576 12.81 6.03333 12.6053C6.10533 12.088 6.31133 11.7353 6.54 11.5353C4.76333 11.3353 2.896 10.6473 2.896 7.582C2.896 6.70867 3.206 5.99533 3.71933 5.43533C3.62933 5.23333 3.35933 4.42 3.78933 3.318C3.78933 3.318 4.45933 3.10333 5.98933 4.138C6.62933 3.96 7.30933 3.872 7.98933 3.868C8.66933 3.872 9.34933 3.96 9.98933 4.138C11.5093 3.10333 12.1793 3.318 12.1793 3.318C12.6093 4.42 12.3393 5.23333 12.2593 5.43533C12.7693 5.99533 13.0793 6.70867 13.0793 7.582C13.0793 10.6553 11.2093 11.332 9.42933 11.5287C9.70933 11.7687 9.96933 12.2593 9.96933 13.0087C9.96933 14.0793 9.95933 14.9393 9.95933 15.1993C9.95933 15.4093 10.0993 15.6593 10.5093 15.5793C13.71 14.53 16 11.53 16 8C16 3.582 12.418 0 8 0"
-    fill="#D2EFFF"
-  />
-</svg>
   <span>GitHub</span>
 </a>
 
-<a class="footer-icon__hover-blue" href="https://twitter.com/napari_imaging" target="_blank" rel="noreferrer">
+<a href="https://twitter.com/napari_imaging" target="_blank" rel="noreferrer">
   <svg
-  class="footer-icon__regular"
   width="15"
   height="13"
   viewBox="0 0 15 13"
@@ -1823,25 +1794,11 @@
     fill="white"
   ></path>
 </svg>
-  <svg
-  class="footer-icon__light-blue"
-  width="16"
-  height="16"
-  viewBox="0 0 16 16"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M15.9687 3.04705C15.3697 3.31079 14.7351 3.48488 14.0853 3.56372C14.7694 3.15255 15.2816 2.50775 15.5273 1.74838C14.8933 2.11838 14.1907 2.38772 13.4427 2.53772C12.9492 2.01 12.2952 1.66 11.5824 1.54205C10.8696 1.4241 10.1378 1.54482 9.50062 1.88544C8.86345 2.22607 8.35657 2.76755 8.0587 3.4258C7.76083 4.08405 7.68864 4.82223 7.85333 5.52572C5.12667 5.39705 2.71133 4.08705 1.09333 2.10838C0.799196 2.60826 0.645776 3.1784 0.649333 3.75838C0.649333 4.89838 1.22933 5.90038 2.108 6.48905C1.58724 6.47247 1.07798 6.33167 0.622667 6.07838V6.11838C0.622371 6.87598 0.884179 7.61034 1.36367 8.19689C1.84316 8.78343 2.51081 9.18603 3.25333 9.33638C2.7722 9.4653 2.26828 9.48467 1.77867 9.39305C1.98941 10.0451 2.39844 10.615 2.94868 11.0234C3.49891 11.4318 4.1629 11.6582 4.848 11.671C3.68769 12.5817 2.25498 13.0759 0.78 13.0744C0.52 13.0744 0.260667 13.0591 0 13.0297C1.50381 13.9926 3.25234 14.5037 5.038 14.5024C11.0733 14.5024 14.37 9.50505 14.37 5.17905C14.37 5.03905 14.37 4.89905 14.36 4.75905C15.004 4.29563 15.5595 3.72026 16 3.06038L15.9687 3.04705Z"
-    fill="#D2EFFF"
-  />
-</svg>
   <span>Twitter</span>
 </a>
 
-<a class="footer-icon__hover-blue" href="https://forum.image.sc/tag/napari" target="_blank" rel="noreferrer">
+<a href="https://forum.image.sc/tag/napari" target="_blank" rel="noreferrer">
   <svg
-  class="footer-icon__regular"
   width="20"
   height="20"
   viewBox="0 0 20 20"
@@ -1880,51 +1837,11 @@
     stroke-width="2.34286"
   ></path>
 </svg>
-  <svg
-  class="footer-icon__light-blue"
-  width="16"
-  height="16"
-  viewBox="0 0 16 16"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M10.3989 3.72445V1.61071C10.3989 1.60566 10.3948 1.60156 10.3898 1.60156H5.56237C5.55732 1.60156 5.55322 1.60566 5.55322 1.61071V6.43813C5.55322 6.44319 5.55732 6.44727 5.56237 6.44727H8.77605"
-    stroke="#D2EFFF"
-    stroke-width="1.87535"
-  />
-  <path
-    d="M5.55322 12.2794V14.3932C5.55322 14.3982 5.55732 14.4023 5.56237 14.4023H10.3898C10.3948 14.4023 10.3989 14.3982 10.3989 14.3932V9.56576C10.3989 9.56072 10.3948 9.55664 10.3898 9.55664H7.17608"
-    stroke="#D2EFFF"
-    stroke-width="1.87535"
-  />
-  <path
-    d="M12.8916 7.96164L14.7221 6.90477C14.7265 6.90224 14.728 6.89665 14.7255 6.89228L12.3118 2.7116C12.3092 2.70723 12.3036 2.70573 12.2993 2.70826L8.1186 5.12197C8.11428 5.12449 8.11276 5.13008 8.11524 5.13446L9.72212 7.91762"
-    stroke="#D2EFFF"
-    stroke-width="1.87535"
-  />
-  <path
-    d="M3.06062 8.04297L1.23007 9.09985C1.22569 9.10233 1.2242 9.10793 1.22672 9.11233L3.64044 13.293C3.64296 13.2974 3.64856 13.2989 3.65292 13.2963L7.8336 10.8826C7.83797 10.8801 7.83948 10.8745 7.83695 10.8701L6.23009 8.08697"
-    stroke="#D2EFFF"
-    stroke-width="1.87535"
-  />
-  <path
-    d="M10.4688 12.2401L12.2994 13.297C12.3037 13.2996 12.3093 13.298 12.3119 13.2936L14.7255 9.11299C14.7281 9.10859 14.7266 9.10299 14.7222 9.10051L10.5415 6.68677C10.5371 6.68425 10.5315 6.68575 10.5291 6.69012L8.92218 9.47331"
-    stroke="#D2EFFF"
-    stroke-width="1.87535"
-  />
-  <path
-    d="M5.48348 3.76513L3.65292 2.70825C3.64855 2.70573 3.64296 2.70723 3.64043 2.71161L1.22672 6.89228C1.22419 6.89665 1.2257 6.90225 1.23007 6.90477L5.41075 9.3185C5.41511 9.32098 5.42071 9.31954 5.42323 9.31514L7.03009 6.53198"
-    stroke="#D2EFFF"
-    stroke-width="1.87535"
-  />
-</svg>
   <span>image.sc</span>
 </a>
 
-<a class="footer-icon__hover-blue" href="https://napari.zulipchat.com" target="_blank" rel="noreferrer">
+<a href="https://napari.zulipchat.com" target="_blank" rel="noreferrer">
   <svg
-  class="footer-icon__regular"
   width="16"
   height="16"
   viewBox="0 0 16 16"
@@ -1941,26 +1858,6 @@
   <defs>
     <clipPath id="clip0">
       <rect width="16" height="16" fill="white"></rect>
-    </clipPath>
-  </defs>
-</svg>
-  <svg
-  class="footer-icon__light-blue"
-  width="16"
-  height="16"
-  viewBox="0 0 16 16"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <g clip-path="url(#clip0_307_219)">
-    <path
-      d="M15.178 2.39267C15.178 3.19867 14.816 3.91467 14.2647 4.34867L8.90866 9.13133C8.80932 9.21667 8.67999 9.07933 8.75199 8.96467L10.716 5.03133C10.7713 4.92133 10.7 4.786 10.5867 4.786H2.96799C1.78799 4.786 0.821991 3.70933 0.821991 2.39267C0.821991 1.07733 1.78799 3.09431e-07 2.96799 3.09431e-07H13.032C14.212 -0.000666357 15.178 1.076 15.178 2.39267V2.39267ZM2.96799 16H13.032C14.212 16 15.178 14.9227 15.178 13.6067C15.178 12.2907 14.212 11.2133 13.032 11.2133H5.41332C5.29999 11.2133 5.22866 11.0787 5.28399 10.9687L7.24799 7.03533C7.31999 6.92067 7.19066 6.78333 7.09132 6.86867L1.73599 11.6507C1.18399 12.084 0.822658 12.8007 0.822658 13.6067C0.822658 14.9227 1.78799 16 2.96799 16V16Z"
-      fill="#D2EFFF"
-    />
-  </g>
-  <defs>
-    <clipPath id="clip0_307_219">
-      <rect width="16" height="16" fill="white" />
     </clipPath>
   </defs>
 </svg>
@@ -1981,7 +1878,7 @@
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

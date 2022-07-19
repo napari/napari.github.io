@@ -43,13 +43,8 @@ to adjust the layer opacity between 0, fully invisible and 1, fully visible.
 globally to all the points in the layer, and so you don't need to have any
 points selected for it to have an effect.
 * For the [shapes layer](napari.layers.Shapes), the opacity value applies
-<<<<<<< HEAD:_sources/guides/layers.md
-globally to all shapes in the layer, and so you don't need to have any
-shape selected for it to have an effect.
-=======
 individually to each shape in the layer, and so you must have shapes selected
 for it to have an effect.
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/layers.md
 * For the [vectors layer](napari.layers.Vectors), the opacity value applies
 globally to all the vectors in the layer.
 * For the [tracks layer](napari.layers.Tracks), the opacity value applies globally to all the tracks in the layer.

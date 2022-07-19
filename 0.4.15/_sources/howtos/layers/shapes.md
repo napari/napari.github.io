@@ -33,7 +33,7 @@ add shapes to it using `viewer.add_shapes`. The api of both methods is the same.
 In these examples we'll mainly use `add_shapes` to overlay shapes onto on an
 existing image.
 
-In this example, we will overlay some shapes on the image of a photographer:
+In this example of we will overlay some shapes on the image of a photographer:
 
 ```{code-cell} python
 import napari
@@ -67,7 +67,7 @@ shapes_layer = viewer.add_shapes(polygons, shape_type='polygon', edge_width=5,
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="Shapes overlaid on image")
+nbscreenshot(viewer)
 ```
 
 ```{code-cell} python
@@ -201,7 +201,7 @@ shapes_layer.add(
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="Add new shapes to an existing shapes layer")
+nbscreenshot(viewer)
 ```
 
 ```{code-cell} python
@@ -247,7 +247,7 @@ shapes_layer.add_ellipses(
 
 from napari.utils import nbscreenshot
 
-nbscreenshot(viewer, alt_text="Add new ellipses to an existing shapes layer using the specific method for this layer type")
+nbscreenshot(viewer)
 ```
 
 ```{code-cell} python

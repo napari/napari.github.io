@@ -83,16 +83,6 @@ napari.plugins.PluginManifest
       ~PluginManifest.description
       ~PluginManifest.license
       ~PluginManifest.package_version
-<<<<<<< HEAD:_sources/api/napari.plugins.PluginManifest.rst
-      
-      
-      
-      
-      
-      
-      
-      
-=======
       ~PluginManifest.name
       ~PluginManifest.display_name
       ~PluginManifest.schema_version
@@ -101,7 +91,6 @@ napari.plugins.PluginManifest
       ~PluginManifest.contributions
       ~PluginManifest.package_metadata
       ~PluginManifest.npe1_shim
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.plugins.PluginManifest.rst
    
    
 

@@ -145,10 +145,10 @@ napari.layers.Labels
       ~Labels.translate
       ~Labels.translate_grid
       ~Labels.visible
-      
-      
-      
-      
+      ~Labels.mouse_move_callbacks
+      ~Labels.mouse_wheel_callbacks
+      ~Labels.mouse_drag_callbacks
+      ~Labels.mouse_double_click_callbacks
    
    
 

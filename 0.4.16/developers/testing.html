@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Testing &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Profiling" href="profiling.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables developers/testing and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "developers/testing.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "developers/testing.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -645,10 +737,10 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="testing">
-<span id="napari-testing"></span><h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="testing">
+<span id="napari-testing"></span><h1>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
 <p>We use unit tests, integration tests, and functional tests to ensure that
 <code class="docutils literal notranslate"><span class="pre">napari</span></code> works as intended. We have</p>
 <ul class="simple">
@@ -667,9 +759,9 @@ of functional tests as depicted in the test pyramid below from
 <p>Unit tests are at the base of the pyramid because they are the easiest to write and
 the quickest to run. The time and effort to implement and maintain tests increases
 from unit tests to integration and functional tests.</p>
-</section>
-<section id="test-organization">
-<h2>Test organization<a class="headerlink" href="#test-organization" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="test-organization">
+<h2>Test organization<a class="headerlink" href="#test-organization" title="Permalink to this heading">¶</a></h2>
 <p>All of <code class="docutils literal notranslate"><span class="pre">napari</span></code> tests are located in folders named <code class="docutils literal notranslate"><span class="pre">_tests</span></code>. We keep our unit
 tests located in the individual folders with the modules or functions they are
 testing (e.g. the tests for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer are located in a <code class="docutils literal notranslate"><span class="pre">_tests</span></code> folder
@@ -680,9 +772,9 @@ our GUI code. These tests are located in the <code class="docutils literal notra
 and <code class="docutils literal notranslate"><span class="pre">napari/utils</span></code> folders. Our GUI code is tests in the <code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code>,
 <code class="docutils literal notranslate"><span class="pre">napari/_qt</span></code>, <code class="docutils literal notranslate"><span class="pre">napari/_vispy</span></code> folders. The <code class="docutils literal notranslate"><span class="pre">napari/plugins</span></code> folder contains a mix
 of tests.</p>
-</section>
-<section id="running-tests">
-<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this heading">¶</a></h2>
 <p>To run our test suite locally, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> on the command line.  If, for some reason
 you don’t already have the test requirements in your environment, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[testing]</span></code>.</p>
 <p>There are a very small number of tests (&lt;5) that require showing GUI elements, (such
@@ -691,8 +783,8 @@ If you’d like to include them in local tests, set the environment variable “
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">CI</span><span class="o">=</span><span class="m">1</span> pytest
 </pre></div>
 </div>
-<section id="tips-for-speeding-up-local-testing">
-<h3>Tips for speeding up local testing<a class="headerlink" href="#tips-for-speeding-up-local-testing" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="tips-for-speeding-up-local-testing">
+<h3>Tips for speeding up local testing<a class="headerlink" href="#tips-for-speeding-up-local-testing" title="Permalink to this heading">¶</a></h3>
 <p>Very often when developing new code, you don’t need or want to run the entire test suite (which can take many minutes to finish).  With <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, it’s easy to run a subset of your tests:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># run tests in a specific subdirectory</span>
 pytest napari/components
@@ -705,9 +797,9 @@ pytest napari/layers/ -k <span class="s1">&#39;points and not bindings&#39;</spa
 </pre></div>
 </div>
 <p>In general, it pays to learn a few of the <a class="reference external" href="https://docs.pytest.org/en/latest/example/index.html">tips and tricks</a> of running pytest.</p>
-</section>
-<section id="testing-coverage-locally">
-<h3>Testing coverage locally<a class="headerlink" href="#testing-coverage-locally" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="testing-coverage-locally">
+<h3>Testing coverage locally<a class="headerlink" href="#testing-coverage-locally" title="Permalink to this heading">¶</a></h3>
 <p>We always aim for good <a class="reference external" href="https://en.wikipedia.org/wiki/Code_coverage">test coverage</a> and we use <a class="reference external" href="https://codecov.io/gh/napari/napari">codecov</a> during continuous integration to make sure we maintain good coverage.  If you’d like to test coverage locally as you develop new code, you can install <a class="reference external" href="https://github.com/pytest-dev/pytest-cov"><code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code></a> and take advantage of a few handy commands:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the full test suite with coverage</span>
 pytest --cov<span class="o">=</span>napari
@@ -719,15 +811,15 @@ pytest --cov<span class="o">=</span>napari.layers.shapes --cov-report<span class
 open htmlcov/index.html  <span class="c1"># look at the report</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="writing-tests">
-<h2>Writing tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="writing-tests">
+<h2>Writing tests<a class="headerlink" href="#writing-tests" title="Permalink to this heading">¶</a></h2>
 <p>Writing tests for new code is a critical part of keeping napari maintainable as
 it grows. Tests are written in files whose names
 begin with <code class="docutils literal notranslate"><span class="pre">test_*</span></code> and which are contained in one of the <code class="docutils literal notranslate"><span class="pre">_tests</span></code> directories.</p>
-<section id="property-based-testing-with-hypothesis">
-<h3>Property-based testing with Hypothesis<a class="headerlink" href="#property-based-testing-with-hypothesis" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="property-based-testing-with-hypothesis">
+<h3>Property-based testing with Hypothesis<a class="headerlink" href="#property-based-testing-with-hypothesis" title="Permalink to this heading">¶</a></h3>
 <p>Property-based tests allow you to test that “for any X, …” - with a much nicer
 developer experience than using truly random data.  We use Hypothesis for unit or
 integration tests where there are simple properties like <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">load(save(x))</span></code> or
@@ -737,13 +829,13 @@ library for at least some inputs.</p>
 <a class="reference external" href="https://github.com/napari/napari/issues/2444">issue #2444</a>, and
 <a class="reference external" href="https://hypothesis.readthedocs.io/en/latest/">the Hypothesis documentation</a>
 (including <a class="reference external" href="https://hypothesis.readthedocs.io/en/latest/numpy.html">Numpy support</a>).</p>
-</section>
-<section id="testing-with-qt-and-napari-viewer">
-<h3>Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code><a class="headerlink" href="#testing-with-qt-and-napari-viewer" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="testing-with-qt-and-napari-viewer">
+<h3>Testing with <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code><a class="headerlink" href="#testing-with-qt-and-napari-viewer" title="Permalink to this heading">¶</a></h3>
 <p>There are a couple things to keep in mind when writing a test where a <code class="docutils literal notranslate"><span class="pre">Qt</span></code> event
 loop or a <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code> is required.  The important thing is that any widgets
 you create during testing are cleaned up at the end of each test:</p>
-<ol>
+<ol class="arabic">
 <li><p>If you need a <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> to be running for your test, you can use the
 <a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot"><code class="docutils literal notranslate"><span class="pre">qtbot</span></code></a> fixture from <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code></p>
 <blockquote>
@@ -793,9 +885,9 @@ Duplicate cleanup may cause an error.  Use the fixture as follows:</p>
 <div><p>If you’re curious to see the actual <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture definition, it’s
 in <code class="docutils literal notranslate"><span class="pre">napari/conftest.py</span></code></p>
 </div></blockquote>
-</section>
-<section id="mocking-fake-it-till-you-make-it">
-<h3>Mocking: “Fake it till you make it”<a class="headerlink" href="#mocking-fake-it-till-you-make-it" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="mocking-fake-it-till-you-make-it">
+<h3>Mocking: “Fake it till you make it”<a class="headerlink" href="#mocking-fake-it-till-you-make-it" title="Permalink to this heading">¶</a></h3>
 <p>It can be confusing to write unit tests for individual functions, when the
 function being tested in turn depends on the output from some other function or
 method.  This makes it tempting to write integration tests that “just test the
@@ -806,15 +898,15 @@ return values, so that you can test how a given function would perform <em>if</e
 were to receive some value from the upstream code.  For a few examples of using
 mocks when testing napari, search the codebase for
 <a class="reference external" href="https://github.com/napari/napari/search?q=%22unittest.mock%22&amp;type=Code"><code class="docutils literal notranslate"><span class="pre">unittest.mock</span></code></a></p>
-</section>
-</section>
-<section id="known-issues">
-<h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="known-issues">
+<h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this heading">¶</a></h2>
 <p>There are several known issues with displaying GUI tests on windows in CI, and
 so certain tests have been disabled from windows in CI, see
 <a class="reference external" href="https://github.com/napari/napari/pull/1377">#1377</a> for more discussion.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -1150,7 +1242,7 @@ so certain tests have been disabled from windows in CI, see
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

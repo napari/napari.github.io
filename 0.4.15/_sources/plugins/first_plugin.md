@@ -1,7 +1,7 @@
 # Your First Plugin
 
 In this tutorial, we'll step through the fundamental concepts for building a
-**bare minimum** "hello napari" plugin from scratch.
+**bare minimum** "hello napari" plugin from scratch. 
 
 At the end, we'll point you to a "cookiecutter" template
 repository that helps automate the creation of new plugins, and adds a number
@@ -57,7 +57,7 @@ then create a `napari_hello` directory with a single `__init__.py` file inside o
 ````{tabbed} macOS / Linux
 ```sh
 mkdir napari_hello
-touch napari_hello/__init__.py napari_hello/napari.yaml pyproject.toml setup.cfg
+touch napari_hello/__init__.py pyproject.toml setup.cfg
 ```
 ````
 
@@ -65,7 +65,6 @@ touch napari_hello/__init__.py napari_hello/napari.yaml pyproject.toml setup.cfg
 ```bat
 mkdir napari_hello
 copy /b napari_hello\__init__.py +,,
-copy /b napari_hello\napari.yaml +,,
 copy /b pyproject.toml +,,
 copy /b setup.cfg +,,
 ```
@@ -76,8 +75,7 @@ Your project should now look like this:
 ```
 ~/napari-hello/
 ├── napari_hello/
-│   ├── __init__.py
-│   └── napari.yaml
+│   └── __init__.py
 ├── pyproject.toml
 ├── setup.cfg
 ```
@@ -107,7 +105,7 @@ Next, we will populate `pyproject.toml` and `setup.cfg`
 
 ```{note}
 `pyproject.toml` is a standard file (introduced in
-[PEP518](https://peps.python.org/pep-0518/), May 2016) that tells
+[PEP518](https://www.python.org/dev/peps/pep-0518/), May 2016) that tells
 the Python package installer [pip](https://pip.pypa.io/en/stable/) how to
 build your package. For more background, see
 [Clarifying PEP 518](https://snarky.ca/clarifying-pep-518/) and
@@ -143,7 +141,7 @@ classifiers =
 packages = find:
 ```
 
-There is a *lot* more than can go in the package metadata.
+There is a *lot* more than can go in the package metadata. 
 See the [setuptools quickstart](https://setuptools.pypa.io/en/latest/userguide/quickstart.html)
 for more.
 
@@ -172,8 +170,7 @@ autogeneration capabilities to turn this function into a widget)*
 
 ### Add a `napari.yaml` manifest
 
-
-If you haven't already, create an empty [plugin manifest](./manifest) file at `napari_hello/napari.yaml`
+Create an empty [plugin manifest](./manifest) file at `napari_hello/napari.yaml`
 We will use this file to tell napari:
 
 1. That our plugin contributes a [**command**](contributions-commands)

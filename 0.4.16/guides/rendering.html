@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Asynchronous rendering &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="napari performance" href="performance.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/rendering and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/rendering.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/rendering.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1757,15 +1849,15 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="asynchronous-rendering">
-<span id="rendering"></span><h1>Asynchronous rendering<a class="headerlink" href="#asynchronous-rendering" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="asynchronous-rendering">
+<span id="rendering"></span><h1>Asynchronous rendering<a class="headerlink" href="#asynchronous-rendering" title="Permalink to this heading">¶</a></h1>
 <p>As discussed in the explanations document on rendering, asynchronous
 rendering is a feature that allows napari to stay usable and responsive
 even when data is loading slowly. There are two experimental asynchronous
 rendering features, they can be enabled using the environment variables
 <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC</span></code> and <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code>.</p>
-<section id="napari-async">
-<h2>NAPARI_ASYNC<a class="headerlink" href="#napari-async" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="napari-async">
+<h2>NAPARI_ASYNC<a class="headerlink" href="#napari-async" title="Permalink to this heading">¶</a></h2>
 <p>Running napari with <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC=1</span></code> enables asynchronous rendering using
 the existing <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> class. The
 <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> class will no longer call
@@ -1781,8 +1873,8 @@ call <code class="docutils literal notranslate"><span class="pre">np.asarray()</
 it will call <code class="xref py py-meth docutils literal notranslate"><span class="pre">on_chunk_loaded()</span></code> with
 the loaded data. The next frame <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>
 can display the new data.</p>
-<section id="time-series-data">
-<h3>Time-series data<a class="headerlink" href="#time-series-data" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="time-series-data">
+<h3>Time-series data<a class="headerlink" href="#time-series-data" title="Permalink to this heading">¶</a></h3>
 <p>Without <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC</span></code> napari will block when switching slices. Napari
 will hang until the new slice has loaded. If the slice loads slowly enough
 you might see the “spinning wheel of death” on a Mac indicating the process
@@ -1790,9 +1882,9 @@ is hung.</p>
 <p>Asynchronous rendering allows the user to interrupt the loading of a slice
 at any time. The user can freely move the slice slider. This is especially
 nice for remote or slow-loading data.</p>
-</section>
-<section id="multi-scale-images">
-<h3>Multi-scale images<a class="headerlink" href="#multi-scale-images" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="multi-scale-images">
+<h3>Multi-scale images<a class="headerlink" href="#multi-scale-images" title="Permalink to this heading">¶</a></h3>
 <p>With today’s <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> class there are no
 tiles or chunks. Instead, whenever the camera is panned or zoomed napari
 fetches all the data needed to draw the entire current canvas. This
@@ -1810,10 +1902,10 @@ or tiles when the image is panned the existing tiles are translated and
 re-used. Then the viewer only needs to fetch tiles which newly slid onto
 the screen. This style of rendering what our <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code> flag
 enables.</p>
-</section>
-</section>
-<section id="napari-octree">
-<h2>NAPARI_OCTREE<a class="headerlink" href="#napari-octree" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="napari-octree">
+<h2>NAPARI_OCTREE<a class="headerlink" href="#napari-octree" title="Permalink to this heading">¶</a></h2>
 <p>Set <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE=1</span></code> to use the experimental
 <code class="xref py py-class docutils literal notranslate"><span class="pre">OctreeImage</span></code> class
 instead of the normal <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> class. The
@@ -1831,8 +1923,8 @@ may not function with 3D images or multiple images. Improving support
 for 3D and multiple images is part of future work on the <code class="docutils literal notranslate"><span class="pre">OCTREE</span></code>.</p>
 </div>
 <p>See <a class="reference internal" href="#octree-config"><span class="std std-ref">Octree configuration file</span></a> for Octree configuration options.</p>
-<section id="octree-visuals">
-<h3>Octree visuals<a class="headerlink" href="#octree-visuals" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="octree-visuals">
+<h3>Octree visuals<a class="headerlink" href="#octree-visuals" title="Permalink to this heading">¶</a></h3>
 <p>The visual portion of Octree rendering is implemented by three classes:
 <code class="xref py py-class docutils literal notranslate"><span class="pre">VispyTiledImageLayer</span></code>,
 <code class="xref py py-class docutils literal notranslate"><span class="pre">TiledImageVisual</span></code>,
@@ -1865,9 +1957,9 @@ scene graph changes and shader rebuilds. At the time the scene graph
 changes were causing crashes with <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>, but the atlas approach is better
 for multiple reasons, so even if that crash were fixed the atlas is a
 better solution.</p>
-</section>
-<section id="octree-rendering">
-<h3>Octree rendering<a class="headerlink" href="#octree-rendering" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="octree-rendering">
+<h3>Octree rendering<a class="headerlink" href="#octree-rendering" title="Permalink to this heading">¶</a></h3>
 <p>The interface between the visuals and the Octree is the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">OctreeImage</span></code> method
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_drawable_chunks()</span></code>.
@@ -1913,28 +2005,28 @@ from one or two levels up isn’t even that noticeably degraded. This table
 shows how many ideal chunks are “covered” by a chunk at a higher level:</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:right head"><p>Levels Above Ideal</p></th>
-<th class="text-align:right head"><p>Coverage</p></th>
+<tr class="row-odd"><th class="text-right head"><p>Levels Above Ideal</p></th>
+<th class="text-right head"><p>Coverage</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:right"><p>1</p></td>
-<td class="text-align:right"><p>4</p></td>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>4</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:right"><p>2</p></td>
-<td class="text-align:right"><p>16</p></td>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>16</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:right"><p>3</p></td>
-<td class="text-align:right"><p>64</p></td>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>64</p></td>
 </tr>
 </tbody>
 </table>
 <p>Although data 3 levels above will be quite blurry, it’s pretty amazing you
 can load one chunk and it will cover 64 ideal chunks. This is the heart of
 the power of Octrees, Quadtrees or multiscale images.</p>
-</section>
-<section id="octree-configuration-file">
-<span id="octree-config"></span><h3>Octree configuration file<a class="headerlink" href="#octree-configuration-file" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="octree-configuration-file">
+<span id="octree-config"></span><h3>Octree configuration file<a class="headerlink" href="#octree-configuration-file" title="Permalink to this heading">¶</a></h3>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE=1</span></code> enables Octree rendering with the default
 configuration. To customize the configuration set <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code> to be
 the path of a JSON config file, such as <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE=/tmp/octree.json</span></code>.</p>
@@ -1965,53 +2057,53 @@ config file format:</p>
 <code class="xref py py-class docutils literal notranslate"><span class="pre">ChunkLoader</span></code>.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Setting</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-left head"><p>Setting</p></th>
+<th class="text-left head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code></p></td>
-<td class="text-align:left"><p>Write <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> log file to this path. For debugging.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code></p></td>
+<td class="text-left"><p>Write <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> log file to this path. For debugging.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">force_synchronous</span></code></p></td>
-<td class="text-align:left"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> the <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> loads synchronously.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">force_synchronous</span></code></p></td>
+<td class="text-left"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> the <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> loads synchronously.</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code></p></td>
-<td class="text-align:left"><p>The number of worker threads or processes.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code></p></td>
+<td class="text-left"><p>The number of worker threads or processes.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">use_processes</span></code></p></td>
-<td class="text-align:left"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> use worker processes instead of threads.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">use_processes</span></code></p></td>
+<td class="text-left"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> use worker processes instead of threads.</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">auto_async_ms</span></code></p></td>
-<td class="text-align:left"><p>Switch to synchronous if loads are faster than this.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">auto_async_ms</span></code></p></td>
+<td class="text-left"><p>Switch to synchronous if loads are faster than this.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">delay_queue_ms</span></code></p></td>
-<td class="text-align:left"><p>Delay loads by this much.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">delay_queue_ms</span></code></p></td>
+<td class="text-left"><p>Delay loads by this much.</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code></p></td>
-<td class="text-align:left"><p>The number of worker threads or processes.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code></p></td>
+<td class="text-left"><p>The number of worker threads or processes.</p></td>
 </tr>
 </tbody>
 </table>
 <p>The <code class="docutils literal notranslate"><span class="pre">octree</span></code> key contains these settings:</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Setting</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-left head"><p>Setting</p></th>
+<th class="text-left head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code></p></td>
-<td class="text-align:left"><p>If <code class="docutils literal notranslate"><span class="pre">false</span></code> then use the old <code class="docutils literal notranslate"><span class="pre">Image</span></code> class.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code></p></td>
+<td class="text-left"><p>If <code class="docutils literal notranslate"><span class="pre">false</span></code> then use the old <code class="docutils literal notranslate"><span class="pre">Image</span></code> class.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">tile_size</span></code></p></td>
-<td class="text-align:left"><p>Size of render tiles to use for rending.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">tile_size</span></code></p></td>
+<td class="text-left"><p>Size of render tiles to use for rending.</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code></p></td>
-<td class="text-align:left"><p>Octree specific log file for debugging.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code></p></td>
+<td class="text-left"><p>Octree specific log file for debugging.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">loaders</span></code></p></td>
-<td class="text-align:left"><p>Optional custom loaders, see below.</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">loaders</span></code></p></td>
+<td class="text-left"><p>Optional custom loaders, see below.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2024,9 +2116,9 @@ loading chunks at the ideal level or one above. While the second with key
 <p>Each loader uses the <code class="docutils literal notranslate"><span class="pre">loader_defaults</span></code> but you can override the
 <code class="docutils literal notranslate"><span class="pre">num_workers</span></code>, <code class="docutils literal notranslate"><span class="pre">auto_sync_ms</span></code> and <code class="docutils literal notranslate"><span class="pre">delay_queue_ms</span></code> values in
 each loader defined in <code class="docutils literal notranslate"><span class="pre">loaders</span></code>.</p>
-</section>
-<section id="multiple-loaders">
-<h3>Multiple loaders<a class="headerlink" href="#multiple-loaders" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="multiple-loaders">
+<h3>Multiple loaders<a class="headerlink" href="#multiple-loaders" title="Permalink to this heading">¶</a></h3>
 <p>We allow multiple loaders to improve loading performance. There are a lot
 of different strategies one could use when loading chunks. For example,
 we tend to load chunks at a higher level prior to loading the chunks
@@ -2052,9 +2144,9 @@ start loading the ideal chunks.</p>
 to experiment to figure out the best configuration. And figure out how that
 configuration needs to vary based on the latency of the data or other
 considerations.</p>
-</section>
-<section id="future-work-compatibility-with-the-existing-image-class">
-<h3>Future work: Compatibility with the existing Image class<a class="headerlink" href="#future-work-compatibility-with-the-existing-image-class" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="future-work-compatibility-with-the-existing-image-class">
+<h3>Future work: Compatibility with the existing Image class<a class="headerlink" href="#future-work-compatibility-with-the-existing-image-class" title="Permalink to this heading">¶</a></h3>
 <p>The focus for initial Octree development was Octree-specific behaviors and
 infrastructure. Loading chunks asynchronously and rendering them as
 individual tiles. One question we wanted to answer was will a Python/Vispy
@@ -2078,16 +2170,16 @@ on. This might involve chaining to the base class or it could mean
 duplicating that functionality somehow in the derived class.</p>
 <p>Some <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> functionality that needs to
 be duplicated in Octree code:</p>
-<section id="contrast-limits-and-color-transforms">
-<h4>Contrast limits and color transforms<a class="headerlink" href="#contrast-limits-and-color-transforms" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="contrast-limits-and-color-transforms">
+<h4>Contrast limits and color transforms<a class="headerlink" href="#contrast-limits-and-color-transforms" title="Permalink to this heading">¶</a></h4>
 <p>The contrast limit code in Vispy’s <code class="docutils literal notranslate"><span class="pre">ImageVisual</span></code> needs to be moved into
 the tiled visual’s
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_build_texture()</span></code>.
 Instead operating on <code class="docutils literal notranslate"><span class="pre">self.data</span></code> it needs to transform tile’s which are newly
 being added to the visual. The color transform similarly needs to be per-tile.</p>
-</section>
-<section id="blending-and-opacity">
-<h4>Blending and opacity<a class="headerlink" href="#blending-and-opacity" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="blending-and-opacity">
+<h4>Blending and opacity<a class="headerlink" href="#blending-and-opacity" title="Permalink to this heading">¶</a></h4>
 <p>It might be hard to get opacity working correctly for tiles where loads are
 in progress. The way
 <code class="xref py py-class docutils literal notranslate"><span class="pre">TiledImageVisual</span></code>
@@ -2113,9 +2205,9 @@ loaded). Aside from blending, this would address a common complaint with
 tiled image viewers: you often can’t tell if the data is still being
 loaded. This could be a big issue for scientific uses, you don’t want
 people drawing the wrong conclusions from the data.</p>
-</section>
-<section id="time-series-multiscale">
-<h4>Time-series multiscale<a class="headerlink" href="#time-series-multiscale" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="time-series-multiscale">
+<h4>Time-series multiscale<a class="headerlink" href="#time-series-multiscale" title="Permalink to this heading">¶</a></h4>
 <p>To make time-series multiscale work should not be too hard. We just need to
 correctly create a new
 <code class="xref py py-class docutils literal notranslate"><span class="pre">OctreeSlice</span></code> every
@@ -2124,14 +2216,14 @@ time the slice changes.</p>
 to stop creating the “extra” downsampled levels, as described in <a class="reference internal" href="#future-work-atlas-2d"><span class="std std-ref">Future work: Extending TextureAtlas2D</span></a>. We need to make sure constructing and
 tearing down the Octree is fast enough, and make sure loads for the
 previous slices are canceled and everything is cleaned up.</p>
-</section>
-</section>
-<section id="future-work-extending-textureatlas2d">
-<span id="future-work-atlas-2d"></span><h3>Future work: Extending TextureAtlas2D<a class="headerlink" href="#future-work-extending-textureatlas2d" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="future-work-extending-textureatlas2d">
+<span id="future-work-atlas-2d"></span><h3>Future work: Extending TextureAtlas2D<a class="headerlink" href="#future-work-extending-textureatlas2d" title="Permalink to this heading">¶</a></h3>
 <p>We could improve our
 <code class="xref py py-class docutils literal notranslate"><span class="pre">TextureAtlas2D</span></code> class in
 a number of ways:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Support setting the atlas’s full texture size on the fly.</p></li>
 <li><p>Support setting the atlas’s tile size on the fly.</p></li>
 <li><p>Support a mix of tiles sizes in one atlas.</p></li>
@@ -2161,9 +2253,9 @@ though, we need to render small images just as efficiently as the
 Octree rendering to worsen cases which work well today. To keep today’s
 performance for smaller images we probably need to add support for variable
 size tiles.</p>
-</section>
-<section id="future-work-level-zero-only-octrees">
-<h3>Future work: Level-zero-only Octrees<a class="headerlink" href="#future-work-level-zero-only-octrees" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="future-work-level-zero-only-octrees">
+<h3>Future work: Level-zero-only Octrees<a class="headerlink" href="#future-work-level-zero-only-octrees" title="Permalink to this heading">¶</a></h3>
 <p>In issue <a class="reference external" href="https://github.com/napari/napari/issues/1300">#1300</a> it takes
 1500ms to switch slices. There we are rendering a (16384, 16384) image that
 is entirely in RAM. The delay is not from loading into RAM, it’s already in
@@ -2185,9 +2277,9 @@ grid of tiles. How would this look to the user? With this approach
 switching slices would be similar to panning and zooming a multiscale
 Octree image, you’d see the new tiles loading in over time, but the
 framerate would not tank, and you could switch slices at any time.</p>
-</section>
-<section id="future-work-caching">
-<h3>Future work: Caching<a class="headerlink" href="#future-work-caching" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="future-work-caching">
+<h3>Future work: Caching<a class="headerlink" href="#future-work-caching" title="Permalink to this heading">¶</a></h3>
 <p>Basically no work has gone into caching or memory management for Octree
 data. It’s very likely there are leaks and extended usage will run out of
 memory. This hasn’t been addressed because using Octree for long periods of
@@ -2205,9 +2297,9 @@ what we are currently drawing.</p>
 <code class="docutils literal notranslate"><span class="pre">OctreeChunks</span></code> and tiles in VRAM, so that reviewing the same data is
 nearly instant. This is adding complexity, but the performance might be
 worth it.</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -2543,7 +2635,7 @@ worth it.</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

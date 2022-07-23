@@ -127,11 +127,7 @@ viewer.window.add_dock_widget(my_widget)
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-<<<<<<< HEAD:_sources/guides/magicgui.md
-nbscreenshot(viewer, alt_text="A magicgui widget using an image layer parameter annotation")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/magicgui.md
 ```
 
 ### Annotating as `Layer`
@@ -152,7 +148,6 @@ def my_widget(layer: Layer):
     ...
 ```
 
-(annotating-as-napari-types-data)=
 ### Annotating as `napari.types.*Data`
 
 In the previous example, the object passed to your function will be the actual
@@ -191,7 +186,7 @@ def my_widget(viewer: Viewer):
 ```{caution}
 Please use this sparingly, as a last resort. If you need to *add* layers
 to the viewer from your function, prefer one of the return-annotation methods
-described [below](#return-annotations).
+described [below](#adding-layers-to-napari-from-your-magicgui-function).
 If you find that you require the viewer instance because of functionality that
 is otherwise missing here, please consider opening an issue in the
 [napari issue tracker](https://github.com/napari/napari/issues/new/choose),
@@ -247,11 +242,7 @@ my_widget()  # "call the widget" to call the function.
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-<<<<<<< HEAD:_sources/guides/magicgui.md
-nbscreenshot(viewer, alt_text="A magicgui widget using an image layer return annotation")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/magicgui.md
 ```
 
 ```{note}
@@ -260,7 +251,6 @@ function is called.  To update an existing layer, you must use the
 `LayerDataTuple` approach described below
 ```
 
-(returning-napari-types-data)=
 ### Returning `napari.types.*Data`
 
 In the previous example, the object returned by the function had to be an actual
@@ -274,7 +264,7 @@ returned by your function to be turned into the corresponding
 {class}`~napari.layers.Layer` type, and added to the viewer.
 
 For example, in combination with the {attr}`~napari.types.ImageData` paramater
-annotation [described above](annotating-as-napari-types-data):
+annotation [described above](#annotating-as-napari-types-data):
 
 ```{code-cell} python
 :tags: [remove-output]
@@ -296,11 +286,7 @@ threshold()  # "call the widget" to call the function.
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-<<<<<<< HEAD:_sources/guides/magicgui.md
-nbscreenshot(viewer, alt_text="A magicgui widget returning a layer attribute")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/magicgui.md
 ```
 
 ### Returning `napari.types.LayerDataTuple`
@@ -364,11 +350,7 @@ make_points()  # "call the widget" to call the function.
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-<<<<<<< HEAD:_sources/guides/magicgui.md
-nbscreenshot(viewer, alt_text="A magicgui widget returning a LayerDataTuple")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/magicgui.md
 ```
 
 ### Returning `List[napari.types.LayerDataTuple]`
@@ -423,11 +405,7 @@ make_points()
 from napari.utils import nbscreenshot
 
 viewer.window._qt_window.resize(750, 550)
-<<<<<<< HEAD:_sources/guides/magicgui.md
-nbscreenshot(viewer, alt_text="A magicgui widget updating an existing layer")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/magicgui.md
 ```
 
 ## Avoid imports with forward references
@@ -488,7 +466,7 @@ In most cases, the {func}`@magicgui <magicgui.magicgui>` decorator used in the
 preceding examples can simply be replaced with the {func}`@magic_factory <magicgui.magic_factory>`
 decorator, to use it as a plugin dock widget.
 
-For example, the threshold widget [shown above](returning-napari-types-data)
+For example, the threshold widget [shown above](#returning-napari-types-data)
 could be provided as a napari plugin as follows:
 
 ```python

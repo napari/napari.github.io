@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Annotating videos with napari &#8212; napari</title>
   <link rel="stylesheet" href="../../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Processing" href="../processing/index.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables tutorials/annotation/annotate_points and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "tutorials/annotation/annotate_points.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "tutorials/annotation/annotate_points.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1727,8 +1819,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="annotating-videos-with-napari">
-<h1>Annotating videos with napari<a class="headerlink" href="#annotating-videos-with-napari" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="annotating-videos-with-napari">
+<h1>Annotating videos with napari<a class="headerlink" href="#annotating-videos-with-napari" title="Permalink to this heading">¶</a></h1>
 <p><strong>Note</strong>: this tutorial has been updated and is now compatible with napari &gt; 0.4.5 and magicgui &gt; 0.2.5. For details, see <a class="reference external" href="https://github.com/napari/napari.github.io/pull/114">this pull request</a>.</p>
 <p>In this tutorial, we will use napari (requires version 0.3.2 or greater) to make a simple GUI application for annotating points in videos.
 This GUI could be useful for making annotations required to train algorithms for markless tracking of animals (e.g., <a class="reference external" href="http://www.mousemotorlab.org/deeplabcut">DeepLabCut</a>).
@@ -1739,7 +1831,7 @@ In this tutorial, we will cover creating and interacting with a Points layer wit
 </pre></div>
 </div>
 <p>The resulting viewer looks like this (images from <a class="reference external" href="https://www.nature.com/articles/s41593-018-0209-y">Mathis et al., 2018</a>, downloaded from <a class="reference external" href="https://github.com/DeepLabCut/DeepLabCut/tree/f21321ef8060c537f9df0ce9346189bda07701b5/examples/openfield-Pranav-2018-10-30/labeled-data/m4s1">here</a>):</p>
-<p><video src="../../_images/point_annotator_demo.webm" title="image: point annotator demo"><a href="../../_images/point_annotator_demo.webm">image: point annotator demo</a></video></p>
+<p><img alt="image: point annotator demo" src="../../_images/point_annotator_demo.webm" /></p>
 <p>You can explore the project in <a class="reference external" href="https://github.com/kevinyamauchi/PointAnnotator">this repository</a> or check out the main function below.
 We will walk through the code in the following sections.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
@@ -1871,8 +1963,8 @@ We will walk through the code in the following sections.</p>
         <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
 </pre></div>
 </div>
-<section id="point-annotator">
-<h2><code class="docutils literal notranslate"><span class="pre">point_annotator()</span></code><a class="headerlink" href="#point-annotator" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="point-annotator">
+<h2><code class="docutils literal notranslate"><span class="pre">point_annotator()</span></code><a class="headerlink" href="#point-annotator" title="Permalink to this heading">¶</a></h2>
 <p>We will create the GUI within a function called <code class="docutils literal notranslate"><span class="pre">point_annotator()</span></code>.
 Wrapping the GUI creation in the function allows us to integrate it into other functions (e.g., a command line interface) and applications.
 See below for the function definition.</p>
@@ -1891,9 +1983,9 @@ See below for the function definition.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</section>
-<section id="loading-the-video">
-<h2>Loading the video<a class="headerlink" href="#loading-the-video" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="loading-the-video">
+<h2>Loading the video<a class="headerlink" href="#loading-the-video" title="Permalink to this heading">¶</a></h2>
 <p>First, we load the movie to be annotated.
 Since behavior movies can be quite long, we will use a lazy loading strategy (i.e., we will only load the frames as they are used).
 Using <a class="reference external" href="https://github.com/dask/dask-image"><code class="docutils literal notranslate"><span class="pre">dask-image</span></code></a>, we can construct an object that we can pass to napari for lazy loading in just one line.
@@ -1906,9 +1998,9 @@ For more explanation on using dask to lazily load images in napari, see <a class
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
-<section id="annotating-with-points">
-<h2>Annotating with points<a class="headerlink" href="#annotating-with-points" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="annotating-with-points">
+<h2>Annotating with points<a class="headerlink" href="#annotating-with-points" title="Permalink to this heading">¶</a></h2>
 <p>We will annotate the features of interest using points in a napari Points layer.
 Each feature will be given a different label so that we can track them across frames.
 To achieve this, we will store the label in the <code class="docutils literal notranslate"><span class="pre">Points.properties</span></code> property in the ‘label’ key.
@@ -1956,9 +2048,9 @@ For example, the <a class="reference external" href="https://github.com/d3/d3-3.
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span>
 </pre></div>
 </div>
-</section>
-<section id="adding-a-gui-for-selecting-points">
-<h2>Adding a GUI for selecting points<a class="headerlink" href="#adding-a-gui-for-selecting-points" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="adding-a-gui-for-selecting-points">
+<h2>Adding a GUI for selecting points<a class="headerlink" href="#adding-a-gui-for-selecting-points" title="Permalink to this heading">¶</a></h2>
 <p>First, we will define a function  to create a GUI for select the labels for
 points. The function <code class="docutils literal notranslate"><span class="pre">create_label_menu()</span></code> will take the points layer we created
 and the list of labels we will annotate with and return the label menu GUI.
@@ -2022,9 +2114,9 @@ To ensure the points layer is updated whenever the GUI selection is changed, we 
 <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="keybindings-for-switching-labels">
-<h2>Keybindings for switching labels<a class="headerlink" href="#keybindings-for-switching-labels" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="keybindings-for-switching-labels">
+<h2>Keybindings for switching labels<a class="headerlink" href="#keybindings-for-switching-labels" title="Permalink to this heading">¶</a></h2>
 <p>For convenience, we can also define functions to increment and decrement the currently selected label and bind them to key presses using the napari keybindings framework.</p>
 <p>First, we define a function to increment to the next label and decorate it with the viewer key binding decorator.
 The decorator requires that we pass the key to bind the function to as a string and the decorated function should take an event as an input argument.
@@ -2063,9 +2155,9 @@ In this case, we are binding <code class="docutils literal notranslate"><span cl
     <span class="n">points_layer</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">current_properties</span>
 </pre></div>
 </div>
-</section>
-<section id="mousebinding-to-iterate-through-labels">
-<h2>Mousebinding to iterate through labels<a class="headerlink" href="#mousebinding-to-iterate-through-labels" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="mousebinding-to-iterate-through-labels">
+<h2>Mousebinding to iterate through labels<a class="headerlink" href="#mousebinding-to-iterate-through-labels" title="Permalink to this heading">¶</a></h2>
 <p>Like keybindings, we can also bind functions to mouse events such as clicking or dragging.
 Here, we create a function that will increment the label after a point is added (i.e., the mouse is clicked in the viewer canvas when in the point adding mode).
 This is convenient for quickly adding all labels to a frame, as one can simply click each feature in order without having to manually swap labels.
@@ -2091,20 +2183,20 @@ see the examples [<a class="reference external" href="https://github.com/napari/
 <span class="n">points_layer</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_on_click</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="using-the-gui">
-<h2>Using the GUI<a class="headerlink" href="#using-the-gui" title="Permalink to this headline">¶</a></h2>
-<section id="launching-the-gui">
-<h3>Launching the GUI<a class="headerlink" href="#launching-the-gui" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="using-the-gui">
+<h2>Using the GUI<a class="headerlink" href="#using-the-gui" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="launching-the-gui">
+<h3>Launching the GUI<a class="headerlink" href="#launching-the-gui" title="Permalink to this heading">¶</a></h3>
 <p>Now that you’ve put it all together, you should be ready to test! You can call the function as shown below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im_path</span> <span class="o">=</span> <span class="s1">&#39;&lt;path to directory with data&gt;/*.png&#39;</span>
 
 <span class="n">point_annotator</span><span class="p">(</span><span class="n">im_path</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ear_l&#39;</span><span class="p">,</span> <span class="s1">&#39;ear_r&#39;</span><span class="p">,</span> <span class="s1">&#39;tail&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-</section>
-<section id="saving-the-annotations">
-<h3>Saving the annotations<a class="headerlink" href="#saving-the-annotations" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="saving-the-annotations">
+<h3>Saving the annotations<a class="headerlink" href="#saving-the-annotations" title="Permalink to this heading">¶</a></h3>
 <p>Once we are happy with the annotations, we can save them to a CSV file using the builing CSV writer for the points layer.
 To do so, first, select the “Points” layer in the layer list and then click “Save Selected layer(s)”  in the “File” menu or press control+S (cmd+S on Mac OS)  to bring up the file save dialog.
 From here you can enter the file path and save the annotation coordinates as a CSV.</p>
@@ -2114,9 +2206,9 @@ We can enter the command either in the script (e.g., bind a save function to a h
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points_layer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;path/to/file.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -2452,7 +2544,7 @@ We can enter the command either in the script (e.g., bind a save function to a h
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

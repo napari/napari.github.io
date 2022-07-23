@@ -58,13 +58,8 @@ napari.types.SampleDict
 
    .. autosummary::
    
-<<<<<<< HEAD:_sources/api/napari.types.SampleDict.rst
-      
-      
-=======
       ~SampleDict.display_name
       ~SampleDict.data
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.types.SampleDict.rst
    
    
 

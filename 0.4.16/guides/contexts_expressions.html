@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contexts and Expressions in napari &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Events reference" href="events_reference.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/contexts_expressions and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/contexts_expressions.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/contexts_expressions.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1731,8 +1823,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="contexts-and-expressions-in-napari">
-<span id="context-expressions"></span><h1>Contexts and Expressions in napari<a class="headerlink" href="#contexts-and-expressions-in-napari" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="contexts-and-expressions-in-napari">
+<span id="context-expressions"></span><h1>Contexts and Expressions in napari<a class="headerlink" href="#contexts-and-expressions-in-napari" title="Permalink to this heading">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This page is mostly aimed at developers who are interested in contributing to
@@ -1756,8 +1848,8 @@ doesn’t work.</p>
 second-generation napari plugin engine (npe2) that capture the abstract idea of
 “some condition” (an <code class="docutils literal notranslate"><span class="pre">Expression</span></code>) that can be evaluated at some later time,
 with a concrete set of keys and values (the <code class="docutils literal notranslate"><span class="pre">Context</span></code>).</p>
-<section id="python-expressions">
-<h2>Python expressions<a class="headerlink" href="#python-expressions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="python-expressions">
+<h2>Python expressions<a class="headerlink" href="#python-expressions" title="Permalink to this heading">¶</a></h2>
 <p>In Python, <strong>expressions</strong> are simple combinations of <strong>values</strong> and
 <strong>operations</strong> that can be reduced to a single value. For example, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&gt;</span> <span class="pre">5</span></code> is an
 expression that always reduces to the value <code class="docutils literal notranslate"><span class="pre">False</span></code> when evaluated.  <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">5</span> <span class="pre">and</span> <span class="pre">y</span> <span class="pre">==</span> <span class="pre">'hello'</span></code> is also an expression that reduces to a boolean value; however, in
@@ -1778,9 +1870,9 @@ the variable <strong>names</strong> “<code class="docutils literal notranslate
 <span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="kc">False</span>
 </pre></div>
 </div>
-</section>
-<section id="napari-expressions">
-<h2>Napari expressions<a class="headerlink" href="#napari-expressions" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="napari-expressions">
+<h2>Napari expressions<a class="headerlink" href="#napari-expressions" title="Permalink to this heading">¶</a></h2>
 <p>Napari introduces <code class="docutils literal notranslate"><span class="pre">Expr</span></code> objects that represent an
 expression “without a context”, to be evaluated later.</p>
 <div class="admonition tip">
@@ -1879,8 +1971,8 @@ its <code class="docutils literal notranslate"><span class="pre">eval</span></co
 </tr>
 </tbody>
 </table>
-<section id="napari-context-keys">
-<h3>napari context keys<a class="headerlink" href="#napari-context-keys" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="napari-context-keys">
+<h3>napari context keys<a class="headerlink" href="#napari-context-keys" title="Permalink to this heading">¶</a></h3>
 <p>To capture napari-specific conditions, napari will declare special
 <strong>names</strong> that can be used in a napari expression.  Taking the example above, a
 plugin might only want to provide a function if “the active layer has at least 3
@@ -1923,17 +2015,17 @@ to enable/disable a given command:</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="contextkey-objects">
-<h3><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> objects<a class="headerlink" href="#contextkey-objects" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="contextkey-objects">
+<h3><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> objects<a class="headerlink" href="#contextkey-objects" title="Permalink to this heading">¶</a></h3>
 <p>To track the special <strong>name</strong> strings that can be used in expressions, napari
 has the <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> class.  Instances of <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> subclass from
 <a class="reference external" href="https://docs.python.org/3/library/ast.html#ast.Name"><code class="docutils literal notranslate"><span class="pre">ast.Name</span></code></a> and represent
 a variable name in an expression. Additionally, they have a <code class="docutils literal notranslate"><span class="pre">description</span></code> that
 can be used in documentation, a <code class="docutils literal notranslate"><span class="pre">default_value</span></code>, and a <code class="docutils literal notranslate"><span class="pre">getter</span></code> function that
 can be called to retrieve the current value (the parameters passed to the
-<code class="docutils literal notranslate"><span class="pre">getter</span></code> will depend on the context key… see <a class="reference external" href="#updating-contexts">Updating
-Contexts</a> below for more).</p>
+<code class="docutils literal notranslate"><span class="pre">getter</span></code> will depend on the context key… see <span class="xref myst">Updating
+Contexts</span> below for more).</p>
 <p>In order to keep related keys together, <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> instances will usually be
 declared as class attributes on a <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> class:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># all of the getters here receive an instance of viewer.layers.selection</span>
@@ -1980,10 +2072,10 @@ capabilities, and IDE autocompletion (for napari developers).</p>
 <p><img alt="context_types" src="../_images/context_type_hint.png" /></p>
 <p>A record of all registered context keys can be retrieved with the class method
 <code class="docutils literal notranslate"><span class="pre">ContextKey.info()</span></code></p>
-</section>
-</section>
-<section id="contexts">
-<h2>Contexts<a class="headerlink" href="#contexts" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="contexts">
+<h2>Contexts<a class="headerlink" href="#contexts" title="Permalink to this heading">¶</a></h2>
 <p>Now that we’ve seen how expression names are declared, let’s discuss the
 “context” in which these expressions are evaluated.</p>
 <p>As mentioned, a context is ultimately just a mapping between variable names and
@@ -1997,8 +2089,8 @@ Continuing with the example above, if the user clicks on a 4-dimensional layer,
 the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> would set the context key <code class="docutils literal notranslate"><span class="pre">active_layer_ndim</span></code> to <code class="docutils literal notranslate"><span class="pre">4</span></code>. napari
 would then be able to enable/disable various commands and menus that required a
 specific number of dimensions in the active layer.</p>
-<section id="the-context-class">
-<h3>The <code class="docutils literal notranslate"><span class="pre">Context</span></code> class<a class="headerlink" href="#the-context-class" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="the-context-class">
+<h3>The <code class="docutils literal notranslate"><span class="pre">Context</span></code> class<a class="headerlink" href="#the-context-class" title="Permalink to this heading">¶</a></h3>
 <p>The napari <code class="docutils literal notranslate"><span class="pre">Context</span></code> class is a subclass of
 <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.ChainMap"><code class="docutils literal notranslate"><span class="pre">collections.ChainMap</span></code></a>
 that also emits events when a key has been modified. <code class="docutils literal notranslate"><span class="pre">ChainMap</span></code> is useful here
@@ -2044,12 +2136,12 @@ the settings:</p>
 <span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="kc">False</span>
 </pre></div>
 </div>
-</section>
-<section id="updating-contexts">
-<h3>Updating Contexts<a class="headerlink" href="#updating-contexts" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="updating-contexts">
+<h3>Updating Contexts<a class="headerlink" href="#updating-contexts" title="Permalink to this heading">¶</a></h3>
 <p>You may be wondering exactly how objects such as <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> update
 the keys in their contexts. The aforementioned
-<a class="reference external" href="#contextkey-objects"><code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></a> comes into play here again.  A
+<span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></span> comes into play here again.  A
 <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> can be instantiated, and bound to a specific <code class="docutils literal notranslate"><span class="pre">Context</span></code>
 instance.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
@@ -2069,7 +2161,7 @@ setters!) of their respective <code class="docutils literal notranslate"><span c
 <p>Finally, the <code class="docutils literal notranslate"><span class="pre">update</span></code> method can be used to trigger an update of all of the
 <code class="docutils literal notranslate"><span class="pre">ContextKeys</span></code> in a given <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> whenever a specific event occurs,
 (the value is updated by passing the <code class="docutils literal notranslate"><span class="pre">event.source</span></code> to the <code class="docutils literal notranslate"><span class="pre">getter</span></code> function
-that was declared in the <a class="reference external" href="#contextkey-objects"><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> constructor</a>)</p>
+that was declared in the <span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> constructor</span>)</p>
 <p>The following example works because <em>all</em> of the <code class="docutils literal notranslate"><span class="pre">getter</span></code> methods declared
 in <code class="docutils literal notranslate"><span class="pre">LayerListContextKeys</span></code> take an instance of <code class="docutils literal notranslate"><span class="pre">layers.selection</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">llck</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
@@ -2084,11 +2176,11 @@ in <code class="docutils literal notranslate"><span class="pre">LayerListContext
 <span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="mi">1</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="summary-a-rough-full-picture">
-<h2>Summary: A (rough) full picture<a class="headerlink" href="#summary-a-rough-full-picture" title="Permalink to this headline">¶</a></h2>
-<ol>
+</div>
+</div>
+<div class="section" id="summary-a-rough-full-picture">
+<h2>Summary: A (rough) full picture<a class="headerlink" href="#summary-a-rough-full-picture" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic">
 <li><p>napari creates special context “names” using <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> and <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LayerListContextKeys</span><span class="p">(</span><span class="n">ContextNamespace</span><span class="p">):</span>
     <span class="n">active_layer_type</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
@@ -2131,7 +2223,7 @@ image.</p>
 <p>When this manifest is parsed, those expressions will be converted into
 napari <code class="docutils literal notranslate"><span class="pre">Expr</span></code> objects internally.</p>
 </li>
-<li><p>During runtime, napari maintains and <a class="reference external" href="#updating-contexts">updates contexts</a></p></li>
+<li><p>During runtime, napari maintains and <span class="xref myst">updates contexts</span></p></li>
 <li><p>As these contexts are updated, they emit events that allow menus, keybindings,
 and other things to update themselves accordingly.  For example, the layer-list
 context menu might update the items in the menu that are visible and/or enabled:</p>
@@ -2150,8 +2242,8 @@ clauses (declared internally or externally in steps 3 and 4)</p>
 </div>
 </li>
 </ol>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -2487,7 +2579,7 @@ clauses (declared internally or externally in steps 3 and 4)</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Best practices &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="npe2 migration guide" href="npe2_migration_guide.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/best_practices and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/best_practices.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/best_practices.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -308,13 +400,13 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="best-practices">
-<span id="id1"></span><h1>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="best-practices">
+<span id="id1"></span><h1>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this heading">¶</a></h1>
 <p>There are a number of good and bad practices that may not be immediately obvious
 when developing a plugin.  This page covers some known practices that could
 affect the ability to install or use your plugin effectively.</p>
-<section id="don-t-include-pyside2-or-pyqt5-in-your-plugin-s-dependencies">
-<span id="best-practices-no-qt-backend"></span><h2>Don’t include <code class="docutils literal notranslate"><span class="pre">PySide2</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> in your plugin’s dependencies.<a class="headerlink" href="#don-t-include-pyside2-or-pyqt5-in-your-plugin-s-dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="don-t-include-pyside2-or-pyqt5-in-your-plugin-s-dependencies">
+<span id="best-practices-no-qt-backend"></span><h2>Don’t include <code class="docutils literal notranslate"><span class="pre">PySide2</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> in your plugin’s dependencies.<a class="headerlink" href="#don-t-include-pyside2-or-pyqt5-in-your-plugin-s-dependencies" title="Permalink to this heading">¶</a></h2>
 <p><em>This is important!</em></p>
 <p>Napari supports <em>both</em> PyQt and PySide backends for Qt.  It is up to the
 end-user to choose which one they want. If they installed napari with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span></code>, then the <code class="docutils literal notranslate"><span class="pre">[all]</span></code> extra will (currently) install <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>
@@ -344,9 +436,9 @@ layer</a> that will import from whatever
 backend is installed in the environment.</p>
 </li>
 </ul>
-</section>
-<section id="try-not-to-depend-on-packages-that-require-c-compilation-if-these-packages-do-not-offer-wheels">
-<h2>Try not to depend on packages that require C compilation if these packages do not offer wheels<a class="headerlink" href="#try-not-to-depend-on-packages-that-require-c-compilation-if-these-packages-do-not-offer-wheels" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="try-not-to-depend-on-packages-that-require-c-compilation-if-these-packages-do-not-offer-wheels">
+<h2>Try not to depend on packages that require C compilation if these packages do not offer wheels<a class="headerlink" href="#try-not-to-depend-on-packages-that-require-c-compilation-if-these-packages-do-not-offer-wheels" title="Permalink to this heading">¶</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>This requires some awareness of how your dependencies are built and distributed…</p>
@@ -401,9 +493,9 @@ wheels,you <em>may</em> guide your users in using conda to install your package 
 of your dependencies.  Just know that it may not work with the built-in plugin
 installer.</p>
 </div>
-</section>
-<section id="don-t-import-heavy-dependencies-at-the-top-of-your-module">
-<h2>Don’t import heavy dependencies at the top of your module<a class="headerlink" href="#don-t-import-heavy-dependencies-at-the-top-of-your-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="don-t-import-heavy-dependencies-at-the-top-of-your-module">
+<h2>Don’t import heavy dependencies at the top of your module<a class="headerlink" href="#don-t-import-heavy-dependencies-at-the-top-of-your-module" title="Permalink to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This point will be less relevant when we move to the second generation
@@ -454,9 +546,9 @@ following slight modification will help napari load much faster:</p>
 </div>
 <p>(again, the second gen napari plugin engine will help improve this situation,
 but it’s still a good idea!)</p>
-</section>
-<section id="don-t-leave-resources-open">
-<h2>Don’t leave resources open<a class="headerlink" href="#don-t-leave-resources-open" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="don-t-leave-resources-open">
+<h2>Don’t leave resources open<a class="headerlink" href="#don-t-leave-resources-open" title="Permalink to this heading">¶</a></h2>
 <p>It’s always good practice to clean up resources like open file handles and
 databases.  As a napari plugin it’s particularly important to do this (and
 especially for Windows users).  If someone tries to use the built-in plugin
@@ -477,9 +569,9 @@ using a context manager, but manually otherwise):</p>
     <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="write-extensive-tests-for-your-plugin">
-<h2>Write extensive tests for your plugin!<a class="headerlink" href="#write-extensive-tests-for-your-plugin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="write-extensive-tests-for-your-plugin">
+<h2>Write extensive tests for your plugin!<a class="headerlink" href="#write-extensive-tests-for-your-plugin" title="Permalink to this heading">¶</a></h2>
 <p>Programmer and author Bruce Eckel famously wrote:</p>
 <blockquote>
 <div><p>“If it’s not tested, it’s broken”</p>
@@ -489,13 +581,13 @@ dedicated to the stability of your plugin. Aim for 100%!</p>
 <p>Of course, simply having 100% coverage doesn’t mean your code is bug-free, so
 make sure that you test all of the various ways that your code might be called.</p>
 <p>See our <a class="reference internal" href="test_deploy.html#plugin-testing-tips"><span class="std std-ref">Tips for testing napari plugins</span></a>.</p>
-<section id="how-to-check-test-coverage">
-<h3>How to check test coverage?<a class="headerlink" href="#how-to-check-test-coverage" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="how-to-check-test-coverage">
+<h3>How to check test coverage?<a class="headerlink" href="#how-to-check-test-coverage" title="Permalink to this heading">¶</a></h3>
 <p>The <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter
 template</a> is already set
 up to report test coverage, but you can test locally as well, using
 <a class="reference external" href="https://github.com/pytest-dev/pytest-cov">pytest-cov</a></p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest-cov</span></code></p></li>
 <li><p>Run your tests with <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">--cov=&lt;your_package&gt;</span> <span class="pre">--cov-report=html</span></code></p></li>
 <li><p>Open the resulting report in your browser: <code class="docutils literal notranslate"><span class="pre">open</span> <span class="pre">htmlcov/index.html</span></code></p></li>
@@ -508,9 +600,9 @@ from coverage with the comment <code class="docutils literal notranslate"><span 
 <li><p>In the cookiecutter, coverage tests from github actions will be uploaded to
 codecov.io</p></li>
 </ol>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -846,7 +938,7 @@ codecov.io</p></li>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

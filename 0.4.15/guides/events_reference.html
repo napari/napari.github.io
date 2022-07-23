@@ -22,11 +22,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -36,10 +31,11 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Glossary" href="../further-resources/glossary.html" />
-    <link rel="prev" title="Contexts and Expressions in napari" href="contexts_expressions.html" />
+    <link rel="next" title="Contexts and Expressions in napari" href="contexts_expressions.html" />
+    <link rel="prev" title="3D interactivity" href="3D_interactivity.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -115,6 +111,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/events_reference and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/events_reference.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/events_reference.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -390,11 +468,6 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3D_interactivity.html">
-     3D interactivity
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="rendering-explanation.html">
      Rendering in napari
     </a>
@@ -410,8 +483,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="preferences.html">
-     Preferences
+    <a class="reference internal" href="3D_interactivity.html">
+     3D interactivity
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Events reference
     </a>
    </li>
    <li class="toctree-l2">
@@ -419,9 +497,9 @@
      Contexts and Expressions in napari
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Events reference
+   <li class="toctree-l2">
+    <a class="reference internal" href="preferences.html">
+     Preferences
     </a>
    </li>
   </ul>
@@ -430,1207 +508,6 @@
   <a class="reference internal" href="../further-resources/glossary.html">
    Glossary
   </a>
- </li>
- <li class="toctree-l1 has-children">
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <img src="../_static/icons/sidebar-triangle.png"/>
-  </label>
-  <a class="reference internal" href="../gallery.html">
-   Gallery
-  </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_image.html">
-     Add image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/get_current_viewer.html">
-     Get current viewer
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_image_transformed.html">
-     Add image transformed
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/set_theme.html">
-     Set theme
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interaction_box_image.html">
-     Interaction box image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_volume.html">
-     Add volume
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_surface_2D.html">
-     Add surface 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_grayscale_image.html">
-     Add grayscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/scale_bar.html">
-     Scale bar
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_volume.html">
-     nD volume
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/annotate-2d.html">
-     Annotate 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_image.html">
-     nD image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_surface.html">
-     nD surface
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_labels.html">
-     nD labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/viewer_fps_label.html">
-     Viewer FPS label
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/multiple_viewers.html">
-     Multiple viewers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/image_depth.html">
-     Image depth
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_viewer.html">
-     magicgui viewer
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/pass_colormaps.html">
-     Pass colormaps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_multiscale_image.html">
-     Add multiscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/mixed-dimensions-labels.html">
-     Mixed dimensions labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/surface_normals_wireframe.html">
-     Surface normals wireframe
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/cursor_position.html">
-     Cursor position
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_vectors_image.html">
-     nD vectors image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/paint-nd.html">
-     Paint nD
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/spherical_points.html">
-     Spherical points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_multiscale_image.html">
-     nD multiscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/dask_nD_image.html">
-     Dask nD image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/layers.html">
-     Layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_shapes_with_text.html">
-     nD shapes with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_scripting.html">
-     Interactive scripting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_multiscale_image_non_uniform.html">
-     nD multiscale image non-uniform
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/linked_layers.html">
-     Linked layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_points.html">
-     nD points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/labels-2d.html">
-     Labels 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/swap_dims.html">
-     Swap dims
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/3D_paths.html">
-     3D Paths
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors.html">
-     Add vectors
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_labels.html">
-     Add labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors_image.html">
-     Add vectors image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/set_colormaps.html">
-     Set colormaps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/reader_plugin.html">
-     Reader plugin
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/new_theme.html">
-     New theme
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/show_points_based_on_feature.html">
-     Show points based on feature
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/custom_key_bindings.html">
-     Custom key bindings
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/without_gui_qt.html">
-     napari without gui_qt
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points.html">
-     Add points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/points-over-time.html">
-     Points over time
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_with_text.html">
-     Add points with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_vectors.html">
-     nD vectors
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes_with_text.html">
-     Add shapes with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors_color_by_angle.html">
-     Add vectors color by angle
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/mouse_drag_callback.html">
-     Mouse drag callback
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_points_with_features.html">
-     nD points with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_3d_with_graph.html">
-     Tracks 3D with graph
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/volume_plane_rendering.html">
-     Volume plane rendering
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_2d.html">
-     Tracks 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_labels_with_features.html">
-     Add labels with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/update_console.html">
-     Update console
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_shapes.html">
-     nD shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/dynamic-projections-dask.html">
-     Dynamic projections dask
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_parameter_sweep.html">
-     magicgui parameter sweep
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_image_arithmetic.html">
-     magicgui Image Arithmetic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/affine_transforms.html">
-     Affine transforms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/cursor_ray.html">
-     Cursor ray
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_move_rectangle_3d.html">
-     Interactive move rectangle
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_on_nD_shapes.html">
-     Add points on nD shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes_with_features.html">
-     Add shapes with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_with_features.html">
-     Add points with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_3d.html">
-     Tracks 3D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes.html">
-     Add shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/shapes_to_labels.html">
-     Shapes to labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interaction_box_points.html">
-     Interaction box points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/custom_mouse_functions.html">
-     Custom mouse functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_move_point_3d.html">
-     Interactive move point
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/to_screenshot.html">
-     To screenshot
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/annotate_segmentation_with_text.html">
-     Annotate segmentation with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/action_manager.html">
-     Action manager
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/bbox_annotator.html">
-     bbox annotator
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/3D_paths.html">
-     3D Paths
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/action_manager.html">
-     Action manager
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_grayscale_image.html">
-     Add grayscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_image.html">
-     Add image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_image_transformed.html">
-     Add image transformed
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_labels.html">
-     Add labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_labels_with_features.html">
-     Add labels with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_multiscale_image.html">
-     Add multiscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points.html">
-     Add points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_on_nD_shapes.html">
-     Add points on nD shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_with_features.html">
-     Add points with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_with_text.html">
-     Add points with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes.html">
-     Add shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes_with_features.html">
-     Add shapes with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes_with_text.html">
-     Add shapes with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_surface_2D.html">
-     Add surface 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors.html">
-     Add vectors
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors_color_by_angle.html">
-     Add vectors color by angle
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors_image.html">
-     Add vectors image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_volume.html">
-     Add volume
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/affine_transforms.html">
-     Affine transforms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/annotate-2d.html">
-     Annotate 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/annotate_segmentation_with_text.html">
-     Annotate segmentation with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/bbox_annotator.html">
-     bbox annotator
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/cursor_position.html">
-     Cursor position
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/cursor_ray.html">
-     Cursor ray
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/custom_key_bindings.html">
-     Custom key bindings
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/custom_mouse_functions.html">
-     Custom mouse functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/dask_nD_image.html">
-     Dask nD image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/dynamic-projections-dask.html">
-     Dynamic projections dask
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/get_current_viewer.html">
-     Get current viewer
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/image_depth.html">
-     Image depth
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_image.html">
-     Add image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/get_current_viewer.html">
-     Get current viewer
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_image_transformed.html">
-     Add image transformed
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/set_theme.html">
-     Set theme
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interaction_box_image.html">
-     Interaction box image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_volume.html">
-     Add volume
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_surface_2D.html">
-     Add surface 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_grayscale_image.html">
-     Add grayscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/scale_bar.html">
-     Scale bar
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_volume.html">
-     nD volume
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/annotate-2d.html">
-     Annotate 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_image.html">
-     nD image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_surface.html">
-     nD surface
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_labels.html">
-     nD labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/viewer_fps_label.html">
-     Viewer FPS label
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/multiple_viewers.html">
-     Multiple viewers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/image_depth.html">
-     Image depth
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_viewer.html">
-     magicgui viewer
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/pass_colormaps.html">
-     Pass colormaps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_multiscale_image.html">
-     Add multiscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/mixed-dimensions-labels.html">
-     Mixed dimensions labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/surface_normals_wireframe.html">
-     Surface normals wireframe
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/cursor_position.html">
-     Cursor position
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_vectors_image.html">
-     nD vectors image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/paint-nd.html">
-     Paint nD
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/spherical_points.html">
-     Spherical points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_multiscale_image.html">
-     nD multiscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/dask_nD_image.html">
-     Dask nD image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/layers.html">
-     Layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_shapes_with_text.html">
-     nD shapes with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_scripting.html">
-     Interactive scripting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_multiscale_image_non_uniform.html">
-     nD multiscale image non-uniform
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/linked_layers.html">
-     Linked layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_points.html">
-     nD points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/labels-2d.html">
-     Labels 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/swap_dims.html">
-     Swap dims
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/3D_paths.html">
-     3D Paths
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors.html">
-     Add vectors
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_labels.html">
-     Add labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors_image.html">
-     Add vectors image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/set_colormaps.html">
-     Set colormaps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/reader_plugin.html">
-     Reader plugin
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/new_theme.html">
-     New theme
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/show_points_based_on_feature.html">
-     Show points based on feature
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/custom_key_bindings.html">
-     Custom key bindings
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/without_gui_qt.html">
-     napari without gui_qt
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points.html">
-     Add points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/points-over-time.html">
-     Points over time
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_with_text.html">
-     Add points with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_vectors.html">
-     nD vectors
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes_with_text.html">
-     Add shapes with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_vectors_color_by_angle.html">
-     Add vectors color by angle
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/mouse_drag_callback.html">
-     Mouse drag callback
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_points_with_features.html">
-     nD points with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_3d_with_graph.html">
-     Tracks 3D with graph
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/volume_plane_rendering.html">
-     Volume plane rendering
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_2d.html">
-     Tracks 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_labels_with_features.html">
-     Add labels with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/update_console.html">
-     Update console
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_shapes.html">
-     nD shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/dynamic-projections-dask.html">
-     Dynamic projections dask
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_parameter_sweep.html">
-     magicgui parameter sweep
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_image_arithmetic.html">
-     magicgui Image Arithmetic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/affine_transforms.html">
-     Affine transforms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/cursor_ray.html">
-     Cursor ray
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_move_rectangle_3d.html">
-     Interactive move rectangle
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_on_nD_shapes.html">
-     Add points on nD shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes_with_features.html">
-     Add shapes with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_points_with_features.html">
-     Add points with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_3d.html">
-     Tracks 3D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/add_shapes.html">
-     Add shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/shapes_to_labels.html">
-     Shapes to labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interaction_box_points.html">
-     Interaction box points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/custom_mouse_functions.html">
-     Custom mouse functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_move_point_3d.html">
-     Interactive move point
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/to_screenshot.html">
-     To screenshot
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/annotate_segmentation_with_text.html">
-     Annotate segmentation with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/action_manager.html">
-     Action manager
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/bbox_annotator.html">
-     bbox annotator
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interaction_box_image.html">
-     Interaction box image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interaction_box_points.html">
-     Interaction box points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_move_point_3d.html">
-     Interactive move point
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_move_rectangle_3d.html">
-     Interactive move rectangle
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/interactive_scripting.html">
-     Interactive scripting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/labels-2d.html">
-     Labels 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/layers.html">
-     Layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/linked_layers.html">
-     Linked layers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_image_arithmetic.html">
-     magicgui Image Arithmetic
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_parameter_sweep.html">
-     magicgui parameter sweep
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/magic_viewer.html">
-     magicgui viewer
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/mixed-dimensions-labels.html">
-     Mixed dimensions labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/mouse_drag_callback.html">
-     Mouse drag callback
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/multiple_viewers.html">
-     Multiple viewers
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_image.html">
-     nD image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_labels.html">
-     nD labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_multiscale_image.html">
-     nD multiscale image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_multiscale_image_non_uniform.html">
-     nD multiscale image non-uniform
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_points.html">
-     nD points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_points_with_features.html">
-     nD points with features
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_shapes.html">
-     nD shapes
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_shapes_with_text.html">
-     nD shapes with text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_surface.html">
-     nD surface
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_vectors.html">
-     nD vectors
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_vectors_image.html">
-     nD vectors image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_volume.html">
-     nD volume
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/new_theme.html">
-     New theme
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/paint-nd.html">
-     Paint nD
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/pass_colormaps.html">
-     Pass colormaps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/points-over-time.html">
-     Points over time
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/reader_plugin.html">
-     Reader plugin
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/scale_bar.html">
-     Scale bar
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/set_colormaps.html">
-     Set colormaps
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/set_theme.html">
-     Set theme
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/sg_execution_times.html">
-     Computation times
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/shapes_to_labels.html">
-     Shapes to labels
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/show_points_based_on_feature.html">
-     Show points based on feature
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/spherical_points.html">
-     Spherical points
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/surface_normals_wireframe.html">
-     Surface normals wireframe
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/swap_dims.html">
-     Swap dims
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/to_screenshot.html">
-     To screenshot
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_2d.html">
-     Tracks 2D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_3d.html">
-     Tracks 3D
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/tracks_3d_with_graph.html">
-     Tracks 3D with graph
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/update_console.html">
-     Update console
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/viewer_fps_label.html">
-     Viewer FPS label
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/volume_plane_rendering.html">
-     Volume plane rendering
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/without_gui_qt.html">
-     napari without gui_qt
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -1692,8 +569,9 @@
             <div>
               
   <section class="tex2jax_ignore mathjax_ignore" id="events-reference">
-<span id="id1"></span><h1>Events reference<a class="headerlink" href="#events-reference" title="Permalink to this headline">¶</a></h1>
-<p>The following tables contain events that you may connect to. For example, to have a specific function called whenever the users
+<h1>Events reference<a class="headerlink" href="#events-reference" title="Permalink to this headline">¶</a></h1>
+<p>The following tables contain events that you may connect to.<br />
+For example, to have a specific function called whenever the users
 changes the number of dimensions displayed in the viewer (e.g.
 from 2D to 3D), you can use <code class="docutils literal notranslate"><span class="pre">&lt;event&gt;.connect(your_callback)</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
@@ -1911,43 +789,43 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">layers.events.inserting</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted before an item is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">layers.events.inserted</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">layers.events.removing</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted before an item is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">layers.events.removed</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is removed at <code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">layers.events.moving</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted before an item is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">layers.events.moved</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted after <code class="docutils literal notranslate"><span class="pre">value</span></code> is moved from <code class="docutils literal notranslate"><span class="pre">index</span></code> to <code class="docutils literal notranslate"><span class="pre">new_index</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">layers.events.changed</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted when <code class="docutils literal notranslate"><span class="pre">index</span></code> is set from <code class="docutils literal notranslate"><span class="pre">old_value</span></code> to <code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">layers.events.reordered</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted when the list is reordered (eg. moved/reversed).</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">layers.selection.events.active</span></code></p></td>
-<td><p></p></td>
+<td><p>emitted when the current item has changed.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">layers.selection.events.changed</span></code></p></td>
-<td><p></p></td>
+<td><p>Emitted when the set changes, includes item(s) that have been added and/or removed from the set.</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -2175,257 +1053,222 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 <td><p>If greater than 0, displays contours of labels instead of shaded regions with a thickness equal to its value.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
-<td><p>Features table where each row corresponds to a label and each column is a feature. The first row corresponds to the background label.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mode</span></code></p></td>
 <td><p>Interactive mode. The normal, default mode is PAN_ZOOM, which allows for normal interactivity with the canvas.  In ADD mode clicks of the cursor add points at the clicked location.  In SELECT mode the cursor can select points by clicking on them or by dragging a box around them. Once selected points can be moved, have their properties edited, or be deleted.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.size</span></code></p></td>
 <td><p>Size of the point marker in data pixels. If given as a scalar, all points are made the same size. If given as an array, size must be the same or broadcastable to the same shape as the data.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Width of the symbol edge in pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width_is_relative</span></code></p></td>
 <td><p>If enabled, edge_width is interpreted as a fraction of the point size.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.face_color</span></code></p></td>
 <td><p>Color of the point marker body. Numeric color values should be RGB(A).</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_face_color</span></code></p></td>
 <td><p>Face color of the marker edge for the next point to be added or the currently selected point.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color</span></code></p></td>
 <td><p>Color of the point marker border. Numeric color values should be RGB(A).</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_edge_color</span></code></p></td>
 <td><p>Edge color of the marker edge for the next point to be added or the currently selected point.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each point. Each property should be an array of length N, where N is the number of points.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_properties</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.symbol</span></code></p></td>
 <td><p>Symbol to be used for the point markers. Must be one of the following: arrow, clobber, cross, diamond, disc, hbar, ring, square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.out_of_slice_display</span></code></p></td>
 <td><p>If True, renders points not just in central plane but also slightly out of slice according to specified point marker size.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.n_dimensional</span></code></p></td>
 <td><p>This property will soon be deprecated in favor of ‘out_of_slice_display’. Use that instead.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.highlight</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.shading</span></code></p></td>
-<td><p>Render lighting and shading on points. Options are:  * ‘none’   No shading is added to the points. * ‘spherical’   Shading and depth buffer are changed to give a 3D spherical look to the points</p></td>
+<td><p>Render lighting and shading on points. Options are:     * ‘none’         No shading is added to the points.     * ‘spherical’         Shading and depth buffer are changed to give a 3D spherical look to the points</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events._antialias</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.experimental_canvas_size_limits</span></code></p></td>
 <td><p>Lower and upper limits for the size of points in canvas pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
-<td><p>Features table where each row corresponds to a point and each column is a feature.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
-<td><p>Stores the default value of each feature in a table with one row.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.length</span></code></p></td>
 <td><p>Multiplicative factor on projections for length of all vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Width for all vectors in pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color</span></code></p></td>
 <td><p>Color of all of the vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color_mode</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each vector. Each property should be an array of length N, where N is the number of vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.out_of_slice_display</span></code></p></td>
 <td><p>If True, renders vectors not just in central plane but also slightly out of slice according to specified point marker size.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
-<td><p>Features table where each row corresponds to a vector and each column is a feature.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
-<td><p>Stores the default value of each feature in a table with one row.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mode</span></code></p></td>
 <td><p>Interactive mode. The normal, default mode is PAN_ZOOM, which allows for normal interactivity with the canvas.  The SELECT mode allows for entire shapes to be selected, moved and resized.  The DIRECT mode allows for shapes to be selected and their individual vertices to be moved.  The VERTEX_INSERT and VERTEX_REMOVE modes allow for individual vertices either to be added to or removed from shapes that are already selected. Note that shapes cannot be selected in this mode.  The ADD_RECTANGLE, ADD_ELLIPSE, ADD_LINE, ADD_PATH, and ADD_POLYGON modes all allow for their corresponding shape type to be added.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Thickness of lines and edges. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color</span></code></p></td>
 <td><p>If string can be any color name recognized by vispy or hex value if starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>. If array-like must be 1-dimensional array with 3 or 4 elements. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.face_color</span></code></p></td>
 <td><p>If string can be any color name recognized by vispy or hex value if starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>. If array-like must be 1-dimensional array with 3 or 4 elements. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each shape. Each property should be an array of length N, where N is the number of shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_edge_color</span></code></p></td>
 <td><p>Color of the edge of the next shape to be added or the currently selected shape.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_face_color</span></code></p></td>
 <td><p>Color of the face of the next shape to be added or the currently selected shape.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_properties</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.highlight</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
-<td><p>Features table where each row corresponds to a shape and each column is a feature.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
-<td><p>Stores the default value of each feature in a table with one row.</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.shading</span></code></p></td>
-<td><p>One of a list of preset shading modes that determine the lighting model using when rendering the surface in 3D.  * <code class="docutils literal notranslate"><span class="pre">Shading.NONE</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='none'</span></code>. * <code class="docutils literal notranslate"><span class="pre">Shading.FLAT</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='flat'</span></code>. * <code class="docutils literal notranslate"><span class="pre">Shading.SMOOTH</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='smooth'</span></code>.</p></td>
+<td><p>One of a list of preset shading modes that determine the lighting model using when rendering the surface in 3D.  * Shading.NONE     Corresponds to shading=’none’. * Shading.FLAT     Corresponds to shading=’flat’. * Shading.SMOOTH     Corresponds to shading=’smooth’.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.tail_width</span></code></p></td>
 <td><p>Width of the track tails in pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.tail_length</span></code></p></td>
 <td><p>Length of the positive (backward in time) tails in units of time.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.head_length</span></code></p></td>
 <td><p>Length of the positive (forward in time) tails in units of time.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_id</span></code></p></td>
 <td><p>display the track id</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_tail</span></code></p></td>
 <td><p>display the track tail</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_graph</span></code></p></td>
 <td><p>display the graph edges</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.color_by</span></code></p></td>
 <td><p>Track property (from property keys) by which to color vertices.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.colormap</span></code></p></td>
 <td><p>Default colormap to use to set vertex colors. Specialized colormaps, relating to specified properties can be passed to the layer via colormaps_dict.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each point. Each property should be an array of length N, where N is the number of points.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.rebuild_tracks</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.rebuild_graph</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
@@ -2441,7 +1284,7 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
             
             <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="contexts_expressions.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="3D_interactivity.html" title="previous page">
         <svg
             width="10"
             height="16"
@@ -2457,13 +1300,13 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
         </svg>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Contexts and Expressions in napari</p>
+            <p class="prev-next-title">3D interactivity</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../further-resources/glossary.html" title="next page">
+    <a class='right-next' id="next-link" href="contexts_expressions.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Glossary</p>
+        <p class="prev-next-title">Contexts and Expressions in napari</p>
     </div>
 
     <svg

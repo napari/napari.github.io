@@ -267,11 +267,7 @@ viewer.layers['moon'].contrast_limits=(100, 175)
 
 from napari.utils import nbscreenshot
 
-<<<<<<< HEAD:_sources/howtos/layers/image.md
-nbscreenshot(viewer, alt_text="A viewer where the contrast limits have been adjusted")
-=======
 nbscreenshot(viewer, alt_text=" ")
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/howtos/layers/image.md
 ```
 
 ```{code-cell} python

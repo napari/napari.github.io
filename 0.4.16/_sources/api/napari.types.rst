@@ -38,7 +38,6 @@
    .. autofunction:: SurfaceData
    .. autofunction:: TracksData
    .. autofunction:: VectorsData
-   .. autofunction:: get_args
    .. autofunction:: image_reader_to_layerdata_reader
    .. autofunction:: wraps
    

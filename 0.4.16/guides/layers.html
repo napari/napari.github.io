@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Layers at a glance &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="napari tutorials" href="../tutorials/index.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/layers and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/layers.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/layers.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1726,8 +1818,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="layers-at-a-glance">
-<h1>Layers at a glance<a class="headerlink" href="#layers-at-a-glance" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="layers-at-a-glance">
+<h1>Layers at a glance<a class="headerlink" href="#layers-at-a-glance" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference internal" href="../api/napari.layers.html#module-napari.layers" title="napari.layers"><span class="xref myst py py-mod">Layers</span></a> are the basic viewable objects that can be added to a
 viewer. <strong>napari</strong> supports seven main different layer types: <code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Points</span></code>, <code class="docutils literal notranslate"><span class="pre">Shapes</span></code>, <code class="docutils literal notranslate"><span class="pre">Surface</span></code>, <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> and <code class="docutils literal notranslate"><span class="pre">Vectors</span></code>. Each of the layer types
@@ -1749,14 +1841,14 @@ object created from <code class="docutils literal notranslate"><span class="pre"
 <a class="reference internal" href="../howtos/layers/index.html"><span class="doc std std-doc">Using layers how-to guides</span></a>. For a gentle
 introduction, check out the
 <a class="reference internal" href="../tutorials/fundamentals/viewer.html#layer-list"><span class="std std-ref">Layer list section in the napari viewer tutorial</span></a>.</p>
-<section id="layer-visibility">
-<h2>Layer visibility<a class="headerlink" href="#layer-visibility" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="layer-visibility">
+<h2>Layer visibility<a class="headerlink" href="#layer-visibility" title="Permalink to this heading">¶</a></h2>
 <p>All our layers support a visibility toggle that allows you to set the <code class="docutils literal notranslate"><span class="pre">visible</span></code>
 property of each layer. This property is located inside the layer widget in the
 layers list and is represented by an eye icon.</p>
-</section>
-<section id="layer-opacity">
-<span id="id1"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="layer-opacity">
+<span id="id1"></span><h2>Layer opacity<a class="headerlink" href="#layer-opacity" title="Permalink to this heading">¶</a></h2>
 <p>All our layers support an opacity slider and <code class="docutils literal notranslate"><span class="pre">opacity</span></code> property that allow you
 to adjust the layer opacity between 0, fully invisible and 1, fully visible.</p>
 <div class="admonition note">
@@ -1773,9 +1865,9 @@ globally to all the vectors in the layer.</p></li>
 <li><p>For the <a class="reference internal" href="../api/napari.layers.Tracks.html#napari.layers.Tracks" title="napari.layers.Tracks"><span class="xref myst py py-class">tracks layer</span></a>, the opacity value applies globally to all the tracks in the layer.</p></li>
 </ul>
 </div>
-</section>
-<section id="blending-layers">
-<h2>Blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="blending-layers">
+<h2>Blending layers<a class="headerlink" href="#blending-layers" title="Permalink to this heading">¶</a></h2>
 <p>All our layers support three blending modes: <code class="docutils literal notranslate"><span class="pre">translucent</span></code>, <code class="docutils literal notranslate"><span class="pre">additive</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">opaque</span></code>. These modes determine how the visuals for this layer get mixed with
 the visuals from the other layers.</p>
@@ -1793,23 +1885,23 @@ colors.</p></li>
 </ul>
 <p>For example:</p>
 <p><img alt="napari viewer with an image of a cell. Layer controls are open in the left sidebar with the blending set to additive." src="../_images/blending.png" /></p>
-</section>
-<section id="d-rendering-of-images">
-<h2>3D rendering of images<a class="headerlink" href="#d-rendering-of-images" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="d-rendering-of-images">
+<h2>3D rendering of images<a class="headerlink" href="#d-rendering-of-images" title="Permalink to this heading">¶</a></h2>
 <p>All our layers can be rendered in both 2D and 3D mode, and one of our viewer
 buttons can toggle between each mode. The number of dimensions sliders will be 2
 or 3 less than the total number of dimensions of the layer, allowing you to
 browse volumetric timeseries data and other high dimensional data. See for
 example these cells undergoing mitosis in this volumetric timeseries:</p>
-<p><video src="../_images/mitosis.webm" title="napari viewer with an image of a cell undergoing mitosis. The scroll bar below the canvas controls the timeseries, allowing different stages of mitosis to be visible."><a href="../_images/mitosis.webm">napari viewer with an image of a cell undergoing mitosis. The scroll bar below the canvas controls the timeseries, allowing different stages of mitosis to be visible.</a></video></p>
+<p><img alt="napari viewer with an image of a cell undergoing mitosis. The scroll bar below the canvas controls the timeseries, allowing different stages of mitosis to be visible." src="../_images/mitosis.webm" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Switching to 3D mode for a very large data set could trigger computation that
 leads to a memory error.</p>
 </div>
-</section>
-<section id="layer-interpolation">
-<h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="layer-interpolation">
+<h2>Layer interpolation<a class="headerlink" href="#layer-interpolation" title="Permalink to this heading">¶</a></h2>
 <p>We support a variety of interpolation modes when viewing 2D slices. In the
 default mode <code class="docutils literal notranslate"><span class="pre">nearest</span></code> each pixel is represented as a small square of specified
 size. As you zoom in you will eventually see each pixel. In other modes
@@ -1818,9 +1910,9 @@ example <code class="docutils literal notranslate"><span class="pre">bicubic</sp
 scientific use cases, <code class="docutils literal notranslate"><span class="pre">nearest</span></code> is recommended because it displays each data
 point, with no mixing of nearby data points. These modes have no effect when
 viewing 3D slices.</p>
-</section>
-<section id="layer-rendering">
-<h2>Layer rendering<a class="headerlink" href="#layer-rendering" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="layer-rendering">
+<h2>Layer rendering<a class="headerlink" href="#layer-rendering" title="Permalink to this heading">¶</a></h2>
 <p>When viewing 3D slices, we support a variety of rendering modes. The default
 mode <code class="docutils literal notranslate"><span class="pre">mip</span></code>, or maximum intensity projection, will combine voxels at different
 distances from the camera according to a maximum intensity projection to create
@@ -1828,16 +1920,16 @@ the 2D image that is then displayed on the screen. This mode works well for many
 biological images such as these cells growing in culture:</p>
 <p><img alt="napari viewer with an image of cells in a culture. Layer controls are open in the left sidebar and rendering set to mip." src="../_images/rendering.png" /></p>
 <p>When viewing 2D slices the rendering mode has no effect.</p>
-</section>
-<section id="naming-layers">
-<h2>Naming layers<a class="headerlink" href="#naming-layers" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="naming-layers">
+<h2>Naming layers<a class="headerlink" href="#naming-layers" title="Permalink to this heading">¶</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">name</span></code> property that can be set inside a text box
 inside the layer widget in the layers list. The name of each layer is forced
 into being unique so that you can use the name to index into <code class="docutils literal notranslate"><span class="pre">viewer.layers</span></code> to
 retrieve the layer object.</p>
-</section>
-<section id="scaling-layers">
-<h2>Scaling layers<a class="headerlink" href="#scaling-layers" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="scaling-layers">
+<h2>Scaling layers<a class="headerlink" href="#scaling-layers" title="Permalink to this heading">¶</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">scale</span></code> property and keyword argument that will rescale
 the layer multiplicatively according to the scale values (one for each
 dimension). This property can be particularly useful for viewing anisotropic
@@ -1851,20 +1943,20 @@ existing layer using the <code class="docutils literal notranslate"><span class=
 <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;retina&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
-<p><video src="../_images/scaling.webm" title="napari viewer with an image where all layers are scaled equally; when rotated, the image appears flat. By using console below the canvas and applying a scale factor to one of the dimensions, the image's volume becomes apparent."><a href="../_images/scaling.webm">napari viewer with an image where all layers are scaled equally; when rotated, the image appears flat. By using console below the canvas and applying a scale factor to one of the dimensions, the image's volume becomes apparent.</a></video></p>
-</section>
-<section id="translating-layers">
-<h2>Translating layers<a class="headerlink" href="#translating-layers" title="Permalink to this headline">¶</a></h2>
+<p><img alt="napari viewer with an image where all layers are scaled equally; when rotated, the image appears flat. By using console below the canvas and applying a scale factor to one of the dimensions, the image's volume becomes apparent." src="../_images/scaling.webm" /></p>
+</div>
+<div class="section" id="translating-layers">
+<h2>Translating layers<a class="headerlink" href="#translating-layers" title="Permalink to this heading">¶</a></h2>
 <p>All our layers support a <code class="docutils literal notranslate"><span class="pre">translate</span></code> property and keyword argument that you can
 use to offset a layer relative to the other layers, which could be useful if you
 are trying to overlay two image tiles acquired with different stage positions.</p>
-</section>
-<section id="layer-metadata">
-<h2>Layer metadata<a class="headerlink" href="#layer-metadata" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="layer-metadata">
+<h2>Layer metadata<a class="headerlink" href="#layer-metadata" title="Permalink to this heading">¶</a></h2>
 <p>All our layers also support a <code class="docutils literal notranslate"><span class="pre">metadata</span></code> property and keyword argument that you
 can use to store an arbitrary metadata dictionary on the layer.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -2200,7 +2292,7 @@ can use to store an arbitrary metadata dictionary on the layer.</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

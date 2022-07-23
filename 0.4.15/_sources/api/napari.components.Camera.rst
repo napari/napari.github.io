@@ -82,11 +82,11 @@ napari.components.Camera
       ~Camera.events
       ~Camera.up_direction
       ~Camera.view_direction
-      
-      
-      
-      
-      
+      ~Camera.center
+      ~Camera.zoom
+      ~Camera.angles
+      ~Camera.perspective
+      ~Camera.interactive
    
    
 

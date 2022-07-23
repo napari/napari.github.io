@@ -128,30 +128,6 @@ napari.Viewer
       ~Viewer.events
       ~Viewer.experimental
       ~Viewer.window
-<<<<<<< HEAD:_sources/api/napari.Viewer.rst
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-<<<<<<<< HEAD:0.4.16/_sources/api/napari.Viewer.rst
-      
-========
->>>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.15/_sources/api/napari.Viewer.rst
-=======
       ~Viewer.axes
       ~Viewer.camera
       ~Viewer.cursor
@@ -170,7 +146,6 @@ napari.Viewer
       ~Viewer.mouse_wheel_callbacks
       ~Viewer.mouse_drag_callbacks
       ~Viewer.mouse_double_click_callbacks
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.Viewer.rst
    
    
 

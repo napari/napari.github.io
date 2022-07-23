@@ -52,7 +52,7 @@ def xyz_file_reader(path: PathOrPaths) -> List[LayerData]:
 
 **manifest**
 
-See [Readers contribution reference](./contributions.html#contributions-readers)
+See [Readers contribution reference](contributions-readers)
 for field details.
 
 ```yaml

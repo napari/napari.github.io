@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Core Developer guide &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Release guide" href="release.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables developers/core_dev_guide and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "developers/core_dev_guide.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "developers/core_dev_guide.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -622,8 +714,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="core-developer-guide">
-<span id="core-dev-guide"></span><h1>Core Developer guide<a class="headerlink" href="#core-developer-guide" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="core-developer-guide">
+<span id="core-dev-guide"></span><h1>Core Developer guide<a class="headerlink" href="#core-developer-guide" title="Permalink to this heading">¶</a></h1>
 <p>Welcome, new core developer!  The core team appreciate the quality of
 your work, and enjoy working with you; we have therefore invited you
 to join us.  Thank you for your numerous contributions to the project
@@ -638,14 +730,14 @@ doubt, always refer back there.</p>
 <p>As a core team member, you gain the responsibility of shepherding
 other contributors through the review process; here are some
 guidelines for how to do that.</p>
-<section id="all-contributors-are-treated-the-same">
-<h2>All contributors are treated the same<a class="headerlink" href="#all-contributors-are-treated-the-same" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="all-contributors-are-treated-the-same">
+<h2>All contributors are treated the same<a class="headerlink" href="#all-contributors-are-treated-the-same" title="Permalink to this heading">¶</a></h2>
 <p>As a core developer, you gain the ability to merge or approve
 other contributors’ pull requests.  Much like nuclear launch keys, it
 is a shared power: you must merge <em>only after</em> another core has
 approved the pull request, <em>and</em> after you yourself have carefully
-reviewed it.  (See <a class="reference external" href="#reviewing">Reviewing</a> and especially
-<a class="reference external" href="#merge-only-changes-you-understand">Merge Only Changes You Understand</a> below.)
+reviewed it.  (See <span class="xref myst">Reviewing</span> and especially
+<span class="xref myst">Merge Only Changes You Understand</span> below.)
 It should also be considered best practice to leave a reasonable (24hr) time window
 after approval before merge to ensure that other core developers have a reasonable
 chance to weigh in.</p>
@@ -663,11 +755,11 @@ to ensure a clean git history.</p>
 <p>You should also continue to make your own pull requests as before and in accordance
 with the <a class="reference internal" href="contributing.html#napari-contributing"><span class="std std-ref">general contributor guide</span></a>. These pull requests still
 require the approval of another core developer before they can be merged.</p>
-</section>
-<section id="reviewing">
-<h2>Reviewing<a class="headerlink" href="#reviewing" title="Permalink to this headline">¶</a></h2>
-<section id="how-to-conduct-a-good-review">
-<h3>How to conduct a good review<a class="headerlink" href="#how-to-conduct-a-good-review" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="reviewing">
+<h2>Reviewing<a class="headerlink" href="#reviewing" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="how-to-conduct-a-good-review">
+<h3>How to conduct a good review<a class="headerlink" href="#how-to-conduct-a-good-review" title="Permalink to this heading">¶</a></h3>
 <p><em>Always</em> be kind to contributors. Contributors are often doing
 volunteer work, for which we are tremendously grateful. Provide
 constructive criticism on ideas and implementations, and remind
@@ -683,7 +775,7 @@ automatically updates a pull request, for example). Gentle, polite, kind
 encouragement can make the difference between a new core developer and
 an abandoned pull request.</p>
 <p>When reviewing, focus on the following:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><strong>Usability and generality:</strong> <code class="docutils literal notranslate"><span class="pre">napari</span></code> is a GUI application that strives to be accessible
 to both coding and non-coding users, and new features should ultimately be
 accessible to everyone using the app. <code class="docutils literal notranslate"><span class="pre">napari</span></code> targets the scientific user
@@ -710,7 +802,7 @@ For any major new features, accompanying changes should be made to our
 <a class="reference external" href="https://napari.org/tutorials">tutorials</a>. These should not only
 illustrates the new feature, but explains it. Titles for all documents in napari should follow <a class="reference external" href="https://apastyle.apa.org/style-grammar-guidelines/capitalization/sentence-case">sentence case capitalization</a>, but the name <code class="docutils literal notranslate"><span class="pre">napari</span></code> should always be written in lowercase.</p></li>
 <li><p><strong>Implementations and algorithms:</strong> You should understand the code being modified
-or added before approving it.  (See <a class="reference external" href="#merge-only-changes-you-understand">Merge Only Changes You Understand</a>
+or added before approving it.  (See <span class="xref myst">Merge Only Changes You Understand</span>
 below.) Implementations should do what they claim and be simple, readable, and efficient
 in that order.</p></li>
 <li><p><strong>Tests:</strong> All contributions <em>must</em> be tested, and each added line of code
@@ -731,9 +823,9 @@ no longer active, you may take over their branch by submitting a new pull
 request and closing the original, including a reference to the original pull
 request. In doing so, ensure you communicate that you are not throwing the
 contributor’s work away!</p>
-</section>
-<section id="merge-only-changes-you-understand">
-<h3>Merge only changes you understand<a class="headerlink" href="#merge-only-changes-you-understand" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="merge-only-changes-you-understand">
+<h3>Merge only changes you understand<a class="headerlink" href="#merge-only-changes-you-understand" title="Permalink to this heading">¶</a></h3>
 <p><em>Long-term maintainability</em> is an important concern.  Code doesn’t
 merely have to <em>work</em>, but should be <em>understood</em> by multiple core
 developers.  Changes will have to be made in the future, and the
@@ -744,10 +836,10 @@ for added insight where needed, and see this as a great learning opportunity.</p
 <p>While we collectively “own” any patches (and bugs!) that become part
 of the code base, you are vouching for changes you merge.  Please take
 that responsibility seriously.</p>
-</section>
-</section>
-<section id="further-resources">
-<h2>Further resources<a class="headerlink" href="#further-resources" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="further-resources">
+<h2>Further resources<a class="headerlink" href="#further-resources" title="Permalink to this heading">¶</a></h2>
 <p>As a core member, you should be familiar with community and developer
 resources such as:</p>
 <ul class="simple">
@@ -774,9 +866,9 @@ for a global community to consume.</p>
 <p>We also have a private mailing list for core developers
 <code class="docutils literal notranslate"><span class="pre">napari-core-devs&#64;googlegroups.com</span></code> which is sparingly used for discussions
 that are required to be private, such as voting on new core members.</p>
-</section>
-<section id="inviting-new-core-members">
-<h2>Inviting new core members<a class="headerlink" href="#inviting-new-core-members" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="inviting-new-core-members">
+<h2>Inviting new core members<a class="headerlink" href="#inviting-new-core-members" title="Permalink to this heading">¶</a></h2>
 <p>Any core member may nominate other contributors to join the core team.
 While there is no hard-and-fast rule about who can be nominated, ideally,
 they should have: been part of the project for at least two months, contributed
@@ -787,22 +879,22 @@ While it is expected that most votes will be unanimous, a two-thirds majority of
 the cast votes is enough.</p>
 <p>Core developers can choose to become emeritus core developers and suspend
 their approval and voting rights until they become active again.</p>
-</section>
-<section id="contribute-to-this-guide">
-<h2>Contribute to this guide (!)<a class="headerlink" href="#contribute-to-this-guide" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="contribute-to-this-guide">
+<h2>Contribute to this guide (!)<a class="headerlink" href="#contribute-to-this-guide" title="Permalink to this heading">¶</a></h2>
 <p>This guide reflects the experience of the current core developers.  We
 may well have missed things that, by now, have become second
 nature—things that you, as a new team member, will spot more easily.
 Please ask the other core developers if you have any questions, and
 submit a pull request with insights gained.</p>
-</section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
 <p>We are excited to have you on board!  We look forward to your
 contributions to the code base and the community.  Thank you in
 advance!</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -1138,7 +1230,7 @@ advance!</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

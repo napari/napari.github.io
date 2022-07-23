@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>1st Gen Plugin Guide (Deprecated) &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Community" href="../community/index.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/npe1 and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/npe1.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/npe1.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -349,8 +441,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="st-gen-plugin-guide-deprecated">
-<span id="napari-plugin-engine"></span><h1>1st Gen Plugin Guide (<em>Deprecated</em>)<a class="headerlink" href="#st-gen-plugin-guide-deprecated" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="st-gen-plugin-guide-deprecated">
+<span id="napari-plugin-engine"></span><h1>1st Gen Plugin Guide (<em>Deprecated</em>)<a class="headerlink" href="#st-gen-plugin-guide-deprecated" title="Permalink to this heading">¶</a></h1>
 <div class="warning admonition">
 <p class="admonition-title">DEPRECATED</p>
 <p>We introduced a new plugin engine (<a class="reference external" href="https://github.com/napari/npe2"><code class="docutils literal notranslate"><span class="pre">npe2</span></code></a>) in December 2021.</p>
@@ -363,17 +455,17 @@ existing plugins consider migrating soon. See the
 <a class="reference external" href="https://github.com/napari/napari-plugin-engine"><code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code></a>
 and exists for archival reference purposes during the deprecation period.</p>
 </div>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">napari</span></code> supports plugin development through <strong>hooks</strong>:
 specific places in the napari codebase where functionality can be extended.</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><strong>Hook specifications</strong>: The available hooks are declared as
 “<em>hook specifications</em>”: function signatures that define the API (or
 “contract”) that a plugin developer must adhere to when writing their function
 that we promise to call somewhere in the napari codebase.
 See <a class="reference internal" href="#plugins-hook-spec"><span class="std std-ref">Step 1: Choose a hook specification to implement</span></a>.</p></li>
-<li><p><strong>Hook implementations</strong>: To make a plugin, plugin developers then write functions (”<em>hook
+<li><p><strong>Hook implementations</strong>: To make a plugin, plugin developers then write functions (“<em>hook
 implementations</em>”) and mark that function as meeting the requirements of a
 specific <em>hook specification</em> offered by napari.
 See <a class="reference internal" href="#plugins-hook-implement"><span class="std std-ref">Step 2: Write your hook implementation</span></a>.</p></li>
@@ -387,8 +479,8 @@ with <code class="docutils literal notranslate"><span class="pre">napari-plugin<
 Your plugin will then be available for users on the
 <a class="reference external" href="https://napari-hub.org/">napari hub</a>. See <a class="reference internal" href="#plugin-sharing"><span class="std std-ref">Step 4: Deploy your plugin</span></a>.</p></li>
 </ol>
-<section id="step-1-choose-a-hook-specification-to-implement">
-<span id="plugins-hook-spec"></span><h3>Step 1: Choose a hook specification to implement<a class="headerlink" href="#step-1-choose-a-hook-specification-to-implement" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="step-1-choose-a-hook-specification-to-implement">
+<span id="plugins-hook-spec"></span><h3>Step 1: Choose a hook specification to implement<a class="headerlink" href="#step-1-choose-a-hook-specification-to-implement" title="Permalink to this heading">¶</a></h3>
 <p>The functionality of plugins, as currently designed and implemented in
 <code class="docutils literal notranslate"><span class="pre">napari</span></code>, is rather specific in scope: They are <em>not</em> just independent code
 blocks with their own GUIs that show up next to the main napari window. Rather,
@@ -420,9 +512,9 @@ read) and returns a <code class="docutils literal notranslate"><span class="pre"
 of <code class="docutils literal notranslate"><span class="pre">(data,)</span></code>, <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta)</span></code>, or <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">meta,</span> <span class="pre">layer_type)</span></code>.</p>
 <p>That seems like a bit of a mouthful! But it’s a precise (though flexible)
 contract that you can follow, and know that napari will handle the rest.</p>
-</section>
-<section id="step-2-write-your-hook-implementation">
-<span id="plugins-hook-implement"></span><h3>Step 2: Write your hook implementation<a class="headerlink" href="#step-2-write-your-hook-implementation" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="step-2-write-your-hook-implementation">
+<span id="plugins-hook-implement"></span><h3>Step 2: Write your hook implementation<a class="headerlink" href="#step-2-write-your-hook-implementation" title="Permalink to this heading">¶</a></h3>
 <p>Once you have identified the <a class="reference internal" href="#hook-specifications-reference"><span class="std std-ref">hook specification</span></a> that you want to implement, you have to create
 a <em>hook implementation</em>: a function that accepts the arguments specified by the
 hook specification signature and returns a value with the expected return type.</p>
@@ -451,8 +543,8 @@ with <a class="reference external" href="https://numpy.org/doc/stable/reference/
       <span class="k">return</span> <span class="kc">None</span>
 </pre></div>
 </div>
-<section id="decorating-your-function-with-hookimplementationmarker">
-<span id="hookimplementation-decorator"></span><h4>Decorating your function with <code class="docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code><a class="headerlink" href="#decorating-your-function-with-hookimplementationmarker" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="decorating-your-function-with-hookimplementationmarker">
+<span id="hookimplementation-decorator"></span><h4>Decorating your function with <code class="docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code><a class="headerlink" href="#decorating-your-function-with-hookimplementationmarker" title="Permalink to this heading">¶</a></h4>
 <p>In order to let <code class="docutils literal notranslate"><span class="pre">napari</span></code> know that one of your functions satisfies the API of
 one of the napari <em>hook specifications</em>, you must decorate your function with
 an instance of <a class="reference external" href="https://napari-plugin-engine.readthedocs.io/en/latest/api.html#napari_plugin_engine.HookImplementationMarker" title="(in napari-plugin-engine)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HookImplementationMarker</span></code></a>,
@@ -466,8 +558,8 @@ only standard lib python).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>   <span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
 </pre></div>
 </div>
-<section id="matching-hook-implementations-to-specifications">
-<h5>Matching hook implementations to specifications<a class="headerlink" href="#matching-hook-implementations-to-specifications" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="matching-hook-implementations-to-specifications">
+<h5>Matching hook implementations to specifications<a class="headerlink" href="#matching-hook-implementations-to-specifications" title="Permalink to this heading">¶</a></h5>
 <p>By default, <code class="docutils literal notranslate"><span class="pre">napari</span></code> matches your implementation to one of our hook
 specifications by looking at the <em>name</em> of your decorated function. So in the
 example above, because the hook implementation was literally
@@ -489,11 +581,11 @@ implementation decorator:</p>
 </div>
 <p>This allows you to specify multiple hook implementations of the same hook
 specification in the same module or class, without needing a separate entry point.</p>
-</section>
-</section>
-</section>
-<section id="step-3-make-your-plugin-discoverable">
-<span id="plugin-discovery"></span><h3>Step 3: Make your plugin discoverable<a class="headerlink" href="#step-3-make-your-plugin-discoverable" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="section" id="step-3-make-your-plugin-discoverable">
+<span id="plugin-discovery"></span><h3>Step 3: Make your plugin discoverable<a class="headerlink" href="#step-3-make-your-plugin-discoverable" title="Permalink to this heading">¶</a></h3>
 <p>Packages and modules installed in the same environment as <code class="docutils literal notranslate"><span class="pre">napari</span></code> may make
 themselves “discoverable” to napari using package metadata, as outlined in the
 <a class="reference external" href="https://packaging.python.org/guides/creating-and-discovering-plugins/#using-package-metadata">Python Packaging Authority guide</a>.</p>
@@ -519,15 +611,15 @@ functionality by simply installing your package along with napari:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   pip install napari mypackage
 </pre></div>
 </div>
-</section>
-<section id="step-4-deploy-your-plugin">
-<span id="plugin-sharing"></span><h3>Step 4: Deploy your plugin<a class="headerlink" href="#step-4-deploy-your-plugin" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="step-4-deploy-your-plugin">
+<span id="plugin-sharing"></span><h3>Step 4: Deploy your plugin<a class="headerlink" href="#step-4-deploy-your-plugin" title="Permalink to this heading">¶</a></h3>
 <p>See <a class="reference internal" href="test_deploy.html"><span class="doc std std-doc">testing and deploying</span></a> your plugin.  (This hasn’t changed
 significantly with the secod generation (<code class="docutils literal notranslate"><span class="pre">npe2</span></code>) plugin engine).</p>
-</section>
-</section>
-<section id="cookiecutter-template">
-<span id="plugin-cookiecutter-template"></span><h2>Cookiecutter template<a class="headerlink" href="#cookiecutter-template" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="cookiecutter-template">
+<span id="plugin-cookiecutter-template"></span><h2>Cookiecutter template<a class="headerlink" href="#cookiecutter-template" title="Permalink to this heading">¶</a></h2>
 <p>To quickly generate a new napari plugin project, you may wish to use the
 <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a> template. This uses
 the <a class="reference external" href="https://github.com/cookiecutter/cookiecutter">cookiecutter</a> command line
@@ -541,9 +633,9 @@ cookiecutter https://github.com/napari/cookiecutter-napari-plugin
 </div>
 <p>See the <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">readme</a> for details</p>
 <hr class="docutils" />
-</section>
-<section id="hook-specification-reference">
-<span id="hook-specifications-reference"></span><h2>Hook Specification Reference<a class="headerlink" href="#hook-specification-reference" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hook-specification-reference">
+<span id="hook-specifications-reference"></span><h2>Hook Specification Reference<a class="headerlink" href="#hook-specification-reference" title="Permalink to this heading">¶</a></h2>
 <p>All napari hook specifications for pluggable functionality are defined here.</p>
 <p>A <em>hook specification</em> is a function signature (with documentation) that
 declares an API that plugin developers must adhere to when providing hook
@@ -569,11 +661,11 @@ convention in napari is to name them more explicitly:
 <code class="docutils literal notranslate"><span class="pre">napari_hook_specification</span></code> and <code class="docutils literal notranslate"><span class="pre">napari_hook_implementation</span></code>,
 respectively.</p>
 </div>
-<section id="io-hooks">
-<h3>IO hooks<a class="headerlink" href="#io-hooks" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="io-hooks">
+<h3>IO hooks<a class="headerlink" href="#io-hooks" title="Permalink to this heading">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="napari.plugins.hook_specifications.napari_provide_sample_data">
-<span class="sig-prename descclassname"><span class="pre">napari.plugins.hook_specifications.</span></span><span class="sig-name descname"><span class="pre">napari_provide_sample_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../api/napari.types.Path.html#napari.types.Path" title="pathlib.Path"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../api/napari.types.SampleDict.html#napari.types.SampleDict" title="napari.types.SampleDict"><span class="pre">napari.types.SampleDict</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/plugins/hook_specifications.html#napari_provide_sample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.hook_specifications.napari_provide_sample_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">napari.plugins.hook_specifications.</span></span><span class="sig-name descname"><span class="pre">napari_provide_sample_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../api/napari.types.Path.html#napari.types.Path" title="pathlib.Path"><span class="pre">Path</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../api/napari.types.SampleDict.html#napari.types.SampleDict" title="napari.types.SampleDict"><span class="pre">SampleDict</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/plugins/hook_specifications.html#napari_provide_sample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.hook_specifications.napari_provide_sample_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provide sample data.</p>
 <p>Plugins may implement this hook to provide sample data for use in napari.
 Sample data is accessible in the <cite>File &gt; Open Sample</cite> menu, or
@@ -735,8 +827,8 @@ path or write the layer_data, must return <code class="docutils literal notransl
 </dl>
 </dd></dl>
 
-<section id="single-layers-io">
-<span id="write-single-layer-hookspecs"></span><h4>Single Layers IO<a class="headerlink" href="#single-layers-io" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="single-layers-io">
+<span id="write-single-layer-hookspecs"></span><h4>Single Layers IO<a class="headerlink" href="#single-layers-io" title="Permalink to this heading">¶</a></h4>
 <p>The following hook specifications will be called when a user saves a single
 layer in napari, and should save the layer to the requested format and return
 the save path if the data are successfully written. Otherwise, if nothing was saved, return <code class="docutils literal notranslate"><span class="pre">None</span></code>.
@@ -911,10 +1003,10 @@ Otherwise, if nothing was done, return <code class="docutils literal notranslate
 </dl>
 </dd></dl>
 
-</section>
-</section>
-<section id="analysis-hooks">
-<h3>Analysis hooks<a class="headerlink" href="#analysis-hooks" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="analysis-hooks">
+<h3>Analysis hooks<a class="headerlink" href="#analysis-hooks" title="Permalink to this heading">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="napari.plugins.hook_specifications.napari_experimental_provide_function">
 <span class="sig-prename descclassname"><span class="pre">napari.plugins.hook_specifications.</span></span><span class="sig-name descname"><span class="pre">napari_experimental_provide_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">function</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">function</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/plugins/hook_specifications.html#napari_experimental_provide_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.hook_specifications.napari_experimental_provide_function" title="Permalink to this definition">¶</a></dt>
@@ -951,9 +1043,9 @@ them.</p>
 </div>
 </dd></dl>
 
-</section>
-<section id="gui-hooks">
-<h3>GUI hooks<a class="headerlink" href="#gui-hooks" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="gui-hooks">
+<h3>GUI hooks<a class="headerlink" href="#gui-hooks" title="Permalink to this heading">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="napari.plugins.hook_specifications.napari_experimental_provide_theme">
 <span class="sig-prename descclassname"><span class="pre">napari.plugins.hook_specifications.</span></span><span class="sig-name descname"><span class="pre">napari_experimental_provide_theme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/plugins/hook_specifications.html#napari_experimental_provide_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.plugins.hook_specifications.napari_experimental_provide_theme" title="Permalink to this definition">¶</a></dt>
@@ -1075,16 +1167,16 @@ or class.</p>
 </div>
 </dd></dl>
 
-</section>
-</section>
-<section id="help">
-<h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="help">
+<h2>Help<a class="headerlink" href="#help" title="Permalink to this heading">¶</a></h2>
 <p>If you run into trouble creating your plugin, please don’t hesitate to reach
 out for help in the <a class="reference external" href="https://forum.image.sc/tag/napari">Image.sc Forum</a>.
 Alternatively, if you find a bug or have a specific feature request for plugin
 support, please open an issue at our <a class="reference external" href="https://github.com/napari/napari/issues/new/choose">GitHub issue tracker</a>.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -1420,7 +1512,7 @@ support, please open an issue at our <a class="reference external" href="https:/
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

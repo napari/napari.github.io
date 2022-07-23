@@ -65,9 +65,6 @@ napari.components.Dims
       ~Dims.set_range
    
    
-      ~Dims.transpose
-   
-   
       ~Dims.update
    
    
@@ -91,15 +88,6 @@ napari.components.Dims
       ~Dims.not_displayed
       ~Dims.nsteps
       ~Dims.point
-<<<<<<< HEAD:_sources/api/napari.components.Dims.rst
-      
-      
-      
-      
-      
-      
-      
-=======
       ~Dims.ndim
       ~Dims.ndisplay
       ~Dims.last_used
@@ -107,7 +95,6 @@ napari.components.Dims
       ~Dims.current_step
       ~Dims.order
       ~Dims.axis_labels
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.components.Dims.rst
    
    
 

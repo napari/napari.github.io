@@ -88,13 +88,13 @@ napari.components.Dims
       ~Dims.not_displayed
       ~Dims.nsteps
       ~Dims.point
-      
-      
-      
-      
-      
-      
-      
+      ~Dims.ndim
+      ~Dims.ndisplay
+      ~Dims.last_used
+      ~Dims.range
+      ~Dims.current_step
+      ~Dims.order
+      ~Dims.axis_labels
    
    
 

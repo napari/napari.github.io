@@ -22,7 +22,7 @@ Writer plugins are *functions* that:
 3. Return a list of strings containing the path(s) that were successfully written.
 
 They must follow one of two calling conventions (where the convention used
-is determined by the [`layer_type` constraints](#layer-type-constraints) provided
+is determined by the [`layer_type` constraints](layer-type-constraints) provided
 by the corresponding writer contribution in the manifest).
 
 #### 1. single-layer writer
@@ -63,11 +63,12 @@ by the corresponding writer contribution in the manifest).
    MultiWriterFunction = Callable[[str, List[FullLayerData]], List[str]]
    ```
 
+(layer-type-constraints)=
 ### Layer type constraints
 
 Individual writer contributions are determined to be **single-layer writers** or
 **multi-layer writers** based on their **`writer.layer_types`** constraints
-provided in the [contribution metadata](./contributions.html#contributions-writers).
+provided in the [contribution metadata](contributions-writers).
 
 A writer plugin declares that it can accept between *m* and *n* layers of a
 specific *type* (where *0 ≤ m ≤ n*), using regex-like syntax with the special
@@ -118,7 +119,7 @@ def write_points(path: str, layer_data: Any, attributes: Dict[str, Any]) -> List
 
 **manifest**
 
-See [Writers contribution reference](./contributions.html#contributions-writers)
+See [Writers contribution reference](contributions-writers)
 for field details.
 
 ```yaml

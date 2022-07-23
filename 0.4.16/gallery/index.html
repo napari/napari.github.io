@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>&lt;no title&gt; &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Computation times" href="sg_execution_times.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables gallery/index and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "gallery/index.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "gallery/index.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1677,636 +1769,478 @@
             <div>
               
   <p id="sphx-glr-gallery">Examples of napari usage.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one image using the add_image API."><figure class="align-default" id="id1">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one image using the add_image API."><div class="figure align-default" id="id1">
 <img alt="Add image" src="../_images/sphx_glr_add_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_image.html#sphx-glr-gallery-add-image-py"><span class="std std-ref">Add image</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_image.html#sphx-glr-gallery-add-image-py"><span class="std std-ref">Add image</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Get a reference to the current napari viewer."><figure class="align-default" id="id2">
+<div class="sphx-glr-thumbcontainer" tooltip="Get a reference to the current napari viewer."><div class="figure align-default" id="id2">
 <img alt="Get current viewer" src="../_images/sphx_glr_get_current_viewer_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="get_current_viewer.html#sphx-glr-gallery-get-current-viewer-py"><span class="std std-ref">Get current viewer</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="get_current_viewer.html#sphx-glr-gallery-get-current-viewer-py"><span class="std std-ref">Get current viewer</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one image using the add_image API."><figure class="align-default" id="id3">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one image using the add_image API."><div class="figure align-default" id="id3">
 <img alt="Add image transformed" src="../_images/sphx_glr_add_image_transformed_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_image_transformed.html#sphx-glr-gallery-add-image-transformed-py"><span class="std std-ref">Add image transformed</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_image_transformed.html#sphx-glr-gallery-add-image-transformed-py"><span class="std std-ref">Add image transformed</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Displays an image and sets the theme to &#x27;light&#x27;."><figure class="align-default" id="id4">
+<div class="sphx-glr-thumbcontainer" tooltip="Displays an image and sets the theme to &#x27;light&#x27;."><div class="figure align-default" id="id4">
 <img alt="Set theme" src="../_images/sphx_glr_set_theme_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="set_theme.html#sphx-glr-gallery-set-theme-py"><span class="std std-ref">Set theme</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="set_theme.html#sphx-glr-gallery-set-theme-py"><span class="std std-ref">Set theme</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Demonstrate interaction box on image layer"><figure class="align-default" id="id5">
+<div class="sphx-glr-thumbcontainer" tooltip="Demonstrate interaction box on image layer"><div class="figure align-default" id="id5">
 <img alt="Interaction box image" src="../_images/sphx_glr_interaction_box_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="interaction_box_image.html#sphx-glr-gallery-interaction-box-image-py"><span class="std std-ref">Interaction box image</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="interaction_box_image.html#sphx-glr-gallery-interaction-box-image-py"><span class="std std-ref">Interaction box image</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one 3-D volume layer using the add_volume API"><figure class="align-default" id="id6">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one 3-D volume layer using the add_volume API"><div class="figure align-default" id="id6">
 <img alt="Add volume" src="../_images/sphx_glr_add_volume_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_volume.html#sphx-glr-gallery-add-volume-py"><span class="std std-ref">Add volume</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_volume.html#sphx-glr-gallery-add-volume-py"><span class="std std-ref">Add volume</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a 2D surface"><figure class="align-default" id="id7">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a 2D surface"><div class="figure align-default" id="id7">
 <img alt="Add surface 2D" src="../_images/sphx_glr_add_surface_2D_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_surface_2D.html#sphx-glr-gallery-add-surface-2d-py"><span class="std std-ref">Add surface 2D</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_surface_2D.html#sphx-glr-gallery-add-surface-2d-py"><span class="std std-ref">Add surface 2D</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one grayscale image using the add_image API."><figure class="align-default" id="id8">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one grayscale image using the add_image API."><div class="figure align-default" id="id8">
 <img alt="Add grayscale image" src="../_images/sphx_glr_add_grayscale_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_grayscale_image.html#sphx-glr-gallery-add-grayscale-image-py"><span class="std std-ref">Add grayscale image</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_grayscale_image.html#sphx-glr-gallery-add-grayscale-image-py"><span class="std std-ref">Add grayscale image</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a 3D volume and the scale bar"><figure class="align-default" id="id9">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a 3D volume and the scale bar"><div class="figure align-default" id="id9">
 <img alt="Scale bar" src="../_images/sphx_glr_scale_bar_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="scale_bar.html#sphx-glr-gallery-scale-bar-py"><span class="std std-ref">Scale bar</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="scale_bar.html#sphx-glr-gallery-scale-bar-py"><span class="std std-ref">Scale bar</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Slide through 3D Volume series in 4D data using the add_volume API"><figure class="align-default" id="id10">
+<div class="sphx-glr-thumbcontainer" tooltip="Slide through 3D Volume series in 4D data using the add_volume API"><div class="figure align-default" id="id10">
 <img alt="nD volume" src="../_images/sphx_glr_nD_volume_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_volume.html#sphx-glr-gallery-nd-volume-py"><span class="std std-ref">nD volume</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_volume.html#sphx-glr-gallery-nd-volume-py"><span class="std std-ref">nD volume</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one points layer ontop of one image layer using the add_points and add_image APIs"><figure class="align-default" id="id11">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one points layer ontop of one image layer using the add_points and add_image APIs"><div class="figure align-default" id="id11">
 <img alt="Annotate 2D" src="../_images/sphx_glr_annotate-2d_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="annotate-2d.html#sphx-glr-gallery-annotate-2d-py"><span class="std std-ref">Annotate 2D</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="annotate-2d.html#sphx-glr-gallery-annotate-2d-py"><span class="std std-ref">Annotate 2D</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API"><figure class="align-default" id="id12">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API"><div class="figure align-default" id="id12">
 <img alt="nD image" src="../_images/sphx_glr_nD_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_image.html#sphx-glr-gallery-nd-image-py"><span class="std std-ref">nD image</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_image.html#sphx-glr-gallery-nd-image-py"><span class="std std-ref">nD image</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a 3D surface"><figure class="align-default" id="id13">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a 3D surface"><div class="figure align-default" id="id13">
 <img alt="nD surface" src="../_images/sphx_glr_nD_surface_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_surface.html#sphx-glr-gallery-nd-surface-py"><span class="std std-ref">nD surface</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_surface.html#sphx-glr-gallery-nd-surface-py"><span class="std std-ref">nD surface</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs"><figure class="align-default" id="id14">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs"><div class="figure align-default" id="id14">
 <img alt="nD labels" src="../_images/sphx_glr_nD_labels_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_labels.html#sphx-glr-gallery-nd-labels-py"><span class="std std-ref">nD labels</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_labels.html#sphx-glr-gallery-nd-labels-py"><span class="std std-ref">nD labels</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a 3D volume and the fps label."><figure class="align-default" id="id15">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a 3D volume and the fps label."><div class="figure align-default" id="id15">
 <img alt="Viewer FPS label" src="../_images/sphx_glr_viewer_fps_label_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="viewer_fps_label.html#sphx-glr-gallery-viewer-fps-label-py"><span class="std std-ref">Viewer FPS label</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="viewer_fps_label.html#sphx-glr-gallery-viewer-fps-label-py"><span class="std std-ref">Viewer FPS label</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Create multiple viewers from the same script"><figure class="align-default" id="id16">
+<div class="sphx-glr-thumbcontainer" tooltip="Create multiple viewers from the same script"><div class="figure align-default" id="id16">
 <img alt="Multiple viewers" src="../_images/sphx_glr_multiple_viewers_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="multiple_viewers.html#sphx-glr-gallery-multiple-viewers-py"><span class="std std-ref">Multiple viewers</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="multiple_viewers.html#sphx-glr-gallery-multiple-viewers-py"><span class="std std-ref">Multiple viewers</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Image depth"><figure class="align-default" id="id17">
+<div class="sphx-glr-thumbcontainer" tooltip="Image depth"><div class="figure align-default" id="id17">
 <img alt="Image depth" src="../_images/sphx_glr_image_depth_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="image_depth.html#sphx-glr-gallery-image-depth-py"><span class="std std-ref">Image depth</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="image_depth.html#sphx-glr-gallery-image-depth-py"><span class="std std-ref">Image depth</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Example showing how to access the current viewer from a function widget."><figure class="align-default" id="id18">
+<div class="sphx-glr-thumbcontainer" tooltip="Example showing how to access the current viewer from a function widget."><div class="figure align-default" id="id18">
 <img alt="magicgui viewer" src="../_images/sphx_glr_magic_viewer_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="magic_viewer.html#sphx-glr-gallery-magic-viewer-py"><span class="std std-ref">magicgui viewer</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="magic_viewer.html#sphx-glr-gallery-magic-viewer-py"><span class="std std-ref">magicgui viewer</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Add named or unnamed vispy colormaps to existing layers."><figure class="align-default" id="id19">
+<div class="sphx-glr-thumbcontainer" tooltip="Add named or unnamed vispy colormaps to existing layers."><div class="figure align-default" id="id19">
 <img alt="Pass colormaps" src="../_images/sphx_glr_pass_colormaps_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="pass_colormaps.html#sphx-glr-gallery-pass-colormaps-py"><span class="std std-ref">Pass colormaps</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="pass_colormaps.html#sphx-glr-gallery-pass-colormaps-py"><span class="std std-ref">Pass colormaps</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Displays a multiscale image"><figure class="align-default" id="id20">
+<div class="sphx-glr-thumbcontainer" tooltip="Displays a multiscale image"><div class="figure align-default" id="id20">
 <img alt="Add multiscale image" src="../_images/sphx_glr_add_multiscale_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_multiscale_image.html#sphx-glr-gallery-add-multiscale-image-py"><span class="std std-ref">Add multiscale image</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_multiscale_image.html#sphx-glr-gallery-add-multiscale-image-py"><span class="std std-ref">Add multiscale image</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Overlay a 3D segmentation on a 4D time series."><figure class="align-default" id="id21">
+<div class="sphx-glr-thumbcontainer" tooltip="Overlay a 3D segmentation on a 4D time series."><div class="figure align-default" id="id21">
 <img alt="Mixed dimensions labels" src="../_images/sphx_glr_mixed-dimensions-labels_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="mixed-dimensions-labels.html#sphx-glr-gallery-mixed-dimensions-labels-py"><span class="std std-ref">Mixed dimensions labels</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="mixed-dimensions-labels.html#sphx-glr-gallery-mixed-dimensions-labels-py"><span class="std std-ref">Mixed dimensions labels</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a 3D mesh with normals and wireframe"><figure class="align-default" id="id22">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a 3D mesh with normals and wireframe"><div class="figure align-default" id="id22">
 <img alt="Surface normals wireframe" src="../_images/sphx_glr_surface_normals_wireframe_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="surface_normals_wireframe.html#sphx-glr-gallery-surface-normals-wireframe-py"><span class="std std-ref">Surface normals wireframe</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="surface_normals_wireframe.html#sphx-glr-gallery-surface-normals-wireframe-py"><span class="std std-ref">Surface normals wireframe</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Add small data to examine cursor positions"><figure class="align-default" id="id23">
+<div class="sphx-glr-thumbcontainer" tooltip="Add small data to examine cursor positions"><div class="figure align-default" id="id23">
 <img alt="Cursor position" src="../_images/sphx_glr_cursor_position_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="cursor_position.html#sphx-glr-gallery-cursor-position-py"><span class="std std-ref">Cursor position</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cursor_position.html#sphx-glr-gallery-cursor-position-py"><span class="std std-ref">Cursor position</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example generates an image of vectors Vector data is an array of shape (M, N, P, 3) Each v..."><figure class="align-default" id="id24">
+<div class="sphx-glr-thumbcontainer" tooltip="This example generates an image of vectors Vector data is an array of shape (M, N, P, 3) Each v..."><div class="figure align-default" id="id24">
 <img alt="nD vectors image" src="../_images/sphx_glr_nD_vectors_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_vectors_image.html#sphx-glr-gallery-nd-vectors-image-py"><span class="std std-ref">nD vectors image</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_vectors_image.html#sphx-glr-gallery-nd-vectors-image-py"><span class="std std-ref">nD vectors image</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a 4D labels layer and paint only in 3D."><figure class="align-default" id="id25">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a 4D labels layer and paint only in 3D."><div class="figure align-default" id="id25">
 <img alt="Paint nD" src="../_images/sphx_glr_paint-nd_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="paint-nd.html#sphx-glr-gallery-paint-nd-py"><span class="std std-ref">Paint nD</span></a></span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="paint-nd.html#sphx-glr-gallery-paint-nd-py"><span class="std std-ref">Paint nD</span></a></span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Spherical points"><figure class="align-default" id="id26">
+<div class="sphx-glr-thumbcontainer" tooltip="Spherical points"><div class="figure align-default" id="id26">
 <img alt="Spherical points" src="../_images/sphx_glr_spherical_points_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="spherical_points.html#sphx-glr-gallery-spherical-points-py"><span class="std std-ref">Spherical points</span></a></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="spherical_points.html#sphx-glr-gallery-spherical-points-py"><span class="std std-ref">Spherical points</span></a></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Displays an nD multiscale image"><figure class="align-default" id="id27">
+<div class="sphx-glr-thumbcontainer" tooltip="Displays an nD multiscale image"><div class="figure align-default" id="id27">
 <img alt="nD multiscale image" src="../_images/sphx_glr_nD_multiscale_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_multiscale_image.html#sphx-glr-gallery-nd-multiscale-image-py"><span class="std std-ref">nD multiscale image</span></a></span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_multiscale_image.html#sphx-glr-gallery-nd-multiscale-image-py"><span class="std std-ref">nD multiscale image</span></a></span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a dask array"><figure class="align-default" id="id28">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a dask array"><div class="figure align-default" id="id28">
 <img alt="Dask nD image" src="../_images/sphx_glr_dask_nD_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="dask_nD_image.html#sphx-glr-gallery-dask-nd-image-py"><span class="std std-ref">Dask nD image</span></a></span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="dask_nD_image.html#sphx-glr-gallery-dask-nd-image-py"><span class="std std-ref">Dask nD image</span></a></span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display multiple image layers using the add_image API and then reorder them using the layers sw..."><figure class="align-default" id="id29">
+<div class="sphx-glr-thumbcontainer" tooltip="Display multiple image layers using the add_image API and then reorder them using the layers sw..."><div class="figure align-default" id="id29">
 <img alt="Layers" src="../_images/sphx_glr_layers_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="layers.html#sphx-glr-gallery-layers-py"><span class="std std-ref">Layers</span></a></span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layers.html#sphx-glr-gallery-layers-py"><span class="std std-ref">Layers</span></a></span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="nD shapes with text"><figure class="align-default" id="id30">
+<div class="sphx-glr-thumbcontainer" tooltip="nD shapes with text"><div class="figure align-default" id="id30">
 <img alt="nD shapes with text" src="../_images/sphx_glr_nD_shapes_with_text_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_shapes_with_text.html#sphx-glr-gallery-nd-shapes-with-text-py"><span class="std std-ref">nD shapes with text</span></a></span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_shapes_with_text.html#sphx-glr-gallery-nd-shapes-with-text-py"><span class="std std-ref">nD shapes with text</span></a></span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Interactive scripting"><figure class="align-default" id="id31">
+<div class="sphx-glr-thumbcontainer" tooltip="Interactive scripting"><div class="figure align-default" id="id31">
 <img alt="Interactive scripting" src="../_images/sphx_glr_interactive_scripting_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="interactive_scripting.html#sphx-glr-gallery-interactive-scripting-py"><span class="std std-ref">Interactive scripting</span></a></span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="interactive_scripting.html#sphx-glr-gallery-interactive-scripting-py"><span class="std std-ref">Interactive scripting</span></a></span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Displays an nD multiscale image"><figure class="align-default" id="id32">
+<div class="sphx-glr-thumbcontainer" tooltip="Displays an nD multiscale image"><div class="figure align-default" id="id32">
 <img alt="nD multiscale image non-uniform" src="../_images/sphx_glr_nD_multiscale_image_non_uniform_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_multiscale_image_non_uniform.html#sphx-glr-gallery-nd-multiscale-image-non-uniform-py"><span class="std std-ref">nD multiscale image non-uniform</span></a></span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_multiscale_image_non_uniform.html#sphx-glr-gallery-nd-multiscale-image-non-uniform-py"><span class="std std-ref">nD multiscale image non-uniform</span></a></span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Demonstrates the link_layers function."><figure class="align-default" id="id33">
+<div class="sphx-glr-thumbcontainer" tooltip="Demonstrates the link_layers function."><div class="figure align-default" id="id33">
 <img alt="Linked layers" src="../_images/sphx_glr_linked_layers_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="linked_layers.html#sphx-glr-gallery-linked-layers-py"><span class="std std-ref">Linked layers</span></a></span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="linked_layers.html#sphx-glr-gallery-linked-layers-py"><span class="std std-ref">Linked layers</span></a></span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one points layer on top of one 4-D image layer using the add_points and add_image APIs,..."><figure class="align-default" id="id34">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one points layer on top of one 4-D image layer using the add_points and add_image APIs,..."><div class="figure align-default" id="id34">
 <img alt="nD points" src="../_images/sphx_glr_nD_points_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_points.html#sphx-glr-gallery-nd-points-py"><span class="std std-ref">nD points</span></a></span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_points.html#sphx-glr-gallery-nd-points-py"><span class="std std-ref">nD points</span></a></span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs"><figure class="align-default" id="id35">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs"><div class="figure align-default" id="id35">
 <img alt="Labels 2D" src="../_images/sphx_glr_labels-2d_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="labels-2d.html#sphx-glr-gallery-labels-2d-py"><span class="std std-ref">Labels 2D</span></a></span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="labels-2d.html#sphx-glr-gallery-labels-2d-py"><span class="std std-ref">Labels 2D</span></a></span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a 4-D image and points layer and swap the displayed dimensions"><figure class="align-default" id="id36">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a 4-D image and points layer and swap the displayed dimensions"><div class="figure align-default" id="id36">
 <img alt="Swap dims" src="../_images/sphx_glr_swap_dims_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="swap_dims.html#sphx-glr-gallery-swap-dims-py"><span class="std std-ref">Swap dims</span></a></span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="swap_dims.html#sphx-glr-gallery-swap-dims-py"><span class="std std-ref">Swap dims</span></a></span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display two vectors layers ontop of a 4-D image layer. One of the vectors layers is 3D and &quot;sli..."><figure class="align-default" id="id37">
+<div class="sphx-glr-thumbcontainer" tooltip="Display two vectors layers ontop of a 4-D image layer. One of the vectors layers is 3D and &quot;sli..."><div class="figure align-default" id="id37">
 <img alt="3D Paths" src="../_images/sphx_glr_3D_paths_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="3D_paths.html#sphx-glr-gallery-3d-paths-py"><span class="std std-ref">3D Paths</span></a></span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="3D_paths.html#sphx-glr-gallery-3d-paths-py"><span class="std std-ref">3D Paths</span></a></span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example generates an image of vectors Vector data is an array of shape (N, 4) Each vector ..."><figure class="align-default" id="id38">
+<div class="sphx-glr-thumbcontainer" tooltip="This example generates an image of vectors Vector data is an array of shape (N, 4) Each vector ..."><div class="figure align-default" id="id38">
 <img alt="Add vectors" src="../_images/sphx_glr_add_vectors_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_vectors.html#sphx-glr-gallery-add-vectors-py"><span class="std std-ref">Add vectors</span></a></span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_vectors.html#sphx-glr-gallery-add-vectors-py"><span class="std std-ref">Add vectors</span></a></span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs"><figure class="align-default" id="id39">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs"><div class="figure align-default" id="id39">
 <img alt="Add labels" src="../_images/sphx_glr_add_labels_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_labels.html#sphx-glr-gallery-add-labels-py"><span class="std std-ref">Add labels</span></a></span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_labels.html#sphx-glr-gallery-add-labels-py"><span class="std std-ref">Add labels</span></a></span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example generates an image of vectors Vector data is an array of shape (N, M, 2) Each vect..."><figure class="align-default" id="id40">
+<div class="sphx-glr-thumbcontainer" tooltip="This example generates an image of vectors Vector data is an array of shape (N, M, 2) Each vect..."><div class="figure align-default" id="id40">
 <img alt="Add vectors image" src="../_images/sphx_glr_add_vectors_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_vectors_image.html#sphx-glr-gallery-add-vectors-image-py"><span class="std std-ref">Add vectors image</span></a></span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_vectors_image.html#sphx-glr-gallery-add-vectors-image-py"><span class="std std-ref">Add vectors image</span></a></span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Add named or unnamed vispy colormaps to existing layers."><figure class="align-default" id="id41">
+<div class="sphx-glr-thumbcontainer" tooltip="Add named or unnamed vispy colormaps to existing layers."><div class="figure align-default" id="id41">
 <img alt="Set colormaps" src="../_images/sphx_glr_set_colormaps_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="set_colormaps.html#sphx-glr-gallery-set-colormaps-py"><span class="std std-ref">Set colormaps</span></a></span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="set_colormaps.html#sphx-glr-gallery-set-colormaps-py"><span class="std std-ref">Set colormaps</span></a></span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Barebones reader plugin example, using imageio.imread`"><figure class="align-default" id="id42">
+<div class="sphx-glr-thumbcontainer" tooltip="Barebones reader plugin example, using imageio.imread`"><div class="figure align-default" id="id42">
 <img alt="Reader plugin" src="../_images/sphx_glr_reader_plugin_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="reader_plugin.html#sphx-glr-gallery-reader-plugin-py"><span class="std std-ref">Reader plugin</span></a></span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="reader_plugin.html#sphx-glr-gallery-reader-plugin-py"><span class="std std-ref">Reader plugin</span></a></span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Displays an image and sets the theme to new custom theme."><figure class="align-default" id="id43">
+<div class="sphx-glr-thumbcontainer" tooltip="Displays an image and sets the theme to new custom theme."><div class="figure align-default" id="id43">
 <img alt="New theme" src="../_images/sphx_glr_new_theme_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="new_theme.html#sphx-glr-gallery-new-theme-py"><span class="std std-ref">New theme</span></a></span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="new_theme.html#sphx-glr-gallery-new-theme-py"><span class="std std-ref">New theme</span></a></span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Show points based on feature"><figure class="align-default" id="id44">
+<div class="sphx-glr-thumbcontainer" tooltip="Show points based on feature"><div class="figure align-default" id="id44">
 <img alt="Show points based on feature" src="../_images/sphx_glr_show_points_based_on_feature_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="show_points_based_on_feature.html#sphx-glr-gallery-show-points-based-on-feature-py"><span class="std std-ref">Show points based on feature</span></a></span><a class="headerlink" href="#id44" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="show_points_based_on_feature.html#sphx-glr-gallery-show-points-based-on-feature-py"><span class="std std-ref">Show points based on feature</span></a></span><a class="headerlink" href="#id44" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API"><figure class="align-default" id="id45">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API"><div class="figure align-default" id="id45">
 <img alt="Custom key bindings" src="../_images/sphx_glr_custom_key_bindings_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="custom_key_bindings.html#sphx-glr-gallery-custom-key-bindings-py"><span class="std std-ref">Custom key bindings</span></a></span><a class="headerlink" href="#id45" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="custom_key_bindings.html#sphx-glr-gallery-custom-key-bindings-py"><span class="std std-ref">Custom key bindings</span></a></span><a class="headerlink" href="#id45" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Alternative to using napari.gui_qt() context manager."><figure class="align-default" id="id46">
+<div class="sphx-glr-thumbcontainer" tooltip="Alternative to using napari.gui_qt() context manager."><div class="figure align-default" id="id46">
 <img alt="napari without gui_qt" src="../_images/sphx_glr_without_gui_qt_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="without_gui_qt.html#sphx-glr-gallery-without-gui-qt-py"><span class="std std-ref">napari without gui_qt</span></a></span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="without_gui_qt.html#sphx-glr-gallery-without-gui-qt-py"><span class="std std-ref">napari without gui_qt</span></a></span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer using the add_points and add_image APIs"><figure class="align-default" id="id47">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer using the add_points and add_image APIs"><div class="figure align-default" id="id47">
 <img alt="Add points" src="../_images/sphx_glr_add_points_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_points.html#sphx-glr-gallery-add-points-py"><span class="std std-ref">Add points</span></a></span><a class="headerlink" href="#id47" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_points.html#sphx-glr-gallery-add-points-py"><span class="std std-ref">Add points</span></a></span><a class="headerlink" href="#id47" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Points over time"><figure class="align-default" id="id48">
+<div class="sphx-glr-thumbcontainer" tooltip="Points over time"><div class="figure align-default" id="id48">
 <img alt="Points over time" src="../_images/sphx_glr_points-over-time_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="points-over-time.html#sphx-glr-gallery-points-over-time-py"><span class="std std-ref">Points over time</span></a></span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="points-over-time.html#sphx-glr-gallery-points-over-time-py"><span class="std std-ref">Points over time</span></a></span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer using the add_points and add_image APIs"><figure class="align-default" id="id49">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer using the add_points and add_image APIs"><div class="figure align-default" id="id49">
 <img alt="Add points with text" src="../_images/sphx_glr_add_points_with_text_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_points_with_text.html#sphx-glr-gallery-add-points-with-text-py"><span class="std std-ref">Add points with text</span></a></span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_points_with_text.html#sphx-glr-gallery-add-points-with-text-py"><span class="std std-ref">Add points with text</span></a></span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display two vectors layers ontop of a 4-D image layer. One of the vectors layers is 3D and &quot;sli..."><figure class="align-default" id="id50">
+<div class="sphx-glr-thumbcontainer" tooltip="Display two vectors layers ontop of a 4-D image layer. One of the vectors layers is 3D and &quot;sli..."><div class="figure align-default" id="id50">
 <img alt="nD vectors" src="../_images/sphx_glr_nD_vectors_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_vectors.html#sphx-glr-gallery-nd-vectors-py"><span class="std std-ref">nD vectors</span></a></span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_vectors.html#sphx-glr-gallery-nd-vectors-py"><span class="std std-ref">nD vectors</span></a></span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><figure class="align-default" id="id51">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><div class="figure align-default" id="id51">
 <img alt="Add shapes with text" src="../_images/sphx_glr_add_shapes_with_text_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_shapes_with_text.html#sphx-glr-gallery-add-shapes-with-text-py"><span class="std std-ref">Add shapes with text</span></a></span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_shapes_with_text.html#sphx-glr-gallery-add-shapes-with-text-py"><span class="std std-ref">Add shapes with text</span></a></span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example generates a set of vectors in a spiral pattern. The color of the vectors is mapped..."><figure class="align-default" id="id52">
+<div class="sphx-glr-thumbcontainer" tooltip="This example generates a set of vectors in a spiral pattern. The color of the vectors is mapped..."><div class="figure align-default" id="id52">
 <img alt="Add vectors color by angle" src="../_images/sphx_glr_add_vectors_color_by_angle_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_vectors_color_by_angle.html#sphx-glr-gallery-add-vectors-color-by-angle-py"><span class="std std-ref">Add vectors color by angle</span></a></span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_vectors_color_by_angle.html#sphx-glr-gallery-add-vectors-color-by-angle-py"><span class="std std-ref">Add vectors color by angle</span></a></span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ..."><figure class="align-default" id="id53">
+<div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ..."><div class="figure align-default" id="id53">
 <img alt="Mouse drag callback" src="../_images/sphx_glr_mouse_drag_callback_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="mouse_drag_callback.html#sphx-glr-gallery-mouse-drag-callback-py"><span class="std std-ref">Mouse drag callback</span></a></span><a class="headerlink" href="#id53" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="mouse_drag_callback.html#sphx-glr-gallery-mouse-drag-callback-py"><span class="std std-ref">Mouse drag callback</span></a></span><a class="headerlink" href="#id53" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one points layer ontop of one 4-D image layer using the add_points and add_image APIs, ..."><figure class="align-default" id="id54">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one points layer ontop of one 4-D image layer using the add_points and add_image APIs, ..."><div class="figure align-default" id="id54">
 <img alt="nD points with features" src="../_images/sphx_glr_nD_points_with_features_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_points_with_features.html#sphx-glr-gallery-nd-points-with-features-py"><span class="std std-ref">nD points with features</span></a></span><a class="headerlink" href="#id54" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_points_with_features.html#sphx-glr-gallery-nd-points-with-features-py"><span class="std std-ref">nD points with features</span></a></span><a class="headerlink" href="#id54" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Tracks 3D with graph"><figure class="align-default" id="id55">
+<div class="sphx-glr-thumbcontainer" tooltip="Tracks 3D with graph"><div class="figure align-default" id="id55">
 <img alt="Tracks 3D with graph" src="../_images/sphx_glr_tracks_3d_with_graph_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="tracks_3d_with_graph.html#sphx-glr-gallery-tracks-3d-with-graph-py"><span class="std std-ref">Tracks 3D with graph</span></a></span><a class="headerlink" href="#id55" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="tracks_3d_with_graph.html#sphx-glr-gallery-tracks-3d-with-graph-py"><span class="std std-ref">Tracks 3D with graph</span></a></span><a class="headerlink" href="#id55" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one 3-D volume layer using the add_volume API and display it as a plane with a simple w..."><figure class="align-default" id="id56">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one 3-D volume layer using the add_volume API and display it as a plane with a simple w..."><div class="figure align-default" id="id56">
 <img alt="Volume plane rendering" src="../_images/sphx_glr_volume_plane_rendering_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="volume_plane_rendering.html#sphx-glr-gallery-volume-plane-rendering-py"><span class="std std-ref">Volume plane rendering</span></a></span><a class="headerlink" href="#id56" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="volume_plane_rendering.html#sphx-glr-gallery-volume-plane-rendering-py"><span class="std std-ref">Volume plane rendering</span></a></span><a class="headerlink" href="#id56" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Tracks 2D"><figure class="align-default" id="id57">
+<div class="sphx-glr-thumbcontainer" tooltip="Tracks 2D"><div class="figure align-default" id="id57">
 <img alt="Tracks 2D" src="../_images/sphx_glr_tracks_2d_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="tracks_2d.html#sphx-glr-gallery-tracks-2d-py"><span class="std std-ref">Tracks 2D</span></a></span><a class="headerlink" href="#id57" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="tracks_2d.html#sphx-glr-gallery-tracks-2d-py"><span class="std std-ref">Tracks 2D</span></a></span><a class="headerlink" href="#id57" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer with various features"><figure class="align-default" id="id58">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer with various features"><div class="figure align-default" id="id58">
 <img alt="Add labels with features" src="../_images/sphx_glr_add_labels_with_features_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_labels_with_features.html#sphx-glr-gallery-add-labels-with-features-py"><span class="std std-ref">Add labels with features</span></a></span><a class="headerlink" href="#id58" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_labels_with_features.html#sphx-glr-gallery-add-labels-with-features-py"><span class="std std-ref">Add labels with features</span></a></span><a class="headerlink" href="#id58" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><figure class="align-default" id="id59">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><div class="figure align-default" id="id59">
 <img alt="Update console" src="../_images/sphx_glr_update_console_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="update_console.html#sphx-glr-gallery-update-console-py"><span class="std std-ref">Update console</span></a></span><a class="headerlink" href="#id59" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="update_console.html#sphx-glr-gallery-update-console-py"><span class="std std-ref">Update console</span></a></span><a class="headerlink" href="#id59" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API"><figure class="align-default" id="id60">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API"><div class="figure align-default" id="id60">
 <img alt="nD shapes" src="../_images/sphx_glr_nD_shapes_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="nD_shapes.html#sphx-glr-gallery-nd-shapes-py"><span class="std std-ref">nD shapes</span></a></span><a class="headerlink" href="#id60" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nD_shapes.html#sphx-glr-gallery-nd-shapes-py"><span class="std std-ref">nD shapes</span></a></span><a class="headerlink" href="#id60" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Using dask array operations, one can dynamically take arbitrary slices and computations of a so..."><figure class="align-default" id="id61">
+<div class="sphx-glr-thumbcontainer" tooltip="Using dask array operations, one can dynamically take arbitrary slices and computations of a so..."><div class="figure align-default" id="id61">
 <img alt="Dynamic projections dask" src="../_images/sphx_glr_dynamic-projections-dask_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="dynamic-projections-dask.html#sphx-glr-gallery-dynamic-projections-dask-py"><span class="std std-ref">Dynamic projections dask</span></a></span><a class="headerlink" href="#id61" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="dynamic-projections-dask.html#sphx-glr-gallery-dynamic-projections-dask-py"><span class="std std-ref">Dynamic projections dask</span></a></span><a class="headerlink" href="#id61" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Example showing how to accomplish a napari parameter sweep with magicgui."><figure class="align-default" id="id62">
+<div class="sphx-glr-thumbcontainer" tooltip="Example showing how to accomplish a napari parameter sweep with magicgui."><div class="figure align-default" id="id62">
 <img alt="magicgui parameter sweep" src="../_images/sphx_glr_magic_parameter_sweep_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="magic_parameter_sweep.html#sphx-glr-gallery-magic-parameter-sweep-py"><span class="std std-ref">magicgui parameter sweep</span></a></span><a class="headerlink" href="#id62" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="magic_parameter_sweep.html#sphx-glr-gallery-magic-parameter-sweep-py"><span class="std std-ref">magicgui parameter sweep</span></a></span><a class="headerlink" href="#id62" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Basic example of using magicgui to create an Image Arithmetic GUI in napari."><figure class="align-default" id="id63">
+<div class="sphx-glr-thumbcontainer" tooltip="Basic example of using magicgui to create an Image Arithmetic GUI in napari."><div class="figure align-default" id="id63">
 <img alt="magicgui Image Arithmetic" src="../_images/sphx_glr_magic_image_arithmetic_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="magic_image_arithmetic.html#sphx-glr-gallery-magic-image-arithmetic-py"><span class="std std-ref">magicgui Image Arithmetic</span></a></span><a class="headerlink" href="#id63" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="magic_image_arithmetic.html#sphx-glr-gallery-magic-image-arithmetic-py"><span class="std std-ref">magicgui Image Arithmetic</span></a></span><a class="headerlink" href="#id63" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display an image and its corners before and after an affine transform"><figure class="align-default" id="id64">
+<div class="sphx-glr-thumbcontainer" tooltip="Display an image and its corners before and after an affine transform"><div class="figure align-default" id="id64">
 <img alt="Affine transforms" src="../_images/sphx_glr_affine_transforms_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="affine_transforms.html#sphx-glr-gallery-affine-transforms-py"><span class="std std-ref">Affine transforms</span></a></span><a class="headerlink" href="#id64" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="affine_transforms.html#sphx-glr-gallery-affine-transforms-py"><span class="std std-ref">Affine transforms</span></a></span><a class="headerlink" href="#id64" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Depict a ray through a layer in 3D to demonstrate interactive 3D functionality"><figure class="align-default" id="id65">
+<div class="sphx-glr-thumbcontainer" tooltip="Depict a ray through a layer in 3D to demonstrate interactive 3D functionality"><div class="figure align-default" id="id65">
 <img alt="Cursor ray" src="../_images/sphx_glr_cursor_ray_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="cursor_ray.html#sphx-glr-gallery-cursor-ray-py"><span class="std std-ref">Cursor ray</span></a></span><a class="headerlink" href="#id65" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cursor_ray.html#sphx-glr-gallery-cursor-ray-py"><span class="std std-ref">Cursor ray</span></a></span><a class="headerlink" href="#id65" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Shift a rectangle along its normal vector in 3D"><figure class="align-default" id="id66">
+<div class="sphx-glr-thumbcontainer" tooltip="Shift a rectangle along its normal vector in 3D"><div class="figure align-default" id="id66">
 <img alt="Interactive move rectangle" src="../_images/sphx_glr_interactive_move_rectangle_3d_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="interactive_move_rectangle_3d.html#sphx-glr-gallery-interactive-move-rectangle-3d-py"><span class="std std-ref">Interactive move rectangle</span></a></span><a class="headerlink" href="#id66" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="interactive_move_rectangle_3d.html#sphx-glr-gallery-interactive-move-rectangle-3d-py"><span class="std std-ref">Interactive move rectangle</span></a></span><a class="headerlink" href="#id66" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Add points on nD shapes in 3D using a mouse callback"><figure class="align-default" id="id67">
+<div class="sphx-glr-thumbcontainer" tooltip="Add points on nD shapes in 3D using a mouse callback"><div class="figure align-default" id="id67">
 <img alt="Add points on nD shapes" src="../_images/sphx_glr_add_points_on_nD_shapes_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_points_on_nD_shapes.html#sphx-glr-gallery-add-points-on-nd-shapes-py"><span class="std std-ref">Add points on nD shapes</span></a></span><a class="headerlink" href="#id67" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_points_on_nD_shapes.html#sphx-glr-gallery-add-points-on-nd-shapes-py"><span class="std std-ref">Add points on nD shapes</span></a></span><a class="headerlink" href="#id67" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><figure class="align-default" id="id68">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><div class="figure align-default" id="id68">
 <img alt="Add shapes with features" src="../_images/sphx_glr_add_shapes_with_features_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_shapes_with_features.html#sphx-glr-gallery-add-shapes-with-features-py"><span class="std std-ref">Add shapes with features</span></a></span><a class="headerlink" href="#id68" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_shapes_with_features.html#sphx-glr-gallery-add-shapes-with-features-py"><span class="std std-ref">Add shapes with features</span></a></span><a class="headerlink" href="#id68" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer using the add_points and add_image APIs"><figure class="align-default" id="id69">
+<div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer using the add_points and add_image APIs"><div class="figure align-default" id="id69">
 <img alt="Add points with features" src="../_images/sphx_glr_add_points_with_features_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_points_with_features.html#sphx-glr-gallery-add-points-with-features-py"><span class="std std-ref">Add points with features</span></a></span><a class="headerlink" href="#id69" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_points_with_features.html#sphx-glr-gallery-add-points-with-features-py"><span class="std std-ref">Add points with features</span></a></span><a class="headerlink" href="#id69" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Tracks 3D"><figure class="align-default" id="id70">
+<div class="sphx-glr-thumbcontainer" tooltip="Tracks 3D"><div class="figure align-default" id="id70">
 <img alt="Tracks 3D" src="../_images/sphx_glr_tracks_3d_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="tracks_3d.html#sphx-glr-gallery-tracks-3d-py"><span class="std std-ref">Tracks 3D</span></a></span><a class="headerlink" href="#id70" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="tracks_3d.html#sphx-glr-gallery-tracks-3d-py"><span class="std std-ref">Tracks 3D</span></a></span><a class="headerlink" href="#id70" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><figure class="align-default" id="id71">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><div class="figure align-default" id="id71">
 <img alt="Add shapes" src="../_images/sphx_glr_add_shapes_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="add_shapes.html#sphx-glr-gallery-add-shapes-py"><span class="std std-ref">Add shapes</span></a></span><a class="headerlink" href="#id71" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="add_shapes.html#sphx-glr-gallery-add-shapes-py"><span class="std std-ref">Add shapes</span></a></span><a class="headerlink" href="#id71" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><figure class="align-default" id="id72">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><div class="figure align-default" id="id72">
 <img alt="Shapes to labels" src="../_images/sphx_glr_shapes_to_labels_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="shapes_to_labels.html#sphx-glr-gallery-shapes-to-labels-py"><span class="std std-ref">Shapes to labels</span></a></span><a class="headerlink" href="#id72" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="shapes_to_labels.html#sphx-glr-gallery-shapes-to-labels-py"><span class="std std-ref">Shapes to labels</span></a></span><a class="headerlink" href="#id72" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Demonstrate interaction box on points layer"><figure class="align-default" id="id73">
+<div class="sphx-glr-thumbcontainer" tooltip="Demonstrate interaction box on points layer"><div class="figure align-default" id="id73">
 <img alt="Interaction box points" src="../_images/sphx_glr_interaction_box_points_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="interaction_box_points.html#sphx-glr-gallery-interaction-box-points-py"><span class="std std-ref">Interaction box points</span></a></span><a class="headerlink" href="#id73" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="interaction_box_points.html#sphx-glr-gallery-interaction-box-points-py"><span class="std std-ref">Interaction box points</span></a></span><a class="headerlink" href="#id73" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API"><figure class="align-default" id="id74">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API"><div class="figure align-default" id="id74">
 <img alt="Custom mouse functions" src="../_images/sphx_glr_custom_mouse_functions_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="custom_mouse_functions.html#sphx-glr-gallery-custom-mouse-functions-py"><span class="std std-ref">Custom mouse functions</span></a></span><a class="headerlink" href="#id74" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="custom_mouse_functions.html#sphx-glr-gallery-custom-mouse-functions-py"><span class="std std-ref">Custom mouse functions</span></a></span><a class="headerlink" href="#id74" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="3D click and drag interactivity demo"><figure class="align-default" id="id75">
+<div class="sphx-glr-thumbcontainer" tooltip="3D click and drag interactivity demo"><div class="figure align-default" id="id75">
 <img alt="Interactive move point" src="../_images/sphx_glr_interactive_move_point_3d_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="interactive_move_point_3d.html#sphx-glr-gallery-interactive-move-point-3d-py"><span class="std std-ref">Interactive move point</span></a></span><a class="headerlink" href="#id75" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="interactive_move_point_3d.html#sphx-glr-gallery-interactive-move-point-3d-py"><span class="std std-ref">Interactive move point</span></a></span><a class="headerlink" href="#id75" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><figure class="align-default" id="id76">
+<div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When..."><div class="figure align-default" id="id76">
 <img alt="To screenshot" src="../_images/sphx_glr_to_screenshot_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="to_screenshot.html#sphx-glr-gallery-to-screenshot-py"><span class="std std-ref">To screenshot</span></a></span><a class="headerlink" href="#id76" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="to_screenshot.html#sphx-glr-gallery-to-screenshot-py"><span class="std std-ref">To screenshot</span></a></span><a class="headerlink" href="#id76" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Perform a segmentation and annotate the results with bounding boxes and text"><figure class="align-default" id="id77">
+<div class="sphx-glr-thumbcontainer" tooltip="Perform a segmentation and annotate the results with bounding boxes and text"><div class="figure align-default" id="id77">
 <img alt="Annotate segmentation with text" src="../_images/sphx_glr_annotate_segmentation_with_text_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="annotate_segmentation_with_text.html#sphx-glr-gallery-annotate-segmentation-with-text-py"><span class="std std-ref">Annotate segmentation with text</span></a></span><a class="headerlink" href="#id77" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="annotate_segmentation_with_text.html#sphx-glr-gallery-annotate-segmentation-with-text-py"><span class="std std-ref">Annotate segmentation with text</span></a></span><a class="headerlink" href="#id77" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Action manager"><figure class="align-default" id="id78">
+<div class="sphx-glr-thumbcontainer" tooltip="Action manager"><div class="figure align-default" id="id78">
 <img alt="Action manager" src="../_images/sphx_glr_action_manager_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="action_manager.html#sphx-glr-gallery-action-manager-py"><span class="std std-ref">Action manager</span></a></span><a class="headerlink" href="#id78" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="action_manager.html#sphx-glr-gallery-action-manager-py"><span class="std std-ref">Action manager</span></a></span><a class="headerlink" href="#id78" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="bbox annotator"><figure class="align-default" id="id79">
+<div class="sphx-glr-thumbcontainer" tooltip="bbox annotator"><div class="figure align-default" id="id79">
 <img alt="bbox annotator" src="../_images/sphx_glr_bbox_annotator_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="bbox_annotator.html#sphx-glr-gallery-bbox-annotator-py"><span class="std std-ref">bbox annotator</span></a></span><a class="headerlink" href="#id79" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="bbox_annotator.html#sphx-glr-gallery-bbox-annotator-py"><span class="std std-ref">bbox annotator</span></a></span><a class="headerlink" href="#id79" title="Permalink to this image">¶</a></p>
+</div>
 </div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-clear"></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -2645,7 +2579,7 @@
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

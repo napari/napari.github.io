@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -36,6 +36,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Performance monitoring" href="perfmon.html" />
@@ -115,6 +116,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables howtos/docker and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "howtos/docker.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "howtos/docker.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -501,13 +584,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_labels.html">
-     nD labels
+    <a class="reference internal" href="../gallery/nD_surface.html">
+     nD surface
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_surface.html">
-     nD surface
+    <a class="reference internal" href="../gallery/nD_labels.html">
+     nD labels
     </a>
    </li>
    <li class="toctree-l2">
@@ -1066,13 +1149,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_labels.html">
-     nD labels
+    <a class="reference internal" href="../gallery/nD_surface.html">
+     nD surface
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_surface.html">
-     nD surface
+    <a class="reference internal" href="../gallery/nD_labels.html">
+     nD labels
     </a>
    </li>
    <li class="toctree-l2">
@@ -1679,6 +1762,34 @@
   <a class="reference internal nav-link" href="#usage">
    Usage
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#base-napari-image">
+     Base
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       napari
+      </span>
+     </code>
+     image
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#napari-xpra-image">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       napari-xpra
+      </span>
+     </code>
+     image
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#troubleshooting">
+   Troubleshooting
+  </a>
  </li>
 </ul>
 
@@ -1705,26 +1816,103 @@
 <h1>Napari in Docker<a class="headerlink" href="#napari-in-docker" title="Permalink to this headline">¶</a></h1>
 <section id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
-<p>Builds are avilable through <a class="reference external" href="https://hub.docker.com/repository/docker/napari/napari">dockerhub</a></p>
+<p>Builds are available in the <a class="reference external" href="https://github.com/orgs/napari/packages">GitHub Container Registry</a>.</p>
 <p>A dockerfile is added to napari root to allow build of a docker image using official napari release.
-Note that napari in docker is still in alpha stage and not working universally, feedback and contribution also welcomed.</p>
-<p>To build the image, run from napari root</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">napari</span><span class="o">/</span><span class="n">napari</span><span class="p">:</span><span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span> <span class="o">.</span>
+It contains two targets built on top of Ubuntu 20.04:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">napari</span></code>: The result of <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span> <span class="pre">scikit-image</span></code> for Python 3.8, including all the system libraries required by PyQt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">napari-xpra</span></code>: Same as above, plus a preconfigured Xpra server.</p></li>
+</ul>
+<p>Note that napari in Docker is still in alpha stage and not working universally. Feedback and contributions are welcomed!</p>
+<p>To build the image, run one of these commands from napari root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># build napari image</span>
+docker build --target napari -t ghcr.io/napari/napari:&lt;version&gt; .
+<span class="c1"># build napari + xpra image</span>
+docker build --target napari-xpra -t ghcr.io/napari/napari-xpra:&lt;version&gt; .
 </pre></div>
 </div>
-<p>which would build a docker image tagged with napari version</p>
+<p>which would build a Docker image tagged with napari version.</p>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Enable XServer on the host machine, these can be useful if you are looking for options:</p>
+<section id="base-napari-image">
+<h3>Base <code class="docutils literal notranslate"><span class="pre">napari</span></code> image<a class="headerlink" href="#base-napari-image" title="Permalink to this headline">¶</a></h3>
+<p>First, make sure there’s a running X server on the host machine.
+These can be useful if you are looking for options:</p>
 <ul class="simple">
 <li><p>Windows: <a class="reference external" href="https://sourceforge.net/projects/vcxsrv/">vcxsrc</a></p></li>
 <li><p>MacOS: <a class="reference external" href="https://www.xquartz.org/">xquartz</a> (may not work due to graphical driver issue with opengl)</p></li>
 </ul>
 <p>To run a container with external mapping of display, an example being:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span>  <span class="o">-</span><span class="n">e</span> <span class="n">DISPLAY</span><span class="o">=</span><span class="n">host</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">internal</span><span class="p">:</span><span class="mi">0</span> <span class="n">napari</span><span class="o">/</span><span class="n">napari</span><span class="p">:</span><span class="mf">0.3.6</span> <span class="n">python3</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">add_image</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">e</span> <span class="n">DISPLAY</span><span class="o">=</span><span class="n">host</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">internal</span><span class="p">:</span><span class="mi">0</span> <span class="n">ghcr</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">napari</span><span class="o">/</span><span class="n">napari</span>
 </pre></div>
 </div>
+</section>
+<section id="napari-xpra-image">
+<h3><code class="docutils literal notranslate"><span class="pre">napari-xpra</span></code> image<a class="headerlink" href="#napari-xpra-image" title="Permalink to this headline">¶</a></h3>
+<p>With this image you don’t need X running on the host. A browser is sufficient!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">p</span> <span class="mi">9876</span><span class="p">:</span><span class="mi">9876</span> <span class="n">ghcr</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">napari</span><span class="o">/</span><span class="n">napari</span><span class="o">-</span><span class="n">xpra</span>
+</pre></div>
+</div>
+<p>Once that’s running, you can open a tab on your browser of choice and go to <a class="reference external" href="http://localhost:9876">localhost:9876</a>.
+You’ll be presented with a virtual desktop already running running napari.
+The desktop features a basic menu at the top with some extra items, like a <code class="docutils literal notranslate"><span class="pre">Xterm</span></code> terminal.</p>
+<p>This image features a series of environment variables you can use to customize its behaviour:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XPRA_PORT=9876</span></code>: Port where Xpra will publish the display feed (if you change this, make sure to use the new port in your  <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XPRA_START=&quot;python3</span> <span class="pre">-m</span> <span class="pre">napari&quot;</span></code>: Xpra will run this command once it has started</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XPRA_EXIT_WITH_CLIENT=&quot;yes&quot;</span></code>: By default, Xpra will exit if you close the browser tab</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XPRA_XVFB_SCREEN=&quot;1920x1080x24+32&quot;</span></code>: The resolution and bit depth of the virtual display created by Xvfb</p></li>
+</ul>
+<p>## For development</p>
+<p>The Docker images are also useful for developers who need to debug issues on Linux.
+The images include the latest napari version published on PyPI by default, but you can also install your own local version of napari if needed.
+For this, you need to mount a volume as part of the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command and make sure you land in a <code class="docutils literal notranslate"><span class="pre">bash</span></code> session:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># base napari image, we replace entry point (python3 -m napari) with a bash session</span>
+docker run -it --rm -e <span class="nv">DISPLAY</span><span class="o">=</span>host.docker.internal:0 -v ~/devel/napari:/opt/napari --entrypoint /bin/bash ghcr.io/napari/napari
+<span class="c1"># napari-xpra image, we replace the command Xpra will run on start (python3 -m napari) to a bash session running on xterm</span>
+docker run -it --rm -p <span class="m">9876</span>:9876 -v ~/devel/napari:/opt/napari -e <span class="nv">XPRA_START</span><span class="o">=</span>xterm ghcr.io/napari/napari-xpra
+</pre></div>
+</div>
+<blockquote>
+<div><p>Change <code class="docutils literal notranslate"><span class="pre">~/devel/napari</span></code> to your local copy of the napari repository, which will be visible in the image as <code class="docutils literal notranslate"><span class="pre">/opt/napari</span></code>.</p>
+</div></blockquote>
+<p>In both cases you’ll have a running shell session where you can run these commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install local napari</span>
+$ python3 -m pip install /opt/napari<span class="o">[</span>all<span class="o">]</span>
+<span class="c1"># Run napari</span>
+$ python3 -m napari
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>Making the Docker image run seamlessly with your host graphical stack can be tricky.
+You might find issues like these:</p>
+<ul class="simple">
+<li><p>napari seems to be running, but no window appears at all</p></li>
+<li><p>napari does run and the UI works as intended, but the viewer portion is completely black</p></li>
+<li><p>napari does not start due to missing libraries or mismatched ABIs (e.g. drivers in host are incompatible with guest)</p></li>
+</ul>
+<p>In these cases, the best option is to stop relying on the host graphics and let the guest handle
+everything. To do this, we need several pieces in place:</p>
+<ul class="simple">
+<li><p>A headless X server running on the guest; e.g. <code class="docutils literal notranslate"><span class="pre">Xvfb</span></code> (X virtual frame buffer)</p></li>
+<li><p>A way of “seeing” that X server from the host. Some options include:</p>
+<ul>
+<li><p>VNC (might have issues with OpenGL)</p></li>
+<li><p>NX (NoMachine;, <a class="reference external" href="https://github.com/napari/napari/issues/886#issuecomment-873178682">should work</a>)</p></li>
+<li><p>Microsoft Remote Desktop Protocol (e.g. XRDP; <a class="reference external" href="https://github.com/napari/napari/issues/886#issuecomment-875959941">should work</a>)</p></li>
+<li><p>Chrome Remote Desktop (<a class="reference external" href="https://github.com/napari/napari/issues/886#issue-551159225">should work</a>)</p></li>
+<li><p>Xpra (part of the Docker image detailed above)</p></li>
+</ul>
+</li>
+</ul>
+<p>Since napari relies on OpenGL for its (hardware) accelerated parts, we need to ensure that the piece we choose are OpenGL compatible.
+Xvfb itself is compatible, but the display “exporter” needs to know how to deal with that part of the graphics too!</p>
+<p>You must also note that Docker won’t probably have access to the host GPU, so everything will be rendered in the CPU.
+Expect some performance overhead!</p>
 </section>
 </section>
 

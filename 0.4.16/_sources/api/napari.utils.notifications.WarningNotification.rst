@@ -38,11 +38,7 @@ napari.utils.notifications.WarningNotification
       ~WarningNotification.source
       ~WarningNotification.sources
       ~WarningNotification.type
-<<<<<<< HEAD:_sources/api/napari.utils.notifications.WarningNotification.rst
-      
-=======
       ~WarningNotification.warning
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.utils.notifications.WarningNotification.rst
    
    
 

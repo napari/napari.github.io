@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -36,6 +36,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="napari performance" href="performance.html" />
@@ -115,6 +116,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/rendering and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/rendering.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/rendering.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -501,13 +584,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_labels.html">
-     nD labels
+    <a class="reference internal" href="../gallery/nD_surface.html">
+     nD surface
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_surface.html">
-     nD surface
+    <a class="reference internal" href="../gallery/nD_labels.html">
+     nD labels
     </a>
    </li>
    <li class="toctree-l2">
@@ -1066,13 +1149,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_labels.html">
-     nD labels
+    <a class="reference internal" href="../gallery/nD_surface.html">
+     nD surface
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../gallery/nD_surface.html">
-     nD surface
+    <a class="reference internal" href="../gallery/nD_labels.html">
+     nD labels
     </a>
    </li>
    <li class="toctree-l2">
@@ -1928,19 +2011,19 @@ from one or two levels up isn’t even that noticeably degraded. This table
 shows how many ideal chunks are “covered” by a chunk at a higher level:</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-right head"><p>Levels Above Ideal</p></th>
-<th class="text-right head"><p>Coverage</p></th>
+<tr class="row-odd"><th class="text-align:right head"><p>Levels Above Ideal</p></th>
+<th class="text-align:right head"><p>Coverage</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-right"><p>1</p></td>
-<td class="text-right"><p>4</p></td>
+<tr class="row-even"><td class="text-align:right"><p>1</p></td>
+<td class="text-align:right"><p>4</p></td>
 </tr>
-<tr class="row-odd"><td class="text-right"><p>2</p></td>
-<td class="text-right"><p>16</p></td>
+<tr class="row-odd"><td class="text-align:right"><p>2</p></td>
+<td class="text-align:right"><p>16</p></td>
 </tr>
-<tr class="row-even"><td class="text-right"><p>3</p></td>
-<td class="text-right"><p>64</p></td>
+<tr class="row-even"><td class="text-align:right"><p>3</p></td>
+<td class="text-align:right"><p>64</p></td>
 </tr>
 </tbody>
 </table>
@@ -1980,53 +2063,53 @@ config file format:</p>
 <code class="xref py py-class docutils literal notranslate"><span class="pre">ChunkLoader</span></code>.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>Setting</p></th>
-<th class="text-left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Setting</p></th>
+<th class="text-align:left head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code></p></td>
-<td class="text-left"><p>Write <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> log file to this path. For debugging.</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code></p></td>
+<td class="text-align:left"><p>Write <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> log file to this path. For debugging.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">force_synchronous</span></code></p></td>
-<td class="text-left"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> the <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> loads synchronously.</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">force_synchronous</span></code></p></td>
+<td class="text-align:left"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> the <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> loads synchronously.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code></p></td>
-<td class="text-left"><p>The number of worker threads or processes.</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code></p></td>
+<td class="text-align:left"><p>The number of worker threads or processes.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">use_processes</span></code></p></td>
-<td class="text-left"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> use worker processes instead of threads.</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">use_processes</span></code></p></td>
+<td class="text-align:left"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> use worker processes instead of threads.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">auto_async_ms</span></code></p></td>
-<td class="text-left"><p>Switch to synchronous if loads are faster than this.</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">auto_async_ms</span></code></p></td>
+<td class="text-align:left"><p>Switch to synchronous if loads are faster than this.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">delay_queue_ms</span></code></p></td>
-<td class="text-left"><p>Delay loads by this much.</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">delay_queue_ms</span></code></p></td>
+<td class="text-align:left"><p>Delay loads by this much.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code></p></td>
-<td class="text-left"><p>The number of worker threads or processes.</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">num_workers</span></code></p></td>
+<td class="text-align:left"><p>The number of worker threads or processes.</p></td>
 </tr>
 </tbody>
 </table>
 <p>The <code class="docutils literal notranslate"><span class="pre">octree</span></code> key contains these settings:</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>Setting</p></th>
-<th class="text-left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Setting</p></th>
+<th class="text-align:left head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code></p></td>
-<td class="text-left"><p>If <code class="docutils literal notranslate"><span class="pre">false</span></code> then use the old <code class="docutils literal notranslate"><span class="pre">Image</span></code> class.</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code></p></td>
+<td class="text-align:left"><p>If <code class="docutils literal notranslate"><span class="pre">false</span></code> then use the old <code class="docutils literal notranslate"><span class="pre">Image</span></code> class.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">tile_size</span></code></p></td>
-<td class="text-left"><p>Size of render tiles to use for rending.</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">tile_size</span></code></p></td>
+<td class="text-align:left"><p>Size of render tiles to use for rending.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code></p></td>
-<td class="text-left"><p>Octree specific log file for debugging.</p></td>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">log_path</span></code></p></td>
+<td class="text-align:left"><p>Octree specific log file for debugging.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">loaders</span></code></p></td>
-<td class="text-left"><p>Optional custom loaders, see below.</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">loaders</span></code></p></td>
+<td class="text-align:left"><p>Optional custom loaders, see below.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2146,7 +2229,7 @@ previous slices are canceled and everything is cleaned up.</p>
 <p>We could improve our
 <code class="xref py py-class docutils literal notranslate"><span class="pre">TextureAtlas2D</span></code> class in
 a number of ways:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p>Support setting the atlas’s full texture size on the fly.</p></li>
 <li><p>Support setting the atlas’s tile size on the fly.</p></li>
 <li><p>Support a mix of tiles sizes in one atlas.</p></li>

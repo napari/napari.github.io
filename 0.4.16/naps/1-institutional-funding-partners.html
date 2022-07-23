@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NAP-1 — Institutional and Funding Partners &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,18 +29,20 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -113,6 +114,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables naps/1-institutional-funding-partners and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "naps/1-institutional-funding-partners.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "naps/1-institutional-funding-partners.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -268,15 +360,15 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="nap-1-institutional-and-funding-partners">
-<span id="nap1"></span><h1>NAP-1 — Institutional and Funding Partners<a class="headerlink" href="#nap-1-institutional-and-funding-partners" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="nap-1-institutional-and-funding-partners">
+<span id="nap1"></span><h1>NAP-1 — Institutional and Funding Partners<a class="headerlink" href="#nap-1-institutional-and-funding-partners" title="Permalink to this heading">¶</a></h1>
 <p>Author: “Juan Nunez-Iglesias &lt;<a class="reference external" href="mailto:jni&#37;&#52;&#48;fastmail&#46;com">mailto:jni<span>&#64;</span>fastmail<span>&#46;</span>com</a>&gt;”
 Author: “Nicholas Sofroniew &lt;<a class="reference external" href="mailto:sofroniewn&#37;&#52;&#48;gmail&#46;com">mailto:sofroniewn<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;”
 Created: ‘2022-04-21’
 Status: Draft
 Type: Process</p>
-<section id="abstract">
-<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this heading">¶</a></h2>
 <p>Napari has rapidly grown from a small open source library to a massive project
 involving over a hundred contributors, and users around the world in academia,
 government, and industry. The napari governance, which was modeled after
@@ -285,9 +377,9 @@ institutional support. This NAP updates the governance document to recognize
 institutional and funding support through Institutional and Funding Partners.
 The main goal of this NAP is to make clear the benefits of supporting this open
 source project where it aligns with an institution’s mission.</p>
-</section>
-<section id="motivation-and-scope">
-<h2>Motivation and Scope<a class="headerlink" href="#motivation-and-scope" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="motivation-and-scope">
+<h2>Motivation and Scope<a class="headerlink" href="#motivation-and-scope" title="Permalink to this heading">¶</a></h2>
 <p>Although this NAP predates a formal announcement, napari is in the process of
 becoming a NumFOCUS Fiscally Sponsored Project<a class="footnote-reference brackets" href="#numfocus-fiscal-sponsorship" id="id1">1</a>.
 This will allow the project to fundraise directly, receive funding and pay for
@@ -302,9 +394,9 @@ the same time, supporting institutions <em>may</em> want a mechanism to ensure t
 their priorities are heard and considered by the project.</p>
 <p>This NAP specifies the ways funding and in-kind support for the project (for
 example, through engineering effort) can benefit institutions.</p>
-</section>
-<section id="detailed-description">
-<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="detailed-description">
+<h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Permalink to this heading">¶</a></h2>
 <p>Based on similar documents in other scientific open source projects (see
 Related Work, below), this NAP defines Institutional and Funding Partners
 (IFPs) and proposes the following changes to our governance:</p>
@@ -334,9 +426,9 @@ engineering, design, and other efforts.</p></li>
 <li><p>ability to provide input to the project via the IFPAC and the IFPAC-elected
 SC member.</p></li>
 </ul>
-</section>
-<section id="related-work">
-<h2>Related Work<a class="headerlink" href="#related-work" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="related-work">
+<h2>Related Work<a class="headerlink" href="#related-work" title="Permalink to this heading">¶</a></h2>
 <p>The model of an Institutional and Funding Partner Advisory Council is inspired
 by the <a class="reference external" href="https://openforcefield.org/about/organization/">Open Force Field
 Consortium</a>, which supports
@@ -355,9 +447,9 @@ document</a>,
 which recognizes institutions that significantly contribute to the project, and
 encourages institutions explicitly to provide direction to the project via
 direct engineering effort by institution employees.</p>
-</section>
-<section id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">¶</a></h2>
 <p>This section will be updated with a link to a pull request (PR) updating the
 governance documentation once that PR has been opened. An initial proposal for
 the additions to the governance is included below:</p>
@@ -370,8 +462,8 @@ employed by the same entity. One seat on the steering council is reserved for
 a member elected by the Institutional and Funding Partner Advisory Council,
 as detailed below. This member need not be an existing core developer.</p>
 </div></blockquote>
-<section id="institutional-and-funding-partners">
-<h3>Institutional and Funding Partners<a class="headerlink" href="#institutional-and-funding-partners" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="institutional-and-funding-partners">
+<h3>Institutional and Funding Partners<a class="headerlink" href="#institutional-and-funding-partners" title="Permalink to this heading">¶</a></h3>
 <p>The SC is the primary leadership body for napari. No outside institution,
 individual or legal entity has the ability to own or control the project
 other than by participating in napari as contributors, core developers, and
@@ -418,10 +510,10 @@ Representative.</p></li>
 <li><p>Ability to influence the project through the election of the Institutional
 and Funding Partner seat on the SC.</p></li>
 </ul>
-</section>
-</section>
-<section id="backward-compatibility">
-<h2>Backward Compatibility<a class="headerlink" href="#backward-compatibility" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="backward-compatibility">
+<h2>Backward Compatibility<a class="headerlink" href="#backward-compatibility" title="Permalink to this heading">¶</a></h2>
 <p>The steering council will not be immediately changed by this NAP. Once the NAP
 is accepted, we aim to formally recognize CZI as the first Institutional and
 Funding Partner of the project, and Nicholas Sofroniew’s position in the
@@ -429,36 +521,36 @@ steering council will become the Institutional and Funding Partner seat.</p>
 <p>As noted in the governance changes, should additional institutions come forward
 wishing to support napari and become IFPs, they will join CZI in the IFPAC and
 may negotiate to elect a different representative.</p>
-</section>
-<section id="future-work">
-<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="future-work">
+<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this heading">¶</a></h2>
 <p>Future work will add Institutional and Funding Partners according to our
 governance.</p>
-</section>
-<section id="alternatives">
-<h2>Alternatives<a class="headerlink" href="#alternatives" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="alternatives">
+<h2>Alternatives<a class="headerlink" href="#alternatives" title="Permalink to this heading">¶</a></h2>
 <p>Without these changes, institutional support needs to be negotiated ad-hoc with
 each partner, which adds a lot of overhead and may result in unequal treatment,
 which we want to avoid. It also makes it more difficult a priori for potential
 partners to understand the direct benefits of supporting the project, and
 therefore make it more difficult to grow the project’s support base.</p>
-</section>
-<section id="discussion">
-<h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this heading">¶</a></h2>
 <p>This section will be updated with discussion as the NAP is discussed in our
 usual channels.</p>
-</section>
-<section id="references-and-footnotes">
-<h2>References and Footnotes<a class="headerlink" href="#references-and-footnotes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="references-and-footnotes">
+<h2>References and Footnotes<a class="headerlink" href="#references-and-footnotes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://openforcefield.org/about/organization/">Open Force Field Consortium
 governance</a></p></li>
 <li><p><a class="reference external" href="https://numpy.org/devdocs/dev/governance/governance.html#institutional-partners-and-funding">NumPy project governance and decision-making: Institutional Partners and
 Funding</a></p></li>
 </ul>
-</section>
-<section id="copyright">
-<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="copyright">
+<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this heading">¶</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
 license<a class="footnote-reference brackets" href="#id4" id="id2">2</a>. Attribution to this source is encouraged where appropriate, as
 per CC0+BY<a class="footnote-reference brackets" href="#id5" id="id3">3</a>.</p>
@@ -475,8 +567,8 @@ per CC0+BY<a class="footnote-reference brackets" href="#id5" id="id3">3</a>.</p>
 <dd><p><a class="reference external" href="https://dancohen.org/2013/11/26/cc0-by/">https://dancohen.org/2013/11/26/cc0-by/</a></p>
 </dd>
 </dl>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -773,7 +865,7 @@ per CC0+BY<a class="footnote-reference brackets" href="#id5" id="id3">3</a>.</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

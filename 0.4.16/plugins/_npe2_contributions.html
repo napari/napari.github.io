@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contributions Reference &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,18 +29,20 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -113,6 +114,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/_npe2_contributions and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/_npe2_contributions.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/_npe2_contributions.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -312,25 +404,25 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="contributions-reference">
-<h1>Contributions Reference<a class="headerlink" href="#contributions-reference" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="contributions-reference">
+<h1>Contributions Reference<a class="headerlink" href="#contributions-reference" title="Permalink to this heading">¶</a></h1>
 <p><strong>Contributions</strong> are a set of static declarations that you make in the
 <code class="docutils literal notranslate"><span class="pre">contributions</span></code> field of the <a class="reference internal" href="manifest.html"><span class="doc std std-doc">Plugin Manifest</span></a>. Your extension registers
 <strong>Contributions</strong> to extend various functionalities within napari.
 Here is a list of all available <strong>Contributions</strong>:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="#contributions-commands"><code class="docutils literal notranslate"><span class="pre">commands</span></code></a></p></li>
-<li><p><a class="reference external" href="#contributions-readers"><code class="docutils literal notranslate"><span class="pre">readers</span></code></a></p></li>
-<li><p><a class="reference external" href="#contributions-writers"><code class="docutils literal notranslate"><span class="pre">writers</span></code></a></p></li>
-<li><p><a class="reference external" href="#contributions-widgets"><code class="docutils literal notranslate"><span class="pre">widgets</span></code></a></p></li>
-<li><p><a class="reference external" href="#contributions-sample-data"><code class="docutils literal notranslate"><span class="pre">sample_data</span></code></a></p></li>
-<li><p><a class="reference external" href="#contributions-themes"><code class="docutils literal notranslate"><span class="pre">themes</span></code></a></p></li>
+<li><p><a class="reference internal" href="contributions.html#contributions-commands"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">commands</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="contributions.html#contributions-readers"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">readers</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="contributions.html#contributions-writers"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">writers</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="contributions.html#contributions-widgets"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">widgets</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="contributions.html#contributions-sample-data"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">sample_data</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="contributions.html#contributions-themes"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">themes</span></code></span></a></p></li>
 </ul>
 <p>You may add as many contributions as you’d like to a single manifest. For
 clarity, the following examples include only the specific contribution that
 is being discussed.</p>
-<section id="contributions-commands">
-<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.commands</span></code><a class="headerlink" href="#contributions-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contributions-commands">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.commands</span></code><a class="headerlink" href="#contributions-commands" title="Permalink to this heading">¶</a></h2>
 <p>Contribute a <strong>command</strong> (a python callable) consisting of a unique <code class="docutils literal notranslate"><span class="pre">id</span></code>,
 a <code class="docutils literal notranslate"><span class="pre">title</span></code> and (optionally) a <code class="docutils literal notranslate"><span class="pre">python_path</span></code> that points to a fully qualified python
 callable.  If a <code class="docutils literal notranslate"><span class="pre">python_path</span></code> is not included in the manifest, it <em>must</em> be
@@ -357,11 +449,11 @@ hotkey) but they can also show in other menus.</p>
 <em>(Optional: default=None).</em>
 Fully qualified name to a callable python object implementing this command. This usually takes the form of <code class="docutils literal notranslate"><span class="pre">{obj.__module__}:{obj.__qualname__}</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">my_package.a_module:some_function</span></code>)</p></li>
 </ul>
-<section id="commands-example">
-<h3>Commands example<a class="headerlink" href="#commands-example" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="commands-example">
+<h3>Commands example<a class="headerlink" href="#commands-example" title="Permalink to this heading">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="b0442a74-dc2b-4d52-ad35-ec9e8bfdd287" name="5f125c86-02d0-44f2-8a3e-acefcc0c9a50" type="radio">
-</input><label class="tabbed-label" for="b0442a74-dc2b-4d52-ad35-ec9e8bfdd287">
+<input checked="checked" id="fe2142c7-97d1-4313-86c5-60283acefc5d" name="c9282a73-21a2-45b0-ad11-1258173b1165" type="radio">
+</input><label class="tabbed-label" for="fe2142c7-97d1-4313-86c5-60283acefc5d">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -370,8 +462,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="f57ee5c7-62fa-45c6-8144-1921e142a978" name="5f125c86-02d0-44f2-8a3e-acefcc0c9a50" type="radio">
-</input><label class="tabbed-label" for="f57ee5c7-62fa-45c6-8144-1921e142a978">
+<input id="33cade72-7f8e-4c6a-80c1-f04fcc1b7ee5" name="c9282a73-21a2-45b0-ad11-1258173b1165" type="radio">
+</input><label class="tabbed-label" for="33cade72-7f8e-4c6a-80c1-f04fcc1b7ee5">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.hello_world&#39;</span><span class="w"></span>
@@ -380,16 +472,16 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="contributions-readers">
-<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.readers</span></code><a class="headerlink" href="#contributions-readers" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="contributions-readers">
+<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.readers</span></code><a class="headerlink" href="#contributions-readers" title="Permalink to this heading">¶</a></h2>
 <p>Contribute a file reader.</p>
 <p>Readers may be associated with specific <strong>filename_patterns</strong> (e.g. “<em>.tif”,
 “</em>.zip”) and are invoked whenever <code class="docutils literal notranslate"><span class="pre">viewer.open('some/path')</span></code> is used on the
 command line, or when a user opens a file in the graphical user interface by
 dropping a file into the canvas, or using <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Open...</span></code></p>
-<p>See the <a class="reference external" href="./guides.html#readers-contribution-guide">Readers Guide</a>
+<p>See the <a class="reference internal" href="guides.html#readers-contribution-guide"><span class="std std-ref">Readers Guide</span></a>
 for more details on implementing this contribution.</p>
 <p><strong>Fields</strong></p>
 <ul class="simple">
@@ -399,11 +491,11 @@ for more details on implementing this contribution.</p>
 <em>(Optional: default=False).</em>
 Whether this reader accepts directories</p></li>
 </ul>
-<section id="readers-example">
-<h3>Readers example<a class="headerlink" href="#readers-example" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="readers-example">
+<h3>Readers example<a class="headerlink" href="#readers-example" title="Permalink to this heading">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="bb5ad389-e183-410d-9255-14ac2ed45b9b" name="6b025ad4-2bcb-4fc6-b0d9-dd29d88f810e" type="radio">
-</input><label class="tabbed-label" for="bb5ad389-e183-410d-9255-14ac2ed45b9b">
+<input checked="checked" id="ef55451e-ce1e-4008-a586-95e2281b1b04" name="4a2c5c1b-43ea-4e53-887f-08cf2b740951" type="radio">
+</input><label class="tabbed-label" for="ef55451e-ce1e-4008-a586-95e2281b1b04">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -418,8 +510,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="56814534-3e2c-4029-bf94-1c2e448bca47" name="6b025ad4-2bcb-4fc6-b0d9-dd29d88f810e" type="radio">
-</input><label class="tabbed-label" for="56814534-3e2c-4029-bf94-1c2e448bca47">
+<input id="361949f0-0ebb-4e2f-90ec-b646a722b192" name="4a2c5c1b-43ea-4e53-887f-08cf2b740951" type="radio">
+</input><label class="tabbed-label" for="361949f0-0ebb-4e2f-90ec-b646a722b192">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.read_xyz&#39;</span><span class="w"></span>
@@ -434,17 +526,17 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="contributions-writers">
-<span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.writers</span></code><a class="headerlink" href="#contributions-writers" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="contributions-writers">
+<span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.writers</span></code><a class="headerlink" href="#contributions-writers" title="Permalink to this heading">¶</a></h2>
 <p>Contribute a layer writer.</p>
 <p>Writers accept data from one or more layers and write them to file. Writers declare
 support for writing one or more <strong>layer_types</strong>, may be associated with specific
 <strong>filename_patterns</strong> (e.g. “*.tif”, “*.zip”) and are invoked whenever
 <code class="docutils literal notranslate"><span class="pre">viewer.layers.save('some/path.ext')</span></code> is used on the command line, or when a user
 requests to save one or more layers in the graphical user interface with <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Save</span> <span class="pre">Selected</span> <span class="pre">Layer(s)...</span></code> or <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">All</span> <span class="pre">Layers...</span></code></p>
-<p>See the <a class="reference external" href="./guides.html#writers-contribution-guide">Writers Guide</a>
+<p>See the <a class="reference internal" href="guides.html#writers-contribution-guide"><span class="std std-ref">Writers Guide</span></a>
 for more details on implementing this contribution.</p>
 <p><strong>Fields</strong></p>
 <ul class="simple">
@@ -457,11 +549,11 @@ List of filename extensions compatible with this writer. The first entry is used
 <em>(Optional: default=).</em>
 Brief text used to describe this writer when presented. Empty by default. When present, this string is presented in the save dialog along side the plugin name and may be used to distinguish the kind of writer for the user. E.g. “lossy” or “lossless”.</p></li>
 </ul>
-<section id="writers-example">
-<h3>Writers example<a class="headerlink" href="#writers-example" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="writers-example">
+<h3>Writers example<a class="headerlink" href="#writers-example" title="Permalink to this heading">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="3949be94-5518-4f6a-a8d7-a4991a037194" name="76ed064b-5996-42e3-8498-0b22d13dc2e0" type="radio">
-</input><label class="tabbed-label" for="3949be94-5518-4f6a-a8d7-a4991a037194">
+<input checked="checked" id="853440c5-bc3c-4a98-9822-18260c40ced1" name="ae6bd8b4-f463-48e5-b9b7-a6632912a789" type="radio">
+</input><label class="tabbed-label" for="853440c5-bc3c-4a98-9822-18260c40ced1">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -477,8 +569,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="33177b92-fd8b-4675-be8d-9625d7571fad" name="76ed064b-5996-42e3-8498-0b22d13dc2e0" type="radio">
-</input><label class="tabbed-label" for="33177b92-fd8b-4675-be8d-9625d7571fad">
+<input id="caf21c73-09fa-455f-b149-e9282a1fffa8" name="ae6bd8b4-f463-48e5-b9b7-a6632912a789" type="radio">
+</input><label class="tabbed-label" for="caf21c73-09fa-455f-b149-e9282a1fffa8">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.write_points&#39;</span><span class="w"></span>
@@ -493,10 +585,10 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="contributions-widgets">
-<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.widgets</span></code><a class="headerlink" href="#contributions-widgets" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="contributions-widgets">
+<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.widgets</span></code><a class="headerlink" href="#contributions-widgets" title="Permalink to this heading">¶</a></h2>
 <p>Contribute a widget that can be added to the napari viewer.</p>
 <p>Widget contributions point to a <strong>command</strong> that, when called, returns a widget
 <em>instance</em>; this includes functions that return a widget instance, (e.g. those
@@ -507,7 +599,7 @@ decorated with <code class="docutils literal notranslate"><span class="pre">magi
 <a class="reference external" href="https://napari.org/magicgui/">magicgui</a>) from a command.  (In this case, the
 command needn’t return a widget instance; it can be any function suitable as an
 argument to <code class="docutils literal notranslate"><span class="pre">magicgui.magicgui()</span></code>.)</p>
-<p>See the <a class="reference external" href="./guides.html#widgets-contribution-guide">Widgets Guide</a>
+<p>See the <a class="reference internal" href="guides.html#widgets-contribution-guide"><span class="std std-ref">Widgets Guide</span></a>
 for more details on implementing this contribution.</p>
 <p><strong>Fields</strong></p>
 <ul class="simple">
@@ -517,11 +609,11 @@ for more details on implementing this contribution.</p>
 <em>(Optional: default=False).</em>
 If true, a widget will be autogenerated from the signature of the associated command using <a class="reference external" href="https://napari.org/magicgui/">magicgui</a>.</p></li>
 </ul>
-<section id="widgets-example">
-<h3>Widgets example<a class="headerlink" href="#widgets-example" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="widgets-example">
+<h3>Widgets example<a class="headerlink" href="#widgets-example" title="Permalink to this heading">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="d5c40ab5-4081-4883-b362-17a51ad011c0" name="7c8eefb0-b91e-44b8-9c5d-acb444a6a2b2" type="radio">
-</input><label class="tabbed-label" for="d5c40ab5-4081-4883-b362-17a51ad011c0">
+<input checked="checked" id="6432f96f-a1bc-4d30-89ad-be12636f83fa" name="ccf59c81-0988-4b9c-ac9c-8e9ccd9a5fc3" type="radio">
+</input><label class="tabbed-label" for="6432f96f-a1bc-4d30-89ad-be12636f83fa">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -545,8 +637,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="8878fa6e-df0f-4ef0-8a1d-2143b168d902" name="7c8eefb0-b91e-44b8-9c5d-acb444a6a2b2" type="radio">
-</input><label class="tabbed-label" for="8878fa6e-df0f-4ef0-8a1d-2143b168d902">
+<input id="45c7a67f-aae1-4013-a4ba-d36b2361248c" name="ccf59c81-0988-4b9c-ac9c-8e9ccd9a5fc3" type="radio">
+</input><label class="tabbed-label" for="45c7a67f-aae1-4013-a4ba-d36b2361248c">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.my_widget&#39;</span><span class="w"></span>
@@ -579,18 +671,18 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="contributions-sample-data">
-<span id="id5"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.sample_data</span></code><a class="headerlink" href="#contributions-sample-data" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="contributions-sample-data">
+<span id="id5"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.sample_data</span></code><a class="headerlink" href="#contributions-sample-data" title="Permalink to this heading">¶</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>This contribution accepts 2 schema types</p>
 </div>
-<section id="sample-data-function">
-<h3>1. Sample Data Function<a class="headerlink" href="#sample-data-function" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="sample-data-function">
+<h3>1. Sample Data Function<a class="headerlink" href="#sample-data-function" title="Permalink to this heading">¶</a></h3>
 <p>Contribute a callable command that creates data on demand.</p>
-<p>See the <a class="reference external" href="./guides.html#sample-data-contribution-guide">Sample Data Guide</a>
+<p>See the <a class="reference internal" href="guides.html#sample-data-contribution-guide"><span class="std std-ref">Sample Data Guide</span></a>
 for more details on implementing this contribution.</p>
 <p><strong>Fields</strong></p>
 <ul class="simple">
@@ -598,13 +690,13 @@ for more details on implementing this contribution.</p>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.display_name</span></code></strong> : String to show in the UI when referring to this sample</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.command</span></code></strong> : Identifier of a command that returns layer data tuple.</p></li>
 </ul>
-</section>
-<section id="sample-data-uri">
-<h3>2. Sample Data URI<a class="headerlink" href="#sample-data-uri" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="sample-data-uri">
+<h3>2. Sample Data URI<a class="headerlink" href="#sample-data-uri" title="Permalink to this heading">¶</a></h3>
 <p>Contribute a URI to static local or remote data. This can be data included in
 the plugin package, or a URL to remote data.  The URI must be readable by either
 napari’s builtin reader, or by a plugin that is included/required.</p>
-<p>See the <a class="reference external" href="./guides.html#sample-data-contribution-guide">Sample Data Guide</a>
+<p>See the <a class="reference internal" href="guides.html#sample-data-contribution-guide"><span class="std std-ref">Sample Data Guide</span></a>
 for more details on implementing this contribution.</p>
 <p><strong>Fields</strong></p>
 <ul class="simple">
@@ -615,12 +707,12 @@ for more details on implementing this contribution.</p>
 <em>(Optional: default=None).</em>
 Name of plugin to use to open URI</p></li>
 </ul>
-</section>
-<section id="sample-data-example">
-<h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="sample-data-example">
+<h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this heading">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="fe36e5f8-041b-440e-ac1c-01d33c1ed310" name="8f83ed4b-dd65-4ed6-8db2-614a756aebe6" type="radio">
-</input><label class="tabbed-label" for="fe36e5f8-041b-440e-ac1c-01d33c1ed310">
+<input checked="checked" id="1da13bc8-ff9f-4433-a0ec-dd2e7931a8f9" name="603cf59c-6e5d-474f-b5cd-b77f78b56719" type="radio">
+</input><label class="tabbed-label" for="1da13bc8-ff9f-4433-a0ec-dd2e7931a8f9">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -637,8 +729,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="6a9790f9-aab2-4812-85ed-d617ec8378f7" name="8f83ed4b-dd65-4ed6-8db2-614a756aebe6" type="radio">
-</input><label class="tabbed-label" for="6a9790f9-aab2-4812-85ed-d617ec8378f7">
+<input id="b3994dfd-6ba3-4399-8c59-d29131fcb86b" name="603cf59c-6e5d-474f-b5cd-b77f78b56719" type="radio">
+</input><label class="tabbed-label" for="b3994dfd-6ba3-4399-8c59-d29131fcb86b">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.data.fractal&#39;</span><span class="w"></span>
@@ -658,10 +750,10 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="contributions-themes">
-<span id="id6"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.themes</span></code><a class="headerlink" href="#contributions-themes" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="contributions-themes">
+<span id="id6"></span><h2><code class="docutils literal notranslate"><span class="pre">contributions.themes</span></code><a class="headerlink" href="#contributions-themes" title="Permalink to this heading">¶</a></h2>
 <p>Contribute a color theme to napari.</p>
 <p>You must specify an <strong>id</strong>, <strong>label</strong>, and whether the theme is a dark theme or a
 light theme <strong>type</strong> (such that the rest of napari changes to match your theme).
@@ -682,11 +774,11 @@ dark/light theme colors.</p>
 </ul>
 </li>
 </ul>
-<section id="themes-example">
-<h3>Themes example<a class="headerlink" href="#themes-example" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="themes-example">
+<h3>Themes example<a class="headerlink" href="#themes-example" title="Permalink to this heading">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="f0bb5a81-acb8-4628-be53-f736fc927d9a" name="60c3046a-0eb4-4349-b7d2-7fcdda93154e" type="radio">
-</input><label class="tabbed-label" for="f0bb5a81-acb8-4628-be53-f736fc927d9a">
+<input checked="checked" id="7401a3fc-2bf0-4c35-ab31-93ab21f73ea9" name="a86eebd9-c8b2-4c65-9e25-dbaecbe7cf23" type="radio">
+</input><label class="tabbed-label" for="7401a3fc-2bf0-4c35-ab31-93ab21f73ea9">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">themes</span><span class="p">:</span><span class="w"></span>
@@ -707,8 +799,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="e0be1283-c36f-4b5e-8e74-e06373a587b4" name="60c3046a-0eb4-4349-b7d2-7fcdda93154e" type="radio">
-</input><label class="tabbed-label" for="e0be1283-c36f-4b5e-8e74-e06373a587b4">
+<input id="3e4aefb8-f8bd-4a73-a311-fdc847607347" name="a86eebd9-c8b2-4c65-9e25-dbaecbe7cf23" type="radio">
+</input><label class="tabbed-label" for="3e4aefb8-f8bd-4a73-a311-fdc847607347">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.themes]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;monokai&#39;</span><span class="w"></span>
@@ -730,9 +822,9 @@ toml</label><div class="tabbed-content docutils">
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -1029,7 +1121,7 @@ toml</label><div class="tabbed-content docutils">
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

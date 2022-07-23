@@ -82,19 +82,11 @@ napari.components.Camera
       ~Camera.events
       ~Camera.up_direction
       ~Camera.view_direction
-<<<<<<< HEAD:_sources/api/napari.components.Camera.rst
-      
-      
-      
-      
-      
-=======
       ~Camera.center
       ~Camera.zoom
       ~Camera.angles
       ~Camera.perspective
       ~Camera.interactive
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.components.Camera.rst
    
    
 

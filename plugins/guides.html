@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -36,6 +36,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Test and Deploy" href="test_deploy.html" />
@@ -115,6 +116,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/guides and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/guides.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/guides.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -400,8 +483,8 @@ otherwise, they will not be invoked when a directory is passed to <code class="d
 <section id="reader-example">
 <h3>Reader example<a class="headerlink" href="#reader-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="4ba79f8d-e578-4b04-a2ce-70197a53efe1" name="ae49e68e-1d94-40c2-afa7-b86654deb94e" type="radio">
-</input><label class="tabbed-label" for="4ba79f8d-e578-4b04-a2ce-70197a53efe1">
+<input checked="checked" id="c5e9d60f-32aa-4691-b243-e089e194f073" name="906ce4ee-dbac-4fdc-b0a1-afc0b4998c3e" type="radio">
+</input><label class="tabbed-label" for="c5e9d60f-32aa-4691-b243-e089e194f073">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -440,8 +523,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="f8913042-9f8d-4d62-938e-0d19896e2c5e" name="ae49e68e-1d94-40c2-afa7-b86654deb94e" type="radio">
-</input><label class="tabbed-label" for="f8913042-9f8d-4d62-938e-0d19896e2c5e">
+<input id="5afd01db-5f69-43a7-b403-47517bd14dfe" name="906ce4ee-dbac-4fdc-b0a1-afc0b4998c3e" type="radio">
+</input><label class="tabbed-label" for="5afd01db-5f69-43a7-b403-47517bd14dfe">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -488,7 +571,7 @@ specification from the first generation <code class="docutils literal notranslat
 <section id="writer-plugin-function-signatures">
 <h3>Writer plugin function signatures<a class="headerlink" href="#writer-plugin-function-signatures" title="Permalink to this headline">¶</a></h3>
 <p>Writer plugins are <em>functions</em> that:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p>Accept a destination path and data from one or more layers in the viewer</p></li>
 <li><p>Write layer data and associated attributes to disk</p></li>
 <li><p>Return a list of strings containing the path(s) that were successfully written.</p></li>
@@ -565,8 +648,8 @@ and a <code class="docutils literal notranslate"><span class="pre">vectors</span
 <section id="writer-example">
 <h3>Writer example<a class="headerlink" href="#writer-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="6450d2d5-840b-4105-82d6-d7a22ffdf4d7" name="1528d51e-95bb-40c5-b86c-6793d62a5b93" type="radio">
-</input><label class="tabbed-label" for="6450d2d5-840b-4105-82d6-d7a22ffdf4d7">
+<input checked="checked" id="c409c2fe-6b3a-4af6-9d3a-91f4e74dce41" name="217193c9-44f3-4f9b-bf18-6b2a63e8a827" type="radio">
+</input><label class="tabbed-label" for="c409c2fe-6b3a-4af6-9d3a-91f4e74dce41">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -595,8 +678,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="f1b39757-6ab6-4371-9591-8b2fe7e94c49" name="1528d51e-95bb-40c5-b86c-6793d62a5b93" type="radio">
-</input><label class="tabbed-label" for="f1b39757-6ab6-4371-9591-8b2fe7e94c49">
+<input id="b3f7a7ed-98d1-4ad8-b5a2-1bbf61dc3e2c" name="217193c9-44f3-4f9b-bf18-6b2a63e8a827" type="radio">
+</input><label class="tabbed-label" for="b3f7a7ed-98d1-4ad8-b5a2-1bbf61dc3e2c">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -653,7 +736,7 @@ specifically requested by the user.</p>
 (where a “widget” is an instance of <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or <code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code>).</p>
 <p>There are a few commonly used patterns that fulfill this <code class="docutils literal notranslate"><span class="pre">Callable[...,</span> <span class="pre">Widget]</span></code>
 specification:</p>
-<ol class="arabic">
+<ol>
 <li><p>Provide a <code class="docutils literal notranslate"><span class="pre">class</span></code> object directly, such as a <code class="docutils literal notranslate"><span class="pre">QtWidgets.QWidget</span></code> or
 <code class="docutils literal notranslate"><span class="pre">magicgui.widgets.Widget</span></code> subclass:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
@@ -686,8 +769,8 @@ field in the <a class="reference internal" href="contributions.html#contribution
 <section id="widget-example">
 <h3>Widget example<a class="headerlink" href="#widget-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="dfb2b927-86e0-411a-8346-6435adfd851f" name="57041b6f-dbce-47da-ae05-ebbef6c0f1c4" type="radio">
-</input><label class="tabbed-label" for="dfb2b927-86e0-411a-8346-6435adfd851f">
+<input checked="checked" id="b9f4433b-1dd4-43bd-bd96-d903319f4657" name="e4af2182-73de-45ca-8c62-aab492849b94" type="radio">
+</input><label class="tabbed-label" for="b9f4433b-1dd4-43bd-bd96-d903319f4657">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -746,8 +829,8 @@ npe2</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="24150d96-2466-41b2-b663-afd0fdacf00d" name="57041b6f-dbce-47da-ae05-ebbef6c0f1c4" type="radio">
-</input><label class="tabbed-label" for="24150d96-2466-41b2-b663-afd0fdacf00d">
+<input id="a4e155af-dee0-404f-90b1-c029e54128cc" name="e4af2182-73de-45ca-8c62-aab492849b94" type="radio">
+</input><label class="tabbed-label" for="a4e155af-dee0-404f-90b1-c029e54128cc">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -817,8 +900,8 @@ or <strong>Sample Data Function</strong> that generates layer data on demand.</p
 <section id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="82432dbd-557c-47d5-81cb-403098b630bf" name="3079821a-85fb-4aa0-abb9-30a1c478e1d4" type="radio">
-</input><label class="tabbed-label" for="82432dbd-557c-47d5-81cb-403098b630bf">
+<input checked="checked" id="e0999546-d8f8-4cce-a314-80b60e8e9cd2" name="bfc262cf-ec35-47a8-96f6-6379d33a2bcf" type="radio">
+</input><label class="tabbed-label" for="e0999546-d8f8-4cce-a314-80b60e8e9cd2">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -849,8 +932,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="17f0e8a8-ebe1-4cc3-ba15-570f41bccee2" name="3079821a-85fb-4aa0-abb9-30a1c478e1d4" type="radio">
-</input><label class="tabbed-label" for="17f0e8a8-ebe1-4cc3-ba15-570f41bccee2">
+<input id="69f37bf9-f7db-4e52-91ab-b427fd169839" name="bfc262cf-ec35-47a8-96f6-6379d33a2bcf" type="radio">
+</input><label class="tabbed-label" for="69f37bf9-f7db-4e52-91ab-b427fd169839">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -894,7 +977,7 @@ up often in plugins and is explained here.</p>
 </pre></div>
 </div>
 <p>A <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple is a tuple of length 1, 2, or 3 whose items, in order, are:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">data</span></code> object that would be used for <code class="docutils literal notranslate"><span class="pre">layer.data</span></code> (such as a numpy array
 for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer)</p></li>
 <li><p><em>(Optional).</em> A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> of layer attributes, suitable for passing as

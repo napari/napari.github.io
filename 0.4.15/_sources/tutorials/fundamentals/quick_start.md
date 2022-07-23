@@ -18,11 +18,11 @@ kernelspec:
 
 ## About napari
 
-napari is a fast, interactive, multi-dimensional image viewer, with [a vibrant plugin ecosystem](https://www.napari-hub.org/) that expands its capability to tackle various domain-specific visualization and analysis needs. It is built on Qt (for the GUI), [vispy](https://vispy.org/) (for performant GPU-based rendering), and the scientific Python stack (numpy, scipy, and scikit-image). 
+napari is a fast, interactive, multi-dimensional image viewer, with [a vibrant plugin ecosystem](https://www.napari-hub.org/) that expands its capability to tackle various domain-specific visualization and analysis needs. It is built on Qt (for the GUI), [vispy](https://vispy.org/) (for performant GPU-based rendering), and the scientific Python stack (numpy, scipy, and scikit-image).
 
-napari is an open source project on [GitHub](https://github.com/napari/napari) to facilitate transparency, reuse, and extensibility. 
+napari is an open source project on [GitHub](https://github.com/napari/napari) to facilitate transparency, reuse, and extensibility.
 
-At its core, it provides critical viewer features out-of-the-box, such as support for [large multi-dimensional data](../processing/dask); [“layers”](..//start_index) to simultaneously visualize images, models, and analysis results; and easy manual, interactive annotation in 3D.
+At its core, it provides critical viewer features out-of-the-box, such as support for [large multi-dimensional data](tutorials/applications/dask); [“layers”](tutorials/start_index) to simultaneously visualize images, models, and analysis results; and easy manual, interactive annotation in 3D.
 
 This tutorial uses napari 0.4.14. <br>
 
@@ -32,7 +32,7 @@ This tutorial uses napari 0.4.14. <br>
 
 This tutorial is for napari first-timers to give them a quick glance of what napari does, and give it a try right away. We will cover:
 
-- Installation 
+- Installation
 - Open napari
 - Open an image
 - Image display adjustment
@@ -40,7 +40,7 @@ This tutorial is for napari first-timers to give them a quick glance of what nap
 - Get the cell area measurement
 - Next steps
 
-Along the way, you will see how to access napari functions from [Python code](../../api/index) and from GUI - though for different purposes, one method might be easier than another. This quick start guide will not cover ALL possible methods but only some ways to perform basic tasks. For the more complete guide, please visit [our usage guide](../../usage.md).
+Along the way, you will see how to access napari functions from [Python code](api/index) and from GUI - though for different purposes, one method might be easier than another. This quick start guide will not cover ALL possible methods but only some ways to perform basic tasks. For the more complete guide, please visit [our usage guide](../../usage.md).
 
 You will also see some examples of plugins. The core napari viewer focuses on domain-agnostic functions such as layer controls. Analyses and domain specific functions, such as reading a special file format and image segmentation, live in the realm of [plugins](https://www.napari-hub.org/).
 
@@ -72,17 +72,17 @@ pip install 'napari[all]'
 ```
 
 
-If you run into any issues, please visit the more detailed [installation guide](./installation), or [report an issue on GitHub](https://github.com/napari/napari/issues/new/choose)!
+If you run into any issues, please visit the more detailed [installation guide](tutorials/fundamentals/installation), or [report an issue on GitHub](https://github.com/napari/napari/issues/new/choose)!
 
 +++
 
 ### Open napari
 
-napari can be opened in one of [multiple ways](./getting_started), depending on how it's used in your image analysis workflow.
+napari can be opened in one of [multiple ways](https://napari.org/tutorials/fundamentals/getting_started.html), depending on how it's used in your image analysis workflow.
 
 Here we will be mainly focused on the GUI application.
 
-- From command line: 
+- From command line:
 
     Once installed, simply run
 ```python
@@ -101,11 +101,11 @@ napari
 napari natively supports tiff and many other formats supported by [skimage.io.imread](https://scikit-image.org/docs/dev/api/skimage.io.html) as input image file format.<br>
 Try with your own images or download [this ome tiff file](https://downloads.openmicroscopy.org/images/OME-TIFF/2016-06/MitoCheck/00001_01.ome.tiff).
 
-Additional input file formats may be supported [by plugins](https://www.napari-hub.org/). 
+Additional input file formats may be supported [by plugins](https://www.napari-hub.org/).
 Try [napari-aicsimageio](https://www.napari-hub.org/plugins/napari-aicsimageio) if you have czi, lif, or nd2 files.
 
 Once you have the proper plugin installed, use File > Open Files(s)
-and select the image file, or simply drag and drop the image into napari. 
+and select the image file, or simply drag and drop the image into napari.
 
 For demo purpose, we will use a sample image that comes with napari.
 
@@ -130,7 +130,7 @@ viewer = napari.Viewer()
 
 from skimage import data
 viewer.add_image(data.cell(), name='cell')
-nbscreenshot(viewer, alt_text="image of a single cell opened in napari viewer")
+nbscreenshot(viewer)
 ```
 
 ### Image display adjustment
@@ -147,7 +147,7 @@ viewer.layers['cell'].colormap = "yellow"
 :tags: [remove-input]
 
 viewer.layers['cell'].colormap = "yellow"
-nbscreenshot(viewer, alt_text="image of singular cell with yellow tint")
+nbscreenshot(viewer)
 ```
 
 ### Manually label the cell
@@ -155,7 +155,7 @@ nbscreenshot(viewer, alt_text="image of singular cell with yellow tint")
 To measure the area of the cell, we can use a labels layer and manually "paint" the cell.
 The labels layer allows you to record the segmentation result by assigning background = 0, and assigning each object with an integer.
 
-1. Add a new labels layer 
+1. Add a new labels layer
 1. Click on "paint"
 1. Circle the cell
 1. Use "fill" bucket to fill it.
@@ -195,12 +195,12 @@ viewer.close_all()
 
 ![ndisplay](../../images/ndisplay.png)
 
-- Test some [examples](https://github.com/napari/napari/tree/main/examples) to see how to add different layer types and add your own widgets to napari. 
+- Test some [examples](https://github.com/napari/napari/tree/main/examples) to see how to add different layer types and add your own widgets to napari.
 
 - Explore other [plugins](https://www.napari-hub.org/). A few fun ones: [napari-clusters-plotter](https://www.napari-hub.org/plugins/napari-clusters-plotter), [napari-pyclesperanto-assistant](https://www.napari-hub.org/plugins/napari-pyclesperanto-assistant), [napari-animation](https://www.napari-hub.org/plugins/napari-animation).
 
 - If you don't see the functions you need in existing plugins, try to make your own widget with [magicgui](https://napari.org/magicgui/).
 
-- If you've developed some functionality that you think would benefit the community as a whole, consider publishing it as a [plugin](../../plugins/index)!
+- If you've developed some functionality that you think would benefit the community as a whole, consider publishing it as a [plugin](plugins/index)!
 
-- Help the napari project by [filing issues](https://github.com/napari/napari/issues) for bugs you encounter or features that you'd like to see! Or even better, come [join the community meetings](../../community/meeting_schedule) and get to know the team.
+- Help the napari project by [filing issues](https://github.com/napari/napari/issues) for bugs you encounter or features that you'd like to see! Or even better, come [join the community meetings](community/meeting_schedule) and get to know the team.

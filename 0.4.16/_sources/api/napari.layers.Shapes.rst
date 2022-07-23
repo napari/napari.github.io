@@ -164,17 +164,10 @@ napari.layers.Shapes
       ~Shapes.translate_grid
       ~Shapes.visible
       ~Shapes.z_index
-<<<<<<< HEAD:_sources/api/napari.layers.Shapes.rst
-      
-      
-      
-      
-=======
       ~Shapes.mouse_move_callbacks
       ~Shapes.mouse_wheel_callbacks
       ~Shapes.mouse_drag_callbacks
       ~Shapes.mouse_double_click_callbacks
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.layers.Shapes.rst
    
    
 

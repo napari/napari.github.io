@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rendering in napari &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Asynchronous rendering" href="rendering.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables guides/rendering-explanation and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "guides/rendering-explanation.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "guides/rendering-explanation.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1775,18 +1867,18 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="rendering-in-napari">
-<span id="rendering-explanation"></span><h1>Rendering in napari<a class="headerlink" href="#rendering-in-napari" title="Permalink to this headline">¶</a></h1>
-<section id="status">
-<h2>Status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="rendering-in-napari">
+<span id="rendering-explanation"></span><h1>Rendering in napari<a class="headerlink" href="#rendering-in-napari" title="Permalink to this heading">¶</a></h1>
+<div class="section" id="status">
+<h2>Status<a class="headerlink" href="#status" title="Permalink to this heading">¶</a></h2>
 <p>As of napari version 0.4.3 there are two opt-in experimental features
 related to rendering. They can be accessed by setting the environment
 variables <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC=1</span></code> or <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE=1</span></code>. See the Guide on Rendering
 for specific information about those two features. This document is more of
 a general backgrounder on our approach to rendering.</p>
-</section>
-<section id="framerate">
-<h2>Framerate<a class="headerlink" href="#framerate" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="framerate">
+<h2>Framerate<a class="headerlink" href="#framerate" title="Permalink to this heading">¶</a></h2>
 <p>The most common screen refresh rate is 60Hz, so most graphics applications
 try to draw at least 60Hz as well. If napari renders at 60Hz then any
 motion, for example from panning and zooming the camera, will appear
@@ -1795,31 +1887,31 @@ render as fast as possible. The user experience degrades rapidly as the
 framerate gets slower:</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:right head"><p>Framerate</p></th>
-<th class="text-align:right head"><p>Milliseconds</p></th>
-<th class="text-align:left head"><p>User Experience</p></th>
+<tr class="row-odd"><th class="text-right head"><p>Framerate</p></th>
+<th class="text-right head"><p>Milliseconds</p></th>
+<th class="text-left head"><p>User Experience</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:right"><p>60Hz</p></td>
-<td class="text-align:right"><p>16.7</p></td>
-<td class="text-align:left"><p>Great</p></td>
+<tr class="row-even"><td class="text-right"><p>60Hz</p></td>
+<td class="text-right"><p>16.7</p></td>
+<td class="text-left"><p>Great</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:right"><p>30Hz</p></td>
-<td class="text-align:right"><p>33.3</p></td>
-<td class="text-align:left"><p>Good</p></td>
+<tr class="row-odd"><td class="text-right"><p>30Hz</p></td>
+<td class="text-right"><p>33.3</p></td>
+<td class="text-left"><p>Good</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:right"><p>20Hz</p></td>
-<td class="text-align:right"><p>50</p></td>
-<td class="text-align:left"><p>Acceptable</p></td>
+<tr class="row-even"><td class="text-right"><p>20Hz</p></td>
+<td class="text-right"><p>50</p></td>
+<td class="text-left"><p>Acceptable</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:right"><p>10Hz</p></td>
-<td class="text-align:right"><p>100</p></td>
-<td class="text-align:left"><p>Bad</p></td>
+<tr class="row-odd"><td class="text-right"><p>10Hz</p></td>
+<td class="text-right"><p>100</p></td>
+<td class="text-left"><p>Bad</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:right"><p>5Hz</p></td>
-<td class="text-align:right"><p>200</p></td>
-<td class="text-align:left"><p>Unusable</p></td>
+<tr class="row-even"><td class="text-right"><p>5Hz</p></td>
+<td class="text-right"><p>200</p></td>
+<td class="text-left"><p>Unusable</p></td>
 </tr>
 </tbody>
 </table>
@@ -1834,9 +1926,9 @@ has as few isolated slow frames as possible. A framerate that jumps around
 leads to something called <a class="reference external" href="http://jankfree.org/">jank</a>. For the best user
 experience we want a framerate that’s fast, but also one that’s
 consistently fast.</p>
-</section>
-<section id="array-like-interface">
-<h2>Array-like interface<a class="headerlink" href="#array-like-interface" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="array-like-interface">
+<h2>Array-like interface<a class="headerlink" href="#array-like-interface" title="Permalink to this heading">¶</a></h2>
 <p>Napari renders data out of an array-like interface. The data can be owned
 by any object that supports <code class="docutils literal notranslate"><span class="pre">NumPy</span></code>’s slicing syntax. One common such
 object is a <a class="reference external" href="https://dask.org/">Dask</a> array. The fact that napari can
@@ -1845,9 +1937,9 @@ that simple array accesses can result in the execution of arbitrary code.
 For example, an array access might result disk IO or network IO, or even a
 complex machine learning computation. This means array accesses can take an
 arbitrary long time to complete.</p>
-</section>
-<section id="asynchronous-rendering">
-<h2>Asynchronous rendering<a class="headerlink" href="#asynchronous-rendering" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="asynchronous-rendering">
+<h2>Asynchronous rendering<a class="headerlink" href="#asynchronous-rendering" title="Permalink to this heading">¶</a></h2>
 <p>Since we don’t know how long an array access will take, and we never want
 the GUI thread to block, we cannot access array-like objects in the GUI
 thread. Instead, napari’s rendering has to be done <em>asynchronously</em>. This
@@ -1868,9 +1960,9 @@ to choose.</p>
 <a class="reference external" href="https://github.com/napari/napari/issues/845">#845</a>,
 <a class="reference external" href="https://github.com/napari/napari/issues/1300">#1300</a>, and
 <a class="reference external" href="https://github.com/napari/napari/issues/1320%5D">#1320</a>.</p>
-</section>
-<section id="ram-and-vram">
-<h2>RAM and VRAM<a class="headerlink" href="#ram-and-vram" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="ram-and-vram">
+<h2>RAM and VRAM<a class="headerlink" href="#ram-and-vram" title="Permalink to this heading">¶</a></h2>
 <p>There is a two step process to prepare data for rendering. First the data
 needs to be loaded in RAM, then it needs to be transferred from RAM to
 VRAM. Some hardware has “unified memory” where there is no actual VRAM, but
@@ -1882,9 +1974,9 @@ we cannot load data into VRAM in the background. Therefore to prevent
 hurting the framerate we need to budget how much time is spent copying data
 into VRAM, we can only do it for a few milliseconds per frame.</p>
 <p><img alt="paging-chunks" src="../_images/paging-chunks.png" /></p>
-</section>
-<section id="chunks">
-<h2>Chunks<a class="headerlink" href="#chunks" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="chunks">
+<h2>Chunks<a class="headerlink" href="#chunks" title="Permalink to this heading">¶</a></h2>
 <p>For paging into both RAM and VRAM it’s a requirement that the data napari
 renders is broken down into “chunks”. A chunk is a deliberately vague term
 for a portion of the data that napari can load and render independently.</p>
@@ -1895,45 +1987,45 @@ too small is wasteful, since there is some overhead for each chunk.</p>
 <p>Napari’s chunks play a similar role as do packets on a network or blocks on
 a disk. In all cases the goal is to break down large data into digestible
 pieces of that can be processed smoothly one at a time.</p>
-</section>
-<section id="renderer-requirements">
-<h2>Renderer requirements<a class="headerlink" href="#renderer-requirements" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="renderer-requirements">
+<h2>Renderer requirements<a class="headerlink" href="#renderer-requirements" title="Permalink to this heading">¶</a></h2>
 <p>The above discussion leads to two rigid requirements for rendering:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Never call <code class="docutils literal notranslate"><span class="pre">asarray</span></code> on user data from the GUI thread, since we don’t know
 what it will do or how long it will take.</p></li>
 <li><p>Always break data into chunks. The exact maximum chunk size is TBD.</p></li>
 </ol>
-</section>
-<section id="render-algorithm">
-<h2>Render algorithm<a class="headerlink" href="#render-algorithm" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="render-algorithm">
+<h2>Render algorithm<a class="headerlink" href="#render-algorithm" title="Permalink to this heading">¶</a></h2>
 <p>The renderer computes a <strong>working set</strong> of chunks based on the current
 view. The working set is the set of chunks that we want to draw in order to
 depict the current view of the data. The renderer will step through every
 chunk in the working set and do one of these three things:</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Case</p></th>
-<th class="text-align:left head"><p>Action</p></th>
+<tr class="row-odd"><th class="text-left head"><p>Case</p></th>
+<th class="text-left head"><p>Action</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Chunk is in VRAM</p></td>
-<td class="text-align:left"><p>Render the chunk</p></td>
+<tr class="row-even"><td class="text-left"><p>Chunk is in VRAM</p></td>
+<td class="text-left"><p>Render the chunk</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Chunk is in RAM but not VRAM</p></td>
-<td class="text-align:left"><p>Transfer the chunk to VRAM if there is time</p></td>
+<tr class="row-odd"><td class="text-left"><p>Chunk is in RAM but not VRAM</p></td>
+<td class="text-left"><p>Transfer the chunk to VRAM if there is time</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Chunk is not in RAM</p></td>
-<td class="text-align:left"><p>Ask the <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> to load the chunk</p></td>
+<tr class="row-even"><td class="text-left"><p>Chunk is not in RAM</p></td>
+<td class="text-left"><p>Ask the <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> to load the chunk</p></td>
 </tr>
 </tbody>
 </table>
 <p>The important thing about this algorithm is that it never blocks. It draws
 what it can draw without blocking, and then it loads more data so that it
 can draw more in the future.</p>
-<section id="chunked-file-formats">
-<h3>Chunked file formats<a class="headerlink" href="#chunked-file-formats" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="chunked-file-formats">
+<h3>Chunked file formats<a class="headerlink" href="#chunked-file-formats" title="Permalink to this heading">¶</a></h3>
 <p>Napari’s rendering chunks will often correspond to blocks of contiguous
 memory inside a chunked file format like
 <a class="reference external" href="https://zarr.readthedocs.io/en/stable/">Zarr</a>, and exposed by an API like
@@ -1949,9 +2041,9 @@ operation. Using cubic chunks is nice because you get the same performance
 whether you are viewing the data in XY, XZ or YZ orientations. It’s also
 nice because you can scroll through slices quickly since on average 32
 slices above and below your current location are already in RAM.</p>
-</section>
-<section id="render-chunks">
-<h3>Render chunks<a class="headerlink" href="#render-chunks" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="render-chunks">
+<h3>Render chunks<a class="headerlink" href="#render-chunks" title="Permalink to this heading">¶</a></h3>
 <p>If a chunked file format is available, and those chunks are reasonably
 sized, then Napari can use those chunks for rendering. If chunks are not
 available, for example with issue
@@ -1964,10 +2056,10 @@ image <strong>layers</strong> per slice. In that case the <em>image layers are o
 In general we can get creative with chunks, they can be spatial or
 non-spatial subdivisions. As long as something can be loaded and drawn
 independently it can be a chunk.</p>
-</section>
-</section>
-<section id="example-computed-layers">
-<h2>Example: Computed layers<a class="headerlink" href="#example-computed-layers" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="example-computed-layers">
+<h2>Example: Computed layers<a class="headerlink" href="#example-computed-layers" title="Permalink to this heading">¶</a></h2>
 <p>In <a class="reference external" href="https://github.com/napari/napari/issues/1320">#1320</a> the images are not
 chunked since they are very small, but there are 3 layers per slice. These
 per-slice layers are our chunks. Two layers are coming off disk quickly,
@@ -1978,9 +2070,9 @@ through the paged layers quickly, and then pause a bit to allow the
 computed layer to load in. Asynchronous rendering greatly improves the
 user’s experience in this case.</p>
 <p><img alt="example-1320" src="../_images/example-1320.png" /></p>
-</section>
-<section id="octree">
-<h2>Octree<a class="headerlink" href="#octree" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="octree">
+<h2>Octree<a class="headerlink" href="#octree" title="Permalink to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC</span></code> flag enables the experimental <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> which
 implements asynchronous loading. One step beyond this is <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code>
 which replaces the regular <code class="docutils literal notranslate"><span class="pre">Image</span></code> class with a new class called
@@ -2004,23 +2096,23 @@ volumes. So we use the name Octree in the code for both cases.</p>
 one level of detail, it’s trivial to find the same data at a higher or
 lower level of detail. The data is spatially organized so it’s fast and
 easy to jump from one level fo detail to another.</p>
-</section>
-<section id="sparse-octree">
-<h2>Sparse Octree<a class="headerlink" href="#sparse-octree" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="sparse-octree">
+<h2>Sparse Octree<a class="headerlink" href="#sparse-octree" title="Permalink to this heading">¶</a></h2>
 <p>Napari does not construct or maintain an Octree for the whole dataset. The
 Octree is created on the fly only for the portion of the data napari is
 rendering. For some datasets level 0 of the Octree contains tens of
 millions of chunks. No matter how little data we stored per chunk, it would
 be slow and wasteful to create an octree that contains all of the data. So
 we only create the Octree where the camera is actively looking.</p>
-</section>
-<section id="beyond-images">
-<h2>Beyond images<a class="headerlink" href="#beyond-images" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="beyond-images">
+<h2>Beyond images<a class="headerlink" href="#beyond-images" title="Permalink to this heading">¶</a></h2>
 <p>Images are the marquee data type for napari, but napari can also display
 geometry such as points, shapes and meshes. The <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> and Octree
 will be used for all layer types, but there will be additional challenges
 to make things work with non-image layers:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Downsampling images is fast and well understood, but “downsampling”
 geometry is called decimation and it can be slow and complicated. Also
 there is not one definitive decimation, there will be trade-offs between
@@ -2034,11 +2126,11 @@ there might be pockets of super high density data. For example the data
 might have millions of points or triangles in a tiny geographic area.
 This might tax the rendering in new ways that images did not.</p></li>
 </ol>
-</section>
-<section id="appendix">
-<h2>Appendix<a class="headerlink" href="#appendix" title="Permalink to this headline">¶</a></h2>
-<section id="a-threads-and-processes">
-<h3>A. Threads and processes<a class="headerlink" href="#a-threads-and-processes" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="appendix">
+<h2>Appendix<a class="headerlink" href="#appendix" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="a-threads-and-processes">
+<h3>A. Threads and processes<a class="headerlink" href="#a-threads-and-processes" title="Permalink to this heading">¶</a></h3>
 <p>By default the <code class="docutils literal notranslate"><span class="pre">ChunkLoader</span></code> uses a <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> thread pool.
 Threads are fast and simple and well understood. All threads in a process
 can access the same process memory, so nothing needs to be serialized or
@@ -2065,18 +2157,18 @@ that napari should only support thread pools, and if you need processes you
 should use napari with Dask. Basically, we might outsource multi-processing
 to Dask. How exactly napari will interoperate with Dask is to be
 determined.</p>
-</section>
-<section id="b-number-of-workers">
-<h3>B. Number of workers<a class="headerlink" href="#b-number-of-workers" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="b-number-of-workers">
+<h3>B. Number of workers<a class="headerlink" href="#b-number-of-workers" title="Permalink to this heading">¶</a></h3>
 <p>How many worker threads or processes should we use? The optimal number will
 obviously depend on the hardware, but it also might depend on the workload.
 One thread per core is a reasonable starting point, but a different number
 of workers might be more efficient in certain situations. Our goal is to
 have reasonable defaults that most users can live with, but provide
 configuration settings for expert users to adjust if needed.</p>
-</section>
-<section id="c-asyncio">
-<h3>C. asyncio<a class="headerlink" href="#c-asyncio" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="c-asyncio">
+<h3>C. asyncio<a class="headerlink" href="#c-asyncio" title="Permalink to this heading">¶</a></h3>
 <p>Python also has a newer concurrency mechanism called
 <a class="reference external" href="https://docs.python.org/3/library/asyncio.html">asyncio</a> which is
 different from threads or processes, <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> tasks are similar to
@@ -2088,9 +2180,9 @@ parallel, but they can all be in progress in various states of completion
 and worked on round-robin. While we have no current plans to use <code class="docutils literal notranslate"><span class="pre">asyncio</span></code>
 for rendering, we should keep in mind that it exists and it might be
 something we can use down the road.</p>
-</section>
-<section id="d-vram-and-vispy">
-<h3>D. VRAM and Vispy<a class="headerlink" href="#d-vram-and-vispy" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="d-vram-and-vispy">
+<h3>D. VRAM and Vispy<a class="headerlink" href="#d-vram-and-vispy" title="Permalink to this heading">¶</a></h3>
 <p>With OpenGL you cannot directly manage VRAM. Instead we will implicitly
 control what’s in VRAM based on what <a class="reference external" href="http://vispy.org/">vispy</a> objects
 exist and what objects we are drawing.</p>
@@ -2102,9 +2194,9 @@ into VRAM by <code class="docutils literal notranslate"><span class="pre">vispy<
 many new vispy objects we create each frame. For example, we might find
 that we can only draw two or three new chunks per frame. So if we load ten
 chunks, we might need to page that data into VRAM over four or five frames.</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -2440,7 +2532,7 @@ chunks, we might need to page that data into VRAM over four or five frames.</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

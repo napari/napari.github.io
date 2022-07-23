@@ -21,11 +21,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -36,6 +31,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
@@ -113,6 +109,88 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">latest</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables _modules/npe2/manifest/schema and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "_modules/npe2/manifest/schema.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "_modules/npe2/manifest/schema.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's dev variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "latest") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -246,11 +324,13 @@
 
     <span class="n">display_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;User-facing text to display as the name of this plugin&quot;</span><span class="p">,</span>
-        <span class="c1"># Must be 3-40 characters long, containing printable word characters,</span>
-        <span class="c1"># and must not begin or end with an underscore, white space, or</span>
-        <span class="c1"># non-word character.</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;User-facing text to display as the name of this plugin. &quot;</span>
+        <span class="s2">&quot;Must be 3-40 characters long, containing printable word characters, &quot;</span>
+        <span class="s2">&quot;and must not begin or end with an underscore, white space, or &quot;</span>
+        <span class="s2">&quot;non-word character. If not provided, the manifest `name` will be used as the &quot;</span>
+        <span class="s2">&quot;display name.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
+
     <span class="n">_validate_display_name</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="s2">&quot;display_name&quot;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span>
         <span class="n">_validators</span><span class="o">.</span><span class="n">display_name</span>
     <span class="p">)</span>
@@ -313,7 +393,12 @@
         <span class="s2">&quot;For normal (non-dynamic) plugins, this data will come from the package&#39;s &quot;</span>
         <span class="s2">&quot;setup.cfg&quot;</span><span class="p">,</span>
         <span class="n">hide_docs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">exclude</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">npe1_shim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether this manifest was created as a shim for an npe1 plugin.&quot;</span><span class="p">,</span>
+        <span class="n">hide_docs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
@@ -427,20 +512,20 @@
 <span class="sd">        This function searches for installed python packages with a matching</span>
 <span class="sd">        entry point group and then attempts to resolve the manifest file.</span>
 
-<span class="sd">        The manifest file should be specified in the plugin&#39;s `setup.cfg` or</span>
-<span class="sd">        `setup.py` file using the [entry point group][1]: &quot;napari.manifest&quot;.</span>
+<span class="sd">        The manifest file should be specified in the plugin&#39;s ``setup.cfg`` or</span>
+<span class="sd">        ``setup.py`` file using the [entry point group][1]: &quot;napari.manifest&quot;.</span>
 <span class="sd">        For example, this would be the section for a plugin &quot;npe-tester&quot; with</span>
 <span class="sd">        &quot;napari.yaml&quot; as the manifest file:</span>
 
-<span class="sd">        ```cfg</span>
-<span class="sd">        [options.entry_points]</span>
-<span class="sd">        napari.manifest =</span>
-<span class="sd">            npe2-tester = npe2_tester:napari.yaml</span>
-<span class="sd">        ```</span>
+<span class="sd">        .. code-block:: cfg</span>
+
+<span class="sd">            [options.entry_points]</span>
+<span class="sd">            napari.manifest =</span>
+<span class="sd">                npe2-tester = npe2_tester:napari.yaml</span>
 
 <span class="sd">        The manifest file is specified relative to the submodule root path.</span>
 <span class="sd">        So for the example it will be loaded from:</span>
-<span class="sd">        `&lt;path/to/npe2-tester&gt;/napari.yaml`.</span>
+<span class="sd">        ``&lt;path/to/npe2-tester&gt;/napari.yaml``.</span>
 
 <span class="sd">        [1]: https://packaging.python.org/specifications/entry-points/</span>
 

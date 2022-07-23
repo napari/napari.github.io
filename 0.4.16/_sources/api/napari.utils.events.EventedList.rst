@@ -61,11 +61,7 @@ napari.utils.events.EventedList
 
    .. autosummary::
    
-<<<<<<< HEAD:_sources/api/napari.utils.events.EventedList.rst
-      
-=======
       ~EventedList.events
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.utils.events.EventedList.rst
    
    
 

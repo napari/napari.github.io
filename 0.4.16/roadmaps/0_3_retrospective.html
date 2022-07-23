@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roadmap 0.3 Retrospective &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Roadmap 0.3" href="0_3.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables roadmaps/0_3_retrospective and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "roadmaps/0_3_retrospective.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "roadmaps/0_3_retrospective.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -610,14 +702,14 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="roadmap-0-3-retrospective">
-<h1>Roadmap 0.3 Retrospective<a class="headerlink" href="#roadmap-0-3-retrospective" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="roadmap-0-3-retrospective">
+<h1>Roadmap 0.3 Retrospective<a class="headerlink" href="#roadmap-0-3-retrospective" title="Permalink to this heading">¶</a></h1>
 <p>Periodically, the napari team produces roadmaps to clarify priorities in the coming months of development. When a new roadmap is introduced, we will retrospectively examine how well actual development tracked with the appropriate roadmap.</p>
 <p>Below, we examine our 0.3.x roadmap (reproduced in its entirety) and compare it to what we achieved in the corresponding 6 months (in inline quote blocks).</p>
-<section id="for-0-3-series-of-releases-april-2020-nov-2020">
-<h2>For 0.3.* series of releases - April 2020-Nov 2020<a class="headerlink" href="#for-0-3-series-of-releases-april-2020-nov-2020" title="Permalink to this headline">¶</a></h2>
-<p>The napari roadmap captures current development priorities within the project and should serve as a guide for napari core developers, to encourage and inspire contributors, and to provide insights to external developers who are interested in building for the napari ecosystem. For more details on what this document is and is not, see the <a class="reference external" href="#about-this-document">about this document section</a>.</p>
-<p>The <a class="reference external" href="mission-and-values#our-mission">mission</a> of napari is to be a foundational multi-dimensional image viewer for Python and provide graphical user interface (GUI) access to image analysis tools from the Scientific Python ecosystem for scientists across domains and levels of coding experience. To work towards this mission, we have set the following three high-level priorities to guide us over the upcoming months:</p>
+<div class="section" id="for-0-3-series-of-releases-april-2020-nov-2020">
+<h2>For 0.3.* series of releases - April 2020-Nov 2020<a class="headerlink" href="#for-0-3-series-of-releases-april-2020-nov-2020" title="Permalink to this heading">¶</a></h2>
+<p>The napari roadmap captures current development priorities within the project and should serve as a guide for napari core developers, to encourage and inspire contributors, and to provide insights to external developers who are interested in building for the napari ecosystem. For more details on what this document is and is not, see the <span class="xref myst">about this document section</span>.</p>
+<p>The <span class="xref myst">mission</span> of napari is to be a foundational multi-dimensional image viewer for Python and provide graphical user interface (GUI) access to image analysis tools from the Scientific Python ecosystem for scientists across domains and levels of coding experience. To work towards this mission, we have set the following three high-level priorities to guide us over the upcoming months:</p>
 <ul class="simple">
 <li><p>Make the <strong>data viewing and annotation</strong> capabilities <strong>bug-free and fast</strong>.</p></li>
 <li><p>Make a <strong>downloadable application</strong> with reader / writer plugin management.</p></li>
@@ -627,9 +719,9 @@
 <blockquote>
 <div><p>Note added Novemember 2020. We have now finished our 0.3 series of releases. Overall we made good progress towards these priorites. We now provide cross-platform support for downloadable app that you can install reader and writer plugins into. We added support for world coordinates, we reduced the number of bugs by ~20% (&gt;80 to &lt;60), and we’ve begun begun to support asynchronous rendering and improve performance. We also had some highlights that weren’t on our roadmap including contributions from the community like the Tracks layer. We’ve added more documentation and tutorials, but a redesign of our website is still in progress. For a detailed lookback at the work that was done during the <code class="docutils literal notranslate"><span class="pre">0.3</span></code> series of releases you can look at comments under the individual bullet items below. For a look at where things are heading next, please see our <a class="reference external" href="https://napari.org/roadmaps/0_4.html">0.4 roadmap</a>.</p>
 </div></blockquote>
-</section>
-<section id="make-the-data-viewing-and-annotation-capabilities-bug-free-fast-and-easy-to-use">
-<h2>Make the data viewing and annotation capabilities bug-free, fast and easy to use<a class="headerlink" href="#make-the-data-viewing-and-annotation-capabilities-bug-free-fast-and-easy-to-use" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="make-the-data-viewing-and-annotation-capabilities-bug-free-fast-and-easy-to-use">
+<h2>Make the data viewing and annotation capabilities bug-free, fast and easy to use<a class="headerlink" href="#make-the-data-viewing-and-annotation-capabilities-bug-free-fast-and-easy-to-use" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p><strong>Better support for viewing big datasets</strong>. Currently, napari is fast when viewing on-disk datasets that can be naturally sliced along one axis (e.g. a time series) <em>and where loading one slice is fast</em>. However, when the loading is slow, the napari UI itself becomes slow, sometimes to the point of being unusable. We aim to improve this by making views and interactions non-blocking (<a class="reference external" href="https://github.com/napari/napari/issues/845">#845</a>), and improving caching (<a class="reference external" href="https://github.com/napari/napari/issues/718">#718</a>). We will also ensure that napari can be used <code class="docutils literal notranslate"><span class="pre">headless</span></code> without the GUI.</p>
 <blockquote>
@@ -677,9 +769,9 @@
 </div></blockquote>
 </li>
 </ul>
-</section>
-<section id="make-a-downloadable-application-with-basic-plugin-management-and-persistent-settings">
-<h2>Make a downloadable application with basic plugin management and persistent settings<a class="headerlink" href="#make-a-downloadable-application-with-basic-plugin-management-and-persistent-settings" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="make-a-downloadable-application-with-basic-plugin-management-and-persistent-settings">
+<h2>Make a downloadable application with basic plugin management and persistent settings<a class="headerlink" href="#make-a-downloadable-application-with-basic-plugin-management-and-persistent-settings" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>Distribute <strong>a bundled application for each major OS</strong> <a class="reference external" href="https://github.com/napari/napari/pull/496">#496</a> to allow scientists to use napari without requiring a Python development environment, which can be difficult to install and maintain. The bundle should contain the necessary machinery to add plugins <a class="reference external" href="https://github.com/napari/napari/issues/1074">#1074</a>.</p>
 <blockquote>
@@ -697,9 +789,9 @@
 </div></blockquote>
 </li>
 </ul>
-</section>
-<section id="provide-accessible-documentation-tutorials-and-demos">
-<h2>Provide accessible documentation, tutorials, and demos<a class="headerlink" href="#provide-accessible-documentation-tutorials-and-demos" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="provide-accessible-documentation-tutorials-and-demos">
+<h2>Provide accessible documentation, tutorials, and demos<a class="headerlink" href="#provide-accessible-documentation-tutorials-and-demos" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>Improve our website <a class="reference external" href="https://napari.org">napari.org</a> to provide easy access to all napari related materials, including the <a class="reference external" href="https://www.divio.com/blog/documentation/"><strong>four types of documentation</strong></a>: learning-oriented tutorials, goal-oriented how-to-guides or galleries, understanding-oriented explanations (including developer resources), and a comprehensive API reference. See <a class="reference external" href="https://github.com/napari/napari/issues/764">#764</a> and the <a class="reference external" href="https://github.com/napari/napari/labels/documentation"><code class="docutils literal notranslate"><span class="pre">documentation</span></code> label</a> on the napari repository for more details.</p>
 <blockquote>
@@ -712,9 +804,9 @@
 </div></blockquote>
 </li>
 </ul>
-</section>
-<section id="work-prioritized-for-future-roadmaps">
-<h2>Work prioritized for future roadmaps<a class="headerlink" href="#work-prioritized-for-future-roadmaps" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="work-prioritized-for-future-roadmaps">
+<h2>Work prioritized for future roadmaps<a class="headerlink" href="#work-prioritized-for-future-roadmaps" title="Permalink to this heading">¶</a></h2>
 <p>We’re also planning or working on the following more advanced features, which will likely be prioritized in future roadmaps:</p>
 <ul>
 <li><p>General support for undo / redo functionality <a class="reference external" href="https://github.com/napari/napari/issues/299">#474</a>, a history feature, and macro generation.</p></li>
@@ -729,15 +821,15 @@
 <li><p>Support for using napari with remote computation (i.e. a remote jupyter notebook <a class="reference external" href="https://github.com/napari/napari/issues/495">#495</a>).</p></li>
 <li><p>Functional or interactive plugins that allow for analysis of data or add elements to the GUI.</p></li>
 </ul>
-</section>
-<section id="about-this-document">
-<h2>About this document<a class="headerlink" href="#about-this-document" title="Permalink to this headline">¶</a></h2>
-<p>This document is meant to be a snapshot of tasks and features that the <code class="docutils literal notranslate"><span class="pre">napari</span></code> team is investing resources in during our 0.3 series of releases starting April 2020. This document should be used to guide napari core developers, encourage and inspire contributors, and provide insights to external developers who are interested in building for the napari ecosystem. It is not meant to limit what is being worked on within napari, and in accordance with our <a class="reference external" href="mission-and-values#our-values">values</a> we remain <strong>community-driven</strong>, responding to feature requests and proposals on our <a class="reference external" href="https://github.com/napari/napari/issues">issue tracker</a> and making decisions that are driven by our users’ requirements, not by the whims of the core team.</p>
-<p>This roadmap is also designed to be in accordance with our stated <a class="reference external" href="mission-and-values#our-mission">mission</a> to be the <strong>multi-dimensional image viewer for Python</strong> and to <strong>provide graphical user interface (GUI) access to a plugin ecosystem of image analysis tools for scientists</strong> to use in their daily work.</p>
+</div>
+<div class="section" id="about-this-document">
+<h2>About this document<a class="headerlink" href="#about-this-document" title="Permalink to this heading">¶</a></h2>
+<p>This document is meant to be a snapshot of tasks and features that the <code class="docutils literal notranslate"><span class="pre">napari</span></code> team is investing resources in during our 0.3 series of releases starting April 2020. This document should be used to guide napari core developers, encourage and inspire contributors, and provide insights to external developers who are interested in building for the napari ecosystem. It is not meant to limit what is being worked on within napari, and in accordance with our <span class="xref myst">values</span> we remain <strong>community-driven</strong>, responding to feature requests and proposals on our <a class="reference external" href="https://github.com/napari/napari/issues">issue tracker</a> and making decisions that are driven by our users’ requirements, not by the whims of the core team.</p>
+<p>This roadmap is also designed to be in accordance with our stated <span class="xref myst">mission</span> to be the <strong>multi-dimensional image viewer for Python</strong> and to <strong>provide graphical user interface (GUI) access to a plugin ecosystem of image analysis tools for scientists</strong> to use in their daily work.</p>
 <p>For more details on the high level goals and decision making processes within napari you are encouraged to read our <a class="reference internal" href="../community/mission_and_values.html#mission-and-values"><span class="std std-ref">mission and values statement</span></a> and look at our <a class="reference internal" href="../community/governance.html#napari-governance"><span class="std std-ref">governance model</span></a>. If you are interested in contributing to napari, we’d love to have your contributions, and you should read our <a class="reference internal" href="../developers/contributing.html#napari-contributing"><span class="std std-ref">contributing guidelines</span></a> for information on how to get started.</p>
 <p>Another good place to look for information around bigger-picture discussions within napari are our issues tagged with the <a class="reference external" href="https://github.com/napari/napari/labels/long-term%20feature"><code class="docutils literal notranslate"><span class="pre">long-term</span> <span class="pre">feature</span></code> label</a>.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -1073,7 +1165,7 @@
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

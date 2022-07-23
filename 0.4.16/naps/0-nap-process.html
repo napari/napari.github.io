@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NAP 0 — Purpose and Process &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="NAP-X — Template and Instructions" href="template.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables naps/0-nap-process and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "naps/0-nap-process.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "naps/0-nap-process.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -656,8 +748,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="nap-0-purpose-and-process">
-<span id="nap0"></span><h1>NAP 0 — Purpose and Process<a class="headerlink" href="#nap-0-purpose-and-process" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="nap-0-purpose-and-process">
+<span id="nap0"></span><h1>NAP 0 — Purpose and Process<a class="headerlink" href="#nap-0-purpose-and-process" title="Permalink to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>“Juan Nunez-Iglesias &lt;<a class="reference external" href="mailto:jni&#37;&#52;&#48;fastmail&#46;com">mailto:jni<span>&#64;</span>fastmail<span>&#46;</span>com</a>&gt;”</p>
@@ -678,8 +770,8 @@
 <dd class="field-even"><p>Process</p>
 </dd>
 </dl>
-<section id="what-is-a-nap">
-<h2>What is a NAP?<a class="headerlink" href="#what-is-a-nap" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-is-a-nap">
+<h2>What is a NAP?<a class="headerlink" href="#what-is-a-nap" title="Permalink to this heading">¶</a></h2>
 <p>NAP stands for Napari Advancement Proposal. A NAP is a design document
 providing information to the community, or describing a new feature for
 napari, its processes, or its environment. (See “Scope of NAPs”, below.) The
@@ -693,8 +785,8 @@ dissenting opinions.</p>
 <p>Because the NAPs are maintained as text files in a versioned repository,
 their revision history is the historical record of the feature proposal
 <a class="footnote-reference brackets" href="#id3" id="id1">1</a>.</p>
-<section id="scope-of-naps">
-<h3>Scope of NAPs<a class="headerlink" href="#scope-of-naps" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="scope-of-naps">
+<h3>Scope of NAPs<a class="headerlink" href="#scope-of-naps" title="Permalink to this heading">¶</a></h3>
 <p>The napari project has grown in scope beyond just the software living in the
 github.com/napari/napari repository. It includes several other software
 packages such as npe2 (napari plugin engine 2), superqt, and magicgui, tools
@@ -716,9 +808,9 @@ as a way to document the plan, solicit feedback, and record the feedback and
 any final decisions. In general, the napari developers encourage and appreciate
 such engagement with the community as a way to build consensus and drive the
 ecosystem forward, together.</p>
-</section>
-<section id="when-is-a-nap-warranted">
-<h3>When is a NAP warranted?<a class="headerlink" href="#when-is-a-nap-warranted" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="when-is-a-nap-warranted">
+<h3>When is a NAP warranted?<a class="headerlink" href="#when-is-a-nap-warranted" title="Permalink to this heading">¶</a></h3>
 <p>Most contributions to napari should go through the standard <a class="reference internal" href="../developers/contributing.html#napari-contributing"><span class="std std-ref">contributing
 process</span></a>, that is, opening a pull request to the main
 repository. They will typically be uncontroversial improvements, and
@@ -738,11 +830,11 @@ community members might be confused about parts of napari’s design,
 and whether alternate designs were considered and rejected, or simply not
 considered. It might then be useful to write a retrospective informational
 NAP to explain that aspect of the project.</p>
-</section>
-<section id="types-of-naps">
-<h3>Types of NAPs<a class="headerlink" href="#types-of-naps" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="types-of-naps">
+<h3>Types of NAPs<a class="headerlink" href="#types-of-naps" title="Permalink to this heading">¶</a></h3>
 <p>There are three kinds of NAPs:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>A <strong>Standards Track</strong> NAP describes a new feature or implementation
 for napari.</p></li>
 <li><p>An <strong>Informational</strong> NAP describes a napari design issue, or provides
@@ -768,10 +860,10 @@ procedures, guidelines, changes to the
 changes to the tools or environment used in napari development.
 Any meta-NAP is also considered a Process NAP.</p></li>
 </ol>
-</section>
-</section>
-<section id="nap-workflow">
-<h2>NAP Workflow<a class="headerlink" href="#nap-workflow" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="nap-workflow">
+<h2>NAP Workflow<a class="headerlink" href="#nap-workflow" title="Permalink to this heading">¶</a></h2>
 <p>The NAP process begins with a new idea for napari. A NAP should contain a
 single key proposal or new idea. Small enhancements or patches often don’t
 need a NAP and can be injected into the napari development workflow with a
@@ -806,8 +898,8 @@ prototype implementation be co-developed with the NAP, as ideas that sound
 good in principle sometimes turn out to be impractical. Often it makes
 sense for the prototype implementation to be made available as a PR to the
 napari repo, as long as it is properly marked as WIP (work in progress).</p>
-<section id="review-and-resolution">
-<h3>Review and Resolution<a class="headerlink" href="#review-and-resolution" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="review-and-resolution">
+<h3>Review and Resolution<a class="headerlink" href="#review-and-resolution" title="Permalink to this heading">¶</a></h3>
 <p>NAPs are discussed in Zulip, on image.sc, and on GitHub. The possible paths
 of the status of NAPs are as follows:</p>
 <img alt="../_images/nap-flowchart.png" src="../_images/nap-flowchart.png" />
@@ -851,9 +943,9 @@ original obsolete. The <code class="docutils literal notranslate"><span class="p
 should be added to the original and new NAPs respectively.</p>
 <p>Process NAPs may also have a status of <code class="docutils literal notranslate"><span class="pre">Active</span></code> if they are never
 meant to be completed, e.g. NAP 0 (this NAP).</p>
-</section>
-<section id="how-a-nap-becomes-accepted">
-<h3>How a NAP becomes Accepted<a class="headerlink" href="#how-a-nap-becomes-accepted" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="how-a-nap-becomes-accepted">
+<h3>How a NAP becomes Accepted<a class="headerlink" href="#how-a-nap-becomes-accepted" title="Permalink to this heading">¶</a></h3>
 <p>Generally, a NAP is <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> by consensus of all interested contributors. We
 therefore need a concrete way to tell whether consensus has been reached. When
 you think a NAP is ready to be accepted, start a topic on the Zulip naps
@@ -898,9 +990,9 @@ proposed for acceptance again later once the objections are resolved.</p>
 the <a class="reference external" href="https://napari.org/community/governance.html">napari Steering Council</a> may be asked to decide whether a
 controversial NAP is accepted, according to our
 <a class="reference internal" href="../community/governance.html#napari-governance"><span class="std std-ref">governance</span></a>.</p>
-</section>
-<section id="maintenance">
-<h3>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="maintenance">
+<h3>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this heading">¶</a></h3>
 <p>In general, Standards track NAPs are no longer modified after they have
 reached the Final state, as the code and project documentation are
 considered the ultimate reference for the implemented feature. They may,
@@ -908,16 +1000,16 @@ however, be updated under special circumstances.</p>
 <p>Process NAPs may be updated over time to reflect changes
 to development practices and other details. The precise process followed in
 these cases will depend on the nature and purpose of the NAP being updated.</p>
-</section>
-</section>
-<section id="format-and-template">
-<h2>Format and Template<a class="headerlink" href="#format-and-template" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="format-and-template">
+<h2>Format and Template<a class="headerlink" href="#format-and-template" title="Permalink to this heading">¶</a></h2>
 <p>NAPs are UTF-8 encoded text files using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/index.html">MyST markdown</a> format.  Please
 see the <a class="reference internal" href="template.html#nap-template"><span class="std std-ref">NAP-X — Template and Instructions</span></a> file and the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/syntax.html">MyST markdown cheat sheet</a> for
 more information.  We use <a class="reference external" href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> to convert NAPs to HTML for viewing on
 the web <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
-<section id="header-preamble">
-<h3>Header Preamble<a class="headerlink" href="#header-preamble" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="header-preamble">
+<h3>Header Preamble<a class="headerlink" href="#header-preamble" title="Permalink to this heading">¶</a></h3>
 <p>Each NAP must begin with a header preamble.  The headers
 must appear in the following order.  Headers marked with <code class="docutils literal notranslate"><span class="pre">*</span></code> are
 optional.  All other headers are required.</p>
@@ -944,24 +1036,24 @@ all the authors of the NAP. The format of the Author header value must be</p>
 </div></blockquote>
 <p>if the address is not given.  If there are multiple authors, each should be
 on a separate line.</p>
-</section>
-</section>
-<section id="discussion">
-<h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4299">https://github.com/napari/napari/pull/4299</a></p></li>
 </ul>
-</section>
-<section id="references-and-footnotes">
-<h2>References and Footnotes<a class="headerlink" href="#references-and-footnotes" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="acknowledgements">
-<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="references-and-footnotes">
+<h2>References and Footnotes<a class="headerlink" href="#references-and-footnotes" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this heading">¶</a></h2>
 <p>This process was based on existing process from the scikit-image (SKIPs), NumPy
 (NEPs), and Python (PEPs) projects.</p>
-</section>
-<section id="copyright">
-<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="copyright">
+<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this heading">¶</a></h2>
 <p>This document has been placed in the public domain.</p>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
@@ -975,8 +1067,8 @@ for retrieving older revisions, and can also be browsed on
 <a class="reference external" href="https://napari.org/naps/">https://napari.org/naps/</a></p>
 </dd>
 </dl>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -1312,7 +1404,7 @@ for retrieving older revisions, and can also be browsed on
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

@@ -58,11 +58,7 @@ napari.utils.events.EventedDict
 
    .. autosummary::
    
-<<<<<<< HEAD:_sources/api/napari.utils.events.EventedDict.rst
-      
-=======
       ~EventedDict.events
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.utils.events.EventedDict.rst
    
    
 

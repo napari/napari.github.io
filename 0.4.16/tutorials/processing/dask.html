@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Using Dask and napari to process &amp; view large datasets &#8212; napari</title>
   <link rel="stylesheet" href="../../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Segmentation" href="../segmentation/index.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables tutorials/processing/dask and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "tutorials/processing/dask.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "tutorials/processing/dask.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1721,8 +1813,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="using-dask-and-napari-to-process-view-large-datasets">
-<h1>Using Dask and napari to process &amp; view large datasets<a class="headerlink" href="#using-dask-and-napari-to-process-view-large-datasets" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="using-dask-and-napari-to-process-view-large-datasets">
+<h1>Using Dask and napari to process &amp; view large datasets<a class="headerlink" href="#using-dask-and-napari-to-process-view-large-datasets" title="Permalink to this heading">¶</a></h1>
 <p>Often in microscopy, multidimensional data is acquired and written to disk in many small files,
 each of which contain a subset of one or more dimensions from the complete dataset.
 For example, in a 5-dimensional experiment
@@ -1757,8 +1849,8 @@ Or perhaps you’d like to apply some basic image corrections or ratiometry prio
 The second part of this tutorial demonstrates the use of the <a class="reference external" href="https://docs.dask.org/en/latest/array-api.html#dask.array.map_blocks"><code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code></a> function
 to describe an arbitrary sequence of functions in a declarative manner
 that will be performed <em>on demand</em> as you explore the data (i.e. move the sliders) in <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p>
-<section id="using-dask-delayed-to-load-images">
-<h2>Using <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code> to load images<a class="headerlink" href="#using-dask-delayed-to-load-images" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-dask-delayed-to-load-images">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code> to load images<a class="headerlink" href="#using-dask-delayed-to-load-images" title="Permalink to this heading">¶</a></h2>
 <p>If you have a function that can take a filename and return a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array,
 such as <code class="docutils literal notranslate"><span class="pre">skimage.io.imread</span></code>,
 you can create a “lazy” version of that function by calling <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code> on the function itself.
@@ -1819,9 +1911,9 @@ and handing a <code class="docutils literal notranslate"><span class="pre">numpy
 </div>
 <p><em>Note: providing the</em> <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">multiscale</span></code> <em>arguments prevents</em> <code class="docutils literal notranslate"><span class="pre">napari</span></code> <em>from trying to calculate the data min/max, which can take an extremely long time with big data.
 See <a class="reference external" href="https://github.com/napari/napari/issues/736">napari issue #736</a> for further discussion.</em></p>
-</section>
-<section id="make-your-life-easier-with-dask-image">
-<h2>Make your life easier with <code class="docutils literal notranslate"><span class="pre">dask-image</span></code><a class="headerlink" href="#make-your-life-easier-with-dask-image" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="make-your-life-easier-with-dask-image">
+<h2>Make your life easier with <code class="docutils literal notranslate"><span class="pre">dask-image</span></code><a class="headerlink" href="#make-your-life-easier-with-dask-image" title="Permalink to this heading">¶</a></h2>
 <p>This pattern for creating a <code class="docutils literal notranslate"><span class="pre">dask.array</span></code> from image data
 has been previously described in an <a class="reference external" href="https://blog.dask.org/2019/06/20/load-image-data">excellent blog post</a> by John Kirkham.
 It is a common-enough pattern that John created a useful library (<a class="reference external" href="https://github.com/dask/dask-image"><code class="docutils literal notranslate"><span class="pre">dask-image</span></code></a>)
@@ -1836,9 +1928,9 @@ provided your image format can be read by the <a class="reference external" href
 <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><video src="../../_images/dask1.webm" title="napari viewer with image loaded as a dask array showing mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope."><a href="../../_images/dask1.webm">napari viewer with image loaded as a dask array showing mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope.</a></video></p>
-<section id="side-note-regarding-higher-dimensional-datasets">
-<h3><strong>Side note regarding higher-dimensional datasets</strong><a class="headerlink" href="#side-note-regarding-higher-dimensional-datasets" title="Permalink to this headline">¶</a></h3>
+<p><img alt="napari viewer with image loaded as a dask array showing mCherry-H2B showing chromosome separation during mitosis. Collected on a lattice light sheet microscope." src="../../_images/dask1.webm" /></p>
+<div class="section" id="side-note-regarding-higher-dimensional-datasets">
+<h3><strong>Side note regarding higher-dimensional datasets</strong><a class="headerlink" href="#side-note-regarding-higher-dimensional-datasets" title="Permalink to this heading">¶</a></h3>
 <p>In the above example, it would be quite common to have a 5+ dimensional dataset
 (e.g. different timepoints <em>and</em> channels represented among the 3D TIFF files in a folder).
 A standard approach to deal with that sort of thing in <code class="docutils literal notranslate"><span class="pre">numpy</span></code> would be to <code class="docutils literal notranslate"><span class="pre">reshape</span></code> the array after instantiation.
@@ -1876,10 +1968,10 @@ Dask arrays altogether, by constructing multiple Dask arrays using <code class="
 
 </pre></div>
 </div>
-</section>
-</section>
-<section id="processing-data-with-dask-array-map-blocks">
-<h2>Processing data with <code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code><a class="headerlink" href="#processing-data-with-dask-array-map-blocks" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="processing-data-with-dask-array-map-blocks">
+<h2>Processing data with <code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code><a class="headerlink" href="#processing-data-with-dask-array-map-blocks" title="Permalink to this heading">¶</a></h2>
 <p>As previously mentioned,
 sometimes it is desirable to process data prior to viewing.
 We’ll take as an example
@@ -1947,21 +2039,21 @@ and loaded the results into RAM and viewed them in <code class="docutils literal
 but it’s surprisingly usable,
 and allows you to preview the result of a relatively complex processing pipeline <em>on-the-fly</em>,
 for arbitrary timepoints/channels, while storing <em>only</em> the raw data on disk.</p>
-<p><video src="../../_images/dask2.webm" title="napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice."><a href="../../_images/dask2.webm">napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice.</a></video></p>
+<p><img alt="napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice." src="../../_images/dask2.webm" /></p>
 <p>This workflow is very much patterned after <a class="reference external" href="https://blog.dask.org/2019/08/09/image-itk">another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick</a>
 that describes a similar image processing pipeline using <a class="reference external" href="https://itk.org/">ITK</a>.
 <code class="docutils literal notranslate"><span class="pre">napari</span></code> simply sits at the end of this lazy processing chain,
 ready to show you the result on demand!</p>
-</section>
-<section id="further-reading">
-<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.dask.org/en/latest/delayed.html">Documentation on dask.delayed</a></p></li>
 <li><p><a class="reference external" href="https://blog.dask.org/2019/06/20/load-image-data">Dask working notes on dask-image</a></p></li>
 <li><p><a class="reference external" href="https://blog.dask.org/2019/08/09/image-itk">Dask working notes on image processing with <code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code></a></p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -2297,7 +2389,7 @@ ready to show you the result on demand!</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

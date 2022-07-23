@@ -33,7 +33,6 @@
 
    
    .. autofunction:: get_settings
-   .. autofunction:: lru_cache
    
    
 

@@ -46,11 +46,7 @@ napari.utils.notifications.NotificationManager
 
    .. autosummary::
    
-<<<<<<< HEAD:_sources/api/napari.utils.notifications.NotificationManager.rst
-      
-=======
       ~NotificationManager.records
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.utils.notifications.NotificationManager.rst
    
    
 

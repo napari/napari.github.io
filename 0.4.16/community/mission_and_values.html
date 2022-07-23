@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mission and Values &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="About the project and team" href="team.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables community/mission_and_values and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "community/mission_and_values.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "community/mission_and_values.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -605,15 +697,15 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="mission-and-values">
-<span id="id1"></span><h1>Mission and Values<a class="headerlink" href="#mission-and-values" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="mission-and-values">
+<span id="id1"></span><h1>Mission and Values<a class="headerlink" href="#mission-and-values" title="Permalink to this heading">¶</a></h1>
 <p>This document is meant to help guide decisions about the future of <code class="docutils literal notranslate"><span class="pre">napari</span></code>, be it in terms of
 whether to accept new functionality, changes to the styling of the code or graphical user interface (GUI),
 or whether to take on new dependencies, among other things. It serves as a point of reference for <a class="reference internal" href="../developers/core_dev_guide.html#core-dev-guide"><span class="std std-ref">core developers</span></a> actively working on the project, and an introduction for
 newcomers who want to learn a little more about where the project is going and what the team’s
 values are. You can also learn more about how the project is managed by looking at our <a class="reference internal" href="governance.html#napari-governance"><span class="std std-ref">governance model</span></a>.</p>
-<section id="our-founding-principles">
-<h2>Our founding principles<a class="headerlink" href="#our-founding-principles" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="our-founding-principles">
+<h2>Our founding principles<a class="headerlink" href="#our-founding-principles" title="Permalink to this heading">¶</a></h2>
 <p>The founding napari team came together around a shared vision for a Python based image viewer that is</p>
 <ul class="simple">
 <li><p>n-dimensional first</p></li>
@@ -623,9 +715,9 @@ values are. You can also learn more about how the project is managed by looking 
 <li><p>with minimal new windows and pop-ups, choosing layering instead</p></li>
 </ul>
 <p>As the project has grown we’ve turned these original principles into the mission statement and set of values that we described below.</p>
-</section>
-<section id="our-mission">
-<h2>Our mission<a class="headerlink" href="#our-mission" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="our-mission">
+<h2>Our mission<a class="headerlink" href="#our-mission" title="Permalink to this heading">¶</a></h2>
 <p>napari aims to be the <strong>multi-dimensional image viewer for Python</strong> and to <strong>provide GUI access to a plugin ecosystem of image analysis tools for scientists</strong> to use in their daily work. We hope to accomplish this by:</p>
 <ul class="simple">
 <li><p>being <strong>easy to use and install</strong>. We are careful in taking on new dependencies, sometimes making them optional, and will support a fully packaged installation that works cross-platform.</p></li>
@@ -635,9 +727,9 @@ values are. You can also learn more about how the project is managed by looking 
 <li><p>providing a <strong>consistent and stable API</strong> to enable plugin developers to build on top of napari without their code constantly breaking and to enable advanced users to build out sophisticated Python workflows. Right now we are still making breaking changes with minor version numbers <code class="docutils literal notranslate"><span class="pre">0.x</span></code> and do not have a deprecation policy, but we will work to add one soon.</p></li>
 <li><p><strong>ensuring correctness</strong>. We strive for complete test coverage of both the code and GUI, with all code reviewed by a core developer before being included in the repository.</p></li>
 </ul>
-</section>
-<section id="our-values">
-<h2>Our values<a class="headerlink" href="#our-values" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="our-values">
+<h2>Our values<a class="headerlink" href="#our-values" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>We are <strong>inclusive</strong>. We welcome and mentor newcomers who are making their first contribution and strive to grow our most dedicated contributors into <a class="reference internal" href="../developers/core_dev_guide.html#core-dev-guide"><span class="std std-ref">core developers</span></a>. We have a <a class="reference internal" href="code_of_conduct.html#napari-coc"><span class="std std-ref">Code of Conduct</span></a> to make napari
 a welcoming place for all.</p></li>
@@ -650,20 +742,20 @@ a welcoming place for all.</p></li>
 <li><p>We value <strong>education and documentation</strong>. All functions should have docstrings, preferably with examples, and major functionality should be explained in our <a class="reference external" href="https://napari.org/tutorials">tutorials</a>. Core developers can take an active role in finishing documentation examples.</p></li>
 <li><p>We <strong>minimize <a class="reference external" href="https://en.wikipedia.org/wiki/Magic_(programming)">magic</a></strong> and always provide a way for users to opt out of magical behaviour and guessing by providing explicit ways to control functionality. We support NumPy array like objects and we prefer to educate users rather than make decisions on their behalf. This does not preclude the use of sensible defaults.</p></li>
 </ul>
-</section>
-<section id="our-vision-for-plugins">
-<h2>Our vision for plugins<a class="headerlink" href="#our-vision-for-plugins" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="our-vision-for-plugins">
+<h2>Our vision for plugins<a class="headerlink" href="#our-vision-for-plugins" title="Permalink to this heading">¶</a></h2>
 <p>As noted above, napari aims to support a plugin ecosystem for scientific image analysis. We have recently taken some of the first steps towards adopting the <a class="reference external" href="https://pluggy.readthedocs.io/en/latest/">pluggy</a> plugin management framework within napari for this purpose. See <a class="reference external" href="https://github.com/napari/napari/issues/936">#936</a> and linked issues for details. Pluggy is already widely used within the Python community, in particular by the <a class="reference external" href="https://docs.pytest.org/en/latest/index.html">pytest</a> testing framework, allowing us to benefit from years of development and community support.</p>
 <p>We will be adding more dedicated documentation around plugins shortly, and this section will likely continue to be significantly updated over the coming months as more work is done, but we will lay out here some of our motivation and vision for the plugin ecosystem.</p>
 <p>Image analysis is heterogeneous and often highly specialized within different domains of science. napari alone will not try to meet all the image analysis needs of the scientific community, but instead try to be a foundational visualization tool that provides access to domain specific analysis through community developed plugins.</p>
 <p>We want to make it as easy as possible for developers to build plugins for napari, with as little to no specific napari code in your plugin as possible. Philosophically a napari plugin without napari should just be Python, and they should always be importable and runnable as such. We are looking into using minimal typing and function annotations that don’t change the runtime of your functions, but lets napari know how to interpret the inputs and outputs of your functions and integrate them with our GUI code. We are also planning to leverage git for versioning and installation of plugins.</p>
 <p>As noted above, we’ll be beginning to actively work on the plugin infrastructure over coming months and would love to get the input of the community. You can follow and contribute to our discussions and progress using the <a class="reference external" href="https://github.com/napari/napari/labels/plugins"><code class="docutils literal notranslate"><span class="pre">plugin</span></code> label on our repository</a>.</p>
-</section>
-<section id="acknowledgements">
-<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this heading">¶</a></h2>
 <p>We share a lot of our mission and values with the <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> project with whom we share founding members, and acknowledge the influence of their <a class="reference external" href="https://scikit-image.org/docs/dev/values.html">mission and values statement</a> on this document.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -999,7 +1091,7 @@ a welcoming place for all.</p></li>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

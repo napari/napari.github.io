@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>npe2 migration guide &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="1st Gen Plugin Guide (Deprecated)" href="npe1.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables plugins/npe2_migration_guide and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "plugins/npe2_migration_guide.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "plugins/npe2_migration_guide.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -409,8 +501,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="npe2-migration-guide">
-<span id="id1"></span><h1><code class="docutils literal notranslate"><span class="pre">npe2</span></code> migration guide<a class="headerlink" href="#npe2-migration-guide" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="npe2-migration-guide">
+<span id="id1"></span><h1><code class="docutils literal notranslate"><span class="pre">npe2</span></code> migration guide<a class="headerlink" href="#npe2-migration-guide" title="Permalink to this heading">¶</a></h1>
 <p>This document details how to convert a plugin using the first generation
 <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code>, to the new <code class="docutils literal notranslate"><span class="pre">npe2</span></code> format.</p>
 <p>The primary difference between the first generation and second generation plugin
@@ -419,12 +511,12 @@ generation plugin engine, napari had to <em>import</em> plugin modules to search
 hook implementations decorated with <code class="docutils literal notranslate"><span class="pre">&#64;napari_hook_implementation</span></code>. In <code class="docutils literal notranslate"><span class="pre">npe2</span></code>,
 plugins declare their contributions <em>statically</em> with a <a class="reference internal" href="manifest.html"><span class="doc std std-doc">manifest
 file</span></a>.</p>
-<section id="migrating-using-the-npe2-command-line-tool">
-<h2>Migrating using the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> command line tool<a class="headerlink" href="#migrating-using-the-npe2-command-line-tool" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="migrating-using-the-npe2-command-line-tool">
+<h2>Migrating using the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> command line tool<a class="headerlink" href="#migrating-using-the-npe2-command-line-tool" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">npe2</span></code> provides a command line interface to help convert a
 <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code>-style plugin.</p>
-<section id="install-npe2">
-<h3>1. Install <code class="docutils literal notranslate"><span class="pre">npe2</span></code><a class="headerlink" href="#install-npe2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="install-npe2">
+<h3>1. Install <code class="docutils literal notranslate"><span class="pre">npe2</span></code><a class="headerlink" href="#install-npe2" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install npe2
 </pre></div>
 </div>
@@ -451,9 +543,9 @@ Options:
   --help          Show this message and exit.
 </pre></div>
 </div>
-</section>
-<section id="ensure-your-plugin-is-intalled-in-your-environment">
-<h3>2. Ensure your plugin is intalled in your environment<a class="headerlink" href="#ensure-your-plugin-is-intalled-in-your-environment" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="ensure-your-plugin-is-intalled-in-your-environment">
+<h3>2. Ensure your plugin is intalled in your environment<a class="headerlink" href="#ensure-your-plugin-is-intalled-in-your-environment" title="Permalink to this heading">¶</a></h3>
 <p>This step is critical: your first-generation plugin <em>must</em> be installed
 in your currently active environment for <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> to find it.</p>
 <p>Typically this will look something like:</p>
@@ -467,15 +559,15 @@ like:</p>
 <div class="highlight-pytb notranslate"><div class="highlight"><pre><span></span><span class="x">PackageNotFoundError: We tried hard! but could not detect a plugin named &#39;...&#39;</span>
 </pre></div>
 </div>
-</section>
-<section id="convert-your-plugin-with-npe2-convert">
-<h3>3. Convert your plugin with <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code><a class="headerlink" href="#convert-your-plugin-with-npe2-convert" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="convert-your-plugin-with-npe2-convert">
+<h3>3. Convert your plugin with <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code><a class="headerlink" href="#convert-your-plugin-with-npe2-convert" title="Permalink to this heading">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Executing <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span> <span class="pre">.</span></code> will <strong>modify</strong> the current directory!</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> command will:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Inspect your plugin for hook implementations, and generate an npe2-compatible
 <a class="reference internal" href="manifest.html"><span class="doc std std-doc">manifest file</span></a>, called <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>.</p></li>
 <li><p><strong>Modify</strong> your <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> to use the new <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> entry point, and
@@ -511,11 +603,11 @@ must have global <code class="docutils literal notranslate"><span class="pre">py
 </div>
 <p>The next time napari is run, your plugin should be discovered as an
 <code class="docutils literal notranslate"><span class="pre">npe2</span></code> plugin.</p>
-</section>
-</section>
+</div>
+</div>
 <hr class="docutils" />
-<section id="migration-reference">
-<h2>Migration Reference<a class="headerlink" href="#migration-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="migration-reference">
+<h2>Migration Reference<a class="headerlink" href="#migration-reference" title="Permalink to this heading">¶</a></h2>
 <blockquote>
 <div><p><em>This section goes into detail on the differences between first-generation and
 second-generation implementations. In many cases, this will be more detail than
@@ -534,18 +626,18 @@ kinds of migrations <code class="docutils literal notranslate"><span class="pre"
 with migration tips. Each lists the <em>hook specifications</em> that are relevant to
 that section and an example manifest. For details, refer to the
 <a class="reference internal" href="contributions.html"><span class="doc std std-doc">Contributions references</span></a>.</p>
-<section id="readers">
-<h3>Readers<a class="headerlink" href="#readers" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="readers">
+<h3>Readers<a class="headerlink" href="#readers" title="Permalink to this heading">¶</a></h3>
 <p>Functions that acted as <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> hooks can be bound directly as the
 command for an <code class="docutils literal notranslate"><span class="pre">npe2</span></code> reader.</p>
-<section id="napari-hook-spec">
-<h4>napari_hook_spec<a class="headerlink" href="#napari-hook-spec" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="napari-hook-spec">
+<h4>napari_hook_spec<a class="headerlink" href="#napari-hook-spec" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]</span>
 </pre></div>
 </div>
-</section>
-<section id="npe2-contributions">
-<h4>npe2 contributions<a class="headerlink" href="#npe2-contributions" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="npe2-contributions">
+<h4>npe2 contributions<a class="headerlink" href="#npe2-contributions" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span><span class="w"></span>
 <span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -558,10 +650,10 @@ command for an <code class="docutils literal notranslate"><span class="pre">npe2
 <span class="w">      </span><span class="nt">filename_patterns</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;*.csv&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;*.npy&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="writers-single-layer-writers">
-<h3>Writers: Single-layer writers<a class="headerlink" href="#writers-single-layer-writers" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="writers-single-layer-writers">
+<h3>Writers: Single-layer writers<a class="headerlink" href="#writers-single-layer-writers" title="Permalink to this heading">¶</a></h3>
 <p>Functions that act as single-layer writers like <code class="docutils literal notranslate"><span class="pre">napari_write_image</span></code> hooks can
 be bound directly as the command for an <code class="docutils literal notranslate"><span class="pre">npe2</span></code> writer. The layer
 constraint(<code class="docutils literal notranslate"><span class="pre">layer_types</span></code>) and <code class="docutils literal notranslate"><span class="pre">filename_extensions</span></code> fields need to be
@@ -571,8 +663,8 @@ straightforward: <code class="docutils literal notranslate"><span class="pre">['
 writer, etc.</p>
 <p>The list of <code class="docutils literal notranslate"><span class="pre">filename_extensions</span></code> is used to determine how the writer is
 presented in napari’s “Save As” dialog.</p>
-<section id="id2">
-<h4>napari_hook_spec<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id2">
+<h4>napari_hook_spec<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">napari_write_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="k">def</span> <span class="nf">napari_write_labels</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="k">def</span> <span class="nf">napari_write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
@@ -581,9 +673,9 @@ presented in napari’s “Save As” dialog.</p>
 <span class="k">def</span> <span class="nf">napari_write_vectors</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 </pre></div>
 </div>
-</section>
-<section id="example-npe2-contribution">
-<h4>Example npe2 contribution<a class="headerlink" href="#example-npe2-contribution" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="example-npe2-contribution">
+<h4>Example npe2 contribution<a class="headerlink" href="#example-npe2-contribution" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span><span class="w"></span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari svg</span><span class="w"></span>
 <span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
@@ -597,10 +689,10 @@ presented in napari’s “Save As” dialog.</p>
 <span class="w">      </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;.svg&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="writers-multi-layer-writers">
-<h3>Writers: Multi-layer writers<a class="headerlink" href="#writers-multi-layer-writers" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="writers-multi-layer-writers">
+<h3>Writers: Multi-layer writers<a class="headerlink" href="#writers-multi-layer-writers" title="Permalink to this heading">¶</a></h3>
 <p>In npe2, the writer specification declares what file extensions and layer
 types are compatible with a writer. This is a departure from the behavior of
 the <code class="docutils literal notranslate"><span class="pre">napari_get_writer</span></code> which was responsible for rejecting data that was
@@ -612,14 +704,14 @@ function.</p>
 <code class="docutils literal notranslate"><span class="pre">filename_extensions</span></code> used by your writer. <code class="docutils literal notranslate"><span class="pre">layer_types</span></code> is a set of
 constraints describing the combinations of layer types acceptable by this
 writer. More about layer types can be found in the
-<a class="reference external" href="./guides.html#layer-type-constraints">Writer contribution guide</a>.</p>
+<span class="xref myst">Writer contribution guide</span>.</p>
 <p>In the example below, the svg writer accepts a set of layers with 0 or more
 images, and 0 or more label layers, and so on. It will not accept surface
 layers, so if any surface layer is present this writer won’t be invoked.</p>
 <p>Because layer type constraints are specified in the manifest, no plugin code
 has to be imported or run until a compatible writer is found.</p>
-<section id="id3">
-<h4>napari_hook_spec<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id3">
+<h4>napari_hook_spec<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">napari_get_writer</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterFunction</span><span class="p">]</span>
@@ -631,9 +723,9 @@ has to be imported or run until a compatible writer is found.</p>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 </pre></div>
 </div>
-</section>
-<section id="id4">
-<h4>Example npe2 contribution<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="id4">
+<h4>Example npe2 contribution<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span><span class="w"></span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari SVG</span><span class="w"></span>
 <span class="nt">entry_point</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span><span class="w"></span>
@@ -648,10 +740,10 @@ has to be imported or run until a compatible writer is found.</p>
 <span class="w">      </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;.svg&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="widgets">
-<h3>Widgets<a class="headerlink" href="#widgets" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="widgets">
+<h3>Widgets<a class="headerlink" href="#widgets" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">napari_experimental_provide_dock_widget</span></code> hooks return another function that
 can be used to instantiate a widget and, optionally, arguments to be passed to
 that function.</p>
@@ -664,8 +756,8 @@ functions to be wrapped with <a class="reference external" href="https://napari.
 should be added as a <code class="docutils literal notranslate"><span class="pre">Command</span></code> contribution with an associated <code class="docutils literal notranslate"><span class="pre">Widget</span></code>
 contribution. For each of these <code class="docutils literal notranslate"><span class="pre">Widget</span></code> contributions, the manifest
 <code class="docutils literal notranslate"><span class="pre">autogenerate:</span> <span class="pre">true</span></code> flag should be set so that <code class="docutils literal notranslate"><span class="pre">npe2</span></code> knows to use <code class="docutils literal notranslate"><span class="pre">magicgui</span></code>.</p>
-<section id="id5">
-<h4>napari_hook_spec<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id5">
+<h4>napari_hook_spec<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">napari_experimental_provide_dock_widget</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span>
     <span class="n">AugmentedWidget</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">]</span>
 <span class="p">]</span>
@@ -677,9 +769,9 @@ contribution. For each of these <code class="docutils literal notranslate"><span
 <span class="p">]</span>
 </pre></div>
 </div>
-</section>
-<section id="id6">
-<h4>Example npe2 contribution<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="id6">
+<h4>Example npe2 contribution<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h4>
 <p><em>Dock Widget</em></p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-animation</span><span class="w"></span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">animation</span><span class="w"></span>
@@ -707,20 +799,20 @@ contribution. For each of these <code class="docutils literal notranslate"><span
 <span class="w">      </span><span class="nt">autogenerate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># &lt;-- will wrap my_typed_function with magicgui</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="sample-data-providers">
-<h3>Sample data providers<a class="headerlink" href="#sample-data-providers" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="sample-data-providers">
+<h3>Sample data providers<a class="headerlink" href="#sample-data-providers" title="Permalink to this heading">¶</a></h3>
 <p>Each sample returned from <code class="docutils literal notranslate"><span class="pre">napari_provide_sample_data()</span></code> should be bound as an
 individual sample data contribution.</p>
-<section id="id7">
-<h4>napari_hook_spec<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id7">
+<h4>napari_hook_spec<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">napari_provide_sample_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SampleData</span><span class="p">,</span> <span class="n">SampleDict</span><span class="p">]]</span>
 </pre></div>
 </div>
-</section>
-<section id="id8">
-<h4>Example npe2 contribution<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="id8">
+<h4>Example npe2 contribution<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
 <p>This example sample data provider:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_generate_random_data</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)):</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span>
@@ -753,16 +845,16 @@ individual sample data contribution.</p>
 <span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random image</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="themes">
-<h3>Themes<a class="headerlink" href="#themes" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="themes">
+<h3>Themes<a class="headerlink" href="#themes" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">napari_experimental_provide_theme()</span></code> hooks return a dictionary of theme
 properties. These properties can be directly embedded in <code class="docutils literal notranslate"><span class="pre">npe2</span></code> theme
 contributions. This allows napari to read the theming data without running any
 code in the plugin package!</p>
-<section id="example">
-<h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="example">
+<h4>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h4>
 <p>The theme provided by this hook:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_new_theme</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">]]:</span>
     <span class="c1"># specify theme(s) that should be added to napari</span>
@@ -808,10 +900,10 @@ code in the plugin package!</p>
 <span class="w">        </span><span class="nt">canvas</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;black&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
+</div>
 
 
             </div>
@@ -1147,7 +1239,7 @@ code in the plugin package!</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

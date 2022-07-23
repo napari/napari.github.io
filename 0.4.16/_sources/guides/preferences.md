@@ -23,17 +23,6 @@ The settings are grouped by sections and napari core provides the following:
 Main application settings.
 
 
-<<<<<<< HEAD:_sources/guides/preferences.md
-#### Confirm window or application closing
-
-*Ask for confirmation before closing a napari window or application (all napari windows).*
-
-* <small>Access programmatically with `SETTINGS.application.confirm_close_window`.</small>
-* <small>Type: `bool`.</small>
-* <small>Default: `True`.</small>
-* <small>UI: This setting can be configured via the preferences dialog.</small>
-=======
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/preferences.md
 #### Console notification level
 
 *Select the notification level for the console.*
@@ -278,21 +267,6 @@ Plugins settings.
 * <small>Type: `PluginAPI`.</small>
 * <small>Default: `<PluginAPI.napari_hub: 'napari hub'>`.</small>
 * <small>UI: This setting can be configured via the preferences dialog.</small>
-<<<<<<< HEAD:_sources/guides/preferences.md
-#### Use npe2 adaptor
-
-*Use npe2-adaptor for first generation plugins.
-When an npe1 plugin is found, this option will
-import its contributions and create/cache
-a 'shim' npe2 manifest that allows it to be treated
-like an npe2 plugin (with delayed imports, etc...)*
-
-* <small>Access programmatically with `SETTINGS.plugins.use_npe2_adaptor`.</small>
-* <small>Type: `bool`.</small>
-* <small>Default: `False`.</small>
-* <small>UI: This setting can be configured via the preferences dialog.</small>
-=======
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/preferences.md
 
 ### SHORTCUTS
 
@@ -305,11 +279,7 @@ Shortcut settings.
 
 * <small>Access programmatically with `SETTINGS.shortcuts.shortcuts`.</small>
 * <small>Type: `Mapping[str, List[str]]`.</small>
-<<<<<<< HEAD:_sources/guides/preferences.md
-* <small>Default: `{'napari:toggle_console_visibility': ['Control-Shift-C'], 'napari:reset_scroll_progress': ['Control'], 'napari:toggle_ndisplay': ['Control-Y'], 'napari:toggle_theme': ['Control-Shift-T'], 'napari:reset_view': ['Control-R'], 'napari:show_shortcuts': ['Control-Alt-/'], 'napari:increment_dims_left': ['Left'], 'napari:increment_dims_right': ['Right'], 'napari:focus_axes_up': ['Alt-Up'], 'napari:focus_axes_down': ['Alt-Down'], 'napari:roll_axes': ['Control-E'], 'napari:transpose_axes': ['Control-T'], 'napari:toggle_grid': ['Control-G'], 'napari:toggle_selected_visibility': ['V'], 'napari:activate_label_erase_mode': ['1'], 'napari:activate_fill_mode': ['3'], 'napari:activate_paint_mode': ['2'], 'napari:activate_label_pan_zoom_mode': ['5'], 'napari:activate_label_picker_mode': ['4'], 'napari:new_label': ['M'], 'napari:decrease_label_id': ['-'], 'napari:increase_label_id': ['='], 'napari:activate_points_add_mode': ['2'], 'napari:activate_points_select_mode': ['3'], 'napari:activate_points_pan_zoom_mode': ['4'], 'napari:select_all_in_slice': ['A', 'Control-A'], 'napari:select_all_data': ['Shift-A'], 'napari:delete_selected_points': ['Backspace', 'Delete', '1'], 'napari:activate_add_rectangle_mode': ['R'], 'napari:activate_add_ellipse_mode': ['E'], 'napari:activate_add_line_mode': ['L'], 'napari:activate_add_path_mode': ['T'], 'napari:activate_add_polygon_mode': ['P'], 'napari:activate_direct_mode': ['4'], 'napari:activate_select_mode': ['5'], 'napari:activate_shape_pan_zoom_mode': ['6'], 'napari:activate_vertex_insert_mode': ['2'], 'napari:activate_vertex_remove_mode': ['1'], 'napari:copy_selected_shapes': ['Control-C'], 'napari:paste_shape': ['Control-V'], 'napari:select_all_shapes': ['A'], 'napari:delete_selected_shapes': ['Backspace', 'Delete', '3'], 'napari:finish_drawing_shape': ['Escape'], 'napari:reset_active_layer_affine': ['Control-Shift-R'], 'napari:transform_active_layer': ['Control-Shift-A']}`.</small>
-=======
 * <small>Default: `{'napari:toggle_console_visibility': ['Control-Shift-C'], 'napari:reset_scroll_progress': ['Control'], 'napari:toggle_ndisplay': ['Control-Y'], 'napari:toggle_theme': ['Control-Shift-T'], 'napari:reset_view': ['Control-R'], 'napari:increment_dims_left': ['Left'], 'napari:increment_dims_right': ['Right'], 'napari:focus_axes_up': ['Alt-Up'], 'napari:focus_axes_down': ['Alt-Down'], 'napari:roll_axes': ['Control-E'], 'napari:transpose_axes': ['Control-T'], 'napari:toggle_grid': ['Control-G'], 'napari:toggle_selected_visibility': ['V'], 'napari:activate_label_erase_mode': ['1'], 'napari:activate_fill_mode': ['3'], 'napari:activate_paint_mode': ['2'], 'napari:activate_label_pan_zoom_mode': ['5'], 'napari:activate_label_picker_mode': ['4'], 'napari:new_label': ['M'], 'napari:decrease_label_id': ['-'], 'napari:increase_label_id': ['='], 'napari:activate_points_add_mode': ['2'], 'napari:activate_points_select_mode': ['3'], 'napari:activate_points_pan_zoom_mode': ['4'], 'napari:select_all': ['A'], 'napari:delete_selected_points': ['Backspace', 'Delete', '1'], 'napari:activate_add_rectangle_mode': ['R'], 'napari:activate_add_ellipse_mode': ['E'], 'napari:activate_add_line_mode': ['L'], 'napari:activate_add_path_mode': ['T'], 'napari:activate_add_polygon_mode': ['P'], 'napari:activate_direct_mode': ['4'], 'napari:activate_select_mode': ['5'], 'napari:activate_shape_pan_zoom_mode': ['6'], 'napari:activate_vertex_insert_mode': ['2'], 'napari:activate_vertex_remove_mode': ['1'], 'napari:copy_selected_shapes': ['Control-C'], 'napari:paste_shape': ['Control-V'], 'napari:select_all_shapes': ['A'], 'napari:delete_selected_shapes': ['Backspace', 'Delete', '3'], 'napari:finish_drawing_shape': ['Escape'], 'napari:reset_active_layer_affine': ['Control-Shift-R'], 'napari:transform_active_layer': ['Control-Shift-A']}`.</small>
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/guides/preferences.md
 * <small>UI: This setting can be configured via the preferences dialog.</small>
 
 ### EXPERIMENTAL

@@ -23,9 +23,6 @@ napari.layers.Labels
       ~Labels.bind_key
    
    
-      ~Labels.block_history
-   
-   
       ~Labels.block_update_properties
    
    
@@ -35,12 +32,6 @@ napari.layers.Labels
       ~Labels.create
    
    
-<<<<<<< HEAD:_sources/api/napari.layers.Labels.rst
-      ~Labels.data_setitem
-   
-   
-=======
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.layers.Labels.rst
       ~Labels.data_to_world
    
    
@@ -129,8 +120,6 @@ napari.layers.Labels
       ~Labels.help
       ~Labels.interactive
       ~Labels.interpolation
-      ~Labels.interpolation2d
-      ~Labels.interpolation3d
       ~Labels.iso_threshold
       ~Labels.level_shapes
       ~Labels.loaded
@@ -156,17 +145,10 @@ napari.layers.Labels
       ~Labels.translate
       ~Labels.translate_grid
       ~Labels.visible
-<<<<<<< HEAD:_sources/api/napari.layers.Labels.rst
-      
-      
-      
-      
-=======
       ~Labels.mouse_move_callbacks
       ~Labels.mouse_wheel_callbacks
       ~Labels.mouse_drag_callbacks
       ~Labels.mouse_double_click_callbacks
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.layers.Labels.rst
    
    
 

@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>napari 0.4.13 &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="napari 0.4.12" href="release_0_4_12.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables release/release_0_4_13 and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "release/release_0_4_13.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "release/release_0_4_13.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -625,8 +717,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="napari-0-4-13">
-<h1>napari 0.4.13<a class="headerlink" href="#napari-0-4-13" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="napari-0-4-13">
+<h1>napari 0.4.13<a class="headerlink" href="#napari-0-4-13" title="Permalink to this heading">¶</a></h1>
 <p>We’re happy to announce the release of napari 0.4.13!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
 It’s designed for browsing, annotating, and analyzing large multi-dimensional
@@ -649,17 +741,17 @@ their plugins using our
 <p>For more information, examples, and documentation, please visit our website:
 https://github.com/napari/napari</p>
 <p>Complete list of changes below:</p>
-<section id="highlights">
-<h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="highlights">
+<h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Spherical Points (#3430)</p></li>
 <li><p>Point selection in 3d (#3508)</p></li>
 <li><p>Surface normals and wireframe (#3689)</p></li>
 <li><p>Add dialog for selecting reader plugin when dragging &amp; dropping a file (#3799)</p></li>
 </ul>
-</section>
-<section id="new-features">
-<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>3D click + drag interactivity API (#3205)</p></li>
 <li><p>Initial npe2 writer support (#3426)</p></li>
@@ -668,9 +760,9 @@ https://github.com/napari/napari</p>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">experimental_canvas_size_limits</span></code> argument to points (#3734)</p></li>
 <li><p>3D point selection with drag box (#3840)</p></li>
 </ul>
-</section>
-<section id="improvements">
-<h2>Improvements<a class="headerlink" href="#improvements" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="improvements">
+<h2>Improvements<a class="headerlink" href="#improvements" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Raise AttributeError when labels.contrast_limits are set to anything other than (0, 1) (#2573)</p></li>
 <li><p>Allow magicgui to return a worker object (#2593)</p></li>
@@ -763,9 +855,9 @@ https://github.com/napari/napari</p>
 <li><p>Better Notification <strong>str</strong> method (#3933)</p></li>
 <li><p>Fix ndisplay button highlight (#3935)</p></li>
 </ul>
-</section>
-<section id="bug-fixes">
-<h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="bug-fixes">
+<h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fix removing selected points with derived text (#3505)</p></li>
 <li><p>Fix for wrong bounding box definition (#3511)</p></li>
@@ -808,12 +900,12 @@ https://github.com/napari/napari</p>
 <li><p>Switch append to concat (#3963)</p></li>
 <li><p>Update plugin docs index (#3964)</p></li>
 </ul>
-</section>
-<section id="api-changes">
-<h2>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="deprecations">
-<h2>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="api-changes">
+<h2>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="deprecations">
+<h2>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Deprecate public <code class="docutils literal notranslate"><span class="pre">window.qt_viewer</span></code> (remove in 0.5.0) (#3748)</p></li>
 <li><p>Deprecate <code class="docutils literal notranslate"><span class="pre">qt_viewer.screenshot</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">clipboard</span></code> (#3765)</p></li>
@@ -821,9 +913,9 @@ https://github.com/napari/napari</p>
 <li><p>Change PublicOnlyProxy deprecation expiry to 0.5.0 (#3788)</p></li>
 <li><p>Remove deprecation of sceenshot in qt_viewer (#3937)</p></li>
 </ul>
-</section>
-<section id="build-tools-and-docs">
-<h2>Build Tools and Docs<a class="headerlink" href="#build-tools-and-docs" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="build-tools-and-docs">
+<h2>Build Tools and Docs<a class="headerlink" href="#build-tools-and-docs" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Auto generate event reference docs (#2750)</p></li>
 <li><p>Try to run docs under xvfb-run. (#3497)</p></li>
@@ -886,9 +978,9 @@ https://github.com/napari/napari</p>
 <li><p>Add descriptive information to assertion checking if QtViewer is cleaned properly (#3960)</p></li>
 <li><p>Fix preference docs (#3967)</p></li>
 </ul>
-</section>
-<section id="authors-added-to-this-release-alphabetical">
-<h2>28 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="authors-added-to-this-release-alphabetical">
+<h2>28 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AhmetCanSolak">Ahmet Can Solak</a> - &#64;AhmetCanSolak</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">Alister Burt</a> - &#64;alisterburt</p></li>
@@ -919,9 +1011,9 @@ https://github.com/napari/napari</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Mishrasubha">Subhashree Mishra</a> - &#64;Mishrasubha</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
 </ul>
-</section>
-<section id="reviewers-added-to-this-release-alphabetical">
-<h2>30 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="reviewers-added-to-this-release-alphabetical">
+<h2>30 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AhmetCanSolak">Ahmet Can Solak</a> - &#64;AhmetCanSolak</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">Alister Burt</a> - &#64;alisterburt</p></li>
@@ -954,8 +1046,8 @@ https://github.com/napari/napari</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=potating-potato">Ziyang Liu</a> - &#64;potating-potato</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -1291,7 +1383,7 @@ https://github.com/napari/napari</p>
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Annotating segmentation with text and bounding boxes &#8212; napari</title>
   <link rel="stylesheet" href="../../_static/fa/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/webfonts/fa-solid-900.woff2">
@@ -17,8 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/napari-sphinx-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -30,12 +29,14 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/redirects.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Tracking" href="../tracking/index.html" />
@@ -43,7 +44,7 @@
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -115,6 +116,97 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        <span>version <span id="version_switcher_button_text">0.4.16</span></span>
+
+        <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
+        </svg>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables tutorials/segmentation/annotate_segmentation and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.16'}.
+-->
+
+<script type="text/javascript">
+// Construct the target URL from the JSON components
+function buildURL(entry) {
+    var template = "None";  // supplied by jinja
+    template = template.replace("{version}", entry.version);
+    return template;
+}
+
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "tutorials/segmentation/annotate_segmentation.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "tutorials/segmentation/annotate_segmentation.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            // get the base URL for that doc version, add the current page's
+            // path to it, and set as `href`
+            if (!("url" in entry)) {
+                entry.url = buildURL(entry);
+            }
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4.16 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4.16") {
+                node.classList.add("active");
+                $("#version_switcher_button_text").text(entry.name);
+                // Add extra class to the button for the selected entry
+                if ("extra_classes" in entry) {
+                    $("#version_switcher_menu").classList.add(...entry.extra_classes);
+                }
+            }
+        });
+    });
+})();
+</script>
+      </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
@@ -1701,8 +1793,8 @@
             
             <div>
               
-  <section class="tex2jax_ignore mathjax_ignore" id="annotating-segmentation-with-text-and-bounding-boxes">
-<h1>Annotating segmentation with text and bounding boxes<a class="headerlink" href="#annotating-segmentation-with-text-and-bounding-boxes" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="annotating-segmentation-with-text-and-bounding-boxes">
+<h1>Annotating segmentation with text and bounding boxes<a class="headerlink" href="#annotating-segmentation-with-text-and-bounding-boxes" title="Permalink to this heading">¶</a></h1>
 <p>In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu’s method, but this same approach could also be used to visualize the results of other image processing algorithms such as <a class="reference external" href="https://www.tensorflow.org/lite/models/object_detection/overview">object detection with neural networks</a>.</p>
 <p><img alt="napari viewer showing eight roughly circular shapes. The shapes are classified according to circularity and have bounding boxes automatically generated around them showing a circularity parameter and an integer for a label." src="../../_images/annotated_bbox.png" /></p>
 <p>The completed code is shown below and also can be found in the napari examples directory (<a class="reference external" href="https://github.com/napari/napari/blob/master/examples/annotate_segmentation_with_text.py"><code class="docutils literal notranslate"><span class="pre">annotate_segmentation_with_text.py</span></code></a>).</p>
@@ -1837,8 +1929,8 @@
 
 </pre></div>
 </div>
-<section id="segmentation">
-<h2>Segmentation<a class="headerlink" href="#segmentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="segmentation">
+<h2>Segmentation<a class="headerlink" href="#segmentation" title="Permalink to this heading">¶</a></h2>
 <p>We start by defining a function to perform segmentation of an image based on intensity. Based on the <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding.html">skimage segmentation example</a>, we determine the threshold intensity that separates the foreground and background pixels using <a class="reference external" href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu’s method</a>. We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold</span>
@@ -1883,9 +1975,9 @@
 </pre></div>
 </div>
 <p><img alt="napari viewer showing eight roughly circular shapes, each colored differently. In the left sidebar, the segmentation layer is highlighted." src="../../_images/segmentation_labels.png" /></p>
-</section>
-<section id="analyzing-the-segmentation">
-<h2>Analyzing the segmentation<a class="headerlink" href="#analyzing-the-segmentation" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="analyzing-the-segmentation">
+<h2>Analyzing the segmentation<a class="headerlink" href="#analyzing-the-segmentation" title="Permalink to this heading">¶</a></h2>
 <p>Next, we use <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.measure.html#regionprops-table"><code class="docutils literal notranslate"><span class="pre">regionprops_table</span></code></a> from skimage to quantify some parameters of each detection object (e.g., area and perimeter).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the properties dictionary</span>
 <span class="n">properties</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
@@ -1973,9 +2065,9 @@
 <span class="n">bbox_rects</span> <span class="o">=</span> <span class="n">make_bbox</span><span class="p">([</span><span class="n">properties</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bbox-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
 </pre></div>
 </div>
-</section>
-<section id="visualizing-the-segmentation-results">
-<h2>Visualizing the segmentation results<a class="headerlink" href="#visualizing-the-segmentation-results" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="visualizing-the-segmentation-results">
+<h2>Visualizing the segmentation results<a class="headerlink" href="#visualizing-the-segmentation-results" title="Permalink to this heading">¶</a></h2>
 <p>Now that we have performed out analysis, we can visualize the results in napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels, and (3) Shapes.</p>
 <p>As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialise viewer with coins image</span>
@@ -1998,9 +2090,9 @@
 </div>
 <p><img alt="napari viewer showing eight roughly circular shapes, each colored differently. Each shape has a bounding box automatically generated around it." src="../../_images/segmentation_bbox.png" /></p>
 <p>The first positional argument (<code class="docutils literal notranslate"><span class="pre">bbox_rects</span></code>) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (<code class="docutils literal notranslate"><span class="pre">face_color='transparent'</span></code>) and the edges of the bounding box are green (<code class="docutils literal notranslate"><span class="pre">edge_color='green'</span></code>). Finally, the name of the layer displayed in the layer list in the napari GUI is <code class="docutils literal notranslate"><span class="pre">bounding</span> <span class="pre">box</span></code> (<code class="docutils literal notranslate"><span class="pre">name='bounding</span> <span class="pre">box'</span></code>).</p>
-</section>
-<section id="annotating-shapes-with-text">
-<h2>Annotating shapes with text<a class="headerlink" href="#annotating-shapes-with-text" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="annotating-shapes-with-text">
+<h2>Annotating shapes with text<a class="headerlink" href="#annotating-shapes-with-text" title="Permalink to this heading">¶</a></h2>
 <p>We can further annotate our analysis by using text to display properties of each segmentation. The code to create a shapes layer with text is pasted here and explained below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
         <span class="n">bbox_rects</span><span class="p">,</span>
@@ -2071,13 +2163,13 @@
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
-<section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
 <p>In this tutorial, we have used napari to view and annotate segmentation results.</p>
 <p><img alt="napari viewer showing eight roughly circular shapes. The shapes are classified according to circularity and have bounding boxes automatically generated around them showing a circularity parameter and an integer for a label." src="../../_images/annotated_bbox.png" /></p>
-</section>
-</section>
+</div>
+</div>
 
 
             </div>
@@ -2413,7 +2505,7 @@
     </div>
 
     
-      <span>4.5.0</span>
+      <span>5.0.2</span>
     
   </div>
 </div>

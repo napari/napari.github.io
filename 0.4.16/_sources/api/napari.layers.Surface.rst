@@ -107,17 +107,10 @@ napari.layers.Surface
       ~Surface.vertex_values
       ~Surface.vertices
       ~Surface.visible
-<<<<<<< HEAD:_sources/api/napari.layers.Surface.rst
-      
-      
-      
-      
-=======
       ~Surface.mouse_move_callbacks
       ~Surface.mouse_wheel_callbacks
       ~Surface.mouse_drag_callbacks
       ~Surface.mouse_double_click_callbacks
->>>>>>> b2b79a561 (Folder structure for versioned API docs):0.4.16/_sources/api/napari.layers.Surface.rst
    
    
 

@@ -261,27 +261,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D surface">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_nD_surface_thumb.png
-     :alt: nD surface
-
-     :ref:`sphx_glr_gallery_nD_surface.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/nD_surface
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs">
 
 .. only:: html
@@ -300,6 +279,27 @@ Examples of napari usage.
    :hidden:
 
    /gallery/nD_labels
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D surface">
+
+.. only:: html
+
+ .. figure:: /gallery/images/thumb/sphx_glr_nD_surface_thumb.png
+     :alt: nD surface
+
+     :ref:`sphx_glr_gallery_nD_surface.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/nD_surface
 
 .. raw:: html
 
@@ -1101,27 +1101,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ...">
-
-.. only:: html
-
- .. figure:: /gallery/images/thumb/sphx_glr_mouse_drag_callback_thumb.png
-     :alt: Mouse drag callback
-
-     :ref:`sphx_glr_gallery_mouse_drag_callback.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/mouse_drag_callback
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer with text using multiple face colors mapped fro...">
 
 .. only:: html
@@ -1140,6 +1119,27 @@ Examples of napari usage.
    :hidden:
 
    /gallery/add_points_with_multicolor_text
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ...">
+
+.. only:: html
+
+ .. figure:: /gallery/images/thumb/sphx_glr_mouse_drag_callback_thumb.png
+     :alt: Mouse drag callback
+
+     :ref:`sphx_glr_gallery_mouse_drag_callback.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/mouse_drag_callback
 
 .. raw:: html
 

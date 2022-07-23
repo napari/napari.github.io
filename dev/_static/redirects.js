@@ -1,4 +1,4 @@
-// Will match any urls NOT containing the strings
+// Will match any urls containing the strings
 // - "/dev/"
 // - "/stable/"
 // - "/X.Y.Z/"

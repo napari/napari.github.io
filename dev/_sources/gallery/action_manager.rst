@@ -37,16 +37,16 @@ Action manager
 
  .. code-block:: none
 
-    /Users/mwebermendonca/napari/examples/action_manager.py:42: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
+    /home/runner/work/napari/napari/examples/action_manager.py:42: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
     v0.5.0. It is considered an "implementation detail" of the napari
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    /Users/mwebermendonca/napari/examples/action_manager.py:47: FutureWarning: viewer argument is deprecated and should not be used
+    /home/runner/work/napari/napari/examples/action_manager.py:47: FutureWarning: viewer argument is deprecated and should not be used
       rot_button = QtViewerPushButton(None, 'warning')
-    calling <function register_action at 0x7f023267c310>
-    calling <function bind_button at 0x7f023267c8b0>
-    calling <function bind_shortcut at 0x7f023267c820>
+    calling <function bind_button at 0x7f4afc278820>
+    calling <function bind_shortcut at 0x7f4afc278790>
+    calling <function register_action at 0x7f4afc278280>
 
 
 

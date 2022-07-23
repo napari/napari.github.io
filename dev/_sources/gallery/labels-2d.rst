@@ -40,7 +40,7 @@ add_image APIs
 
  .. code-block:: none
 
-    /Users/mwebermendonca/miniconda3/envs/napari-dev/lib/python3.9/site-packages/skimage/_shared/utils.py:338: FutureWarning: `multichannel` is a deprecated argument name for `slic`. It will be removed in version 1.0. Please use `channel_axis` instead.
+    /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/skimage/_shared/utils.py:338: FutureWarning: `multichannel` is a deprecated argument name for `slic`. It will be removed in version 1.0. Please use `channel_axis` instead.
       warnings.warn(self.warning_msg.format(
     The color of label 5 is [0.28053862 0.22821146 0.6264092  1.        ]
 

@@ -42,11 +42,11 @@ Action manager
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    /home/runner/work/napari/napari/examples/action_manager.py:47: FutureWarning: viewer argument is deprecated and should not be used
+    /home/runner/work/napari/napari/examples/action_manager.py:47: FutureWarning: viewer argument is deprecated since 0.4.14 and should not be used
       rot_button = QtViewerPushButton(None, 'warning')
-    calling <function bind_button at 0x7fab3e80b310>
-    calling <function bind_shortcut at 0x7fab3e80b280>
-    calling <function register_action at 0x7fab3e80b1f0>
+    calling <function bind_shortcut at 0x7f839f17f040>
+    calling <function bind_button at 0x7f839f17f0d0>
+    calling <function register_action at 0x7f839f17aaf0>
 
 
 

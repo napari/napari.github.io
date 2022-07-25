@@ -271,14 +271,11 @@ function checkPageExistsAndRedirect(event) {
             <div>
               
   <h1>Source code for npe2.manifest._package_metadata</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">importlib.metadata</span> <span class="kn">import</span> <span class="n">metadata</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">metadata</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">constr</span><span class="p">,</span> <span class="n">root_validator</span>
 <span class="kn">from</span> <span class="nn">pydantic.fields</span> <span class="kn">import</span> <span class="n">SHAPE_LIST</span>
-
-<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">email.message</span>
 
 <span class="c1"># https://packaging.python.org/specifications/core-metadata/</span>
 
@@ -457,14 +454,21 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="PackageMetadata.for_package"><a class="viewcode-back" href="../../../api/napari.plugins.PackageMetadata.html#napari.plugins.PackageMetadata.for_package">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">for_package</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PackageMetadata&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get PackageMetadata from a package name.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dist_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">(</span><span class="n">name</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dist_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">metadata</span><span class="p">(</span><span class="n">name</span><span class="p">))</span></div>
 
+    <span class="c1"># note, the metadata.PackageMetadata hint is only valid for py 3.10</span>
+    <span class="c1"># before that, it was email.message.Message</span>
 <div class="viewcode-block" id="PackageMetadata.from_dist_metadata"><a class="viewcode-back" href="../../../api/napari.plugins.PackageMetadata.html#napari.plugins.PackageMetadata.from_dist_metadata">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_dist_metadata</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="s2">&quot;email.message.Message&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PackageMetadata&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Accepts importlib.metadata.Distribution.metadata&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">from_dist_metadata</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="s2">&quot;metadata.PackageMetadata&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PackageMetadata&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generate PackageMetadata from importlib.metadata.PackageMetdata.&quot;&quot;&quot;</span>
         <span class="n">manys</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">SHAPE_LIST</span><span class="p">]</span>
         <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># looks like py3.10 changed the public protocol of metadata.PackageMetadata</span>
+        <span class="c1"># and they don&#39;t want you to rely on the Mapping interface... however, the</span>
+        <span class="c1"># __iter__ method doesn&#39;t iterate key value pairs, just keys, and I can&#39;t figure</span>
+        <span class="c1"># out how to get multi-valued fields from that (e.g. Classifier)</span>
+        <span class="c1"># might need to change this in the future</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># type: ignore</span>
             <span class="n">key</span> <span class="o">=</span> <span class="n">_norm</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">manys</span><span class="p">:</span>
                 <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># type: ignore</span>

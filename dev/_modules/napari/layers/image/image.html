@@ -299,7 +299,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">._image_constants</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ImageRendering</span><span class="p">,</span>
     <span class="n">Interpolation</span><span class="p">,</span>
-    <span class="n">Interpolation3D</span><span class="p">,</span>
     <span class="n">Mode</span><span class="p">,</span>
     <span class="n">VolumeDepiction</span><span class="p">,</span>
 <span class="p">)</span>
@@ -640,7 +639,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation3D</span><span class="o">.</span><span class="n">NEAREST</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interpolation2d</span> <span class="o">=</span> <span class="n">interpolation2d</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interpolation3d</span> <span class="o">=</span> <span class="n">interpolation3d</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span> <span class="o">=</span> <span class="n">rendering</span>
@@ -802,7 +801,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        vispy/gloo/glsl/misc/spatial_filters.frag</span>
 
 <span class="sd">        Options include:</span>
-<span class="sd">        &#39;bessel&#39;, &#39;bicubic&#39;, &#39;bilinear&#39;, &#39;blackman&#39;, &#39;catrom&#39;, &#39;gaussian&#39;,</span>
+<span class="sd">        &#39;bessel&#39;, &#39;bicubic&#39;, &#39;linear&#39;, &#39;blackman&#39;, &#39;catrom&#39;, &#39;gaussian&#39;,</span>
 <span class="sd">        &#39;hamming&#39;, &#39;hanning&#39;, &#39;hermite&#39;, &#39;kaiser&#39;, &#39;lanczos&#39;, &#39;mitchell&#39;,</span>
 <span class="sd">        &#39;nearest&#39;, &#39;spline16&#39;, &#39;spline36&#39;</span>
 
@@ -845,6 +844,15 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@interpolation2d</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;bilinear&#39; interpolation is deprecated. Please use &#39;linear&#39; instead&quot;</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation2d</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>
@@ -855,7 +863,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@interpolation3d</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation3D</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation3d</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span><span class="p">)</span>
 

@@ -35,8 +35,6 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Originally themes ('dark', 'light', 'system')
@@ -87,28 +85,23 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  23.431 seconds)
+   **Total running time of the script:** ( 0 minutes  25.727 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: new_theme.py <new_theme.py>`
 
-     :download:`Download Python source code: new_theme.py <new_theme.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: new_theme.ipynb <new_theme.ipynb>`
+      :download:`Download Jupyter notebook: new_theme.ipynb <new_theme.ipynb>`
 
 
 .. only:: html

@@ -80,23 +80,18 @@ Display an image and its corners before and after an affine transform
 
 .. _sphx_glr_download_gallery_affine_transforms.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: affine_transforms.py <affine_transforms.py>`
 
-     :download:`Download Python source code: affine_transforms.py <affine_transforms.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: affine_transforms.ipynb <affine_transforms.ipynb>`
+      :download:`Download Jupyter notebook: affine_transforms.ipynb <affine_transforms.ipynb>`
 
 
 .. only:: html

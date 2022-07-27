@@ -82,23 +82,18 @@ It demonstrates:
 
 .. _sphx_glr_download_gallery_magic_parameter_sweep.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: magic_parameter_sweep.py <magic_parameter_sweep.py>`
 
-     :download:`Download Python source code: magic_parameter_sweep.py <magic_parameter_sweep.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: magic_parameter_sweep.ipynb <magic_parameter_sweep.ipynb>`
+      :download:`Download Jupyter notebook: magic_parameter_sweep.ipynb <magic_parameter_sweep.ipynb>`
 
 
 .. only:: html

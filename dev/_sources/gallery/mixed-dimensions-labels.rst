@@ -70,23 +70,18 @@ on every slice.
 
 .. _sphx_glr_download_gallery_mixed-dimensions-labels.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: mixed-dimensions-labels.py <mixed-dimensions-labels.py>`
 
-     :download:`Download Python source code: mixed-dimensions-labels.py <mixed-dimensions-labels.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: mixed-dimensions-labels.ipynb <mixed-dimensions-labels.ipynb>`
+      :download:`Download Jupyter notebook: mixed-dimensions-labels.ipynb <mixed-dimensions-labels.ipynb>`
 
 
 .. only:: html

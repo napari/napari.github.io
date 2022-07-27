@@ -169,23 +169,18 @@ bounding boxes and text
 
 .. _sphx_glr_download_gallery_annotate_segmentation_with_text.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: annotate_segmentation_with_text.py <annotate_segmentation_with_text.py>`
 
-     :download:`Download Python source code: annotate_segmentation_with_text.py <annotate_segmentation_with_text.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: annotate_segmentation_with_text.ipynb <annotate_segmentation_with_text.ipynb>`
+      :download:`Download Jupyter notebook: annotate_segmentation_with_text.ipynb <annotate_segmentation_with_text.ipynb>`
 
 
 .. only:: html

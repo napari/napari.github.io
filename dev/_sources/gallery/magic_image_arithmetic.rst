@@ -88,23 +88,18 @@ Basic example of using magicgui to create an Image Arithmetic GUI in napari.
 
 .. _sphx_glr_download_gallery_magic_image_arithmetic.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: magic_image_arithmetic.py <magic_image_arithmetic.py>`
 
-     :download:`Download Python source code: magic_image_arithmetic.py <magic_image_arithmetic.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: magic_image_arithmetic.ipynb <magic_image_arithmetic.ipynb>`
+      :download:`Download Jupyter notebook: magic_image_arithmetic.ipynb <magic_image_arithmetic.ipynb>`
 
 
 .. only:: html

@@ -88,23 +88,18 @@ lines around in a shapes layer.
 
 .. _sphx_glr_download_gallery_mouse_drag_callback.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: mouse_drag_callback.py <mouse_drag_callback.py>`
 
-     :download:`Download Python source code: mouse_drag_callback.py <mouse_drag_callback.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: mouse_drag_callback.ipynb <mouse_drag_callback.ipynb>`
+      :download:`Download Jupyter notebook: mouse_drag_callback.ipynb <mouse_drag_callback.ipynb>`
 
 
 .. only:: html

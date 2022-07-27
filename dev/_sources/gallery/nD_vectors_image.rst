@@ -38,8 +38,6 @@ which are vector projections centered on a pixel of the MxNxP grid
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (10, 20, 40) (10, 20, 40, 3)
@@ -83,23 +81,18 @@ which are vector projections centered on a pixel of the MxNxP grid
 
 .. _sphx_glr_download_gallery_nD_vectors_image.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: nD_vectors_image.py <nD_vectors_image.py>`
 
-     :download:`Download Python source code: nD_vectors_image.py <nD_vectors_image.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: nD_vectors_image.ipynb <nD_vectors_image.ipynb>`
+      :download:`Download Jupyter notebook: nD_vectors_image.ipynb <nD_vectors_image.ipynb>`
 
 
 .. only:: html

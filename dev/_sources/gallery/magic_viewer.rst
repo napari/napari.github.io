@@ -58,23 +58,18 @@ Example showing how to access the current viewer from a function widget.
 
 .. _sphx_glr_download_gallery_magic_viewer.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: magic_viewer.py <magic_viewer.py>`
 
-     :download:`Download Python source code: magic_viewer.py <magic_viewer.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: magic_viewer.ipynb <magic_viewer.ipynb>`
+      :download:`Download Jupyter notebook: magic_viewer.ipynb <magic_viewer.ipynb>`
 
 
 .. only:: html

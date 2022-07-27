@@ -69,23 +69,18 @@ Add named or unnamed vispy colormaps to existing layers.
 
 .. _sphx_glr_download_gallery_set_colormaps.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: set_colormaps.py <set_colormaps.py>`
 
-     :download:`Download Python source code: set_colormaps.py <set_colormaps.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: set_colormaps.ipynb <set_colormaps.ipynb>`
+      :download:`Download Jupyter notebook: set_colormaps.ipynb <set_colormaps.ipynb>`
 
 
 .. only:: html

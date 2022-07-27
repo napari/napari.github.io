@@ -61,23 +61,18 @@ Display a 3D volume and the scale bar
 
 .. _sphx_glr_download_gallery_scale_bar.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: scale_bar.py <scale_bar.py>`
 
-     :download:`Download Python source code: scale_bar.py <scale_bar.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: scale_bar.ipynb <scale_bar.ipynb>`
+      :download:`Download Jupyter notebook: scale_bar.ipynb <scale_bar.ipynb>`
 
 
 .. only:: html

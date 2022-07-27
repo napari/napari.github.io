@@ -77,23 +77,18 @@ across the dimensions, specified by their size
 
 .. _sphx_glr_download_gallery_nD_points.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: nD_points.py <nD_points.py>`
 
-     :download:`Download Python source code: nD_points.py <nD_points.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: nD_points.ipynb <nD_points.ipynb>`
+      :download:`Download Jupyter notebook: nD_points.ipynb <nD_points.ipynb>`
 
 
 .. only:: html

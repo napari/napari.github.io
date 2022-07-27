@@ -38,8 +38,6 @@ the "gui_qt()" context manager.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Maximum value 255
@@ -86,23 +84,18 @@ the "gui_qt()" context manager.
 
 .. _sphx_glr_download_gallery_without_gui_qt.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: without_gui_qt.py <without_gui_qt.py>`
 
-     :download:`Download Python source code: without_gui_qt.py <without_gui_qt.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: without_gui_qt.ipynb <without_gui_qt.ipynb>`
+      :download:`Download Jupyter notebook: without_gui_qt.ipynb <without_gui_qt.ipynb>`
 
 
 .. only:: html

@@ -79,23 +79,18 @@ Points over time
 
 .. _sphx_glr_download_gallery_points-over-time.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: points-over-time.py <points-over-time.py>`
 
-     :download:`Download Python source code: points-over-time.py <points-over-time.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: points-over-time.ipynb <points-over-time.ipynb>`
+      :download:`Download Jupyter notebook: points-over-time.ipynb <points-over-time.ipynb>`
 
 
 .. only:: html

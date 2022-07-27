@@ -308,30 +308,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">sphere_indices</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">_REV_SHAPE_HELP</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;enter paint or fill mode to edit labels&#39;</span><span class="p">):</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;hold &lt;space&gt; to pan/zoom, click to pick a label&#39;</span><span class="p">):</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-        <span class="s1">&#39;hold &lt;space&gt; to pan/zoom, hold &lt;shift&gt; to toggle preserve_labels, hold &lt;control&gt; to fill, hold &lt;alt&gt; to erase, drag to paint a label&#39;</span>
-    <span class="p">):</span> <span class="p">{</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">},</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;hold &lt;space&gt; to pan/zoom, drag to erase a label&#39;</span><span class="p">):</span> <span class="p">{</span><span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">},</span>
-<span class="p">}</span>
-
-<span class="c1"># This avoid duplicating the trans._ help messages above</span>
-<span class="c1"># as some modes have the same help.</span>
-<span class="c1"># while most tooling will recognise identical messages,</span>
-<span class="c1"># this can lead to human error.</span>
-<span class="n">_FWD_SHAPE_HELP</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">modes</span> <span class="ow">in</span> <span class="n">_REV_SHAPE_HELP</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">modes</span><span class="p">:</span>
-        <span class="n">_FWD_SHAPE_HELP</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
-
 
 <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Labels (or segmentation) layer.</span>
@@ -595,7 +571,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preserve_labels</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_help</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;enter paint or fill mode to edit labels&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">()</span>
 
@@ -1011,9 +986,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="ow">not</span> <span class="n">changed</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">_FWD_SHAPE_HELP</span><span class="p">[</span><span class="n">mode</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">{</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">}:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_cursor_size</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>

@@ -61,23 +61,18 @@ using the layers swap method and remove one
 
 .. _sphx_glr_download_gallery_layers.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: layers.py <layers.py>`
 
-     :download:`Download Python source code: layers.py <layers.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: layers.ipynb <layers.ipynb>`
+      :download:`Download Jupyter notebook: layers.ipynb <layers.ipynb>`
 
 
 .. only:: html

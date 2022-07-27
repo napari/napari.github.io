@@ -35,8 +35,6 @@ Displays a multiscale image
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /home/runner/work/napari/napari/examples/add_multiscale_image.py:17: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
@@ -75,23 +73,18 @@ Displays a multiscale image
 
 .. _sphx_glr_download_gallery_add_multiscale_image.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: add_multiscale_image.py <add_multiscale_image.py>`
 
-     :download:`Download Python source code: add_multiscale_image.py <add_multiscale_image.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: add_multiscale_image.ipynb <add_multiscale_image.ipynb>`
+      :download:`Download Jupyter notebook: add_multiscale_image.ipynb <add_multiscale_image.ipynb>`
 
 
 .. only:: html

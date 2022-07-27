@@ -137,23 +137,18 @@ your shapes.
 
 .. _sphx_glr_download_gallery_shapes_to_labels.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: shapes_to_labels.py <shapes_to_labels.py>`
 
-     :download:`Download Python source code: shapes_to_labels.py <shapes_to_labels.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: shapes_to_labels.ipynb <shapes_to_labels.ipynb>`
+      :download:`Download Jupyter notebook: shapes_to_labels.ipynb <shapes_to_labels.ipynb>`
 
 
 .. only:: html

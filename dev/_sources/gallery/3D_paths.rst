@@ -38,8 +38,6 @@ apprearing on each slice.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Path (2, 6, 3)
@@ -83,23 +81,18 @@ apprearing on each slice.
 
 .. _sphx_glr_download_gallery_3D_paths.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 3D_paths.py <3D_paths.py>`
 
-     :download:`Download Python source code: 3D_paths.py <3D_paths.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 3D_paths.ipynb <3D_paths.ipynb>`
+      :download:`Download Jupyter notebook: 3D_paths.ipynb <3D_paths.ipynb>`
 
 
 .. only:: html

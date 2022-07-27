@@ -72,23 +72,18 @@ Show points based on feature
 
 .. _sphx_glr_download_gallery_show_points_based_on_feature.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: show_points_based_on_feature.py <show_points_based_on_feature.py>`
 
-     :download:`Download Python source code: show_points_based_on_feature.py <show_points_based_on_feature.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: show_points_based_on_feature.ipynb <show_points_based_on_feature.ipynb>`
+      :download:`Download Jupyter notebook: show_points_based_on_feature.ipynb <show_points_based_on_feature.ipynb>`
 
 
 .. only:: html

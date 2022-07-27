@@ -96,23 +96,18 @@ your shapes.
 
 .. _sphx_glr_download_gallery_add_shapes_with_text.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: add_shapes_with_text.py <add_shapes_with_text.py>`
 
-     :download:`Download Python source code: add_shapes_with_text.py <add_shapes_with_text.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: add_shapes_with_text.ipynb <add_shapes_with_text.ipynb>`
+      :download:`Download Jupyter notebook: add_shapes_with_text.ipynb <add_shapes_with_text.ipynb>`
 
 
 .. only:: html

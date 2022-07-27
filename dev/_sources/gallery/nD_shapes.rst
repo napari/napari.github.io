@@ -35,8 +35,6 @@ Display one 4-D image layer using the add_image API
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     sliced: nshapes 128, mask shape (128, 128, 128, 128), labels_shape (128, 128, 128), array_shape, (128, 5, 3)
@@ -106,23 +104,18 @@ Display one 4-D image layer using the add_image API
 
 .. _sphx_glr_download_gallery_nD_shapes.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: nD_shapes.py <nD_shapes.py>`
 
-     :download:`Download Python source code: nD_shapes.py <nD_shapes.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: nD_shapes.ipynb <nD_shapes.ipynb>`
+      :download:`Download Jupyter notebook: nD_shapes.ipynb <nD_shapes.ipynb>`
 
 
 .. only:: html

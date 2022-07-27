@@ -108,23 +108,18 @@ Add points on nD shapes in 3D using a mouse callback
 
 .. _sphx_glr_download_gallery_add_points_on_nD_shapes.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: add_points_on_nD_shapes.py <add_points_on_nD_shapes.py>`
 
-     :download:`Download Python source code: add_points_on_nD_shapes.py <add_points_on_nD_shapes.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: add_points_on_nD_shapes.ipynb <add_points_on_nD_shapes.ipynb>`
+      :download:`Download Jupyter notebook: add_points_on_nD_shapes.ipynb <add_points_on_nD_shapes.ipynb>`
 
 
 .. only:: html

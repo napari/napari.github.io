@@ -66,23 +66,18 @@ Interactive scripting
 
 .. _sphx_glr_download_gallery_interactive_scripting.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: interactive_scripting.py <interactive_scripting.py>`
 
-     :download:`Download Python source code: interactive_scripting.py <interactive_scripting.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: interactive_scripting.ipynb <interactive_scripting.ipynb>`
+      :download:`Download Jupyter notebook: interactive_scripting.ipynb <interactive_scripting.ipynb>`
 
 
 .. only:: html

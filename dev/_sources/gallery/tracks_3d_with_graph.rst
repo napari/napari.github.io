@@ -88,23 +88,18 @@ Tracks 3D with graph
 
 .. _sphx_glr_download_gallery_tracks_3d_with_graph.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: tracks_3d_with_graph.py <tracks_3d_with_graph.py>`
 
-     :download:`Download Python source code: tracks_3d_with_graph.py <tracks_3d_with_graph.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: tracks_3d_with_graph.ipynb <tracks_3d_with_graph.ipynb>`
+      :download:`Download Jupyter notebook: tracks_3d_with_graph.ipynb <tracks_3d_with_graph.ipynb>`
 
 
 .. only:: html

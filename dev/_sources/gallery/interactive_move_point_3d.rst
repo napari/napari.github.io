@@ -137,23 +137,18 @@ Interactive move point
 
 .. _sphx_glr_download_gallery_interactive_move_point_3d.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: interactive_move_point_3d.py <interactive_move_point_3d.py>`
 
-     :download:`Download Python source code: interactive_move_point_3d.py <interactive_move_point_3d.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: interactive_move_point_3d.ipynb <interactive_move_point_3d.ipynb>`
+      :download:`Download Jupyter notebook: interactive_move_point_3d.ipynb <interactive_move_point_3d.ipynb>`
 
 
 .. only:: html

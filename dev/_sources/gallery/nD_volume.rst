@@ -61,23 +61,18 @@ Slide through 3D Volume series in 4D data using the add_volume API
 
 .. _sphx_glr_download_gallery_nD_volume.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: nD_volume.py <nD_volume.py>`
 
-     :download:`Download Python source code: nD_volume.py <nD_volume.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: nD_volume.ipynb <nD_volume.ipynb>`
+      :download:`Download Jupyter notebook: nD_volume.ipynb <nD_volume.ipynb>`
 
 
 .. only:: html

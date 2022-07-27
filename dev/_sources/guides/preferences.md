@@ -79,6 +79,14 @@ Main application settings.
 * <small>Type: `NotificationSeverity`.</small>
 * <small>Default: `<NotificationSeverity.INFO: 'info'>`.</small>
 * <small>UI: This setting can be configured via the preferences dialog.</small>
+#### Delay to treat button as hold in seconds
+
+*This affects certain actions where a short press and a long press have different behaviors, such as changing the mode of a layer permanently or only during the long press.*
+
+* <small>Access programmatically with `SETTINGS.application.hold_button_delay`.</small>
+* <small>Type: `float`.</small>
+* <small>Default: `0.5`.</small>
+* <small>UI: This setting can be configured via the preferences dialog.</small>
 #### IPython interactive
 
 *Toggle the use of interactive `%gui qt` event loop when creating napari Viewers in IPython.*

@@ -154,23 +154,18 @@ bbox annotator
 
 .. _sphx_glr_download_gallery_bbox_annotator.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: bbox_annotator.py <bbox_annotator.py>`
 
-     :download:`Download Python source code: bbox_annotator.py <bbox_annotator.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: bbox_annotator.ipynb <bbox_annotator.ipynb>`
+      :download:`Download Jupyter notebook: bbox_annotator.ipynb <bbox_annotator.ipynb>`
 
 
 .. only:: html

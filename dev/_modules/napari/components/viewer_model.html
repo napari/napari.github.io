@@ -301,13 +301,17 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">NoAvailableReaderError</span><span class="p">,</span>
     <span class="n">ReaderPluginError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..layers</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Layer</span>
+<span class="kn">from</span> <span class="nn">..layers</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Labels</span><span class="p">,</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">Points</span><span class="p">,</span> <span class="n">Shapes</span>
 <span class="kn">from</span> <span class="nn">..layers._source</span> <span class="kn">import</span> <span class="n">layer_source</span>
 <span class="kn">from</span> <span class="nn">..layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
+<span class="kn">from</span> <span class="nn">..layers.labels._labels_key_bindings</span> <span class="kn">import</span> <span class="n">labels_fun_to_mode</span>
+<span class="kn">from</span> <span class="nn">..layers.points._points_key_bindings</span> <span class="kn">import</span> <span class="n">points_fun_to_mode</span>
+<span class="kn">from</span> <span class="nn">..layers.shapes._shapes_key_bindings</span> <span class="kn">import</span> <span class="n">shapes_fun_to_mode</span>
 <span class="kn">from</span> <span class="nn">..layers.utils.stack_utils</span> <span class="kn">import</span> <span class="n">split_channels</span>
 <span class="kn">from</span> <span class="nn">..plugins.utils</span> <span class="kn">import</span> <span class="n">get_potential_readers</span><span class="p">,</span> <span class="n">get_preferred_reader</span>
 <span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span> <span class="nn">..utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
+<span class="kn">from</span> <span class="nn">..utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span> <span class="nn">..utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
 <span class="kn">from</span> <span class="nn">..utils.context</span> <span class="kn">import</span> <span class="n">Context</span><span class="p">,</span> <span class="n">create_context</span>
 <span class="kn">from</span> <span class="nn">..utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">,</span> <span class="n">disconnect_events</span>
@@ -756,6 +760,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shear</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_update_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">):</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_mode_change</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
         <span class="c1"># Update dims and grid model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">()</span>
@@ -768,6 +775,40 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">ranges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_ranges</span>
             <span class="n">midpoint</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rounded_division</span><span class="p">(</span><span class="o">*</span><span class="n">_range</span><span class="p">)</span> <span class="k">for</span> <span class="n">_range</span> <span class="ow">in</span> <span class="n">ranges</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">set_point</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ranges</span><span class="p">)),</span> <span class="n">midpoint</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update layer help text base on layer mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">layer_to_func_and_mode</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">Points</span><span class="p">:</span> <span class="n">points_fun_to_mode</span><span class="p">,</span>
+            <span class="n">Labels</span><span class="p">:</span> <span class="n">labels_fun_to_mode</span><span class="p">,</span>
+            <span class="n">Shapes</span><span class="p">:</span> <span class="n">shapes_fun_to_mode</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">help_li</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">shortcuts</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">shortcuts</span><span class="o">.</span><span class="n">shortcuts</span>
+
+        <span class="k">for</span> <span class="n">fun</span><span class="p">,</span> <span class="n">mode_</span> <span class="ow">in</span> <span class="n">layer_to_func_and_mode</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">if</span> <span class="n">mode_</span> <span class="o">==</span> <span class="n">layer</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">action_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;napari:</span><span class="si">{</span><span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">_actions</span><span class="p">[</span><span class="n">action_name</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">help_li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;use &lt;</span><span class="si">{shortcut}</span><span class="s2">&gt; for </span><span class="si">{desc}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcuts</span><span class="p">[</span><span class="n">action_name</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">layer</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">help_li</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_layer_mode_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_layer_help_from_mode</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">active</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span>
 
     <span class="k">def</span> <span class="nf">_on_remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Disconnect old layer events.</span>

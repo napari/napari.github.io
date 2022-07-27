@@ -53,23 +53,18 @@ Demonstrate interaction box on image layer
 
 .. _sphx_glr_download_gallery_interaction_box_image.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: interaction_box_image.py <interaction_box_image.py>`
 
-     :download:`Download Python source code: interaction_box_image.py <interaction_box_image.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: interaction_box_image.ipynb <interaction_box_image.ipynb>`
+      :download:`Download Jupyter notebook: interaction_box_image.ipynb <interaction_box_image.ipynb>`
 
 
 .. only:: html

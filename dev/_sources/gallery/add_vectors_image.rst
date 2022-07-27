@@ -39,8 +39,6 @@ Each vector position is defined by an (x-proj, y-proj) element where
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (20, 40) (20, 40, 2)
@@ -90,23 +88,18 @@ Each vector position is defined by an (x-proj, y-proj) element where
 
 .. _sphx_glr_download_gallery_add_vectors_image.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: add_vectors_image.py <add_vectors_image.py>`
 
-     :download:`Download Python source code: add_vectors_image.py <add_vectors_image.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: add_vectors_image.ipynb <add_vectors_image.ipynb>`
+      :download:`Download Jupyter notebook: add_vectors_image.ipynb <add_vectors_image.ipynb>`
 
 
 .. only:: html

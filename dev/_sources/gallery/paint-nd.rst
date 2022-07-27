@@ -68,23 +68,18 @@ This is useful e.g. when proofreading segmentations within a time series.
 
 .. _sphx_glr_download_gallery_paint-nd.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: paint-nd.py <paint-nd.py>`
 
-     :download:`Download Python source code: paint-nd.py <paint-nd.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: paint-nd.ipynb <paint-nd.ipynb>`
+      :download:`Download Jupyter notebook: paint-nd.ipynb <paint-nd.ipynb>`
 
 
 .. only:: html

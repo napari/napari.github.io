@@ -55,23 +55,18 @@ Display one grayscale image using the add_image API.
 
 .. _sphx_glr_download_gallery_add_grayscale_image.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: add_grayscale_image.py <add_grayscale_image.py>`
 
-     :download:`Download Python source code: add_grayscale_image.py <add_grayscale_image.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: add_grayscale_image.ipynb <add_grayscale_image.ipynb>`
+      :download:`Download Jupyter notebook: add_grayscale_image.ipynb <add_grayscale_image.ipynb>`
 
 
 .. only:: html

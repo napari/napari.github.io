@@ -33,8 +33,6 @@ Action manager
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /home/runner/work/napari/napari/examples/action_manager.py:42: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
@@ -44,9 +42,9 @@ Action manager
       layer_buttons = viewer.window.qt_viewer.layerButtons
     /home/runner/work/napari/napari/examples/action_manager.py:47: FutureWarning: viewer argument is deprecated since 0.4.14 and should not be used
       rot_button = QtViewerPushButton(None, 'warning')
-    calling <function bind_shortcut at 0x7f2218d74160>
-    calling <function bind_button at 0x7f2218d741f0>
-    calling <function register_action at 0x7f2218d740d0>
+    calling <function bind_button at 0x7faf8317d430>
+    calling <function register_action at 0x7faf8317d310>
+    calling <function bind_shortcut at 0x7faf8317d3a0>
 
 
 
@@ -171,23 +169,18 @@ Action manager
 
 .. _sphx_glr_download_gallery_action_manager.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: action_manager.py <action_manager.py>`
 
-     :download:`Download Python source code: action_manager.py <action_manager.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: action_manager.ipynb <action_manager.ipynb>`
+      :download:`Download Jupyter notebook: action_manager.ipynb <action_manager.ipynb>`
 
 
 .. only:: html

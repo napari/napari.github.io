@@ -86,23 +86,18 @@ Demonstrate interaction box on points layer
 
 .. _sphx_glr_download_gallery_interaction_box_points.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: interaction_box_points.py <interaction_box_points.py>`
 
-     :download:`Download Python source code: interaction_box_points.py <interaction_box_points.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: interaction_box_points.ipynb <interaction_box_points.ipynb>`
+      :download:`Download Jupyter notebook: interaction_box_points.ipynb <interaction_box_points.ipynb>`
 
 
 .. only:: html

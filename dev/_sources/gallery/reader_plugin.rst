@@ -60,23 +60,18 @@ Barebones reader plugin example, using ``imageio.imread```
 
 .. _sphx_glr_download_gallery_reader_plugin.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: reader_plugin.py <reader_plugin.py>`
 
-     :download:`Download Python source code: reader_plugin.py <reader_plugin.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: reader_plugin.ipynb <reader_plugin.ipynb>`
+      :download:`Download Jupyter notebook: reader_plugin.ipynb <reader_plugin.ipynb>`
 
 
 .. only:: html

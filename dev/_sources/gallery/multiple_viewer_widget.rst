@@ -485,23 +485,18 @@ current dims point (`viewer.dims.point`).
 
 .. _sphx_glr_download_gallery_multiple_viewer_widget.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: multiple_viewer_widget.py <multiple_viewer_widget.py>`
 
-     :download:`Download Python source code: multiple_viewer_widget.py <multiple_viewer_widget.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: multiple_viewer_widget.ipynb <multiple_viewer_widget.ipynb>`
+      :download:`Download Jupyter notebook: multiple_viewer_widget.ipynb <multiple_viewer_widget.ipynb>`
 
 
 .. only:: html

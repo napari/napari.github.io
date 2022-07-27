@@ -36,8 +36,6 @@ add_image APIs
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     click to add points; close the window when finished.
@@ -74,23 +72,18 @@ add_image APIs
 
 .. _sphx_glr_download_gallery_annotate-2d.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: annotate-2d.py <annotate-2d.py>`
 
-     :download:`Download Python source code: annotate-2d.py <annotate-2d.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: annotate-2d.ipynb <annotate-2d.ipynb>`
+      :download:`Download Jupyter notebook: annotate-2d.ipynb <annotate-2d.ipynb>`
 
 
 .. only:: html

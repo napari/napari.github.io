@@ -116,23 +116,18 @@ Display one 4-D image layer using the add_image API
 
 .. _sphx_glr_download_gallery_custom_mouse_functions.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: custom_mouse_functions.py <custom_mouse_functions.py>`
 
-     :download:`Download Python source code: custom_mouse_functions.py <custom_mouse_functions.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: custom_mouse_functions.ipynb <custom_mouse_functions.ipynb>`
+      :download:`Download Jupyter notebook: custom_mouse_functions.ipynb <custom_mouse_functions.ipynb>`
 
 
 .. only:: html

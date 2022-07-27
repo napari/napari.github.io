@@ -134,23 +134,18 @@ Part 2: using magicgui to vary the slice thickness.
 
 .. _sphx_glr_download_gallery_dynamic-projections-dask.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: dynamic-projections-dask.py <dynamic-projections-dask.py>`
 
-     :download:`Download Python source code: dynamic-projections-dask.py <dynamic-projections-dask.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: dynamic-projections-dask.ipynb <dynamic-projections-dask.ipynb>`
+      :download:`Download Jupyter notebook: dynamic-projections-dask.ipynb <dynamic-projections-dask.ipynb>`
 
 
 .. only:: html

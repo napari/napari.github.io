@@ -98,23 +98,18 @@ Tracks 2D
 
 .. _sphx_glr_download_gallery_tracks_2d.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: tracks_2d.py <tracks_2d.py>`
 
-     :download:`Download Python source code: tracks_2d.py <tracks_2d.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: tracks_2d.ipynb <tracks_2d.ipynb>`
+      :download:`Download Jupyter notebook: tracks_2d.ipynb <tracks_2d.ipynb>`
 
 
 .. only:: html

@@ -1285,7 +1285,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Layer.get_value"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1297,7 +1297,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        position : tuple</span>
+<span class="sd">        position : tuple of float</span>
 <span class="sd">            Position in either data or world coordinates.</span>
 <span class="sd">        view_direction : Optional[np.ndarray]</span>
 <span class="sd">            A unit vector giving the direction of the ray in nD world coordinates.</span>
@@ -1832,28 +1832,27 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="c1"># find the maximal data-axis-aligned bounding box containing all four</span>
-        <span class="c1"># canvas corners</span>
+        <span class="c1"># canvas corners and round them to ints</span>
         <span class="n">data_bbox</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
             <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data_corners</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data_corners</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
         <span class="p">)</span>
-        <span class="c1"># round and clip the bounding box values</span>
         <span class="n">data_bbox_int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
             <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">data_bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">data_bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
         <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        <span class="n">displayed_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span>
-        <span class="n">data_bbox_clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
-            <span class="n">data_bbox_int</span><span class="p">,</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">:</span>
             <span class="n">level</span><span class="p">,</span> <span class="n">scaled_corners</span> <span class="o">=</span> <span class="n">compute_multiscale_level_and_corners</span><span class="p">(</span>
-                <span class="n">data_bbox_clipped</span><span class="p">,</span>
+                <span class="n">data_bbox_int</span><span class="p">,</span>
                 <span class="n">shape_threshold</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">downsample_factors</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">],</span>
             <span class="p">)</span>
-            <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span>
-            <span class="n">corners</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_corners</span>
-            <span class="n">corners</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+            <span class="c1"># The corner_pixels attribute stores corners in the data</span>
+            <span class="c1"># space of the selected level. Using the level&#39;s data</span>
+            <span class="c1"># shape only works for images, but that&#39;s the only case we</span>
+            <span class="c1"># handle now and downsample_factors is also only on image layers.</span>
+            <span class="n">max_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">level</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">displayed_axes</span><span class="p">)</span>
+            <span class="n">corners</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">scaled_corners</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">max_coords</span><span class="p">)</span>
             <span class="n">display_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
                 <span class="n">corners</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">-</span> <span class="n">corners</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">displayed_axes</span><span class="p">]</span>
             <span class="p">)</span>
@@ -1867,13 +1866,18 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The stored corner_pixels attribute must contain valid indices.</span>
+            <span class="n">displayed_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span>
+            <span class="n">data_bbox_clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+                <span class="n">data_bbox_int</span><span class="p">,</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
             <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
             <span class="n">corners</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_bbox_clipped</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">corners</span>
 
 <div class="viewcode-block" id="Layer.get_status"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1884,7 +1888,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        position : tuple</span>
+<span class="sd">        position : tuple of float</span>
 <span class="sd">            Position in either data or world coordinates.</span>
 <span class="sd">        view_direction : Optional[np.ndarray]</span>
 <span class="sd">            A unit vector giving the direction of the ray in nD world coordinates.</span>

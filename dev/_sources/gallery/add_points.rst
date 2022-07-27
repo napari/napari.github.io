@@ -90,23 +90,18 @@ Display a points layer on top of an image layer using the ``add_points`` and
 
 .. _sphx_glr_download_gallery_add_points.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: add_points.py <add_points.py>`
 
-     :download:`Download Python source code: add_points.py <add_points.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: add_points.ipynb <add_points.ipynb>`
+      :download:`Download Jupyter notebook: add_points.ipynb <add_points.ipynb>`
 
 
 .. only:: html

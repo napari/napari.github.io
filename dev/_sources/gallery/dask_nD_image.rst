@@ -69,23 +69,18 @@ Display a dask array
 
 .. _sphx_glr_download_gallery_dask_nD_image.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: dask_nD_image.py <dask_nD_image.py>`
 
-     :download:`Download Python source code: dask_nD_image.py <dask_nD_image.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: dask_nD_image.ipynb <dask_nD_image.ipynb>`
+      :download:`Download Jupyter notebook: dask_nD_image.ipynb <dask_nD_image.ipynb>`
 
 
 .. only:: html

@@ -35,8 +35,6 @@ Display a 3D mesh with normals and wireframe
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Downloading data from https://raw.githubusercontent.com/vispy/demo-data/main/orig/triceratops.obj.gz (141 kB)
@@ -77,23 +75,18 @@ Display a 3D mesh with normals and wireframe
 
 .. _sphx_glr_download_gallery_surface_normals_wireframe.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: surface_normals_wireframe.py <surface_normals_wireframe.py>`
 
-     :download:`Download Python source code: surface_normals_wireframe.py <surface_normals_wireframe.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: surface_normals_wireframe.ipynb <surface_normals_wireframe.ipynb>`
+      :download:`Download Jupyter notebook: surface_normals_wireframe.ipynb <surface_normals_wireframe.ipynb>`
 
 
 .. only:: html

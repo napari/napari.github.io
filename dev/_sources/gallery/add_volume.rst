@@ -56,23 +56,18 @@ Display one 3-D volume layer using the add_volume API
 
 .. _sphx_glr_download_gallery_add_volume.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: add_volume.py <add_volume.py>`
 
-     :download:`Download Python source code: add_volume.py <add_volume.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: add_volume.ipynb <add_volume.ipynb>`
+      :download:`Download Jupyter notebook: add_volume.ipynb <add_volume.ipynb>`
 
 
 .. only:: html

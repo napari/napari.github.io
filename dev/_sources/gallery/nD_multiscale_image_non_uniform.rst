@@ -35,8 +35,6 @@ Displays an nD multiscale image
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /home/runner/work/napari/napari/examples/nD_multiscale_image_non_uniform.py:18: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
@@ -79,23 +77,18 @@ Displays an nD multiscale image
 
 .. _sphx_glr_download_gallery_nD_multiscale_image_non_uniform.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: nD_multiscale_image_non_uniform.py <nD_multiscale_image_non_uniform.py>`
 
-     :download:`Download Python source code: nD_multiscale_image_non_uniform.py <nD_multiscale_image_non_uniform.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: nD_multiscale_image_non_uniform.ipynb <nD_multiscale_image_non_uniform.ipynb>`
+      :download:`Download Jupyter notebook: nD_multiscale_image_non_uniform.ipynb <nD_multiscale_image_non_uniform.ipynb>`
 
 
 .. only:: html

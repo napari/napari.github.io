@@ -35,8 +35,6 @@ Display a 3D volume and the fps label.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /home/runner/work/napari/napari/examples/viewer_fps_label.py:19: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
@@ -74,23 +72,18 @@ Display a 3D volume and the fps label.
 
 .. _sphx_glr_download_gallery_viewer_fps_label.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: viewer_fps_label.py <viewer_fps_label.py>`
 
-     :download:`Download Python source code: viewer_fps_label.py <viewer_fps_label.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: viewer_fps_label.ipynb <viewer_fps_label.ipynb>`
+      :download:`Download Jupyter notebook: viewer_fps_label.ipynb <viewer_fps_label.ipynb>`
 
 
 .. only:: html

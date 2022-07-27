@@ -303,14 +303,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
 <span class="kn">from</span> <span class="nn">..utils.text_manager</span> <span class="kn">import</span> <span class="n">TextManager</span>
 <span class="kn">from</span> <span class="nn">._shape_list</span> <span class="kn">import</span> <span class="n">ShapeList</span>
-<span class="kn">from</span> <span class="nn">._shapes_constants</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">BACKSPACE</span><span class="p">,</span>
-    <span class="n">Box</span><span class="p">,</span>
-    <span class="n">ColorMode</span><span class="p">,</span>
-    <span class="n">Mode</span><span class="p">,</span>
-    <span class="n">ShapeType</span><span class="p">,</span>
-    <span class="n">shape_classes</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">._shapes_constants</span> <span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">ColorMode</span><span class="p">,</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">ShapeType</span><span class="p">,</span> <span class="n">shape_classes</span>
 <span class="kn">from</span> <span class="nn">._shapes_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">add_ellipse</span><span class="p">,</span>
     <span class="n">add_line</span><span class="p">,</span>
@@ -333,41 +326,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 
 <span class="n">DEFAULT_COLOR_CYCLE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-
-
-<span class="n">_REV_SHAPE_HELP</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;hold &lt;space&gt; to pan/zoom&#39;</span><span class="p">):</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">VERTEX_INSERT</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">VERTEX_REMOVE</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_RECTANGLE</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_ELLIPSE</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_LINE</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-        <span class="s1">&#39;hold &lt;space&gt; to pan/zoom, press &lt;esc&gt;, or double click to finish drawing&#39;</span>
-    <span class="p">):</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_PATH</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_POLYGON</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-        <span class="s1">&#39;hold &lt;space&gt; to pan/zoom, press &lt;</span><span class="si">{BACKSPACE}</span><span class="s1">&gt; to remove selected&#39;</span><span class="p">,</span>
-        <span class="n">BACKSPACE</span><span class="o">=</span><span class="n">BACKSPACE</span><span class="p">,</span>
-    <span class="p">):</span> <span class="p">{</span><span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">},</span>
-    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;enter a selection mode to edit shape properties&#39;</span><span class="p">):</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
-    <span class="p">},</span>
-<span class="p">}</span>
-
-
-<span class="c1"># This avoid duplicating the trans._ help messages above</span>
-<span class="c1"># as some modes have the same help.</span>
-<span class="c1"># while most tooling will recognise identical messages,</span>
-<span class="c1"># this can lead to human error.</span>
-<span class="n">_FWD_SHAPE_HELP</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">modes</span> <span class="ow">in</span> <span class="n">_REV_SHAPE_HELP</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">modes</span><span class="p">:</span>
-        <span class="n">_FWD_SHAPE_HELP</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
 
 
 <div class="viewcode-block" id="Shapes"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes">[docs]</a><span class="k">class</span> <span class="nc">Shapes</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
@@ -1899,7 +1857,6 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mode</span><span class="p">]):</span>
-        <span class="n">old_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span>
         <span class="n">mode</span><span class="p">,</span> <span class="n">changed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">Mode</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">changed</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1913,8 +1870,6 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="n">old_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">_FWD_SHAPE_HELP</span><span class="p">[</span><span class="n">mode</span><span class="p">]</span>
 
         <span class="n">draw_modes</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">,</span>

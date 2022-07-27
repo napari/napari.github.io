@@ -36,8 +36,6 @@ add_image APIs
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/skimage/_shared/utils.py:338: FutureWarning: `multichannel` is a deprecated argument name for `slic`. It will be removed in version 1.0. Please use `channel_axis` instead.
@@ -80,23 +78,18 @@ add_image APIs
 
 .. _sphx_glr_download_gallery_labels-2d.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: labels-2d.py <labels-2d.py>`
 
-     :download:`Download Python source code: labels-2d.py <labels-2d.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: labels-2d.ipynb <labels-2d.ipynb>`
+      :download:`Download Jupyter notebook: labels-2d.ipynb <labels-2d.ipynb>`
 
 
 .. only:: html

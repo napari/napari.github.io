@@ -66,23 +66,18 @@ Add small data to examine cursor positions
 
 .. _sphx_glr_download_gallery_cursor_position.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: cursor_position.py <cursor_position.py>`
 
-     :download:`Download Python source code: cursor_position.py <cursor_position.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: cursor_position.ipynb <cursor_position.ipynb>`
+      :download:`Download Jupyter notebook: cursor_position.ipynb <cursor_position.ipynb>`
 
 
 .. only:: html

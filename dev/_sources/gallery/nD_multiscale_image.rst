@@ -35,8 +35,6 @@ Displays an nD multiscale image
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     base shape (8, 1536, 1536)
@@ -77,23 +75,18 @@ Displays an nD multiscale image
 
 .. _sphx_glr_download_gallery_nD_multiscale_image.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: nD_multiscale_image.py <nD_multiscale_image.py>`
 
-     :download:`Download Python source code: nD_multiscale_image.py <nD_multiscale_image.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: nD_multiscale_image.ipynb <nD_multiscale_image.ipynb>`
+      :download:`Download Jupyter notebook: nD_multiscale_image.ipynb <nD_multiscale_image.ipynb>`
 
 
 .. only:: html

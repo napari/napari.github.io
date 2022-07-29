@@ -1,0 +1,79 @@
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import napari
+from skimage import data
+
+cells = data.cells3d()[30, 1]  # grab some data
+viewer = napari.view_image(cells, colormap='magma')
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Input [0;32mIn [1][0m, in [0;36m<cell line: 5>[0;34m()[0m
+[1;32m      2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mskimage[39;00m [38;5;28;01mimport[39;00m data
+[1;32m      4[0m cells [38;5;241m=[39m data[38;5;241m.[39mcells3d()[[38;5;241m30[39m, [38;5;241m1[39m]  [38;5;66;03m# grab some data[39;00m
+[0;32m----> 5[0m viewer [38;5;241m=[39m [43mnapari[49m[38;5;241;43m.[39;49m[43mview_image[49m[43m([49m[43mcells[49m[43m,[49m[43m [49m[43mcolormap[49m[38;5;241;43m=[39;49m[38;5;124;43m'[39;49m[38;5;124;43mmagma[39;49m[38;5;124;43m'[39;49m[43m)[49m
+
+File [0;32m~/work/napari/napari/napari/view_layers.py:142[0m, in [0;36mview_image[0;34m(*args, **kwargs)[0m
+[1;32m    140[0m [38;5;129m@_merge_layer_viewer_sigs_docs[39m
+[1;32m    141[0m [38;5;28;01mdef[39;00m [38;5;21mview_image[39m([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs):
+[0;32m--> 142[0m     [38;5;28;01mreturn[39;00m [43m_make_viewer_then[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43madd_image[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[43margs[49m[43m,[49m[43m [49m[43mkwargs[49m[43m)[49m
+
+File [0;32m~/work/napari/napari/napari/view_layers.py:125[0m, in [0;36m_make_viewer_then[0;34m(add_method, args, kwargs)[0m
+[1;32m    123[0m kwargs[38;5;241m.[39mupdate(kwargs[38;5;241m.[39mpop([38;5;124m"[39m[38;5;124mkwargs[39m[38;5;124m"[39m, {}))
+[1;32m    124[0m method [38;5;241m=[39m [38;5;28mgetattr[39m(viewer, add_method)
+[0;32m--> 125[0m [43mmethod[49m[43m([49m[38;5;241;43m*[39;49m[43margs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
+[1;32m    126[0m [38;5;28;01mfor[39;00m arg_name, arg_val [38;5;129;01min[39;00m dims_kwargs[38;5;241m.[39mitems():
+[1;32m    127[0m     [38;5;28msetattr[39m(viewer[38;5;241m.[39mdims, arg_name, arg_val)
+
+File [0;32m~/work/napari/napari/napari/utils/migrations.py:44[0m, in [0;36mrename_argument.<locals>._wrapper.<locals>._update_from_dict[0;34m(*args, **kwargs)[0m
+[1;32m     42[0m     kwargs [38;5;241m=[39m kwargs[38;5;241m.[39mcopy()
+[1;32m     43[0m     kwargs[to_name] [38;5;241m=[39m kwargs[38;5;241m.[39mpop(from_name)
+[0;32m---> 44[0m [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[38;5;241;43m*[39;49m[43margs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
+
+File [0;32m~/work/napari/napari/napari/components/viewer_model.py:808[0m, in [0;36mViewerModel.add_image[0;34m(self, data, channel_axis, rgb, colormap, contrast_limits, gamma, interpolation2d, interpolation3d, rendering, depiction, iso_threshold, attenuation, name, metadata, scale, translate, rotate, shear, affine, opacity, blending, visible, multiscale, cache, plane, experimental_clipping_planes)[0m
+[1;32m    800[0m     [38;5;28;01mif[39;00m k [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m iterable_kwargs [38;5;129;01mand[39;00m is_sequence(v):
+[1;32m    801[0m         [38;5;28;01mraise[39;00m [38;5;167;01mTypeError[39;00m(
+[1;32m    802[0m             trans[38;5;241m.[39m_(
+[1;32m    803[0m                 [38;5;124m"[39m[38;5;124mReceived sequence for argument [39m[38;5;124m'[39m[38;5;132;01m{argument}[39;00m[38;5;124m'[39m[38;5;124m, did you mean to specify a [39m[38;5;124m'[39m[38;5;124mchannel_axis[39m[38;5;124m'[39m[38;5;124m? [39m[38;5;124m"[39m,
+[0;32m   (...)[0m
+[1;32m    806[0m             )
+[1;32m    807[0m         )
+[0;32m--> 808[0m layer [38;5;241m=[39m [43mImage[49m[43m([49m[43mdata[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
+[1;32m    809[0m [38;5;28mself[39m[38;5;241m.[39mlayers[38;5;241m.[39mappend(layer)
+[1;32m    811[0m [38;5;28;01mreturn[39;00m layer
+
+File [0;32m~/work/napari/napari/napari/utils/migrations.py:44[0m, in [0;36mrename_argument.<locals>._wrapper.<locals>._update_from_dict[0;34m(*args, **kwargs)[0m
+[1;32m     42[0m     kwargs [38;5;241m=[39m kwargs[38;5;241m.[39mcopy()
+[1;32m     43[0m     kwargs[to_name] [38;5;241m=[39m kwargs[38;5;241m.[39mpop(from_name)
+[0;32m---> 44[0m [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[38;5;241;43m*[39;49m[43margs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
+
+File [0;32m~/work/napari/napari/napari/layers/image/image.py:250[0m, in [0;36m_ImageBase.__init__[0;34m(self, data, rgb, colormap, contrast_limits, gamma, interpolation2d, interpolation3d, rendering, iso_threshold, attenuation, name, metadata, scale, translate, rotate, shear, affine, opacity, blending, visible, multiscale, cache, depiction, plane, experimental_clipping_planes)[0m
+[1;32m    247[0m     data [38;5;241m=[39m [38;5;28mlist[39m(data)
+[1;32m    249[0m [38;5;28;01mif[39;00m [38;5;28mgetattr[39m(data, [38;5;124m'[39m[38;5;124mndim[39m[38;5;124m'[39m, [38;5;241m2[39m) [38;5;241m<[39m [38;5;241m2[39m:
+[0;32m--> 250[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[1;32m    251[0m         trans[38;5;241m.[39m_([38;5;124m'[39m[38;5;124mImage data must have at least 2 dimensions.[39m[38;5;124m'[39m)
+[1;32m    252[0m     )
+[1;32m    254[0m [38;5;66;03m# Determine if data is a multiscale[39;00m
+[1;32m    255[0m [38;5;28mself[39m[38;5;241m.[39m_data_raw [38;5;241m=[39m data
+
+[0;31mValueError[0m: Image data must have at least 2 dimensions.
+ValueError: Image data must have at least 2 dimensions.
+

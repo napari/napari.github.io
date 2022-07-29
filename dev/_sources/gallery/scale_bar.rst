@@ -26,15 +26,28 @@ Display a 3D volume and the scale bar
 .. GENERATED FROM PYTHON SOURCE LINES 7-26
 
 
+.. rst-class:: sphx-glr-script-out
 
-.. image-sg:: /gallery/images/sphx_glr_scale_bar_001.png
-   :alt: scale bar
-   :srcset: /gallery/images/sphx_glr_scale_bar_001.png
-   :class: sphx-glr-single-img
+.. code-block:: pytb
+
+    Traceback (most recent call last):
+      File "/home/runner/work/napari/napari/examples/scale_bar.py", line 15, in <module>
+        viewer.add_image(
+      File "/home/runner/work/napari/napari/napari/utils/migrations.py", line 44, in _update_from_dict
+        return func(*args, **kwargs)
+      File "/home/runner/work/napari/napari/napari/components/viewer_model.py", line 813, in add_image
+        layerdata_list = split_channels(data, channel_axis, **kwargs)
+      File "/home/runner/work/napari/napari/napari/layers/utils/stack_utils.py", line 141, in split_channels
+        raise IndexError(
+    IndexError: Error adding multichannel image with data shape (120, 256, 256).
+    Requested channel_axis (1) had length 256, but the 'name' argument only provided 2 values. 
 
 
 
 
+
+
+|
 
 .. code-block:: default
 

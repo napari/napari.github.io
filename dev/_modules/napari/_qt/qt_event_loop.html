@@ -297,7 +297,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
 <span class="kn">from</span> <span class="nn">.qt_event_filters</span> <span class="kn">import</span> <span class="n">QtToolTipEventFilter</span>
-<span class="kn">from</span> <span class="nn">.qthreading</span> <span class="kn">import</span> <span class="n">wait_for_workers_to_quit</span>
+<span class="kn">from</span> <span class="nn">.qthreading</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">register_threadworker_processors</span><span class="p">,</span>
+    <span class="n">wait_for_workers_to_quit</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_maybe_allow_interrupt</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -478,6 +481,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span>
             <span class="n">QDir</span><span class="o">.</span><span class="n">addSearchPath</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;theme_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">_theme_path</span><span class="p">(</span><span class="n">name</span><span class="p">)))</span>
+
+        <span class="n">register_threadworker_processors</span><span class="p">()</span>
 
     <span class="n">_app_ref</span> <span class="o">=</span> <span class="n">app</span>  <span class="c1"># prevent garbage collection</span>
 

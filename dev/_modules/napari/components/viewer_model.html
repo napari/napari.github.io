@@ -284,6 +284,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
+    <span class="n">Mapping</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
     <span class="n">Set</span><span class="p">,</span>
@@ -313,7 +314,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">..utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
 <span class="kn">from</span> <span class="nn">..utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span> <span class="nn">..utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
-<span class="kn">from</span> <span class="nn">..utils.context</span> <span class="kn">import</span> <span class="n">Context</span><span class="p">,</span> <span class="n">create_context</span>
 <span class="kn">from</span> <span class="nn">..utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">,</span> <span class="n">disconnect_events</span>
 <span class="kn">from</span> <span class="nn">..utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
 <span class="kn">from</span> <span class="nn">..utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
@@ -411,13 +411,17 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># 2-tuple indicating height and width</span>
     <span class="n">_canvas_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
-    <span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span>
+    <span class="n">_ctx</span><span class="p">:</span> <span class="n">Mapping</span>
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
     <span class="n">mouse_over_canvas</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()):</span>
         <span class="c1"># max_depth=0 means don&#39;t look for parent contexts.</span>
+        <span class="kn">from</span> <span class="nn">.._app_model.context</span> <span class="kn">import</span> <span class="n">create_context</span>
+
+        <span class="c1"># FIXME: just like the LayerList, this object should ideally be created</span>
+        <span class="c1"># elsewhere.  The app should know about the ViewerModel, but not vice versa.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span> <span class="o">=</span> <span class="n">create_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="c1"># allow extra attributes during model initialization, useful for mixins</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">allow</span>

@@ -281,8 +281,6 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">from</span> <span class="nn">..layers</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">..layers.image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
-<span class="kn">from</span> <span class="nn">..utils.context</span> <span class="kn">import</span> <span class="n">create_context</span>
-<span class="kn">from</span> <span class="nn">..utils.context._layerlist_context</span> <span class="kn">import</span> <span class="n">LayerListContextKeys</span>
 <span class="kn">from</span> <span class="nn">..utils.events.containers</span> <span class="kn">import</span> <span class="n">SelectableEventedList</span>
 <span class="kn">from</span> <span class="nn">..utils.naming</span> <span class="kn">import</span> <span class="n">inc_name_count</span>
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
@@ -337,6 +335,16 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">basetype</span><span class="o">=</span><span class="n">Layer</span><span class="p">,</span>
             <span class="n">lookup</span><span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">},</span>
         <span class="p">)</span>
+
+        <span class="c1"># TODO: figure out how to move this context creation bit.</span>
+        <span class="c1"># Ideally, the app should be aware of the layerlist, but not vice versa.</span>
+        <span class="c1"># This could probably be done by having the layerlist emit events that the app</span>
+        <span class="c1"># connects to, then the `_ctx` object would live on the app, (not here)</span>
+        <span class="kn">from</span> <span class="nn">.._app_model.context</span> <span class="kn">import</span> <span class="n">create_context</span>
+        <span class="kn">from</span> <span class="nn">.._app_model.context._layerlist_context</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">LayerListContextKeys</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span> <span class="o">=</span> <span class="n">create_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># happens during Viewer type creation</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ctx_keys</span> <span class="o">=</span> <span class="n">LayerListContextKeys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="p">)</span>

@@ -415,6 +415,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">          No shading is added to the points.</span>
 <span class="sd">        * &#39;spherical&#39;</span>
 <span class="sd">          Shading and depth buffer are changed to give a 3D spherical look to the points</span>
+<span class="sd">    antialiasing: float</span>
+<span class="sd">        Amount of antialiasing in canvas pixels.</span>
 <span class="sd">    experimental_canvas_size_limits : tuple of float</span>
 <span class="sd">        Lower and upper limits for the size of points in canvas pixels.</span>
 <span class="sd">    shown : 1-D array of bool</span>
@@ -514,6 +516,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        COLORMAP allows color to be set via a color map over an attribute</span>
 <span class="sd">    shading : Shading</span>
 <span class="sd">        Shading mode.</span>
+<span class="sd">    antialiasing: float</span>
+<span class="sd">        Amount of antialiasing in canvas pixels.</span>
 <span class="sd">    experimental_canvas_size_limits : tuple of float</span>
 <span class="sd">        Lower and upper limits for the size of points in canvas pixels.</span>
 <span class="sd">    shown : 1-D array of bool</span>
@@ -539,8 +543,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    _drag_start : list or None</span>
 <span class="sd">        Coordinates of first cursor click during a drag action. Gets reset to</span>
 <span class="sd">        None after dragging is done.</span>
-<span class="sd">    _antialias : float</span>
-<span class="sd">        The amount of antialiasing pixels for both the marker and marker edge.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># TODO  write better documentation for edge_color and face_color</span>
@@ -585,6 +587,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="n">antialiasing</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">experimental_canvas_size_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">),</span>
         <span class="n">shown</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
@@ -626,7 +629,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">n_dimensional</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">highlight</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">shading</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">_antialias</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">antialiasing</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">experimental_canvas_size_limits</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">feature_defaults</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -720,7 +723,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">experimental_canvas_size_limits</span> <span class="o">=</span> <span class="n">experimental_canvas_size_limits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shading</span> <span class="o">=</span> <span class="n">shading</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_antialias</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">antialiasing</span> <span class="o">=</span> <span class="n">antialiasing</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
@@ -1027,16 +1030,23 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_antialias</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;float: amount in pixels of antialiasing&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__antialias</span>
+    <span class="k">def</span> <span class="nf">antialiasing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Amount of antialiasing in canvas pixels.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_antialiasing</span>
 
-    <span class="nd">@_antialias</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">_antialias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="nd">@antialiasing</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">antialiasing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the amount of antialiasing in canvas pixels.</span>
+
+<span class="sd">        Values can only be positive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__antialias</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_antialias</span><span class="p">()</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="s1">&#39;antialiasing value must be positive, value will be set to 0.&#39;</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_antialiasing</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">antialiasing</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_antialiasing</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shading</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shading</span><span class="p">:</span>
@@ -1419,6 +1429,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">,</span>
                 <span class="s1">&#39;shading&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shading</span><span class="p">,</span>
+                <span class="s1">&#39;antialiasing&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">antialiasing</span><span class="p">,</span>
                 <span class="s1">&#39;experimental_canvas_size_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">experimental_canvas_size_limits</span><span class="p">,</span>
                 <span class="s1">&#39;shown&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shown</span><span class="p">,</span>
             <span class="p">}</span>

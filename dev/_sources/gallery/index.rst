@@ -367,6 +367,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Spherical points">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_spherical_points_thumb.png
+    :alt: Spherical points
+
+  :ref:`sphx_glr_gallery_spherical_points.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Spherical points</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D mesh with normals and wireframe">
 
 .. only:: html
@@ -430,23 +447,6 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Paint nD</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Spherical points">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_spherical_points_thumb.png
-    :alt: Spherical points
-
-  :ref:`sphx_glr_gallery_spherical_points.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Spherical points</div>
     </div>
 
 
@@ -1414,11 +1414,11 @@ Examples of napari usage.
    /gallery/pass_colormaps
    /gallery/add_multiscale_image
    /gallery/mixed-dimensions-labels
+   /gallery/spherical_points
    /gallery/surface_normals_wireframe
    /gallery/cursor_position
    /gallery/nD_vectors_image
    /gallery/paint-nd
-   /gallery/spherical_points
    /gallery/nD_multiscale_image
    /gallery/dask_nD_image
    /gallery/layers

@@ -86,6 +86,7 @@ napari.layers.Points
    .. autosummary::
    
       ~Points.affine
+      ~Points.antialiasing
       ~Points.blending
       ~Points.class_keymap
       ~Points.current_edge_color

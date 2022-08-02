@@ -885,8 +885,8 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        dims_indices : sequence of int or slice</span>
-<span class="sd">            Indices to slice with.</span>
+<span class="sd">        dims_indices : sequence of int, float or slice objects</span>
+<span class="sd">            Indices of the slicing plane</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -899,15 +899,30 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            while vectors passing through the current slice are assigned progressively lower</span>
 <span class="sd">            values, based on how far from the current slice they originate.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">not_disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">)</span>
-        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dims_indices</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">not_disp</span><span class="p">]</span>
-            <span class="n">distances</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">indices</span><span class="p">[</span><span class="n">not_disp</span><span class="p">])</span>
+            <span class="c1"># ensure dims not displayed is a list</span>
+            <span class="n">dims_not_displayed</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">)</span>
+
+            <span class="c1"># We want a numpy array so we can use fancy indexing with the non-displayed</span>
+            <span class="c1"># indices, but as dims_indices can (and often/always does) contain slice</span>
+            <span class="c1"># objects, the array has dtype=object which is then very slow for the</span>
+            <span class="c1"># arithmetic below.</span>
+            <span class="c1"># promote slicing plane to array so we can index into it, project as type float</span>
+            <span class="n">not_disp_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dims_indices</span><span class="p">)[</span>
+                <span class="n">dims_not_displayed</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+            <span class="c1"># get the anchor points (starting positions) of the vector layers in not displayed dims</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dims_not_displayed</span><span class="p">]</span>
+            <span class="c1"># calculate distances from anchor points to the slicing plane</span>
+            <span class="n">distances</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">not_disp_indices</span><span class="p">)</span>
+            <span class="c1"># if we need to include vectors that are out of this slice</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="c1"># get the scaled projected vectors</span>
                 <span class="n">projected_lengths</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dims_not_displayed</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
                 <span class="p">)</span>
+                <span class="c1"># find where the distance to plane is less than the scaled vector</span>
                 <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">distances</span> <span class="o">&lt;=</span> <span class="n">projected_lengths</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">alpha_match</span> <span class="o">=</span> <span class="n">projected_lengths</span><span class="p">[</span><span class="n">matches</span><span class="p">]</span>
                 <span class="n">alpha_match</span><span class="p">[</span><span class="n">alpha_match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -919,7 +934,6 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">distances</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
-
             <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">slice_indices</span><span class="p">,</span> <span class="n">alpha</span>
         <span class="k">else</span><span class="p">:</span>

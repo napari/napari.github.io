@@ -278,8 +278,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">util</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">dedent</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">ValidationError</span><span class="p">,</span> <span class="n">root_validator</span><span class="p">,</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">pydantic.error_wrappers</span> <span class="kn">import</span> <span class="n">ErrorWrapper</span>
@@ -445,29 +444,25 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">current_version</span> <span class="o">=</span> <span class="n">Version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">SCHEMA_VERSION</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">current_version</span> <span class="o">&lt;</span> <span class="n">declared_version</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">dedent</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;The declared schema version &#39;</span><span class="si">{</span><span class="n">declared_version</span><span class="si">}</span><span class="s2">&#39; is &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;newer than npe2&#39;s schema version: &#39;</span><span class="si">{</span><span class="n">current_version</span><span class="si">}</span><span class="s2">&#39;. You may &quot;</span>
-                    <span class="s2">&quot;need to upgrade npe2.&quot;</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;The declared schema version &#39;</span><span class="si">{</span><span class="n">declared_version</span><span class="si">}</span><span class="s2">&#39; is &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;newer than npe2&#39;s schema version: &#39;</span><span class="si">{</span><span class="n">current_version</span><span class="si">}</span><span class="s2">&#39;. You may &quot;</span>
+                <span class="s2">&quot;need to upgrade npe2.&quot;</span>
             <span class="p">)</span>
 
         <span class="n">mf_name</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
-        <span class="n">invalid_commands</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">invalid_commands</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;contributions&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">values</span><span class="p">[</span><span class="s2">&quot;contributions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">commands</span> <span class="ow">or</span> <span class="p">[]:</span>
-                <span class="n">id_start_actual</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">mf_name</span> <span class="o">!=</span> <span class="n">id_start_actual</span><span class="p">:</span>
-                    <span class="n">invalid_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="n">invalid_commands</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="n">command</span><span class="o">.</span><span class="n">id</span>
+                <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">values</span><span class="p">[</span><span class="s2">&quot;contributions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">commands</span> <span class="ow">or</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">command</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mf_name</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">invalid_commands</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">dedent</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Commands identifiers must start with the current package name </span><span class="si">{</span><span class="n">mf_name</span><span class="si">!r}</span><span class="s2"></span>
-<span class="s2">            the following commands where found to break this assumption:</span>
-<span class="s2">                </span><span class="si">{</span><span class="n">invalid_commands</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">            &quot;&quot;&quot;</span>
-                <span class="p">)</span>
+                <span class="s2">&quot;Commands identifiers must start with the current package name &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;followed by a dot: &#39;</span><span class="si">{</span><span class="n">mf_name</span><span class="si">}</span><span class="s2">&#39;. The following commands do not: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">invalid_commands</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;display_name&quot;</span><span class="p">):</span>
@@ -594,7 +589,11 @@ function checkPageExistsAndRedirect(event) {
                     <span class="n">meta</span> <span class="o">=</span> <span class="n">PackageMetadata</span><span class="o">.</span><span class="n">from_dist_metadata</span><span class="p">(</span><span class="n">distribution</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
                     <span class="n">mf</span><span class="o">.</span><span class="n">package_metadata</span> <span class="o">=</span> <span class="n">meta</span>
 
-                    <span class="k">assert</span> <span class="n">mf</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">meta</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;Manifest name must match package name&quot;</span>
+                    <span class="k">if</span> <span class="n">mf</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">meta</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
+                            <span class="sa">f</span><span class="s2">&quot;The name field in the manifest (</span><span class="si">{</span><span class="n">mf</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2">) &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;must match the package name (</span><span class="si">{</span><span class="n">meta</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2">)&quot;</span>
+                        <span class="p">)</span>
                     <span class="k">return</span> <span class="n">mf</span>
 
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>

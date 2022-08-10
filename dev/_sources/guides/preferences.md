@@ -281,7 +281,7 @@ Plugins settings.
 
 * <small>Access programmatically with `SETTINGS.plugins.plugin_api`.</small>
 * <small>Type: `PluginAPI`.</small>
-* <small>Default: `<PluginAPI.napari_hub: 'napari hub'>`.</small>
+* <small>Default: `<PluginAPI.pypi: 'PyPI'>`.</small>
 * <small>UI: This setting can be configured via the preferences dialog.</small>
 #### Use npe2 adaptor
 

@@ -95,18 +95,18 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display one 3-D volume layer using the add_volume API">
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D image layer using the add_image API.">
 
 .. only:: html
 
-  .. image:: /gallery/images/thumb/sphx_glr_add_volume_thumb.png
-    :alt: Add volume
+  .. image:: /gallery/images/thumb/sphx_glr_add_3D_image_thumb.png
+    :alt: Add 3D image
 
-  :ref:`sphx_glr_gallery_add_volume.py`
+  :ref:`sphx_glr_gallery_add_3D_image.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Add volume</div>
+      <div class="sphx-glr-thumbnail-title">Add 3D image</div>
     </div>
 
 
@@ -163,23 +163,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Slide through 3D Volume series in 4D data using the add_volume API">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_nD_volume_thumb.png
-    :alt: nD volume
-
-  :ref:`sphx_glr_gallery_nD_volume.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">nD volume</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display one points layer ontop of one image layer using the add_points and add_image APIs">
 
 .. only:: html
@@ -197,7 +180,7 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API">
+    <div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the view_image API.">
 
 .. only:: html
 
@@ -894,23 +877,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer with text using multiple face colors mapped fro...">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_add_points_with_multicolor_text_thumb.png
-    :alt: Add points with multicolor text
-
-  :ref:`sphx_glr_gallery_add_points_with_multicolor_text.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Add points with multicolor text</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ...">
 
 .. only:: html
@@ -923,6 +889,23 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Mouse drag callback</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer with text using multiple face colors mapped fro...">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_add_points_with_multicolor_text_thumb.png
+    :alt: Add points with multicolor text
+
+  :ref:`sphx_glr_gallery_add_points_with_multicolor_text.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Add points with multicolor text</div>
     </div>
 
 
@@ -962,18 +945,18 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display one 3-D volume layer using the add_volume API and display it as a plane with a simple w...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Display one 3D image layer and display it as a plane with a simple widget for modifying plane p...">
 
 .. only:: html
 
-  .. image:: /gallery/images/thumb/sphx_glr_volume_plane_rendering_thumb.png
-    :alt: Volume plane rendering
+  .. image:: /gallery/images/thumb/sphx_glr_3Dimage_plane_rendering_thumb.png
+    :alt: 3D image plane rendering
 
-  :ref:`sphx_glr_gallery_volume_plane_rendering.py`
+  :ref:`sphx_glr_gallery_3Dimage_plane_rendering.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Volume plane rendering</div>
+      <div class="sphx-glr-thumbnail-title">3D image plane rendering</div>
     </div>
 
 
@@ -1370,18 +1353,18 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example also contain option to enable cross that will be moved to the current dims point (...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This is an example on how to have more than one viewer in the same napari window. Additional vi...">
 
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_multiple_viewer_widget_thumb.png
-    :alt: This is an example on how to have more than one viewer in the same napari window.
+    :alt: Multiple viewer widget
 
   :ref:`sphx_glr_gallery_multiple_viewer_widget.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">This is an example on how to have more than one viewer in the same napari window.</div>
+      <div class="sphx-glr-thumbnail-title">Multiple viewer widget</div>
     </div>
 
 
@@ -1398,11 +1381,10 @@ Examples of napari usage.
    /gallery/add_image_transformed
    /gallery/set_theme
    /gallery/interaction_box_image
-   /gallery/add_volume
+   /gallery/add_3D_image
    /gallery/add_surface_2D
    /gallery/add_grayscale_image
    /gallery/scale_bar
-   /gallery/nD_volume
    /gallery/annotate-2d
    /gallery/nD_image
    /gallery/nD_labels
@@ -1445,11 +1427,11 @@ Examples of napari usage.
    /gallery/nD_vectors
    /gallery/add_shapes_with_text
    /gallery/add_vectors_color_by_angle
-   /gallery/add_points_with_multicolor_text
    /gallery/mouse_drag_callback
+   /gallery/add_points_with_multicolor_text
    /gallery/nD_points_with_features
    /gallery/tracks_3d_with_graph
-   /gallery/volume_plane_rendering
+   /gallery/3Dimage_plane_rendering
    /gallery/tracks_2d
    /gallery/add_labels_with_features
    /gallery/update_console

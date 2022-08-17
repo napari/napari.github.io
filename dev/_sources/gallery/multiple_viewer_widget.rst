@@ -18,6 +18,9 @@
 .. _sphx_glr_gallery_multiple_viewer_widget.py:
 
 
+Multiple viewer widget
+======================
+
 This is an example on how to have more than one viewer in the same napari window.
 Additional viewers state will be synchronized with the main viewer.
 Switching to 3D display will only impact the main viewer.
@@ -25,7 +28,7 @@ Switching to 3D display will only impact the main viewer.
 This example also contain option to enable cross that will be moved to the
 current dims point (`viewer.dims.point`).
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-450
+.. GENERATED FROM PYTHON SOURCE LINES 12-453
 
 
 

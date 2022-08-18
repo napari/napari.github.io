@@ -797,19 +797,25 @@ in a straight-forward way.</p>
 is handled in the <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/make_release.yml"><code class="docutils literal notranslate"><span class="pre">.github/workflows/make_release.yml</span></code></a> workflow. Creation is
 handled with <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">dist</span></code> (as specified in our <a class="reference external" href="https://github.com/napari/napari/blob/main/Makefile#L20"><code class="docutils literal notranslate"><span class="pre">Makefile</span></code></a>) and submission is done using the
 <a class="reference external" href="https://github.com/pypa/gh-action-pypi-publish">official PyPA GitHub Action</a>. This workflow will also create a GitHub Release.</p>
-<p>Once the Python package makes it to PyPI, it will be picked by the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> bots, which
-will automatically submit a PR to the <a class="reference external" href="https://github.com/conda-forge/napari-feedstock"><code class="docutils literal notranslate"><span class="pre">napari-feedstock</span></code></a> repository. This is all automated
-by the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> infrastructure (see <a class="reference external" href="https://github.com/conda-forge/napari-feedstock/pulls?q=is%3Apr+sort%3Aupdated-desc+is%3Aclosed">previous examples</a>), so we only need to check that
-the metadata in the recipe has been adjusted for the new release. Pay special attention to the
-runtime dependencies and version strings!</p>
+<p>Once the Python package makes it to PyPI, it will be picked by the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> bots, which will
+automatically submit a PR to the <a class="reference external" href="https://github.com/conda-forge/napari-feedstock"><code class="docutils literal notranslate"><span class="pre">napari-feedstock</span></code></a> repository within a few hours. This is all
+automated by the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> infrastructure (see <a class="reference external" href="https://github.com/conda-forge/napari-feedstock/pulls?q=is%3Apr+sort%3Aupdated-desc+is%3Aclosed">previous examples</a>), so we only need to
+check that the metadata in the recipe has been adjusted for the new release. Pay special attention
+to the runtime dependencies and version strings!</p>
+<blockquote>
+<div><p>We keep a copy of the feedstock’s recipe in the <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> repo, which is updated manually
+whenever a change to <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> is detected. Check the file <code class="docutils literal notranslate"><span class="pre">conda-recipe/meta.yaml</span></code> and make
+sure its <code class="docutils literal notranslate"><span class="pre">outputs</span></code> are synced to the <code class="docutils literal notranslate"><span class="pre">napari-feedstock</span></code> copy.</p>
+</div></blockquote>
 <p>Once the conda-forge CI is passing and the PR is approved and merged, the final packages will be
 built on the default branch and uploaded to the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel. Due to the staging steps and
-CDN synchronization delays, the conda packages can take up to 2h to be available.</p>
+CDN synchronization delays, the conda packages can take up to 1h to be available after the
+merge.</p>
 <section id="nightly-packages">
 <h3>Nightly packages<a class="headerlink" href="#nightly-packages" title="Permalink to this headline">¶</a></h3>
 <p>We also build nightly packages off <code class="docutils literal notranslate"><span class="pre">main</span></code> and publish them to the <code class="docutils literal notranslate"><span class="pre">napari/label/nightly</span></code> channel.
 These are the same packages that are used in the <code class="docutils literal notranslate"><span class="pre">constructor</span></code> installers (see below), so their CI
-is specified in <code class="docutils literal notranslate"><span class="pre">.github/workflows/bundle_conda.py</span></code>.</p>
+is specified in <code class="docutils literal notranslate"><span class="pre">.github/workflows/make_bundle_conda.yml</span></code>.</p>
 <p>To do it in a <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> compatible way, we actually <em>clone</em> <code class="docutils literal notranslate"><span class="pre">napari-feedstock</span></code> and patch the
 source instructions so the code is retrieved from the repository branch directly. The version is
 also patched to match the <code class="docutils literal notranslate"><span class="pre">setuptools-scm</span></code> string. After <a class="reference external" href="https://conda-forge.org/docs/maintainer/updating_pkgs.html#rerendering-feedstocks">rerendering</a> the feedstock, we run
@@ -836,7 +842,7 @@ on their systems, with no prior knowledge of <code class="docutils literal notra
 <li><p>With <code class="docutils literal notranslate"><span class="pre">constructor</span></code>, which takes <code class="docutils literal notranslate"><span class="pre">conda</span></code> packages.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">conda</span></code> packages offer several advantages when it comes to bundling dependencies, since it makes
-very little assumptions about the underlying system installation. As a result, <code class="docutils literal notranslate"><span class="pre">constructor</span></code> bundles
+very few assumptions about the underlying system installation. As a result, <code class="docutils literal notranslate"><span class="pre">constructor</span></code> bundles
 include libraries that might be missing in the target system and hence should provide a more robust
 user experience.</p>
 <section id="briefcase-based-installers">
@@ -847,6 +853,11 @@ details.</p>
 </section>
 <section id="constructor-based-installers">
 <h3>Constructor-based installers<a class="headerlink" href="#constructor-based-installers" title="Permalink to this headline">¶</a></h3>
+<p>We use <code class="docutils literal notranslate"><span class="pre">constructor</span></code> to build the <code class="docutils literal notranslate"><span class="pre">napari</span></code> installers through the
+<code class="docutils literal notranslate"><span class="pre">.github/workflows/make_bundle_conda.yml</span></code> workflow, which only specifies the triggers used to call
+the actual workflow implementation under the <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> repository. This repository stores
+all the logic and files needed to create the nightly <code class="docutils literal notranslate"><span class="pre">conda</span></code> packages and the <code class="docutils literal notranslate"><span class="pre">constructor</span></code>
+installers.</p>
 <p><a class="reference external" href="https://github.com/conda/constructor"><code class="docutils literal notranslate"><span class="pre">constructor</span></code></a> allows you to build cross-platform installers out of <code class="docutils literal notranslate"><span class="pre">conda</span></code> packages. It
 supports the following installer types:</p>
 <ul class="simple">
@@ -856,32 +867,40 @@ native to macOS, and that’s the method we use with napari.</p></li>
 <li><p>On Windows, a graphical installer based on NSIS is generated.</p></li>
 </ul>
 <p>The configuration is done through a <code class="docutils literal notranslate"><span class="pre">construct.yaml</span></code> file, documented <a class="reference external" href="https://github.com/conda/constructor/blob/master/CONSTRUCT.md">here</a>. We generate one on
-the fly in the <code class="docutils literal notranslate"><span class="pre">bundle_conda.py</span></code> script. Roughly, we will build this configuration file:</p>
+the fly in the <code class="docutils literal notranslate"><span class="pre">build_installers.py</span></code> script found in <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code>.
+Roughly, we will build this configuration file:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># os-agnostic configuration</span><span class="w"></span>
 <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span><span class="w"></span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.4.12</span><span class="w">  </span><span class="c1"># depending on workflow triggers, this can also be a dev snapshot for nightlies</span><span class="w"></span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.0.1&quot;</span><span class="w">  </span><span class="c1"># this is the _internal_ version of the installer infrastructure</span><span class="w"></span>
 <span class="nt">company</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Napari</span><span class="w"></span>
-<span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;points to a generated license that bundles the licenses of all dependencies&gt;</span><span class="w"></span>
+<span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EULA.md</span><span class="w"></span>
 <span class="nt">channels</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="c1"># - local  # only in certain situations, like nightly installers where we build napari locally</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/label/bundle_tools</span><span class="w">  </span><span class="c1"># temporary location of our forks of the constructor stack</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span><span class="w"></span>
-<span class="nt">specs</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-menu</span><span class="w">  </span><span class="c1"># provides the shortcut configuration for napari</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python 3.7</span><span class="w">  </span><span class="c1"># pinned to the version of the running interpreter, configured in the CI</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda</span><span class="w">  </span><span class="c1"># we add these to assist in the plugin installations</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba</span><span class="w">  </span><span class="c1"># we add these to assist in the plugin installations</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w">    </span><span class="c1"># we add these to assist in the plugin installations</span><span class="w"></span>
+<span class="nt">specs</span><span class="p">:</span><span class="w"> </span><span class="c1"># specs for the &#39;base&#39;  environment</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to the version of the running interpreter, configured in the CI</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda</span><span class="w">    </span><span class="c1"># we add these to manage different napari versions</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba</span><span class="w">    </span><span class="c1"># we add these to manage different napari versions</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w">      </span><span class="c1"># we add these to manage different napari versions</span><span class="w"></span>
+<span class="nt">extra_envs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">napari-0.4.16</span><span class="p">:</span><span class="w"> </span><span class="c1"># this is the environment that will actually contain the napari packages</span><span class="w"></span>
+<span class="w">    </span><span class="nt">specs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari=0.4.16=*pyside*</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-menu=0.4.16</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to a specific version, configured by CI</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda</span><span class="w">    </span><span class="c1"># needed for the plugin manager</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba</span><span class="w">    </span><span class="c1"># needed for the plugin manager</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w">      </span><span class="c1"># needed for the plugin manager</span><span class="w"></span>
 <span class="nt">menu_packages</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-menu</span><span class="w">  </span><span class="c1"># don&#39;t create shortcuts for anything else in the environment</span><span class="w"></span>
 
 <span class="c1"># linux-specific config</span><span class="w"></span>
-<span class="nt">default_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$HOME/napari-0.4.12</span><span class="w">  </span><span class="c1"># default installation path</span><span class="w"></span>
+<span class="nt">default_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$HOME/napari-0.0.1</span><span class="w">  </span><span class="c1"># default installation path</span><span class="w"></span>
 
 <span class="c1"># macos-specific config</span><span class="w"></span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-0.4.12</span><span class="w">  </span><span class="c1"># override this because it&#39;s the only way to encode the version in the default</span><span class="w"></span>
-<span class="w">                     </span><span class="c1"># installation path</span><span class="w"></span>
+<span class="nt">default_location_pkg </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Library</span><span class="w"> </span><span class="c1"># first component of the default path under ~/</span><span class="w"></span>
+<span class="nt">pkg_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-0.0.1</span><span class="w">  </span><span class="c1"># second component of the default path</span><span class="w"></span>
 <span class="nt">installer_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkg</span><span class="w">  </span><span class="c1"># otherwise, defaults to sh (Linux-like)</span><span class="w"></span>
 <span class="nt">welcome_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_1227x600.png</span><span class="w">  </span><span class="c1"># bg image with the napari logo on bottom-left corner</span><span class="w"></span>
 <span class="nt">welcome_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/osx_pkg_welcome.rtf</span><span class="w">  </span><span class="c1"># rendered text in the first screen</span><span class="w"></span>
@@ -893,13 +912,13 @@ the fly in the <code class="docutils literal notranslate"><span class="pre">bund
 <span class="nt">welcome_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_164x314.png</span><span class="w">  </span><span class="c1"># logo image for the first screen</span><span class="w"></span>
 <span class="nt">header_image</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_150x57.png</span><span class="w">  </span><span class="c1"># logo image (top left) for the rest of the installer</span><span class="w"></span>
 <span class="nt">icon_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/resources/icon.ico</span><span class="w">  </span><span class="c1"># favicon for the taskbar and title bar</span><span class="w"></span>
-<span class="nt">default_prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%USERPROFILE%/napari-0.4.12&#39;</span><span class="w">  </span><span class="c1"># default location for user installs</span><span class="w"></span>
-<span class="nt">default_prefix_domain_user</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%LOCALAPPDATA%/napari-0.4.12&#39;</span><span class="w">  </span><span class="c1"># default location for network installs</span><span class="w"></span>
-<span class="nt">default_prefix_all_users</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%ALLUSERSPROFILE%/napari-0.4.12&#39;</span><span class="w">  </span><span class="c1"># default location for admin installs</span><span class="w"></span>
+<span class="nt">default_prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%USERPROFILE%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for user installs</span><span class="w"></span>
+<span class="nt">default_prefix_domain_user</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%LOCALAPPDATA%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for network installs</span><span class="w"></span>
+<span class="nt">default_prefix_all_users</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%ALLUSERSPROFILE%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for admin installs</span><span class="w"></span>
 <span class="nt">signing_certificate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certificate.pfx</span><span class="w">  </span><span class="c1"># path to signing certificate</span><span class="w"></span>
 </pre></div>
 </div>
-<p>On the OS-agnostic keys, the main keys are:</p>
+<p>The main OS-agnostic keys are:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">channels</span></code>: where the packages will be downloaded from. We mainly rely on conda-forge for this,
 where <code class="docutils literal notranslate"><span class="pre">napari</span></code> is published. However, we also have <code class="docutils literal notranslate"><span class="pre">napari/label/bundle_tools</span></code>, where we store
@@ -907,8 +926,9 @@ our <code class="docutils literal notranslate"><span class="pre">constructor</sp
 own development packages for <code class="docutils literal notranslate"><span class="pre">conda</span></code> without resorting to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>. To make use of those
 (which are eventually published to <code class="docutils literal notranslate"><span class="pre">napari/label/nightly</span></code>), we unpack the GitHub Actions artifact
 in a specific location that <code class="docutils literal notranslate"><span class="pre">constructor</span></code> recognizes as a <em>local</em> channel once indexed.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">specs</span></code>: the conda packages that should be provided by the installer. Constructor will perform a
-conda solve here to retrieve the needed dependencies.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extra_envs&gt;</span> <span class="pre">napari-$VERSION</span></code>: the environment that will actually contain the napari installation.
+In this key, you will find <code class="docutils literal notranslate"><span class="pre">specs</span></code>, which lists the conda packages to be installed in that
+environment. Constructor will perform a conda solve here to retrieve the needed dependencies.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">menu_packages</span></code>: restrict which packages can create shortcuts. We only want the shortcuts provided
 by <code class="docutils literal notranslate"><span class="pre">napari-menu</span></code>, and not any that could come from the (many) dependencies of napari.</p></li>
 </ul>
@@ -916,14 +936,23 @@ by <code class="docutils literal notranslate"><span class="pre">napari-menu</spa
 a bit more.</p>
 <section id="default-installation-path">
 <h4>Default installation path<a class="headerlink" href="#default-installation-path" title="Permalink to this headline">¶</a></h4>
-<p>This depends on each OS. Our general strategy is to put it under <code class="docutils literal notranslate"><span class="pre">napari-&lt;version&gt;</span></code> in the user
-directory. However, there are several constrains we need to take into account to make this happen:</p>
+<p>This depends on each OS. Our general strategy is to put the general installation under
+<code class="docutils literal notranslate"><span class="pre">~/&lt;hidden&gt;/napari-&lt;INSTALLER-VERSION&gt;</span></code>, which will eventually contain the napari installations under
+<code class="docutils literal notranslate"><span class="pre">envs/</span></code>, with environments named as <code class="docutils literal notranslate"><span class="pre">napari-&lt;VERSION&gt;</span></code>. However, there are several constrains we
+need to take into account to make this happen:</p>
 <ul class="simple">
 <li><p>On Windows, users can choose between an “Only me” and “All users” installation. This changes what
 we understand by “user directory”. This is further complicated by the existence of “domain users”,
 which are not guaranteed to have a user directory per se.</p></li>
-<li><p>On macOS, the PKG installer does not offer a lot of flexibility for this configuration, so we
-need to override the <em>name</em> to include the version tag.</p></li>
+<li><p>On macOS, the PKG installer does not offer a lot of flexibility for this configuration. We will
+put it under <code class="docutils literal notranslate"><span class="pre">~/Library/napari-&lt;INSTALLER-VERSION&gt;</span></code>, by default.</p></li>
+</ul>
+<p>This means that if you install <code class="docutils literal notranslate"><span class="pre">napari=0.4.16</span></code> using the installer, the actual <code class="docutils literal notranslate"><span class="pre">napari</span></code> executable
+can be found, by default, on the following locations:</p>
+<ul class="simple">
+<li><p>Linux: <code class="docutils literal notranslate"><span class="pre">~/.local/napari-0.0.1/envs/napari-0.4.16/bin/napari</span></code></p></li>
+<li><p>MacOS: <code class="docutils literal notranslate"><span class="pre">~/Library/napari-0.0.1/envs/napari-0.4.16/bin/napari</span></code></p></li>
+<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">~/napari-0.0.1/envs/napari-0.4.16/Library/bin/napari</span></code></p></li>
 </ul>
 </section>
 <section id="branding">
@@ -933,10 +962,6 @@ need to override the <em>name</em> to include the version tag.</p></li>
 are stored under <code class="docutils literal notranslate"><span class="pre">napari/resources/</span></code> so the shortcuts can find them after the installation).</p>
 <p>Some of the steps are also configured to display a custom text, like the license or the welcome
 screen on macOS.</p>
-<blockquote>
-<div><p>Note: Most of the branding for macOS is only available in our fork. This has been sent upstream
-but it’s not accepted or released yet.</p>
-</div></blockquote>
 </section>
 <section id="signing">
 <h4>Signing<a class="headerlink" href="#signing" title="Permalink to this headline">¶</a></h4>
@@ -951,9 +976,14 @@ of notarizing and stapling the resulting PKG.</p>
 <p>On Windows, any Microsoft-blessed certificate will do. Our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> fork allows us to specify
 a path to a PFX certificate and then have the Windows SDK <code class="docutils literal notranslate"><span class="pre">signtool</span></code> add the signature. Note that
 <code class="docutils literal notranslate"><span class="pre">signtool</span></code> is not installed by default on Windows (but it is on GitHub Actions).</p>
+<hr class="docutils" />
+<p>More details about our packaging infrastructure can be found in the <a class="reference external" href="https://napari.org/dev/naps/2-conda-based-packaging.html">NAP-2 document</a>.</p>
 </section>
 <section id="details-of-our-constructor-stack-fork">
 <h4>Details of our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack fork<a class="headerlink" href="#details-of-our-constructor-stack-fork" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Note: All these changes have been sent upstream. See progress in <a class="reference external" href="https://github.com/napari/packaging/issues/15">this issue</a>.</p>
+</div></blockquote>
 <p>Many of the features here listed were not available on <code class="docutils literal notranslate"><span class="pre">constructor</span></code> when we started working on it.
 We have added them to the relevant parts of the stack as needed, but that has resulted in a lot of
 moving pieces being juggled to make this work. Let’s begin by enumerating the stack components:</p>

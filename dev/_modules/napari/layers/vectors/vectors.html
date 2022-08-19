@@ -286,7 +286,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">..utils.color_manager</span> <span class="kn">import</span> <span class="n">ColorManager</span>
 <span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
-<span class="kn">from</span> <span class="nn">._vector_utils</span> <span class="kn">import</span> <span class="n">fix_data_vectors</span><span class="p">,</span> <span class="n">generate_vector_meshes</span>
+<span class="kn">from</span> <span class="nn">._vector_utils</span> <span class="kn">import</span> <span class="n">fix_data_vectors</span>
 
 
 <div class="viewcode-block" id="Vectors"><a class="viewcode-back" href="../../../../api/napari.layers.Vectors.html#napari.layers.Vectors">[docs]</a><span class="k">class</span> <span class="nc">Vectors</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
@@ -407,21 +407,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        colors for the M in view vectors</span>
 <span class="sd">    _view_indices : (1, M) array</span>
 <span class="sd">        indices for the M in view vectors</span>
-<span class="sd">    _view_vertices : (4M, 2) or (8M, 2) np.ndarray</span>
-<span class="sd">        the corner points for the M in view faces. Shape is (4M, 2) for 2D and (8M, 2) for 3D.</span>
-<span class="sd">    _view_faces : (2M, 3) or (4M, 3) np.ndarray</span>
-<span class="sd">        indices of the _mesh_vertices that form the faces of the M in view vectors.</span>
-<span class="sd">        Shape is (2M, 2) for 2D and (4M, 2) for 3D.</span>
 <span class="sd">    _view_alphas : (M,) or float</span>
 <span class="sd">        relative opacity for the M in view vectors</span>
 <span class="sd">    _property_choices : dict {str: array (N,)}</span>
 <span class="sd">        Possible values for the properties in Vectors.properties.</span>
-<span class="sd">    _mesh_vertices : (4N, 2) array</span>
-<span class="sd">        The four corner points for the mesh representation of each vector as as</span>
-<span class="sd">        rectangle in the slice that it starts in.</span>
-<span class="sd">    _mesh_triangles : (2N, 3) array</span>
-<span class="sd">        The integer indices of the `_mesh_vertices` that form the two triangles</span>
-<span class="sd">        for the mesh representation of the vectors.</span>
 <span class="sd">    _max_vectors_thumbnail : int</span>
 <span class="sd">        The maximum number of vectors that will ever be used to render the</span>
 <span class="sd">        thumbnail. If more vectors are present then they are randomly</span>
@@ -501,10 +490,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span> <span class="o">=</span> <span class="n">_FeatureTable</span><span class="o">.</span><span class="n">from_layer</span><span class="p">(</span>
             <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
@@ -527,8 +513,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># Data containing vectors in the currently viewed slice</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertices</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_alphas</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -547,8 +531,6 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fix_data_vectors</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
         <span class="n">n_vectors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
         <span class="c1"># Adjust the props/color arrays when the number of vectors has changed</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
@@ -711,8 +693,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_width</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -724,8 +704,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@length</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
@@ -942,14 +920,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
 
         <span class="n">indices</span><span class="p">,</span> <span class="n">alphas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_mesh</span><span class="p">()</span>
 
-        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span>
         <span class="n">disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">faces</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -957,32 +931,10 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="n">indices</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_alphas</span> <span class="o">=</span> <span class="n">alphas</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">disp</span><span class="p">)]</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">faces</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">keep_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">indices</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-                <span class="n">keep_inds</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">keep_inds</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                    <span class="n">keep_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-                        <span class="p">[</span>
-                            <span class="n">keep_inds</span><span class="p">,</span>
-                            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">keep_inds</span><span class="p">,</span>
-                        <span class="p">],</span>
-                        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="n">faces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span><span class="p">[</span><span class="n">keep_inds</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">faces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">disp</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_alphas</span> <span class="o">=</span> <span class="mf">1.0</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">faces</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertices</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="n">faces</span>
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update thumbnail with current vectors and colors.&quot;&quot;&quot;</span>
@@ -1043,20 +995,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        value : None</span>
 <span class="sd">            Value of the data at the coord.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="k">def</span> <span class="nf">_update_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Generate a new vector mesh and update the stored vertices and</span>
-<span class="sd">        trianges for the mesh.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">generate_vector_meshes</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mesh_triangles</span> <span class="o">=</span> <span class="n">triangles</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
             </div>

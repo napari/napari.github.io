@@ -759,7 +759,9 @@ existing documents that could be expanded to include the content you think is la
 <p>If you already have teaching materials e.g. recordings, slide decks or jupyter notebooks
 hosted somewhere, you can add links to these on our <a class="reference internal" href="../../further-resources/napari-workshops.html"><span class="doc std std-doc">napari workshops</span></a> page.</p>
 </div>
-<p>If you are writing a document whose content is mostly text,
+<p>If you are amending an existing document, make your changes and skip straight
+to <a class="reference internal" href="#preview-your-document"><span class="std std-doc">Step #4 - Preview your document</span></a>.
+If you are writing a document whose content is mostly text,
 you can write a plain markdown document and skip straight to <a class="reference internal" href="#update-toc"><span class="std std-doc">Step #3 - Update TOC</span></a>.
 If you are writing a how-to guide or tutorial that requires executing code or working with the napari viewer, follow
 the steps below to prepare your document.</p>
@@ -830,7 +832,7 @@ together with an <code class="docutils literal notranslate"><span class="pre">in
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entries</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tutorials/annotation/index</span><span class="w"></span>
 <span class="w">    </span><span class="nt">subtrees</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entries</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entries</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tutorials/annotation/annotate_points</span><span class="w"></span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tutorials/processing/index</span><span class="w"></span>
 <span class="w">    </span><span class="nt">subtrees</span><span class="p">:</span><span class="w"></span>
@@ -862,6 +864,23 @@ the <code class="docutils literal notranslate"><span class="pre">napari</span></
 </div>
 <p>The rendered HTML will be placed in <code class="docutils literal notranslate"><span class="pre">napari/docs/_build</span></code>. Find <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in this folder and drag it
 into a browser to preview the website with your new document.</p>
+<p>Napari continuous integration includes a GitHub action that builds the
+documentation and saves the artifact for you to download. This is another way
+to check that your built documentation looks as you expect. To download the
+built documentation, go to your PR, scroll down to the continuous integration
+tests, then:</p>
+<ol class="arabic simple">
+<li><p>click on ‘details’ next to ‘Build Docs / Build &amp; Upload Artifact (pull_request)’</p></li>
+</ol>
+<p><img alt="doc-continuous-integration-1" src="../../_images/doc-ci-1.png" /></p>
+<ol class="arabic simple" start="2">
+<li><p>click on ‘summary’ on the top left corner</p></li>
+</ol>
+<p><img alt="doc-continuous-integration-1" src="../../_images/doc-ci-2.png" /></p>
+<ol class="arabic simple" start="3">
+<li><p>scroll down to ‘artifacts’ and click on ‘docs’ to download the built documentation</p></li>
+</ol>
+<p><img alt="doc-continuous-integration-1" src="../../_images/doc-ci-3.png" /></p>
 </section>
 <section id="submit-your-pull-request">
 <h2>5. Submit your pull request<a class="headerlink" href="#submit-your-pull-request" title="Permalink to this headline">¶</a></h2>

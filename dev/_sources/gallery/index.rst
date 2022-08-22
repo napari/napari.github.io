@@ -10,7 +10,7 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display one image using the add_image API.">
+    <div class="sphx-glr-thumbcontainer" tooltip="Display one image using the view_image API.">
 
 .. only:: html
 
@@ -44,7 +44,7 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display one image using the add_image API.">
+    <div class="sphx-glr-thumbcontainer" tooltip="Display one image and transform it using the view_image API.">
 
 .. only:: html
 
@@ -78,7 +78,7 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Demonstrate interaction box on image layer">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates activating &#x27;transform&#x27; mode on the image layer. This allows the user ...">
 
 .. only:: html
 

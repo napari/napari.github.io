@@ -38,6 +38,9 @@ napari.layers.Image
       ~Image.get_ray_intersections
    
    
+      ~Image.get_source_str
+   
+   
       ~Image.get_status
    
    

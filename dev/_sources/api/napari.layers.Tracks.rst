@@ -38,6 +38,9 @@ napari.layers.Tracks
       ~Tracks.get_ray_intersections
    
    
+      ~Tracks.get_source_str
+   
+   
       ~Tracks.get_status
    
    

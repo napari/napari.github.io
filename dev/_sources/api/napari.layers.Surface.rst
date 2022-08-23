@@ -38,6 +38,9 @@ napari.layers.Surface
       ~Surface.get_ray_intersections
    
    
+      ~Surface.get_source_str
+   
+   
       ~Surface.get_status
    
    

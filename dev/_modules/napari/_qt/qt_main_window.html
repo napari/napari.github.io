@@ -746,11 +746,11 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockPerformance</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span>
             <span class="p">)</span>
 
-        <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_status_changed</span><span class="p">)</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">help</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_help_changed</span><span class="p">)</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_title_changed</span><span class="p">)</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">)</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_status_changed</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1422,7 +1422,16 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        event : napari.utils.event.Event</span>
 <span class="sd">            The napari event that triggered this method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_status_bar</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_status_bar</span><span class="o">.</span><span class="n">setStatusText</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">status_info</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_status_bar</span><span class="o">.</span><span class="n">setStatusText</span><span class="p">(</span>
+                <span class="n">layer_base</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">&#39;layer_base&#39;</span><span class="p">],</span>
+                <span class="n">source_type</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">&#39;source_type&#39;</span><span class="p">],</span>
+                <span class="n">plugin</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">&#39;plugin&#39;</span><span class="p">],</span>
+                <span class="n">coordinates</span><span class="o">=</span><span class="n">status_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">],</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_title_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update window title.</span>

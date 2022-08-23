@@ -41,6 +41,9 @@ napari.layers.Points
       ~Points.get_ray_intersections
    
    
+      ~Points.get_source_str
+   
+   
       ~Points.get_status
    
    

@@ -38,6 +38,9 @@ napari.layers.Vectors
       ~Vectors.get_ray_intersections
    
    
+      ~Vectors.get_source_str
+   
+   
       ~Vectors.get_status
    
    

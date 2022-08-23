@@ -285,7 +285,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">...utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
 <span class="kn">from</span> <span class="nn">...utils.geometry</span> <span class="kn">import</span> <span class="n">project_points_onto_plane</span><span class="p">,</span> <span class="n">rotate_points</span>
-<span class="kn">from</span> <span class="nn">...utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_status</span>
+<span class="kn">from</span> <span class="nn">...utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
 <span class="kn">from</span> <span class="nn">...utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span>
 <span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
@@ -2300,42 +2300,49 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Points.get_status"><a class="viewcode-back" href="../../../../api/napari.layers.Points.html#napari.layers.Points.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Status message of the data at a coordinate position.</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Status message information of the data at a coordinate position.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        position : tuple</span>
-<span class="sd">            Position in either data or world coordinates.</span>
-<span class="sd">        view_direction : Optional[np.ndarray]</span>
-<span class="sd">            A unit vector giving the direction of the ray in nD world coordinates.</span>
-<span class="sd">            The default value is None.</span>
-<span class="sd">        dims_displayed : Optional[List[int]]</span>
-<span class="sd">            A list of the dimensions currently being displayed in the viewer.</span>
-<span class="sd">            The default value is None.</span>
-<span class="sd">        world : bool</span>
-<span class="sd">            If True the position is taken to be in world coordinates</span>
-<span class="sd">            and converted into data coordinates. False by default.</span>
+<span class="sd">        # Parameters</span>
+<span class="sd">        # ----------</span>
+<span class="sd">        # position : tuple</span>
+<span class="sd">        #     Position in either data or world coordinates.</span>
+<span class="sd">        # view_direction : Optional[np.ndarray]</span>
+<span class="sd">        #     A unit vector giving the direction of the ray in nD world coordinates.</span>
+<span class="sd">        #     The default value is None.</span>
+<span class="sd">        # dims_displayed : Optional[List[int]]</span>
+<span class="sd">        #     A list of the dimensions currently being displayed in the viewer.</span>
+<span class="sd">        #     The default value is None.</span>
+<span class="sd">        # world : bool</span>
+<span class="sd">        #     If True the position is taken to be in world coordinates</span>
+<span class="sd">        #     and converted into data coordinates. False by default.</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        msg : string</span>
-<span class="sd">            String containing a message that can be used as a status update.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
-            <span class="n">position</span><span class="p">,</span>
-            <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
-            <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
-            <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">,</span>
+<span class="sd">        # Returns</span>
+<span class="sd">        # -------</span>
+<span class="sd">        # source_info : dict</span>
+<span class="sd">        #     Dict containing information that can be used in a status update.</span>
+<span class="sd">        #&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                <span class="n">position</span><span class="p">,</span>
+                <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
+                <span class="n">dims_displayed</span><span class="o">=</span><span class="n">dims_displayed</span><span class="p">,</span>
+                <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">source_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_source_info</span><span class="p">()</span>
+        <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_layer_coords_status</span><span class="p">(</span>
+            <span class="n">position</span><span class="p">,</span> <span class="n">value</span>
         <span class="p">)</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="n">generate_layer_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-        <span class="c1"># if this labels layer has properties</span>
+        <span class="c1"># if this points layer has properties</span>
         <span class="n">properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">(</span>
             <span class="n">position</span><span class="p">,</span>
             <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
@@ -2343,9 +2350,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">world</span><span class="o">=</span><span class="n">world</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">properties</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;; &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+            <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;; &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">msg</span></div>
+        <span class="k">return</span> <span class="n">source_info</span></div>
 
     <span class="k">def</span> <span class="nf">_get_tooltip_text</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

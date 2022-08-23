@@ -1110,25 +1110,28 @@ depends on the current zoom level.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.get_ray_intersections" title="napari.layers.Layer.get_ray_intersections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ray_intersections</span></code></a>(position, ...[, world])</p></td>
 <td><p>Get the start and end point for the ray extending from a point through the data bounding box.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.get_status" title="napari.layers.Layer.get_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_status</span></code></a>(position, *[, view_direction, ...])</p></td>
-<td><p>Status message of the data at a coordinate position.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.get_value" title="napari.layers.Layer.get_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_value</span></code></a>(position, *[, view_direction, ...])</p></td>
-<td><p>Value of the data at a position.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.projected_distance_from_mouse_drag" title="napari.layers.Layer.projected_distance_from_mouse_drag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projected_distance_from_mouse_drag</span></code></a>(...)</p></td>
-<td><p>Calculate the length of the projection of a line between two mouse clicks onto a vector (or array of vectors) in data coordinates.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.refresh" title="napari.layers.Layer.refresh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refresh</span></code></a>([event])</p></td>
-<td><p>Refresh all layer data based on current view slice.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.save" title="napari.layers.Layer.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(path[, plugin])</p></td>
-<td><p>Save this layer to <code class="docutils literal notranslate"><span class="pre">path</span></code> with default (or specified) plugin.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_view_slice</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_source_str</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.world_to_data" title="napari.layers.Layer.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.get_status" title="napari.layers.Layer.get_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_status</span></code></a>([position, view_direction, ...])</p></td>
+<td><p>Status message information of the data at a coordinate position.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.get_value" title="napari.layers.Layer.get_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_value</span></code></a>(position, *[, view_direction, ...])</p></td>
+<td><p>Value of the data at a position.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.projected_distance_from_mouse_drag" title="napari.layers.Layer.projected_distance_from_mouse_drag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">projected_distance_from_mouse_drag</span></code></a>(...)</p></td>
+<td><p>Calculate the length of the projection of a line between two mouse clicks onto a vector (or array of vectors) in data coordinates.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.refresh" title="napari.layers.Layer.refresh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refresh</span></code></a>([event])</p></td>
+<td><p>Refresh all layer data based on current view slice.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.save" title="napari.layers.Layer.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(path[, plugin])</p></td>
+<td><p>Save this layer to <code class="docutils literal notranslate"><span class="pre">path</span></code> with default (or specified) plugin.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_view_slice</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.world_to_data" title="napari.layers.Layer.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
 <td><p>Convert from world coordinates to data coordinates.</p></td>
 </tr>
 </tbody>
@@ -1465,8 +1468,8 @@ None is returned.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.layers.Layer.get_status">
-<span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims_displayed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/base/base.html#Layer.get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Layer.get_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Status message of the data at a coordinate position.</p>
+<span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims_displayed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/base/base.html#Layer.get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Layer.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Status message information of the data at a coordinate position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1480,10 +1483,10 @@ and converted into data coordinates. False by default.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>msg</strong> – String containing a message that can be used as a status update.</p>
+<dd class="field-even"><p><strong>source_info</strong> – Dictionary containing a information that can be used as a status update.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>string</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>

@@ -50,6 +50,9 @@ napari.layers.Labels
       ~Labels.get_ray_intersections
    
    
+      ~Labels.get_source_str
+   
+   
       ~Labels.get_status
    
    

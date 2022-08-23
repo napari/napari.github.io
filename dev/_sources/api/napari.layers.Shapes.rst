@@ -62,6 +62,9 @@ napari.layers.Shapes
       ~Shapes.get_ray_intersections
    
    
+      ~Shapes.get_source_str
+   
+   
       ~Shapes.get_status
    
    

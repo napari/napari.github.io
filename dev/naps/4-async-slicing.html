@@ -860,19 +860,17 @@ function checkPageExistsAndRedirect(event) {
      </code>
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#slice-from-vispy-layer-instead-of-viewer-model">
+     Slice from vispy layer instead of viewer model
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#discussion">
    Discussion
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#open-questions">
-     Open questions
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references-and-footnotes">
@@ -928,7 +926,7 @@ on the dimension slider positions and the current field of view.</p>
 <p>This project has two major goals.</p>
 <ol class="arabic simple">
 <li><p>Slice layers asynchronously to keep napari responsive while allowing for slow slicing.</p></li>
-<li><p>Improve the logic of slicing layers to help developers better understand how it works.</p></li>
+<li><p>Improve the logic of slicing layers to help developers better understand how it works and unlock new feature development.</p></li>
 </ol>
 <p>We propose a lock-free asynchronous solution that uses Python’s built-in
 <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> module and exploits napari’s main event loop.
@@ -1557,6 +1555,57 @@ event per layer that only contains that layer’s slice response.</p>
 <li><p>Likely need an <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> event loop distinct from Qt’s main event loop, which could be confusing and cause issues.</p></li>
 </ul>
 </section>
+<section id="slice-from-vispy-layer-instead-of-viewer-model">
+<h3>Slice from vispy layer instead of viewer model<a class="headerlink" href="#slice-from-vispy-layer-instead-of-viewer-model" title="Permalink to this headline">¶</a></h3>
+<p>Instead of making the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> the driver of slicing, we could instead drive it from the vispy layers.
+A rough implementation of this approach could look like the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="k">class</span> <span class="nc">QtViewer</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slice_layers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">slice_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layer_to_visual</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span><span class="o">.</span><span class="n">_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Image</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageSliceRequest</span><span class="p">:</span>
+        <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">_get_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">ImageSliceRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageSliceResponse</span><span class="p">:</span>
+        <span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">VispyImageLayer</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_make_slice_request</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_get_slice</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_slice_done</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_slice_done</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="n">Future</span><span class="p">[</span><span class="n">ImageSliceResponse</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_slice</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+
+    <span class="nd">@ensure_main_thread</span>
+    <span class="k">def</span> <span class="nf">_set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>Most of the internal guts of slicing, such as the implementation of <code class="docutils literal notranslate"><span class="pre">_get_slice</span></code> and
+<code class="docutils literal notranslate"><span class="pre">_make_slice_request</span></code>, are unchanged from the approach proposed here.</p>
+<p>The main advantage of this approach is that the main consumer of the slice response (i.e. vispy)
+is the one driving slicing, which allows us to better define input and output types and
+avoid unnecessary type inheritance.</p>
+<p>In the example code above, we avoid a tight dependency on <code class="docutils literal notranslate"><span class="pre">Qt</span></code> using <code class="docutils literal notranslate"><span class="pre">&#64;ensure_main_thread</span></code>.
+But another advantage of this general approach is that we could rely on tighter dependencies
+between vispy and Qt, which may simplify the implementation and offer some performance benefits.</p>
+<p>One disadvantage is that it becomes harder to control the execution of multiple layers being sliced.
+For example, with the above implementation we can no longer wait for all layers to be sliced before
+updating all the vispy layers.
+Another disadvantage is that this implies that slice state should not live in the model in the future,
+which might cause issues with things like selection that may depend on that state.</p>
+</section>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h2>
@@ -1582,49 +1631,48 @@ event per layer that only contains that layer’s slice response.</p>
 <li><p>Initial feedback before sharing more widely.</p></li>
 </ul>
 </li>
+<li><p>Define a class that encapsulates the slicing bounding box in world coordinates.</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935771292">Define a class that only encapsulates the dims and camera info needed for slicing</a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935877117">Replace <code class="docutils literal notranslate"><span class="pre">point</span></code> and similar with <code class="docutils literal notranslate"><span class="pre">bbox</span></code></a></p></li>
+<li><p>The idea here is to collapse some of the existing input slicing state like <code class="docutils literal notranslate"><span class="pre">point</span></code> and <code class="docutils literal notranslate"><span class="pre">dims_displayed</span></code> into one class that describes the bounding box for slicing in world coordinates.</p></li>
+<li><p>This is a good long term goal, especially when we have named dimensions, but may not be worth it yet.</p></li>
 </ul>
-<section id="open-questions">
-<h3>Open questions<a class="headerlink" href="#open-questions" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Should <code class="docutils literal notranslate"><span class="pre">Dims.current_step</span></code> represent the last slice position request or the last slice response?</p>
+</li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935773848">Replace layer slice request and response types with a single slice type</a></p>
+<ul>
+<li><p>Motivation is make it easier to add a new layer type by reducing the number of class types needed.</p></li>
+<li><p>Some disagreement here as one type for two purposes (input vs. output) seems confusing.</p></li>
+<li><p>Keeping the request and response types separate may also allow us to better target alternatives to vispy.</p></li>
+<li><p>Not critical/blocking, especially if we have an explicit class for encapsulate the dims and camera slicing input.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935322222">Slicing in a shader</a></p>
+<ul>
+<li><p>How to handle future cases where layer data has been pre-loaded onto the GPU and we want to slice in the shader?</p></li>
+<li><p>Less about large/slow data, and more about not blocking approaches to handling small/fast data efficiently.</p></li>
+<li><p>May be particularly useful for multi-canvas.</p></li>
+<li><p>Not critical/blocking, but we should consider keeping data types private or vague to not blocking this in the future.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r934961214">Support existing usage and plugins that depends on synchronous slicing</a></p>
+<ul>
+<li><p>Main example is <a class="reference external" href="https://www.napari-hub.org/plugins/napari-animation">the napari-animation plugin</a>, but there may be others.</p></li>
+<li><p>Need to understand if existing proposed design easily supports this usage.</p></li>
+<li><p>If not, we may need some way to allow users to force slicing to be synchronous.</p></li>
+<li><p>This is a critical/blocking discussion point that we need to resolve before approval.</p></li>
+</ul>
+</li>
+<li><p>Should <code class="docutils literal notranslate"><span class="pre">Dims.current_step</span></code> (and <code class="docutils literal notranslate"><span class="pre">corner_pixels</span></code>) represent the last slice position request or the last slice response?</p>
 <ul>
 <li><p>With sync slicing, there is no distinction.</p></li>
 <li><p>If it represents the last slice response, then what should we connect the sliders to?</p></li>
-<li><p>Similar question for <code class="docutils literal notranslate"><span class="pre">corner_pixels</span></code> and others.</p></li>
-</ul>
-</li>
-<li><p>Which new classes, methods, and attributes should be private?</p>
-<ul>
-<li><p>Maybe all of them in the short term, so that we can wait for things to mature before committing to a public API.</p></li>
-</ul>
-</li>
-<li><p>Does this design work well with slicing operations other than slider movements?</p>
-<ul>
-<li><p>We mostly use moving the slider as a driving example here, but there are other things that cause slicing.</p></li>
-<li><p>E.g. changing the display dimensionality, panning, zooming, explicit call to <code class="docutils literal notranslate"><span class="pre">refresh</span></code>.</p></li>
-<li><p>If not, could we easily change it to do so?</p></li>
-</ul>
-</li>
-<li><p>Should we maintain the synchronous behavior of <code class="docutils literal notranslate"><span class="pre">refresh</span></code> and <code class="docutils literal notranslate"><span class="pre">set_view_slice</span></code>?</p></li>
-<li><p>Should we invert the current design and submit async tasks within each vispy layer?</p>
-<ul>
-<li><p>Cleans up request/response typing because no need to refer to any base class.</p></li>
-<li><p>Is there a way to wait for all layers to be sliced?</p>
-<ul>
-<li><p>Maybe if we’re slicing via <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> because that way we could wait for all futures to be done (on another non-main thread) before actually updating the vispy nodes. But that is a little complicated.</p></li>
-<li><p>Probably need to have a design solution for showing slices ASAP to pursue this.</p></li>
-</ul>
-</li>
-<li><p>This design maybe implies that slice state should not live in the model in the future.</p>
-<ul>
-<li><p>This might cause issues with selection and other things.</p></li>
-</ul>
-</li>
-<li><p>Can probably use <code class="docutils literal notranslate"><span class="pre">&#64;ensure_main_thread</span></code> in vispy layer (i.e. for done callback to push data to vispy nodes) because it’s private and I think we only intend to support Qt backends for vispy.</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935336654">Small consensus around last request</a></p></li>
+<li><p>May want to store both, but maybe not publicly.</p></li>
+<li><p>This is a critical/blocking discussion point that we need to resolve before approval.</p></li>
 </ul>
 </li>
 </ul>
-</section>
 </section>
 <section id="references-and-footnotes">
 <h2>References and footnotes<a class="headerlink" href="#references-and-footnotes" title="Permalink to this headline">¶</a></h2>

@@ -470,7 +470,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_cursor_position_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="n">throttled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_status_bar_from_cursor</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
         <span class="p">)</span>
@@ -673,19 +672,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_update_cursor_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set the viewer cursor_size with the `event.cursor_size` int.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">cursor_size</span>
-
-    <span class="k">def</span> <span class="nf">_on_cursor_position_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the layer cursor position.&quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-            <span class="c1"># Catch the deprecation warning on layer.position</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
-                <span class="s1">&#39;ignore&#39;</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;layer.position is deprecated&#39;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-                <span class="n">layer</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span>
 
     <span class="k">def</span> <span class="nf">_update_status_bar_from_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update the status bar based on the current cursor position.</span>

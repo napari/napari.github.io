@@ -301,7 +301,7 @@ to download the full example code</p>
 <span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">project_points_onto_plane</span>
 
 <span class="c1"># Create viewer, point to move and bounding box</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounding_box_data</span></a> <span class="o">=</span> <span class="p">[</span>
     <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
@@ -313,14 +313,14 @@ to download the full example code</p>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="p">]</span>
-<span class="n">bounding_box_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
+<a href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounding_box_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_points" title="napari.Viewer.add_points" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span></a><span class="p">(</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounding_box_data</span></a><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bounding box&#39;</span><span class="p">,</span>
     <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
     <span class="n">size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
     <span class="n">edge_width</span><span class="o">=</span><span class="mi">0</span>
 <span class="p">)</span>
-<span class="n">point_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
+<a href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">point_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_points" title="napari.Viewer.add_points" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span></a><span class="p">(</span>
     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;point&#39;</span><span class="p">,</span>
     <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span>
@@ -339,7 +339,7 @@ to download the full example code</p>
     <span class="n">layer</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="c1"># store start position of point</span>
-    <span class="n">original_position</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/copy.html#copy.copy" title="copy.copy" class="sphx-glr-backref-module-copy sphx-glr-backref-type-py-function"><span class="n">copy</span></a><span class="p">(</span><span class="n">point_layer</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">original_position</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/copy.html#copy.copy" title="copy.copy" class="sphx-glr-backref-module-copy sphx-glr-backref-type-py-function"><span class="n">copy</span></a><span class="p">(</span><a href="../api/napari.layers.Points.html#id6" title="napari.layers.Points.data" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">point_layer</span><span class="o">.</span><span class="n">data</span></a><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">yield</span>
     <span class="k">while</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;mouse_move&#39;</span><span class="p">:</span>
@@ -373,7 +373,7 @@ to download the full example code</p>
         <span class="n">clamped</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.where.html#numpy.where" title="numpy.where" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">where</span></a><span class="p">(</span><span class="n">clamped</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">clamped</span><span class="p">)</span>
 
         <span class="c1"># update</span>
-        <span class="n">point_layer</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">clamped</span>
+        <a href="../api/napari.layers.Points.html#id6" title="napari.layers.Points.data" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">point_layer</span><span class="o">.</span><span class="n">data</span></a> <span class="o">=</span> <span class="n">clamped</span>
         <span class="k">yield</span>
     <span class="c1"># reenable interactivity</span>
     <span class="n">layer</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span>
@@ -387,7 +387,7 @@ to download the full example code</p>
 <span class="s2">&quot;&quot;&quot;</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-interactive-move-point-3d-py">

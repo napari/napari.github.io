@@ -375,7 +375,7 @@ to download the full example code</p>
 
 
 <span class="c1"># create a viewer with a fake t+2D image</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a><span class="p">)</span>
+<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.html#napari.view_image" title="napari.view_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">view_image</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a><span class="p">)</span>
 
 <span class="c1"># create an empty shapes layer initialized with</span>
 <span class="c1"># text set to display the box label</span>
@@ -384,7 +384,7 @@ to download the full example code</p>
     <span class="s1">&#39;size&#39;</span><span class="p">:</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_size</span></a><span class="p">,</span>
     <span class="s1">&#39;color&#39;</span><span class="p">:</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_color</span></a>
 <span class="p">}</span>
-<span class="n">shapes</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span>
+<a href="../api/napari.layers.Shapes.html#napari.layers.Shapes" title="napari.layers.Shapes" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shapes</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_shapes" title="napari.Viewer.add_shapes" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span></a><span class="p">(</span>
     <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
     <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
     <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_kwargs</span></a><span class="p">,</span>
@@ -393,18 +393,18 @@ to download the full example code</p>
 
 <span class="c1"># create the label section gui</span>
 <a href="https://napari.org/magicgui/usage/_autosummary/magicgui.widgets.Container.html#magicgui.widgets.Container" title="magicgui.widgets.Container" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_widget</span></a> <span class="o">=</span> <span class="n">create_label_menu</span><span class="p">(</span>
-    <span class="n">shapes_layer</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span>
+    <span class="n">shapes_layer</span><span class="o">=</span><a href="../api/napari.layers.Shapes.html#napari.layers.Shapes" title="napari.layers.Shapes" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shapes</span></a><span class="p">,</span>
     <span class="n">label_feature</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">text_feature</span></a><span class="p">,</span>
     <span class="n">labels</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">box_annotations</span></a>
 <span class="p">)</span>
 <span class="c1"># add the label selection gui to the viewer as a dock widget</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><a href="https://napari.org/magicgui/usage/_autosummary/magicgui.widgets.Container.html#magicgui.widgets.Container" title="magicgui.widgets.Container" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_widget</span></a><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;label_widget&#39;</span><span class="p">)</span>
+<a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span></a><span class="p">(</span><a href="https://napari.org/magicgui/usage/_autosummary/magicgui.widgets.Container.html#magicgui.widgets.Container" title="magicgui.widgets.Container" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_widget</span></a><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;label_widget&#39;</span><span class="p">)</span>
 
 <span class="c1"># set the shapes layer mode to adding rectangles</span>
-<span class="n">shapes</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;add_rectangle&#39;</span>
+<a href="../api/napari.layers.Shapes.html#id9" title="napari.layers.Shapes.mode" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">shapes</span><span class="o">.</span><span class="n">mode</span></a> <span class="o">=</span> <span class="s1">&#39;add_rectangle&#39;</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-bbox-annotator-py">

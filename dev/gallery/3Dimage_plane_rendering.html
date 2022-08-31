@@ -299,13 +299,13 @@ with a simple widget for modifying plane parameters.</p>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># add a 3D image</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">blobs</span></a> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">binary_blobs</span><span class="p">(</span>
     <span class="n">length</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">volume_fraction</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_dim</span><span class="o">=</span><span class="mi">3</span>
 <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float32" title="numpy.float32" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">np</span><span class="o">.</span><span class="n">float32</span></a><span class="p">)</span>
-<span class="n">image_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span>
+<a href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">blobs</span></a><span class="p">,</span> <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;mip&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span> <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.25</span>
 <span class="p">)</span>
 
@@ -317,7 +317,7 @@ with a simple widget for modifying plane parameters.</p>
     <span class="s1">&#39;thickness&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
 <span class="p">}</span>
 
-<span class="n">plane_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span>
+<a href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">plane_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">blobs</span></a><span class="p">,</span>
     <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;plane&#39;</span><span class="p">,</span>
@@ -339,7 +339,7 @@ with a simple widget for modifying plane parameters.</p>
 <span class="p">)</span>
 <a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">text_overlay</span><span class="o">.</span><span class="n">visible</span></a> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3dimage-plane-rendering-py">

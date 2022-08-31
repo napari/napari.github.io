@@ -299,9 +299,9 @@ requires access to qt_viewer, please open an issue to discuss.
   layer_buttons = viewer.window.qt_viewer.layerButtons
 /home/runner/work/napari/napari/examples/action_manager.py:47: FutureWarning: viewer argument is deprecated since 0.4.14 and should not be used
   rot_button = QtViewerPushButton(None, &#39;warning&#39;)
-calling &lt;function bind_shortcut at 0x7f7538750a60&gt;
-calling &lt;function bind_button at 0x7f7538750af0&gt;
-calling &lt;function register_action at 0x7f75387a4c10&gt;
+calling &lt;function bind_shortcut at 0x7f9f569248b0&gt;
+calling &lt;function register_action at 0x7f9f56924a60&gt;
+calling &lt;function bind_button at 0x7f9f56924dc0&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -314,11 +314,11 @@ calling &lt;function register_action at 0x7f75387a4c10&gt;
 
 <span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_viewer_buttons</span> <span class="kn">import</span> <span class="n">QtViewerPushButton</span>
-<span class="kn">from</span> <span class="nn">napari.components</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
+<span class="kn">from</span> <span class="nn">napari.components</span> <span class="kn">import</span> <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class"><span class="n">ViewerModel</span></a>
 <span class="kn">from</span> <span class="nn">napari.utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
 
 
-<span class="k">def</span> <span class="nf">rotate45</span><span class="p">(</span><span class="n">viewer</span><span class="p">:</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">rotate45</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">:</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rotate layer 0 of the viewer by 45º</span>
 
@@ -336,14 +336,14 @@ calling &lt;function register_action at 0x7f75387a4c10&gt;
     <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.cos.html#numpy.cos" title="numpy.cos" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">cos</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">sin</span></a>
 
     <span class="n">r</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.cos.html#numpy.cos" title="numpy.cos" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">cos</span></a><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="o">-</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">sin</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)],</span> <span class="p">[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">sin</span></a><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.cos.html#numpy.cos" title="numpy.cos" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">cos</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)]])</span>
-    <span class="n">layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">layer</span> <span class="o">=</span> <a href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">layer</span><span class="o">.</span><span class="n">rotate</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">rotate</span> <span class="o">@</span> <span class="n">r</span>
 
 
 <span class="c1"># create the viewer with an image</span>
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.html#napari.view_image" title="napari.view_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">view_image</span></a><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">layer_buttons</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">qt_viewer</span><span class="o">.</span><span class="n">layerButtons</span>
+<span class="n">layer_buttons</span> <span class="o">=</span> <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">qt_viewer</span><span class="o">.</span><span class="n">layerButtons</span></a>
 
 <span class="c1"># Button do not need to do anything, just need to be pretty; all the action</span>
 <span class="c1"># binding and (un) binding will be done with the action manager, idem for</span>
@@ -365,7 +365,7 @@ calling &lt;function register_action at 0x7f75387a4c10&gt;
         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;napari:rotate45&#39;</span><span class="p">,</span>
         <span class="n">command</span><span class="o">=</span><span class="n">rotate45</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Rotate layer 0 by 45deg&#39;</span><span class="p">,</span>
-        <span class="n">keymapprovider</span><span class="o">=</span><span class="n">ViewerModel</span><span class="p">,</span>
+        <span class="n">keymapprovider</span><span class="o">=</span><a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class"><span class="n">ViewerModel</span></a><span class="p">,</span>
     <span class="p">)</span>
 
 
@@ -416,7 +416,7 @@ calling &lt;function register_action at 0x7f75387a4c10&gt;
    <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key</span></a><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-action-manager-py">

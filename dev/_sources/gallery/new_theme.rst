@@ -23,7 +23,9 @@ New theme
 
 Displays an image and sets the theme to new custom theme.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-40
+.. tags:: experimental
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-41
 
 
 
@@ -85,7 +87,7 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  22.603 seconds)
+   **Total running time of the script:** ( 0 minutes  24.677 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:

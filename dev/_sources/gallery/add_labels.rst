@@ -24,7 +24,9 @@ Add labels
 Display a labels layer above of an image layer using the ``add_labels`` and
 ``add_image`` APIs
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-37
+.. tags:: layers, visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-39
 
 
 

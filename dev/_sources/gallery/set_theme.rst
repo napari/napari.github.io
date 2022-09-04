@@ -23,7 +23,9 @@ Set theme
 
 Displays an image and sets the theme to 'light'.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-20
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-22
 
 
 

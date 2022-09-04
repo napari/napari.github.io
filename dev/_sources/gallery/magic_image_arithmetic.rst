@@ -23,7 +23,9 @@ magicgui Image Arithmetic
 
 Basic example of using magicgui to create an Image Arithmetic GUI in napari.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-54
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-55
 
 
 

@@ -21,7 +21,9 @@
 Tracks 2D
 =========
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-64
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-65
 
 
 

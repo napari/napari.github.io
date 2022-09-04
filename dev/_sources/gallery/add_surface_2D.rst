@@ -23,7 +23,9 @@ Add surface 2D
 
 Display a 2D surface
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-21
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-23
 
 
 

@@ -27,7 +27,9 @@ It demonstrates:
 1. overriding the default widget type with a custom class
 2. the `auto_call` option, which calls the function whenever a parameter changes
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-47
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 13-49
 
 
 

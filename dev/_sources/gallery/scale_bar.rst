@@ -23,7 +23,9 @@ Scale bar
 
 Display a 3D volume and the scale bar
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-26
+.. tags:: experimental
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-28
 
 
 

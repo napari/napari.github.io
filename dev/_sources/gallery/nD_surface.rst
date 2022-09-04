@@ -23,7 +23,9 @@ nD surface
 
 Display a 3D surface
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-24
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-26
 
 
 

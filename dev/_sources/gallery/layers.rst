@@ -21,10 +21,12 @@
 Layers
 ======
 
-Display multiple image layers using the add_image API and then reorder them
+Display multiple image layers using the ``add_image`` API and then reorder them
 using the layers swap method and remove one
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-26
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-28
 
 
 

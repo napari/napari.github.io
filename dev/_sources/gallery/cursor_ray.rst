@@ -23,7 +23,9 @@ Cursor ray
 
 Depict a ray through a layer in 3D to demonstrate interactive 3D functionality
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-65
+.. tags:: interactivity
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-67
 
 
 

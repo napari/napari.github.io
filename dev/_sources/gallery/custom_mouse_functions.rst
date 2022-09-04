@@ -21,9 +21,11 @@
 Custom mouse functions
 ======================
 
-Display one 4-D image layer using the add_image API
+Display one 4-D image layer using the ``add_image`` API
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-81
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-83
 
 
 

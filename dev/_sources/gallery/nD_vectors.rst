@@ -26,7 +26,9 @@ layers is 3D and "sliced" with a different set of vectors appearing on
 different 3D slices. Another is 2D and "broadcast" with the same vectors
 apprearing on each slice.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-56
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 12-58
 
 
 

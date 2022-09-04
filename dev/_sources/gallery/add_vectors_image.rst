@@ -27,7 +27,9 @@ Each vector position is defined by an (x-proj, y-proj) element where
 * x-proj and y-proj are the vector projections at each center
 * each vector is centered on a pixel of the NxM grid
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-43
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 13-45
 
 
 

@@ -31,7 +31,9 @@ on every slice.
 
 .. [1] https://numpy.org/doc/stable/user/basics.broadcasting.html
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-35
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 17-37
 
 
 

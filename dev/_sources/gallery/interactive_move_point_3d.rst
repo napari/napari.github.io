@@ -23,7 +23,9 @@ Interactive move point
 
 3D click and drag interactivity demo
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-102
+.. tags:: experimental
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-104
 
 
 

@@ -23,7 +23,9 @@ Pass colormaps
 
 Add named or unnamed vispy colormaps to existing layers.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-31
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-32
 
 
 

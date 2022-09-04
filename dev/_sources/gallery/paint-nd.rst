@@ -25,7 +25,9 @@ Display a 4D labels layer and paint only in 3D.
 
 This is useful e.g. when proofreading segmentations within a time series.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-34
+.. tags:: analysis
+
+.. GENERATED FROM PYTHON SOURCE LINES 11-35
 
 
 

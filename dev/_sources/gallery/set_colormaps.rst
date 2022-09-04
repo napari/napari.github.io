@@ -23,7 +23,9 @@ Set colormaps
 
 Add named or unnamed vispy colormaps to existing layers.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-34
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-36
 
 
 

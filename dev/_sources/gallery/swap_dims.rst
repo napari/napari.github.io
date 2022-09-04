@@ -23,7 +23,9 @@ Swap dims
 
 Display a 4-D image and points layer and swap the displayed dimensions
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-42
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-44
 
 
 

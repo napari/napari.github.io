@@ -24,7 +24,9 @@
 Display one 3D image layer and display it as a plane
 with a simple widget for modifying plane parameters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-54
+.. tags:: visualization-advanced, gui, layers
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-56
 
 
 

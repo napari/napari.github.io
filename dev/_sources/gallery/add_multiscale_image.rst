@@ -23,7 +23,9 @@ Add multiscale image
 
 Displays a multiscale image
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-26
+.. tags:: visualization-advanced
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-28
 
 
 
@@ -37,7 +39,7 @@ Displays a multiscale image
 
  .. code-block:: none
 
-    /home/runner/work/napari/napari/examples/add_multiscale_image.py:17: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
+    /home/runner/work/napari/napari/examples/add_multiscale_image.py:19: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
       pyramid_gaussian(base, downscale=2, max_layer=4, multichannel=True)
     multiscale level shapes:  [(4096, 4096), (2048, 2048), (1024, 1024), (512, 512), (256, 256)]
 

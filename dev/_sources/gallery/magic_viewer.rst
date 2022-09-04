@@ -23,7 +23,9 @@ magicgui viewer
 
 Example showing how to access the current viewer from a function widget.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-24
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-25
 
 
 

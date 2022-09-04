@@ -23,7 +23,9 @@ Reader plugin
 
 Barebones reader plugin example, using ``imageio.imread```
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-31
+.. tags:: historical
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-32
 
 
 

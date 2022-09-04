@@ -24,7 +24,9 @@ Add points with multicolor text
 Display a points layer on top of an image layer with text using
 multiple face colors mapped from features for the points and text.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-53
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-55
 
 
 

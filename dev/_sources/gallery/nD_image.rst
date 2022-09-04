@@ -23,7 +23,9 @@ nD image
 
 Display one 4-D image layer using the :func:`view_image` API.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-26
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-28
 
 
 

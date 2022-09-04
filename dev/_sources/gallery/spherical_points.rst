@@ -21,7 +21,9 @@
 Spherical points
 ================
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-33
+.. tags:: experimental
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-34
 
 
 

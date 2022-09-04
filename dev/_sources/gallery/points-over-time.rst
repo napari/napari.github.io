@@ -21,7 +21,9 @@
 Points over time
 ================
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-45
+.. tags:: visualization-advanced
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-46
 
 
 

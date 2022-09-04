@@ -21,7 +21,9 @@
 Image depth
 ===========
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-26
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-27
 
 
 

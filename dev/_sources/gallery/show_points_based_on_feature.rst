@@ -21,7 +21,9 @@
 Show points based on feature
 ============================
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-38
+.. tags:: visualization-advanced
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-39
 
 
 

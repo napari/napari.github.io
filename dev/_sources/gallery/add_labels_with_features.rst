@@ -23,7 +23,9 @@ Add labels with features
 
 Display a labels layer with various features
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-60
+.. tags:: layers, analysis
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-62
 
 
 

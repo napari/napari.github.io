@@ -23,7 +23,9 @@ Interaction box points
 
 Demonstrate interaction box on points layer
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-51
+.. tags:: experimental
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-53
 
 
 

@@ -23,7 +23,9 @@ Add 3D image
 
 Display a 3D image layer using the :meth:`add_image` API.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-21
+.. tags:: visualization-nD, layers
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-23
 
 
 

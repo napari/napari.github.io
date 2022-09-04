@@ -24,7 +24,9 @@ Mouse drag callback
 Example updating the status bar with line profile info while dragging
 lines around in a shapes layer.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-53
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-55
 
 
 

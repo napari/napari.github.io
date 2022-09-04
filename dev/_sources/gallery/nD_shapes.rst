@@ -21,9 +21,11 @@
 nD shapes
 =========
 
-Display one 4-D image layer using the add_image API
+Display one 4-D image layer using the ``add_image`` API
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-58
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-60
 
 
 

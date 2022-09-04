@@ -26,7 +26,9 @@ Alternative to using napari.gui_qt() context manager.
 This is here for historical purposes, to the transition away from
 the "gui_qt()" context manager.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-37
+.. tags:: historical
+
+.. GENERATED FROM PYTHON SOURCE LINES 12-39
 
 
 

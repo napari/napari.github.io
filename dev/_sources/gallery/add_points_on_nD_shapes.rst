@@ -23,7 +23,9 @@ Add points on nD shapes
 
 Add points on nD shapes in 3D using a mouse callback
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-74
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-75
 
 
 

@@ -24,7 +24,9 @@ Annotate segmentation with text
 Perform a segmentation and annotate the results with
 bounding boxes and text
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-134
+.. tags:: analysis
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-136
 
 
 

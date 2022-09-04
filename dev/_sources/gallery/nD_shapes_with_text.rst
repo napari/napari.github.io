@@ -21,7 +21,9 @@
 nD shapes with text
 ===================
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-32
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-33
 
 
 

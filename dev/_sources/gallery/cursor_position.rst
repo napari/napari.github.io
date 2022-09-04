@@ -23,7 +23,9 @@ Cursor position
 
 Add small data to examine cursor positions
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-31
+.. tags:: interactivity
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-33
 
 
 

@@ -23,7 +23,9 @@ Surface normals wireframe
 
 Display a 3D mesh with normals and wireframe
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-28
+.. tags:: experimental
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-30
 
 
 

@@ -26,7 +26,9 @@ and computations of a source dask array and display the results in napari.
 When the computation takes one or more parameters, one can tie a UI to
 them using magicgui.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-17
+.. tags:: visualization-advanced
+
+.. GENERATED FROM PYTHON SOURCE LINES 12-19
 
 .. code-block:: default
 
@@ -44,11 +46,11 @@ them using magicgui.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-19
+.. GENERATED FROM PYTHON SOURCE LINES 20-21
 
 Part 1: using code to view a specific value.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-35
+.. GENERATED FROM PYTHON SOURCE LINES 21-37
 
 .. code-block:: default
 
@@ -80,11 +82,11 @@ Part 1: using code to view a specific value.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-37
+.. GENERATED FROM PYTHON SOURCE LINES 38-39
 
 Part 2: using magicgui to vary the slice thickness.
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-68
+.. GENERATED FROM PYTHON SOURCE LINES 39-70
 
 .. code-block:: default
 

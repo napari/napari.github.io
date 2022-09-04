@@ -23,7 +23,9 @@ Affine transforms
 
 Display an image and its corners before and after an affine transform
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-45
+.. tags:: visualization-advanced
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-47
 
 
 

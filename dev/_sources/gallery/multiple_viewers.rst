@@ -23,7 +23,9 @@ Multiple viewers
 
 Create multiple viewers from the same script
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-23
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-25
 
 
 

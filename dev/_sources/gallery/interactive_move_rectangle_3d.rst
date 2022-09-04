@@ -23,7 +23,9 @@ Interactive move rectangle
 
 Shift a rectangle along its normal vector in 3D
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-72
+.. tags:: experimental
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-73
 
 
 

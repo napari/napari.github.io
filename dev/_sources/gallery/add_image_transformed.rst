@@ -23,7 +23,9 @@ Add image transformed
 
 Display one image and transform it using the :func:`view_image` API.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-16
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-18
 
 
 

@@ -21,10 +21,12 @@
 Annotate 2D
 ===========
 
-Display one points layer ontop of one image layer using the add_points and
-add_image APIs
+Display one points layer ontop of one image layer using the ``add_points`` and
+``add_image`` APIs
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-25
+.. tags:: analysis
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-27
 
 
 

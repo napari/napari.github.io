@@ -23,7 +23,9 @@ Add grayscale image
 
 Display one grayscale image using the add_image API.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-20
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-22
 
 
 

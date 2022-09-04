@@ -21,7 +21,9 @@
 bbox annotator
 ==============
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-120
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-121
 
 
 

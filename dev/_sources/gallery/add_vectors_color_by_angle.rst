@@ -24,7 +24,9 @@ Add vectors color by angle
 This example generates a set of vectors in a spiral pattern.
 The color of the vectors is mapped to their 'angle' feature.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-61
+.. tags:: visualization-advanced
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-62
 
 
 
@@ -34,19 +36,8 @@ The color of the vectors is mapped to their 'angle' feature.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/runner/work/napari/napari/napari/utils/colormaps/colormap_utils.py:417: DeprecationWarning: Colormap 'husl' has been deprecated since vispy 0.7. Please import and create 'vispy.color.colormap.HSLuv' directly instead.
-      cmap = get_colormap(name)
 
 
-
-
-
-
-|
 
 .. code-block:: default
 

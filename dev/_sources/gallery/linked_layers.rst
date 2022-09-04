@@ -27,7 +27,9 @@ This function takes a list of layers and an optional list of attributes, and
 links them such that when one of the linked attributes changes on any of the
 linked layers, all of the other layers follow.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-31
+.. tags:: experimental
+
+.. GENERATED FROM PYTHON SOURCE LINES 13-33
 
 
 

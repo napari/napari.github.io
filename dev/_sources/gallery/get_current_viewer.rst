@@ -26,7 +26,9 @@ Get a reference to the current napari viewer.
 Whilst this example is contrived, it can be useful to get a reference to the
 viewer when the viewer is out of scope.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-21
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 12-23
 
 
 

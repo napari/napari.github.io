@@ -21,7 +21,9 @@
 Interactive scripting
 =====================
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-32
+.. tags:: interactivity
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-33
 
 
 

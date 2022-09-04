@@ -28,7 +28,9 @@ Switching to 3D display will only impact the main viewer.
 This example also contain option to enable cross that will be moved to the
 current dims point (`viewer.dims.point`).
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-453
+.. tags:: gui
+
+.. GENERATED FROM PYTHON SOURCE LINES 14-455
 
 
 

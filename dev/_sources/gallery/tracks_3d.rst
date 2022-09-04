@@ -21,7 +21,9 @@
 Tracks 3D
 =========
 
-.. GENERATED FROM PYTHON SOURCE LINES 6-78
+.. tags:: visualization-advanced
+
+.. GENERATED FROM PYTHON SOURCE LINES 7-79
 
 
 

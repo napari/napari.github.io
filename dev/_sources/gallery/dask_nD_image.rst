@@ -23,7 +23,9 @@ Dask nD image
 
 Display a dask array
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-34
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-36
 
 
 

@@ -298,11 +298,9 @@ v0.5.0. It is considered an &quot;implementation detail&quot; of the napari
 application, not part of the napari viewer model. If your use case
 requires access to qt_viewer, please open an issue to discuss.
   layer_buttons = viewer.window.qt_viewer.layerButtons
-/home/runner/work/napari/napari/examples/action_manager.py:48: FutureWarning: viewer argument is deprecated since 0.4.14 and should not be used
-  rot_button = QtViewerPushButton(None, &#39;warning&#39;)
-calling &lt;function bind_shortcut at 0x7fcb2cd34790&gt;
-calling &lt;function bind_button at 0x7fcb2cd34a60&gt;
-calling &lt;function register_action at 0x7fcb2cd34700&gt;
+calling &lt;function register_action at 0x7fc9e92c9af0&gt;
+calling &lt;function bind_shortcut at 0x7fc9e92c9ee0&gt;
+calling &lt;function bind_button at 0x7fc9e92c9820&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -349,7 +347,7 @@ calling &lt;function register_action at 0x7fcb2cd34700&gt;
 <span class="c1"># Button do not need to do anything, just need to be pretty; all the action</span>
 <span class="c1"># binding and (un) binding will be done with the action manager, idem for</span>
 <span class="c1"># setting the tooltip.</span>
-<span class="n">rot_button</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;warning&#39;</span><span class="p">)</span>
+<span class="n">rot_button</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">)</span>
 <span class="n">layer_buttons</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">insertWidget</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">rot_button</span><span class="p">)</span>
 
 
@@ -413,7 +411,7 @@ calling &lt;function register_action at 0x7fcb2cd34700&gt;
 
 
 <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key</span></a> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">settings</span></a><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-   <a href="https://docs.python.org/3/library/stdtypes.html#set" title="builtins.set" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_old_shortcut</span></a> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">)</span>
+   <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_old_shortcut</span></a> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">)</span>
    <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">action</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key</span></a><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

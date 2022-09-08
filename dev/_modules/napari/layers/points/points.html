@@ -1103,16 +1103,26 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">edge_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># broadcast to np.array</span>
         <span class="n">edge_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">edge_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width_is_relative</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">edge_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">edge_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">):</span>
+
+        <span class="c1"># edge width cannot be negative</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">edge_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;edge_width must be between 0 and 1 if edge_width_is_relative is enabled&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;All edge_width must be &gt; 0&#39;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
+        <span class="c1"># if relative edge width is enabled, edge_width must be between 0 and 1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width_is_relative</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">edge_width</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;All edge_width must be between 0 and 1 if edge_width_is_relative is enabled&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -2146,6 +2156,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">selection_indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">position</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+        <span class="n">center_by_data</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Store the initial position at the start of a drag event.</span>
 
@@ -2155,15 +2166,19 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            integer indices of selected data used to index into self.data</span>
 <span class="sd">        position : Sequence of numbers</span>
 <span class="sd">            position of the drag start in data coordinates.</span>
+<span class="sd">        center_by_data: bool</span>
+<span class="sd">            Center the drag start based on the selected data.</span>
+<span class="sd">            Used for modifier drag_box selection.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selection_indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">selection_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">selection_indices</span><span class="p">)</span>
-            <span class="n">dims_displayed</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drag_start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">selection_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">selection_indices</span><span class="p">)</span>
+        <span class="n">dims_displayed</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drag_start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_drag_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selection_indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">center_by_data</span><span class="p">:</span>
                 <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span>
                     <span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">selection_indices</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">)</span>
                 <span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_drag_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span> <span class="o">-</span> <span class="n">center</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_drag_start</span> <span class="o">-=</span> <span class="n">center</span>
 
     <span class="k">def</span> <span class="nf">_paste_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Paste any point from clipboard and select them.&quot;&quot;&quot;</span>

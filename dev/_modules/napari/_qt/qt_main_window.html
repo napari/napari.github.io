@@ -938,7 +938,10 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Window.add_plugin_dock_widget"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.window.Window.add_plugin_dock_widget">[docs]</a>    <span class="k">def</span> <span class="nf">add_plugin_dock_widget</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">widget_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">QtViewerDockWidget</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Add plugin dock widget if not already added.</span>
 
@@ -969,6 +972,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">Widget</span><span class="p">,</span> <span class="n">dock_kwargs</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">get_widget</span><span class="p">(</span>
                 <span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span>
             <span class="p">)</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="n">widget_name</span><span class="p">:</span>
             <span class="c1"># if widget_name wasn&#39;t provided, `get_widget` will have</span>
             <span class="c1"># ensured that there is a single widget available.</span>
@@ -988,7 +992,9 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># Add dock widget</span>
         <span class="n">dock_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">dock_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span><span class="n">wdg</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">full_name</span><span class="p">,</span> <span class="o">**</span><span class="n">dock_kwargs</span><span class="p">)</span>
+        <span class="n">dock_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span>
+            <span class="n">wdg</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">full_name</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="n">tabify</span><span class="p">,</span> <span class="o">**</span><span class="n">dock_kwargs</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">dock_widget</span><span class="p">,</span> <span class="n">wdg</span></div>
 
     <span class="k">def</span> <span class="nf">_add_plugin_function_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -1024,6 +1030,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">shortcut</span><span class="o">=</span><span class="n">_sentinel</span><span class="p">,</span>
         <span class="n">add_vertical_stretch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">menu</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convenience method to add a QDockWidget to the main window.</span>
 
@@ -1096,7 +1103,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">add_vertical_stretch</span><span class="o">=</span><span class="n">add_vertical_stretch</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_add_viewer_dock_widget</span><span class="p">(</span><span class="n">dock_widget</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_viewer_dock_widget</span><span class="p">(</span><span class="n">dock_widget</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">menu</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="n">tabify</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">&#39;reset_choices&#39;</span><span class="p">):</span>
             <span class="c1"># Keep the dropdown menus in the widget in sync with the layer model</span>

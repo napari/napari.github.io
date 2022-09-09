@@ -285,10 +285,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        return viewer</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">from</span> <span class="nn">numpydoc.docscrape</span> <span class="kn">import</span> <span class="n">NumpyDocString</span> <span class="k">as</span> <span class="n">_NumpyDocString</span>
 
 <span class="kn">from</span> <span class="nn">napari.components.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
+<span class="kn">from</span> <span class="nn">napari.layers</span> <span class="kn">import</span> <span class="n">Image</span>
 
 <span class="kn">from</span> <span class="nn">.viewer</span> <span class="kn">import</span> <span class="n">Viewer</span>
 
@@ -301,6 +303,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="s1">&#39;view_surface&#39;</span><span class="p">,</span>
     <span class="s1">&#39;view_tracks&#39;</span><span class="p">,</span>
     <span class="s1">&#39;view_vectors&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;imshow&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">_doc_template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Create a viewer and add a</span><span class="si">{n}</span><span class="s2"> </span><span class="si">{layer_string}</span><span class="s2"> layer.</span>
@@ -384,20 +387,54 @@ function checkPageExistsAndRedirect(event) {
 <span class="n">_dims_params</span> <span class="o">=</span> <span class="n">Dims</span><span class="o">.</span><span class="n">__fields__</span>
 
 
-<span class="k">def</span> <span class="nf">_make_viewer_then</span><span class="p">(</span><span class="n">add_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Viewer</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Utility function that creates a viewer, adds a layer, returns viewer.&quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">_make_viewer_then</span><span class="p">(</span>
+    <span class="n">add_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">args</span><span class="p">,</span>
+    <span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Create a viewer, call given add_* method, then return viewer and layer.</span>
+
+<span class="sd">    This function will be deprecated soon (See #4693)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    add_method : str</span>
+<span class="sd">        Which ``add_`` method to call on the viewer, e.g. `add_image`,</span>
+<span class="sd">        or `add_labels`.</span>
+<span class="sd">    args : list</span>
+<span class="sd">        Positional arguments for the ``add_`` method.</span>
+<span class="sd">    kwargs : dict</span>
+<span class="sd">        Keyword arguments for either the `Viewer` constructor or for the</span>
+<span class="sd">        ``add_`` method.</span>
+<span class="sd">    viewer : Viewer, optional</span>
+<span class="sd">        A pre-existing viewer, which will be used provided, rather than</span>
+<span class="sd">        creating a new one.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    viewer : napari.Viewer</span>
+<span class="sd">        The created viewer, or the same one that was passed in, if given.</span>
+<span class="sd">    layer(s): napari.layers.Layer or List[napari.layers.Layer]</span>
+<span class="sd">        The value returned by the add_method. Can be a list of layers if</span>
+<span class="sd">        ``add_image`` is called with a ``channel_axis=`` keyword</span>
+<span class="sd">        argument.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vkwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_viewer_params</span><span class="p">}</span>
     <span class="c1"># separate dims kwargs because we want to set those after adding data</span>
     <span class="n">dims_kwargs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">k</span><span class="p">:</span> <span class="n">vkwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">vkwargs</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_dims_params</span>
     <span class="p">}</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">(</span><span class="o">**</span><span class="n">vkwargs</span><span class="p">)</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;viewer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">viewer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">viewer</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">(</span><span class="o">**</span><span class="n">vkwargs</span><span class="p">)</span>
     <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;kwargs&quot;</span><span class="p">,</span> <span class="p">{}))</span>
     <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">add_method</span><span class="p">)</span>
-    <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">added</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">added</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">added</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">arg_name</span><span class="p">,</span> <span class="n">arg_val</span> <span class="ow">in</span> <span class="n">dims_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">arg_name</span><span class="p">,</span> <span class="n">arg_val</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">viewer</span>
+    <span class="k">return</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">added</span>
 
 
 <span class="c1"># Each of the following functions will have this pattern:</span>
@@ -411,42 +448,242 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="view_image"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_image">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_image</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_image&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_image&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_labels"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_labels">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_labels</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_labels&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_labels&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_points"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_points">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_points</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_points&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_points&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_shapes"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_shapes">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_shapes</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_shapes&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_shapes&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_surface"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_surface">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_surface</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_surface&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_surface&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_tracks"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_tracks">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_tracks</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_tracks&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_tracks&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_vectors"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_vectors">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_vectors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_vectors&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_vectors&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_path"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_path">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_path</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="imshow"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.imshow">[docs]</a><span class="k">def</span> <span class="nf">imshow</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">channel_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">rgb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+    <span class="n">contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
+    <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+    <span class="n">rendering</span><span class="o">=</span><span class="s1">&#39;mip&#39;</span><span class="p">,</span>
+    <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
+    <span class="n">iso_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">attenuation</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">blending</span><span class="o">=</span><span class="s1">&#39;translucent&#39;</span><span class="p">,</span>
+    <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">viewer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span>
+    <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">order</span><span class="o">=</span><span class="p">(),</span>
+    <span class="n">axis_labels</span><span class="o">=</span><span class="p">(),</span>
+    <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Load data into an Image layer and return the Viewer and Layer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : array or list of array</span>
+<span class="sd">        Image data. Can be N &gt;= 2 dimensional. If the last dimension has length</span>
+<span class="sd">        3 or 4 can be interpreted as RGB or RGBA if rgb is `True`. If a</span>
+<span class="sd">        list and arrays are decreasing in shape then the data is treated as</span>
+<span class="sd">        a multiscale image. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
+<span class="sd">    channel_axis : int, optional</span>
+<span class="sd">            Axis to expand image along.  If provided, each channel in the data</span>
+<span class="sd">            will be added as an individual image layer.  In channel_axis mode,</span>
+<span class="sd">            all other parameters MAY be provided as lists, and the Nth value</span>
+<span class="sd">            will be applied to the Nth channel in the data.  If a single value</span>
+<span class="sd">            is provided, it will be broadcast to all Layers.</span>
+<span class="sd">    rgb : bool</span>
+<span class="sd">        Whether the image is rgb RGB or RGBA. If not specified by user and</span>
+<span class="sd">        the last dimension of the data has length 3 or 4 it will be set as</span>
+<span class="sd">        `True`. If `False` the image is interpreted as a luminance image.</span>
+<span class="sd">    colormap : str, napari.utils.Colormap, tuple, dict</span>
+<span class="sd">        Colormap to use for luminance images. If a string must be the name</span>
+<span class="sd">        of a supported colormap from vispy or matplotlib. If a tuple the</span>
+<span class="sd">        first value must be a string to assign as a name to a colormap and</span>
+<span class="sd">        the second item must be a Colormap. If a dict the key must be a</span>
+<span class="sd">        string to assign as a name to a colormap and the value must be a</span>
+<span class="sd">        Colormap.</span>
+<span class="sd">    contrast_limits : list (2,)</span>
+<span class="sd">        Color limits to be used for determining the colormap bounds for</span>
+<span class="sd">        luminance images. If not passed is calculated as the min and max of</span>
+<span class="sd">        the image.</span>
+<span class="sd">    gamma : float</span>
+<span class="sd">        Gamma correction for determining colormap linearity. Defaults to 1.</span>
+<span class="sd">    interpolation : str</span>
+<span class="sd">        Interpolation mode used by vispy. Must be one of our supported</span>
+<span class="sd">        modes.</span>
+<span class="sd">    rendering : str</span>
+<span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
+<span class="sd">        modes.</span>
+<span class="sd">    depiction : str</span>
+<span class="sd">        3D Depiction mode. Must be one of {&#39;volume&#39;, &#39;plane&#39;}.</span>
+<span class="sd">        The default value is &#39;volume&#39;.</span>
+<span class="sd">    iso_threshold : float</span>
+<span class="sd">        Threshold for isosurface.</span>
+<span class="sd">    attenuation : float</span>
+<span class="sd">        Attenuation rate for attenuated maximum intensity projection.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the layer.</span>
+<span class="sd">    metadata : dict</span>
+<span class="sd">        Layer metadata.</span>
+<span class="sd">    scale : tuple of float</span>
+<span class="sd">        Scale factors for the layer.</span>
+<span class="sd">    translate : tuple of float</span>
+<span class="sd">        Translation values for the layer.</span>
+<span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
+<span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
+<span class="sd">        angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,</span>
+<span class="sd">        pitch, roll convention. Otherwise assume an nD rotation. Angles are</span>
+<span class="sd">        assumed to be in degrees. They can be converted from radians with</span>
+<span class="sd">        np.degrees if needed.</span>
+<span class="sd">    shear : 1-D array or n-D array</span>
+<span class="sd">        Either a vector of upper triangular values, or an nD shear matrix with</span>
+<span class="sd">        ones along the main diagonal.</span>
+<span class="sd">    affine : n-D array or napari.utils.transforms.Affine</span>
+<span class="sd">        (N+1, N+1) affine transformation matrix in homogeneous coordinates.</span>
+<span class="sd">        The first (N, N) entries correspond to a linear transform and</span>
+<span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
+<span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
+<span class="sd">        provided scale, rotate, and shear values.</span>
+<span class="sd">    opacity : float</span>
+<span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
+<span class="sd">    blending : str</span>
+<span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
+<span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
+<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, and &#39;additive&#39;}.</span>
+<span class="sd">    visible : bool</span>
+<span class="sd">        Whether the layer visual is currently being displayed.</span>
+<span class="sd">    multiscale : bool</span>
+<span class="sd">        Whether the data is a multiscale image or not. Multiscale data is</span>
+<span class="sd">        represented by a list of array like image data. If not specified by</span>
+<span class="sd">        the user and if the data is a list of arrays that decrease in shape</span>
+<span class="sd">        then it will be taken to be multiscale. The first image in the list</span>
+<span class="sd">        should be the largest. Please note multiscale rendering is only</span>
+<span class="sd">        supported in 2D. In 3D, only the lowest resolution scale is</span>
+<span class="sd">        displayed.</span>
+<span class="sd">    cache : bool</span>
+<span class="sd">        Whether slices of out-of-core datasets should be cached upon retrieval.</span>
+<span class="sd">        Currently, this only applies to dask arrays.</span>
+<span class="sd">    plane : dict or SlicingPlane</span>
+<span class="sd">        Properties defining plane rendering in 3D. Properties are defined in</span>
+<span class="sd">        data coordinates. Valid dictionary keys are</span>
+<span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">    experimental_clipping_planes : list of dicts, list of ClippingPlane, or ClippingPlaneList</span>
+<span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
+<span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
+<span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">    viewer: Viewer object, optional, by default None.</span>
+<span class="sd">    title : string, optional</span>
+<span class="sd">        The title of the viewer window. by default &#39;napari&#39;.</span>
+<span class="sd">    ndisplay : {2, 3}, optional</span>
+<span class="sd">        Number of displayed dimensions. by default 2.</span>
+<span class="sd">    order : tuple of int, optional</span>
+<span class="sd">        Order in which dimensions are displayed where the last two or last</span>
+<span class="sd">        three dimensions correspond to row x column or plane x row x column if</span>
+<span class="sd">        ndisplay is 2 or 3. by default None</span>
+<span class="sd">    axis_labels : list of str, optional</span>
+<span class="sd">        Dimension names. by default they are labeled with sequential numbers</span>
+<span class="sd">    show : bool, optional</span>
+<span class="sd">        Whether to show the viewer after instantiation. by default True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    viewer : napari.Viewer</span>
+<span class="sd">        The created or passed viewer.</span>
+<span class="sd">    layer(s) : napari.layers.Image or List[napari.layers.Image]</span>
+<span class="sd">        The added layer(s). (May be more than one if the ``channel_axis`` keyword</span>
+<span class="sd">        argument is given.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">viewer</span><span class="o">=</span><span class="n">viewer</span><span class="p">,</span>
+        <span class="n">channel_axis</span><span class="o">=</span><span class="n">channel_axis</span><span class="p">,</span>
+        <span class="n">rgb</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span>
+        <span class="n">contrast_limits</span><span class="o">=</span><span class="n">contrast_limits</span><span class="p">,</span>
+        <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+        <span class="n">interpolation2d</span><span class="o">=</span><span class="n">interpolation2d</span><span class="p">,</span>
+        <span class="n">interpolation3d</span><span class="o">=</span><span class="n">interpolation3d</span><span class="p">,</span>
+        <span class="n">rendering</span><span class="o">=</span><span class="n">rendering</span><span class="p">,</span>
+        <span class="n">depiction</span><span class="o">=</span><span class="n">depiction</span><span class="p">,</span>
+        <span class="n">iso_threshold</span><span class="o">=</span><span class="n">iso_threshold</span><span class="p">,</span>
+        <span class="n">attenuation</span><span class="o">=</span><span class="n">attenuation</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+        <span class="n">translate</span><span class="o">=</span><span class="n">translate</span><span class="p">,</span>
+        <span class="n">rotate</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span>
+        <span class="n">shear</span><span class="o">=</span><span class="n">shear</span><span class="p">,</span>
+        <span class="n">affine</span><span class="o">=</span><span class="n">affine</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
+        <span class="n">blending</span><span class="o">=</span><span class="n">blending</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+        <span class="n">multiscale</span><span class="o">=</span><span class="n">multiscale</span><span class="p">,</span>
+        <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
+        <span class="n">plane</span><span class="o">=</span><span class="n">plane</span><span class="p">,</span>
+        <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">ndisplay</span><span class="o">=</span><span class="n">ndisplay</span><span class="p">,</span>
+        <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+        <span class="n">axis_labels</span><span class="o">=</span><span class="n">axis_labels</span><span class="p">,</span>
+        <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">data</span><span class="p">])</span>
+
+    <span class="n">viewer</span><span class="p">,</span> <span class="n">layers</span> <span class="o">=</span> <span class="n">_make_viewer_then</span><span class="p">(</span>
+        <span class="s1">&#39;add_image&#39;</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">,</span>
+        <span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">layers</span></div>
 </pre></div>
 
             </div>

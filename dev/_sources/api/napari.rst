@@ -26,6 +26,7 @@
    
    .. autofunction:: current_viewer
    .. autofunction:: gui_qt
+   .. autofunction:: imshow
    .. autofunction:: run
    .. autofunction:: save_layers
    .. autofunction:: sys_info

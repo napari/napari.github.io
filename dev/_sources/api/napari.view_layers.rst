@@ -16,6 +16,7 @@
       :toctree:
    
       Dims
+      Image
       Viewer
    
    
@@ -25,6 +26,7 @@
    .. rubric:: Functions
 
    
+   .. autofunction:: imshow
    .. autofunction:: view_image
    .. autofunction:: view_labels
    .. autofunction:: view_path

@@ -26,20 +26,25 @@ Action manager
 .. GENERATED FROM PYTHON SOURCE LINES 7-117
 
 
+
+.. image-sg:: /gallery/images/sphx_glr_action_manager_001.png
+   :alt: action manager
+   :srcset: /gallery/images/sphx_glr_action_manager_001.png
+   :class: sphx-glr-single-img
+
+
 .. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
+ .. code-block:: none
 
-    Traceback (most recent call last):
-      File "/home/runner/work/napari/napari/examples/action_manager.py", line 87, in <module>
-        c()
-      File "/home/runner/work/napari/napari/examples/action_manager.py", line 77, in bind_button
-        action_manager.bind_button('napari:rotate45', rot_button)
-      File "/home/runner/work/napari/napari/napari/utils/action_manager.py", line 216, in bind_button
-        f'{self._build_tooltip(name)} {extra_tooltip_text}'
-      File "/home/runner/work/napari/napari/napari/utils/action_manager.py", line 301, in _build_tooltip
-        ttip = self._actions[name].description
-    KeyError: 'napari:rotate45'
+    /home/runner/work/napari/napari/examples/action_manager.py:43: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
+    v0.5.0. It is considered an "implementation detail" of the napari
+    application, not part of the napari viewer model. If your use case
+    requires access to qt_viewer, please open an issue to discuss.
+      layer_buttons = viewer.window.qt_viewer.layerButtons
+    calling <function register_action at 0x7f989b941b80>
+    calling <function bind_button at 0x7f989b941f70>
+    calling <function bind_shortcut at 0x7f989b941c10>
 
 
 

@@ -769,7 +769,7 @@ provided scale, rotate, and shear values.</p></li>
 <li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
 <li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
-{‘opaque’, ‘translucent’, ‘translucent_no_depth’, and ‘additive’}.</p></li>
+{‘opaque’, ‘translucent’, ‘translucent_no_depth’, ‘additive’, and ‘minimum’}.</p></li>
 <li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
 <li><p><strong>multiscale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the data is multiscale or not. Multiscale data is
 represented by a list of data objects and should go from largest to
@@ -821,17 +821,28 @@ Allows for only the top layer to be visible and corresponds to
 <li><p><code class="docutils literal notranslate"><span class="pre">Blending.TRANSLUCENT</span></code>
 Allows for multiple layers to be blended with different opacity and
 corresponds to <code class="docutils literal notranslate"><span class="pre">depth_test=True</span></code>, <code class="docutils literal notranslate"><span class="pre">cull_face=False</span></code>,
-<code class="docutils literal notranslate"><span class="pre">blend=True</span></code>, <code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one_minus_src_alpha')</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">blend=True</span></code>, <code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one_minus_src_alpha')</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">blend_equation=('func_add')</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Blending.TRANSLUCENT_NO_DEPTH</span></code>
 Allows for multiple layers to be blended with different opacity, but
 no depth testing is performed. Corresponds to <code class="docutils literal notranslate"><span class="pre">depth_test=False</span></code>,
 <code class="docutils literal notranslate"><span class="pre">cull_face=False</span></code>, <code class="docutils literal notranslate"><span class="pre">blend=True</span></code>,
-<code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one_minus_src_alpha')</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one_minus_src_alpha')</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">blend_equation=('func_add')</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Blending.ADDITIVE</span></code>
 Allows for multiple layers to be blended together with different
 colors and opacity. Useful for creating overlays. It corresponds to
 <code class="docutils literal notranslate"><span class="pre">depth_test=False</span></code>, <code class="docutils literal notranslate"><span class="pre">cull_face=False</span></code>, <code class="docutils literal notranslate"><span class="pre">blend=True</span></code>,
-<code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one')</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">blend_func=('src_alpha',</span> <span class="pre">'one')</span></code>, and <code class="docutils literal notranslate"><span class="pre">blend_equation=('func_add')</span></code>.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">Blending.MINIMUM</span></code></dt><dd><p>Allows for multiple layers to be blended together such that
+the minimum of each RGB component and alpha are selected.
+Useful for creating overlays with inverted colormaps. It
+corresponds to <code class="docutils literal notranslate"><span class="pre">depth_test=False</span></code>, <code class="docutils literal notranslate"><span class="pre">cull_face=False</span></code>, <code class="docutils literal notranslate"><span class="pre">blend=True</span></code>,
+<code class="docutils literal notranslate"><span class="pre">blend_equation=('min')</span></code>.</p>
+</dd>
+</dl>
+</li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1279,12 +1290,24 @@ depth_test=True, cull_face=False, blend=False.</p>
 </dd>
 <dt>Blending.TRANSLUCENT</dt><dd><p>Allows for multiple layers to be blended with different opacity
 and corresponds to depth_test=True, cull_face=False,
-blend=True, blend_func=(‘src_alpha’, ‘one_minus_src_alpha’).</p>
+blend=True, blend_func=(‘src_alpha’, ‘one_minus_src_alpha’),
+and blend_equation=(‘func_add’).</p>
+</dd>
+<dt>Blending.TRANSLUCENT_NO_DEPTH</dt><dd><p>Allows for multiple layers to be blended with different opacity, but
+no depth testing is performed. Corresponds to <code class="docutils literal notranslate"><span class="pre">depth_test=False</span></code>,
+cull_face=False, blend=True, blend_func=(‘src_alpha’, ‘one_minus_src_alpha’),
+and blend_equation=(‘func_add’).</p>
 </dd>
 <dt>Blending.ADDITIVE</dt><dd><p>Allows for multiple layers to be blended together with
 different colors and opacity. Useful for creating overlays. It
 corresponds to depth_test=False, cull_face=False, blend=True,
-blend_func=(‘src_alpha’, ‘one’).</p>
+blend_func=(‘src_alpha’, ‘one’), and blend_equation=(‘func_add’).</p>
+</dd>
+<dt>Blending.MINIMUM</dt><dd><p>Allows for multiple layers to be blended together such that
+the minimum of each RGB component and alpha are selected.
+Useful for creating overlays with inverted colormaps. It
+corresponds to depth_test=False, cull_face=False, blend=True,
+blend_equation=(‘min’).</p>
 </dd>
 </dl>
 <dl class="field-list simple">

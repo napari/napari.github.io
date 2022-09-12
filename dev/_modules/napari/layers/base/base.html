@@ -373,7 +373,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    blending : str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
-<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, &#39;translucent_no_depth&#39;, and &#39;additive&#39;}.</span>
+<span class="sd">        {&#39;opaque&#39;, &#39;translucent&#39;, &#39;translucent_no_depth&#39;, &#39;additive&#39;, and &#39;minimum&#39;}.</span>
 <span class="sd">    visible : bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
 <span class="sd">    multiscale : bool</span>
@@ -398,17 +398,25 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        * ``Blending.TRANSLUCENT``</span>
 <span class="sd">          Allows for multiple layers to be blended with different opacity and</span>
 <span class="sd">          corresponds to ``depth_test=True``, ``cull_face=False``,</span>
-<span class="sd">          ``blend=True``, ``blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;)``.</span>
+<span class="sd">          ``blend=True``, ``blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;)``,</span>
+<span class="sd">          and ``blend_equation=(&#39;func_add&#39;)``.</span>
 <span class="sd">        * ``Blending.TRANSLUCENT_NO_DEPTH``</span>
 <span class="sd">          Allows for multiple layers to be blended with different opacity, but</span>
 <span class="sd">          no depth testing is performed. Corresponds to ``depth_test=False``,</span>
 <span class="sd">          ``cull_face=False``, ``blend=True``,</span>
-<span class="sd">          ``blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;)``.</span>
+<span class="sd">          ``blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;)``, and</span>
+<span class="sd">          ``blend_equation=(&#39;func_add&#39;)``.</span>
 <span class="sd">        * ``Blending.ADDITIVE``</span>
 <span class="sd">          Allows for multiple layers to be blended together with different</span>
 <span class="sd">          colors and opacity. Useful for creating overlays. It corresponds to</span>
 <span class="sd">          ``depth_test=False``, ``cull_face=False``, ``blend=True``,</span>
-<span class="sd">          ``blend_func=(&#39;src_alpha&#39;, &#39;one&#39;)``.</span>
+<span class="sd">          ``blend_func=(&#39;src_alpha&#39;, &#39;one&#39;)``, and ``blend_equation=(&#39;func_add&#39;)``.</span>
+<span class="sd">        * ``Blending.MINIMUM``</span>
+<span class="sd">            Allows for multiple layers to be blended together such that</span>
+<span class="sd">            the minimum of each RGB component and alpha are selected.</span>
+<span class="sd">            Useful for creating overlays with inverted colormaps. It</span>
+<span class="sd">            corresponds to ``depth_test=False``, ``cull_face=False``, ``blend=True``,</span>
+<span class="sd">            ``blend_equation=(&#39;min&#39;)``.</span>
 <span class="sd">    scale : tuple of float</span>
 <span class="sd">        Scale factors for the layer.</span>
 <span class="sd">    translate : tuple of float</span>
@@ -743,12 +751,24 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Blending.TRANSLUCENT</span>
 <span class="sd">            Allows for multiple layers to be blended with different opacity</span>
 <span class="sd">            and corresponds to depth_test=True, cull_face=False,</span>
-<span class="sd">            blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;).</span>
+<span class="sd">            blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;),</span>
+<span class="sd">            and blend_equation=(&#39;func_add&#39;).</span>
+<span class="sd">        Blending.TRANSLUCENT_NO_DEPTH</span>
+<span class="sd">          Allows for multiple layers to be blended with different opacity, but</span>
+<span class="sd">          no depth testing is performed. Corresponds to ``depth_test=False``,</span>
+<span class="sd">          cull_face=False, blend=True, blend_func=(&#39;src_alpha&#39;, &#39;one_minus_src_alpha&#39;),</span>
+<span class="sd">          and blend_equation=(&#39;func_add&#39;).</span>
 <span class="sd">        Blending.ADDITIVE</span>
 <span class="sd">            Allows for multiple layers to be blended together with</span>
 <span class="sd">            different colors and opacity. Useful for creating overlays. It</span>
 <span class="sd">            corresponds to depth_test=False, cull_face=False, blend=True,</span>
-<span class="sd">            blend_func=(&#39;src_alpha&#39;, &#39;one&#39;).</span>
+<span class="sd">            blend_func=(&#39;src_alpha&#39;, &#39;one&#39;), and blend_equation=(&#39;func_add&#39;).</span>
+<span class="sd">        Blending.MINIMUM</span>
+<span class="sd">            Allows for multiple layers to be blended together such that</span>
+<span class="sd">            the minimum of each RGB component and alpha are selected.</span>
+<span class="sd">            Useful for creating overlays with inverted colormaps. It</span>
+<span class="sd">            corresponds to depth_test=False, cull_face=False, blend=True,</span>
+<span class="sd">            blend_equation=(&#39;min&#39;).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_blending</span><span class="p">)</span>
 

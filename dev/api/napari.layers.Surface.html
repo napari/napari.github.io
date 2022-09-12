@@ -1192,12 +1192,24 @@ depth_test=True, cull_face=False, blend=False.</p>
 </dd>
 <dt>Blending.TRANSLUCENT</dt><dd><p>Allows for multiple layers to be blended with different opacity
 and corresponds to depth_test=True, cull_face=False,
-blend=True, blend_func=(‘src_alpha’, ‘one_minus_src_alpha’).</p>
+blend=True, blend_func=(‘src_alpha’, ‘one_minus_src_alpha’),
+and blend_equation=(‘func_add’).</p>
+</dd>
+<dt>Blending.TRANSLUCENT_NO_DEPTH</dt><dd><p>Allows for multiple layers to be blended with different opacity, but
+no depth testing is performed. Corresponds to <code class="docutils literal notranslate"><span class="pre">depth_test=False</span></code>,
+cull_face=False, blend=True, blend_func=(‘src_alpha’, ‘one_minus_src_alpha’),
+and blend_equation=(‘func_add’).</p>
 </dd>
 <dt>Blending.ADDITIVE</dt><dd><p>Allows for multiple layers to be blended together with
 different colors and opacity. Useful for creating overlays. It
 corresponds to depth_test=False, cull_face=False, blend=True,
-blend_func=(‘src_alpha’, ‘one’).</p>
+blend_func=(‘src_alpha’, ‘one’), and blend_equation=(‘func_add’).</p>
+</dd>
+<dt>Blending.MINIMUM</dt><dd><p>Allows for multiple layers to be blended together such that
+the minimum of each RGB component and alpha are selected.
+Useful for creating overlays with inverted colormaps. It
+corresponds to depth_test=False, cull_face=False, blend=True,
+blend_equation=(‘min’).</p>
 </dd>
 </dl>
 <dl class="field-list simple">

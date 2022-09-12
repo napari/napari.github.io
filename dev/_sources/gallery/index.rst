@@ -628,6 +628,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Demonstrates how to use the minimum blending mode with inverted colormaps. minimum blending use...">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_minimum_blending_thumb.png
+    :alt: Minimum blending
+
+  :ref:`sphx_glr_gallery_minimum_blending.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Minimum blending</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example generates an image of vectors Vector data is an array of shape (N, 4) Each vector ...">
 
 .. only:: html
@@ -1418,6 +1435,7 @@ Examples of napari usage.
    /gallery/labels-2d
    /gallery/swap_dims
    /gallery/3D_paths
+   /gallery/minimum_blending
    /gallery/add_vectors
    /gallery/add_labels
    /gallery/add_vectors_image

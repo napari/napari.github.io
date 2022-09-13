@@ -5,11 +5,6 @@
 
    
    
-   .. rubric:: Module Attributes
-
-   
-   .. autoattribute:: napari.plugins.menu_item_template
-   
    
 
    

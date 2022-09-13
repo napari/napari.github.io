@@ -30,7 +30,7 @@ current dims point (`viewer.dims.point`).
 
 .. tags:: gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-455
+.. GENERATED FROM PYTHON SOURCE LINES 14-459
 
 
 
@@ -478,6 +478,10 @@ current dims point (`viewer.dims.point`).
 
 
     if __name__ == "__main__":
+        from qtpy import QtWidgets, QtCore
+        QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
+        # above two lines are needed to allow to undock the widget with
+        # additional viewers
         view = napari.Viewer()
         dock_widget = MultipleViewerWidget(view)
         cross = CrossWidget(view)

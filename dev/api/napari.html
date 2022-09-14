@@ -938,10 +938,11 @@ that fails if it we error.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A filepath, directory, or URL to open.</p></li>
-<li><p><strong>layers</strong> (<em>List</em><em>[</em><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><em>layers.Layer</em></a><em>]</em>) – List of layers to be saved. If only a single layer is passed then
-we use the hook specification corresponding to its layer type,
+<li><p><strong>layers</strong> (<em>List</em><em>[</em><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.Layer"><em>layers.Layer</em></a><em>]</em>) – Non-empty List of layers to be saved. If only a single layer is passed
+then we use the hook specification corresponding to its layer type,
 <code class="docutils literal notranslate"><span class="pre">napari_write_&lt;layer_type&gt;</span></code>. If multiple layers are passed then we
-use the <code class="docutils literal notranslate"><span class="pre">napari_get_writer</span></code> hook specification.</p></li>
+use the <code class="docutils literal notranslate"><span class="pre">napari_get_writer</span></code> hook specification. Warns when the list
+of layers is empty.</p></li>
 <li><p><strong>plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the plugin to use for saving. If None then all plugins
 corresponding to appropriate hook specification will be looped
 through to find the first one that can save the data.</p></li>

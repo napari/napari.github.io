@@ -474,10 +474,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    path : str</span>
 <span class="sd">        A filepath, directory, or URL to open.</span>
 <span class="sd">    layers : List[layers.Layer]</span>
-<span class="sd">        List of layers to be saved. If only a single layer is passed then</span>
-<span class="sd">        we use the hook specification corresponding to its layer type,</span>
+<span class="sd">        Non-empty List of layers to be saved. If only a single layer is passed</span>
+<span class="sd">        then we use the hook specification corresponding to its layer type,</span>
 <span class="sd">        ``napari_write_&lt;layer_type&gt;``. If multiple layers are passed then we</span>
-<span class="sd">        use the ``napari_get_writer`` hook specification.</span>
+<span class="sd">        use the ``napari_get_writer`` hook specification. Warns when the list</span>
+<span class="sd">        of layers is empty.</span>
 <span class="sd">    plugin : str, optional</span>
 <span class="sd">        Name of the plugin to use for saving. If None then all plugins</span>
 <span class="sd">        corresponding to appropriate hook specification will be looped</span>
@@ -488,30 +489,41 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    list of str</span>
 <span class="sd">        File paths of any files that were written.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">writer_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">written</span> <span class="o">=</span> <span class="n">_write_multiple_layers_with_plugins</span><span class="p">(</span>
+        <span class="n">written</span><span class="p">,</span> <span class="n">writer_name</span> <span class="o">=</span> <span class="n">_write_multiple_layers_with_plugins</span><span class="p">(</span>
             <span class="n">path</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">plugin_name</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">_writer</span><span class="o">=</span><span class="n">_writer</span>
         <span class="p">)</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">_written</span> <span class="o">=</span> <span class="n">_write_single_layer_with_plugins</span><span class="p">(</span>
+        <span class="n">_written</span><span class="p">,</span> <span class="n">writer_name</span> <span class="o">=</span> <span class="n">_write_single_layer_with_plugins</span><span class="p">(</span>
             <span class="n">path</span><span class="p">,</span> <span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">plugin_name</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span> <span class="n">_writer</span><span class="o">=</span><span class="n">_writer</span>
         <span class="p">)</span>
         <span class="n">written</span> <span class="o">=</span> <span class="p">[</span><span class="n">_written</span><span class="p">]</span> <span class="k">if</span> <span class="n">_written</span> <span class="k">else</span> <span class="p">[]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">written</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;No layers to write.&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[]</span>
 
+    <span class="c1"># If written is empty, something went wrong.</span>
+    <span class="c1"># Generate a warning to tell the user what it was.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">written</span><span class="p">:</span>
-        <span class="c1"># if written is empty, it means no plugin could write the</span>
-        <span class="c1"># path/layers combination</span>
-        <span class="c1"># we just want to provide some useful feedback</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s1">&#39;No data written! There may be no plugins capable of writing these </span><span class="si">{length}</span><span class="s1"> layers to </span><span class="si">{path}</span><span class="s1">.&#39;</span><span class="p">,</span>
-                <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">length</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">),</span>
-                <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="k">if</span> <span class="n">writer_name</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;Plugin </span><span class="se">\&#39;</span><span class="si">{name}</span><span class="se">\&#39;</span><span class="s2"> was selected but did not return any written paths.&quot;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">writer_name</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;No data written! A plugin could not be found to write these </span><span class="si">{length}</span><span class="s1"> layers to </span><span class="si">{path}</span><span class="s1">.&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">length</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">),</span>
+                    <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">written</span></div>
 
@@ -545,7 +557,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="o">*</span><span class="p">,</span>
     <span class="n">plugin_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_writer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Write data from multiple layers data with a plugin.</span>
 
 <span class="sd">    If a ``plugin_name`` is not provided we loop through plugins to find the</span>
@@ -576,14 +588,21 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    list of str</span>
-<span class="sd">        A list of filenames, if any, that were written.</span>
+<span class="sd">    (written paths, writer name) as Tuple[List[str],str]</span>
+
+<span class="sd">    written paths: List[str]</span>
+<span class="sd">        Empty list when no plugin was found, otherwise a list of file paths,</span>
+<span class="sd">        if any, that were written.</span>
+<span class="sd">    writer name: str</span>
+<span class="sd">        Name of the plugin selected to write the data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Try to use NPE2 first</span>
-    <span class="n">written_paths</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">write_layers</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">,</span> <span class="n">_writer</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">written_paths</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">written_paths</span>
+    <span class="n">written_paths</span><span class="p">,</span> <span class="n">writer_name</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">write_layers</span><span class="p">(</span>
+        <span class="n">path</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">,</span> <span class="n">_writer</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">written_paths</span> <span class="ow">or</span> <span class="n">writer_name</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">written_paths</span><span class="p">,</span> <span class="n">writer_name</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Falling back to original plugin engine.&quot;</span><span class="p">)</span>
 
     <span class="n">layer_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">as_layer_data_tuple</span><span class="p">()</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">]</span>
@@ -638,7 +657,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">writer_function</span><span class="p">(</span><span class="n">abspath_or_url</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">layer_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">writer_function</span><span class="p">(</span><span class="n">abspath_or_url</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">layer_data</span><span class="p">),</span>
+            <span class="n">implementation</span><span class="o">.</span><span class="n">plugin_name</span><span class="p">,</span>
+        <span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">PluginCallError</span><span class="p">(</span><span class="n">implementation</span><span class="p">,</span> <span class="n">cause</span><span class="o">=</span><span class="n">exc</span><span class="p">)</span>
 
@@ -649,7 +671,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="o">*</span><span class="p">,</span>
     <span class="n">plugin_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_writer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Write single layer data with a plugin.</span>
 
 <span class="sd">    If ``plugin_name`` is not provided then we just directly call</span>
@@ -677,15 +699,21 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    path : str or None</span>
+<span class="sd">    (written path, writer name) as Tuple[List[str],str]</span>
+
+<span class="sd">    written path: Optional[str]</span>
 <span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
 <span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
+<span class="sd">    writer name: str</span>
+<span class="sd">        Name of the plugin selected to write the data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Try to use NPE2 first</span>
-    <span class="n">written_paths</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">write_layers</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[</span><span class="n">layer</span><span class="p">],</span> <span class="n">plugin_name</span><span class="p">,</span> <span class="n">_writer</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">written_paths</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">written_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">written_paths</span><span class="p">,</span> <span class="n">writer_name</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">write_layers</span><span class="p">(</span>
+        <span class="n">path</span><span class="p">,</span> <span class="p">[</span><span class="n">layer</span><span class="p">],</span> <span class="n">plugin_name</span><span class="p">,</span> <span class="n">_writer</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">writer_name</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">written_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">writer_name</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Falling back to original plugin engine.&quot;</span><span class="p">)</span>
 
     <span class="n">hook_caller</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
@@ -709,12 +737,13 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
     <span class="c1"># Call the hook_caller</span>
-    <span class="k">return</span> <span class="n">hook_caller</span><span class="p">(</span>
+    <span class="n">written_path</span> <span class="o">=</span> <span class="n">hook_caller</span><span class="p">(</span>
         <span class="n">_plugin</span><span class="o">=</span><span class="n">plugin_name</span><span class="p">,</span>
         <span class="n">path</span><span class="o">=</span><span class="n">abspath_or_url</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
         <span class="n">data</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
         <span class="n">meta</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">_get_state</span><span class="p">(),</span>
-    <span class="p">)</span>
+    <span class="p">)</span>  <span class="c1"># type: Optional[str]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">written_path</span><span class="p">,</span> <span class="n">plugin_name</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 
             </div>

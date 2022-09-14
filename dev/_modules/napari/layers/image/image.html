@@ -835,6 +835,16 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">interpolation3d</span> <span class="o">=</span> <span class="n">interpolation</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">interpolation</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
+                <span class="n">interpolation</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s2">&quot;&#39;bilinear&#39; is invalid for interpolation2d (introduced in napari 0.4.17). &quot;</span>
+                        <span class="s2">&quot;Please use &#39;linear&#39; instead, and please set directly the &#39;interpolation2d&#39; attribute&#39;.&quot;</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">interpolation2d</span> <span class="o">=</span> <span class="n">interpolation</span>
 
     <span class="nd">@property</span>
@@ -844,13 +854,10 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@interpolation2d</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">interpolation2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;&#39;bilinear&#39; interpolation is deprecated. Please use &#39;linear&#39; instead&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;&#39;bilinear&#39; interpolation is not valid for interpolation2d. Did you mean &#39;linear&#39; instead ?&quot;</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
-                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interpolation2d</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span><span class="p">)</span>

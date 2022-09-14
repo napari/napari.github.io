@@ -91,6 +91,7 @@ napari.layers.Points
       ~Points.affine
       ~Points.antialiasing
       ~Points.blending
+      ~Points.canvas_size_limits
       ~Points.class_keymap
       ~Points.current_edge_color
       ~Points.current_edge_width
@@ -108,7 +109,6 @@ napari.layers.Points
       ~Points.edge_width
       ~Points.edge_width_is_relative
       ~Points.editable
-      ~Points.experimental_canvas_size_limits
       ~Points.experimental_clipping_planes
       ~Points.extent
       ~Points.face_color

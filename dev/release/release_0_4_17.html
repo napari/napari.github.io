@@ -283,6 +283,11 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performance">
+   Performance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bug-fixes">
    Bug Fixes
   </a>
@@ -303,18 +308,23 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#documentation">
+   Documentation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#other-pull-requests">
    Other Pull Requests
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">
-   40 authors added to this release (alphabetical)
+   45 authors added to this release (alphabetical)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">
-   27 reviewers added to this release (alphabetical)
+   29 reviewers added to this release (alphabetical)
   </a>
  </li>
 </ul>
@@ -349,248 +359,332 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 https://github.com/napari/napari</p>
 <section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Feature: Minimum blending (#4875)</p></li>
+<li><p>Add option to edit second shortcut in settings (#5018)</p></li>
+</ul>
 </section>
 <section id="new-features">
 <h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Multi-color text with color encodings (#4464)</p></li>
+<li><p>add layer reader in tooltip and info dialog (#4664)</p></li>
+<li><p>Feature: Minimum blending (#4875)</p></li>
+<li><p>Add option for forcing plugin choice when opening files in the GUI (#4882)</p></li>
+<li><p>Add saving folders to preferences (#4902)</p></li>
+<li><p>Add napari.imshow to return viewer and layers (#4928)</p></li>
+<li><p>Option to load all dock widgets (#4954)</p></li>
+<li><p>Feature: register a keyboard shortcut for <code class="docutils literal notranslate"><span class="pre">preserve_labels</span></code> checkbox (#5017)</p></li>
+<li><p>Add option to edit second shortcut in settings (#5018)</p></li>
+</ul>
 </section>
 <section id="improvements">
 <h2>Improvements<a class="headerlink" href="#improvements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>support PyQt6, remove logic for <code class="docutils literal notranslate"><span class="pre">compile_qt_svgs</span></code> (#3707)</p></li>
+<li><p>Improvements on scale bar (#4511)</p></li>
+<li><p>allow use of validate_all=True on nested evented models (#4551)</p></li>
+<li><p>Add modal dialogs for window/application closure (#4637)</p></li>
+<li><p>Optimization: convert point slice indices to floats (#4648)</p></li>
+<li><p>honor confirm close settings when quitting (#4700)</p></li>
+<li><p>Use custom color field classes in all models (#4704)</p></li>
+<li><p>napari.viewer.current_viewer fallback ancestor (#4715)</p></li>
+<li><p>Add public API for dims transpose (#4727)</p></li>
+<li><p>Add a public API for the setGeometry method of _qt_window (#4729)</p></li>
+<li><p>Expose points layer antialiasing control publicly (#4735)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">list</span></code> to show plugin info (#4739)</p></li>
+<li><p>Allow pandas.Series as properties values (#4755)</p></li>
+<li><p>Allow stack to be specified multiple times (#4783)</p></li>
+<li><p>Refactor: use app-model and in-n-out (#4784)</p></li>
+<li><p>Improve “select all” logic in points layer, adding “select all across slices” behavior (#4809)</p></li>
+<li><p>Make docked widgets of <code class="docutils literal notranslate"><span class="pre">qt_viewer</span></code> lazy (#4811)</p></li>
+<li><p>Restore Labels, Points and Shapes layer mode after hold key (#4814)</p></li>
+<li><p>Confirmation on close, alternative approach (#4820)</p></li>
+<li><p>add path specificity scoring (#4830)</p></li>
+<li><p>[Automatic] Update albertosottile/darkdetect vendored module (#4845)</p></li>
+<li><p>Add plugin reader warning dialog (#4852)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">python</span></code> name in macOS menu bar (#4989)</p></li>
+<li><p>Explicit convert color to string when compile resources (#4997)</p></li>
+<li><p>Add link to docs artifact to pull requests (#5014)</p></li>
+<li><p>Reverse order of plugin name and widget name (#5054)</p></li>
+</ul>
+</section>
+<section id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Optimization: convert vector slice indices to floats (#4794)</p></li>
+</ul>
 </section>
 <section id="bug-fixes">
 <h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="api-changes">
-<h2>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="deprecations">
-<h2>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="build-tools">
-<h2>Build Tools<a class="headerlink" href="#build-tools" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="other-pull-requests">
-<h2>Other Pull Requests<a class="headerlink" href="#other-pull-requests" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>support PyQt6, remove logic for <code class="docutils literal notranslate"><span class="pre">compile_qt_svgs</span></code> (#3707)</p></li>
-<li><p>Multi-color text with color encodings (#4464)</p></li>
-<li><p>Improvements on scale bar (#4511)</p></li>
-<li><p>Add “Processors”: (generalize magicgui return type behavior outside of magicgui) (#4543)</p></li>
+<li><p>Fix: Always save settings after migration (#4490)</p></li>
+<li><p>Make sure reader dialog pops open if File -&gt; Open Sample is compatible with multiple readers (#4500)</p></li>
 <li><p>Do not add duplicate layers (#4544)</p></li>
-<li><p>allow use of validate_all=True on nested evented models (#4551)</p></li>
-<li><p>add ci for asv benchmark suite (#4554)</p></li>
 <li><p>Disconnect a removed slider’s _pull_label callback from the axis label change event  (#4557)</p></li>
-<li><p>Fixes/modifications to nested list model and Group in prep for layergroups (#4560)</p></li>
-<li><p>Add option to use npe2 shim/adaptor for npe1 plugins (#4564)</p></li>
-<li><p>Update base docker image to ubuntu 22.04, optimize container size. (#4568)</p></li>
-<li><p>Fix Auto-open trans issue. (#4586)</p></li>
-<li><p>Forward port further 0.4.16 release note changes (#4592)</p></li>
-<li><p>Split coverage on parts (#4595)</p></li>
-<li><p>More updates to the ignored translations file and translation CI infrastructure (#4596)</p></li>
-<li><p>feat: add codespace (#4599)</p></li>
-<li><p>Discuss the approval of NAP-2 (conda-based packaging for napari) (#4602)</p></li>
-<li><p>Removed unused private Layer._position (#4604)</p></li>
 <li><p>Clean status message after leave canvas (#4607)</p></li>
-<li><p>Block lxml 4.9.0 version (#4616)</p></li>
 <li><p>Alternate fix for alt-text issues (#4617)</p></li>
-<li><p>Remove meshzoo from napari (#4620)</p></li>
 <li><p>Fix numpy version comparison for dev versions of numpy (#4622)</p></li>
 <li><p>Restore “show all key bindings” shortcut  (#4628)</p></li>
 <li><p>Raise error when rgb True but data not correct dims (#4630)</p></li>
-<li><p>Enable patch coverage reporting (#4632)</p></li>
-<li><p>Add tests for qt_progress_bar.py (#4634)</p></li>
-<li><p>Add versioned API docs workflow (#4635)</p></li>
 <li><p>Define different shortcuts for different screenshot actions in file menu (#4636)</p></li>
-<li><p>Add modal dialogs for window/application closure (#4637)</p></li>
-<li><p>Remove some sleepy tests, wait with timeout instead (#4638)</p></li>
-<li><p>Update installation instruction in documentation (#4639)</p></li>
-<li><p>Speed up notebook display tests  (#4641)</p></li>
-<li><p>build: slight updates/de-dups in setupcfg (#4645)</p></li>
-<li><p>test: Speed up test_viewer tests, split out pyqt5/pyside2 tests again (#4646)</p></li>
-<li><p>Move test examples on end of test run them in different CI job  (#4647)</p></li>
-<li><p>Optimization: convert point slice indices to floats (#4648)</p></li>
-<li><p>Allow to trigger test_translation manually (#4652)</p></li>
-<li><p>Limit comprehensive test concurrency to 1. (#4655)</p></li>
-<li><p>Do not run <code class="docutils literal notranslate"><span class="pre">asv</span></code> on push (#4656)</p></li>
-<li><p>Fix docs for shape/points layer properties (#4659)</p></li>
-<li><p>ci: fix tox factor names in tests (#4660)</p></li>
 <li><p>Do not use keyword argument for <code class="docutils literal notranslate"><span class="pre">QListWidgetItem</span></code> parent set in constructor (#4661)</p></li>
-<li><p>test: speed up magicgui forward ref tests (#4662)</p></li>
-<li><p>add layer reader in tooltip and info dialog (#4664)</p></li>
-<li><p>Embeding viewers in plugins widget example (#4665)</p></li>
-<li><p>Remove unused points _color state (#4666)</p></li>
 <li><p>fix: fix manifest reader extensions, ensure that all builtins go through npe2 (#4668)</p></li>
-<li><p>test: Cleanup usage of npe2 plugin manager in tests (#4669)</p></li>
-<li><p>add dependabot for github actions dependencies (#4671)</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">cache:</span> <span class="pre">pip</span></code> from actions setup-python (#4672)</p></li>
-<li><p>Remove <code class="docutils literal notranslate"><span class="pre">restore_settings_on_exit</span></code> test util (#4673)</p></li>
+<li><p>Fix source of copied layer events by use <code class="docutils literal notranslate"><span class="pre">layer.as_layer_data_tuple</span></code> (#4681)</p></li>
+<li><p>Tracks tail update fix beyond _max_length (#4688)</p></li>
+<li><p>Keep order of layers when select to save multiple selected layers (#4689)</p></li>
+<li><p>Apply shown mask to points._view_size_scale (#4699)</p></li>
+<li><p>Color edit without tooltip fix (#4717)</p></li>
+<li><p>fix presentation and enablement of npe1 plugins (#4721)</p></li>
+<li><p>fix clim init for dask arrays (#4724)</p></li>
+<li><p>split Image <code class="docutils literal notranslate"><span class="pre">interpolation</span></code> on two properties, <code class="docutils literal notranslate"><span class="pre">interpoltion2d</span></code> and <code class="docutils literal notranslate"><span class="pre">interpolation3d</span></code>  (#4725)</p></li>
+<li><p>Fix bug in deepcopy of utils.context.Expr (#4730)</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">_get_state</span></code> for empty Vectors and Points layers (#4748)</p></li>
+<li><p>Stop slider animation on display and dimension changes (#4761)</p></li>
+<li><p>Fix deepcopy for trans objects when passing args (#4786)</p></li>
+<li><p>Make newly added points editable (#4829)</p></li>
+<li><p>Allow empty tuple layer to be returned #4571 (#4831)</p></li>
+<li><p>Disable notifications if no main window (#4839)</p></li>
+<li><p>Fix multiscale level selection when zoomed out (#4842)</p></li>
+<li><p>Move vector mesh generation to napari vispy visual and fix vectors refesh (#4846)</p></li>
+<li><p>Fix creation <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> for <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> with already added layers (#4854)</p></li>
+<li><p>Update hub.py (#4863)</p></li>
+<li><p>Fix viewer.reset() throws TypeError (#4868)</p></li>
+<li><p>fix icon urls for close dialog (#4887)</p></li>
+<li><p>Fix missing slice from dims (#4889)</p></li>
+<li><p>Raise exception when layer created with a scale value of 0 (#4906)</p></li>
+<li><p>Fix for display of label colors (#4935)</p></li>
+<li><p>Initialize plugins before validating widget in <code class="docutils literal notranslate"><span class="pre">napari</span> <span class="pre">-w</span> <span class="pre">{plugin}</span></code> (#4948)</p></li>
+<li><p>Fix resize window problem by to long text in help  (#4981)</p></li>
+<li><p>Fix throttled status updates by ensuring GUI updates occur on the main thread (#4983)</p></li>
+<li><p>Fix throttled status updates by use <code class="docutils literal notranslate"><span class="pre">QSignalThrottler</span></code> in <code class="docutils literal notranslate"><span class="pre">_QtMainWindow</span></code> constructor (#4985)</p></li>
+<li><p>Ensure non-negative edge width (#5035)</p></li>
+<li><p>Fix the wrong guardian for the build tooltip when bind button (#5075)</p></li>
+</ul>
+</section>
+<section id="api-changes">
+<h2>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Removed unused private Layer._position (#4604)</p></li>
+<li><p>Add public API for dims transpose (#4727)</p></li>
+<li><p>Add a public API for the setGeometry method of _qt_window (#4729)</p></li>
+<li><p>Expose points layer antialiasing control publicly (#4735)</p></li>
+</ul>
+</section>
+<section id="deprecations">
+<h2>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Deprecate layers.move_selected (#4559)</p></li>
+<li><p>Update deprecation warnings with versions (#4757)</p></li>
+<li><p>Make <code class="docutils literal notranslate"><span class="pre">viewer.events.layers_change</span></code> event deprecated (#4895)</p></li>
+</ul>
+</section>
+<section id="build-tools">
+<h2>Build Tools<a class="headerlink" href="#build-tools" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>[pre-commit.ci] pre-commit autoupdate (#4506)</p></li>
+<li><p>Limit workflows runs based on file changes (#4555)</p></li>
+<li><p>[Automatic] Update albertosottile/darkdetect vendored module (#4561)</p></li>
+<li><p>Dockerfile: stay on 20.04/LTS for python3.8 (#4572)</p></li>
+<li><p>Block lxml 4.9.0 version (#4616)</p></li>
+<li><p>Remove meshzoo from napari (#4620)</p></li>
 <li><p>ci(dependabot): bump peter-evans/create-pull-request from 3 to 4 (#4675)</p></li>
 <li><p>ci(dependabot): bump docker/build-push-action from 2.5.0 to 3 (#4676)</p></li>
 <li><p>ci(dependabot): bump actions/setup-python from 3 to 4 (#4677)</p></li>
 <li><p>ci(dependabot): bump toshimaru/auto-author-assign from 1.3.4 to 1.5.0 (#4678)</p></li>
 <li><p>ci(dependabot): bump docker/metadata-action from 3 to 4 (#4679)</p></li>
-<li><p>Fix source of copied layer events by use <code class="docutils literal notranslate"><span class="pre">layer.as_layer_data_tuple</span></code> (#4681)</p></li>
-<li><p>Add NAP-3: Spaces (#4684)</p></li>
-<li><p>Fix NAP-1 status/type (#4685)</p></li>
-<li><p>bump npe2 version, use new features (#4686)</p></li>
-<li><p>[pre-commit.ci] pre-commit autoupdate (#4687)</p></li>
-<li><p>Tracks tail update fix beyond _max_length (#4688)</p></li>
-<li><p>Keep order of layers when select to save multiple selected layers (#4689)</p></li>
-<li><p>Remove unnecessary uses of make_napari_viewer (replace with ViewerModel) (#4690)</p></li>
-<li><p>Add new core devs to docs (#4691)</p></li>
-<li><p>Apply shown mask to points._view_size_scale (#4699)</p></li>
-<li><p>honor confirm close settings when quitting (#4700)</p></li>
-<li><p>Design issue template assignees (#4701)</p></li>
-<li><p>Refactor label painting by moving code from mouse bindings onto layer, adding staged history and paint event (#4702)</p></li>
-<li><p>add ‘napari-xpra’ target to dockerfile (#4703)</p></li>
-<li><p>Use custom color field classes in all models (#4704)</p></li>
-<li><p>Split out builtins into another top-level module (#4706)</p></li>
-<li><p>use python 3.9 for mac tests until numcodecs 3.10 wheels are available (#4707)</p></li>
-<li><p>napari.viewer.current_viewer fallback ancestor (#4715)</p></li>
-<li><p>Color edit without tooltip fix (#4717)</p></li>
-<li><p>Remove print statement in settings (#4718)</p></li>
-<li><p>Use some features from npe2 v0.5.0 (#4719)</p></li>
-<li><p>fix presentation and enablement of npe1 plugins (#4721)</p></li>
-<li><p>use same coverage report like in pull requests (#4722)</p></li>
-<li><p>fix clim init for dask arrays (#4724)</p></li>
-<li><p>split Image <code class="docutils literal notranslate"><span class="pre">interpolation</span></code> on two properties, <code class="docutils literal notranslate"><span class="pre">interpoltion2d</span></code> and <code class="docutils literal notranslate"><span class="pre">interpolation3d</span></code>  (#4725)</p></li>
-<li><p>Add public API for dims transpose (#4727)</p></li>
-<li><p>Update translation documentation link in pull request template (#4728)</p></li>
-<li><p>Add a public API for the setGeometry method of _qt_window (#4729)</p></li>
-<li><p>Fix bug in deepcopy of utils.context.Expr (#4730)</p></li>
-<li><p>Cleanup list of non-translatable strings. (#4732)</p></li>
-<li><p>Add mini interactive prompt to edit string_list.json (#4733)</p></li>
-<li><p>Expose points layer antialiasing control publicly (#4735)</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">list</span></code> to show plugin info (#4739)</p></li>
-<li><p>Fix <code class="docutils literal notranslate"><span class="pre">_get_state</span></code> for empty Vectors and Points layers (#4748)</p></li>
-<li><p>Fix Image parameter docs (#4750)</p></li>
-<li><p>Do not inform about coverage untill all CI jobs are done (#4751)</p></li>
-<li><p>Allow pandas.Series as properties values (#4755)</p></li>
-<li><p>Update deprecation warnings with versions (#4757)</p></li>
-<li><p>Stop slider animation on display and dimension changes (#4761)</p></li>
-<li><p>Refactor <code class="docutils literal notranslate"><span class="pre">NapariQtNotification</span></code> test for better cleaning Qt objects (#4763)</p></li>
-<li><p>Make references to examples link there (#4767)</p></li>
-<li><p>Set focus on <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> object after creating main window (#4768)</p></li>
 <li><p>ci(dependabot): bump styfle/cancel-workflow-action from 0.9.1 to 0.10.0 (#4770)</p></li>
 <li><p>ci(dependabot): bump actions/download-artifact from 2 to 3 (#4771)</p></li>
 <li><p>ci(dependabot): bump actions/github-script from 5 to 6 (#4772)</p></li>
 <li><p>ci(dependabot): bump bruceadams/get-release from 1.2.2 to 1.2.3 (#4773)</p></li>
 <li><p>ci(dependabot): bump docker/login-action from 1.9.0 to 2 (#4774)</p></li>
-<li><p>Add missed call of <code class="docutils literal notranslate"><span class="pre">running_as_bundled_app</span></code> in <code class="docutils literal notranslate"><span class="pre">__main__</span></code> (#4777)</p></li>
 <li><p>Bump vispy 0.11.0 (#4778)</p></li>
 <li><p>[pre-commit.ci] pre-commit autoupdate (#4779)</p></li>
-<li><p>Allow stack to be specified multiple times (#4783)</p></li>
-<li><p>Refactor: use app-model and in-n-out (#4784)</p></li>
-<li><p>Fix deepcopy for trans objects when passing args (#4786)</p></li>
+<li><p>ci(dependabot): bump toshimaru/auto-author-assign from 1.5.0 to 1.6.1 (#4890)</p></li>
+<li><p>Docker: Update xpra’s apt too (#4901)</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Proposal to accept NAP-1 - add institutional and funding partners to governance (#4458)</p></li>
+<li><p>Fix ImportErrors for instance attributes when building docs (#4471)</p></li>
+<li><p>Update viewer tutorial (#4473)</p></li>
+<li><p>Fix selection events documentation for LayerList  (#4478)</p></li>
+<li><p>add ABRF LMRG workshop recording (#4487)</p></li>
+<li><p>Add alt_text (#4502)</p></li>
+<li><p>DOC: misc syntax updates and typoes (#4517)</p></li>
+<li><p>Start a NAP about conda packaging for napari (#4519)</p></li>
+<li><p>Add CZI as an Institutional and Funding Partner (#4524)</p></li>
+<li><p>add I2K workshop (#4528)</p></li>
+<li><p>Add NAP1 to ToC. (#4552)</p></li>
+<li><p>Forward port of release note updates for 0.4.16rc2 and rc3 (#4563)</p></li>
+<li><p>Add option to use npe2 shim/adaptor for npe1 plugins (#4564)</p></li>
+<li><p>Forward port further 0.4.16 release note changes (#4592)</p></li>
+<li><p>Discuss the approval of NAP-2 (conda-based packaging for napari) (#4602)</p></li>
+<li><p>Add versioned API docs workflow (#4635)</p></li>
+<li><p>Update installation instruction in documentation (#4639)</p></li>
+<li><p>Fix docs for shape/points layer properties (#4659)</p></li>
+<li><p>Embeding viewers in plugins widget example (#4665)</p></li>
+<li><p>Add NAP-3: Spaces (#4684)</p></li>
+<li><p>Fix NAP-1 status/type (#4685)</p></li>
+<li><p>Add new core devs to docs (#4691)</p></li>
+<li><p>add ‘napari-xpra’ target to dockerfile (#4703)</p></li>
+<li><p>Fix Image parameter docs (#4750)</p></li>
+<li><p>Make references to examples link there (#4767)</p></li>
 <li><p>Fix documentation link errors. (#4787)</p></li>
-<li><p>test: fix ability to use posargs with tox (#4788)</p></li>
 <li><p>Fixing readme typo (#4791)</p></li>
-<li><p>Allow dunder methods use in <code class="docutils literal notranslate"><span class="pre">PublicOnlyProxy</span></code> (#4792)</p></li>
-<li><p>add update_mesh method (#4793)</p></li>
-<li><p>Optimization: convert vector slice indices to floats (#4794)</p></li>
 <li><p>Add Talley to the steering council (#4798)</p></li>
 <li><p>Update documenation : install plugin from URL  (#4799)</p></li>
-<li><p>mock npe1 plugin manager during tests (fix tests with npe1 plugins installed) (#4806)</p></li>
-<li><p>[Automatic] Update albertosottile/darkdetect vendored module (#4808)</p></li>
-<li><p>Improve “select all” logic in points layer, adding “select all across slices” behavior (#4809)</p></li>
 <li><p>Accept NAP-2: Distributing napari with conda-based packaging (#4810)</p></li>
-<li><p>Make docked widgets of <code class="docutils literal notranslate"><span class="pre">qt_viewer</span></code> lazy (#4811)</p></li>
-<li><p>Restore Labels, Points and Shapes layer mode after hold key (#4814)</p></li>
-<li><p>Improve using Qt flags by direct use enums. (#4817)</p></li>
-<li><p>Confirmation on close, alternative approach (#4820)</p></li>
 <li><p>Fixes duplicate label warnings in the documentation (#4823)</p></li>
-<li><p>Make newly added points editable (#4829)</p></li>
-<li><p>add path specificity scoring (#4830)</p></li>
-<li><p>Allow empty tuple layer to be returned #4571 (#4831)</p></li>
 <li><p>added description of how to save layers without compression (#4832)</p></li>
-<li><p>Disable notifications if no main window (#4839)</p></li>
-<li><p>Move searching parent outside NapariQtNotification constructor (#4841)</p></li>
-<li><p>Fix multiscale level selection when zoomed out (#4842)</p></li>
-<li><p>[Automatic] Update albertosottile/darkdetect vendored module (#4845)</p></li>
-<li><p>Move vector mesh generation to napari vispy visual and fix vectors refesh (#4846)</p></li>
-<li><p>Enable plugin menu contributions with app-model (#4847)</p></li>
-<li><p>Raise better errors from lazy <strong>getattr</strong> (#4848)</p></li>
 <li><p>Add the ability to return a List[Layer] in magicgui (#4851)</p></li>
-<li><p>Add plugin reader warning dialog (#4852)</p></li>
-<li><p>Fix creation <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> for <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> with already added layers (#4854)</p></li>
-<li><p>Update hub.py (#4863)</p></li>
-<li><p>Fix viewer.reset() throws TypeError (#4868)</p></li>
 <li><p>Fix NAP-3 table of contents (#4872)</p></li>
-<li><p>MAINT: disable failing conda bundling. (#4878)</p></li>
-<li><p>Add option for forcing plugin choice when opening files in the GUI (#4882)</p></li>
-<li><p>MAINT: Work around conda bundling issue. (#4883)</p></li>
-<li><p>fix icon urls for close dialog (#4887)</p></li>
-<li><p>remove a few more qtbot.wait calls in tests (#4888)</p></li>
-<li><p>Fix missing slice from dims (#4889)</p></li>
-<li><p>ci(dependabot): bump toshimaru/auto-author-assign from 1.5.0 to 1.6.1 (#4890)</p></li>
+<li><p>Feature: Minimum blending (#4875)</p></li>
 <li><p>NAP 4: asynchronous slicing (#4892)</p></li>
-<li><p>use npe2api in plugin install dialog (#4893)</p></li>
-<li><p>Make <code class="docutils literal notranslate"><span class="pre">viewer.events.layers_change</span></code> event deprecated (#4895)</p></li>
-<li><p>Add perfmon directory for shared configs and tools (#4898)</p></li>
-<li><p>Docker: Update xpra’s apt too (#4901)</p></li>
-<li><p>Conda: fix MacOS signing (#4904)</p></li>
-<li><p>Raise exception when layer created with a scale value of 0 (#4906)</p></li>
 <li><p>Correct minor typo in quick_start.md (#4908)</p></li>
 <li><p>Add Google Calendar ID to directive (#4914)</p></li>
 <li><p>Fix docs dependencies (#4915)</p></li>
-<li><p>Minor type fix (add Optional) (#4916)</p></li>
 <li><p>Maintenance: Add title to example and remove unused redirect configuration (#4921)</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> for Conda CI (#4923)</p></li>
 <li><p>Correct minor typos on ‘Contributing resources’ page (#4927)</p></li>
 <li><p>DOC Add docs on napari models and events (#4929)</p></li>
 <li><p>DOC Fix add image examples (#4932)</p></li>
 <li><p>add SciPy 2022 materials (#4934)</p></li>
-<li><p>Fix for display of label colors (#4935)</p></li>
 <li><p>Remove repeated items in gallery ToC. (#4936)</p></li>
 <li><p>DOC Remove references to old <code class="docutils literal notranslate"><span class="pre">add_volume</span></code> (#4939)</p></li>
 <li><p>Fix calendar ID (#4944)</p></li>
-<li><p>add user keymap (#4946)</p></li>
-<li><p>Initialize plugins before validating widget in <code class="docutils literal notranslate"><span class="pre">napari</span> <span class="pre">-w</span> <span class="pre">{plugin}</span></code> (#4948)</p></li>
-<li><p>MAINT: temporary mypy disabling as it’s failing everywhere. (#4950)</p></li>
-<li><p>Adjust the slider value to include current_size (#4951)</p></li>
 <li><p>DOC Add docs on how to run napari headless (#4955)</p></li>
 <li><p>Removes deprecated configuration options for notebooks from docs build (#4958)</p></li>
 <li><p>Update async slicing discussion section with PR feedback (#4959)</p></li>
-<li><p>MAINT: re-enable type checking workflow (#4960)</p></li>
 <li><p>DOC Add section on downloading CI built docs (#4961)</p></li>
 <li><p>DOC Expand explanation of interaction_box_image example (#4962)</p></li>
 <li><p>DOC: Fix some incorrect parameters names. (#4965)</p></li>
-<li><p>[pre-commit.ci] pre-commit autoupdate (#4968)</p></li>
 <li><p>DOC Add headless doc to toc (#4970)</p></li>
-<li><p>Fix: bump app-model, add test for layer buttons (#4972)</p></li>
 <li><p>Remove preliminary admonition for last two release notes (#4974)</p></li>
 <li><p>Enabe tags in gallery examples. (#4975)</p></li>
-<li><p>Add <code class="docutils literal notranslate"><span class="pre">FUNDING.yml</span></code> file to enable sponsor button and increase discoverability of option to sponsor napari (#4978)</p></li>
-<li><p>Fix resize window problem by to long text in help  (#4981)</p></li>
-<li><p>Fix throttled status updates by ensuring GUI updates occur on the main thread (#4983)</p></li>
-<li><p>Fix throttled status updates by use <code class="docutils literal notranslate"><span class="pre">QSignalThrottler</span></code> in <code class="docutils literal notranslate"><span class="pre">_QtMainWindow</span></code> constructor (#4985)</p></li>
-<li><p>Fix <code class="docutils literal notranslate"><span class="pre">python</span></code> name in macOS menu bar (#4989)</p></li>
+<li><p>Update viewer screenshot in docs and make more prominent on napari.org (#4988)</p></li>
 <li><p>Move the docs downloading screenshots to LFS (#4990)</p></li>
 <li><p>DOC Enable intersphinx linking in examples (#4992)</p></li>
+<li><p>Fix broken links in Napari Code of Conduct (#5005)</p></li>
+<li><p>Add link to docs artifact to pull requests (#5014)</p></li>
+<li><p>Add release notes for 0.4.17 (#5031)</p></li>
+<li><p>add #4954 to release notes (#5038)</p></li>
+<li><p>add new PRs merged for 0.4.17 to release notes (#5045)</p></li>
+<li><p>update core dev group to remove Ziyang and Justine (#5059)</p></li>
+</ul>
+</section>
+<section id="other-pull-requests">
+<h2>Other Pull Requests<a class="headerlink" href="#other-pull-requests" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Fire features event on Labels feature change (#4481)</p></li>
+<li><p>Image layer control dtype normalization for tensorstore compatibility (#4482)</p></li>
+<li><p>Reorder tests (#4483)</p></li>
+<li><p>Test if events for all properties are defined (#4486)</p></li>
+<li><p>throttle status update (#4488)</p></li>
+<li><p>use inject_napari_dependencies in layer_actions commands (#4489)</p></li>
+<li><p>Add _get_value_3d to surface (#4492)</p></li>
+<li><p>Reduce canvas margin (#4496)</p></li>
+<li><p>Fix trailing comma fixes black formatting (#4498)</p></li>
+<li><p>Update layer list context keys (#4499)</p></li>
+<li><p>Do not allow None when coercing encodings (#4504)</p></li>
+<li><p>[Automatic] Update albertosottile/darkdetect vendored module (#4508)</p></li>
+<li><p>Try to upload pytest json report as artifact. (#4518)</p></li>
+<li><p>Try to speedup tests. (#4521)</p></li>
+<li><p>change default blending mode on image layer to translucent no depth (#4523)</p></li>
+<li><p>Accessor refactor (#4533)</p></li>
+<li><p>Add explanation what <code class="docutils literal notranslate"><span class="pre">EmitterGroup.block_all</span></code> and <code class="docutils literal notranslate"><span class="pre">EmitterGroup.unblock_all</span></code> do in docstring (#4536)</p></li>
+<li><p>Revert “change default blending mode on image layer to translucent no depth” (#4540)</p></li>
+<li><p>add ci for asv benchmark suite (#4554)</p></li>
+<li><p>Fixes/modifications to nested list model and Group in prep for layergroups (#4560)</p></li>
+<li><p>Fix macos release version comparison in <strong>main</strong> (#4565)</p></li>
+<li><p>Update base docker image to ubuntu 22.04, optimize container size. (#4568)</p></li>
+<li><p>Patch scikit-image cells3d data function when testing examples (#4578)</p></li>
+<li><p>Add question about qt backends to PR tests (#4583)</p></li>
+<li><p>Don’t build bundle in PRs on doc changes (#4584)</p></li>
+<li><p>Fix Auto-open trans issue. (#4586)</p></li>
+<li><p>Internationalisation testing. (#4588)</p></li>
+<li><p>Add test for QtPerformance widget (#4591)</p></li>
+<li><p>Split coverage on parts (#4595)</p></li>
+<li><p>More updates to the ignored translations file and translation CI infrastructure (#4596)</p></li>
+<li><p>feat: add codespace (#4599)</p></li>
+<li><p>Enable patch coverage reporting (#4632)</p></li>
+<li><p>Add tests for qt_progress_bar.py (#4634)</p></li>
+<li><p>Remove some sleepy tests, wait with timeout instead (#4638)</p></li>
+<li><p>Speed up notebook display tests  (#4641)</p></li>
+<li><p>build: slight updates/de-dups in setupcfg (#4645)</p></li>
+<li><p>test: Speed up test_viewer tests, split out pyqt5/pyside2 tests again (#4646)</p></li>
+<li><p>Move test examples on end of test run them in different CI job  (#4647)</p></li>
+<li><p>Allow to trigger test_translation manually (#4652)</p></li>
+<li><p>Limit comprehensive test concurrency to 1. (#4655)</p></li>
+<li><p>Do not run <code class="docutils literal notranslate"><span class="pre">asv</span></code> on push (#4656)</p></li>
+<li><p>ci: fix tox factor names in tests (#4660)</p></li>
+<li><p>test: speed up magicgui forward ref tests (#4662)</p></li>
+<li><p>Remove unused points _color state (#4666)</p></li>
+<li><p>test: Cleanup usage of npe2 plugin manager in tests (#4669)</p></li>
+<li><p>add dependabot for github actions dependencies (#4671)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">cache:</span> <span class="pre">pip</span></code> from actions setup-python (#4672)</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">restore_settings_on_exit</span></code> test util (#4673)</p></li>
+<li><p>bump npe2 version, use new features (#4686)</p></li>
+<li><p>[pre-commit.ci] pre-commit autoupdate (#4687)</p></li>
+<li><p>Remove unnecessary uses of make_napari_viewer (replace with ViewerModel) (#4690)</p></li>
+<li><p>Design issue template assignees (#4701)</p></li>
+<li><p>Refactor label painting by moving code from mouse bindings onto layer, adding staged history and paint event (#4702)</p></li>
+<li><p>Split out builtins into another top-level module (#4706)</p></li>
+<li><p>use python 3.9 for mac tests until numcodecs 3.10 wheels are available (#4707)</p></li>
+<li><p>Remove print statement in settings (#4718)</p></li>
+<li><p>Use some features from npe2 v0.5.0 (#4719)</p></li>
+<li><p>use same coverage report like in pull requests (#4722)</p></li>
+<li><p>Update translation documentation link in pull request template (#4728)</p></li>
+<li><p>Cleanup list of non-translatable strings. (#4732)</p></li>
+<li><p>Add mini interactive prompt to edit string_list.json (#4733)</p></li>
+<li><p>Do not inform about coverage untill all CI jobs are done (#4751)</p></li>
+<li><p>Refactor <code class="docutils literal notranslate"><span class="pre">NapariQtNotification</span></code> test for better cleaning Qt objects (#4763)</p></li>
+<li><p>Set focus on <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> object after creating main window (#4768)</p></li>
+<li><p>Add missed call of <code class="docutils literal notranslate"><span class="pre">running_as_bundled_app</span></code> in <code class="docutils literal notranslate"><span class="pre">__main__</span></code> (#4777)</p></li>
+<li><p>test: fix ability to use posargs with tox (#4788)</p></li>
+<li><p>Allow dunder methods use in <code class="docutils literal notranslate"><span class="pre">PublicOnlyProxy</span></code> (#4792)</p></li>
+<li><p>add update_mesh method (#4793)</p></li>
+<li><p>mock npe1 plugin manager during tests (fix tests with npe1 plugins installed) (#4806)</p></li>
+<li><p>[Automatic] Update albertosottile/darkdetect vendored module (#4808)</p></li>
+<li><p>Improve using Qt flags by direct use enums. (#4817)</p></li>
+<li><p>Move searching parent outside NapariQtNotification constructor (#4841)</p></li>
+<li><p>Enable plugin menu contributions with app-model (#4847)</p></li>
+<li><p>Raise better errors from lazy <strong>getattr</strong> (#4848)</p></li>
+<li><p>MAINT: disable failing conda bundling. (#4878)</p></li>
+<li><p>MAINT: Work around conda bundling issue. (#4883)</p></li>
+<li><p>remove a few more qtbot.wait calls in tests (#4888)</p></li>
+<li><p>use npe2api in plugin install dialog (#4893)</p></li>
+<li><p>Add perfmon directory for shared configs and tools (#4898)</p></li>
+<li><p>Conda: fix MacOS signing (#4904)</p></li>
+<li><p>Minor type fix (add Optional) (#4916)</p></li>
+<li><p>add user keymap (#4946)</p></li>
+<li><p>MAINT: temporary mypy disabling as it’s failing everywhere. (#4950)</p></li>
+<li><p>Adjust the slider value to include current_size (#4951)</p></li>
+<li><p>MAINT: re-enable type checking workflow (#4960)</p></li>
+<li><p>MAINT: bump napari-console to 0.0.6. (#4967)</p></li>
+<li><p>[pre-commit.ci] pre-commit autoupdate (#4968)</p></li>
+<li><p>Fix: bump app-model, add test for layer buttons (#4972)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">FUNDING.yml</span></code> file to enable sponsor button and increase discoverability of option to sponsor napari (#4978)</p></li>
 <li><p>Start adding a CODEOWNERS file. (#4993)</p></li>
-<li><p>Explicit convert color to string when compile resources (#4997)</p></li>
 <li><p>Add emacs temporary &amp; local files to .gitignore (#4998)</p></li>
 <li><p>Set fixpoint before move for shapes (#4999)</p></li>
-<li><p>Fix broken links in Napari Code of Conduct (#5005)</p></li>
 <li><p>Fix sys.path issue with subprocess relaunch in macOS (#5007)</p></li>
 <li><p>MAINT: update issue failing template (#5012)</p></li>
 <li><p>[pre-commit.ci] pre-commit autoupdate (#5015)</p></li>
-<li><p>Feature: register a keyboard shortcut for <code class="docutils literal notranslate"><span class="pre">preserve_labels</span></code> checkbox (#5017)</p></li>
-<li><p>Revert “Fix sys.path issue with subprocess relaunch in macOS” (#5027)</p></li>
-<li><p>Revert “Revert “Fix sys.path issue with subprocess relaunch in macOS”” (#5029)</p></li>
-<li><p>Option to load all dock widgets (#4954)</p></li>
-<li><p>Ensure non-negative edge width (#5035)</p></li>
-<li><p>MAINT: fix a couple of trans._. (#5034)</p></li>
 <li><p>Fix shift selection for points (#5022)</p></li>
-<li><p>Add saving folders to preferences (#4902)</p></li>
+<li><p>Revert “Fix sys.path issue with subprocess relaunch in macOS” (#5027)</p></li>
 <li><p>Use Source object to track if a layer is duplicated (#5028)</p></li>
-<li><p>Add saving folders to preferences (#4902)</p></li>
-<li><p>Add option to edit second shortcut in settings (#5018)</p></li>
-<li><p>Update viewer screenshot in docs and make more prominent on napari.org (#4988)</p></li>
+<li><p>Revert “Revert “Fix sys.path issue with subprocess relaunch in macOS”” (#5029)</p></li>
+<li><p>MAINT: fix a couple of trans._. (#5034)</p></li>
 <li><p>Small shortcuts preference pane wording update after #5018 (#5049)</p></li>
+<li><p>Small changes to points defaults. (#5050)</p></li>
+<li><p>Try to avoid latest shiboken that break CI (#5073)</p></li>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>40 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+<h2>45 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">alisterburt</a> - &#64;alisterburt</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">Andy Sweet</a> - &#64;andy-sweet</p></li>
@@ -614,6 +708,7 @@ https://github.com/napari/napari</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=JoOkuma">Jordão Bragantini</a> - &#64;JoOkuma</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jni">Juan Nunez-Iglesias</a> - &#64;jni</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kandarpksk">Kandarp Khandwala</a> - &#64;kandarpksk</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kevinyamauchi">Kevin Yamauchi</a> - &#64;kevinyamauchi</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kcpevey">Kim Pevey</a> - &#64;kcpevey</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kne42">Kira Evans</a> - &#64;kne42</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=kushaangupta">Kushaan Gupta</a> - &#64;kushaangupta</p></li>
@@ -629,14 +724,19 @@ https://github.com/napari/napari</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=pierrethibault">Pierre Thibault</a> - &#64;pierrethibault</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=pre-commit-ci%5Bbot%5D">pre-commit-ci[bot]</a> - &#64;pre-commit-ci[bot]</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=haesleinhuepf">Robert Haase</a> - &#64;haesleinhuepf</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=rwkozar">rwkozar</a> - &#64;rwkozar</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Cryaaa">Ryan Savill</a> - &#64;Cryaaa</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=truatpasteurdotfr">Tru Huynh</a> - &#64;truatpasteurdotfr</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=victorcwai">vcwai</a> - &#64;victorcwai</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=potating-potato">Ziyang Liu</a> - &#64;potating-potato</p></li>
 </ul>
 </section>
 <section id="reviewers-added-to-this-release-alphabetical">
-<h2>27 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
+<h2>29 reviewers added to this release (alphabetical)<a class="headerlink" href="#reviewers-added-to-this-release-alphabetical" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=AhmetCanSolak">Ahmet Can Solak</a> - &#64;AhmetCanSolak</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=alisterburt">alisterburt</a> - &#64;alisterburt</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=andy-sweet">Andy Sweet</a> - &#64;andy-sweet</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=cnstt">cnstt</a> - &#64;cnstt</p></li>
@@ -662,6 +762,7 @@ https://github.com/napari/napari</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=sofroniewn">Nicholas Sofroniew</a> - &#64;sofroniewn</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ppwadhwa">Pam</a> - &#64;ppwadhwa</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=psobolewskiPhD">Peter Sobolewski</a> - &#64;psobolewskiPhD</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=haesleinhuepf">Robert Haase</a> - &#64;haesleinhuepf</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=tlambert03">Talley Lambert</a> - &#64;tlambert03</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=potating-potato">Ziyang Liu</a> - &#64;potating-potato</p></li>
 </ul>

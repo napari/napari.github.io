@@ -1223,6 +1223,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Example how to embed magicgui widget in dialog to inherit style from main napari window.">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_inherit_viewer_style_thumb.png
+    :alt: Method to get napari style in magicgui based windows
+
+  :ref:`sphx_glr_gallery_inherit_viewer_style.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Method to get napari style in magicgui based windows</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When...">
 
 .. only:: html
@@ -1470,6 +1487,7 @@ Examples of napari usage.
    /gallery/add_shapes_with_features
    /gallery/add_points_with_features
    /gallery/tracks_3d
+   /gallery/inherit_viewer_style
    /gallery/add_shapes
    /gallery/shapes_to_labels
    /gallery/interaction_box_points

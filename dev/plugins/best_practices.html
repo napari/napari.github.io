@@ -369,6 +369,11 @@ function checkPageExistsAndRedirect(event) {
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#set-style-for-additional-windows-in-your-plugin">
+   Set style for additional windows in your plugin
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -591,6 +596,75 @@ from coverage with the comment <code class="docutils literal notranslate"><span 
 codecov.io</p></li>
 </ol>
 </section>
+</section>
+<section id="set-style-for-additional-windows-in-your-plugin">
+<h2>Set style for additional windows in your plugin<a class="headerlink" href="#set-style-for-additional-windows-in-your-plugin" title="Permalink to this headline">¶</a></h2>
+<p>In napari plugins we strongly advise additional widgets be docked in the main napari viewer,
+but sometimes a separate window is required.
+The best practice is to use <a class="reference external" href="https://doc.qt.io/qt-5/qdialog.html"><code class="docutils literal notranslate"><span class="pre">QDialog</span></code></a>
+based windows with parent set to widget
+already docked in the viewer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QSpinBox</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QGridLayout</span><span class="p">,</span> <span class="n">QLabel</span>
+
+<span class="k">class</span> <span class="nc">MyInputDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QWidget</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;My Input Dialog&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Cancel&quot;</span><span class="p">)</span>
+        
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Number:&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+        
+<span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s2">&quot;napari.Viewer&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">viewer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_dialog</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Open dialog&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_dialog</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_dialog_clicked</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">open_dialog_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># setting parent to self allows the dialog to inherit its </span>
+        <span class="c1"># style from the viewer by pass self as argument</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">MyInputDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  
+        <span class="n">dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">number</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>If there is a particular reason that you need to use a separate window that
+inherits from <code class="docutils literal notranslate"><span class="pre">QWidget</span></code>, not <code class="docutils literal notranslate"><span class="pre">QDialog</span></code>, then you could use the <code class="docutils literal notranslate"><span class="pre">get_current_stylesheet</span></code>
+and <span class="xref myst"><code class="docutils literal notranslate"><span class="pre">get_stylesheet</span></code></span> functions from the <span class="xref myst"><code class="docutils literal notranslate"><span class="pre">napari.qt</span></code></span> module.</p>
+<p>Here is a <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> example (but could be easily generalised to native <code class="docutils literal notranslate"><span class="pre">qt</span></code> based widgets):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">magicgui</span>
+
+<span class="kn">from</span> <span class="nn">napari.qt</span> <span class="kn">import</span> <span class="n">get_current_stylesheet</span>
+<span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+
+<span class="k">def</span> <span class="nf">sample_add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="nd">@magicgui</span>
+<span class="k">def</span> <span class="nf">sample_add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="k">def</span> <span class="nf">change_style</span><span class="p">():</span>
+    <span class="n">sample_add</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">get_current_stylesheet</span><span class="p">())</span>
+
+
+<span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">change_style</span><span class="p">)</span>
+<span class="n">change_style</span><span class="p">()</span>
+
+</pre></div>
+</div>
 </section>
 </section>
 

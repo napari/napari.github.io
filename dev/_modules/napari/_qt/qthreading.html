@@ -317,11 +317,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="n">_P</span> <span class="o">=</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="s2">&quot;_P&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="FunctionWorker"><a class="viewcode-back" href="../../../api/napari.qt.threading.FunctionWorker.html#napari.qt.threading.FunctionWorker">[docs]</a><span class="k">class</span> <span class="nc">FunctionWorker</span><span class="p">(</span><span class="n">_qthreading</span><span class="o">.</span><span class="n">FunctionWorker</span><span class="p">[</span><span class="n">_R</span><span class="p">],</span> <span class="n">_NotifyingMixin</span><span class="p">):</span>
+<div class="viewcode-block" id="FunctionWorker"><a class="viewcode-back" href="../../../api/napari.qt.threading.FunctionWorker.html#napari.qt.FunctionWorker">[docs]</a><span class="k">class</span> <span class="nc">FunctionWorker</span><span class="p">(</span><span class="n">_qthreading</span><span class="o">.</span><span class="n">FunctionWorker</span><span class="p">[</span><span class="n">_R</span><span class="p">],</span> <span class="n">_NotifyingMixin</span><span class="p">):</span>
     <span class="o">...</span></div>
 
 
-<div class="viewcode-block" id="GeneratorWorker"><a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker">[docs]</a><span class="k">class</span> <span class="nc">GeneratorWorker</span><span class="p">(</span>
+<div class="viewcode-block" id="GeneratorWorker"><a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.GeneratorWorker">[docs]</a><span class="k">class</span> <span class="nc">GeneratorWorker</span><span class="p">(</span>
     <span class="n">_qthreading</span><span class="o">.</span><span class="n">GeneratorWorker</span><span class="p">[</span><span class="n">_Y</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">_R</span><span class="p">],</span> <span class="n">_NotifyingMixin</span>
 <span class="p">):</span>
     <span class="o">...</span></div>
@@ -330,7 +330,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># these are re-implemented from superqt just to provide progress</span>
 
 
-<div class="viewcode-block" id="create_worker"><a class="viewcode-back" href="../../../api/napari.qt.threading.html#napari.qt.threading.create_worker">[docs]</a><span class="k">def</span> <span class="nf">create_worker</span><span class="p">(</span>
+<div class="viewcode-block" id="create_worker"><a class="viewcode-back" href="../../../api/napari.qt.threading.html#napari.qt.create_worker">[docs]</a><span class="k">def</span> <span class="nf">create_worker</span><span class="p">(</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">GeneratorType</span><span class="p">],</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="n">_start_thread</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -465,7 +465,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">return</span> <span class="n">worker</span></div>
 
 
-<div class="viewcode-block" id="thread_worker"><a class="viewcode-back" href="../../../api/napari.qt.threading.html#napari.qt.threading.thread_worker">[docs]</a><span class="k">def</span> <span class="nf">thread_worker</span><span class="p">(</span>
+<div class="viewcode-block" id="thread_worker"><a class="viewcode-back" href="../../../api/napari.qt.threading.html#napari.qt.thread_worker">[docs]</a><span class="k">def</span> <span class="nf">thread_worker</span><span class="p">(</span>
     <span class="n">function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">start_thread</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">connect</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

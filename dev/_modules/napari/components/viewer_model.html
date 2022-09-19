@@ -454,8 +454,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># Add extra events - ideally these will be removed too!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
             <span class="n">layers_change</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
-                <span class="s2">&quot;This event will be removed in 0.5.0. &quot;</span>
-                <span class="s2">&quot;Please use viewer.layers.events instead&quot;</span><span class="p">,</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;This event will be removed in 0.5.0. Please use viewer.layers.events instead&quot;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
                 <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;layers_change&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">reset_view</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -1245,8 +1247,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">plugin</span> <span class="o">==</span> <span class="s1">&#39;builtins&#39;</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s1">&#39;The &quot;builtins&quot; plugin name is deprecated and will not work in a &#39;</span>
-                <span class="s1">&#39;future version. Please use &quot;napari&quot; instead.&#39;</span><span class="p">,</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;The &quot;builtins&quot; plugin name is deprecated and will not work in a future version. Please use &quot;napari&quot; instead.&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
             <span class="p">)</span>
             <span class="n">plugin</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
 

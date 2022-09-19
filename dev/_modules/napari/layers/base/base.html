@@ -509,7 +509,12 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">scale</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Layer </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> is invalid because it has scale values of 0. The layer&#39;s scale is currently </span><span class="si">{</span><span class="n">scale</span><span class="si">!r}</span><span class="s2">&quot;</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;Layer </span><span class="si">{name}</span><span class="s2"> is invalid because it has scale values of 0. The layer&#39;s scale is currently </span><span class="si">{scale}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+                    <span class="n">scale</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="n">scale</span><span class="p">),</span>
+                <span class="p">)</span>
             <span class="p">)</span>
 
         <span class="c1"># Needs to be imported here to avoid circular import in _source</span>

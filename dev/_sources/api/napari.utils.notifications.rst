@@ -15,17 +15,11 @@
       :nosignatures:
       :toctree:
    
-      ErrorNotification
-      Event
-      EventEmitter
-      Notification
-      NotificationManager
       NotificationSeverity
-      StringEnum
-      TracebackType
+      Notification
+      ErrorNotification
       WarningNotification
-      auto
-      datetime
+      NotificationManager
    
    
 
@@ -34,12 +28,9 @@
    .. rubric:: Functions
 
    
-   .. autofunction:: capture_exception
-   .. autofunction:: install_error_reporter
-   .. autofunction:: show_console_notification
-   .. autofunction:: show_error
    .. autofunction:: show_info
-   .. autofunction:: show_warning
+   .. autofunction:: show_error
+   .. autofunction:: show_console_notification
    
    
 

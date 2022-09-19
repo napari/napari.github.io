@@ -1596,7 +1596,7 @@ function checkPageExistsAndRedirect(event) {
 </ol>
 <section id="cell-tracking-challenge-data">
 <h2>1. Cell tracking challenge data<a class="headerlink" href="#cell-tracking-challenge-data" title="Permalink to this headline">¶</a></h2>
-<p>The first example of track visualization uses data from the <a class="reference external" href="http://celltrackingchallenge.net/3d-datasets/">cell tracking challenge</a>. We will use the <em>C. elegans</em> developing embryo <a class="reference external" href="http://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip">dataset</a> which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.</p>
+<p>The first example of track visualization uses data from the <a class="reference external" href="http://celltrackingchallenge.net/3d-datasets/">cell tracking challenge</a>. We will use the <em>C. elegans</em> developing embryo <a class="reference external" href="https://data.celltrackingchallenge.net/training-datasets/Fluo-N3DH-CE.zip">dataset</a> which consists of 3D+t volumetric imaging data, manually annotated tracks and cell lineage information.</p>
 <p>A full description of the data format can be found <a class="reference external" href="https://public.celltrackingchallenge.net/documents/Naming%20and%20file%20content%20conventions.pdf">here</a>.</p>
 <section id="extracting-the-tracks-from-the-dataset">
 <h3>Extracting the tracks from the dataset<a class="headerlink" href="#extracting-the-tracks-from-the-dataset" title="Permalink to this headline">¶</a></h3>
@@ -1777,7 +1777,7 @@ We create it with the following code:</p>
     <span class="n">data</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">to_napari</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We set the configuration of the tracker using a configuration file using the <code class="docutils literal notranslate"><span class="pre">.configure_from_file()</span></code> method. An example configuration file can be found <a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/master/models/cell_config.json">here</a>.</p>
+<p>We set the configuration of the tracker using a configuration file using the <code class="docutils literal notranslate"><span class="pre">.configure_from_file()</span></code> method. An example configuration file can be found <a class="reference external" href="https://github.com/quantumjot/BayesianTracker/blob/main/models/cell_config.json">here</a>.</p>
 <p>Next, the objects are linked into tracks using the <code class="docutils literal notranslate"><span class="pre">.track_interactive()</span></code> method. The <code class="docutils literal notranslate"><span class="pre">step_size</span></code> argument specifies how many steps are taken before reporting the tracking statistics. The <code class="docutils literal notranslate"><span class="pre">.optimize()</span></code> method then performs a global optimization on the dataset and creates lineage trees automatically.</p>
 <p>Finally, the <code class="docutils literal notranslate"><span class="pre">.to_napari()</span></code> method returns the track vertices, track properties and graph in a format that can be directly visualized using the napari <code class="docutils literal notranslate"><span class="pre">Tracks</span></code> layer:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
@@ -1803,7 +1803,7 @@ We create it with the following code:</p>
 <p>For a more advanced example of visualizing cell tracking data with napari, please see the Arboretum plugin for napari:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/quantumjot/BayesianTracker">btrack</a></p></li>
-<li><p><a class="reference external" href="https://github.com/quantumjot/arboretum">arboretum</a></p></li>
+<li><p><a class="reference external" href="https://github.com/lowe-lab-ucl/arboretum">arboretum</a></p></li>
 </ul>
 </section>
 </section>

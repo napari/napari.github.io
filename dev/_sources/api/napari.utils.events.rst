@@ -17,11 +17,10 @@
    
       EmitterGroup
       Event
-      EventEmitter
-      EventedDict
       EventedList
       EventedModel
       EventedSet
+      EventEmitter
       NestableEventedList
       SelectableEventedList
       Selection

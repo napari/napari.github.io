@@ -328,7 +328,7 @@ function checkPageExistsAndRedirect(event) {
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../naps/4-async-slicing.html">
-       NAP-4: asynchronous slicing
+       NAP-4: Asynchronous slicing
       </a>
      </li>
      <li class="toctree-l3">
@@ -810,7 +810,7 @@ pytest napari/layers/ -k <span class="s1">&#39;points and not bindings&#39;</spa
 </section>
 <section id="testing-coverage-locally">
 <h3>Testing coverage locally<a class="headerlink" href="#testing-coverage-locally" title="Permalink to this headline">¶</a></h3>
-<p>We always aim for good <a class="reference external" href="https://en.wikipedia.org/wiki/Code_coverage">test coverage</a> and we use <a class="reference external" href="https://codecov.io/gh/napari/napari">codecov</a> during continuous integration to make sure we maintain good coverage.  If you’d like to test coverage locally as you develop new code, you can install <a class="reference external" href="https://github.com/pytest-dev/pytest-cov"><code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code></a> and take advantage of a few handy commands:</p>
+<p>We always aim for good <a class="reference external" href="https://en.wikipedia.org/wiki/Code_coverage">test coverage</a> and we use <a class="reference external" href="https://app.codecov.io/gh/napari/napari">codecov</a> during continuous integration to make sure we maintain good coverage.  If you’d like to test coverage locally as you develop new code, you can install <a class="reference external" href="https://github.com/pytest-dev/pytest-cov"><code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code></a> and take advantage of a few handy commands:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the full test suite with coverage</span>
 pytest --cov<span class="o">=</span>napari
 <span class="c1"># instead of coverage in the console, get a nice browser-based cov-report</span>
@@ -835,7 +835,7 @@ developer experience than using truly random data.  We use Hypothesis for unit o
 integration tests where there are simple properties like <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">load(save(x))</span></code> or
 when Napari implements a function we can check against the equivalent in a trusted
 library for at least some inputs.</p>
-<p>See also <a class="reference external" href="http://conference.scipy.org/proceedings/scipy2020/zac_hatfield-dodds.html">this paper on property-based testing in science</a>,
+<p>See also <a class="reference external" href="https://conference.scipy.org/proceedings/scipy2020/zac_hatfield-dodds.html">this paper on property-based testing in science</a>,
 <a class="reference external" href="https://github.com/napari/napari/issues/2444">issue #2444</a>, and
 <a class="reference external" href="https://hypothesis.readthedocs.io/en/latest/">the Hypothesis documentation</a>
 (including <a class="reference external" href="https://hypothesis.readthedocs.io/en/latest/numpy.html">Numpy support</a>).</p>
@@ -874,7 +874,7 @@ signals, etc…).  See the <a class="reference external" href="https://pytest-qt
 </div>
 </li>
 <li><p>When writing a test that requires a <code class="docutils literal notranslate"><span class="pre">napari.Viewer</span></code> object, we provide a
-<a class="reference external" href="https://docs.pytest.org/en/stable/fixture.html">pytest fixture</a> called
+<a class="reference external" href="https://docs.pytest.org/en/stable/explanation/fixtures.html">pytest fixture</a> called
 <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> that will take care of creating a viewer and cleaning up
 at the end of the test.  When using this function, it is <strong>not</strong> necessary to
 use a <code class="docutils literal notranslate"><span class="pre">qtbot</span></code> fixture, nor should you do any additional cleanup (such as

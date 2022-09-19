@@ -5,30 +5,19 @@
 
    
    
-   
+   .. rubric:: Module Attributes
 
    
-   
-   .. rubric:: Classes
-
-   .. autosummary::
-      :nosignatures:
-      :toctree:
-   
-      NapariPluginManager
-      PackageMetadata
-      Path
-      PluginManifest
+   .. autoattribute:: napari.plugins.menu_item_template
+   .. autoattribute:: napari.plugins.plugin_manager
    
    
 
    
    
-   .. rubric:: Functions
+   
 
    
-   .. autofunction:: get_settings
-   .. autofunction:: lru_cache
    
    
 

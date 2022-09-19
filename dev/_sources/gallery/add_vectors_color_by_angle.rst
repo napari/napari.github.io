@@ -36,8 +36,19 @@ The color of the vectors is mapped to their 'angle' feature.
    :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/runner/work/napari/napari/napari/utils/colormaps/colormap_utils.py:423: DeprecationWarning: Colormap 'husl' has been deprecated since vispy 0.7. Please import and create 'vispy.color.colormap.HSLuv' directly instead.
+      cmap = get_colormap(name)
 
 
+
+
+
+
+|
 
 .. code-block:: default
 

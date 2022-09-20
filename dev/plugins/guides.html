@@ -119,7 +119,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc2</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -132,7 +132,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables plugins/guides and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables plugins/guides and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc2'}.
 -->
 
 <script type="text/javascript">
@@ -183,10 +183,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc2 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc2") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -482,8 +482,8 @@ otherwise, they will not be invoked when a directory is passed to <code class="d
 <section id="reader-example">
 <h3>Reader example<a class="headerlink" href="#reader-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="ed0b4f3a-4934-45b3-ae46-f5c55a1ad370" name="6a0ef8c5-1cfc-4ce0-98df-32b82b64b6b4" type="radio">
-</input><label class="tabbed-label" for="ed0b4f3a-4934-45b3-ae46-f5c55a1ad370">
+<input checked="checked" id="55180d78-ca11-4d3d-ae1a-eede670933d3" name="83dbe883-5ca1-459a-9d30-7eb70e3ceb88" type="radio">
+</input><label class="tabbed-label" for="55180d78-ca11-4d3d-ae1a-eede670933d3">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -522,8 +522,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="07cb8d67-cb85-49f6-ba9d-f4d48f8c2961" name="6a0ef8c5-1cfc-4ce0-98df-32b82b64b6b4" type="radio">
-</input><label class="tabbed-label" for="07cb8d67-cb85-49f6-ba9d-f4d48f8c2961">
+<input id="420e312b-9aac-45cd-b296-cec6313bc165" name="83dbe883-5ca1-459a-9d30-7eb70e3ceb88" type="radio">
+</input><label class="tabbed-label" for="420e312b-9aac-45cd-b296-cec6313bc165">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -647,8 +647,8 @@ and a <code class="docutils literal notranslate"><span class="pre">vectors</span
 <section id="writer-example">
 <h3>Writer example<a class="headerlink" href="#writer-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="d5c6beaa-8684-424b-af4e-0ffd40da4ebb" name="3a62f28a-93b3-4fa1-97f0-4592e68f7134" type="radio">
-</input><label class="tabbed-label" for="d5c6beaa-8684-424b-af4e-0ffd40da4ebb">
+<input checked="checked" id="86296c13-cec8-43f5-a4d4-b1dca6236770" name="964419ca-cf17-446b-bfd0-789d80a78929" type="radio">
+</input><label class="tabbed-label" for="86296c13-cec8-43f5-a4d4-b1dca6236770">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -677,8 +677,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="3d263bd1-9af6-4da6-91de-ac6f8436be29" name="3a62f28a-93b3-4fa1-97f0-4592e68f7134" type="radio">
-</input><label class="tabbed-label" for="3d263bd1-9af6-4da6-91de-ac6f8436be29">
+<input id="eaf0e04a-5652-4f3a-87bd-3d4300464f2b" name="964419ca-cf17-446b-bfd0-789d80a78929" type="radio">
+</input><label class="tabbed-label" for="eaf0e04a-5652-4f3a-87bd-3d4300464f2b">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -768,8 +768,8 @@ field in the <a class="reference internal" href="contributions.html#contribution
 <section id="widget-example">
 <h3>Widget example<a class="headerlink" href="#widget-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="585f3b08-1bde-41da-8ed4-5f33458edbb7" name="68db48e4-750d-47fe-a4ee-abac25b2343f" type="radio">
-</input><label class="tabbed-label" for="585f3b08-1bde-41da-8ed4-5f33458edbb7">
+<input checked="checked" id="6101f758-e84f-4772-ad8a-cf4c7ad4b529" name="92c7f2ea-d69c-4f19-94aa-551d05943fec" type="radio">
+</input><label class="tabbed-label" for="6101f758-e84f-4772-ad8a-cf4c7ad4b529">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -828,8 +828,8 @@ npe2</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="0a155d26-a049-4eeb-8a2d-702945da7da1" name="68db48e4-750d-47fe-a4ee-abac25b2343f" type="radio">
-</input><label class="tabbed-label" for="0a155d26-a049-4eeb-8a2d-702945da7da1">
+<input id="b17b58c9-5094-4b86-9d74-e3e1a8b05916" name="92c7f2ea-d69c-4f19-94aa-551d05943fec" type="radio">
+</input><label class="tabbed-label" for="b17b58c9-5094-4b86-9d74-e3e1a8b05916">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -899,8 +899,8 @@ or <strong>Sample Data Function</strong> that generates layer data on demand.</p
 <section id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="6775eb3b-bf38-4bc4-a1ec-9cd75d7957f1" name="22788a87-ae89-4ba1-90f3-8b3ca7a1f6e4" type="radio">
-</input><label class="tabbed-label" for="6775eb3b-bf38-4bc4-a1ec-9cd75d7957f1">
+<input checked="checked" id="9f01540e-d405-47e7-9665-9d84d1200bd0" name="2818f515-4f37-4936-b6df-a2dbddc500f5" type="radio">
+</input><label class="tabbed-label" for="9f01540e-d405-47e7-9665-9d84d1200bd0">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -931,8 +931,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="1d64f7da-8f91-4755-9450-8ddf0261a63f" name="22788a87-ae89-4ba1-90f3-8b3ca7a1f6e4" type="radio">
-</input><label class="tabbed-label" for="1d64f7da-8f91-4755-9450-8ddf0261a63f">
+<input id="d0770d2a-9ebd-43e7-9b80-65f349f69a20" name="2818f515-4f37-4936-b6df-a2dbddc500f5" type="radio">
+</input><label class="tabbed-label" for="d0770d2a-9ebd-43e7-9b80-65f349f69a20">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>

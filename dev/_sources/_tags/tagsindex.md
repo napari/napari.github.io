@@ -7,13 +7,13 @@
 caption: Tags
 maxdepth: 1
 ---
-experimental (11) <experimental>
-visualization-nD (14) <visualization-nD>
-visualization-advanced (13) <visualization-advanced>
-visualization-basic (20) <visualization-basic>
 gui (13) <gui>
-interactivity (3) <interactivity>
-historical (4) <historical>
+visualization-nD (14) <visualization-nD>
 analysis (4) <analysis>
+interactivity (3) <interactivity>
+experimental (11) <experimental>
+visualization-basic (20) <visualization-basic>
+visualization-advanced (13) <visualization-advanced>
+historical (4) <historical>
 layers (5) <layers>
 ```

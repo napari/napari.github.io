@@ -119,7 +119,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc3</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -132,7 +132,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables plugins/manifest and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables plugins/manifest and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc3'}.
 -->
 
 <script type="text/javascript">
@@ -183,10 +183,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc3 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc3") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -429,8 +429,8 @@ more than a single contribution type).</p>
 manifest formats, though YAML is the “default” and more common format.</p>
 </div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="54f7a19b-7df6-4acc-9b62-6f784fd07c35" name="5aa25a96-e185-40d1-a806-1a02cd193287" type="radio">
-</input><label class="tabbed-label" for="54f7a19b-7df6-4acc-9b62-6f784fd07c35">
+<input checked="checked" id="fc42c667-9c3c-4fd4-9c91-3176a423f78b" name="b56e5f24-7381-4fec-9461-4af28f0005d2" type="radio">
+</input><label class="tabbed-label" for="fc42c667-9c3c-4fd4-9c91-3176a423f78b">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin</span><span class="w"></span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example Plugin</span><span class="w"></span>
@@ -501,8 +501,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="58206d7c-689c-4cea-b374-b89f62785b24" name="5aa25a96-e185-40d1-a806-1a02cd193287" type="radio">
-</input><label class="tabbed-label" for="58206d7c-689c-4cea-b374-b89f62785b24">
+<input id="119bdc89-0f64-4047-818d-b9128d150cea" name="b56e5f24-7381-4fec-9461-4af28f0005d2" type="radio">
+</input><label class="tabbed-label" for="119bdc89-0f64-4047-818d-b9128d150cea">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Example Plugin&#39;</span><span class="w"></span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin&#39;</span><span class="w"></span>

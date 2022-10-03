@@ -280,6 +280,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span>
 <span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">...utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
+<span class="kn">from</span> <span class="nn">...utils.events.event_utils</span> <span class="kn">import</span> <span class="n">connect_no_arg</span>
 <span class="kn">from</span> <span class="nn">...utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
 <span class="kn">from</span> <span class="nn">...utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
 <span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
@@ -570,6 +571,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">interpolation2d</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">interpolation3d</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">rendering</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">plane</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">depiction</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">iso_threshold</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">attenuation</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -639,6 +641,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">depiction</span> <span class="o">=</span> <span class="n">depiction</span>
         <span class="k">if</span> <span class="n">plane</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plane</span> <span class="o">=</span> <span class="n">plane</span>
+        <span class="n">connect_no_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">&#39;plane&#39;</span><span class="p">)</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
@@ -921,6 +924,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@plane</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">plane</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">SlicingPlane</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plane</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">plane</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

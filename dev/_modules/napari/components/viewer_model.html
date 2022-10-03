@@ -316,15 +316,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">available_themes</span>
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
-<span class="kn">from</span> <span class="nn">.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
 <span class="kn">from</span> <span class="nn">.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span>
 <span class="kn">from</span> <span class="nn">.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
 <span class="kn">from</span> <span class="nn">.grid</span> <span class="kn">import</span> <span class="n">GridCanvas</span>
 <span class="kn">from</span> <span class="nn">.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
-<span class="kn">from</span> <span class="nn">.overlays</span> <span class="kn">import</span> <span class="n">Overlays</span>
-<span class="kn">from</span> <span class="nn">.scale_bar</span> <span class="kn">import</span> <span class="n">ScaleBar</span>
-<span class="kn">from</span> <span class="nn">.text_overlay</span> <span class="kn">import</span> <span class="n">TextOverlay</span>
+<span class="kn">from</span> <span class="nn">.overlays</span> <span class="kn">import</span> <span class="n">AxesOverlay</span><span class="p">,</span> <span class="n">Overlays</span><span class="p">,</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">TextOverlay</span>
 <span class="kn">from</span> <span class="nn">.tooltip</span> <span class="kn">import</span> <span class="n">Tooltip</span>
 
 <span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
@@ -382,7 +379,9 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># Using allow_mutation=False means these attributes aren&#39;t settable and don&#39;t</span>
     <span class="c1"># have an event emitter associated with them</span>
-    <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Axes</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">:</span> <span class="n">AxesOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">AxesOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
     <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Dims</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -390,7 +389,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>  <span class="c1"># Need to create custom JSON encoder for layer!</span>
-    <span class="n">scale_bar</span><span class="p">:</span> <span class="n">ScaleBar</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ScaleBar</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">scale_bar</span><span class="p">:</span> <span class="n">ScaleBarOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
     <span class="n">text_overlay</span><span class="p">:</span> <span class="n">TextOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="n">TextOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>

@@ -270,7 +270,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
@@ -282,6 +282,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">...utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span> <span class="nn">...utils.events.event_utils</span> <span class="kn">import</span> <span class="n">connect_no_arg</span>
 <span class="kn">from</span> <span class="nn">...utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
+<span class="kn">from</span> <span class="nn">...utils.misc</span> <span class="kn">import</span> <span class="n">reorder_after_dim_reduction</span>
 <span class="kn">from</span> <span class="nn">...utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
 <span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.._data_protocols</span> <span class="kn">import</span> <span class="n">LayerDataProtocol</span>
@@ -661,17 +662,16 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_get_order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the order of the displayed dimensions.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_get_order</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the ordered displayed dimensions, but reduced to fit in the slice space.&quot;&quot;&quot;</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
             <span class="c1"># if rgb need to keep the final axis fixed during the</span>
             <span class="c1"># transpose. The index of the final axis depends on how many</span>
             <span class="c1"># axes are displayed.</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed_order</span> <span class="o">+</span> <span class="p">(</span>
-                <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed_order</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">order</span> <span class="o">+</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed_order</span>
+            <span class="k">return</span> <span class="n">order</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_data_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

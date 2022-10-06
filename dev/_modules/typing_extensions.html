@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc4</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/typing_extensions and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc4'}.
+     variables _modules/typing_extensions and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc4 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc4") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -274,9 +274,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">typing</span>
 
 
-<span class="c1"># Please keep __all__ alphabetized within each category.</span>
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># Super-special typing primitives.</span>
+    <span class="s1">&#39;Any&#39;</span><span class="p">,</span>
     <span class="s1">&#39;ClassVar&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Concatenate&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Final&#39;</span><span class="p">,</span>
@@ -286,6 +286,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="s1">&#39;ParamSpecKwargs&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Self&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Type&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;TypeVar&#39;</span><span class="p">,</span>
     <span class="s1">&#39;TypeVarTuple&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Unpack&#39;</span><span class="p">,</span>
 
@@ -326,6 +327,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="s1">&#39;Literal&#39;</span><span class="p">,</span>
     <span class="s1">&#39;NewType&#39;</span><span class="p">,</span>
     <span class="s1">&#39;overload&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;override&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Protocol&#39;</span><span class="p">,</span>
     <span class="s1">&#39;reveal_type&#39;</span><span class="p">,</span>
     <span class="s1">&#39;runtime&#39;</span><span class="p">,</span>
@@ -414,6 +416,37 @@ function checkPageExistsAndRedirect(event) {
 <span class="n">VT</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;VT&#39;</span><span class="p">)</span>  <span class="c1"># Value type.</span>
 <span class="n">T_co</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T_co&#39;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Any type covariant containers.</span>
 <span class="n">T_contra</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T_contra&#39;</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Ditto contravariant.</span>
+
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="k">else</span><span class="p">:</span>
+
+    <span class="k">class</span> <span class="nc">_AnyMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__instancecheck__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">Any</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;typing_extensions.Any cannot be used with isinstance()&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__instancecheck__</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">Any</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;typing_extensions.Any&quot;</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Any</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">_AnyMeta</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Special type indicating an unconstrained type.</span>
+<span class="sd">        - Any is compatible with every type.</span>
+<span class="sd">        - Any assumed to have all methods.</span>
+<span class="sd">        - All values assumed to be instances of Any.</span>
+<span class="sd">        Note that all the above statements are true from the point of view of</span>
+<span class="sd">        static type checkers. At runtime, Any should not be used with instance</span>
+<span class="sd">        checks.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">Any</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Any cannot be instantiated&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
 
 <span class="n">ClassVar</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span>
 
@@ -697,7 +730,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_is_protocol</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Protocols cannot be instantiated&#39;</span><span class="p">)</span>
 
-    <span class="k">class</span> <span class="nc">_ProtocolMeta</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">_ProtocolMeta</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>  <span class="c1"># noqa: B024</span>
         <span class="c1"># This metaclass is a bit unfortunate and exists only because of the lack</span>
         <span class="c1"># of __instancehook__.</span>
         <span class="k">def</span> <span class="fm">__instancecheck__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
@@ -1381,6 +1414,44 @@ function checkPageExistsAndRedirect(event) {
 <span class="s2">                               above.&quot;&quot;&quot;</span><span class="p">)</span>
 
 
+<span class="k">class</span> <span class="nc">_DefaultMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Mixin for TypeVarLike defaults.&quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__default__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;Default must be a type&quot;</span><span class="p">)</span>
+                                      <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">default</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">default</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__default__</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="s2">&quot;Default must be a type&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__default__</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="c1"># Add default and infer_variance parameters from PEP 696 and 695</span>
+<span class="k">class</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">,</span> <span class="n">_root</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Type variable.&quot;&quot;&quot;</span>
+
+    <span class="vm">__module__</span> <span class="o">=</span> <span class="s1">&#39;typing&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">constraints</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">covariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">infer_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">constraints</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">bound</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="n">covariant</span><span class="p">,</span>
+                         <span class="n">contravariant</span><span class="o">=</span><span class="n">contravariant</span><span class="p">)</span>
+        <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__infer_variance__</span> <span class="o">=</span> <span class="n">infer_variance</span>
+
+        <span class="c1"># for pickling:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">def_mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__main__&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">def_mod</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">def_mod</span> <span class="o">!=</span> <span class="s1">&#39;typing_extensions&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="n">def_mod</span>
+
+
 <span class="c1"># Python 3.10+ has PEP 612</span>
 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typing</span><span class="p">,</span> <span class="s1">&#39;ParamSpecArgs&#39;</span><span class="p">):</span>
     <span class="n">ParamSpecArgs</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">ParamSpecArgs</span>
@@ -1445,12 +1516,32 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="c1"># 3.10+</span>
 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typing</span><span class="p">,</span> <span class="s1">&#39;ParamSpec&#39;</span><span class="p">):</span>
-    <span class="n">ParamSpec</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">ParamSpec</span>
+
+    <span class="c1"># Add default Parameter - PEP 696</span>
+    <span class="k">class</span> <span class="nc">ParamSpec</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">ParamSpec</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">,</span> <span class="n">_root</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Parameter specification variable.&quot;&quot;&quot;</span>
+
+        <span class="vm">__module__</span> <span class="o">=</span> <span class="s1">&#39;typing&#39;</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                     <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">bound</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="n">covariant</span><span class="p">,</span>
+                             <span class="n">contravariant</span><span class="o">=</span><span class="n">contravariant</span><span class="p">)</span>
+            <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+
+            <span class="c1"># for pickling:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">def_mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__main__&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                <span class="n">def_mod</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">def_mod</span> <span class="o">!=</span> <span class="s1">&#39;typing_extensions&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="n">def_mod</span>
+
 <span class="c1"># 3.7-3.9</span>
 <span class="k">else</span><span class="p">:</span>
 
     <span class="c1"># Inherits from list as a workaround for Callable checks in Python &lt; 3.9.2.</span>
-    <span class="k">class</span> <span class="nc">ParamSpec</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">ParamSpec</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Parameter specification variable.</span>
 
 <span class="sd">        Usage::</span>
@@ -1508,7 +1599,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">def</span> <span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">ParamSpecKwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                     <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([</span><span class="bp">self</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__covariant__</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">covariant</span><span class="p">)</span>
@@ -1517,6 +1609,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">__bound__</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">bound</span><span class="p">,</span> <span class="s1">&#39;Bound must be a type.&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__bound__</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
 
             <span class="c1"># for pickling:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -2018,9 +2111,25 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typing</span><span class="p">,</span> <span class="s2">&quot;TypeVarTuple&quot;</span><span class="p">):</span>  <span class="c1"># 3.11+</span>
-    <span class="n">TypeVarTuple</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVarTuple</span>
+
+    <span class="c1"># Add default Parameter - PEP 696</span>
+    <span class="k">class</span> <span class="nc">TypeVarTuple</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">TypeVarTuple</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">,</span> <span class="n">_root</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Type variable tuple.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+
+            <span class="c1"># for pickling:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">def_mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">f_globals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__main__&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                <span class="n">def_mod</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">def_mod</span> <span class="o">!=</span> <span class="s1">&#39;typing_extensions&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="n">def_mod</span>
+
 <span class="k">else</span><span class="p">:</span>
-    <span class="k">class</span> <span class="nc">TypeVarTuple</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">TypeVarTuple</span><span class="p">(</span><span class="n">_DefaultMixin</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Type variable tuple.</span>
 
 <span class="sd">        Usage::</span>
@@ -2070,8 +2179,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">__unpacked__</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
 
             <span class="c1"># for pickling:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -2232,6 +2342,36 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">}</span>
             <span class="k">return</span> <span class="n">cls_or_fn</span>
         <span class="k">return</span> <span class="n">decorator</span>
+
+
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typing</span><span class="p">,</span> <span class="s2">&quot;override&quot;</span><span class="p">):</span>
+    <span class="n">override</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">override</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">_F</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_F&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">override</span><span class="p">(</span><span class="n">__arg</span><span class="p">:</span> <span class="n">_F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_F</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Indicate that a method is intended to override a method in a base class.</span>
+
+<span class="sd">        Usage:</span>
+
+<span class="sd">            class Base:</span>
+<span class="sd">                def method(self) -&gt; None: ...</span>
+<span class="sd">                    pass</span>
+
+<span class="sd">            class Child(Base):</span>
+<span class="sd">                @override</span>
+<span class="sd">                def method(self) -&gt; None:</span>
+<span class="sd">                    super().method()</span>
+
+<span class="sd">        When this decorator is applied to a method, the type checker will</span>
+<span class="sd">        validate that it overrides a method with the same name on a base class.</span>
+<span class="sd">        This helps prevent bugs that may occur when a base class is changed</span>
+<span class="sd">        without an equivalent change to a child class.</span>
+
+<span class="sd">        See PEP 698 for details.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">__arg</span>
 
 
 <span class="c1"># We have to do some monkey patching to deal with the dual nature of</span>

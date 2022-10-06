@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc4</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/superqt/utils/_qthreading and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc4'}.
+     variables _modules/superqt/utils/_qthreading and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc4 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc4") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -358,7 +358,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        signal emitter object. To allow identify which worker thread emitted signal.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1">#: A set of Workers.  Add to set using :meth:`WorkerBase.start`</span>
+    <span class="c1">#: A set of Workers.  Add to set using `WorkerBase.start`</span>
     <span class="n">_worker_set</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="n">returned</span><span class="p">:</span> <span class="n">SigInst</span><span class="p">[</span><span class="n">_R</span><span class="p">]</span>
     <span class="n">errored</span><span class="p">:</span> <span class="n">SigInst</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span>
@@ -379,11 +379,11 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SigInst</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Pass through attr requests to signals to simplify connection API.</span>
 
-<span class="sd">        The goal is to enable ``worker.yielded.connect`` instead of</span>
-<span class="sd">        ``worker.signals.yielded.connect``. Because multiple inheritance of Qt</span>
+<span class="sd">        The goal is to enable `worker.yielded.connect` instead of</span>
+<span class="sd">        `worker.signals.yielded.connect`. Because multiple inheritance of Qt</span>
 <span class="sd">        classes is not well supported in PyQt, we have to use composition here</span>
 <span class="sd">        (signals are provided by QObjects, and QRunnable is not a QObject). So</span>
-<span class="sd">        this passthrough allows us to connect to signals on the ``_signals``</span>
+<span class="sd">        this passthrough allows us to connect to signals on the `_signals`</span>
 <span class="sd">        object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># the Signal object is actually a class attribute</span>
@@ -400,11 +400,10 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="WorkerBase.quit"><a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Send a request to abort the worker.</span>
 
-<span class="sd">        .. note::</span>
-
+<span class="sd">        !!! note</span>
 <span class="sd">            It is entirely up to subclasses to honor this method by checking</span>
-<span class="sd">            ``self.abort_requested`` periodically in their ``worker.work``</span>
-<span class="sd">            method, and exiting if ``True``.</span>
+<span class="sd">            `self.abort_requested` periodically in their `worker.work`</span>
+<span class="sd">            method, and exiting if `True`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_abort_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
 
@@ -426,20 +425,20 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        The order of method calls when starting a worker is:</span>
 
-<span class="sd">        .. code-block:: none</span>
-
+<span class="sd">        ```</span>
 <span class="sd">           calls QThreadPool.globalInstance().start(worker)</span>
 <span class="sd">           |               triggered by the QThreadPool.start() method</span>
 <span class="sd">           |               |             called by worker.run</span>
 <span class="sd">           |               |             |</span>
 <span class="sd">           V               V             V</span>
 <span class="sd">           worker.start -&gt; worker.run -&gt; worker.work</span>
+<span class="sd">        ```</span>
 
 <span class="sd">        **This** is the function that actually gets called when calling</span>
-<span class="sd">        :func:`QThreadPool.start(worker)`.  It simply wraps the :meth:`work`</span>
+<span class="sd">        `QThreadPool.start(worker)`.  It simply wraps the `work()`</span>
 <span class="sd">        method, and emits a few signals.  Subclasses should NOT override this</span>
 <span class="sd">        method (except with good reason), and instead should implement</span>
-<span class="sd">        :meth:`work`.</span>
+<span class="sd">        `work()`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">True</span>
@@ -474,26 +473,26 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        The end-user should never need to call this function.</span>
 <span class="sd">        But subclasses must implement this method (See</span>
-<span class="sd">        :meth:`GeneratorFunction.work` for an example implementation).</span>
-<span class="sd">        Minimally, it should check ``self.abort_requested`` periodically and</span>
+<span class="sd">        [`GeneratorFunction.work`][superqt.utils._qthreading.GeneratorWorker.work] for an example implementation).</span>
+<span class="sd">        Minimally, it should check `self.abort_requested` periodically and</span>
 <span class="sd">        exit if True.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        .. code-block:: python</span>
+<span class="sd">        ```python</span>
+<span class="sd">        class MyWorker(WorkerBase):</span>
 
-<span class="sd">            class MyWorker(WorkerBase):</span>
-
-<span class="sd">                def work(self):</span>
-<span class="sd">                    i = 0</span>
-<span class="sd">                    while True:</span>
-<span class="sd">                        if self.abort_requested:</span>
-<span class="sd">                            self.aborted.emit()</span>
-<span class="sd">                            break</span>
-<span class="sd">                        i += 1</span>
-<span class="sd">                        if i &gt; max_iters:</span>
-<span class="sd">                            break</span>
-<span class="sd">                        time.sleep(0.5)</span>
+<span class="sd">            def work(self):</span>
+<span class="sd">                i = 0</span>
+<span class="sd">                while True:</span>
+<span class="sd">                    if self.abort_requested:</span>
+<span class="sd">                        self.aborted.emit()</span>
+<span class="sd">                        break</span>
+<span class="sd">                    i += 1</span>
+<span class="sd">                    if i &gt; max_iters:</span>
+<span class="sd">                        break</span>
+<span class="sd">                    time.sleep(0.5)</span>
+<span class="sd">        ```</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&quot; failed to define work() method&#39;</span>
@@ -504,14 +503,14 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        The order of method calls when starting a worker is:</span>
 
-<span class="sd">        .. code-block:: none</span>
-
+<span class="sd">        ```</span>
 <span class="sd">           calls QThreadPool.globalInstance().start(worker)</span>
 <span class="sd">           |               triggered by the QThreadPool.start() method</span>
 <span class="sd">           |               |             called by worker.run</span>
 <span class="sd">           |               |             |</span>
 <span class="sd">           V               V             V</span>
 <span class="sd">           worker.start -&gt; worker.run -&gt; worker.work</span>
+<span class="sd">        ```</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_worker_set</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;This worker is already started!&quot;</span><span class="p">)</span>
@@ -537,33 +536,33 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">await_workers</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">msecs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Ask all workers to quit, and wait up to `msec` for quit.</span>
 
-<span class="sd">        Attempts to clean up all running workers by calling ``worker.quit()``</span>
-<span class="sd">        method.  Any workers in the ``WorkerBase._worker_set`` set will have this</span>
+<span class="sd">        Attempts to clean up all running workers by calling `worker.quit()`</span>
+<span class="sd">        method.  Any workers in the `WorkerBase._worker_set` set will have this</span>
 <span class="sd">        method.</span>
 
 <span class="sd">        By default, this function will block indefinitely, until worker threads</span>
-<span class="sd">        finish.  If a timeout is provided, a ``RuntimeError`` will be raised if</span>
+<span class="sd">        finish.  If a timeout is provided, a `RuntimeError` will be raised if</span>
 <span class="sd">        the workers do not gracefully exit in the time requests, but the threads</span>
 <span class="sd">        will NOT be killed.  It is (currently) left to the user to use their OS</span>
 <span class="sd">        to force-quit rogue threads.</span>
 
-<span class="sd">        .. important::</span>
+<span class="sd">        !!! important</span>
 
 <span class="sd">            If the user does not put any yields in their function, and the function</span>
 <span class="sd">            is super long, it will just hang... For instance, there&#39;s no graceful</span>
 <span class="sd">            way to kill this thread in python:</span>
 
-<span class="sd">            .. code-block:: python</span>
-
-<span class="sd">                @thread_worker</span>
-<span class="sd">                def ZZZzzz():</span>
-<span class="sd">                    time.sleep(10000000)</span>
+<span class="sd">            ```python</span>
+<span class="sd">            @thread_worker</span>
+<span class="sd">            def ZZZzzz():</span>
+<span class="sd">                time.sleep(10000000)</span>
+<span class="sd">            ```</span>
 
 <span class="sd">            This is why it&#39;s always advisable to use a generator that periodically</span>
 <span class="sd">            yields for long-running computations in another thread.</span>
 
-<span class="sd">            See `this stack-overflow post</span>
-<span class="sd">            &lt;https://stackoverflow.com/questions/323972/is-there-any-way-to-kill-a-thread&gt;`_</span>
+<span class="sd">            See [this stack-overflow</span>
+<span class="sd">            post](https://stackoverflow.com/questions/323972/is-there-any-way-to-kill-a-thread)</span>
 <span class="sd">            for a good discussion on the difficulty of killing a rogue python thread:</span>
 
 <span class="sd">        Parameters</span>
@@ -592,12 +591,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">class</span> <span class="nc">FunctionWorker</span><span class="p">(</span><span class="n">WorkerBase</span><span class="p">[</span><span class="n">_R</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;QRunnable with signals that wraps a simple long-running function.</span>
 
-<span class="sd">    .. note::</span>
-
-<span class="sd">        ``FunctionWorker`` does not provide a way to stop a very long-running</span>
-<span class="sd">        function (e.g. ``time.sleep(10000)``).  So whenever possible, it is</span>
-<span class="sd">        better to implement your long running function as a generator that</span>
-<span class="sd">        yields periodically, and use the :class:`GeneratorWorker` instead.</span>
+<span class="sd">    !!! note</span>
+<span class="sd">        `FunctionWorker` does not provide a way to stop a very long-running</span>
+<span class="sd">        function (e.g. `time.sleep(10000)`).  So whenever possible, it is better to</span>
+<span class="sd">        implement your long running function as a generator that yields periodically,</span>
+<span class="sd">        and use the [`GeneratorWorker`][superqt.utils.GeneratorWorker] instead.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -611,7 +609,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
 <span class="sd">    TypeError</span>
-<span class="sd">        If ``func`` is a generator function and not a regular function.</span>
+<span class="sd">        If `func` is a generator function and not a regular function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">_R</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -720,7 +718,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">return</span> <span class="n">exc</span><span class="o">.</span><span class="n">value</span>
             <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
                 <span class="c1"># The worker has probably been deleted.  warning will be</span>
-                <span class="c1"># emitted in ``WorkerBase.run``</span>
+                <span class="c1"># emitted in `WorkerBase.run`</span>
                 <span class="k">return</span> <span class="n">exc</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
@@ -800,38 +798,39 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">FunctionWorker</span><span class="p">,</span> <span class="n">GeneratorWorker</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Convenience function to start a function in another thread.</span>
 
-<span class="sd">    By default, uses :class:`Worker`, but a custom ``WorkerBase`` subclass may</span>
-<span class="sd">    be provided.  If so, it must be a subclass of :class:`Worker`, which</span>
-<span class="sd">    defines a standard set of signals and a run method.</span>
+<span class="sd">    By default, uses `FunctionWorker` for functions and `GeneratorWorker` for</span>
+<span class="sd">    generators, but a custom `WorkerBase` subclass may be provided.  If so, it must be a</span>
+<span class="sd">    subclass of `WorkerBase`, which defines a standard set of signals and a run method.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    func : Callable</span>
 <span class="sd">        The function to call in another thread.</span>
-<span class="sd">    _start_thread : bool, optional</span>
+<span class="sd">    _start_thread : bool</span>
 <span class="sd">        Whether to immediaetly start the thread.  If False, the returned worker</span>
-<span class="sd">        must be manually started with ``worker.start()``. by default it will be</span>
-<span class="sd">        ``False`` if the ``_connect`` argument is ``None``, otherwise ``True``.</span>
+<span class="sd">        must be manually started with `worker.start()`. by default it will be</span>
+<span class="sd">        `False` if the `_connect` argument is `None`, otherwise `True`.</span>
 <span class="sd">    _connect : Dict[str, Union[Callable, Sequence]], optional</span>
-<span class="sd">        A mapping of ``&quot;signal_name&quot;`` -&gt; ``callable`` or list of ``callable``:</span>
+<span class="sd">        A mapping of `&quot;signal_name&quot;` -&gt; `callable` or list of `callable`:</span>
 <span class="sd">        callback functions to connect to the various signals offered by the</span>
-<span class="sd">        worker class. by default None</span>
-<span class="sd">    _worker_class : type of GeneratorWorker or FunctionWorker, optional</span>
-<span class="sd">        The :class`WorkerBase` to instantiate, by default</span>
-<span class="sd">        :class:`FunctionWorker` will be used if ``func`` is a regular function,</span>
-<span class="sd">        and :class:`GeneratorWorker` will be used if it is a generator.</span>
-<span class="sd">    _ignore_errors : bool, optional</span>
-<span class="sd">        If ``False`` (the default), errors raised in the other thread will be</span>
+<span class="sd">        worker class. by default `None`</span>
+<span class="sd">    _worker_class : type of `GeneratorWorker` or `FunctionWorker`, optional</span>
+<span class="sd">        The [`WorkerBase`][superqt.utils.WorkerBase] to instantiate, by default</span>
+<span class="sd">        [`FunctionWorker`][superqt.utils.FunctionWorker] will be used if `func` is a</span>
+<span class="sd">        regular function, and [`GeneratorWorker`][superqt.utils.GeneratorWorker] will be</span>
+<span class="sd">        used if it is a generator.</span>
+<span class="sd">    _ignore_errors : bool</span>
+<span class="sd">        If `False` (the default), errors raised in the other thread will be</span>
 <span class="sd">        reraised in the main thread (makes debugging significantly easier).</span>
 <span class="sd">    *args</span>
-<span class="sd">        will be passed to ``func``</span>
+<span class="sd">        will be passed to `func`</span>
 <span class="sd">    **kwargs</span>
-<span class="sd">        will be passed to ``func``</span>
+<span class="sd">        will be passed to `func`</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    worker : WorkerBase</span>
-<span class="sd">        An instantiated worker.  If ``_start_thread`` was ``False``, the worker</span>
+<span class="sd">        An instantiated worker.  If `_start_thread` was `False`, the worker</span>
 <span class="sd">        will have a `.start()` method that can be used to start the thread.</span>
 
 <span class="sd">    Raises</span>
@@ -839,18 +838,17 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    TypeError</span>
 <span class="sd">        If a worker_class is provided that is not a subclass of WorkerBase.</span>
 <span class="sd">    TypeError</span>
-<span class="sd">        If _connect is provided and is not a dict of ``{str: callable}``</span>
+<span class="sd">        If _connect is provided and is not a dict of `{str: callable}`</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    .. code-block:: python</span>
+<span class="sd">    ```python</span>
+<span class="sd">    def long_function(duration):</span>
+<span class="sd">        import time</span>
+<span class="sd">        time.sleep(duration)</span>
 
-<span class="sd">        def long_function(duration):</span>
-<span class="sd">            import time</span>
-<span class="sd">            time.sleep(duration)</span>
-
-<span class="sd">        worker = create_worker(long_function, 10)</span>
-
+<span class="sd">    worker = create_worker(long_function, 10)</span>
+<span class="sd">    ```</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">worker</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">FunctionWorker</span><span class="p">,</span> <span class="n">GeneratorWorker</span><span class="p">]</span>
 
@@ -882,7 +880,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="nb">getattr</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
     <span class="c1"># if the user has not provided a default connection for the &quot;errored&quot;</span>
-    <span class="c1"># signal... and they have not explicitly set ``ignore_errors=True``</span>
+    <span class="c1"># signal... and they have not explicitly set `ignore_errors=True`</span>
     <span class="c1"># Then rereaise any errors from the thread.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_ignore_errors</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">_connect</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;errored&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
 
@@ -938,55 +936,55 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Decorator that runs a function in a separate thread when called.</span>
 
-<span class="sd">    When called, the decorated function returns a :class:`WorkerBase`.  See</span>
-<span class="sd">    :func:`create_worker` for additional keyword arguments that can be used</span>
+<span class="sd">    When called, the decorated function returns a [`WorkerBase`][superqt.utils.WorkerBase].  See</span>
+<span class="sd">    [`create_worker`][superqt.utils.create_worker] for additional keyword arguments that can be used</span>
 <span class="sd">    when calling the function.</span>
 
 <span class="sd">    The returned worker will have these signals:</span>
 
-<span class="sd">        - *started*: emitted when the work is started</span>
-<span class="sd">        - *finished*: emitted when the work is finished</span>
-<span class="sd">        - *returned*: emitted with return value</span>
-<span class="sd">        - *errored*: emitted with error object on Exception</span>
+<span class="sd">    - **started**: emitted when the work is started</span>
+<span class="sd">    - **finished**: emitted when the work is finished</span>
+<span class="sd">    - **returned**: emitted with return value</span>
+<span class="sd">    - **errored**: emitted with error object on Exception</span>
 
-<span class="sd">    It will also have a ``worker.start()`` method that can be used to start</span>
+<span class="sd">    It will also have a `worker.start()` method that can be used to start</span>
 <span class="sd">    execution of the function in another thread. (useful if you need to connect</span>
 <span class="sd">    callbacks to signals prior to execution)</span>
 
 <span class="sd">    If the decorated function is a generator, the returned worker will also</span>
 <span class="sd">    provide these signals:</span>
 
-<span class="sd">        - *yielded*: emitted with yielded values</span>
-<span class="sd">        - *paused*: emitted when a running job has successfully paused</span>
-<span class="sd">        - *resumed*: emitted when a paused job has successfully resumed</span>
-<span class="sd">        - *aborted*: emitted when a running job is successfully aborted</span>
+<span class="sd">    - **yielded**: emitted with yielded values</span>
+<span class="sd">    - **paused**: emitted when a running job has successfully paused</span>
+<span class="sd">    - **resumed**: emitted when a paused job has successfully resumed</span>
+<span class="sd">    - **aborted**: emitted when a running job is successfully aborted</span>
 
 <span class="sd">    And these methods:</span>
 
-<span class="sd">        - *quit*: ask the thread to quit</span>
-<span class="sd">        - *toggle_paused*: toggle the running state of the thread.</span>
-<span class="sd">        - *send*: send a value into the generator.  (This requires that your</span>
-<span class="sd">          decorator function uses the ``value = yield`` syntax)</span>
+<span class="sd">    - **quit**: ask the thread to quit</span>
+<span class="sd">    - **toggle_paused**: toggle the running state of the thread.</span>
+<span class="sd">    - **send**: send a value into the generator.  (This requires that your</span>
+<span class="sd">      decorator function uses the `value = yield` syntax)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    function : callable</span>
 <span class="sd">        Function to call in another thread.  For communication between threads</span>
 <span class="sd">        may be a generator function.</span>
-<span class="sd">    start_thread : bool, optional</span>
+<span class="sd">    start_thread : bool</span>
 <span class="sd">        Whether to immediaetly start the thread.  If False, the returned worker</span>
-<span class="sd">        must be manually started with ``worker.start()``. by default it will be</span>
-<span class="sd">        ``False`` if the ``_connect`` argument is ``None``, otherwise ``True``.</span>
-<span class="sd">    connect : Dict[str, Union[Callable, Sequence]], optional</span>
-<span class="sd">        A mapping of ``&quot;signal_name&quot;`` -&gt; ``callable`` or list of ``callable``:</span>
+<span class="sd">        must be manually started with `worker.start()`. by default it will be</span>
+<span class="sd">        `False` if the `_connect` argument is `None`, otherwise `True`.</span>
+<span class="sd">    connect : Dict[str, Union[Callable, Sequence]]</span>
+<span class="sd">        A mapping of `&quot;signal_name&quot;` -&gt; `callable` or list of `callable`:</span>
 <span class="sd">        callback functions to connect to the various signals offered by the</span>
 <span class="sd">        worker class. by default None</span>
-<span class="sd">    worker_class : Type[WorkerBase], optional</span>
-<span class="sd">        The :class`WorkerBase` to instantiate, by default</span>
-<span class="sd">        :class:`FunctionWorker` will be used if ``func`` is a regular function,</span>
-<span class="sd">        and :class:`GeneratorWorker` will be used if it is a generator.</span>
-<span class="sd">    ignore_errors : bool, optional</span>
-<span class="sd">        If ``False`` (the default), errors raised in the other thread will be</span>
+<span class="sd">    worker_class : Type[WorkerBase]</span>
+<span class="sd">        The [`WorkerBase`][superqt.utils.WorkerBase] to instantiate, by default</span>
+<span class="sd">        [`FunctionWorker`][superqt.utils.FunctionWorker] will be used if `func` is a regular function,</span>
+<span class="sd">        and [`GeneratorWorker`][superqt.utils.GeneratorWorker] will be used if it is a generator.</span>
+<span class="sd">    ignore_errors : bool</span>
+<span class="sd">        If `False` (the default), errors raised in the other thread will be</span>
 <span class="sd">        reraised in the main thread (makes debugging significantly easier).</span>
 
 <span class="sd">    Returns</span>
@@ -997,25 +995,26 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    .. code-block:: python</span>
+<span class="sd">    ```python</span>
+<span class="sd">    @thread_worker</span>
+<span class="sd">    def long_function(start, end):</span>
+<span class="sd">        # do work, periodically yielding</span>
+<span class="sd">        i = start</span>
+<span class="sd">        while i &lt;= end:</span>
+<span class="sd">            time.sleep(0.1)</span>
+<span class="sd">            yield i</span>
 
-<span class="sd">        @thread_worker</span>
-<span class="sd">        def long_function(start, end):</span>
-<span class="sd">            # do work, periodically yielding</span>
-<span class="sd">            i = start</span>
-<span class="sd">            while i &lt;= end:</span>
-<span class="sd">                time.sleep(0.1)</span>
-<span class="sd">                yield i</span>
+<span class="sd">        # do teardown</span>
+<span class="sd">        return &#39;anything&#39;</span>
 
-<span class="sd">            # do teardown</span>
-<span class="sd">            return &#39;anything&#39;</span>
+<span class="sd">    # call the function to start running in another thread.</span>
+<span class="sd">    worker = long_function()</span>
 
-<span class="sd">        # call the function to start running in another thread.</span>
-<span class="sd">        worker = long_function()</span>
-<span class="sd">        # connect signals here if desired... or they may be added using the</span>
-<span class="sd">        # `connect` argument in the `@thread_worker` decorator... in which</span>
-<span class="sd">        # case the worker will start immediately when long_function() is called</span>
-<span class="sd">        worker.start()</span>
+<span class="sd">    # connect signals here if desired... or they may be added using the</span>
+<span class="sd">    # `connect` argument in the `@thread_worker` decorator... in which</span>
+<span class="sd">    # case the worker will start immediately when long_function() is called</span>
+<span class="sd">    worker.start()</span>
+<span class="sd">    ```</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_inner</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -1070,36 +1069,35 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">_connect</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This is a convenience function to start a worker in a Qthread.</span>
+    <span class="sd">&quot;&quot;&quot;This is a convenience function to start a worker in a `QThread`.</span>
 
-<span class="sd">    In most cases, the @thread_worker decorator is sufficient and preferable.</span>
-<span class="sd">    But this allows the user to completely customize the Worker object.</span>
-<span class="sd">    However, they must then maintain control over the thread and clean up</span>
+<span class="sd">    In most cases, the [thread_worker][superqt.utils.thread_worker] decorator is</span>
+<span class="sd">    sufficient and preferable. But this allows the user to completely customize the</span>
+<span class="sd">    Worker object. However, they must then maintain control over the thread and clean up</span>
 <span class="sd">    appropriately.</span>
 
-<span class="sd">    It follows the pattern described here:</span>
-<span class="sd">    https://www.qt.io/blog/2010/06/17/youre-doing-it-wrong</span>
-<span class="sd">    and</span>
-<span class="sd">    https://doc.qt.io/qt-5/qthread.html#details</span>
+<span class="sd">    It follows the pattern described</span>
+<span class="sd">    [here](https://www.qt.io/blog/2010/06/17/youre-doing-it-wrong) and in the [qt thread</span>
+<span class="sd">    docs](https://doc.qt.io/qt-5/qthread.html#details)</span>
 
 <span class="sd">    see also:</span>
+
 <span class="sd">    https://mayaposch.wordpress.com/2011/11/01/how-to-really-truly-use-qthreads-the-full-explanation/</span>
 
-<span class="sd">    A QThread object is not a thread! It should be thought of as a class to</span>
-<span class="sd">    *manage* a thread, not as the actual code or object that runs in that</span>
+<span class="sd">    A QThread object is not a thread! It should be thought of as a class to *manage* a</span>
+<span class="sd">    thread, not as the actual code or object that runs in that</span>
 <span class="sd">    thread.  The QThread object is created on the main thread and lives there.</span>
 
 <span class="sd">    Worker objects which derive from QObject are the things that actually do</span>
 <span class="sd">    the work. They can be moved to a QThread as is done here.</span>
 
-<span class="sd">    .. note:: Mostly ignorable detail</span>
+<span class="sd">    ??? &quot;Mostly ignorable detail&quot;</span>
 
 <span class="sd">        While the signals/slots syntax of the worker looks very similar to</span>
 <span class="sd">        standard &quot;single-threaded&quot; signals &amp; slots, note that inter-thread</span>
-<span class="sd">        signals and slots (automatically) use an event-based QueuedConnection,</span>
-<span class="sd">        while intra-thread signals use a DirectConnection. See `Signals and</span>
-<span class="sd">        Slots Across Threads</span>
-<span class="sd">        &lt;https://doc.qt.io/qt-5/threads-qobject.html#signals-and-slots-across-threads&gt;`_</span>
+<span class="sd">        signals and slots (automatically) use an event-based QueuedConnection, while</span>
+<span class="sd">        intra-thread signals use a DirectConnection. See [Signals and Slots Across</span>
+<span class="sd">        Threads](https://doc.qt.io/qt-5/threads-qobject.html#signals-and-slots-across-threads&gt;)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1109,7 +1107,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    _start_thread : bool</span>
 <span class="sd">        If True, thread will be started immediately, otherwise, thread must</span>
 <span class="sd">        be manually started with thread.start().</span>
-<span class="sd">    _connect : dict, optional</span>
+<span class="sd">    _connect : dict</span>
 <span class="sd">        Optional dictionary of {signal: function} to connect to the new worker.</span>
 <span class="sd">        for instance:  _connect = {&#39;incremented&#39;: myfunc} will result in:</span>
 <span class="sd">        worker.incremented.connect(myfunc)</span>
@@ -1129,33 +1127,33 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    --------</span>
 <span class="sd">    Create some QObject that has a long-running work method:</span>
 
-<span class="sd">    .. code-block:: python</span>
+<span class="sd">    ```python</span>
 
-<span class="sd">        class Worker(QObject):</span>
+<span class="sd">    class Worker(QObject):</span>
 
-<span class="sd">            finished = Signal()</span>
-<span class="sd">            increment = Signal(int)</span>
+<span class="sd">        finished = Signal()</span>
+<span class="sd">        increment = Signal(int)</span>
 
-<span class="sd">            def __init__(self, argument):</span>
-<span class="sd">                super().__init__()</span>
-<span class="sd">                self.argument = argument</span>
+<span class="sd">        def __init__(self, argument):</span>
+<span class="sd">            super().__init__()</span>
+<span class="sd">            self.argument = argument</span>
 
-<span class="sd">            @Slot()</span>
-<span class="sd">            def work(self):</span>
-<span class="sd">                # some long running task...</span>
-<span class="sd">                import time</span>
-<span class="sd">                for i in range(10):</span>
-<span class="sd">                    time.sleep(1)</span>
-<span class="sd">                    self.increment.emit(i)</span>
-<span class="sd">                self.finished.emit()</span>
+<span class="sd">        @Slot()</span>
+<span class="sd">        def work(self):</span>
+<span class="sd">            # some long running task...</span>
+<span class="sd">            import time</span>
+<span class="sd">            for i in range(10):</span>
+<span class="sd">                time.sleep(1)</span>
+<span class="sd">                self.increment.emit(i)</span>
+<span class="sd">            self.finished.emit()</span>
 
-<span class="sd">        worker, thread = new_worker_qthread(</span>
-<span class="sd">            Worker,</span>
-<span class="sd">            &#39;argument&#39;,</span>
-<span class="sd">            _start_thread=True,</span>
-<span class="sd">            _connect={&#39;increment&#39;: print},</span>
-<span class="sd">        )</span>
-
+<span class="sd">    worker, thread = new_worker_qthread(</span>
+<span class="sd">        Worker,</span>
+<span class="sd">        &#39;argument&#39;,</span>
+<span class="sd">        _start_thread=True,</span>
+<span class="sd">        _connect={&#39;increment&#39;: print},</span>
+<span class="sd">    )</span>
+<span class="sd">    ```</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">_connect</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_connect</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>

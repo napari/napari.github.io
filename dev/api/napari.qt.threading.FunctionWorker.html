@@ -113,7 +113,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc4</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +126,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.qt.threading.FunctionWorker and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc4'}.
+     variables api/napari.qt.threading.FunctionWorker and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +177,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc4 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc4") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -758,29 +758,32 @@ function checkPageExistsAndRedirect(event) {
 <dt class="sig sig-object py" id="napari.qt.threading.FunctionWorker.await_workers">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">await_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msecs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.FunctionWorker.await_workers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ask all workers to quit, and wait up to <cite>msec</cite> for quit.</p>
-<p>Attempts to clean up all running workers by calling <code class="docutils literal notranslate"><span class="pre">worker.quit()</span></code>
-method.  Any workers in the <code class="docutils literal notranslate"><span class="pre">WorkerBase._worker_set</span></code> set will have this
+<p>Attempts to clean up all running workers by calling <cite>worker.quit()</cite>
+method.  Any workers in the <cite>WorkerBase._worker_set</cite> set will have this
 method.</p>
 <p>By default, this function will block indefinitely, until worker threads
-finish.  If a timeout is provided, a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> will be raised if
+finish.  If a timeout is provided, a <cite>RuntimeError</cite> will be raised if
 the workers do not gracefully exit in the time requests, but the threads
 will NOT be killed.  It is (currently) left to the user to use their OS
 to force-quit rogue threads.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>If the user does not put any yields in their function, and the function
+<p>!!! important</p>
+<blockquote>
+<div><p>If the user does not put any yields in their function, and the function
 is super long, it will just hang… For instance, there’s no graceful
 way to kill this thread in python:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@thread_worker</span>
-<span class="k">def</span> <span class="nf">ZZZzzz</span><span class="p">():</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10000000</span><span class="p">)</span>
-</pre></div>
-</div>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+&#64;thread_worker
+def ZZZzzz():</p>
+<blockquote>
+<div><p>time.sleep(10000000)</p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
 <p>This is why it’s always advisable to use a generator that periodically
 yields for long-running computations in another thread.</p>
-<p>See <a class="reference external" href="https://stackoverflow.com/questions/323972/is-there-any-way-to-kill-a-thread">this stack-overflow post</a>
+<p>See [this stack-overflow
+post](<a class="reference external" href="https://stackoverflow.com/questions/323972/is-there-any-way-to-kill-a-thread">https://stackoverflow.com/questions/323972/is-there-any-way-to-kill-a-thread</a>)
 for a good discussion on the difficulty of killing a rogue python thread:</p>
-</div>
+</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>msecs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Waits up to msecs milliseconds for all threads to exit and removes all
@@ -809,12 +812,12 @@ timeout is ignored (waits for the last thread to exit).</p>
 <dt class="sig sig-object py" id="napari.qt.threading.FunctionWorker.quit">
 <span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.FunctionWorker.quit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a request to abort the worker.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It is entirely up to subclasses to honor this method by checking
-<code class="docutils literal notranslate"><span class="pre">self.abort_requested</span></code> periodically in their <code class="docutils literal notranslate"><span class="pre">worker.work</span></code>
-method, and exiting if <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
-</div>
+<dl class="simple">
+<dt>!!! note</dt><dd><p>It is entirely up to subclasses to honor this method by checking
+<cite>self.abort_requested</cite> periodically in their <cite>worker.work</cite>
+method, and exiting if <cite>True</cite>.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -824,19 +827,21 @@ method, and exiting if <code class="docutils literal notranslate"><span class="p
 <p>The end-user should never need to call this function.
 But it cannot be made private or renamed, since it is called by Qt.</p>
 <p>The order of method calls when starting a worker is:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>calls QThreadPool.globalInstance().start(worker)
+<dl class="simple">
+<dt><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a></dt><dd><p>calls QThreadPool.globalInstance().start(worker)
 |               triggered by the QThreadPool.start() method
 |               |             called by worker.run
 |               |             |
 V               V             V
-worker.start -&gt; worker.run -&gt; worker.work
-</pre></div>
-</div>
+worker.start -&gt; worker.run -&gt; worker.work</p>
+</dd>
+</dl>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
 <p><strong>This</strong> is the function that actually gets called when calling
-<code class="xref py py-func docutils literal notranslate"><span class="pre">QThreadPool.start(worker)()</span></code>.  It simply wraps the <a class="reference internal" href="#napari.qt.threading.FunctionWorker.work" title="napari.qt.threading.FunctionWorker.work"><code class="xref py py-meth docutils literal notranslate"><span class="pre">work()</span></code></a>
+<cite>QThreadPool.start(worker)</cite>.  It simply wraps the <cite>work()</cite>
 method, and emits a few signals.  Subclasses should NOT override this
 method (except with good reason), and instead should implement
-<a class="reference internal" href="#napari.qt.threading.FunctionWorker.work" title="napari.qt.threading.FunctionWorker.work"><code class="xref py py-meth docutils literal notranslate"><span class="pre">work()</span></code></a>.</p>
+<cite>work()</cite>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -849,14 +854,16 @@ method (except with good reason), and instead should implement
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.FunctionWorker.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start this worker in a thread and add it to the global threadpool.</p>
 <p>The order of method calls when starting a worker is:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>calls QThreadPool.globalInstance().start(worker)
+<dl class="simple">
+<dt><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a></dt><dd><p>calls QThreadPool.globalInstance().start(worker)
 |               triggered by the QThreadPool.start() method
 |               |             called by worker.run
 |               |             |
 V               V             V
-worker.start -&gt; worker.run -&gt; worker.work
-</pre></div>
-</div>
+worker.start -&gt; worker.run -&gt; worker.work</p>
+</dd>
+</dl>
+<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -865,24 +872,33 @@ worker.start -&gt; worker.run -&gt; worker.work
 <dd><p>Main method to execute the worker.</p>
 <p>The end-user should never need to call this function.
 But subclasses must implement this method (See
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">GeneratorFunction.work()</span></code> for an example implementation).
-Minimally, it should check <code class="docutils literal notranslate"><span class="pre">self.abort_requested</span></code> periodically and
+[<cite>GeneratorFunction.work</cite>][superqt.utils._qthreading.GeneratorWorker.work] for an example implementation).
+Minimally, it should check <cite>self.abort_requested</cite> periodically and
 exit if True.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyWorker</span><span class="p">(</span><span class="n">WorkerBase</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abort_requested</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">aborted</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
-                <span class="k">break</span>
-            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">max_iters</span><span class="p">:</span>
-                <span class="k">break</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-</div>
+<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>python
+class MyWorker(WorkerBase):</p>
+<blockquote>
+<div><dl>
+<dt>def work(self):</dt><dd><p>i = 0
+while True:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if self.abort_requested:</dt><dd><p>self.aborted.emit()
+break</p>
+</dd>
+</dl>
+<p>i += 1
+if i &gt; max_iters:</p>
+<blockquote>
+<div><p>break</p>
+</div></blockquote>
+<p>time.sleep(0.5)</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+<p><a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
 </dd></dl>
 
 </dd></dl>

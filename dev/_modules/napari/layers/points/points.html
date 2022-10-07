@@ -287,7 +287,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">..utils.color_manager</span> <span class="kn">import</span> <span class="n">ColorManager</span>
 <span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span> <span class="nn">..utils.interactivity_utils</span> <span class="kn">import</span> <span class="n">displayed_plane_from_nd_line_segment</span>
-<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_features_to_properties</span><span class="p">,</span> <span class="n">_FeatureTable</span>
+<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_features_to_properties</span><span class="p">,</span>
+    <span class="n">_FeatureTable</span><span class="p">,</span>
+    <span class="n">_unique_element</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..utils.text_manager</span> <span class="kn">import</span> <span class="n">TextManager</span>
 <span class="kn">from</span> <span class="nn">._points_constants</span> <span class="kn">import</span> <span class="n">SYMBOL_ALIAS</span><span class="p">,</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">Shading</span><span class="p">,</span> <span class="n">Symbol</span>
 <span class="kn">from</span> <span class="nn">._points_mouse_bindings</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">highlight</span><span class="p">,</span> <span class="n">select</span>
@@ -1474,46 +1478,40 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">()</span>
             <span class="k">return</span>
         <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">)</span>
-        <span class="n">edge_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">edge_color</span> <span class="o">=</span> <span class="n">edge_colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">unique_edge_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span> <span class="o">=</span> <span class="n">edge_color</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span> <span class="o">=</span> <span class="n">unique_edge_color</span>
 
-        <span class="n">face_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">face_color</span> <span class="o">=</span> <span class="n">face_colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">unique_face_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span> <span class="o">=</span> <span class="n">face_color</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span> <span class="o">=</span> <span class="n">unique_face_color</span>
 
         <span class="c1"># Calculate the mean size across the displayed dimensions for</span>
         <span class="c1"># each point to be consistent with `_view_size`.</span>
         <span class="n">mean_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
         <span class="p">)</span>
-        <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">mean_size</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">unique_size</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">mean_size</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span> <span class="o">=</span> <span class="n">size</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span> <span class="o">=</span> <span class="n">unique_size</span>
 
-        <span class="n">edge_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_width</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">edge_width</span> <span class="o">=</span> <span class="n">edge_width</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">unique_edge_width</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span> <span class="o">=</span> <span class="n">unique_edge_width</span>
 
-        <span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">unique_properties</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c1"># pandas uses `object` as dtype for strings by default, which</span>
-            <span class="c1"># combined with the axis argument breaks np.unique</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
-            <span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+            <span class="n">unique_properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
 
-        <span class="n">n_unique_properties</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">n_unique_properties</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unique_properties</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">properties</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">unique_properties</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Points.interaction_box"><a class="viewcode-back" href="../../../../api/napari.layers.Points.html#napari.layers.Points.interaction_box">[docs]</a>    <span class="k">def</span> <span class="nf">interaction_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>

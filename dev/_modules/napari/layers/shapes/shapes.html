@@ -293,7 +293,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">transform_color_with_defaults</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..utils.interactivity_utils</span> <span class="kn">import</span> <span class="n">nd_line_segment_to_displayed_data_ray</span>
-<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
+<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span><span class="p">,</span> <span class="n">_unique_element</span>
 <span class="kn">from</span> <span class="nn">..utils.text_manager</span> <span class="kn">import</span> <span class="n">TextManager</span>
 <span class="kn">from</span> <span class="nn">._shape_list</span> <span class="kn">import</span> <span class="n">ShapeList</span>
 <span class="kn">from</span> <span class="nn">._shapes_constants</span> <span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">ColorMode</span><span class="p">,</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">ShapeType</span><span class="p">,</span> <span class="n">shape_classes</span>
@@ -1414,42 +1414,42 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">selected_face_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_face_color</span><span class="p">[</span>
                 <span class="n">selected_data_indices</span>
             <span class="p">]</span>
-            <span class="n">face_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">selected_face_colors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">face_color</span> <span class="o">=</span> <span class="n">face_colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">unique_face_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">selected_face_colors</span><span class="p">)</span>
+            <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span> <span class="o">=</span> <span class="n">face_color</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span> <span class="o">=</span> <span class="n">unique_face_color</span>
 
             <span class="n">selected_edge_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_edge_color</span><span class="p">[</span>
                 <span class="n">selected_data_indices</span>
             <span class="p">]</span>
-            <span class="n">edge_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">selected_edge_colors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">edge_color</span> <span class="o">=</span> <span class="n">edge_colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">unique_edge_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">selected_edge_colors</span><span class="p">)</span>
+            <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span> <span class="o">=</span> <span class="n">edge_color</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span> <span class="o">=</span> <span class="n">unique_edge_color</span>
 
-            <span class="n">edge_width</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">edge_width</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">selected_data</span><span class="p">}</span>
+            <span class="n">unique_edge_width</span> <span class="o">=</span> <span class="n">_unique_element</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">edge_width</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">selected_data</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_width</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">edge_width</span> <span class="o">=</span> <span class="n">edge_width</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">unique_edge_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span> <span class="o">=</span> <span class="n">unique_edge_width</span>
 
-            <span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">unique_properties</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="c1"># pandas uses `object` as dtype for strings by default, which</span>
-                <span class="c1"># combined with the axis argument breaks np.unique</span>
-                <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
-                <span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">selected_data_indices</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+                <span class="n">unique_properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unique_element</span><span class="p">(</span>
+                    <span class="n">v</span><span class="p">[</span><span class="n">selected_data_indices</span><span class="p">]</span>
+                <span class="p">)</span>
 
-            <span class="n">n_unique_properties</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">n_unique_properties</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unique_properties</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">properties</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">unique_properties</span>
 
     <span class="k">def</span> <span class="nf">_set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set the face_color or edge_color property</span>

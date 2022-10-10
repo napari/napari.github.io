@@ -297,6 +297,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">QDockWidget</span><span class="p">,</span>
     <span class="n">QHBoxLayout</span><span class="p">,</span>
     <span class="n">QMainWindow</span><span class="p">,</span>
+    <span class="n">QMenu</span><span class="p">,</span>
     <span class="n">QShortcut</span><span class="p">,</span>
     <span class="n">QToolTip</span><span class="p">,</span>
     <span class="n">QWidget</span><span class="p">,</span>
@@ -1023,8 +1024,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">allowed_areas</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">shortcut</span><span class="o">=</span><span class="n">_sentinel</span><span class="p">,</span>
         <span class="n">add_vertical_stretch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">menu</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">menu</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QMenu</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convenience method to add a QDockWidget to the main window.</span>
 
@@ -1056,6 +1057,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">                The shortcut parameter is deprecated since version 0.4.8, please use</span>
 <span class="sd">                the action and shortcut manager APIs. The new action manager and</span>
 <span class="sd">                shortcut API allow user configuration and localisation.</span>
+<span class="sd">        tabify : bool</span>
+<span class="sd">            Flag to tabify dockwidget or not.</span>
+<span class="sd">        menu : QMenu, optional</span>
+<span class="sd">            Menu bar to add toggle action to. If `None` nothing added to menu.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1097,7 +1102,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">add_vertical_stretch</span><span class="o">=</span><span class="n">add_vertical_stretch</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_add_viewer_dock_widget</span><span class="p">(</span><span class="n">dock_widget</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">menu</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="n">tabify</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_viewer_dock_widget</span><span class="p">(</span><span class="n">dock_widget</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="n">tabify</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">menu</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">&#39;reset_choices&#39;</span><span class="p">):</span>
             <span class="c1"># Keep the dropdown menus in the widget in sync with the layer model</span>
@@ -1114,7 +1119,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">dock_widget</span></div>
 
     <span class="k">def</span> <span class="nf">_add_viewer_dock_widget</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">dock_widget</span><span class="p">:</span> <span class="n">QtViewerDockWidget</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dock_widget</span><span class="p">:</span> <span class="n">QtViewerDockWidget</span><span class="p">,</span>
+        <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">menu</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QMenu</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add a QtViewerDockWidget to the main window</span>
 
@@ -1126,6 +1134,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            `dock_widget` will be added to the main window.</span>
 <span class="sd">        tabify : bool</span>
 <span class="sd">            Flag to tabify dockwidget or not.</span>
+<span class="sd">        menu : QMenu, optional</span>
+<span class="sd">            Menu bar to add toggle action to. If `None` nothing added to menu.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Find if any othe dock widgets are currently in area</span>
         <span class="n">current_dws_in_area</span> <span class="o">=</span> <span class="p">[</span>
@@ -1165,7 +1175,6 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">action</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="n">shortcut</span><span class="p">)</span>
 
             <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-        <span class="c1"># self.window_menu.addAction(action)</span>
 
         <span class="c1"># see #3663, to fix #3624 more generally</span>
         <span class="n">dock_widget</span><span class="o">.</span><span class="n">setFloating</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>

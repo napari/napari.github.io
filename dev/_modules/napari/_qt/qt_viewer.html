@@ -1358,20 +1358,26 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        This is triggered from vispy whenever new data is sent to the canvas or</span>
 <span class="sd">        the camera is moved and is connected in the `QtViewer`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The canvas corners in full world coordinates (i.e. across all layers).</span>
+        <span class="n">canvas_corners_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_corners_in_world</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-                <span class="n">nd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_displayed_axes</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">nd</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">:</span>
-                    <span class="n">displayed_axes</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">_displayed_axes</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">[</span><span class="o">-</span><span class="n">nd</span><span class="p">:]</span>
-                <span class="n">layer</span><span class="o">.</span><span class="n">_update_draw</span><span class="p">(</span>
-                    <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
-                    <span class="n">corner_pixels_displayed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_corners_in_world</span><span class="p">[</span>
-                        <span class="p">:,</span> <span class="n">displayed_axes</span>
-                    <span class="p">],</span>
-                    <span class="n">shape_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-                <span class="p">)</span></div>
+            <span class="c1"># The following condition should mostly be False. One case when it can</span>
+            <span class="c1"># be True is when a callback connected to self.viewer.dims.events.ndisplay</span>
+            <span class="c1"># is executed before layer._slice_input has been updated by another callback</span>
+            <span class="c1"># (e.g. when changing self.viewer.dims.ndisplay from 3 to 2).</span>
+            <span class="n">displayed_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
+            <span class="n">nd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">displayed_sorted</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">nd</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">:</span>
+                <span class="n">displayed_axes</span> <span class="o">=</span> <span class="n">displayed_sorted</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">[</span><span class="o">-</span><span class="n">nd</span><span class="p">:]</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">_update_draw</span><span class="p">(</span>
+                <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
+                <span class="n">corner_pixels_displayed</span><span class="o">=</span><span class="n">canvas_corners_world</span><span class="p">[</span>
+                    <span class="p">:,</span> <span class="n">displayed_axes</span>
+                <span class="p">],</span>
+                <span class="n">shape_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.set_welcome_visible"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.set_welcome_visible">[docs]</a>    <span class="k">def</span> <span class="nf">set_welcome_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Show welcome screen widget.&quot;&quot;&quot;</span>

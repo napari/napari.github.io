@@ -599,7 +599,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_level</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_axes</span>
+        <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span>
         <span class="p">][</span><span class="n">displayed_axes</span><span class="p">]</span>
@@ -658,13 +658,13 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_get_empty_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get empty image to use as the default before data is loaded.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_order</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return the ordered displayed dimensions, but reduced to fit in the slice space.&quot;&quot;&quot;</span>
-        <span class="n">order</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
             <span class="c1"># if rgb need to keep the final axis fixed during the</span>
             <span class="c1"># transpose. The index of the final axis depends on how many</span>
@@ -815,7 +815,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span>
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation3d</span>
         <span class="p">)</span>
 
@@ -829,7 +829,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">interpolation3d</span> <span class="o">=</span> <span class="n">interpolation</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">interpolation</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
@@ -994,7 +994,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set the view given the indices to slice with.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_new_empty_slice</span><span class="p">()</span>
-        <span class="n">not_disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span>
+        <span class="n">not_disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
 
         <span class="c1"># Check if requested slice outside of data range</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
@@ -1014,8 +1014,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="c1"># If 3d redering just show lowest level of multiscale</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="c1"># If 3d rendering just show lowest level of multiscale</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                         <span class="s1">&#39;Multiscale rendering is only supported in 2D. In 3D, only the lowest resolution scale is displayed&#39;</span><span class="p">,</span>
@@ -1040,12 +1040,12 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">indices</span><span class="p">[</span><span class="n">not_disp</span><span class="p">]</span> <span class="o">=</span> <span class="n">downsampled_indices</span>
 
             <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">:</span>
                 <span class="n">scale</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample_factors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data_level</span><span class="p">][</span><span class="n">d</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;tile2data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_displayed_axes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">:</span>
                     <span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span>
@@ -1169,7 +1169,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">view</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># float16 not supported by ndi.zoom</span>
@@ -1257,9 +1257,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">):</span>
             <span class="c1"># handle 3D views of 2D data by omitting extra coordinate</span>
             <span class="n">offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
-            <span class="n">coord</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[[</span><span class="n">d</span> <span class="o">+</span> <span class="n">offset</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]]</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[[</span><span class="n">d</span> <span class="o">+</span> <span class="n">offset</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">coord</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">s</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span> <span class="n">shape</span><span class="p">)):</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coord</span><span class="p">)]</span>

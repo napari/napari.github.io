@@ -1,3 +1,4 @@
+(gallery)=
 # Gallery
 
 ```{eval-rst}

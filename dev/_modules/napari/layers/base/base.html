@@ -988,6 +988,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_slice_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;(D, ) array: Slice indices in data coordinates.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># All dims are displayed dimensions</span>
+            <span class="k">return</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">data_indices</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">,</span>
             <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_round_index&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>

@@ -5,24 +5,24 @@
 maxdepth: 1
 caption: With this tag
 ---
-../gallery/image_depth.rst
-../gallery/add_shapes.rst
-../gallery/add_image_transformed.rst
-../gallery/add_shapes_with_text.rst
-../gallery/add_points_with_text.rst
-../gallery/set_colormaps.rst
-../gallery/add_points.rst
-../gallery/tracks_2d.rst
-../gallery/add_points_with_multicolor_text.rst
 ../gallery/add_vectors_image.rst
-../gallery/add_image.rst
+../gallery/add_shapes_with_text.rst
+../gallery/add_points_with_multicolor_text.rst
+../gallery/add_points_with_features.rst
+../gallery/add_points.rst
+../gallery/add_image_transformed.rst
 ../gallery/labels-2d.rst
-../gallery/add_shapes_with_features.rst
-../gallery/add_labels.rst
+../gallery/set_colormaps.rst
+../gallery/add_shapes.rst
 ../gallery/pass_colormaps.rst
+../gallery/add_points_with_text.rst
 ../gallery/layers.rst
 ../gallery/add_grayscale_image.rst
+../gallery/tracks_2d.rst
 ../gallery/add_vectors.rst
 ../gallery/add_surface_2D.rst
-../gallery/add_points_with_features.rst
+../gallery/image_depth.rst
+../gallery/add_image.rst
+../gallery/add_shapes_with_features.rst
+../gallery/add_labels.rst
 ```

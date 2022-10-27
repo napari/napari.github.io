@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc5</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/_qt/qt_viewer and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc5'}.
+     variables _modules/napari/_qt/qt_viewer and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc5 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc5") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -280,11 +280,11 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">from</span> <span class="nn">napari_builtins.io</span> <span class="kn">import</span> <span class="n">imsave_extensions</span>
 
-<span class="kn">from</span> <span class="nn">..components._interaction_box_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">InteractionBoxMouseBindings</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..components.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">..components.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
+<span class="kn">from</span> <span class="nn">..components.overlays._interaction_box_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">InteractionBoxMouseBindings</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..errors</span> <span class="kn">import</span> <span class="n">MultipleReaderError</span><span class="p">,</span> <span class="n">ReaderPluginError</span>
 <span class="kn">from</span> <span class="nn">..layers.base.base</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">..plugins</span> <span class="kn">import</span> <span class="n">_npe2</span>
@@ -328,7 +328,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">VispyScaleBarOverlay</span><span class="p">,</span>
     <span class="n">VispyInteractionBox</span><span class="p">,</span>
     <span class="n">VispyTextOverlay</span><span class="p">,</span>
-    <span class="n">create_vispy_visual</span><span class="p">,</span>
+    <span class="n">create_vispy_layer</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -704,20 +704,20 @@ function checkPageExistsAndRedirect(event) {
         <span class="sd">&quot;&quot;&quot;Add visuals for axes, scale bar, and welcome text.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">VispyAxesOverlay</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
+            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span>
-            <span class="n">order</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_bar</span> <span class="o">=</span> <span class="n">VispyScaleBarOverlay</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
+            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="p">,</span>
+            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
-            <span class="n">order</span><span class="o">=</span><span class="mf">1e6</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">_on_position_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text_overlay</span> <span class="o">=</span> <span class="n">VispyTextOverlay</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
+            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">text_overlay</span><span class="p">,</span>
+            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
-            <span class="n">order</span><span class="o">=</span><span class="mf">1e6</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text_overlay</span><span class="o">.</span><span class="n">_on_position_change</span>
@@ -807,7 +807,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        layer : napari.layers.Layer</span>
 <span class="sd">            Layer to be added.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_visual</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
         <span class="c1"># QtPoll is experimental.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_poll</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1081,9 +1081,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        stack : bool or list[list[str]]</span>
 <span class="sd">            whether to stack files or not. Can also be a list containing</span>
 <span class="sd">            files to stack.</span>
-<span class="sd">        plugin: str</span>
+<span class="sd">        plugin : str</span>
 <span class="sd">            plugin to use for reading</span>
-<span class="sd">        layer_type: str</span>
+<span class="sd">        layer_type : str</span>
 <span class="sd">            layer type for opened layers</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">choose_plugin</span><span class="p">:</span>
@@ -1358,20 +1358,26 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        This is triggered from vispy whenever new data is sent to the canvas or</span>
 <span class="sd">        the camera is moved and is connected in the `QtViewer`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The canvas corners in full world coordinates (i.e. across all layers).</span>
+        <span class="n">canvas_corners_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_corners_in_world</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-                <span class="n">nd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_displayed_axes</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">nd</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">:</span>
-                    <span class="n">displayed_axes</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">_displayed_axes</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">[</span><span class="o">-</span><span class="n">nd</span><span class="p">:]</span>
-                <span class="n">layer</span><span class="o">.</span><span class="n">_update_draw</span><span class="p">(</span>
-                    <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
-                    <span class="n">corner_pixels_displayed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_corners_in_world</span><span class="p">[</span>
-                        <span class="p">:,</span> <span class="n">displayed_axes</span>
-                    <span class="p">],</span>
-                    <span class="n">shape_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-                <span class="p">)</span></div>
+            <span class="c1"># The following condition should mostly be False. One case when it can</span>
+            <span class="c1"># be True is when a callback connected to self.viewer.dims.events.ndisplay</span>
+            <span class="c1"># is executed before layer._slice_input has been updated by another callback</span>
+            <span class="c1"># (e.g. when changing self.viewer.dims.ndisplay from 3 to 2).</span>
+            <span class="n">displayed_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
+            <span class="n">nd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">displayed_sorted</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">nd</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">:</span>
+                <span class="n">displayed_axes</span> <span class="o">=</span> <span class="n">displayed_sorted</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">[</span><span class="o">-</span><span class="n">nd</span><span class="p">:]</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">_update_draw</span><span class="p">(</span>
+                <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
+                <span class="n">corner_pixels_displayed</span><span class="o">=</span><span class="n">canvas_corners_world</span><span class="p">[</span>
+                    <span class="p">:,</span> <span class="n">displayed_axes</span>
+                <span class="p">],</span>
+                <span class="n">shape_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.set_welcome_visible"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.set_welcome_visible">[docs]</a>    <span class="k">def</span> <span class="nf">set_welcome_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Show welcome screen widget.&quot;&quot;&quot;</span>

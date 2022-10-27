@@ -5,6 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
+    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
+    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>napari.layers.Image &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -113,7 +116,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc5</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.layers.Image and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc5'}.
+     variables api/napari.layers.Image and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +180,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc5 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc5") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -991,7 +994,7 @@ can be multidimensional for RGB or RGBA images if multidimensional is
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_layer_data_tuple</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.bind_key" title="napari.layers.Image.bind_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind_key</span></code></a>(key[, func, overwrite])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Image.bind_key" title="napari.layers.Image.bind_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind_key</span></code></a>(key_bind[, func, overwrite])</p></td>
 <td><p>Bind a key combination to a keymap.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_update_properties</span></code>()</p></td>
@@ -1204,13 +1207,13 @@ can be multidimensional for RGB or RGBA images if multidimensional is
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.layers.Image.bind_key">
-<span class="sig-name descname"><span class="pre">bind_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Image.bind_key" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">bind_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_bind:</span> <span class="pre">typing.Union[app_model.types._keys._keybindings.KeyBinding,</span> <span class="pre">str,</span> <span class="pre">int,</span> <span class="pre">ellipsis],</span> <span class="pre">func=&lt;object</span> <span class="pre">object&gt;,</span> <span class="pre">*,</span> <span class="pre">overwrite=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.layers.Image.bind_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind a key combination to a keymap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>keymap</strong> (<em>dict of str: callable</em>) – Keymap to modify.</p></li>
-<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>...</em>) – Key combination.
+<li><p><strong>key_bind</strong> (<em>keybinding-like</em><em> or </em><em>...</em>) – Key combination.
 <code class="docutils literal notranslate"><span class="pre">...</span></code> acts as a wildcard if no key combinations can be matched
 in the keymap (this will overwrite all key combinations
 further down the lookup chain).</p></li>

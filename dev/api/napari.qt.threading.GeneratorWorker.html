@@ -5,9 +5,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
-    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>napari.qt.threading.GeneratorWorker &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -116,7 +113,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -129,7 +126,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.qt.threading.GeneratorWorker and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.qt.threading.GeneratorWorker and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
 -->
 
 <script type="text/javascript">
@@ -180,10 +177,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc6 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc6") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -763,18 +760,18 @@ function checkPageExistsAndRedirect(event) {
 <p class="rubric">Details</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.abort_requested">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">abort_requested</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.abort_requested" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">abort_requested</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.abort_requested" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether the worker has been requested to stop.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.autoDelete">
-<span class="sig-name descname"><span class="pre">autoDelete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.autoDelete" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">autoDelete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.autoDelete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.await_workers">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">await_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msecs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.await_workers" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">await_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msecs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.await_workers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ask all workers to quit, and wait up to <cite>msec</cite> for quit.</p>
 <p>Attempts to clean up all running workers by calling <cite>worker.quit()</cite>
 method.  Any workers in the <cite>WorkerBase._worker_set</cite> set will have this
@@ -804,12 +801,12 @@ for a good discussion on the difficulty of killing a rogue python thread:</p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>msecs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Waits up to msecs milliseconds for all threads to exit and removes all
+<dd class="field-odd"><p><strong>msecs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Waits up to msecs milliseconds for all threads to exit and removes all
 threads from the thread pool. If msecs is <cite>None</cite> (the default), the
 timeout is ignored (waits for the last thread to exit).</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.10)"><strong>RuntimeError</strong></a> – If a timeout is provided and workers do not quit successfully within
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.11)"><strong>RuntimeError</strong></a> – If a timeout is provided and workers do not quit successfully within
     the time allotted.</p>
 </dd>
 </dl>
@@ -822,25 +819,25 @@ timeout is ignored (waits for the last thread to exit).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.is_paused">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_paused</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.is_paused" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_paused</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.is_paused" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether the worker is currently paused.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.is_running">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.is_running" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_running</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.is_running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether the worker has been started</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.pause">
-<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#GeneratorWorker.pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.pause" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#GeneratorWorker.pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.pause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request to pause the worker.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.quit">
-<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.quit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.quit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a request to abort the worker.</p>
 <dl class="simple">
 <dt>!!! note</dt><dd><p>It is entirely up to subclasses to honor this method by checking
@@ -852,13 +849,13 @@ method, and exiting if <cite>True</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.resume">
-<span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#GeneratorWorker.resume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.resume" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#GeneratorWorker.resume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.resume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a request to resume the worker.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the worker.</p>
 <p>The end-user should never need to call this function.
 But it cannot be made private or renamed, since it is called by Qt.</p>
@@ -893,7 +890,7 @@ method (except with good reason), and instead should implement
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.start" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start this worker in a thread and add it to the global threadpool.</p>
 <p>The order of method calls when starting a worker is:</p>
 <dl class="simple">
@@ -910,13 +907,13 @@ worker.start -&gt; worker.run -&gt; worker.work</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.toggle_pause">
-<span class="sig-name descname"><span class="pre">toggle_pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#GeneratorWorker.toggle_pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.toggle_pause" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toggle_pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#GeneratorWorker.toggle_pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.toggle_pause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request to pause the worker if playing or resume if paused.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.work">
-<span class="sig-name descname"><span class="pre">work</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">superqt.utils._qthreading._R</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><span class="pre">Exception</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#GeneratorWorker.work"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.work" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">work</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">superqt.utils._qthreading._R</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.11)"><span class="pre">Exception</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superqt/utils/_qthreading.html#GeneratorWorker.work"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.work" title="Permalink to this definition">¶</a></dt>
 <dd><p>Core event loop that calls the original function.</p>
 <p>Enters a continual loop, yielding and returning from the original
 function.  Checks for various events (quit, pause, resume, etc…).

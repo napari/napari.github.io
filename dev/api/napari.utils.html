@@ -5,9 +5,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
-    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>napari.utils &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -116,7 +113,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -129,7 +126,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.utils and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.utils and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
 -->
 
 <script type="text/javascript">
@@ -180,10 +177,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc6 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc6") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -730,7 +727,7 @@ exists, and returns the wrapped range object.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="napari.utils.resize_dask_cache">
-<span class="sig-prename descclassname"><span class="pre">napari.utils.</span></span><span class="sig-name descname"><span class="pre">resize_dask_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mem_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dask.cache.Cache</span></span></span><a class="reference internal" href="../_modules/napari/utils/_dask_utils.html#resize_dask_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.resize_dask_cache" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">napari.utils.</span></span><span class="sig-name descname"><span class="pre">resize_dask_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mem_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dask.cache.Cache</span></span></span><a class="reference internal" href="../_modules/napari/utils/_dask_utils.html#resize_dask_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.resize_dask_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create or resize the dask cache used for opportunistic caching.</p>
 <p>The cache object is an instance of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Cache</span></code>, (which
 wraps a <code class="xref py py-class docutils literal notranslate"><span class="pre">cachey.Cache</span></code>).</p>
@@ -738,11 +735,11 @@ wraps a <code class="xref py py-class docutils literal notranslate"><span class=
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nbytes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The desired size of the cache, in bytes.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the cache size
+<li><p><strong>nbytes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – The desired size of the cache, in bytes.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the cache size
 will autodetermined as fraction of the total memory in the system,
 using <code class="docutils literal notranslate"><span class="pre">mem_fraction</span></code>.  If <code class="docutils literal notranslate"><span class="pre">nbytes</span></code> is 0. The cache is turned off.
 by default, cache size is autodetermined using <code class="docutils literal notranslate"><span class="pre">mem_fraction</span></code>.</p></li>
-<li><p><strong>mem_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – The fraction (from 0 to 1) of total memory to use for the dask cache.</p></li>
+<li><p><strong>mem_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – The fraction (from 0 to 1) of total memory to use for the dask cache.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -774,7 +771,7 @@ by default, cache size is autodetermined using <code class="docutils literal not
 <dd><p>Gathers relevant module versions for troubleshooting purposes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>as_html</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – if True, info will be returned as HTML, suitable for a QTextEdit widget</p>
+<dd class="field-odd"><p><strong>as_html</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if True, info will be returned as HTML, suitable for a QTextEdit widget</p>
 </dd>
 </dl>
 </dd></dl>

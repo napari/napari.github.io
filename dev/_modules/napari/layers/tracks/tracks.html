@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/layers/tracks/tracks and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables _modules/napari/layers/tracks/tracks and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc6 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc6") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -515,10 +515,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
 
         <span class="c1"># if the displayed dims have changed, update the shader data</span>
-        <span class="n">dims_displayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
-        <span class="k">if</span> <span class="n">dims_displayed</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_displayed_dims</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_displayed_dims</span><span class="p">:</span>
             <span class="c1"># store the new dims</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_current_displayed_dims</span> <span class="o">=</span> <span class="n">dims_displayed</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_displayed_dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span>
             <span class="c1"># fire the events to update the shaders</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rebuild_tracks</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rebuild_graph</span><span class="p">()</span>
@@ -549,9 +548,9 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_colors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">de</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span>
-            <span class="n">min_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
+            <span class="n">min_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">de</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
+                <span class="p">[</span><span class="n">de</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
             <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
             <span class="n">zoom_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
@@ -601,10 +600,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">vertices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
         <span class="c1"># if we&#39;re only displaying two dimensions, then pad the display dim</span>
         <span class="c1"># with zeros</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;constant&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>  <span class="c1"># y, x, z -&gt; x, y, z</span>
         <span class="k">else</span><span class="p">:</span>
@@ -627,7 +626,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">use_fade</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;toggle whether we fade the tail of the track, depending on whether</span>
 <span class="sd">        the time dimension is displayed&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="mi">0</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>

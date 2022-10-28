@@ -5,9 +5,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
-    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>napari.utils.events.Event &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -116,7 +113,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -129,7 +126,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.utils.events.Event and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.utils.events.Event and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
 -->
 
 <script type="text/javascript">
@@ -180,10 +177,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc6 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc6") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -695,8 +692,8 @@ function checkPageExistsAndRedirect(event) {
 <h1>napari.utils.events.Event<a class="headerlink" href="#napari-utils-events-event" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="napari.utils.events.Event">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.utils.events.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">native</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/event.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.Event" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.utils.events.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">native</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/event.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.Event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class describing events that occur and can be reacted to with callbacks.
 Each event instance contains information about a single event that has
 occurred such as a key press, mouse motion, timer activation, etc.</p>
@@ -709,8 +706,8 @@ arguments listed below.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – String indicating the event type (e.g. mouse_press, key_release)</p></li>
-<li><p><strong>native</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a><em> (</em><em>optional</em><em>)</em>) – The native GUI event object</p></li>
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – String indicating the event type (e.g. mouse_press, key_release)</p></li>
+<li><p><strong>native</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a><em> (</em><em>optional</em><em>)</em>) – The native GUI event object</p></li>
 <li><p><strong>**kwargs</strong> (<em>keyword arguments</em>) – All extra keyword arguments become attributes of the event object.</p></li>
 </ul>
 </dd>
@@ -754,7 +751,7 @@ arguments listed below.</p>
 <p class="rubric">Details</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.utils.events.Event.blocked">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">blocked</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.utils.events.Event.blocked" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">blocked</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.utils.events.Event.blocked" title="Permalink to this definition">¶</a></dt>
 <dd><p>This boolean property indicates whether the event will be delivered
 to event callbacks. If it is set to True, then no further callbacks
 will receive the event. When possible, it is recommended to use
@@ -763,7 +760,7 @@ Event.handled rather than Event.blocked.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.utils.events.Event.handled">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.utils.events.Event.handled" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.utils.events.Event.handled" title="Permalink to this definition">¶</a></dt>
 <dd><p>This boolean property indicates whether the event has already been
 acted on by an event handler. Since many handlers may have access to
 the same events, it is recommended that each check whether the event

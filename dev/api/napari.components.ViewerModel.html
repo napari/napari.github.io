@@ -5,9 +5,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
-    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>napari.components.ViewerModel &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -116,7 +113,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -129,7 +126,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.components.ViewerModel and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.components.ViewerModel and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
 -->
 
 <script type="text/javascript">
@@ -180,10 +177,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc6 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc6") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -775,7 +772,7 @@ ndisplay is 2 or 3.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.add_vectors" title="napari.components.ViewerModel.add_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_vectors</span></code></a>([data, ndim, features, ...])</p></td>
 <td><p>Add a Vectors layer to the layer list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.bind_key" title="napari.components.ViewerModel.bind_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind_key</span></code></a>(key_bind[, func, overwrite])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.components.ViewerModel.bind_key" title="napari.components.ViewerModel.bind_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind_key</span></code></a>(key[, func, overwrite])</p></td>
 <td><p>Bind a key combination to a keymap.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.components.ViewerModel.construct" title="napari.components.ViewerModel.construct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">construct</span></code></a>([_fields_set])</p></td>
@@ -858,7 +855,7 @@ ndisplay is 2 or 3.</p></li>
 <p class="rubric">Details</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.add_image">
-<span class="sig-name descname"><span class="pre">add_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rgb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation2d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nearest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation3d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rendering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mip'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depiction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'volume'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iso_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attenuation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plane</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Image.html#napari.layers.Image" title="napari.layers.image.image.Image"><span class="pre">napari.layers.image.image.Image</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Image.html#napari.layers.Image" title="napari.layers.image.image.Image"><span class="pre">napari.layers.image.image.Image</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.add_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.add_image" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rgb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation2d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nearest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation3d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rendering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mip'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depiction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'volume'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iso_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attenuation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plane</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Image.html#napari.layers.Image" title="napari.layers.image.image.Image"><span class="pre">napari.layers.image.image.Image</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Image.html#napari.layers.Image" title="napari.layers.image.image.Image"><span class="pre">napari.layers.image.image.Image</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.add_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.add_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an image layer to the layer list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -869,17 +866,17 @@ list and arrays are decreasing in shape then the data is treated as
 a multiscale image. Please note multiscale rendering is only
 supported in 2D. In 3D, only the lowest resolution scale is
 displayed.</p></li>
-<li><p><strong>channel_axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Axis to expand image along.  If provided, each channel in the data
+<li><p><strong>channel_axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Axis to expand image along.  If provided, each channel in the data
 will be added as an individual image layer.  In channel_axis mode,
 all other parameters MAY be provided as lists, and the Nth value
 will be applied to the Nth channel in the data.  If a single value
 is provided, it will be broadcast to all Layers.</p></li>
-<li><p><strong>rgb</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Whether the image is rgb RGB or RGBA. If not specified by user and
+<li><p><strong>rgb</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Whether the image is rgb RGB or RGBA. If not specified by user and
 the last dimension of the data has length 3 or 4 it will be set as
 <cite>True</cite>. If <cite>False</cite> the image is interpreted as a luminance image.
 If a list then must be same length as the axis that is being
 expanded as channels.</p></li>
-<li><p><strong>colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Colormaps to use for luminance images. If a string must be the name
+<li><p><strong>colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Colormaps to use for luminance images. If a string must be the name
 of a supported colormap from vispy or matplotlib. If a tuple the
 first value must be a string to assign as a name to a colormap and
 the second item must be a Colormap. If a dict the key must be a
@@ -887,46 +884,46 @@ string to assign as a name to a colormap and the value must be a
 Colormap. If a list then must be same length as the axis that is
 being expanded as channels, and each colormap is applied to each
 new image layer.</p></li>
-<li><p><strong>contrast_limits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> (</em><em>2</em><em>,</em><em>)</em>) – Color limits to be used for determining the colormap bounds for
+<li><p><strong>contrast_limits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> (</em><em>2</em><em>,</em><em>)</em>) – Color limits to be used for determining the colormap bounds for
 luminance images. If not passed is calculated as the min and max of
 the image. If list of lists then must be same length as the axis
 that is being expanded and then each colormap is applied to each
 image.</p></li>
-<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Gamma correction for determining colormap linearity. Defaults to 1.
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Gamma correction for determining colormap linearity. Defaults to 1.
 If a list then must be same length as the axis that is being
 expanded as channels.</p></li>
-<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Deprecated, to be removed in 0.6.0</p></li>
-<li><p><strong>interpolation2d</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Interpolation mode used by vispy in 2D. Must be one of our supported
+<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Deprecated, to be removed in 0.6.0</p></li>
+<li><p><strong>interpolation2d</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Interpolation mode used by vispy in 2D. Must be one of our supported
 modes. If a list then must be same length as the axis that is being
 expanded as channels.</p></li>
-<li><p><strong>interpolation3d</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Interpolation mode used by vispy in 3D. Must be one of our supported
+<li><p><strong>interpolation3d</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Interpolation mode used by vispy in 3D. Must be one of our supported
 modes. If a list then must be same length as the axis that is being
 expanded as channels.</p></li>
-<li><p><strong>rendering</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Rendering mode used by vispy. Must be one of our supported
+<li><p><strong>rendering</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Rendering mode used by vispy. Must be one of our supported
 modes. If a list then must be same length as the axis that is being
 expanded as channels.</p></li>
-<li><p><strong>depiction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Selects a preset volume depiction mode in vispy</p>
+<li><p><strong>depiction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Selects a preset volume depiction mode in vispy</p>
 <ul>
 <li><p>volume: images are rendered as 3D volumes.</p></li>
 <li><p>plane: images are rendered as 2D planes embedded in 3D.</p></li>
 </ul>
 </p></li>
-<li><p><strong>iso_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Threshold for isosurface. If a list then must be same length as the
+<li><p><strong>iso_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Threshold for isosurface. If a list then must be same length as the
 axis that is being expanded as channels.</p></li>
-<li><p><strong>attenuation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Attenuation rate for attenuated maximum intensity projection. If a
+<li><p><strong>attenuation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Attenuation rate for attenuated maximum intensity projection. If a
 list then must be same length as the axis that is being expanded as
 channels.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of str</em>) – Name of the layer.  If a list then must be same length as the axis
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>list of str</em>) – Name of the layer.  If a list then must be same length as the axis
 that is being expanded as channels.</p></li>
-<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em> or </em><em>list of dict</em>) – Layer metadata. If a list then must be a list of dicts with the
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em> or </em><em>list of dict</em>) – Layer metadata. If a list then must be a list of dicts with the
 same length as the axis that is being expanded as channels.</p></li>
-<li><p><strong>scale</strong> (<em>tuple of float</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Scale factors for the layer. If a list then must be a list of
+<li><p><strong>scale</strong> (<em>tuple of float</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Scale factors for the layer. If a list then must be a list of
 tuples of float with the same length as the axis that is being
 expanded as channels.</p></li>
-<li><p><strong>translate</strong> (<em>tuple of float</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Translation values for the layer. If a list then must be a list of
+<li><p><strong>translate</strong> (<em>tuple of float</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Translation values for the layer. If a list then must be a list of
 tuples of float with the same length as the axis that is being
 expanded as channels.</p></li>
-<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, </em><em>n-D array</em><em> or </em><em>list.</em>) – If a float convert into a 2D rotation matrix using that value as an
+<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, </em><em>n-D array</em><em> or </em><em>list.</em>) – If a float convert into a 2D rotation matrix using that value as an
 angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
 pitch, roll convention. Otherwise assume an nD rotation. Angles are
 assumed to be in degrees. They can be converted from radians with
@@ -940,25 +937,25 @@ The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a
 napari <cite>Affine</cite> transform object. Applied as an extra transform on
 top of the provided scale, rotate, and shear values.</p></li>
-<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.  If a list then
+<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.  If a list then
 must be same length as the axis that is being expanded as channels.</p></li>
-<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – One of a list of preset blending modes that determines how RGB and
+<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}. If a list then
 must be same length as the axis that is being expanded as channels.</p></li>
-<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><em>list of bool</em>) – Whether the layer visual is currently being displayed.
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><em>list of bool</em>) – Whether the layer visual is currently being displayed.
 If a list then must be same length as the axis that is
 being expanded as channels.</p></li>
-<li><p><strong>multiscale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the data is a multiscale image or not. Multiscale data is
+<li><p><strong>multiscale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the data is a multiscale image or not. Multiscale data is
 represented by a list of array like image data. If not specified by
 the user and if the data is a list of arrays that decrease in shape
 then it will be taken to be multiscale. The first image in the list
 should be the largest. Please note multiscale rendering is only
 supported in 2D. In 3D, only the lowest resolution scale is
 displayed.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon
 retrieval. Currently, this only applies to dask arrays.</p></li>
-<li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em> or </em><em>SlicingPlane</em>) – Properties defining plane rendering in 3D. Properties are defined in
+<li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em> or </em><em>SlicingPlane</em>) – Properties defining plane rendering in 3D. Properties are defined in
 data coordinates. Valid dictionary keys are
 {‘position’, ‘normal’, ‘thickness’, and ‘enabled’}.</p></li>
 <li><p><strong>experimental_clipping_planes</strong> (<em>list of dicts</em><em>, </em><em>list of ClippingPlane</em><em>, or </em><em>ClippingPlaneList</em>) – Each dict defines a clipping plane in 3D in data coordinates.
@@ -985,20 +982,20 @@ Values on the negative side of the normal are discarded if the plane is enabled.
 <li><p><strong>data</strong> (<em>array</em><em> or </em><em>list of array</em>) – Labels data as an array or multiscale. Must be integer type or bools.
 Please note multiscale rendering is only supported in 2D. In 3D, only
 the lowest resolution scale is displayed.</p></li>
-<li><p><strong>num_colors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of unique colors to use in colormap.</p></li>
-<li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>DataFrame</em>) – Features table where each row corresponds to a label and each column
+<li><p><strong>num_colors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of unique colors to use in colormap.</p></li>
+<li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>DataFrame</em>) – Features table where each row corresponds to a label and each column
 is a feature. The first row corresponds to the background label.</p></li>
 <li><p><strong>properties</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em><em> or </em><em>DataFrame</em>) – Properties for each label. Each property should be an array of length
 N, where N is the number of labels, and the first property corresponds
 to background.</p></li>
 <li><p><strong>color</strong> (<em>dict of int to str</em><em> or </em><em>array</em>) – Custom label to color mapping. Values must be valid color names or RGBA
 arrays.</p></li>
-<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Seed for colormap random generator.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the layer.</p></li>
-<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Layer metadata.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Seed for colormap random generator.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the layer.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Layer metadata.</p></li>
 <li><p><strong>scale</strong> (<em>tuple of float</em>) – Scale factors for the layer.</p></li>
 <li><p><strong>translate</strong> (<em>tuple of float</em>) – Translation values for the layer.</p></li>
-<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
+<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
 angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
 pitch, roll convention. Otherwise assume an nD rotation. Angles are
 assumed to be in degrees. They can be converted from radians with
@@ -1010,27 +1007,27 @@ The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a napari
 <cite>Affine</cite> transform object. Applied as an extra transform on top of the
 provided scale, rotate, and shear values.</p></li>
-<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
-<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
+<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
+<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
-<li><p><strong>rendering</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – 3D Rendering mode used by vispy. Must be one {‘translucent’, ‘iso_categorical’}.
+<li><p><strong>rendering</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – 3D Rendering mode used by vispy. Must be one {‘translucent’, ‘iso_categorical’}.
 ‘translucent’ renders without lighting. ‘iso_categorical’ uses isosurface
 rendering to calculate lighting effects on labeled surfaces.
 The default value is ‘iso_categorical’.</p></li>
-<li><p><strong>depiction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – 3D Depiction mode. Must be one of {‘volume’, ‘plane’}.
+<li><p><strong>depiction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – 3D Depiction mode. Must be one of {‘volume’, ‘plane’}.
 The default value is ‘volume’.</p></li>
-<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
-<li><p><strong>multiscale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the data is a multiscale image or not. Multiscale data is
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
+<li><p><strong>multiscale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the data is a multiscale image or not. Multiscale data is
 represented by a list of array like image data. If not specified by
 the user and if the data is a list of arrays that decrease in shape
 then it will be taken to be multiscale. The first image in the list
 should be the largest. Please note multiscale rendering is only
 supported in 2D. In 3D, only the lowest resolution scale is
 displayed.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
 Currently, this only applies to dask arrays.</p></li>
-<li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em> or </em><em>SlicingPlane</em>) – Properties defining plane rendering in 3D. Properties are defined in
+<li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em> or </em><em>SlicingPlane</em>) – Properties defining plane rendering in 3D. Properties are defined in
 data coordinates. Valid dictionary keys are
 {‘position’, ‘normal’, ‘thickness’, and ‘enabled’}.</p></li>
 <li><p><strong>experimental_clipping_planes</strong> (<em>list of dicts</em><em>, </em><em>list of ClippingPlane</em><em>, or </em><em>ClippingPlaneList</em>) – Each dict defines a clipping plane in 3D in data coordinates.
@@ -1064,7 +1061,7 @@ supported in 2D. In 3D, only the lowest resolution scale is
 displayed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1075,7 +1072,7 @@ displayed.</p>
 <dd><p>Labels metadata.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1086,7 +1083,7 @@ displayed.</p>
 <dd><p>Number of unique colors to use in colormap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1136,7 +1133,7 @@ colors.</p>
 <dd><p>Seed for colormap random generator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1147,7 +1144,7 @@ colors.</p>
 <dd><p>Opacity of the labels, must be between 0 and 1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1158,7 +1155,7 @@ colors.</p>
 <dd><p>If <cite>True</cite>, the fill bucket changes only connected pixels of same label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1169,7 +1166,7 @@ colors.</p>
 <dd><p>The number of dimensions across which labels will be edited.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1181,7 +1178,7 @@ colors.</p>
 with a thickness equal to its value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1192,7 +1189,7 @@ with a thickness equal to its value.</p>
 <dd><p>Size of the paint brush in data coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1203,7 +1200,7 @@ with a thickness equal to its value.</p>
 <dd><p>Index of selected label. Can be greater than the current maximum label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1231,7 +1228,7 @@ eraser.</p>
 paint with background label, which effectively removes the label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1299,52 +1296,52 @@ background label <cite>0</cite> is selected.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em><em> (</em><em>N</em><em>, </em><em>D</em><em>)</em>) – Coordinates for N points in D dimensions.</p></li>
-<li><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of dimensions for shapes. When data is not None, ndim must be D.
+<li><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of dimensions for shapes. When data is not None, ndim must be D.
 An empty points layer can be instantiated with arbitrary ndim.</p></li>
-<li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>DataFrame</em>) – Features table where each row corresponds to a point and each column
+<li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>DataFrame</em>) – Features table where each row corresponds to a point and each column
 is a feature.</p></li>
 <li><p><strong>properties</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em><em>, </em><em>DataFrame</em>) – Properties for each point. Each property should be an array of length N,
 where N is the number of points.</p></li>
 <li><p><strong>property_choices</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em>) – possible values for each property.</p></li>
-<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Text to be displayed with the points. If text is set to a key in properties,
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Text to be displayed with the points. If text is set to a key in properties,
 the value of that property will be displayed. Multiple properties can be
 composed using f-string-like syntax (e.g., ‘{property_1}, {float_property:.2f}).
 A dictionary can be provided with keyword arguments to set the text values
 and display properties. See TextManager.__init__() for the valid keyword arguments.
 For example usage, see /napari/examples/add_points_with_text.py.</p></li>
-<li><p><strong>symbol</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Symbol to be used for the point markers. Must be one of the
+<li><p><strong>symbol</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Symbol to be used for the point markers. Must be one of the
 following: arrow, clobber, cross, diamond, disc, hbar, ring,
 square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</p></li>
-<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>array</em>) – Size of the point marker in data pixels. If given as a scalar, all points are made
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>array</em>) – Size of the point marker in data pixels. If given as a scalar, all points are made
 the same size. If given as an array, size must be the same or broadcastable
 to the same shape as the data.</p></li>
-<li><p><strong>edge_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>array</em>) – Width of the symbol edge in pixels.</p></li>
-<li><p><strong>edge_width_is_relative</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If enabled, edge_width is interpreted as a fraction of the point size.</p></li>
-<li><p><strong>edge_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Color of the point marker border. Numeric color values should be RGB(A).</p></li>
-<li><p><strong>edge_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
+<li><p><strong>edge_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>array</em>) – Width of the symbol edge in pixels.</p></li>
+<li><p><strong>edge_width_is_relative</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If enabled, edge_width is interpreted as a fraction of the point size.</p></li>
+<li><p><strong>edge_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Color of the point marker border. Numeric color values should be RGB(A).</p></li>
+<li><p><strong>edge_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
 categorical attribute is used color the vectors.</p></li>
-<li><p><strong>edge_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set edge_color if a continuous attribute is used to set face_color.</p></li>
-<li><p><strong>edge_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
+<li><p><strong>edge_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set edge_color if a continuous attribute is used to set face_color.</p></li>
+<li><p><strong>edge_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
 The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p></li>
-<li><p><strong>face_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Color of the point marker body. Numeric color values should be RGB(A).</p></li>
-<li><p><strong>face_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
+<li><p><strong>face_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Color of the point marker body. Numeric color values should be RGB(A).</p></li>
+<li><p><strong>face_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
 categorical attribute is used color the vectors.</p></li>
-<li><p><strong>face_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set face_color if a continuous attribute is used to set face_color.</p></li>
-<li><p><strong>face_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
+<li><p><strong>face_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set face_color if a continuous attribute is used to set face_color.</p></li>
+<li><p><strong>face_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
 The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p></li>
-<li><p><strong>out_of_slice_display</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, renders points not just in central plane but also slightly out of slice
+<li><p><strong>out_of_slice_display</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, renders points not just in central plane but also slightly out of slice
 according to specified point marker size.</p></li>
-<li><p><strong>n_dimensional</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – This property will soon be deprecated in favor of ‘out_of_slice_display’.
+<li><p><strong>n_dimensional</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – This property will soon be deprecated in favor of ‘out_of_slice_display’.
 Use that instead.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the layer.</p></li>
-<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Layer metadata.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the layer.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Layer metadata.</p></li>
 <li><p><strong>scale</strong> (<em>tuple of float</em>) – Scale factors for the layer.</p></li>
 <li><p><strong>translate</strong> (<em>tuple of float</em>) – Translation values for the layer.</p></li>
-<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
+<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
 angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
 pitch, roll convention. Otherwise assume an nD rotation. Angles are
 assumed to be in degrees. They can be converted from radians with
@@ -1356,14 +1353,14 @@ The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a napari
 <cite>Affine</cite> transform object. Applied as an extra transform on top of the
 provided scale, rotate, and shear values.</p></li>
-<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
-<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
+<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
+<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
-<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
 Currently, this only applies to dask arrays.</p></li>
-<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>Shading</em>) – <p>Render lighting and shading on points. Options are:</p>
+<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>Shading</em>) – <p>Render lighting and shading on points. Options are:</p>
 <ul>
 <li><p>’none’
 No shading is added to the points.</p></li>
@@ -1371,7 +1368,7 @@ No shading is added to the points.</p></li>
 Shading and depth buffer are changed to give a 3D spherical look to the points</p></li>
 </ul>
 </p></li>
-<li><p><strong>antialiasing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Amount of antialiasing in canvas pixels.</p></li>
+<li><p><strong>antialiasing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Amount of antialiasing in canvas pixels.</p></li>
 <li><p><strong>canvas_size_limits</strong> (<em>tuple of float</em>) – Lower and upper limits for the size of points in canvas pixels.</p></li>
 <li><p><strong>shown</strong> (<em>1-D array of bool</em>) – Whether to show each point.</p></li>
 </ul>
@@ -1432,7 +1429,7 @@ syntax (e.g., ‘{property_1}, {float_property:.2f}).
 For example usage, see /napari/examples/add_points_with_text.py.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1443,7 +1440,7 @@ For example usage, see /napari/examples/add_points_with_text.py.</p>
 <dd><p>Symbol used for all point markers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1500,7 +1497,7 @@ shape as the layer <cite>data</cite>.</p>
 categorical attribute is used color the vectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>np.ndarray, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<dd class="field-odd"><p>np.ndarray, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1511,7 +1508,7 @@ categorical attribute is used color the vectors.</p>
 <dd><p>Colormap to set edge_color if a continuous attribute is used to set face_color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1525,7 +1522,7 @@ The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>None, (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a>)</p>
+<dd class="field-odd"><p>None, (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1548,7 +1545,7 @@ The default value is None. If set the none, the clims will be set to
 categorical attribute is used color the vectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>np.ndarray, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<dd class="field-odd"><p>np.ndarray, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1559,7 +1556,7 @@ categorical attribute is used color the vectors.</p>
 <dd><p>Colormap to set face_color if a continuous attribute is used to set face_color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1573,7 +1570,7 @@ The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>None, (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a>)</p>
+<dd class="field-odd"><p>None, (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1585,7 +1582,7 @@ The default value is None. If set the none, the clims will be set to
 selected point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1597,7 +1594,7 @@ selected point.</p>
 selected point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1609,7 +1606,7 @@ selected point.</p>
 selected point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1621,7 +1618,7 @@ selected point.</p>
 selected point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1633,7 +1630,7 @@ selected point.</p>
 according to specified point marker size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1644,7 +1641,7 @@ according to specified point marker size.</p>
 <dd><p>Integer indices of any selected points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.10)">set</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.11)">set</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1660,7 +1657,7 @@ by dragging a box around them. Once selected points can be moved,
 have their properties edited, or be deleted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1674,7 +1671,7 @@ have their properties edited, or be deleted.</p>
 <p>COLORMAP allows color to be set via a color map over an attribute</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1688,7 +1685,7 @@ have their properties edited, or be deleted.</p>
 <p>COLORMAP allows color to be set via a color map over an attribute</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1710,7 +1707,7 @@ have their properties edited, or be deleted.</p>
 <dd><p>Amount of antialiasing in canvas pixels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1775,65 +1772,65 @@ None after dragging is done.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> or </em><em>array</em>) – List of shape data, where each element is an (N, D) array of the
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> or </em><em>array</em>) – List of shape data, where each element is an (N, D) array of the
 N vertices of a shape in D dimensions. Can be an 3-dimensional
 array if each shape has the same number of vertices.</p></li>
-<li><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of dimensions for shapes. When data is not None, ndim must be D.
+<li><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of dimensions for shapes. When data is not None, ndim must be D.
 An empty shapes layer can be instantiated with arbitrary ndim.</p></li>
-<li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>Dataframe-like</em>) – Features table where each row corresponds to a shape and each column
+<li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>Dataframe-like</em>) – Features table where each row corresponds to a shape and each column
 is a feature.</p></li>
 <li><p><strong>properties</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em><em>, </em><em>DataFrame</em>) – Properties for each shape. Each property should be an array of length N,
 where N is the number of shapes.</p></li>
 <li><p><strong>property_choices</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em>) – possible values for each property.</p></li>
-<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Text to be displayed with the shapes. If text is set to a key in properties,
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Text to be displayed with the shapes. If text is set to a key in properties,
 the value of that property will be displayed. Multiple properties can be
 composed using f-string-like syntax (e.g., ‘{property_1}, {float_property:.2f}).
 A dictionary can be provided with keyword arguments to set the text values
 and display properties. See TextManager.__init__() for the valid keyword arguments.
 For example usage, see /napari/examples/add_shapes_with_text.py.</p></li>
-<li><p><strong>shape_type</strong> (<em>string</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – String of shape shape_type, must be one of “{‘line’, ‘rectangle’,
+<li><p><strong>shape_type</strong> (<em>string</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – String of shape shape_type, must be one of “{‘line’, ‘rectangle’,
 ‘ellipse’, ‘path’, ‘polygon’}”. If a list is supplied it must be
 the same length as the length of <cite>data</cite> and each element will be
 applied to each shape otherwise the same value will be used for all
 shapes.</p></li>
-<li><p><strong>edge_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Thickness of lines and edges. If a list is supplied it must be the
+<li><p><strong>edge_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Thickness of lines and edges. If a list is supplied it must be the
 same length as the length of <cite>data</cite> and each element will be
 applied to each shape otherwise the same value will be used for all
 shapes.</p></li>
-<li><p><strong>edge_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>array-like</em>) – If string can be any color name recognized by vispy or hex value if
+<li><p><strong>edge_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array-like</em>) – If string can be any color name recognized by vispy or hex value if
 starting with <cite>#</cite>. If array-like must be 1-dimensional array with 3
 or 4 elements. If a list is supplied it must be the same length as
 the length of <cite>data</cite> and each element will be applied to each shape
 otherwise the same value will be used for all shapes.</p></li>
-<li><p><strong>edge_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
+<li><p><strong>edge_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
 categorical attribute is used color the vectors.</p></li>
-<li><p><strong>edge_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set edge_color if a continuous attribute is used to set face_color.</p></li>
-<li><p><strong>edge_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
+<li><p><strong>edge_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set edge_color if a continuous attribute is used to set face_color.</p></li>
+<li><p><strong>edge_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
 The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p></li>
-<li><p><strong>face_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>array-like</em>) – If string can be any color name recognized by vispy or hex value if
+<li><p><strong>face_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array-like</em>) – If string can be any color name recognized by vispy or hex value if
 starting with <cite>#</cite>. If array-like must be 1-dimensional array with 3
 or 4 elements. If a list is supplied it must be the same length as
 the length of <cite>data</cite> and each element will be applied to each shape
 otherwise the same value will be used for all shapes.</p></li>
-<li><p><strong>face_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
+<li><p><strong>face_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
 categorical attribute is used color the vectors.</p></li>
-<li><p><strong>face_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set face_color if a continuous attribute is used to set face_color.</p></li>
-<li><p><strong>face_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
+<li><p><strong>face_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set face_color if a continuous attribute is used to set face_color.</p></li>
+<li><p><strong>face_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
 The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p></li>
-<li><p><strong>z_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Specifier of z order priority. Shapes with higher z order are
+<li><p><strong>z_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Specifier of z order priority. Shapes with higher z order are
 displayed ontop of others. If a list is supplied it must be the
 same length as the length of <cite>data</cite> and each element will be
 applied to each shape otherwise the same value will be used for all
 shapes.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the layer.</p></li>
-<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Layer metadata.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the layer.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Layer metadata.</p></li>
 <li><p><strong>scale</strong> (<em>tuple of float</em>) – Scale factors for the layer.</p></li>
 <li><p><strong>translate</strong> (<em>tuple of float</em>) – Translation values for the layer.</p></li>
-<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
+<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
 angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
 pitch, roll convention. Otherwise assume an nD rotation. Angles are
 assumed to be in degrees. They can be converted from radians with
@@ -1845,12 +1842,12 @@ The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a napari
 <cite>Affine</cite> transform object. Applied as an extra transform on top of the
 provided scale, rotate, and shear values.</p></li>
-<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
-<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
+<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
+<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
-<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
 Currently, this only applies to dask arrays.</p></li>
 </ul>
 </dd>
@@ -1911,7 +1908,7 @@ composed using f-string-like syntax (e.g., ‘{property_1}, {float_property:.2f}
 For example usage, see /napari/examples/add_shapes_with_text.py.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1933,7 +1930,7 @@ For example usage, see /napari/examples/add_shapes_with_text.py.</p>
 <dd><p>Color of the shape border. Numeric color values should be RGB(A).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, array-like</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, array-like</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1944,7 +1941,7 @@ For example usage, see /napari/examples/add_shapes_with_text.py.</p>
 <dd><p>Color of the shape face. Numeric color values should be RGB(A).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, array-like</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, array-like</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1978,7 +1975,7 @@ For example usage, see /napari/examples/add_shapes_with_text.py.</p>
 currently selected shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1990,7 +1987,7 @@ currently selected shape.</p>
 selected shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2002,7 +1999,7 @@ selected shape.</p>
 selected shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2013,7 +2010,7 @@ selected shape.</p>
 <dd><p>List of currently selected shapes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.10)">set</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.11)">set</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2024,7 +2021,7 @@ selected shape.</p>
 <dd><p>Total number of shapes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2144,21 +2141,21 @@ of the mesh triangles. The optional third element is the
 (K0, …, KL, N) array of values used to color vertices where the
 additional L dimensions are used to color the same mesh with
 different values. If not provided, it defaults to ones.</p></li>
-<li><p><strong>colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Colormap to use for luminance images. If a string must be the name
+<li><p><strong>colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Colormap to use for luminance images. If a string must be the name
 of a supported colormap from vispy or matplotlib. If a tuple the
 first value must be a string to assign as a name to a colormap and
 the second item must be a Colormap. If a dict the key must be a
 string to assign as a name to a colormap and the value must be a
 Colormap.</p></li>
-<li><p><strong>contrast_limits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> (</em><em>2</em><em>,</em><em>)</em>) – Color limits to be used for determining the colormap bounds for
+<li><p><strong>contrast_limits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> (</em><em>2</em><em>,</em><em>)</em>) – Color limits to be used for determining the colormap bounds for
 luminance images. If not passed is calculated as the min and max of
 the image.</p></li>
-<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Gamma correction for determining colormap linearity. Defaults to 1.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the layer.</p></li>
-<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Layer metadata.</p></li>
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Gamma correction for determining colormap linearity. Defaults to 1.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the layer.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Layer metadata.</p></li>
 <li><p><strong>scale</strong> (<em>tuple of float</em>) – Scale factors for the layer.</p></li>
 <li><p><strong>translate</strong> (<em>tuple of float</em>) – Translation values for the layer.</p></li>
-<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
+<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
 angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
 pitch, roll convention. Otherwise assume an nD rotation. Angles are
 assumed to be in degrees. They can be converted from radians with
@@ -2170,11 +2167,11 @@ The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a napari
 <cite>Affine</cite> transform object. Applied as an extra transform on top of the
 provided scale, rotate, and shear values.</p></li>
-<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
-<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
+<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
+<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
-<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>Shading</em>) – <p>One of a list of preset shading modes that determine the lighting model
+<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>Shading</em>) – <p>One of a list of preset shading modes that determine the lighting model
 using when rendering the surface in 3D.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Shading.NONE</span></code>
@@ -2185,11 +2182,11 @@ Corresponds to <code class="docutils literal notranslate"><span class="pre">shad
 Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='smooth'</span></code>.</p></li>
 </ul>
 </p></li>
-<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
 Currently, this only applies to dask arrays.</p></li>
-<li><p><strong>wireframe</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em> or </em><em>SurfaceWireframe</em>) – Whether and how to display the edges of the surface mesh with a wireframe.</p></li>
-<li><p><strong>normals</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em> or </em><em>SurfaceNormals</em>) – Whether and how to display the face and vertex normals of the surface mesh.</p></li>
+<li><p><strong>wireframe</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em> or </em><em>SurfaceWireframe</em>) – Whether and how to display the edges of the surface mesh with a wireframe.</p></li>
+<li><p><strong>normals</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em> or </em><em>SurfaceNormals</em>) – Whether and how to display the face and vertex normals of the surface mesh.</p></li>
 </ul>
 </dd>
 </dl>
@@ -2252,7 +2249,7 @@ string to assign as a name to a colormap and the value must be a
 Colormap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)">tuple</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2265,7 +2262,7 @@ luminance images. If not passed is calculated as the min and max of
 the image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a> (2,)</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a> (2,)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2282,7 +2279,7 @@ using when rendering the surface.</p>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2293,7 +2290,7 @@ using when rendering the surface.</p>
 <dd><p>Gamma correction for determining colormap linearity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2360,21 +2357,21 @@ one (the track has one parent, and the parent has &gt;=1 child) in the
 case of track splitting, or more than one (the track has multiple
 parents, but only one child) in the case of track merging.
 See examples/tracks_3d_with_graph.py</p></li>
-<li><p><strong>color_by</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Track property (from property keys) by which to color vertices.</p></li>
-<li><p><strong>tail_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Width of the track tails in pixels.</p></li>
-<li><p><strong>tail_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Length of the positive (backward in time) tails in units of time.</p></li>
-<li><p><strong>head_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Length of the positive (forward in time) tails in units of time.</p></li>
-<li><p><strong>colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Default colormap to use to set vertex colors. Specialized colormaps,
+<li><p><strong>color_by</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Track property (from property keys) by which to color vertices.</p></li>
+<li><p><strong>tail_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Width of the track tails in pixels.</p></li>
+<li><p><strong>tail_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Length of the positive (backward in time) tails in units of time.</p></li>
+<li><p><strong>head_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Length of the positive (forward in time) tails in units of time.</p></li>
+<li><p><strong>colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Default colormap to use to set vertex colors. Specialized colormaps,
 relating to specified properties can be passed to the layer via
 colormaps_dict.</p></li>
 <li><p><strong>colormaps_dict</strong> (<em>dict {str: napari.utils.Colormap}</em>) – Optional dictionary mapping each property to a colormap for that
 property. This allows each property to be assigned a specific colormap,
 rather than having a global colormap for everything.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the layer.</p></li>
-<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Layer metadata.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the layer.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Layer metadata.</p></li>
 <li><p><strong>scale</strong> (<em>tuple of float</em>) – Scale factors for the layer.</p></li>
 <li><p><strong>translate</strong> (<em>tuple of float</em>) – Translation values for the layer.</p></li>
-<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
+<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
 angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
 pitch, roll convention. Otherwise assume an nD rotation. Angles are
 assumed to be in degrees. They can be converted from radians with
@@ -2386,12 +2383,12 @@ The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a napari
 <cite>Affine</cite> transform object. Applied as an extra transform on top of the
 provided scale, rotate, and shear values.</p></li>
-<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
-<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
+<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
+<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
-<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
 Currently, this only applies to dask arrays.</p></li>
 </ul>
 </dd>
@@ -2416,30 +2413,30 @@ list of N vectors with start point and projections of the vector in
 D dimensions. An (N1, N2, …, ND, D) array is interpreted as
 “image-like” data where there is a length D vector of the
 projections at each pixel.</p></li>
-<li><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of dimensions for vectors. When data is not None, ndim must be D.
+<li><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of dimensions for vectors. When data is not None, ndim must be D.
 An empty vectors layer can be instantiated with arbitrary ndim.</p></li>
-<li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>DataFrame</em>) – Features table where each row corresponds to a vector and each column
+<li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>DataFrame</em>) – Features table where each row corresponds to a vector and each column
 is a feature.</p></li>
 <li><p><strong>properties</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em><em>, </em><em>DataFrame</em>) – Properties for each vector. Each property should be an array of length N,
 where N is the number of vectors.</p></li>
 <li><p><strong>property_choices</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em>) – possible values for each property.</p></li>
-<li><p><strong>edge_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Width for all vectors in pixels.</p></li>
-<li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Multiplicative factor on projections for length of all vectors.</p></li>
-<li><p><strong>edge_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Color of all of the vectors.</p></li>
-<li><p><strong>edge_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
+<li><p><strong>edge_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Width for all vectors in pixels.</p></li>
+<li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Multiplicative factor on projections for length of all vectors.</p></li>
+<li><p><strong>edge_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Color of all of the vectors.</p></li>
+<li><p><strong>edge_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to edge_color if a
 categorical attribute is used color the vectors.</p></li>
-<li><p><strong>edge_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set vector color if a continuous attribute is used to set edge_color.</p></li>
-<li><p><strong>edge_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
+<li><p><strong>edge_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set vector color if a continuous attribute is used to set edge_color.</p></li>
+<li><p><strong>edge_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
 The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p></li>
-<li><p><strong>out_of_slice_display</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, renders vectors not just in central plane but also slightly out of slice
+<li><p><strong>out_of_slice_display</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, renders vectors not just in central plane but also slightly out of slice
 according to specified point marker size.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the layer.</p></li>
-<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Layer metadata.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the layer.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Layer metadata.</p></li>
 <li><p><strong>scale</strong> (<em>tuple of float</em>) – Scale factors for the layer.</p></li>
 <li><p><strong>translate</strong> (<em>tuple of float</em>) – Translation values for the layer.</p></li>
-<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
+<li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>3-tuple of float</em><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
 angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
 pitch, roll convention. Otherwise assume an nD rotation. Angles are
 assumed to be in degrees. They can be converted from radians with
@@ -2451,12 +2448,12 @@ The first (N, N) entries correspond to a linear transform and
 the final column is a length N translation vector and a 1 or a napari
 <cite>Affine</cite> transform object. Applied as an extra transform on top of the
 provided scale, rotate, and shear values.</p></li>
-<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
-<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
+<li><p><strong>opacity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Opacity of the layer visual, between 0.0 and 1.0.</p></li>
+<li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
 {‘opaque’, ‘translucent’, and ‘additive’}.</p></li>
-<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
+<li><p><strong>visible</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the layer visual is currently being displayed.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether slices of out-of-core datasets should be cached upon retrieval.
 Currently, this only applies to dask arrays.</p></li>
 </ul>
 </dd>
@@ -2513,7 +2510,7 @@ where N is the number of vectors.</p>
 <dd><p>Width for all vectors in pixels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2524,7 +2521,7 @@ where N is the number of vectors.</p>
 <dd><p>Multiplicative factor on projections for length of all vectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2535,7 +2532,7 @@ where N is the number of vectors.</p>
 <dd><p>Color of all of the vectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2547,7 +2544,7 @@ where N is the number of vectors.</p>
 categorical attribute is used color the vectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>np.ndarray, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<dd class="field-odd"><p>np.ndarray, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2558,7 +2555,7 @@ categorical attribute is used color the vectors.</p>
 <dd><p>Colormap to set vector color if a continuous attribute is used to set edge_color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2572,7 +2569,7 @@ The default value is None. If set the none, the clims will be set to
 (property.min(), property.max())</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>None, (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a>)</p>
+<dd class="field-odd"><p>None, (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2584,7 +2581,7 @@ The default value is None. If set the none, the clims will be set to
 according to specified point marker size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2619,13 +2616,13 @@ subsampled.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.bind_key">
-<span class="sig-name descname"><span class="pre">bind_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key_bind:</span> <span class="pre">typing.Union[app_model.types._keys._keybindings.KeyBinding,</span> <span class="pre">str,</span> <span class="pre">int,</span> <span class="pre">ellipsis],</span> <span class="pre">func=&lt;object</span> <span class="pre">object&gt;,</span> <span class="pre">*,</span> <span class="pre">overwrite=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.bind_key" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">bind_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.bind_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind a key combination to a keymap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>keymap</strong> (<em>dict of str: callable</em>) – Keymap to modify.</p></li>
-<li><p><strong>key_bind</strong> (<em>keybinding-like</em><em> or </em><em>...</em>) – Key combination.
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>...</em>) – Key combination.
 <code class="docutils literal notranslate"><span class="pre">...</span></code> acts as a wildcard if no key combinations can be matched
 in the keymap (this will overwrite all key combinations
 further down the lookup chain).</p></li>
@@ -2633,7 +2630,7 @@ further down the lookup chain).</p></li>
 If <code class="docutils literal notranslate"><span class="pre">None</span></code> is passed, unbind instead.
 <code class="docutils literal notranslate"><span class="pre">...</span></code> acts as a blocker, effectively unbinding the key
 combination for all keymaps further down the lookup chain.</p></li>
-<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>keyword-only</em><em>, </em><em>optional</em>) – Whether to overwrite the key combination if it already exists.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>keyword-only</em><em>, </em><em>optional</em>) – Whether to overwrite the key combination if it already exists.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -2676,7 +2673,7 @@ into two statements with the yield keyword:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.construct">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_fields_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">SetStr</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#napari.components.ViewerModel.construct" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_fields_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">SetStr</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#napari.components.ViewerModel.construct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new model setting __dict__ and __fields_set__ from trusted or pre-validated data.
 Default values are respected, but no other validation is performed.
 Behaves as if <cite>Config.extra = ‘allow’</cite> was set since it adds all passed values</p>
@@ -2684,7 +2681,7 @@ Behaves as if <cite>Config.extra = ‘allow’</cite> was set since it adds all 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">AbstractSetIntStr</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MappingIntStrAny</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">AbstractSetIntStr</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MappingIntStrAny</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">DictStrAny</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#napari.components.ViewerModel.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">AbstractSetIntStr</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MappingIntStrAny</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">AbstractSetIntStr</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MappingIntStrAny</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">DictStrAny</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Model</span></span></span><a class="headerlink" href="#napari.components.ViewerModel.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Duplicate a model, optionally choose which fields to include, exclude and change.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2710,11 +2707,11 @@ the new model: you should trust this data</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.enums_as_values">
-<span class="sig-name descname"><span class="pre">enums_as_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.enums_as_values" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">enums_as_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.components.ViewerModel.enums_as_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temporarily override how enums are retrieved.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>as_values</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether enums should be shown as values (or as enum objects),
+<dd class="field-odd"><p><strong>as_values</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether enums should be shown as values (or as enum objects),
 by default <cite>True</cite></p>
 </dd>
 </dl>
@@ -2735,7 +2732,7 @@ by default <cite>True</cite></p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.open">
-<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="napari.types.Path.html#napari.types.Path" title="pathlib.Path"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="napari.types.Path.html#napari.types.Path" title="pathlib.Path"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'napari'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">napari.layers.base.base.Layer</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.open" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="napari.types.Path.html#napari.types.Path" title="pathlib.Path"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="napari.types.Path.html#napari.types.Path" title="pathlib.Path"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'napari'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">napari.layers.base.base.Layer</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.open" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open a path or list of paths with plugins, and add layers to viewer.</p>
 <p>A list of paths will be handed one-by-one to the napari_get_reader hook
 if stack is False, otherwise the full list is passed to each plugin
@@ -2743,20 +2740,20 @@ hook.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of str</em>) – A filepath, directory, or URL (or a list of any) to open.</p></li>
-<li><p><strong>stack</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – If a list of strings is passed as <code class="docutils literal notranslate"><span class="pre">path</span></code> and <code class="docutils literal notranslate"><span class="pre">stack</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, then the
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>list of str</em>) – A filepath, directory, or URL (or a list of any) to open.</p></li>
+<li><p><strong>stack</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – If a list of strings is passed as <code class="docutils literal notranslate"><span class="pre">path</span></code> and <code class="docutils literal notranslate"><span class="pre">stack</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, then the
 entire list will be passed to plugins.  It is then up to individual
 plugins to know how to handle a list of paths.  If <code class="docutils literal notranslate"><span class="pre">stack</span></code> is
 <code class="docutils literal notranslate"><span class="pre">False</span></code>, then the <code class="docutils literal notranslate"><span class="pre">path</span></code> list is broken up and passed to plugin
 readers one by one.  by default False.
 If the stack option is a list of lists containing individual paths,
 the inner lists are passedto the reader and will be stacked.</p></li>
-<li><p><strong>plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name of a plugin to use, by default builtins.  If provided, will
+<li><p><strong>plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Name of a plugin to use, by default builtins.  If provided, will
 force <code class="docutils literal notranslate"><span class="pre">path</span></code> to be read with the specified <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.
 If None, <code class="docutils literal notranslate"><span class="pre">plugin</span></code> will be read from preferences or inferred if just
 one reader is compatible.
 If the requested plugin cannot read <code class="docutils literal notranslate"><span class="pre">path</span></code>, an exception will be raised.</p></li>
-<li><p><strong>layer_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – If provided, will force data read from <code class="docutils literal notranslate"><span class="pre">path</span></code> to be passed to the
+<li><p><strong>layer_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – If provided, will force data read from <code class="docutils literal notranslate"><span class="pre">path</span></code> to be passed to the
 corresponding <code class="docutils literal notranslate"><span class="pre">add_&lt;layer_type&gt;</span></code> method (along with any
 additional) <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> provided to this function.  This <em>may</em>
 result in exceptions if the data returned from the path is not
@@ -2769,23 +2766,23 @@ compatible with the layer_type.</p></li>
 <dd class="field-even"><p><strong>layers</strong> – A list of any layers that were added to the viewer.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.open_sample">
-<span class="sig-name descname"><span class="pre">open_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reader_plugin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">napari.layers.base.base.Layer</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.open_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.open_sample" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">open_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reader_plugin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">napari.layers.base.base.Layer</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/components/viewer_model.html#ViewerModel.open_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.ViewerModel.open_sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open <cite>sample</cite> from <cite>plugin</cite> and add it to the viewer.</p>
 <p>To see all available samples registered by plugins, use
 <code class="xref py py-func docutils literal notranslate"><span class="pre">napari.plugins.available_samples()</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – name of a plugin providing a sample</p></li>
-<li><p><strong>sample</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – name of the sample</p></li>
-<li><p><strong>reader_plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – reader plugin to pass to viewer.open (only used if the sample data
+<li><p><strong>plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – name of a plugin providing a sample</p></li>
+<li><p><strong>sample</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – name of the sample</p></li>
+<li><p><strong>reader_plugin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – reader plugin to pass to viewer.open (only used if the sample data
 is a string).  by default None.</p></li>
 <li><p><strong>**kwargs</strong> – additional kwargs will be passed to the sample data loader provided
 by <cite>plugin</cite>.  Use of <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> may raise an error if the kwargs do
@@ -2796,10 +2793,10 @@ not match the sample data loader.</p></li>
 <dd class="field-even"><p><strong>layers</strong> – A list of any layers that were added to the viewer.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.10)"><strong>KeyError</strong></a> – If <cite>plugin</cite> does not provide a sample named <cite>sample</cite>.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.11)"><strong>KeyError</strong></a> – If <cite>plugin</cite> does not provide a sample named <cite>sample</cite>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2818,15 +2815,15 @@ not match the sample data loader.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.utils.events.EventedModel.html#napari.utils.events.EventedModel" title="napari.utils.events.evented_model.EventedModel"><span class="pre">napari.utils.events.evented_model.EventedModel</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.components.ViewerModel.update" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.utils.events.EventedModel.html#napari.utils.events.EventedModel" title="napari.utils.events.evented_model.EventedModel"><span class="pre">napari.utils.events.evented_model.EventedModel</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.components.ViewerModel.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update a model in place.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>values</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><a class="reference internal" href="napari.utils.events.EventedModel.html#napari.utils.events.EventedModel" title="napari.utils.events.EventedModel"><em>napari.utils.events.EventedModel</em></a>) – Values to update the model with. If an EventedModel is passed it is
+<li><p><strong>values</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><a class="reference internal" href="napari.utils.events.EventedModel.html#napari.utils.events.EventedModel" title="napari.utils.events.EventedModel"><em>napari.utils.events.EventedModel</em></a>) – Values to update the model with. If an EventedModel is passed it is
 first converted to a dictionary. The keys of this dictionary must
 be found as attributes on the current model.</p></li>
-<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, recursively update fields that are EventedModels.
+<li><p><strong>recurse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, recursively update fields that are EventedModels.
 Otherwise, just update the immediate fields of this EventedModel,
 which is useful when the declared field type (e.g. <code class="docutils literal notranslate"><span class="pre">Union</span></code>) can have
 different realized types with different fields.</p></li>
@@ -2837,7 +2834,7 @@ different realized types with different fields.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.update_forward_refs">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_forward_refs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">localns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.components.ViewerModel.update_forward_refs" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_forward_refs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">localns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.components.ViewerModel.update_forward_refs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Try to update ForwardRefs on fields based on this Model, globalns and localns.</p>
 </dd></dl>
 

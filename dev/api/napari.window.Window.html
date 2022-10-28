@@ -5,9 +5,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
-    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>napari.window.Window &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -116,7 +113,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -129,7 +126,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.window.Window and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.window.Window and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
 -->
 
 <script type="text/javascript">
@@ -180,10 +177,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc6 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc6") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -695,8 +692,8 @@ function checkPageExistsAndRedirect(event) {
 <h1>napari.window.Window<a class="headerlink" href="#napari-window-window" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="napari.window.Window">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.window.</span></span><span class="sig-name descname"><span class="pre">Window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">viewer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="pre">Viewer</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.window.</span></span><span class="sig-name descname"><span class="pre">Window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">viewer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="pre">Viewer</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Application window that contains the menu bar and viewer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -824,7 +821,7 @@ function checkPageExistsAndRedirect(event) {
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.window.Window.add_dock_widget">
-<span class="sig-name descname"><span class="pre">add_dock_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">widget:</span> <span class="pre">typing.Union[PyQt5.QtWidgets.QWidget,</span> <span class="pre">Widget],</span> <span class="pre">*,</span> <span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'',</span> <span class="pre">area:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'right',</span> <span class="pre">allowed_areas:</span> <span class="pre">typing.Optional[typing.Sequence[str]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">shortcut=&lt;object</span> <span class="pre">object&gt;,</span> <span class="pre">add_vertical_stretch=True,</span> <span class="pre">tabify:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">menu:</span> <span class="pre">typing.Optional[PyQt5.QtWidgets.QMenu]</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.add_dock_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.add_dock_widget" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_dock_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">widget:</span> <span class="pre">typing.Union[PyQt5.QtWidgets.QWidget,</span> <span class="pre">Widget],</span> <span class="pre">*,</span> <span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'',</span> <span class="pre">area:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'right',</span> <span class="pre">allowed_areas:</span> <span class="pre">typing.Optional[typing.Sequence[str]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">shortcut=&lt;object</span> <span class="pre">object&gt;,</span> <span class="pre">add_vertical_stretch=True,</span> <span class="pre">menu=None,</span> <span class="pre">tabify:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.add_dock_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.add_dock_widget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method to add a QDockWidget to the main window.</p>
 <p>If name is not provided a generic name will be addded to avoid
 <cite>saveState</cite> warnings on close.</p>
@@ -832,14 +829,14 @@ function checkPageExistsAndRedirect(event) {
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>widget</strong> (<em>QWidget</em>) – <cite>widget</cite> will be added as QDockWidget’s main widget.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name of dock widget to appear in window menu.</p></li>
-<li><p><strong>area</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Side of the main window to which the new dock widget will be added.
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Name of dock widget to appear in window menu.</p></li>
+<li><p><strong>area</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Side of the main window to which the new dock widget will be added.
 Must be in {‘left’, ‘right’, ‘top’, ‘bottom’}</p></li>
-<li><p><strong>allowed_areas</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – Areas, relative to main window, that the widget is allowed dock.
+<li><p><strong>allowed_areas</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – Areas, relative to main window, that the widget is allowed dock.
 Each item in list must be in {‘left’, ‘right’, ‘top’, ‘bottom’}
 By default, all areas are allowed.</p></li>
-<li><p><strong>shortcut</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Keyboard shortcut to appear in dropdown menu.</p></li>
-<li><p><strong>add_vertical_stretch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Whether to add stretch to the bottom of vertical widgets (pushing
+<li><p><strong>shortcut</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Keyboard shortcut to appear in dropdown menu.</p></li>
+<li><p><strong>add_vertical_stretch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Whether to add stretch to the bottom of vertical widgets (pushing
 widgets up towards the top of the allotted area, instead of letting
 them distribute across the vertical space).  By default, True.</p>
 <div class="deprecated">
@@ -848,8 +845,6 @@ the action and shortcut manager APIs. The new action manager and
 shortcut API allow user configuration and localisation.</p>
 </div>
 </p></li>
-<li><p><strong>tabify</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Flag to tabify dockwidget or not.</p></li>
-<li><p><strong>menu</strong> (<em>QMenu</em><em>, </em><em>optional</em>) – Menu bar to add toggle action to. If <cite>None</cite> nothing added to menu.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -869,17 +864,17 @@ shortcut API allow user configuration and localisation.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>function</strong> (<em>callable</em>) – Function that you want to add.</p></li>
-<li><p><strong>magic_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Keyword arguments to <a class="reference external" href="https://napari.org/magicgui/api/magicgui.html#magicgui.magicgui" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">magicgui.magicgui()</span></code></a> that
+<li><p><strong>magic_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Keyword arguments to <a class="reference external" href="https://napari.org/magicgui/api/magicgui.html#magicgui.magicgui" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">magicgui.magicgui()</span></code></a> that
 can be used to specify widget.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name of dock widget to appear in window menu.</p></li>
-<li><p><strong>area</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Side of the main window to which the new dock widget will be added.
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Name of dock widget to appear in window menu.</p></li>
+<li><p><strong>area</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Side of the main window to which the new dock widget will be added.
 Must be in {‘left’, ‘right’, ‘top’, ‘bottom’}. If not provided the
 default will be determined by the widget.layout, with ‘vertical’
 layouts appearing on the right, otherwise on the bottom.</p></li>
-<li><p><strong>allowed_areas</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – Areas, relative to main window, that the widget is allowed dock.
+<li><p><strong>allowed_areas</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – Areas, relative to main window, that the widget is allowed dock.
 Each item in list must be in {‘left’, ‘right’, ‘top’, ‘bottom’}
 By default, only provided areas is allowed.</p></li>
-<li><p><strong>shortcut</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Keyboard shortcut to appear in dropdown menu.</p></li>
+<li><p><strong>shortcut</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Keyboard shortcut to appear in dropdown menu.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -893,13 +888,13 @@ By default, only provided areas is allowed.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.window.Window.add_plugin_dock_widget">
-<span class="sig-name descname"><span class="pre">add_plugin_dock_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tabify</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.add_plugin_dock_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.add_plugin_dock_widget" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_plugin_dock_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tabify</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.add_plugin_dock_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.add_plugin_dock_widget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add plugin dock widget if not already added.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>plugin_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of a plugin providing a widget</p></li>
-<li><p><strong>widget_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name of a widget provided by <cite>plugin_name</cite>. If <cite>None</cite>, and the
+<li><p><strong>plugin_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of a plugin providing a widget</p></li>
+<li><p><strong>widget_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Name of a widget provided by <cite>plugin_name</cite>. If <cite>None</cite>, and the
 specified plugin provides only a single widget, that widget will be
 returned, otherwise a ValueError will be raised, by default None</p></li>
 </ul>
@@ -909,7 +904,7 @@ returned, otherwise a ValueError will be raised, by default None</p></li>
 instance).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)">tuple</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -921,9 +916,9 @@ instance).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>flash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Flag to indicate whether flash animation should be shown after
+<li><p><strong>flash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Flag to indicate whether flash animation should be shown after
 the screenshot was captured.</p></li>
-<li><p><strong>canvas_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, screenshot shows only the image display canvas, and
+<li><p><strong>canvas_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, screenshot shows only the image display canvas, and
 if False include the napari viewer frame in the screenshot,
 By default, True.</p></li>
 </ul>
@@ -939,7 +934,7 @@ By default, True.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.window.Window.geometry">
-<span class="sig-name descname"><span class="pre">geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.geometry" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/napari/_qt/qt_main_window.html#Window.geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.window.Window.geometry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the geometry of the widget</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -963,7 +958,7 @@ searched for one whose inner widget (<code class="docutils literal notranslate">
 <code class="docutils literal notranslate"><span class="pre">widget</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>widget</strong> (<em>QWidget</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – If widget == ‘all’, all docked widgets will be removed.</p>
+<dd class="field-odd"><p><strong>widget</strong> (<em>QWidget</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – If widget == ‘all’, all docked widgets will be removed.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -975,8 +970,8 @@ searched for one whose inner widget (<code class="docutils literal notranslate">
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Width in logical pixels.</p></li>
-<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Height in logical pixels.</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Width in logical pixels.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Height in logical pixels.</p></li>
 </ul>
 </dd>
 </dl>
@@ -989,14 +984,14 @@ searched for one whose inner widget (<code class="docutils literal notranslate">
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filename for saving screenshot image.</p></li>
-<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>)</em>) – Size (resolution) of the screenshot. By default, the currently displayed size.
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Filename for saving screenshot image.</p></li>
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>)</em>) – Size (resolution) of the screenshot. By default, the currently displayed size.
 Only used if <cite>canvas_only</cite> is True.</p></li>
-<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Scale factor used to increase resolution of canvas for the screenshot. By default, the currently displayed resolution.
+<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Scale factor used to increase resolution of canvas for the screenshot. By default, the currently displayed resolution.
 Only used if <cite>canvas_only</cite> is True.</p></li>
-<li><p><strong>flash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Flag to indicate whether flash animation should be shown after
+<li><p><strong>flash</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Flag to indicate whether flash animation should be shown after
 the screenshot was captured.</p></li>
-<li><p><strong>canvas_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, screenshot shows only the image display canvas, and
+<li><p><strong>canvas_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, screenshot shows only the image display canvas, and
 if False include the napari viewer frame in the screenshot,
 By default, True.</p></li>
 </ul>
@@ -1018,10 +1013,10 @@ upper-left corner of the rendered region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>left</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – X coordinate of the upper left border.</p></li>
-<li><p><strong>top</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Y coordinate of the upper left border.</p></li>
-<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Width of the rectangle shape of the window.</p></li>
-<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Height of the rectangle shape of the window.</p></li>
+<li><p><strong>left</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – X coordinate of the upper left border.</p></li>
+<li><p><strong>top</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Y coordinate of the upper left border.</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Width of the rectangle shape of the window.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Height of the rectangle shape of the window.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1033,7 +1028,7 @@ upper-left corner of the rendered region.</p>
 <dd><p>Resize, show, and bring forward the window.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.10)"><strong>RuntimeError</strong></a> – If the viewer.window has already been closed and deleted.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.11)"><strong>RuntimeError</strong></a> – If the viewer.window has already been closed and deleted.</p>
 </dd>
 </dl>
 </dd></dl>

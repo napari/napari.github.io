@@ -5,9 +5,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
-    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>napari.utils.events.SelectableEventedList &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -116,7 +113,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -129,7 +126,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.utils.events.SelectableEventedList and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.utils.events.SelectableEventedList and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
 -->
 
 <script type="text/javascript">
@@ -180,10 +177,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc6 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc6") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -820,7 +817,7 @@ and/or removed from the set.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.SelectableEventedList.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">napari.utils.events.containers._typed._L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.utils.events.SelectableEventedList.index" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">napari.utils.events.containers._typed._L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.utils.events.SelectableEventedList.index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return first index of value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -828,31 +825,31 @@ and/or removed from the set.</p></li>
 <li><p><strong>value</strong> (<em>Any</em>) – A value to lookup.  If <cite>type(value)</cite> is in the lookups functions
 provided for this class, then values in the list will be searched
 using the corresponding lookup converter function.</p></li>
-<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The starting index to search, by default 0</p></li>
-<li><p><strong>stop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The ending index to search, by default None</p></li>
+<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – The starting index to search, by default 0</p></li>
+<li><p><strong>stop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – The ending index to search, by default None</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The index of the value</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If the value is not present</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><strong>ValueError</strong></a> – If the value is not present</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.SelectableEventedList.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">napari.utils.events.containers._selectable_list._T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_selectable_list.html#SelectableEventedList.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.SelectableEventedList.insert" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">napari.utils.events.containers._selectable_list._T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_selectable_list.html#SelectableEventedList.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.SelectableEventedList.insert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert <code class="docutils literal notranslate"><span class="pre">value</span></code> before index.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.SelectableEventedList.move">
-<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.utils.events.SelectableEventedList.move" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.utils.events.SelectableEventedList.move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert object at <code class="docutils literal notranslate"><span class="pre">src_index</span></code> before <code class="docutils literal notranslate"><span class="pre">dest_index</span></code>.</p>
 <p>Both indices refer to the list prior to any object removal
 (pre-move space).</p>
@@ -860,7 +857,7 @@ using the corresponding lookup converter function.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.SelectableEventedList.move_multiple">
-<span class="sig-name descname"><span class="pre">move_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.10)"><span class="pre">slice</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.utils.events.SelectableEventedList.move_multiple" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">move_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.11)"><span class="pre">slice</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#napari.utils.events.SelectableEventedList.move_multiple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move a batch of <cite>sources</cite> indices, to a single destination.</p>
 <p>Note, if <cite>dest_index</cite> is higher than any of the <cite>sources</cite>, then
 the resulting position of the moved objects after the move operation
@@ -868,8 +865,8 @@ is complete will be lower than <cite>dest_index</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sources</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.10)"><em>slice</em></a><em>]</em>) – A sequence of indices</p></li>
-<li><p><strong>dest_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The destination index.  All sources will be inserted before this
+<li><p><strong>sources</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.11)"><em>slice</em></a><em>]</em>) – A sequence of indices</p></li>
+<li><p><strong>dest_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – The destination index.  All sources will be inserted before this
 index (in pre-move space), by default 0… which has the effect of
 “bringing to front” everything in <code class="docutils literal notranslate"><span class="pre">sources</span></code>, or acting as a
 “reorder” method if <code class="docutils literal notranslate"><span class="pre">sources</span></code> contains all indices.</p></li>
@@ -879,10 +876,10 @@ index (in pre-move space), by default 0… which has the effect of
 <dd class="field-even"><p>The number of successful move operations completed.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.10)"><strong>TypeError</strong></a> – If the destination index is a slice, or any of the source indices
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.11)"><strong>TypeError</strong></a> – If the destination index is a slice, or any of the source indices
     are not <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">slice</span></code>.</p>
 </dd>
 </dl>
@@ -890,7 +887,7 @@ index (in pre-move space), by default 0… which has the effect of
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.SelectableEventedList.move_selected">
-<span class="sig-name descname"><span class="pre">move_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_selectable_list.html#SelectableEventedList.move_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.SelectableEventedList.move_selected" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">move_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/utils/events/containers/_selectable_list.html#SelectableEventedList.move_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.utils.events.SelectableEventedList.move_selected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reorder list by moving the item at index and inserting it
 at the insert index. If additional items are selected these will
 get inserted at the insert index too. This allows for rearranging
@@ -904,8 +901,8 @@ with layers.selection instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Index of primary item to be moved</p></li>
-<li><p><strong>insert</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Index that item(s) will be inserted at</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Index of primary item to be moved</p></li>
+<li><p><strong>insert</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Index that item(s) will be inserted at</p></li>
 </ul>
 </dd>
 </dl>
@@ -932,7 +929,7 @@ Raise ValueError if the value is not present.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.utils.events.SelectableEventedList.reverse">
-<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.utils.events.SelectableEventedList.reverse" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#napari.utils.events.SelectableEventedList.reverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reverse list <em>IN PLACE</em>.</p>
 </dd></dl>
 

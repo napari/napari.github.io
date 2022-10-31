@@ -1,6 +1,6 @@
 # Meeting schedule
 
-We hold regular meetings, the timings of which are available on our [public calendar](https://calendar.google.com/calendar/embed?src=c_35r93ec6vtp8smhm7dv5uot0v4%40group.calendar.google.com).
+We hold regular meetings, the timings of which are available on our [public calendar](https://calendar.google.com/calendar/embed?src=c_35r93ec6vtp8smhm7dv5uot0v4@group.calendar.google.com).
 
 ```{napari-calendar}
 ---

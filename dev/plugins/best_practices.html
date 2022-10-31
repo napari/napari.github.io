@@ -5,6 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
+    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
+    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>Best practices &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -32,7 +35,7 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="npe2 migration guide" href="npe2_migration_guide.html" />
+    <link rel="next" title="Debugging during plugin development" href="debug_plugins.html" />
     <link rel="prev" title="Test and Deploy" href="test_deploy.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
@@ -113,7 +116,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables plugins/best_practices and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
+     variables plugins/best_practices and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +180,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc6 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc6") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -275,6 +278,11 @@ function checkPageExistsAndRedirect(event) {
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Best practices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="debug_plugins.html">
+   Debugging during plugin development
   </a>
  </li>
  <li class="toctree-l1">
@@ -636,7 +644,8 @@ already docked in the viewer.</p>
 </div>
 <p>If there is a particular reason that you need to use a separate window that
 inherits from <code class="docutils literal notranslate"><span class="pre">QWidget</span></code>, not <code class="docutils literal notranslate"><span class="pre">QDialog</span></code>, then you could use the <code class="docutils literal notranslate"><span class="pre">get_current_stylesheet</span></code>
-and <span class="xref myst"><code class="docutils literal notranslate"><span class="pre">get_stylesheet</span></code></span> functions from the <span class="xref myst"><code class="docutils literal notranslate"><span class="pre">napari.qt</span></code></span> module.</p>
+and <a class="reference internal" href="../api/napari.qt.html#napari.qt.get_stylesheet" title="napari.qt.get_stylesheet"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_stylesheet</span></code></a> functions from the
+<a class="reference internal" href="../api/napari.qt.html#module-napari.qt" title="napari.qt"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.qt</span></code></a> module.</p>
 <p>Here is a <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> example (but could be easily generalised to native <code class="docutils literal notranslate"><span class="pre">qt</span></code> based widgets):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">magicgui</span>
 
@@ -687,10 +696,10 @@ and <span class="xref myst"><code class="docutils literal notranslate"><span cla
             <p class="prev-next-title">Test and Deploy</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="npe2_migration_guide.html" title="next page">
+    <a class='right-next' id="next-link" href="debug_plugins.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">npe2</span></code> migration guide</p>
+        <p class="prev-next-title">Debugging during plugin development</p>
     </div>
 
     <svg

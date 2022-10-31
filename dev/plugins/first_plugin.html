@@ -5,6 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
+    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
+    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>Your First Plugin &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -113,7 +116,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables plugins/first_plugin and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
+     variables plugins/first_plugin and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +180,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc6 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc6") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -275,6 +278,11 @@ function checkPageExistsAndRedirect(event) {
  <li class="toctree-l1">
   <a class="reference internal" href="best_practices.html">
    Best practices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="debug_plugins.html">
+   Debugging during plugin development
   </a>
  </li>
  <li class="toctree-l1">
@@ -483,16 +491,16 @@ and navigate into it.</p>
 <p>In your root <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> folder, create a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file,
 then create a <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> directory with a single <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file inside of it.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="4fa4d8e3-60d5-4393-8bd4-c81bd3eace53" name="6a2ddc0d-38f7-4580-a38d-d6c1261b8b91" type="radio">
-</input><label class="tabbed-label" for="4fa4d8e3-60d5-4393-8bd4-c81bd3eace53">
+<input checked="checked" id="2a86ee61-e15f-4cb6-a1b5-6d2d9f284103" name="9a2ce0ea-6fbc-48a6-980b-64e41a2cb70c" type="radio">
+</input><label class="tabbed-label" for="2a86ee61-e15f-4cb6-a1b5-6d2d9f284103">
 macOS / Linux</label><div class="tabbed-content docutils">
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir napari_hello
 touch napari_hello/__init__.py napari_hello/napari.yaml pyproject.toml setup.cfg
 </pre></div>
 </div>
 </div>
-<input id="4639efd8-f31f-4c7c-9c02-6cadc7e690e0" name="6a2ddc0d-38f7-4580-a38d-d6c1261b8b91" type="radio">
-</input><label class="tabbed-label" for="4639efd8-f31f-4c7c-9c02-6cadc7e690e0">
+<input id="ea6527a8-b8c5-47be-a7a4-3279c67a5fa2" name="9a2ce0ea-6fbc-48a6-980b-64e41a2cb70c" type="radio">
+</input><label class="tabbed-label" for="ea6527a8-b8c5-47be-a7a4-3279c67a5fa2">
 Windows</label><div class="tabbed-content docutils">
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">mkdir</span> napari_hello
 <span class="k">copy</span> /b napari_hello\__init__.py +,,

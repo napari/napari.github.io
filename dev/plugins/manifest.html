@@ -5,6 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
+    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
+    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>Manifest Reference &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -113,7 +116,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables plugins/manifest and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
+     variables plugins/manifest and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +180,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc6 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc6") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -275,6 +278,11 @@ function checkPageExistsAndRedirect(event) {
  <li class="toctree-l1">
   <a class="reference internal" href="best_practices.html">
    Best practices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="debug_plugins.html">
+   Debugging during plugin development
   </a>
  </li>
  <li class="toctree-l1">
@@ -423,8 +431,8 @@ more than a single contribution type).</p>
 manifest formats, though YAML is the “default” and more common format.</p>
 </div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="38e23d4d-2590-4a1e-8e87-02607a29fb7b" name="01c665c0-86aa-4538-a1c1-6aee1a8cf28e" type="radio">
-</input><label class="tabbed-label" for="38e23d4d-2590-4a1e-8e87-02607a29fb7b">
+<input checked="checked" id="662af3f9-397d-4af8-9d83-cf9548770295" name="8de6c9e7-352d-4dcb-994e-6c4092a20929" type="radio">
+</input><label class="tabbed-label" for="662af3f9-397d-4af8-9d83-cf9548770295">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin</span><span class="w"></span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example Plugin</span><span class="w"></span>
@@ -495,8 +503,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="a0b2fcd7-ead4-4ce4-8a73-438331b91a19" name="01c665c0-86aa-4538-a1c1-6aee1a8cf28e" type="radio">
-</input><label class="tabbed-label" for="a0b2fcd7-ead4-4ce4-8a73-438331b91a19">
+<input id="7b35eef0-2cd5-42f4-a61b-634c1c4817ab" name="8de6c9e7-352d-4dcb-994e-6c4092a20929" type="radio">
+</input><label class="tabbed-label" for="7b35eef0-2cd5-42f4-a61b-634c1c4817ab">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Example Plugin&#39;</span><span class="w"></span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin&#39;</span><span class="w"></span>

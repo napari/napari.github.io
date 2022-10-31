@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/_qt/qt_main_window and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
+     variables _modules/napari/_qt/qt_main_window and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc6 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc6") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -297,12 +297,14 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">QDockWidget</span><span class="p">,</span>
     <span class="n">QHBoxLayout</span><span class="p">,</span>
     <span class="n">QMainWindow</span><span class="p">,</span>
+    <span class="n">QMenu</span><span class="p">,</span>
     <span class="n">QShortcut</span><span class="p">,</span>
     <span class="n">QToolTip</span><span class="p">,</span>
     <span class="n">QWidget</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">superqt.utils</span> <span class="kn">import</span> <span class="n">QSignalThrottler</span>
 
+<span class="kn">from</span> <span class="nn">.._app_model.constants</span> <span class="kn">import</span> <span class="n">MenuId</span>
 <span class="kn">from</span> <span class="nn">..plugins</span> <span class="kn">import</span> <span class="n">menu_item_template</span> <span class="k">as</span> <span class="n">plugin_menu_item_template</span>
 <span class="kn">from</span> <span class="nn">..plugins</span> <span class="kn">import</span> <span class="n">plugin_manager</span>
 <span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
@@ -314,6 +316,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">_themes</span><span class="p">,</span> <span class="n">get_system_theme</span>
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">menus</span>
+<span class="kn">from</span> <span class="nn">._qapp_model</span> <span class="kn">import</span> <span class="n">build_qmodel_menu</span>
+<span class="kn">from</span> <span class="nn">._qapp_model.qactions</span> <span class="kn">import</span> <span class="n">init_qactions</span>
 <span class="kn">from</span> <span class="nn">.dialogs.confirm_close_dialog</span> <span class="kn">import</span> <span class="n">ConfirmCloseDialog</span>
 <span class="kn">from</span> <span class="nn">.dialogs.qt_activity_dialog</span> <span class="kn">import</span> <span class="n">QtActivityDialog</span>
 <span class="kn">from</span> <span class="nn">.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
@@ -348,9 +352,15 @@ function checkPageExistsAndRedirect(event) {
     <span class="c1"># *no* active windows, so we want to track the most recently active windows</span>
     <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;_QtMainWindow&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># `window` is passed through on construction so it&#39;s available to a window</span>
+    <span class="c1"># provider for dependency injection</span>
+    <span class="c1"># See https://github.com/napari/napari/pull/4826</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="n">window</span><span class="p">:</span> <span class="s1">&#39;Window&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_window</span> <span class="o">=</span> <span class="n">window</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span> <span class="o">=</span> <span class="n">QtViewer</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">show_welcome_screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quit_app</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -398,6 +408,10 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">handle</span><span class="o">.</span><span class="n">screenChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">screen_changed</span>
             <span class="p">)</span>
+
+        <span class="c1"># this is the line that initializes any Qt-based app-model Actions that</span>
+        <span class="c1"># were defined somewhere in the `_qt` module and imported in init_qactions</span>
+        <span class="n">init_qactions</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span> <span class="o">=</span> <span class="n">QSignalThrottler</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="o">.</span><span class="n">setTimeout</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
@@ -718,7 +732,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
         <span class="c1"># create QApplication if it doesn&#39;t already exist</span>
         <span class="n">get_app</span><span class="p">()</span>
-
         <span class="c1"># Dictionary holding dock widgets</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dock_widgets</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
             <span class="nb">str</span><span class="p">,</span> <span class="n">QtViewerDockWidget</span>
@@ -726,7 +739,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="c1"># Connect the Viewer and create the Main Window</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span> <span class="o">=</span> <span class="n">_QtMainWindow</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span> <span class="o">=</span> <span class="n">_QtMainWindow</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># connect theme events before collecting plugin-provided themes</span>
         <span class="c1"># to ensure icons from the plugins are generated correctly.</span>
@@ -893,13 +906,17 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">FileMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">ViewMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_VIEW</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;View&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">WindowMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">PluginsMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">HelpMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_HELP</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Help&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">perf</span><span class="o">.</span><span class="n">USE_PERFMON</span><span class="p">:</span>
@@ -1023,8 +1040,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">allowed_areas</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">shortcut</span><span class="o">=</span><span class="n">_sentinel</span><span class="p">,</span>
         <span class="n">add_vertical_stretch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">menu</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">menu</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QMenu</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convenience method to add a QDockWidget to the main window.</span>
 
@@ -1056,6 +1073,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">                The shortcut parameter is deprecated since version 0.4.8, please use</span>
 <span class="sd">                the action and shortcut manager APIs. The new action manager and</span>
 <span class="sd">                shortcut API allow user configuration and localisation.</span>
+<span class="sd">        tabify : bool</span>
+<span class="sd">            Flag to tabify dockwidget or not.</span>
+<span class="sd">        menu : QMenu, optional</span>
+<span class="sd">            Menu bar to add toggle action to. If `None` nothing added to menu.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1097,7 +1118,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">add_vertical_stretch</span><span class="o">=</span><span class="n">add_vertical_stretch</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_add_viewer_dock_widget</span><span class="p">(</span><span class="n">dock_widget</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">menu</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="n">tabify</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_viewer_dock_widget</span><span class="p">(</span><span class="n">dock_widget</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="n">tabify</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">menu</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">&#39;reset_choices&#39;</span><span class="p">):</span>
             <span class="c1"># Keep the dropdown menus in the widget in sync with the layer model</span>
@@ -1114,7 +1135,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">dock_widget</span></div>
 
     <span class="k">def</span> <span class="nf">_add_viewer_dock_widget</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">dock_widget</span><span class="p">:</span> <span class="n">QtViewerDockWidget</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dock_widget</span><span class="p">:</span> <span class="n">QtViewerDockWidget</span><span class="p">,</span>
+        <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">menu</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QMenu</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add a QtViewerDockWidget to the main window</span>
 
@@ -1126,6 +1150,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            `dock_widget` will be added to the main window.</span>
 <span class="sd">        tabify : bool</span>
 <span class="sd">            Flag to tabify dockwidget or not.</span>
+<span class="sd">        menu : QMenu, optional</span>
+<span class="sd">            Menu bar to add toggle action to. If `None` nothing added to menu.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Find if any othe dock widgets are currently in area</span>
         <span class="n">current_dws_in_area</span> <span class="o">=</span> <span class="p">[</span>
@@ -1165,7 +1191,6 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">action</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="n">shortcut</span><span class="p">)</span>
 
             <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-        <span class="c1"># self.window_menu.addAction(action)</span>
 
         <span class="c1"># see #3663, to fix #3624 more generally</span>
         <span class="n">dock_widget</span><span class="o">.</span><span class="n">setFloating</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>

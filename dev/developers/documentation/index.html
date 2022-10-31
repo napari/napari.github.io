@@ -5,6 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <link rel="icon" href="../../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
+    <link rel="icon" href="../../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
+    <link rel="apple-touch-icon" href="../../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>Contributing Documentation &#8212; napari</title>
   <link rel="stylesheet" href="../../_static/fa/all.min.css">
@@ -113,7 +116,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc6</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables developers/documentation/index and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc6'}.
+     variables developers/documentation/index and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +180,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc6 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc6") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -323,6 +326,11 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3">
       <a class="reference internal" href="../../naps/4-async-slicing.html">
        NAP-4: Asynchronous slicing
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../naps/5-new-logo.html">
+       NAP-5 — New logo (2022)
       </a>
      </li>
      <li class="toctree-l3">
@@ -669,37 +677,32 @@ function checkPageExistsAndRedirect(event) {
   <a class="reference internal nav-link" href="#before-you-start">
    0. Before you start
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-your-documentation">
+   1. Write your documentation
+  </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#prerequisites-for-contributing-documentation-with-code">
-     Prerequisites for contributing documentation with code
+    <a class="reference internal nav-link" href="#next-steps">
+     Next steps
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-our-template">
-   1. Download our template
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#write-your-document">
-   2. Write your document
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#update-toc">
-   3. Update TOC
+   2. Update TOC
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#preview-your-document">
-   4. Preview your document
+   3. Preview your document
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#submit-your-pull-request">
-   5. Submit your pull request
+   4. Submit your pull request
   </a>
  </li>
 </ul>
@@ -728,16 +731,31 @@ function checkPageExistsAndRedirect(event) {
 <p>This guide will teach you how to submit new documents to napari’s usage documentation.</p>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>Prerequisites depend on the type of contribution you wish to make. In general
+you will require:</p>
 <ul class="simple">
-<li><p>Familiarity with <code class="docutils literal notranslate"><span class="pre">git</span></code></p></li>
+<li><p>Some familiarity with <a class="reference external" href="https://git-scm.com"><code class="docutils literal notranslate"><span class="pre">git</span></code></a></p></li>
 <li><p>A <a class="reference external" href="https://github.com">GitHub</a> account</p></li>
-<li><p>A clean conda environment with napari docs dependencies installed</p>
+</ul>
+<p>If you wish to add/amend documentation that does not contain code, you
+will also require:</p>
+<ul class="simple">
+<li><p>A clean conda environment with napari docs dependencies installed:</p>
 <ul>
 <li><p>You can install these with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;napari[docs]&quot;</span></code></p></li>
 <li><p>These dependencies will allow you to preview your document locally, as it would appear on <code class="docutils literal notranslate"><span class="pre">napari.org</span></code></p></li>
 <li><p>They will also install <code class="docutils literal notranslate"><span class="pre">jupytext</span></code>, which you will need to contribute documents containing code or viewer interactions</p></li>
 </ul>
 </li>
+</ul>
+<p>If you wish to add/amend documentation that does contain code, you will also require:</p>
+<ul class="simple">
+<li><p>A clean conda environment with a development installation of napari, see
+the <a class="reference internal" href="../contributing.html#dev-installation"><span class="std std-ref">contributor guide</span></a>
+for details</p></li>
+<li><p><a class="reference external" href="https://jupyter.org/">Jupyter notebook</a> installed</p></li>
+<li><p>Familiarity with Jupyter notebooks (code cells and markdown cells)</p></li>
+<li><p>Familiarity with using napari through a Jupyter notebook</p></li>
 </ul>
 </section>
 <section id="before-you-start">
@@ -746,58 +764,70 @@ function checkPageExistsAndRedirect(event) {
 on our repository first to discuss the content you’d like to see and get some early feedback from the community.
 The napari team can also suggest what type of document would be best suited, and whether there are already
 existing documents that could be expanded to include the content you think is lacking.</p>
-<p>Examples of documents you might want to contribute are:</p>
+<p>Go to your local napari folder to find examples of documents you might want to contribute. The paths are listed in parentheses below.</p>
 <ul class="simple">
-<li><p><strong>Explanations</strong> (in <code class="docutils literal notranslate"><span class="pre">napari/docs/guides</span></code>): in depth content about napari architecture, development choices and some complex features</p></li>
-<li><p><strong>Tutorials</strong> (in <code class="docutils literal notranslate"><span class="pre">napari/docs/tutorials</span></code>): detailed, reproducible step by step guides, usually combining multiple napari features to complete a potentially complex task</p></li>
-<li><p><strong>How-tos</strong> (in <code class="docutils literal notranslate"><span class="pre">napari/docs/howtos/</span></code>): simple step by step guides demonstrating the use of common features</p></li>
-<li><p><strong>Getting started</strong> (in <code class="docutils literal notranslate"><span class="pre">napari/docs/tutorials/fundamentals</span></code>): these documents are a mix of tutorials and how-tos covering the fundamentals of installing and working with napari for beginners</p></li>
+<li><p><a class="reference internal" href="../../guides/index.html"><span class="doc std std-doc"><strong>Explanations</strong></span></a> (in <a class="reference external" href="https://github.com/napari/napari/tree/main/docs/guides"><code class="docutils literal notranslate"><span class="pre">napari/docs/guides</span></code></a>):
+in depth content about napari architecture, development choices and some complex features</p></li>
+<li><p><a class="reference internal" href="../../tutorials/index.html"><span class="doc std std-doc"><strong>Tutorials</strong></span></a> (in <a class="reference external" href="https://github.com/napari/napari/tree/main/docs/tutorials"><code class="docutils literal notranslate"><span class="pre">napari/docs/tutorials</span></code></a>):
+detailed, reproducible step by step guides, usually combining multiple napari features to complete a potentially complex task</p></li>
+<li><p><a class="reference internal" href="../../howtos/index.html"><span class="doc std std-doc"><strong>How-tos</strong></span></a> (in <a class="reference external" href="https://github.com/napari/napari/tree/main/docs/howtos"><code class="docutils literal notranslate"><span class="pre">napari/docs/howtos/</span></code></a>):
+simple step by step guides demonstrating the use of common features</p></li>
+<li><p><a class="reference internal" href="../../gallery.html"><span class="doc std std-doc"><strong>Examples</strong></span></a> (in <a class="reference external" href="https://github.com/napari/napari/tree/main/examples"><code class="docutils literal notranslate"><span class="pre">napari/examples/</span></code></a>):
+code examples of how to use napari</p></li>
+<li><p><a class="reference internal" href="../../tutorials/start_index.html"><span class="doc std std-doc"><strong>Getting started</strong></span></a> (in <a class="reference external" href="https://github.com/napari/napari/tree/main/docs/tutorials/fundamentals"><code class="docutils literal notranslate"><span class="pre">napari/docs/tutorials/fundamentals</span></code></a>:
+these documents are a mix of tutorials and how-tos covering the fundamentals of installing and working with napari for beginners</p></li>
 </ul>
 <div class="tip admonition">
 <p class="admonition-title">Got materials for a workshop?</p>
 <p>If you already have teaching materials e.g. recordings, slide decks or jupyter notebooks
 hosted somewhere, you can add links to these on our <a class="reference internal" href="../../further-resources/napari-workshops.html"><span class="doc std std-doc">napari workshops</span></a> page.</p>
 </div>
-<p>If you are amending an existing document, make your changes and skip straight
-to <a class="reference internal" href="#preview-your-document"><span class="std std-doc">Step #4 - Preview your document</span></a>.
-If you are writing a document whose content is mostly text,
-you can write a plain markdown document and skip straight to <a class="reference internal" href="#update-toc"><span class="std std-doc">Step #3 - Update TOC</span></a>.
-If you are writing a how-to guide or tutorial that requires executing code or working with the napari viewer, follow
-the steps below to prepare your document.</p>
-<section id="prerequisites-for-contributing-documentation-with-code">
-<h3>Prerequisites for contributing documentation with code<a class="headerlink" href="#prerequisites-for-contributing-documentation-with-code" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://jupyter.org/">Jupyter notebook</a> installed</p></li>
-<li><p>Familiarity with Jupyter notebooks (code cells and markdown cells)</p></li>
-<li><p>Familiarity with using napari through a Jupyter notebook</p></li>
-</ul>
 </section>
-</section>
-<section id="download-our-template">
-<h2>1. Download our template<a class="headerlink" href="#download-our-template" title="Permalink to this headline">¶</a></h2>
+<section id="write-your-documentation">
+<h2>1. Write your documentation<a class="headerlink" href="#write-your-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Fork and clone <a class="reference external" href="https://github.com/napari/napari">our repository</a>. If you are
+amending existing documentation, you can do so in your preferred text editor.
+If you wish to add a new tutorial or a how-to, we recommend you use our
+<a class="reference internal" href="docs_template.html"><span class="doc std std-doc">template</span></a>.</p>
 <p>Our goal is that all tutorials and how-tos are easily downloadable and executable by our users.
 This helps ensure that they are reproducible and makes them easier to maintain.
-We therefore provide a notebook template for our documents.</p>
+We therefore provide a notebook template for our documents. Inside the template
+you’ll find handy tips for taking screenshots of the viewer, hiding code cells,
+using style guides and what to include in the required prerequisites section.</p>
 <p><a class="reference external" href="https://jupyter.org/">Jupyter notebooks</a> are a great option for our documents, because they allow you to easily combine code and well formatted text in markdown.
 However, their <a class="reference external" href="https://numpy.org/numpy-tutorials/content/pairing.html#background">raw JSON format</a> is not great for version control, so we use <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/">MyST Markdown</a> documents in our repository and on napari.org.</p>
-<p>Fork and clone <a class="reference external" href="https://github.com/napari/napari">our repository</a>, and make a copy of <code class="docutils literal notranslate"><span class="pre">napari/docs/developers/documentation/docs_template.md</span></code>.
+<p>Make a copy of <code class="docutils literal notranslate"><span class="pre">napari/docs/developers/documentation/docs_template.md</span></code>.
 You can edit the template directly in Jupyter notebook, or in your preferred text editor.</p>
 <div class="tip admonition">
 <p class="admonition-title">Already have a notebook?</p>
 <p>If you have an existing <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> Jupyter notebook that you’d like to contribute, you can convert it to MyST markdown
 and then edit the <code class="docutils literal notranslate"><span class="pre">.md</span></code> file to prepare it for contributing.</p>
-<p>Run <code class="docutils literal notranslate"><span class="pre">jupytext</span> <span class="pre">your-notebook.ipynb</span> <span class="pre">--to</span> <span class="pre">myst</span></code> to create a new file, <code class="docutils literal notranslate"><span class="pre">your-notebook.md</span></code>. Edit this file to
-include the relevant sections from the docs template.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">jupytext</span> <span class="pre">your-notebook.ipynb</span> <span class="pre">--to</span> <span class="pre">myst</span></code> to create a new MyST version of your file,
+<code class="docutils literal notranslate"><span class="pre">your-notebook.md</span></code>. Edit this file to include the relevant sections from the docs template.</p>
 </div>
+<section id="next-steps">
+<h3>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h3>
+<p>Depending on the type of contribution you are making, you may be able to skip
+some steps:</p>
+<ul class="simple">
+<li><p>If you are adding new documentation and would prefer a simpler workflow,
+you can you can use the
+<a class="reference external" href="https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository">GitHub web interface to open your pull request</a>. A member of the maintenance
+team will help with updating TOC and making sure your documentation has built
+correctly. You will also be able to preview the documentation yourself by
+downloading the built documentation via a link provided by a comment from the
+‘github-actions’ bot.</p></li>
+<li><p>If you are amending an existing document you can skip straight
+to <a class="reference internal" href="#preview-your-document"><span class="std std-doc">Step #3 - Preview your document</span></a></p></li>
+<li><p>For all other documentation changes, follow the steps below</p></li>
+</ul>
 </section>
-<section id="write-your-document">
-<h2>2. Write your document<a class="headerlink" href="#write-your-document" title="Permalink to this headline">¶</a></h2>
-<p>Follow the template to write your document. Inside the template you’ll also find handy tips for taking screenshots of the viewer,
-hiding code cells, using style guides and what to include in the required prerequisites section.</p>
 </section>
 <section id="update-toc">
-<h2>3. Update TOC<a class="headerlink" href="#update-toc" title="Permalink to this headline">¶</a></h2>
-<p>Add your document to the correct folder based on its content (see the <a class="reference internal" href="#before-you-start"><span class="std std-doc">list above</span></a> for common locations), and update <code class="docutils literal notranslate"><span class="pre">napari/docs/_toc.yml</span></code>.</p>
+<h2>2. Update TOC<a class="headerlink" href="#update-toc" title="Permalink to this headline">¶</a></h2>
+<p>If you are adding a new documentation file, you will need to add your document
+to the correct folder based on its content (see the <a class="reference internal" href="#before-you-start"><span class="std std-doc">list above</span></a>
+for common locations), and update <code class="docutils literal notranslate"><span class="pre">napari/docs/_toc.yml</span></code>.</p>
 <p>If you’re adding a document
 to an existing group, simply add a new <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">file:</span></code> entry in the appropriate spot. For example, if I wanted to add
 a <code class="docutils literal notranslate"><span class="pre">progress_bars.md</span></code> how to guide, I would place it in <code class="docutils literal notranslate"><span class="pre">napari/docs/howtos</span></code> and update <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code> as below:</p>
@@ -854,20 +884,29 @@ together with an <code class="docutils literal notranslate"><span class="pre">in
 </div>
 </section>
 <section id="preview-your-document">
-<h2>4. Preview your document<a class="headerlink" href="#preview-your-document" title="Permalink to this headline">¶</a></h2>
-<p>Once you’ve added your document to the <code class="docutils literal notranslate"><span class="pre">docs</span></code> folder and updated the <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>, you can preview the website
-locally by running <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> from the root of
+<h2>3. Preview your document<a class="headerlink" href="#preview-your-document" title="Permalink to this headline">¶</a></h2>
+<p>If your documentation change includes code, it is important that you ensure
+the code is working and executable. This is why you will need to have a
+development installation of napari installed. <a class="reference internal" href="../../gallery.html#gallery"><span class="std std-ref">Examples</span></a>
+are automatically executed when the documentation is built and code problems can
+also be caught when previewing the built documentation. If your documentation
+change does not include code, you only need the napari docs dependencies
+installed.</p>
+<p>There are two ways you can preview the documentation website, by building
+locally or downloading the GitHub Actions built documentation when you submit
+your pull request.</p>
+<p>To build the documentation locally, run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> from the root of
 the <code class="docutils literal notranslate"><span class="pre">napari</span></code> repository (assuming you’ve installed the <a class="reference internal" href="#prerequisites"><span class="std std-doc">docs prerequisites</span></a>).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make docs
 </pre></div>
 </div>
 <p>The rendered HTML will be placed in <code class="docutils literal notranslate"><span class="pre">napari/docs/_build</span></code>. Find <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in this folder and drag it
 into a browser to preview the website with your new document.</p>
-<p>Napari continuous integration includes a GitHub action that builds the
-documentation and saves the artifact for you to download. This is another way
-to check that your built documentation looks as you expect. To download the
-built documentation, go to your PR, scroll down to the continuous integration
-tests, then:</p>
+<p>Alternatively, When you submit your pull request, napari continuous integration
+includes a GitHub action that builds the documentation and saves the artifact
+for you to download. This is another way to check that your built documentation
+looks as you expect. To download the built documentation, go to your PR, scroll
+down to the continuous integration tests, then:</p>
 <ol class="arabic simple">
 <li><p>click on ‘details’ next to ‘Build Docs / Build &amp; Upload Artifact (pull_request)’</p></li>
 </ol>
@@ -882,9 +921,13 @@ tests, then:</p>
 <p><img alt="doc-continuous-integration-1" src="../../_images/doc-ci-3.png" /></p>
 </section>
 <section id="submit-your-pull-request">
-<h2>5. Submit your pull request<a class="headerlink" href="#submit-your-pull-request" title="Permalink to this headline">¶</a></h2>
-<p>Once you have written and previewed your document, it’s time to open a pull request to <a class="reference external" href="https://github.com/napari/napari">napari’s main repository</a> and contribute it to our codebase.
-If you’ve never opened a Pull Request, you may find <a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github">this guide</a> useful.
+<h2>4. Submit your pull request<a class="headerlink" href="#submit-your-pull-request" title="Permalink to this headline">¶</a></h2>
+<p>Once you have written and previewed your document, it’s time to open a pull request to <a class="reference external" href="https://github.com/napari/napari">napari’s main repository</a> and contribute it to our codebase.</p>
+<p>If you are simply contributing one file (e.g., a tutorial or how-to page) you
+can use the <a class="reference external" href="https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository">GitHub web interface to open your pull request</a>. Ensure you
+document is added to the correct folder based on its content (see the
+<a class="reference internal" href="#before-you-start"><span class="std std-doc">list above</span></a> for common locations).</p>
+<p>To open a pull request via git and the command line, follow <a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github">this guide</a>.
 You can also reach out to us on <a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/212875-general">zulip</a> for assistance!</p>
 <p>Not sure where to place your document or update <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>? Make a best guess and open the pull request - the napari team will
 help you edit your document and find the right spot!</p>

@@ -5,9 +5,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
-    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>napari 0.4.17 &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -116,7 +113,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17rc7</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -129,7 +126,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables release/release_0_4_17 and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables release/release_0_4_17 and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc7'}.
 -->
 
 <script type="text/javascript">
@@ -180,10 +177,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17rc7 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17rc7") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -326,11 +323,6 @@ function checkPageExistsAndRedirect(event) {
      <li class="toctree-l3">
       <a class="reference internal" href="../naps/4-async-slicing.html">
        NAP-4: Asynchronous slicing
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../naps/5-new-logo.html">
-       NAP-5 — New logo (2022)
       </a>
      </li>
      <li class="toctree-l3">
@@ -815,7 +807,9 @@ defined for use in napari.</p>
 <section id="experimental-support-for-qt6">
 <h3>Experimental support for Qt6<a class="headerlink" href="#experimental-support-for-qt6" title="Permalink to this headline">¶</a></h3>
 <p>We added some basic support for PyQt6 and PySide6 in #3707, though we expect some issues.
-If you need or want to use Qt6, please try this out and report any bugs you find.</p>
+If you need or want to use Qt6, please try this out and report any bugs you find.
+If you plan to use PySide6 specifically, please use Python 3.10 to avoid issues with older
+versions of Python.</p>
 </section>
 <section id="multi-color-text">
 <h3>Multi-color text<a class="headerlink" href="#multi-color-text" title="Permalink to this headline">¶</a></h3>
@@ -934,6 +928,12 @@ or create issues on GitHub.</p>
 <li><p>Standardise file extension when reading (#5121)</p></li>
 <li><p>Fix slow points (#5133)</p></li>
 <li><p>Use cross shape when cursor is small (#5141)</p></li>
+<li><p>Fix exception when rendering colorbar from a label_colormap (#5154)</p></li>
+<li><p>Make imshow defaults the same as add_image (#5156)</p></li>
+<li><p>Remove uninstalled plugin from plugin manager (#5190)</p></li>
+<li><p>In Volume shader for iso surface ommit point that color has alpha equal to 0 (#5227)</p></li>
+<li><p>Move theme files to cache dir (#5248)</p></li>
+<li><p>Fix screenshot size argument (#5251)</p></li>
 </ul>
 </section>
 <section id="api-changes">
@@ -951,6 +951,7 @@ or create issues on GitHub.</p>
 <li><p>Deprecate layers.move_selected (#4559)</p></li>
 <li><p>Update deprecation warnings with versions (#4757)</p></li>
 <li><p>Make <code class="docutils literal notranslate"><span class="pre">viewer.events.layers_change</span></code> event deprecated (#4895)</p></li>
+<li><p>Deprecate moved IO utilities (#5284)</p></li>
 </ul>
 </section>
 <section id="build-tools">
@@ -976,6 +977,9 @@ or create issues on GitHub.</p>
 <li><p>[pre-commit.ci] pre-commit autoupdate (#4779)</p></li>
 <li><p>ci(dependabot): bump toshimaru/auto-author-assign from 1.5.0 to 1.6.1 (#4890)</p></li>
 <li><p>Docker: Update xpra’s apt too (#4901)</p></li>
+<li><p>Remove leading b from briefcase macOS support build numbers (#5152)</p></li>
+<li><p>Block imageio 2.22.1 release in setup.cfg (#5168)</p></li>
+<li><p>Remove osx-arm64 from conda bundle (#5255)</p></li>
 </ul>
 </section>
 <section id="documentation">
@@ -1056,6 +1060,10 @@ or create issues on GitHub.</p>
 <li><p>Update links in NAP-2 (#5099)</p></li>
 <li><p>Update release notes for v0.4.17rc1 (#5110)</p></li>
 <li><p>Update release notes for v0.4.17rc3 (#5147)</p></li>
+<li><p>Add Peter Sobolewski (&#64;psobolewskiPhD) to list of Core Developers (#5189)</p></li>
+<li><p>Update release notes for v0.4.17rc5 (#5268)</p></li>
+<li><p>Update release notes for v0.4.17rc6 (#5280)</p></li>
+<li><p>Update release notes for v0.4.17rc7 (#5295)</p></li>
 </ul>
 </section>
 <section id="other-pull-requests">
@@ -1173,6 +1181,9 @@ or create issues on GitHub.</p>
 <li><p>Add new core libraries to napari info (#5077)</p></li>
 <li><p>Update config directory paths for perfmon tools (#5081)</p></li>
 <li><p>Update some strings to be translated, some to be ignored (#5082)</p></li>
+<li><p>Workaround for PySide6 problem (#5244)</p></li>
+<li><p>Revert raising of PySide6 version error (#5272)</p></li>
+<li><p>Remove obsolete example code (#5274)</p></li>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">

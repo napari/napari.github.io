@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc7</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/components/viewer_model and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc7'}.
+     variables _modules/napari/components/viewer_model and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc7 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc7") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -316,15 +316,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">available_themes</span>
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
-<span class="kn">from</span> <span class="nn">.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
 <span class="kn">from</span> <span class="nn">.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span>
 <span class="kn">from</span> <span class="nn">.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
 <span class="kn">from</span> <span class="nn">.grid</span> <span class="kn">import</span> <span class="n">GridCanvas</span>
 <span class="kn">from</span> <span class="nn">.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
-<span class="kn">from</span> <span class="nn">.overlays</span> <span class="kn">import</span> <span class="n">Overlays</span>
-<span class="kn">from</span> <span class="nn">.scale_bar</span> <span class="kn">import</span> <span class="n">ScaleBar</span>
-<span class="kn">from</span> <span class="nn">.text_overlay</span> <span class="kn">import</span> <span class="n">TextOverlay</span>
+<span class="kn">from</span> <span class="nn">.overlays</span> <span class="kn">import</span> <span class="n">AxesOverlay</span><span class="p">,</span> <span class="n">Overlays</span><span class="p">,</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">TextOverlay</span>
 <span class="kn">from</span> <span class="nn">.tooltip</span> <span class="kn">import</span> <span class="n">Tooltip</span>
 
 <span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
@@ -382,7 +379,9 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># Using allow_mutation=False means these attributes aren&#39;t settable and don&#39;t</span>
     <span class="c1"># have an event emitter associated with them</span>
-    <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Axes</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">:</span> <span class="n">AxesOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">AxesOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
     <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Dims</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -390,7 +389,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>  <span class="c1"># Need to create custom JSON encoder for layer!</span>
-    <span class="n">scale_bar</span><span class="p">:</span> <span class="n">ScaleBar</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ScaleBar</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">scale_bar</span><span class="p">:</span> <span class="n">ScaleBarOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
     <span class="n">text_overlay</span><span class="p">:</span> <span class="n">TextOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="n">TextOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>

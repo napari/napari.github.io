@@ -5,6 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
+    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
+    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>Test and Deploy &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -113,7 +116,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc7</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables plugins/test_deploy and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc7'}.
+     variables plugins/test_deploy and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +180,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc7 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc7") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -278,6 +281,11 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="debug_plugins.html">
+   Debugging during plugin development
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="npe2_migration_guide.html">
    <code class="docutils literal notranslate">
     <span class="pre">
@@ -325,11 +333,11 @@ function checkPageExistsAndRedirect(event) {
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-make-napari-viewer-fixture">
+    <a class="reference internal nav-link" href="#the-make-napari-viewer-proxy-fixture">
      The
      <code class="docutils literal notranslate">
       <span class="pre">
-       make_napari_viewer
+       make_napari_viewer_proxy
       </span>
      </code>
      fixture
@@ -383,20 +391,22 @@ Python</a></p>
 <p>We recommend using
 <a class="reference external" href="https://docs.pytest.org/en/6.2.x/getting-started.html">pytest</a> for testing your
 plugin. Aim for <a class="reference internal" href="best_practices.html#how-to-check-test-coverage"><span class="std std-doc">100% test coverage</span></a>!</p>
-<section id="the-make-napari-viewer-fixture">
-<h3>The <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture<a class="headerlink" href="#the-make-napari-viewer-fixture" title="Permalink to this headline">¶</a></h3>
+<section id="the-make-napari-viewer-proxy-fixture">
+<h3>The <code class="docutils literal notranslate"><span class="pre">make_napari_viewer_proxy</span></code> fixture<a class="headerlink" href="#the-make-napari-viewer-proxy-fixture" title="Permalink to this headline">¶</a></h3>
 <p>Testing a napari <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> requires some setup and teardown each time.  We have
 created a <a class="reference external" href="https://docs.pytest.org/en/6.2.x/fixture.html">pytest fixture</a> called
-<code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> that you can use (this requires that you have napari
+<code class="docutils literal notranslate"><span class="pre">make_napari_viewer_proxy</span></code> that you can use (this requires that you have napari
 installed in your environment).</p>
 <p>To use a fixture in pytest, you simply include the name of the fixture in the
 test parameters (oddly enough, you don’t need to import it!).  For example, to
 create a napari viewer for testing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_something_with_a_viewer</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_something_with_a_viewer</span><span class="p">(</span><span class="n">make_napari_viewer_proxy</span><span class="p">):</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer_proxy</span><span class="p">()</span>
     <span class="o">...</span>  <span class="c1"># carry on with your test</span>
 </pre></div>
 </div>
+<p>If you embed the viewer in your own application and need to access private attributes,
+you can use the <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture.</p>
 </section>
 <section id="prefer-smaller-unit-tests-when-possible">
 <h3>Prefer smaller unit tests when possible<a class="headerlink" href="#prefer-smaller-unit-tests-when-possible" title="Permalink to this headline">¶</a></h3>

@@ -5,6 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
+    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
+    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>Events reference &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -113,7 +116,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc8</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables guides/events_reference and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc8'}.
+     variables guides/events_reference and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +180,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc8 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc8") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -577,7 +580,7 @@ function checkPageExistsAndRedirect(event) {
        <img src="../_static/icons/sidebar-triangle.png"/>
       </label>
       <a class="reference internal" href="../_tags/experimental.html">
-       experimental (10)
+       experimental (11)
       </a>
       <ul>
        <li class="toctree-l4">
@@ -603,6 +606,11 @@ function checkPageExistsAndRedirect(event) {
        <li class="toctree-l4">
         <a class="reference internal" href="../gallery/scale_bar.html">
          Scale bar
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../gallery/interactive_move_point_3d.html">
+         Interactive move point
         </a>
        </li>
        <li class="toctree-l4">
@@ -1452,6 +1460,11 @@ function checkPageExistsAndRedirect(event) {
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../gallery/interactive_move_point_3d.html">
+     Interactive move point
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../gallery/to_screenshot.html">
      To screenshot
     </a>
@@ -1563,121 +1576,137 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.visible</span></code></p></td>
-<td><p>If axes are visible or not.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.labels</span></code></p></td>
-<td><p>If axes labels are visible or not. Not the actual axes labels are stored in <code class="docutils literal notranslate"><span class="pre">viewer.dims.axes_labels</span></code>.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.colored</span></code></p></td>
-<td><p>If axes are colored or not. If colored then default coloring is x=cyan, y=yellow, z=magenta. If not colored than axes are the color opposite of the canvas background.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.dashed</span></code></p></td>
-<td><p>If axes are dashed or not. If not dashed then all the axes are solid. If dashed then x=solid, y=dashed, z=dotted.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.arrows</span></code></p></td>
-<td><p>If axes have arrowheads or not.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.center</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.center</span></code></p></td>
 <td><p>Center of rotation for the camera. In 2D viewing the last two values are used.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.zoom</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.zoom</span></code></p></td>
 <td><p>Scale from canvas pixels to world pixels.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.angles</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.angles</span></code></p></td>
 <td><p>Euler angles of camera in 3D viewing (rx, ry, rz), in degrees. Only used during 3D viewing. Note that Euler angles’s intrinsic degeneracy means different sets of Euler angles may lead to the same view.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.perspective</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.perspective</span></code></p></td>
 <td><p>Perspective (aka “field of view” in vispy) of the camera (if 3D).</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.interactive</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.interactive</span></code></p></td>
 <td><p>If the camera interactivity is enabled or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.position</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.position</span></code></p></td>
 <td><p>Position of the cursor in world coordinates. None if outside the world.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.scaled</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.scaled</span></code></p></td>
 <td><p>Flag to indicate whether cursor size should be scaled to zoom. Only relevant for circle and square cursors which are drawn with a particular size.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.size</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.size</span></code></p></td>
 <td><p>Size of the cursor in canvas pixels.Only relevant for circle and square cursors which are drawn with a particular size.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.style</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.style</span></code></p></td>
 <td><p>Style of the cursor. Must be one of     * square: A square     * circle: A circle     * cross: A cross     * forbidden: A forbidden symbol     * pointing: A finger for pointing     * standard: The standard cursor     # crosshair: A crosshair</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">CursorStyle</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndim</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndim</span></code></p></td>
 <td><p>Number of dimensions.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndisplay</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndisplay</span></code></p></td>
 <td><p>Number of displayed dimensions.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Literal[2,</span> <span class="pre">3]</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.last_used</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.last_used</span></code></p></td>
 <td><p>Dimension which was last used.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.range</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.range</span></code></p></td>
 <td><p>List of tuples (min, max, step), one for each dimension. In a world coordinates space. As with Python’s <code class="docutils literal notranslate"><span class="pre">range</span></code> and <code class="docutils literal notranslate"><span class="pre">slice</span></code>, max is not included.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.current_step</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.current_step</span></code></p></td>
 <td><p>Tuple of the slider position for each dims slider, in slider coordinates.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.order</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.order</span></code></p></td>
 <td><p>Tuple of ordering the dimensions, where the last dimensions are rendered.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.axis_labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.axis_labels</span></code></p></td>
 <td><p>Tuple of labels for each dimension.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.stride</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.stride</span></code></p></td>
 <td><p>Number of layers to place in each grid square before moving on to the next square. The default ordering is to place the most visible layer in the top left corner of the grid. A negative stride will cause the order in which the layers are placed in the grid to be reversed.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.shape</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.shape</span></code></p></td>
 <td><p>Number of rows and columns in the grid. A value of -1 for either or both of will be used the row and column numbers will trigger an auto calculation of the necessary grid shape to appropriately fill all the layers at the appropriate stride.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Tuple[napari.utils.events.custom_types.ConstrainedIntValue,</span> <span class="pre">napari.utils.events.custom_types.ConstrainedIntValue]</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.enabled</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.enabled</span></code></p></td>
 <td><p>If grid is enabled or not.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.visible</span></code></p></td>
+<td><p>If axes are visible or not.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.opacity</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.order</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.labels</span></code></p></td>
+<td><p>If axes labels are visible or not. Not the actual axes labels are stored in <code class="docutils literal notranslate"><span class="pre">viewer.dims.axes_labels</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.colored</span></code></p></td>
+<td><p>If axes are colored or not. If colored then default coloring is x=cyan, y=yellow, z=magenta. If not colored than axes are the color opposite of the canvas background.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.dashed</span></code></p></td>
+<td><p>If axes are dashed or not. If not dashed then all the axes are solid. If dashed then x=solid, y=dashed, z=dotted.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.arrows</span></code></p></td>
+<td><p>If axes have arrowheads or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.visible</span></code></p></td>
 <td><p>If scale bar is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.colored</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.opacity</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.order</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.position</span></code></p></td>
+<td><p>Position of the scale bar in the canvas. Must be one of ‘top left’, ‘top right’, ‘bottom right’, ‘bottom left’. Default value is ‘bottom right’.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CanvasPosition</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.colored</span></code></p></td>
 <td><p>If scale bar are colored or not. If colored then default color is magenta. If not colored than scale bar color is the opposite of the canvas background or the background box.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.color</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.color</span></code></p></td>
 <td><p>Scalebar and text color. See <code class="docutils literal notranslate"><span class="pre">ColorValue.validate</span></code> for supported values.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ColorValue</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.ticks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.ticks</span></code></p></td>
 <td><p>If scale bar has ticks at ends or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.position</span></code></p></td>
-<td><p>Position of the scale bar in the canvas. Must be one of ‘top left’, ‘top right’, ‘bottom right’, ‘bottom left’. Default value is ‘bottom right’.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Position</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.font_size</span></code></p></td>
 <td><p>The font size (in points) of the text.</p></td>
@@ -1699,17 +1728,25 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 <td><p>If text overlay is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.color</span></code></p></td>
-<td><p>A (4,) color array of the text overlay.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ColorValue</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.font_size</span></code></p></td>
-<td><p>The font size (in points) of the text.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.opacity</span></code></p></td>
+<td><p></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.order</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.position</span></code></p></td>
 <td><p>Position of the text overlay in the canvas. Must be one  of ‘top left’, ‘top right’, ‘top center’, ‘bottom right’, ‘bottom left’, ‘bottom_center’. Default value is ‘top left’</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">TextOverlayPosition</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CanvasPosition</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.color</span></code></p></td>
+<td><p>A (4,) color array of the text overlay.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ColorValue</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.font_size</span></code></p></td>
+<td><p>The font size (in points) of the text.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.text</span></code></p></td>
 <td><p>Text to be displayed in the canvas.</p></td>
@@ -1997,321 +2034,326 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.plane</span></code></p></td>
+<td><p>Properties defining plane rendering in 3D. Properties are defined in data coordinates. Valid dictionary keys are {‘position’, ‘normal’, ‘thickness’, and ‘enabled’}.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.depiction</span></code></p></td>
 <td><p>3D Depiction mode. Must be one of {‘volume’, ‘plane’}. The default value is ‘volume’.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.iso_threshold</span></code></p></td>
 <td><p>Threshold for isosurface.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Image</span></code>, <code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.attenuation</span></code></p></td>
 <td><p>Attenuation rate for attenuated maximum intensity projection.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.preserve_labels</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each label. Each property should be an array of length N, where N is the number of labels, and the first property corresponds to background.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.n_edit_dimensions</span></code></p></td>
 <td><p>The number of dimensions across which labels will be edited.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.contiguous</span></code></p></td>
 <td><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the fill bucket changes only connected pixels of same label.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.brush_size</span></code></p></td>
 <td><p>Size of the paint brush in data coordinates.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.selected_label</span></code></p></td>
 <td><p>Index of selected label. Can be greater than the current maximum label.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.color_mode</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.brush_shape</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.contour</span></code></p></td>
 <td><p>If greater than 0, displays contours of labels instead of shaded regions with a thickness equal to its value.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
 <td><p>Features table where each row corresponds to a label and each column is a feature. The first row corresponds to the background label.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Labels</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.paint</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mode</span></code></p></td>
 <td><p>Interactive mode. The normal, default mode is PAN_ZOOM, which allows for normal interactivity with the canvas.  In ADD mode clicks of the cursor add points at the clicked location.  In SELECT mode the cursor can select points by clicking on them or by dragging a box around them. Once selected points can be moved, have their properties edited, or be deleted.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.size</span></code></p></td>
 <td><p>Size of the point marker in data pixels. If given as a scalar, all points are made the same size. If given as an array, size must be the same or broadcastable to the same shape as the data.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Width of the symbol edge in pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width_is_relative</span></code></p></td>
 <td><p>If enabled, edge_width is interpreted as a fraction of the point size.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.face_color</span></code></p></td>
 <td><p>Color of the point marker body. Numeric color values should be RGB(A).</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_face_color</span></code></p></td>
 <td><p>Face color of the marker edge for the next point to be added or the currently selected point.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color</span></code></p></td>
 <td><p>Color of the point marker border. Numeric color values should be RGB(A).</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_edge_color</span></code></p></td>
 <td><p>Edge color of the marker edge for the next point to be added or the currently selected point.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each point. Each property should be an array of length N, where N is the number of points.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_properties</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.symbol</span></code></p></td>
 <td><p>Symbol to be used for the point markers. Must be one of the following: arrow, clobber, cross, diamond, disc, hbar, ring, square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.out_of_slice_display</span></code></p></td>
 <td><p>If True, renders points not just in central plane but also slightly out of slice according to specified point marker size.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.n_dimensional</span></code></p></td>
 <td><p>This property will soon be deprecated in favor of ‘out_of_slice_display’. Use that instead.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.highlight</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.shading</span></code></p></td>
 <td><p>Render lighting and shading on points. Options are:  * ‘none’   No shading is added to the points. * ‘spherical’   Shading and depth buffer are changed to give a 3D spherical look to the points</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.antialiasing</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.canvas_size_limits</span></code></p></td>
 <td><p>Lower and upper limits for the size of points in canvas pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
 <td><p>Features table where each row corresponds to a point and each column is a feature.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
 <td><p>Stores the default value of each feature in a table with one row.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.length</span></code></p></td>
 <td><p>Multiplicative factor on projections for length of all vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Width for all vectors in pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color</span></code></p></td>
 <td><p>Color of all of the vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color_mode</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each vector. Each property should be an array of length N, where N is the number of vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.out_of_slice_display</span></code></p></td>
 <td><p>If True, renders vectors not just in central plane but also slightly out of slice according to specified point marker size.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
 <td><p>Features table where each row corresponds to a vector and each column is a feature.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
 <td><p>Stores the default value of each feature in a table with one row.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.mode</span></code></p></td>
 <td><p>Interactive mode. The normal, default mode is PAN_ZOOM, which allows for normal interactivity with the canvas.  The SELECT mode allows for entire shapes to be selected, moved and resized.  The DIRECT mode allows for shapes to be selected and their individual vertices to be moved.  The VERTEX_INSERT and VERTEX_REMOVE modes allow for individual vertices either to be added to or removed from shapes that are already selected. Note that shapes cannot be selected in this mode.  The ADD_RECTANGLE, ADD_ELLIPSE, ADD_LINE, ADD_PATH, and ADD_POLYGON modes all allow for their corresponding shape type to be added.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Thickness of lines and edges. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color</span></code></p></td>
 <td><p>If string can be any color name recognized by vispy or hex value if starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>. If array-like must be 1-dimensional array with 3 or 4 elements. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.face_color</span></code></p></td>
 <td><p>If string can be any color name recognized by vispy or hex value if starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>. If array-like must be 1-dimensional array with 3 or 4 elements. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each shape. Each property should be an array of length N, where N is the number of shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_edge_color</span></code></p></td>
 <td><p>Color of the edge of the next shape to be added or the currently selected shape.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_face_color</span></code></p></td>
 <td><p>Color of the face of the next shape to be added or the currently selected shape.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_properties</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.highlight</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
 <td><p>Features table where each row corresponds to a shape and each column is a feature.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
 <td><p>Stores the default value of each feature in a table with one row.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.shading</span></code></p></td>
 <td><p>One of a list of preset shading modes that determine the lighting model using when rendering the surface in 3D.  * <code class="docutils literal notranslate"><span class="pre">Shading.NONE</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='none'</span></code>. * <code class="docutils literal notranslate"><span class="pre">Shading.FLAT</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='flat'</span></code>. * <code class="docutils literal notranslate"><span class="pre">Shading.SMOOTH</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='smooth'</span></code>.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.tail_width</span></code></p></td>
 <td><p>Width of the track tails in pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.tail_length</span></code></p></td>
 <td><p>Length of the positive (backward in time) tails in units of time.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.head_length</span></code></p></td>
 <td><p>Length of the positive (forward in time) tails in units of time.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_id</span></code></p></td>
 <td><p>display the track id</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_tail</span></code></p></td>
 <td><p>display the track tail</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_graph</span></code></p></td>
 <td><p>display the graph edges</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.color_by</span></code></p></td>
 <td><p>Track property (from property keys) by which to color vertices.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.colormap</span></code></p></td>
 <td><p>Default colormap to use to set vertex colors. Specialized colormaps, relating to specified properties can be passed to the layer via colormaps_dict.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each point. Each property should be an array of length N, where N is the number of points.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.rebuild_tracks</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.rebuild_graph</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>

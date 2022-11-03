@@ -10,6 +10,7 @@ caption: With this tag
 ../gallery/action_manager.rst
 ../gallery/new_theme.rst
 ../gallery/scale_bar.rst
+../gallery/interactive_move_point_3d.rst
 ../gallery/linked_layers.rst
 ../gallery/interaction_box_image.rst
 ../gallery/viewer_fps_label.rst

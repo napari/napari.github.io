@@ -39,7 +39,7 @@ Display a 3D volume and the fps label.
 
  .. code-block:: none
 
-    /home/runner/work/napari/napari/examples/viewer_fps_label.py:21: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
+    /home/runner/work/docs/docs/docs/examples/viewer_fps_label.py:21: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
     v0.5.0. It is considered an "implementation detail" of the napari
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.

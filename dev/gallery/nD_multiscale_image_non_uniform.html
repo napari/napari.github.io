@@ -5,6 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
+    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
+    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>nD multiscale image non-uniform &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -113,7 +116,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">0.4.17rc8</span></span>
+        <span>version <span id="version_switcher_button_text">latest</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -126,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables gallery/nD_multiscale_image_non_uniform and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17rc8'}.
+     variables gallery/nD_multiscale_image_non_uniform and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -177,10 +180,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4.17rc8 variable.
+            // this version, rather than using sphinx's dev variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4.17rc8") {
+            if (entry.version == "latest") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -288,7 +291,7 @@ to download the full example code</p>
 <span id="sphx-glr-gallery-nd-multiscale-image-non-uniform-py"></span><h1>nD multiscale image non-uniform<a class="headerlink" href="#nd-multiscale-image-non-uniform" title="Permalink to this headline">¶</a></h1>
 <p>Displays an nD multiscale image</p>
 <p class="tags"><span>Tags: </span><a class="reference external" href="../_tags/visualization-advanced.html">visualization-advanced</a></p>
-<img src="../_images/sphx_glr_nD_multiscale_image_non_uniform_001.png" srcset="../_images/sphx_glr_nD_multiscale_image_non_uniform_001.png" alt="nD multiscale image non uniform" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/napari/napari/examples/nD_multiscale_image_non_uniform.py:20: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
+<img src="../_images/sphx_glr_nD_multiscale_image_non_uniform_001.png" srcset="../_images/sphx_glr_nD_multiscale_image_non_uniform_001.png" alt="nD multiscale image non uniform" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/docs/examples/nD_multiscale_image_non_uniform.py:20: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
   pyramid_gaussian(base, downscale=2, max_layer=3, multichannel=True)
 multiscale level shapes:  [(6, 1536, 1536, 3), (6, 768, 768, 3), (6, 384, 384, 3), (6, 192, 192, 3)]
 </pre></div>

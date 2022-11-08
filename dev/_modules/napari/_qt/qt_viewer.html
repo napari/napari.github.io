@@ -308,7 +308,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..utils.io</span> <span class="kn">import</span> <span class="n">imsave</span>
 <span class="kn">from</span> <span class="nn">..utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapHandler</span>
-<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span>
+<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span>
 <span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">get_theme</span>
 <span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">.containers</span> <span class="kn">import</span> <span class="n">QtLayerList</span>
@@ -1157,7 +1157,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Imports the console the first time it is requested.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">():</span>
             <span class="k">return</span>
 
         <span class="c1"># force instantiation of console if not already instantiated</span>

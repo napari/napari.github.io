@@ -281,7 +281,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">from</span> <span class="nn">...utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span> <span class="nn">...utils.interactions</span> <span class="kn">import</span> <span class="n">Shortcut</span>
-<span class="kn">from</span> <span class="nn">...utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span>
+<span class="kn">from</span> <span class="nn">...utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span>
 <span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 <span class="kn">from</span> <span class="nn">..dialogs.qt_modal</span> <span class="kn">import</span> <span class="n">QtPopup</span>
 <span class="kn">from</span> <span class="nn">.qt_dims_sorter</span> <span class="kn">import</span> <span class="n">QtDimsSorter</span>
@@ -387,7 +387,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:toggle_console_visibility&#39;</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s1">&#39;expanded&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">consoleButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="n">rdb</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span><span class="s1">&#39;roll&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:roll_axes&#39;</span><span class="p">)</span>

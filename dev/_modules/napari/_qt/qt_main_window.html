@@ -538,7 +538,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># Toggling the console visibility is disabled when it is not</span>
         <span class="c1"># available, so ensure that it is hidden.</span>
-        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">window_fullscreen</span><span class="p">:</span>

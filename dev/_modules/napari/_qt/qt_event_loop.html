@@ -277,24 +277,24 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QIcon</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span>
 
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">Viewer</span><span class="p">,</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">..resources._icons</span> <span class="kn">import</span> <span class="n">_theme_path</span>
-<span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span>
-<span class="kn">from</span> <span class="nn">..utils.notifications</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">notification_manager</span><span class="p">,</span>
-    <span class="n">show_console_notification</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..utils.perf</span> <span class="kn">import</span> <span class="n">perf_config</span>
-<span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">_themes</span>
-<span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span> <span class="nn">.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
-<span class="kn">from</span> <span class="nn">.qt_event_filters</span> <span class="kn">import</span> <span class="n">QtToolTipEventFilter</span>
-<span class="kn">from</span> <span class="nn">.qthreading</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari</span> <span class="kn">import</span> <span class="n">Viewer</span><span class="p">,</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
+<span class="kn">from</span> <span class="nn">napari._qt.qt_event_filters</span> <span class="kn">import</span> <span class="n">QtToolTipEventFilter</span>
+<span class="kn">from</span> <span class="nn">napari._qt.qthreading</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">register_threadworker_processors</span><span class="p">,</span>
     <span class="n">wait_for_workers_to_quit</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_maybe_allow_interrupt</span>
+<span class="kn">from</span> <span class="nn">napari._qt.utils</span> <span class="kn">import</span> <span class="n">_maybe_allow_interrupt</span>
+<span class="kn">from</span> <span class="nn">napari.resources._icons</span> <span class="kn">import</span> <span class="n">_theme_path</span>
+<span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span>
+<span class="kn">from</span> <span class="nn">napari.utils.notifications</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">notification_manager</span><span class="p">,</span>
+    <span class="n">show_console_notification</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.utils.perf</span> <span class="kn">import</span> <span class="n">perf_config</span>
+<span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">_themes</span>
+<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
@@ -421,7 +421,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;napari&quot;</span>
 
         <span class="k">if</span> <span class="n">perf_config</span> <span class="ow">and</span> <span class="n">perf_config</span><span class="o">.</span><span class="n">trace_qt_events</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">.perf.qt_event_tracing</span> <span class="kn">import</span> <span class="n">QApplicationWithTracing</span>
+            <span class="kn">from</span> <span class="nn">napari._qt.perf.qt_event_tracing</span> <span class="kn">import</span> <span class="p">(</span>
+                <span class="n">QApplicationWithTracing</span><span class="p">,</span>
+            <span class="p">)</span>
 
             <span class="n">app</span> <span class="o">=</span> <span class="n">QApplicationWithTracing</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -512,13 +514,13 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">monitor</span><span class="p">:</span>
         <span class="c1"># Stop the monitor service if we were using it</span>
-        <span class="kn">from</span> <span class="nn">..components.experimental.monitor</span> <span class="kn">import</span> <span class="n">monitor</span>
+        <span class="kn">from</span> <span class="nn">napari.components.experimental.monitor</span> <span class="kn">import</span> <span class="n">monitor</span>
 
         <span class="n">monitor</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
         <span class="c1"># Shutdown the chunkloader</span>
-        <span class="kn">from</span> <span class="nn">..components.experimental.chunk</span> <span class="kn">import</span> <span class="n">chunk_loader</span>
+        <span class="kn">from</span> <span class="nn">napari.components.experimental.chunk</span> <span class="kn">import</span> <span class="n">chunk_loader</span>
 
         <span class="n">chunk_loader</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 
@@ -558,7 +560,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">app</span> <span class="o">=</span> <span class="n">get_app</span><span class="p">()</span>
     <span class="n">splash</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">startup_logo</span> <span class="ow">and</span> <span class="n">app</span><span class="o">.</span><span class="n">applicationName</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;napari&#39;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">.widgets.qt_splash_screen</span> <span class="kn">import</span> <span class="n">NapariSplashScreen</span>
+        <span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_splash_screen</span> <span class="kn">import</span> <span class="n">NapariSplashScreen</span>
 
         <span class="n">splash</span> <span class="o">=</span> <span class="n">NapariSplashScreen</span><span class="p">()</span>
         <span class="n">splash</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>

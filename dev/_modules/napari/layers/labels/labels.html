@@ -273,33 +273,36 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 
-<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">_is_array_type</span>
-
-<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">...utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span>
-<span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">color_dict_to_colormap</span><span class="p">,</span>
-    <span class="n">label_colormap</span><span class="p">,</span>
-    <span class="n">low_discrepancy_image</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
+<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">LabelColorMode</span><span class="p">,</span>
+    <span class="n">LabelsRendering</span><span class="p">,</span>
+    <span class="n">Mode</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span> <span class="nn">...utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
-<span class="kn">from</span> <span class="nn">...utils.geometry</span> <span class="kn">import</span> <span class="n">clamp_point_to_bounding_box</span>
-<span class="kn">from</span> <span class="nn">...utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
-<span class="kn">from</span> <span class="nn">...utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
-<span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">no_op</span>
-<span class="kn">from</span> <span class="nn">..image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
-<span class="kn">from</span> <span class="nn">..image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
-<span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="n">transform_color</span>
-<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
-<span class="kn">from</span> <span class="nn">._labels_constants</span> <span class="kn">import</span> <span class="n">LabelColorMode</span><span class="p">,</span> <span class="n">LabelsRendering</span><span class="p">,</span> <span class="n">Mode</span>
-<span class="kn">from</span> <span class="nn">._labels_mouse_bindings</span> <span class="kn">import</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pick</span>
-<span class="kn">from</span> <span class="nn">._labels_utils</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_mouse_bindings</span> <span class="kn">import</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pick</span>
+<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">indices_in_shape</span><span class="p">,</span>
     <span class="n">interpolate_coordinates</span><span class="p">,</span>
     <span class="n">sphere_indices</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">transform_color</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
+<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">color_dict_to_colormap</span><span class="p">,</span>
+    <span class="n">label_colormap</span><span class="p">,</span>
+    <span class="n">low_discrepancy_image</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">clamp_point_to_bounding_box</span>
+<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">_is_array_type</span>
+<span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
+<span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
+<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 
 <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
@@ -1763,7 +1766,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">..image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
+    <span class="kn">from</span> <span class="nn">napari.layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
 
 <div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels">[docs]</a>    <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">Labels</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>
         <span class="k">pass</span></div>

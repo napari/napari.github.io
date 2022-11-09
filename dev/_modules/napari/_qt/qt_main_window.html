@@ -304,32 +304,32 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">superqt.utils</span> <span class="kn">import</span> <span class="n">QSignalThrottler</span>
 
-<span class="kn">from</span> <span class="nn">.._app_model.constants</span> <span class="kn">import</span> <span class="n">MenuId</span>
-<span class="kn">from</span> <span class="nn">..plugins</span> <span class="kn">import</span> <span class="n">menu_item_template</span> <span class="k">as</span> <span class="n">plugin_menu_item_template</span>
-<span class="kn">from</span> <span class="nn">..plugins</span> <span class="kn">import</span> <span class="n">plugin_manager</span>
-<span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">perf</span>
-<span class="kn">from</span> <span class="nn">..utils._proxies</span> <span class="kn">import</span> <span class="n">PublicOnlyProxy</span>
-<span class="kn">from</span> <span class="nn">..utils.io</span> <span class="kn">import</span> <span class="n">imsave</span>
-<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span><span class="p">,</span> <span class="n">running_as_bundled_app</span>
-<span class="kn">from</span> <span class="nn">..utils.notifications</span> <span class="kn">import</span> <span class="n">Notification</span>
-<span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">_themes</span><span class="p">,</span> <span class="n">get_system_theme</span>
-<span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">menus</span>
-<span class="kn">from</span> <span class="nn">._qapp_model</span> <span class="kn">import</span> <span class="n">build_qmodel_menu</span>
-<span class="kn">from</span> <span class="nn">._qapp_model.qactions</span> <span class="kn">import</span> <span class="n">init_qactions</span>
-<span class="kn">from</span> <span class="nn">.dialogs.confirm_close_dialog</span> <span class="kn">import</span> <span class="n">ConfirmCloseDialog</span>
-<span class="kn">from</span> <span class="nn">.dialogs.qt_activity_dialog</span> <span class="kn">import</span> <span class="n">QtActivityDialog</span>
-<span class="kn">from</span> <span class="nn">.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
-<span class="kn">from</span> <span class="nn">.qt_event_loop</span> <span class="kn">import</span> <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span> <span class="n">get_app</span><span class="p">,</span> <span class="n">quit_app</span>
-<span class="kn">from</span> <span class="nn">.qt_resources</span> <span class="kn">import</span> <span class="n">get_stylesheet</span>
-<span class="kn">from</span> <span class="nn">.qt_viewer</span> <span class="kn">import</span> <span class="n">QtViewer</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">QImg2array</span><span class="p">,</span> <span class="n">qbytearray_to_str</span><span class="p">,</span> <span class="n">str_to_qbytearray</span>
-<span class="kn">from</span> <span class="nn">.widgets.qt_viewer_dock_widget</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari._app_model.constants</span> <span class="kn">import</span> <span class="n">MenuId</span>
+<span class="kn">from</span> <span class="nn">napari._qt</span> <span class="kn">import</span> <span class="n">menus</span>
+<span class="kn">from</span> <span class="nn">napari._qt._qapp_model</span> <span class="kn">import</span> <span class="n">build_qmodel_menu</span>
+<span class="kn">from</span> <span class="nn">napari._qt._qapp_model.qactions</span> <span class="kn">import</span> <span class="n">init_qactions</span>
+<span class="kn">from</span> <span class="nn">napari._qt.dialogs.confirm_close_dialog</span> <span class="kn">import</span> <span class="n">ConfirmCloseDialog</span>
+<span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_activity_dialog</span> <span class="kn">import</span> <span class="n">QtActivityDialog</span>
+<span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
+<span class="kn">from</span> <span class="nn">napari._qt.qt_event_loop</span> <span class="kn">import</span> <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span> <span class="n">get_app</span><span class="p">,</span> <span class="n">quit_app</span>
+<span class="kn">from</span> <span class="nn">napari._qt.qt_resources</span> <span class="kn">import</span> <span class="n">get_stylesheet</span>
+<span class="kn">from</span> <span class="nn">napari._qt.qt_viewer</span> <span class="kn">import</span> <span class="n">QtViewer</span>
+<span class="kn">from</span> <span class="nn">napari._qt.utils</span> <span class="kn">import</span> <span class="n">QImg2array</span><span class="p">,</span> <span class="n">qbytearray_to_str</span><span class="p">,</span> <span class="n">str_to_qbytearray</span>
+<span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_viewer_dock_widget</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_SHORTCUT_DEPRECATION_STRING</span><span class="p">,</span>
     <span class="n">QtViewerDockWidget</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.widgets.qt_viewer_status_bar</span> <span class="kn">import</span> <span class="n">ViewerStatusBar</span>
+<span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_viewer_status_bar</span> <span class="kn">import</span> <span class="n">ViewerStatusBar</span>
+<span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">menu_item_template</span> <span class="k">as</span> <span class="n">plugin_menu_item_template</span>
+<span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">plugin_manager</span>
+<span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">perf</span>
+<span class="kn">from</span> <span class="nn">napari.utils._proxies</span> <span class="kn">import</span> <span class="n">PublicOnlyProxy</span>
+<span class="kn">from</span> <span class="nn">napari.utils.io</span> <span class="kn">import</span> <span class="n">imsave</span>
+<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span><span class="p">,</span> <span class="n">running_as_bundled_app</span>
+<span class="kn">from</span> <span class="nn">napari.utils.notifications</span> <span class="kn">import</span> <span class="n">Notification</span>
+<span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">_themes</span><span class="p">,</span> <span class="n">get_system_theme</span>
+<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="n">_sentinel</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 
@@ -337,7 +337,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="kn">from</span> <span class="nn">magicgui.widgets</span> <span class="kn">import</span> <span class="n">Widget</span>
     <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QImage</span>
 
-    <span class="kn">from</span> <span class="nn">..viewer</span> <span class="kn">import</span> <span class="n">Viewer</span>
+    <span class="kn">from</span> <span class="nn">napari.viewer</span> <span class="kn">import</span> <span class="n">Viewer</span>
 
 
 <span class="k">class</span> <span class="nc">_QtMainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
@@ -971,7 +971,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            A 2-tuple containing (the DockWidget instance, the plugin widget</span>
 <span class="sd">            instance).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">..plugins</span> <span class="kn">import</span> <span class="n">_npe2</span>
+        <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_npe2</span>
 
         <span class="n">Widget</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">dock_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1525,7 +1525,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        -------</span>
 <span class="sd">        img : QImage</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">add_flash_animation</span>
+        <span class="kn">from</span> <span class="nn">napari._qt.utils</span> <span class="kn">import</span> <span class="n">add_flash_animation</span>
 
         <span class="k">if</span> <span class="n">canvas_only</span><span class="p">:</span>
             <span class="n">canvas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span>
@@ -1634,7 +1634,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="k">def</span> <span class="nf">_instantiate_dock_widget</span><span class="p">(</span><span class="n">wdg_cls</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">):</span>
     <span class="c1"># if the signature is looking a for a napari viewer, pass it.</span>
-    <span class="kn">from</span> <span class="nn">..viewer</span> <span class="kn">import</span> <span class="n">Viewer</span>
+    <span class="kn">from</span> <span class="nn">napari.viewer</span> <span class="kn">import</span> <span class="n">Viewer</span>
 
     <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">try</span><span class="p">:</span>

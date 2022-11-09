@@ -271,12 +271,12 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">import</span> <span class="nn">magicgui</span> <span class="k">as</span> <span class="nn">mgui</span>
 
-<span class="kn">from</span> <span class="nn">.components.viewer_model</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_magicgui</span><span class="p">,</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">napari.components.viewer_model</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
+<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">_magicgui</span><span class="p">,</span> <span class="n">config</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="c1"># helpful for IDE support</span>
-    <span class="kn">from</span> <span class="nn">._qt.qt_main_window</span> <span class="kn">import</span> <span class="n">Window</span>
+    <span class="kn">from</span> <span class="nn">napari._qt.qt_main_window</span> <span class="kn">import</span> <span class="n">Window</span>
 
 
 <div class="viewcode-block" id="Viewer"><a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer">[docs]</a><span class="nd">@mgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">_magicgui</span><span class="o">.</span><span class="n">proxy_viewer_ancestor</span><span class="p">)</span>
@@ -322,11 +322,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
         <span class="c1"># we delay initialization of plugin system to the first instantiation</span>
         <span class="c1"># of a viewer... rather than just on import of plugins module</span>
-        <span class="kn">from</span> <span class="nn">.plugins</span> <span class="kn">import</span> <span class="n">_initialize_plugins</span>
+        <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_initialize_plugins</span>
 
         <span class="c1"># having this import here makes all of Qt imported lazily, upon</span>
         <span class="c1"># instantiating the first Viewer.</span>
-        <span class="kn">from</span> <span class="nn">.window</span> <span class="kn">import</span> <span class="n">Window</span>
+        <span class="kn">from</span> <span class="nn">napari.window</span> <span class="kn">import</span> <span class="n">Window</span>
 
         <span class="n">_initialize_plugins</span><span class="p">()</span>
 
@@ -412,7 +412,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">.components.experimental.chunk</span> <span class="kn">import</span> <span class="n">chunk_loader</span>
+            <span class="kn">from</span> <span class="nn">napari.components.experimental.chunk</span> <span class="kn">import</span> <span class="n">chunk_loader</span>
 
             <span class="c1"># TODO_ASYNC: Find a cleaner way to do this? This fixes some</span>
             <span class="c1"># tests. We are telling the ChunkLoader that this layer is</span>

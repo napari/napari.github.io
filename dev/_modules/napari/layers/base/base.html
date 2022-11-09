@@ -279,35 +279,37 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">npe2</span> <span class="kn">import</span> <span class="n">plugin_manager</span> <span class="k">as</span> <span class="n">pm</span>
 
-<span class="kn">from</span> <span class="nn">...utils._dask_utils</span> <span class="kn">import</span> <span class="n">configure_dask</span>
-<span class="kn">from</span> <span class="nn">...utils._magicgui</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">add_layer_to_viewer</span><span class="p">,</span>
-    <span class="n">add_layers_to_viewer</span><span class="p">,</span>
-    <span class="n">get_layers</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base._base_constants</span> <span class="kn">import</span> <span class="n">Blending</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.interactivity_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">drag_data_to_projected_distance</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
-<span class="kn">from</span> <span class="nn">...utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
-<span class="kn">from</span> <span class="nn">...utils.geometry</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">find_front_back_face</span><span class="p">,</span>
-    <span class="n">intersect_line_with_axis_aligned_bounding_box_3d</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">...utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
-<span class="kn">from</span> <span class="nn">...utils.mouse_bindings</span> <span class="kn">import</span> <span class="n">MousemapProvider</span>
-<span class="kn">from</span> <span class="nn">...utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
-<span class="kn">from</span> <span class="nn">...utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
-<span class="kn">from</span> <span class="nn">...utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span><span class="p">,</span> <span class="n">CompositeAffine</span><span class="p">,</span> <span class="n">TransformChain</span>
-<span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span> <span class="nn">..utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
-<span class="kn">from</span> <span class="nn">..utils.interactivity_utils</span> <span class="kn">import</span> <span class="n">drag_data_to_projected_distance</span>
-<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">coerce_affine</span><span class="p">,</span>
     <span class="n">compute_multiscale_level_and_corners</span><span class="p">,</span>
     <span class="n">convert_to_uint8</span><span class="p">,</span>
     <span class="n">dims_displayed_world_to_layer</span><span class="p">,</span>
     <span class="n">get_extent_world</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..utils.plane</span> <span class="kn">import</span> <span class="n">ClippingPlane</span><span class="p">,</span> <span class="n">ClippingPlaneList</span>
-<span class="kn">from</span> <span class="nn">._base_constants</span> <span class="kn">import</span> <span class="n">Blending</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.plane</span> <span class="kn">import</span> <span class="n">ClippingPlane</span><span class="p">,</span> <span class="n">ClippingPlaneList</span>
+<span class="kn">from</span> <span class="nn">napari.utils._dask_utils</span> <span class="kn">import</span> <span class="n">configure_dask</span>
+<span class="kn">from</span> <span class="nn">napari.utils._magicgui</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_layer_to_viewer</span><span class="p">,</span>
+    <span class="n">add_layers_to_viewer</span><span class="p">,</span>
+    <span class="n">get_layers</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
+<span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">find_front_back_face</span><span class="p">,</span>
+    <span class="n">intersect_line_with_axis_aligned_bounding_box_3d</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
+<span class="kn">from</span> <span class="nn">napari.utils.mouse_bindings</span> <span class="kn">import</span> <span class="n">MousemapProvider</span>
+<span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
+<span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
+<span class="kn">from</span> <span class="nn">napari.utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span><span class="p">,</span> <span class="n">CompositeAffine</span><span class="p">,</span> <span class="n">TransformChain</span>
+<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="n">Extent</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Extent&#39;</span><span class="p">,</span> <span class="s1">&#39;data world step&#39;</span><span class="p">)</span>
 
@@ -513,7 +515,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
 
         <span class="c1"># Needs to be imported here to avoid circular import in _source</span>
-        <span class="kn">from</span> <span class="nn">.._source</span> <span class="kn">import</span> <span class="n">current_source</span>
+        <span class="kn">from</span> <span class="nn">napari.layers._source</span> <span class="kn">import</span> <span class="n">current_source</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="n">current_source</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span> <span class="o">=</span> <span class="n">configure_dask</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
@@ -1951,7 +1953,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        list of str</span>
 <span class="sd">            File paths of any files that were written.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">...plugins.io</span> <span class="kn">import</span> <span class="n">save_layers</span>
+        <span class="kn">from</span> <span class="nn">napari.plugins.io</span> <span class="kn">import</span> <span class="n">save_layers</span>
 
         <span class="k">return</span> <span class="n">save_layers</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">)</span></div>
 
@@ -2011,8 +2013,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &gt;&gt;&gt; Layer.create(*data)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">layers</span>
-        <span class="kn">from</span> <span class="nn">..image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
+        <span class="kn">from</span> <span class="nn">napari</span> <span class="kn">import</span> <span class="n">layers</span>
+        <span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
 
         <span class="n">layer_type</span> <span class="o">=</span> <span class="p">(</span><span class="n">layer_type</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 

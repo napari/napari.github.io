@@ -288,41 +288,46 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">validator</span>
 
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">layers</span>
-<span class="kn">from</span> <span class="nn">..errors</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari</span> <span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">from</span> <span class="nn">napari.components._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
+<span class="kn">from</span> <span class="nn">napari.components.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+<span class="kn">from</span> <span class="nn">napari.components.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span>
+<span class="kn">from</span> <span class="nn">napari.components.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
+<span class="kn">from</span> <span class="nn">napari.components.grid</span> <span class="kn">import</span> <span class="n">GridCanvas</span>
+<span class="kn">from</span> <span class="nn">napari.components.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
+<span class="kn">from</span> <span class="nn">napari.components.overlays</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AxesOverlay</span><span class="p">,</span>
+    <span class="n">Overlays</span><span class="p">,</span>
+    <span class="n">ScaleBarOverlay</span><span class="p">,</span>
+    <span class="n">TextOverlay</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.components.tooltip</span> <span class="kn">import</span> <span class="n">Tooltip</span>
+<span class="kn">from</span> <span class="nn">napari.errors</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">MultipleReaderError</span><span class="p">,</span>
     <span class="n">NoAvailableReaderError</span><span class="p">,</span>
     <span class="n">ReaderPluginError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..layers</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Labels</span><span class="p">,</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">Points</span><span class="p">,</span> <span class="n">Shapes</span>
-<span class="kn">from</span> <span class="nn">..layers._source</span> <span class="kn">import</span> <span class="n">layer_source</span>
-<span class="kn">from</span> <span class="nn">..layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
-<span class="kn">from</span> <span class="nn">..layers.labels._labels_key_bindings</span> <span class="kn">import</span> <span class="n">labels_fun_to_mode</span>
-<span class="kn">from</span> <span class="nn">..layers.points._points_key_bindings</span> <span class="kn">import</span> <span class="n">points_fun_to_mode</span>
-<span class="kn">from</span> <span class="nn">..layers.shapes._shapes_key_bindings</span> <span class="kn">import</span> <span class="n">shapes_fun_to_mode</span>
-<span class="kn">from</span> <span class="nn">..layers.utils.stack_utils</span> <span class="kn">import</span> <span class="n">split_channels</span>
-<span class="kn">from</span> <span class="nn">..plugins.utils</span> <span class="kn">import</span> <span class="n">get_potential_readers</span><span class="p">,</span> <span class="n">get_preferred_reader</span>
-<span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
-<span class="kn">from</span> <span class="nn">..utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
-<span class="kn">from</span> <span class="nn">..utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
-<span class="kn">from</span> <span class="nn">..utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
-<span class="kn">from</span> <span class="nn">..utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">,</span> <span class="n">disconnect_events</span>
-<span class="kn">from</span> <span class="nn">..utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
-<span class="kn">from</span> <span class="nn">..utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
-<span class="kn">from</span> <span class="nn">..utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
-<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">is_sequence</span>
-<span class="kn">from</span> <span class="nn">..utils.mouse_bindings</span> <span class="kn">import</span> <span class="n">MousemapProvider</span>
-<span class="kn">from</span> <span class="nn">..utils.progress</span> <span class="kn">import</span> <span class="n">progress</span>
-<span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">available_themes</span>
-<span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span> <span class="nn">._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
-<span class="kn">from</span> <span class="nn">.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
-<span class="kn">from</span> <span class="nn">.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span>
-<span class="kn">from</span> <span class="nn">.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
-<span class="kn">from</span> <span class="nn">.grid</span> <span class="kn">import</span> <span class="n">GridCanvas</span>
-<span class="kn">from</span> <span class="nn">.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
-<span class="kn">from</span> <span class="nn">.overlays</span> <span class="kn">import</span> <span class="n">AxesOverlay</span><span class="p">,</span> <span class="n">Overlays</span><span class="p">,</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">TextOverlay</span>
-<span class="kn">from</span> <span class="nn">.tooltip</span> <span class="kn">import</span> <span class="n">Tooltip</span>
+<span class="kn">from</span> <span class="nn">napari.layers</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Labels</span><span class="p">,</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">Points</span><span class="p">,</span> <span class="n">Shapes</span>
+<span class="kn">from</span> <span class="nn">napari.layers._source</span> <span class="kn">import</span> <span class="n">layer_source</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
+<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_key_bindings</span> <span class="kn">import</span> <span class="n">labels_fun_to_mode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.points._points_key_bindings</span> <span class="kn">import</span> <span class="n">points_fun_to_mode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.shapes._shapes_key_bindings</span> <span class="kn">import</span> <span class="n">shapes_fun_to_mode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.stack_utils</span> <span class="kn">import</span> <span class="n">split_channels</span>
+<span class="kn">from</span> <span class="nn">napari.plugins.utils</span> <span class="kn">import</span> <span class="n">get_potential_readers</span><span class="p">,</span> <span class="n">get_preferred_reader</span>
+<span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+<span class="kn">from</span> <span class="nn">napari.utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
+<span class="kn">from</span> <span class="nn">napari.utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">,</span> <span class="n">disconnect_events</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
+<span class="kn">from</span> <span class="nn">napari.utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
+<span class="kn">from</span> <span class="nn">napari.utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
+<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">is_sequence</span>
+<span class="kn">from</span> <span class="nn">napari.utils.mouse_bindings</span> <span class="kn">import</span> <span class="n">MousemapProvider</span>
+<span class="kn">from</span> <span class="nn">napari.utils.progress</span> <span class="kn">import</span> <span class="n">progress</span>
+<span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">available_themes</span>
+<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="n">DEFAULT_THEME</span> <span class="o">=</span> <span class="s1">&#39;dark&#39;</span>
 <span class="n">EXCLUDE_DICT</span> <span class="o">=</span> <span class="p">{</span>
@@ -337,7 +342,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="n">EXCLUDE_JSON</span> <span class="o">=</span> <span class="n">EXCLUDE_DICT</span><span class="o">.</span><span class="n">union</span><span class="p">({</span><span class="s1">&#39;layers&#39;</span><span class="p">,</span> <span class="s1">&#39;active_layer&#39;</span><span class="p">})</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">FullLayerData</span><span class="p">,</span> <span class="n">LayerData</span>
+    <span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="n">FullLayerData</span><span class="p">,</span> <span class="n">LayerData</span>
 
 <span class="n">PathLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>
 <span class="n">PathOrPaths</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]]</span>
@@ -412,7 +417,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()):</span>
         <span class="c1"># max_depth=0 means don&#39;t look for parent contexts.</span>
-        <span class="kn">from</span> <span class="nn">.._app_model.context</span> <span class="kn">import</span> <span class="n">create_context</span>
+        <span class="kn">from</span> <span class="nn">napari._app_model.context</span> <span class="kn">import</span> <span class="n">create_context</span>
 
         <span class="c1"># FIXME: just like the LayerList, this object should ideally be created</span>
         <span class="c1"># elsewhere.  The app should know about the ViewerModel, but not vice versa.</span>
@@ -729,7 +734,9 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        For example run &quot;viewer.experimental.cmds.loader.help&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.experimental.commands</span> <span class="kn">import</span> <span class="n">ExperimentalNamespace</span>
+        <span class="kn">from</span> <span class="nn">napari.components.experimental.commands</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">ExperimentalNamespace</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">ExperimentalNamespace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 
@@ -1133,7 +1140,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        KeyError</span>
 <span class="sd">            If `plugin` does not provide a sample named `sample`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">..plugins</span> <span class="kn">import</span> <span class="n">_npe2</span><span class="p">,</span> <span class="n">plugin_manager</span>
+        <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_npe2</span><span class="p">,</span> <span class="n">plugin_manager</span>
 
         <span class="c1"># try with npe2</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">available</span> <span class="o">=</span> <span class="n">_npe2</span><span class="o">.</span><span class="n">get_sample_data</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
@@ -1466,7 +1473,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        List[Layer]</span>
 <span class="sd">            A list of any layers that were added to the viewer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">..plugins.io</span> <span class="kn">import</span> <span class="n">read_data_with_plugins</span>
+        <span class="kn">from</span> <span class="nn">napari.plugins.io</span> <span class="kn">import</span> <span class="n">read_data_with_plugins</span>
 
         <span class="k">assert</span> <span class="n">stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>

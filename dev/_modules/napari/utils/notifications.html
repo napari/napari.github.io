@@ -275,8 +275,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">TracebackType</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventEmitter</span>
-<span class="kn">from</span> <span class="nn">.misc</span> <span class="kn">import</span> <span class="n">StringEnum</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventEmitter</span>
+<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">StringEnum</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">napari_error_reporter</span> <span class="kn">import</span> <span class="n">capture_exception</span><span class="p">,</span> <span class="n">install_error_reporter</span>
@@ -417,7 +417,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">exception</span>
 
     <span class="k">def</span> <span class="nf">as_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">._tracebacks</span> <span class="kn">import</span> <span class="n">get_tb_formatter</span>
+        <span class="kn">from</span> <span class="nn">napari.utils._tracebacks</span> <span class="kn">import</span> <span class="n">get_tb_formatter</span>
 
         <span class="n">fmt</span> <span class="o">=</span> <span class="n">get_tb_formatter</span><span class="p">()</span>
         <span class="n">exc_info</span> <span class="o">=</span> <span class="p">(</span>
@@ -428,7 +428,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">as_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">._tracebacks</span> <span class="kn">import</span> <span class="n">get_tb_formatter</span>
+        <span class="kn">from</span> <span class="nn">napari.utils._tracebacks</span> <span class="kn">import</span> <span class="n">get_tb_formatter</span>
 
         <span class="n">fmt</span> <span class="o">=</span> <span class="n">get_tb_formatter</span><span class="p">()</span>
         <span class="n">exc_info</span> <span class="o">=</span> <span class="p">(</span>
@@ -439,7 +439,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;NoColor&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">._tracebacks</span> <span class="kn">import</span> <span class="n">get_tb_formatter</span>
+        <span class="kn">from</span> <span class="nn">napari.utils._tracebacks</span> <span class="kn">import</span> <span class="n">get_tb_formatter</span>
 
         <span class="n">fmt</span> <span class="o">=</span> <span class="n">get_tb_formatter</span><span class="p">()</span>
         <span class="n">exc_info</span> <span class="o">=</span> <span class="p">(</span>
@@ -634,7 +634,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    Show a notification in the console.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+        <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">notification</span><span class="o">.</span><span class="n">severity</span>

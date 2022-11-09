@@ -267,8 +267,8 @@ function checkPageExistsAndRedirect(event) {
 <span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">...settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
-<span class="kn">from</span> <span class="nn">._svg</span> <span class="kn">import</span> <span class="n">QColoredSVGIcon</span>
+<span class="kn">from</span> <span class="nn">napari._qt.qt_resources._svg</span> <span class="kn">import</span> <span class="n">QColoredSVGIcon</span>
+<span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_stylesheet&#39;</span><span class="p">,</span> <span class="s1">&#39;QColoredSVGIcon&#39;</span><span class="p">]</span>
 
@@ -308,7 +308,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">stylesheet</span> <span class="o">+=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">theme</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">...utils.theme</span> <span class="kn">import</span> <span class="n">get_theme</span><span class="p">,</span> <span class="n">template</span>
+        <span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">get_theme</span><span class="p">,</span> <span class="n">template</span>
 
         <span class="k">return</span> <span class="n">template</span><span class="p">(</span><span class="n">stylesheet</span><span class="p">,</span> <span class="o">**</span><span class="n">get_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 

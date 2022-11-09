@@ -275,40 +275,40 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 
-<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">...utils._dtype</span> <span class="kn">import</span> <span class="n">get_dtype_limits</span><span class="p">,</span> <span class="n">normalize_dtype</span>
-<span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span>
-<span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span> <span class="nn">...utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
-<span class="kn">from</span> <span class="nn">...utils.events.event_utils</span> <span class="kn">import</span> <span class="n">connect_no_arg</span>
-<span class="kn">from</span> <span class="nn">...utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
-<span class="kn">from</span> <span class="nn">...utils.misc</span> <span class="kn">import</span> <span class="n">reorder_after_dim_reduction</span>
-<span class="kn">from</span> <span class="nn">...utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
-<span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span> <span class="nn">.._data_protocols</span> <span class="kn">import</span> <span class="n">LayerDataProtocol</span>
-<span class="kn">from</span> <span class="nn">.._multiscale_data</span> <span class="kn">import</span> <span class="n">MultiScaleData</span>
-<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
-<span class="kn">from</span> <span class="nn">..intensity_mixin</span> <span class="kn">import</span> <span class="n">IntensityVisualizationMixin</span>
-<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">calc_data_range</span>
-<span class="kn">from</span> <span class="nn">..utils.plane</span> <span class="kn">import</span> <span class="n">SlicingPlane</span>
-<span class="kn">from</span> <span class="nn">._image_constants</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari.layers._data_protocols</span> <span class="kn">import</span> <span class="n">LayerDataProtocol</span>
+<span class="kn">from</span> <span class="nn">napari.layers._multiscale_data</span> <span class="kn">import</span> <span class="n">MultiScaleData</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_constants</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ImageRendering</span><span class="p">,</span>
     <span class="n">Interpolation</span><span class="p">,</span>
     <span class="n">Mode</span><span class="p">,</span>
     <span class="n">VolumeDepiction</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._image_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">move_plane_along_normal</span> <span class="k">as</span> <span class="n">plane_drag_callback</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._image_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">set_plane_position</span> <span class="k">as</span> <span class="n">plane_double_click_callback</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._image_slice</span> <span class="kn">import</span> <span class="n">ImageSlice</span>
-<span class="kn">from</span> <span class="nn">._image_slice_data</span> <span class="kn">import</span> <span class="n">ImageSliceData</span>
-<span class="kn">from</span> <span class="nn">._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span><span class="p">,</span> <span class="n">guess_rgb</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_slice</span> <span class="kn">import</span> <span class="n">ImageSlice</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_slice_data</span> <span class="kn">import</span> <span class="n">ImageSliceData</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span><span class="p">,</span> <span class="n">guess_rgb</span>
+<span class="kn">from</span> <span class="nn">napari.layers.intensity_mixin</span> <span class="kn">import</span> <span class="n">IntensityVisualizationMixin</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">calc_data_range</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.plane</span> <span class="kn">import</span> <span class="n">SlicingPlane</span>
+<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">get_dtype_limits</span><span class="p">,</span> <span class="n">normalize_dtype</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.event_utils</span> <span class="kn">import</span> <span class="n">connect_no_arg</span>
+<span class="kn">from</span> <span class="nn">napari.utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
+<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">reorder_after_dim_reduction</span>
+<span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
+<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">...components.experimental.chunk</span> <span class="kn">import</span> <span class="n">ChunkRequest</span>
+    <span class="kn">from</span> <span class="nn">napari.components.experimental.chunk</span> <span class="kn">import</span> <span class="n">ChunkRequest</span>
 
 
 <span class="c1"># It is important to contain at least one abstractmethod to properly exclude this class</span>
@@ -1105,7 +1105,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_SliceDataClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Use special ChunkedSlideData for async.</span>
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">.experimental._chunked_slice_data</span> <span class="kn">import</span> <span class="n">ChunkedSliceData</span>
+            <span class="kn">from</span> <span class="nn">napari.layers.image.experimental._chunked_slice_data</span> <span class="kn">import</span> <span class="p">(</span>
+                <span class="n">ChunkedSliceData</span><span class="p">,</span>
+            <span class="p">)</span>
 
             <span class="k">return</span> <span class="n">ChunkedSliceData</span>
         <span class="k">return</span> <span class="n">ImageSliceData</span>
@@ -1369,7 +1371,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">..image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
+    <span class="kn">from</span> <span class="nn">napari.layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
 
 <div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../../../api/napari.layers.Image.html#napari.layers.Image">[docs]</a>    <span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">Image</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>
         <span class="k">pass</span></div>

@@ -473,9 +473,9 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        The end-user should never need to call this function.</span>
 <span class="sd">        But subclasses must implement this method (See</span>
-<span class="sd">        [`GeneratorFunction.work`][superqt.utils._qthreading.GeneratorWorker.work] for an example implementation).</span>
-<span class="sd">        Minimally, it should check `self.abort_requested` periodically and</span>
-<span class="sd">        exit if True.</span>
+<span class="sd">        [`GeneratorFunction.work`][superqt.utils._qthreading.GeneratorWorker.work] for</span>
+<span class="sd">        an example implementation). Minimally, it should check `self.abort_requested`</span>
+<span class="sd">        periodically and exit if True.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -936,8 +936,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Decorator that runs a function in a separate thread when called.</span>
 
-<span class="sd">    When called, the decorated function returns a [`WorkerBase`][superqt.utils.WorkerBase].  See</span>
-<span class="sd">    [`create_worker`][superqt.utils.create_worker] for additional keyword arguments that can be used</span>
+<span class="sd">    When called, the decorated function returns a</span>
+<span class="sd">    [`WorkerBase`][superqt.utils.WorkerBase].  See</span>
+<span class="sd">    [`create_worker`][superqt.utils.create_worker] for additional keyword arguments that</span>
+<span class="sd">    can be used</span>
 <span class="sd">    when calling the function.</span>
 
 <span class="sd">    The returned worker will have these signals:</span>
@@ -981,8 +983,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        worker class. by default None</span>
 <span class="sd">    worker_class : Type[WorkerBase]</span>
 <span class="sd">        The [`WorkerBase`][superqt.utils.WorkerBase] to instantiate, by default</span>
-<span class="sd">        [`FunctionWorker`][superqt.utils.FunctionWorker] will be used if `func` is a regular function,</span>
-<span class="sd">        and [`GeneratorWorker`][superqt.utils.GeneratorWorker] will be used if it is a generator.</span>
+<span class="sd">        [`FunctionWorker`][superqt.utils.FunctionWorker] will be used if `func` is a</span>
+<span class="sd">        regular function, and [`GeneratorWorker`][superqt.utils.GeneratorWorker] will be</span>
+<span class="sd">        used if it is a generator.</span>
 <span class="sd">    ignore_errors : bool</span>
 <span class="sd">        If `False` (the default), errors raised in the other thread will be</span>
 <span class="sd">        reraised in the main thread (makes debugging significantly easier).</span>

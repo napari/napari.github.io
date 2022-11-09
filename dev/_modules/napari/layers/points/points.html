@@ -274,33 +274,40 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gmean</span>
 
-<span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span>
-<span class="kn">from</span> <span class="nn">...utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="n">hex_to_name</span><span class="p">,</span> <span class="n">rgb_to_hex</span>
-<span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span> <span class="nn">...utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
-<span class="kn">from</span> <span class="nn">...utils.geometry</span> <span class="kn">import</span> <span class="n">project_points_onto_plane</span><span class="p">,</span> <span class="n">rotate_points</span>
-<span class="kn">from</span> <span class="nn">...utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
-<span class="kn">from</span> <span class="nn">...utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span>
-<span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
-<span class="kn">from</span> <span class="nn">..utils._color_manager_constants</span> <span class="kn">import</span> <span class="n">ColorMode</span>
-<span class="kn">from</span> <span class="nn">..utils.color_manager</span> <span class="kn">import</span> <span class="n">ColorManager</span>
-<span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
-<span class="kn">from</span> <span class="nn">..utils.interactivity_utils</span> <span class="kn">import</span> <span class="n">displayed_plane_from_nd_line_segment</span>
-<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_features_to_properties</span><span class="p">,</span>
-    <span class="n">_FeatureTable</span><span class="p">,</span>
-    <span class="n">_unique_element</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">napari.layers.points._points_constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SYMBOL_ALIAS</span><span class="p">,</span>
+    <span class="n">Mode</span><span class="p">,</span>
+    <span class="n">Shading</span><span class="p">,</span>
+    <span class="n">Symbol</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..utils.text_manager</span> <span class="kn">import</span> <span class="n">TextManager</span>
-<span class="kn">from</span> <span class="nn">._points_constants</span> <span class="kn">import</span> <span class="n">SYMBOL_ALIAS</span><span class="p">,</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">Shading</span><span class="p">,</span> <span class="n">Symbol</span>
-<span class="kn">from</span> <span class="nn">._points_mouse_bindings</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">highlight</span><span class="p">,</span> <span class="n">select</span>
-<span class="kn">from</span> <span class="nn">._points_utils</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari.layers.points._points_mouse_bindings</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">highlight</span><span class="p">,</span> <span class="n">select</span>
+<span class="kn">from</span> <span class="nn">napari.layers.points._points_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_create_box_from_corners_3d</span><span class="p">,</span>
     <span class="n">create_box</span><span class="p">,</span>
     <span class="n">fix_data_points</span><span class="p">,</span>
     <span class="n">points_to_squares</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils._color_manager_constants</span> <span class="kn">import</span> <span class="n">ColorMode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.color_manager</span> <span class="kn">import</span> <span class="n">ColorManager</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.interactivity_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">displayed_plane_from_nd_line_segment</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_features_to_properties</span><span class="p">,</span>
+    <span class="n">_FeatureTable</span><span class="p">,</span>
+    <span class="n">_unique_element</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.text_manager</span> <span class="kn">import</span> <span class="n">TextManager</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span>
+<span class="kn">from</span> <span class="nn">napari.utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="n">hex_to_name</span><span class="p">,</span> <span class="n">rgb_to_hex</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">project_points_onto_plane</span><span class="p">,</span> <span class="n">rotate_points</span>
+<span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
+<span class="kn">from</span> <span class="nn">napari.utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span>
+<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="n">DEFAULT_COLOR_CYCLE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 

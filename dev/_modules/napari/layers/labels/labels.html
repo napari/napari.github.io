@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/layers/labels/labels and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables _modules/napari/layers/labels/labels and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -273,36 +273,33 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 
-<span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">no_op</span>
-<span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
-<span class="kn">from</span> <span class="nn">napari.layers.image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
-<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_constants</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">LabelColorMode</span><span class="p">,</span>
-    <span class="n">LabelsRendering</span><span class="p">,</span>
-    <span class="n">Mode</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_mouse_bindings</span> <span class="kn">import</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pick</span>
-<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">indices_in_shape</span><span class="p">,</span>
-    <span class="n">interpolate_coordinates</span><span class="p">,</span>
-    <span class="n">sphere_indices</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">transform_color</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
-<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span>
-<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">_is_array_type</span>
+
+<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">...utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span>
+<span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">color_dict_to_colormap</span><span class="p">,</span>
     <span class="n">label_colormap</span><span class="p">,</span>
     <span class="n">low_discrepancy_image</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
-<span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">clamp_point_to_bounding_box</span>
-<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">_is_array_type</span>
-<span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
-<span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
-<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+<span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">...utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">...utils.geometry</span> <span class="kn">import</span> <span class="n">clamp_point_to_bounding_box</span>
+<span class="kn">from</span> <span class="nn">...utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
+<span class="kn">from</span> <span class="nn">...utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
+<span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">..image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
+<span class="kn">from</span> <span class="nn">..image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
+<span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="n">transform_color</span>
+<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
+<span class="kn">from</span> <span class="nn">._labels_constants</span> <span class="kn">import</span> <span class="n">LabelColorMode</span><span class="p">,</span> <span class="n">LabelsRendering</span><span class="p">,</span> <span class="n">Mode</span>
+<span class="kn">from</span> <span class="nn">._labels_mouse_bindings</span> <span class="kn">import</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pick</span>
+<span class="kn">from</span> <span class="nn">._labels_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">indices_in_shape</span><span class="p">,</span>
+    <span class="n">interpolate_coordinates</span><span class="p">,</span>
+    <span class="n">sphere_indices</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
@@ -647,9 +644,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># Convert from brush size in data coordinates to</span>
         <span class="c1"># cursor size in world coordinates</span>
         <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">scale</span>
-        <span class="n">min_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span>
-            <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">scale</span><span class="p">[</span><span class="n">d</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
-        <span class="p">)</span>
+        <span class="n">min_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">scale</span><span class="p">[</span><span class="n">d</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">])</span>
         <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">*</span> <span class="n">min_scale</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -1460,9 +1455,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">):</span>
             <span class="k">return</span>
 
-        <span class="n">dims_to_fill</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:]</span>
-        <span class="p">)</span>
+        <span class="n">dims_to_fill</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:])</span>
         <span class="n">data_slice_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">int_coord</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">dims_to_fill</span><span class="p">:</span>
             <span class="n">data_slice_list</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
@@ -1516,12 +1509,13 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
+        <span class="n">ndisplay</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">)</span>
         <span class="n">interp_coord</span> <span class="o">=</span> <span class="n">interpolate_coordinates</span><span class="p">(</span>
             <span class="n">last_cursor_coord</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">interp_coord</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span>
+                <span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span>
                 <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))]</span> <span class="o">==</span> <span class="mi">0</span>
             <span class="p">):</span>
                 <span class="k">continue</span>
@@ -1547,12 +1541,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            calls.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:]</span>
-        <span class="p">)</span>
-        <span class="n">dims_not_painted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">]</span>
-        <span class="p">)</span>
+        <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:])</span>
+        <span class="n">dims_not_painted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">])</span>
         <span class="n">paint_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
         <span class="p">)</span>
@@ -1675,7 +1665,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="n">source_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_source_info</span><span class="p">()</span>
         <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_layer_coords_status</span><span class="p">(</span>
-            <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span> <span class="n">value</span>
+            <span class="n">position</span><span class="p">,</span> <span class="n">value</span>
         <span class="p">)</span>
 
         <span class="c1"># if this labels layer has properties</span>
@@ -1766,7 +1756,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">napari.layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
+    <span class="kn">from</span> <span class="nn">..image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
 
 <div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels">[docs]</a>    <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">Labels</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>
         <span class="k">pass</span></div>

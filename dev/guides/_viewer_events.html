@@ -5,9 +5,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-    <link rel="icon" href="../_static/favicon/logo-silhouette-dark-light.svg" type="image/svg+xml">
-    <link rel="icon" href="../_static/favicon/logo-silhouette-192.png" sizes="any" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon/logo-noborder-180.png" sizes="180x180" type="image/png">
 
     <title>&lt;no title&gt; &#8212; napari</title>
   <link rel="stylesheet" href="../_static/fa/all.min.css">
@@ -114,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -127,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables guides/_viewer_events and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables guides/_viewer_events and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17'}.
 -->
 
 <script type="text/javascript">
@@ -178,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -293,137 +290,121 @@ function checkPageExistsAndRedirect(event) {
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.center</span></code></p></td>
-<td><p>Center of rotation for the camera. In 2D viewing the last two values are used.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.zoom</span></code></p></td>
-<td><p>Scale from canvas pixels to world pixels.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.angles</span></code></p></td>
-<td><p>Euler angles of camera in 3D viewing (rx, ry, rz), in degrees. Only used during 3D viewing. Note that Euler angles’s intrinsic degeneracy means different sets of Euler angles may lead to the same view.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.perspective</span></code></p></td>
-<td><p>Perspective (aka “field of view” in vispy) of the camera (if 3D).</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.interactive</span></code></p></td>
-<td><p>If the camera interactivity is enabled or not.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.position</span></code></p></td>
-<td><p>Position of the cursor in world coordinates. None if outside the world.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.scaled</span></code></p></td>
-<td><p>Flag to indicate whether cursor size should be scaled to zoom. Only relevant for circle and square cursors which are drawn with a particular size.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.size</span></code></p></td>
-<td><p>Size of the cursor in canvas pixels.Only relevant for circle and square cursors which are drawn with a particular size.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.style</span></code></p></td>
-<td><p>Style of the cursor. Must be one of     * square: A square     * circle: A circle     * cross: A cross     * forbidden: A forbidden symbol     * pointing: A finger for pointing     * standard: The standard cursor     # crosshair: A crosshair</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">CursorStyle</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndim</span></code></p></td>
-<td><p>Number of dimensions.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndisplay</span></code></p></td>
-<td><p>Number of displayed dimensions.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Literal[2,</span> <span class="pre">3]</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.last_used</span></code></p></td>
-<td><p>Dimension which was last used.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.range</span></code></p></td>
-<td><p>List of tuples (min, max, step), one for each dimension. In a world coordinates space. As with Python’s <code class="docutils literal notranslate"><span class="pre">range</span></code> and <code class="docutils literal notranslate"><span class="pre">slice</span></code>, max is not included.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.current_step</span></code></p></td>
-<td><p>Tuple of the slider position for each dims slider, in slider coordinates.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.order</span></code></p></td>
-<td><p>Tuple of ordering the dimensions, where the last dimensions are rendered.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.axis_labels</span></code></p></td>
-<td><p>Tuple of labels for each dimension.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.stride</span></code></p></td>
-<td><p>Number of layers to place in each grid square before moving on to the next square. The default ordering is to place the most visible layer in the top left corner of the grid. A negative stride will cause the order in which the layers are placed in the grid to be reversed.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.shape</span></code></p></td>
-<td><p>Number of rows and columns in the grid. A value of -1 for either or both of will be used the row and column numbers will trigger an auto calculation of the necessary grid shape to appropriately fill all the layers at the appropriate stride.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[napari.utils.events.custom_types.ConstrainedIntValue,</span> <span class="pre">napari.utils.events.custom_types.ConstrainedIntValue]</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.enabled</span></code></p></td>
-<td><p>If grid is enabled or not.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.visible</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.visible</span></code></p></td>
 <td><p>If axes are visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.opacity</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.order</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.labels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.labels</span></code></p></td>
 <td><p>If axes labels are visible or not. Not the actual axes labels are stored in <code class="docutils literal notranslate"><span class="pre">viewer.dims.axes_labels</span></code>.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.colored</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.colored</span></code></p></td>
 <td><p>If axes are colored or not. If colored then default coloring is x=cyan, y=yellow, z=magenta. If not colored than axes are the color opposite of the canvas background.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.dashed</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.dashed</span></code></p></td>
 <td><p>If axes are dashed or not. If not dashed then all the axes are solid. If dashed then x=solid, y=dashed, z=dotted.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.arrows</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.axes.events.arrows</span></code></p></td>
 <td><p>If axes have arrowheads or not.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.center</span></code></p></td>
+<td><p>Center of rotation for the camera. In 2D viewing the last two values are used.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.zoom</span></code></p></td>
+<td><p>Scale from canvas pixels to world pixels.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.angles</span></code></p></td>
+<td><p>Euler angles of camera in 3D viewing (rx, ry, rz), in degrees. Only used during 3D viewing. Note that Euler angles’s intrinsic degeneracy means different sets of Euler angles may lead to the same view.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.perspective</span></code></p></td>
+<td><p>Perspective (aka “field of view” in vispy) of the camera (if 3D).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.camera.events.interactive</span></code></p></td>
+<td><p>If the camera interactivity is enabled or not.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.position</span></code></p></td>
+<td><p>Position of the cursor in world coordinates. None if outside the world.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.scaled</span></code></p></td>
+<td><p>Flag to indicate whether cursor size should be scaled to zoom. Only relevant for circle and square cursors which are drawn with a particular size.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.size</span></code></p></td>
+<td><p>Size of the cursor in canvas pixels.Only relevant for circle and square cursors which are drawn with a particular size.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.cursor.events.style</span></code></p></td>
+<td><p>Style of the cursor. Must be one of     * square: A square     * circle: A circle     * cross: A cross     * forbidden: A forbidden symbol     * pointing: A finger for pointing     * standard: The standard cursor     # crosshair: A crosshair</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CursorStyle</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndim</span></code></p></td>
+<td><p>Number of dimensions.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.ndisplay</span></code></p></td>
+<td><p>Number of displayed dimensions.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Literal[2,</span> <span class="pre">3]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.last_used</span></code></p></td>
+<td><p>Dimension which was last used.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.range</span></code></p></td>
+<td><p>List of tuples (min, max, step), one for each dimension. In a world coordinates space. As with Python’s <code class="docutils literal notranslate"><span class="pre">range</span></code> and <code class="docutils literal notranslate"><span class="pre">slice</span></code>, max is not included.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.current_step</span></code></p></td>
+<td><p>Tuple of the slider position for each dims slider, in slider coordinates.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.order</span></code></p></td>
+<td><p>Tuple of ordering the dimensions, where the last dimensions are rendered.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.axis_labels</span></code></p></td>
+<td><p>Tuple of labels for each dimension.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.stride</span></code></p></td>
+<td><p>Number of layers to place in each grid square before moving on to the next square. The default ordering is to place the most visible layer in the top left corner of the grid. A negative stride will cause the order in which the layers are placed in the grid to be reversed.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ConstrainedIntValue</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.shape</span></code></p></td>
+<td><p>Number of rows and columns in the grid. A value of -1 for either or both of will be used the row and column numbers will trigger an auto calculation of the necessary grid shape to appropriately fill all the layers at the appropriate stride.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[napari.utils.events.custom_types.ConstrainedIntValue,</span> <span class="pre">napari.utils.events.custom_types.ConstrainedIntValue]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.enabled</span></code></p></td>
+<td><p>If grid is enabled or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.visible</span></code></p></td>
 <td><p>If scale bar is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.opacity</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.order</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.position</span></code></p></td>
-<td><p>Position of the scale bar in the canvas. Must be one of ‘top left’, ‘top right’, ‘bottom right’, ‘bottom left’. Default value is ‘bottom right’.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">CanvasPosition</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.colored</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.colored</span></code></p></td>
 <td><p>If scale bar are colored or not. If colored then default color is magenta. If not colored than scale bar color is the opposite of the canvas background or the background box.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.color</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.color</span></code></p></td>
 <td><p>Scalebar and text color. See <code class="docutils literal notranslate"><span class="pre">ColorValue.validate</span></code> for supported values.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ColorValue</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.ticks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.ticks</span></code></p></td>
 <td><p>If scale bar has ticks at ends or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.position</span></code></p></td>
+<td><p>Position of the scale bar in the canvas. Must be one of ‘top left’, ‘top right’, ‘bottom right’, ‘bottom left’. Default value is ‘bottom right’.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Position</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.scale_bar.events.font_size</span></code></p></td>
 <td><p>The font size (in points) of the text.</p></td>
@@ -445,25 +426,17 @@ function checkPageExistsAndRedirect(event) {
 <td><p>If text overlay is visible or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.opacity</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.order</span></code></p></td>
-<td><p></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.position</span></code></p></td>
-<td><p>Position of the text overlay in the canvas. Must be one  of ‘top left’, ‘top right’, ‘top center’, ‘bottom right’, ‘bottom left’, ‘bottom_center’. Default value is ‘top left’</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">CanvasPosition</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.color</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.color</span></code></p></td>
 <td><p>A (4,) color array of the text overlay.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ColorValue</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.font_size</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.font_size</span></code></p></td>
 <td><p>The font size (in points) of the text.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.position</span></code></p></td>
+<td><p>Position of the text overlay in the canvas. Must be one  of ‘top left’, ‘top right’, ‘top center’, ‘bottom right’, ‘bottom left’, ‘bottom_center’. Default value is ‘top left’</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TextOverlayPosition</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.text_overlay.events.text</span></code></p></td>
 <td><p>Text to be displayed in the canvas.</p></td>

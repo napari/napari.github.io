@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/layers/shapes/shapes and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables _modules/napari/layers/shapes/shapes and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -274,16 +274,30 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">vispy.color</span> <span class="kn">import</span> <span class="n">get_color_names</span>
 
-<span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
-<span class="kn">from</span> <span class="nn">napari.layers.shapes._shape_list</span> <span class="kn">import</span> <span class="n">ShapeList</span>
-<span class="kn">from</span> <span class="nn">napari.layers.shapes._shapes_constants</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Box</span><span class="p">,</span>
-    <span class="n">ColorMode</span><span class="p">,</span>
-    <span class="n">Mode</span><span class="p">,</span>
-    <span class="n">ShapeType</span><span class="p">,</span>
-    <span class="n">shape_classes</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">...utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span><span class="p">,</span> <span class="n">ensure_colormap</span>
+<span class="kn">from</span> <span class="nn">...utils.colormaps.colormap_utils</span> <span class="kn">import</span> <span class="n">ColorType</span>
+<span class="kn">from</span> <span class="nn">...utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">hex_to_name</span><span class="p">,</span>
+    <span class="n">rgb_to_hex</span><span class="p">,</span>
+    <span class="n">transform_color</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.shapes._shapes_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">...utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">...utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">...utils.misc</span> <span class="kn">import</span> <span class="n">ensure_iterable</span>
+<span class="kn">from</span> <span class="nn">...utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">..utils.color_manager_utils</span> <span class="kn">import</span> <span class="n">guess_continuous</span><span class="p">,</span> <span class="n">map_property</span>
+<span class="kn">from</span> <span class="nn">..utils.color_transformations</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">normalize_and_broadcast_colors</span><span class="p">,</span>
+    <span class="n">transform_color_cycle</span><span class="p">,</span>
+    <span class="n">transform_color_with_defaults</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..utils.interactivity_utils</span> <span class="kn">import</span> <span class="n">nd_line_segment_to_displayed_data_ray</span>
+<span class="kn">from</span> <span class="nn">..utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
+<span class="kn">from</span> <span class="nn">..utils.text_manager</span> <span class="kn">import</span> <span class="n">TextManager</span>
+<span class="kn">from</span> <span class="nn">._shape_list</span> <span class="kn">import</span> <span class="n">ShapeList</span>
+<span class="kn">from</span> <span class="nn">._shapes_constants</span> <span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">ColorMode</span><span class="p">,</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">ShapeType</span><span class="p">,</span> <span class="n">shape_classes</span>
+<span class="kn">from</span> <span class="nn">._shapes_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">add_ellipse</span><span class="p">,</span>
     <span class="n">add_line</span><span class="p">,</span>
     <span class="n">add_path_polygon</span><span class="p">,</span>
@@ -295,7 +309,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">vertex_insert</span><span class="p">,</span>
     <span class="n">vertex_remove</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.shapes._shapes_utils</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">._shapes_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">create_box</span><span class="p">,</span>
     <span class="n">extract_shape_type</span><span class="p">,</span>
     <span class="n">get_default_shape_type</span><span class="p">,</span>
@@ -303,31 +317,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">number_of_shapes</span><span class="p">,</span>
     <span class="n">validate_num_vertices</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils.color_manager_utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">guess_continuous</span><span class="p">,</span>
-    <span class="n">map_property</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">normalize_and_broadcast_colors</span><span class="p">,</span>
-    <span class="n">transform_color_cycle</span><span class="p">,</span>
-    <span class="n">transform_color_with_defaults</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils.interactivity_utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">nd_line_segment_to_displayed_data_ray</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span><span class="p">,</span> <span class="n">_unique_element</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils.text_manager</span> <span class="kn">import</span> <span class="n">TextManager</span>
-<span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span><span class="p">,</span> <span class="n">ensure_colormap</span>
-<span class="kn">from</span> <span class="nn">napari.utils.colormaps.colormap_utils</span> <span class="kn">import</span> <span class="n">ColorType</span>
-<span class="kn">from</span> <span class="nn">napari.utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">hex_to_name</span><span class="p">,</span>
-    <span class="n">rgb_to_hex</span><span class="p">,</span>
-    <span class="n">transform_color</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
-<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">ensure_iterable</span>
-<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="n">DEFAULT_COLOR_CYCLE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 
@@ -727,7 +716,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_allow_thumbnail_update</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span> <span class="o">=</span> <span class="n">_FeatureTable</span><span class="o">.</span><span class="n">from_layer</span><span class="p">(</span>
             <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
@@ -744,9 +733,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_width</span> <span class="o">=</span> <span class="mi">1</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">)</span>
         <span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -920,7 +909,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
             <span class="n">shape_type</span><span class="o">=</span><span class="n">shape_type</span><span class="p">,</span>
@@ -1425,42 +1414,42 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">selected_face_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_face_color</span><span class="p">[</span>
                 <span class="n">selected_data_indices</span>
             <span class="p">]</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="n">unique_face_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">selected_face_colors</span><span class="p">)</span>
-            <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">face_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">selected_face_colors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">face_color</span> <span class="o">=</span> <span class="n">face_colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span> <span class="o">=</span> <span class="n">unique_face_color</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span> <span class="o">=</span> <span class="n">face_color</span>
 
             <span class="n">selected_edge_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_edge_color</span><span class="p">[</span>
                 <span class="n">selected_data_indices</span>
             <span class="p">]</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="n">unique_edge_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">selected_edge_colors</span><span class="p">)</span>
-            <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">edge_colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">selected_edge_colors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">edge_color</span> <span class="o">=</span> <span class="n">edge_colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span> <span class="o">=</span> <span class="n">unique_edge_color</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span> <span class="o">=</span> <span class="n">edge_color</span>
 
-            <span class="n">unique_edge_width</span> <span class="o">=</span> <span class="n">_unique_element</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                    <span class="p">[</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">edge_width</span>
-                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">selected_data</span>
-                    <span class="p">]</span>
-                <span class="p">)</span>
+            <span class="n">edge_width</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">edge_width</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">selected_data</span><span class="p">}</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="n">unique_edge_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_width</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">edge_width</span> <span class="o">=</span> <span class="n">edge_width</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span> <span class="o">=</span> <span class="n">unique_edge_width</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
 
-            <span class="n">unique_properties</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">unique_properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unique_element</span><span class="p">(</span>
-                    <span class="n">v</span><span class="p">[</span><span class="n">selected_data_indices</span><span class="p">]</span>
-                <span class="p">)</span>
+                <span class="c1"># pandas uses `object` as dtype for strings by default, which</span>
+                <span class="c1"># combined with the axis argument breaks np.unique</span>
+                <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
+                <span class="n">properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">selected_data_indices</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unique_properties</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">n_unique_properties</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">n_unique_properties</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">unique_properties</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">properties</span>
 
     <span class="k">def</span> <span class="nf">_set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set the face_color or edge_color property</span>
@@ -1811,12 +1800,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        anchor_y : str</span>
 <span class="sd">            The vispy text anchor for the y axis</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span>
 
         <span class="c1"># short circuit if no text present</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">compute_text_coords</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">)),</span> <span class="n">ndisplay</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span>
             <span class="p">)</span>
 
         <span class="c1"># get the coordinates of the vertices for the shapes in view</span>
@@ -1826,11 +1814,13 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># get the coordinates for the dimensions being displayed</span>
         <span class="n">sliced_in_view_coords</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">position</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
+            <span class="n">position</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">in_view_shapes_coords</span>
         <span class="p">]</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">compute_text_coords</span><span class="p">(</span><span class="n">sliced_in_view_coords</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">compute_text_coords</span><span class="p">(</span>
+            <span class="n">sliced_in_view_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -1894,7 +1884,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_set_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set editable mode based on layer properties.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">editable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">True</span>
@@ -2467,8 +2457,8 @@ function checkPageExistsAndRedirect(event) {
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_shapes_to_view</span><span class="p">(</span><span class="n">shape_inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_add_shapes_to_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape_inputs</span><span class="p">,</span> <span class="n">data_view</span><span class="p">):</span>
@@ -2483,8 +2473,8 @@ function checkPageExistsAndRedirect(event) {
                     <span class="n">d</span><span class="p">,</span>
                     <span class="n">edge_width</span><span class="o">=</span><span class="n">ew</span><span class="p">,</span>
                     <span class="n">z_index</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                    <span class="n">dims_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
-                    <span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span>
+                    <span class="n">dims_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">,</span>
+                    <span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">,</span>
                 <span class="p">),</span>
                 <span class="n">ec</span><span class="p">,</span>
                 <span class="n">fc</span><span class="p">,</span>
@@ -2525,22 +2515,21 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set the view given the slicing indices.&quot;&quot;&quot;</span>
-        <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">ndisplay</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span> <span class="o">=</span> <span class="n">ndisplay</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_dims_order</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_dims_order</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_order</span><span class="p">)</span>
             <span class="c1"># Clear clipboard if dimensions swap</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">)</span>
         <span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">slice_key</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -2796,14 +2785,12 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># the offset is needed to ensure that the top left corner of the shapes</span>
             <span class="c1"># corresponds to the top left corner of the thumbnail</span>
             <span class="n">de</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span>
-            <span class="p">)</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span>
             <span class="c1"># calculate range of values for the vertices and pad with 1</span>
             <span class="c1"># padding ensures the entire shape can be represented in the thumbnail</span>
             <span class="c1"># without getting clipped</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">de</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
+                <span class="p">[</span><span class="n">de</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="n">de</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
             <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
             <span class="n">zoom_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
@@ -2912,13 +2899,13 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Index of vertex if any that is at the coordinates. Returns `None`</span>
 <span class="sd">            if no vertex is found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_moving</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moving_value</span>
 
-        <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
+        <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_displayed</span><span class="p">]</span>
 
         <span class="c1"># Check selected shapes</span>
         <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
@@ -3140,7 +3127,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># Calculate offset based on dimension shifts</span>
             <span class="n">offset</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span>
             <span class="p">]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">])</span>
@@ -3150,8 +3137,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]):</span>
                 <span class="n">shape</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-                <span class="n">not_disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
-                <span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+                <span class="n">data</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span>
+                    <span class="p">:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims_not_displayed</span>
+                <span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
                 <span class="n">shape</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
                 <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;face_color&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="n">edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;edge_color&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>

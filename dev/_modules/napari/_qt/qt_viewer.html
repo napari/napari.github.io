@@ -111,7 +111,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        <span>version <span id="version_switcher_button_text">latest</span></span>
+        <span>version <span id="version_switcher_button_text">0.4.17</span></span>
 
         <svg class="version-switcher-chevron" width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.27197 1.5L8.34304 8.57107L15.4141 1.5" stroke="black" stroke-width="2"/>
@@ -124,7 +124,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/_qt/qt_viewer and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables _modules/napari/_qt/qt_viewer and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': '0.4.17'}.
 -->
 
 <script type="text/javascript">
@@ -175,10 +175,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's dev variable.
+            // this version, rather than using sphinx's 0.4.17 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "latest") {
+            if (entry.version == "0.4.17") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -278,72 +278,65 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QCursor</span><span class="p">,</span> <span class="n">QGuiApplication</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span>
 
-<span class="kn">from</span> <span class="nn">napari._qt.containers</span> <span class="kn">import</span> <span class="n">QtLayerList</span>
-<span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_reader_dialog</span> <span class="kn">import</span> <span class="n">handle_gui_reading</span>
-<span class="kn">from</span> <span class="nn">napari._qt.dialogs.screenshot_dialog</span> <span class="kn">import</span> <span class="n">ScreenshotDialog</span>
-<span class="kn">from</span> <span class="nn">napari._qt.perf.qt_performance</span> <span class="kn">import</span> <span class="n">QtPerformance</span>
-<span class="kn">from</span> <span class="nn">napari._qt.utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">QImg2array</span><span class="p">,</span>
-    <span class="n">circle_pixmap</span><span class="p">,</span>
-    <span class="n">crosshair_pixmap</span><span class="p">,</span>
-    <span class="n">square_pixmap</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_dims</span> <span class="kn">import</span> <span class="n">QtDims</span>
-<span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_viewer_buttons</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">QtLayerButtons</span><span class="p">,</span>
-    <span class="n">QtViewerButtons</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_viewer_dock_widget</span> <span class="kn">import</span> <span class="n">QtViewerDockWidget</span>
-<span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_welcome</span> <span class="kn">import</span> <span class="n">QtWidgetOverlay</span>
-<span class="kn">from</span> <span class="nn">napari.components.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
-<span class="kn">from</span> <span class="nn">napari.components.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
-<span class="kn">from</span> <span class="nn">napari.components.overlays._interaction_box_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">napari_builtins.io</span> <span class="kn">import</span> <span class="n">imsave_extensions</span>
+
+<span class="kn">from</span> <span class="nn">..components._interaction_box_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">InteractionBoxMouseBindings</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.errors</span> <span class="kn">import</span> <span class="n">MultipleReaderError</span><span class="p">,</span> <span class="n">ReaderPluginError</span>
-<span class="kn">from</span> <span class="nn">napari.layers.base.base</span> <span class="kn">import</span> <span class="n">Layer</span>
-<span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_npe2</span>
-<span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
-<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span>
-<span class="kn">from</span> <span class="nn">napari.utils._proxies</span> <span class="kn">import</span> <span class="n">ReadOnlyWrapper</span>
-<span class="kn">from</span> <span class="nn">napari.utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
-<span class="kn">from</span> <span class="nn">napari.utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="n">transform_color</span>
-<span class="kn">from</span> <span class="nn">napari.utils.history</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..components.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+<span class="kn">from</span> <span class="nn">..components.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
+<span class="kn">from</span> <span class="nn">..errors</span> <span class="kn">import</span> <span class="n">MultipleReaderError</span><span class="p">,</span> <span class="n">ReaderPluginError</span>
+<span class="kn">from</span> <span class="nn">..layers.base.base</span> <span class="kn">import</span> <span class="n">Layer</span>
+<span class="kn">from</span> <span class="nn">..plugins</span> <span class="kn">import</span> <span class="n">_npe2</span>
+<span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span>
+<span class="kn">from</span> <span class="nn">..utils._proxies</span> <span class="kn">import</span> <span class="n">ReadOnlyWrapper</span>
+<span class="kn">from</span> <span class="nn">..utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
+<span class="kn">from</span> <span class="nn">..utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="n">transform_color</span>
+<span class="kn">from</span> <span class="nn">..utils.history</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_open_history</span><span class="p">,</span>
     <span class="n">get_save_history</span><span class="p">,</span>
     <span class="n">update_open_history</span><span class="p">,</span>
     <span class="n">update_save_history</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.utils.interactions</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..utils.interactions</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">mouse_double_click_callbacks</span><span class="p">,</span>
     <span class="n">mouse_move_callbacks</span><span class="p">,</span>
     <span class="n">mouse_press_callbacks</span><span class="p">,</span>
     <span class="n">mouse_release_callbacks</span><span class="p">,</span>
     <span class="n">mouse_wheel_callbacks</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.utils.io</span> <span class="kn">import</span> <span class="n">imsave</span>
-<span class="kn">from</span> <span class="nn">napari.utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapHandler</span>
-<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span>
-<span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">get_theme</span>
-<span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-<span class="kn">from</span> <span class="nn">napari_builtins.io</span> <span class="kn">import</span> <span class="n">imsave_extensions</span>
+<span class="kn">from</span> <span class="nn">..utils.io</span> <span class="kn">import</span> <span class="n">imsave</span>
+<span class="kn">from</span> <span class="nn">..utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapHandler</span>
+<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span>
+<span class="kn">from</span> <span class="nn">..utils.theme</span> <span class="kn">import</span> <span class="n">get_theme</span>
+<span class="kn">from</span> <span class="nn">..utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+<span class="kn">from</span> <span class="nn">.containers</span> <span class="kn">import</span> <span class="n">QtLayerList</span>
+<span class="kn">from</span> <span class="nn">.dialogs.qt_reader_dialog</span> <span class="kn">import</span> <span class="n">handle_gui_reading</span>
+<span class="kn">from</span> <span class="nn">.dialogs.screenshot_dialog</span> <span class="kn">import</span> <span class="n">ScreenshotDialog</span>
+<span class="kn">from</span> <span class="nn">.perf.qt_performance</span> <span class="kn">import</span> <span class="n">QtPerformance</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">QImg2array</span><span class="p">,</span> <span class="n">circle_pixmap</span><span class="p">,</span> <span class="n">crosshair_pixmap</span><span class="p">,</span> <span class="n">square_pixmap</span>
+<span class="kn">from</span> <span class="nn">.widgets.qt_dims</span> <span class="kn">import</span> <span class="n">QtDims</span>
+<span class="kn">from</span> <span class="nn">.widgets.qt_viewer_buttons</span> <span class="kn">import</span> <span class="n">QtLayerButtons</span><span class="p">,</span> <span class="n">QtViewerButtons</span>
+<span class="kn">from</span> <span class="nn">.widgets.qt_viewer_dock_widget</span> <span class="kn">import</span> <span class="n">QtViewerDockWidget</span>
+<span class="kn">from</span> <span class="nn">.widgets.qt_welcome</span> <span class="kn">import</span> <span class="n">QtWidgetOverlay</span>
 
-<span class="kn">from</span> <span class="nn">napari._vispy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+<span class="kn">from</span> <span class="nn">.._vispy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
     <span class="n">VispyAxesOverlay</span><span class="p">,</span>
     <span class="n">VispyCamera</span><span class="p">,</span>
     <span class="n">VispyCanvas</span><span class="p">,</span>
     <span class="n">VispyScaleBarOverlay</span><span class="p">,</span>
     <span class="n">VispyInteractionBox</span><span class="p">,</span>
     <span class="n">VispyTextOverlay</span><span class="p">,</span>
-    <span class="n">create_vispy_layer</span><span class="p">,</span>
+    <span class="n">create_vispy_visual</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">npe2.manifest.contributions</span> <span class="kn">import</span> <span class="n">WriterContribution</span>
 
-    <span class="kn">from</span> <span class="nn">napari._qt.layer_controls</span> <span class="kn">import</span> <span class="n">QtLayerControlsContainer</span>
-    <span class="kn">from</span> <span class="nn">napari.components</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
+    <span class="kn">from</span> <span class="nn">..components</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
+    <span class="kn">from</span> <span class="nn">.layer_controls</span> <span class="kn">import</span> <span class="n">QtLayerControlsContainer</span>
 
 
 <span class="k">def</span> <span class="nf">_npe2_decode_selected_filter</span><span class="p">(</span>
@@ -549,9 +542,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># moved from the old layerlist... still feels misplaced.</span>
         <span class="c1"># can you help me move this elsewhere?</span>
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">napari._qt.experimental.qt_chunk_receiver</span> <span class="kn">import</span> <span class="p">(</span>
-                <span class="n">QtChunkReceiver</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">.experimental.qt_chunk_receiver</span> <span class="kn">import</span> <span class="n">QtChunkReceiver</span>
 
             <span class="c1"># The QtChunkReceiver object allows the ChunkLoader to pass newly</span>
             <span class="c1"># loaded chunks to the layers that requested them.</span>
@@ -569,7 +560,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">controls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtLayerControlsContainer</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Avoid circular import.</span>
-            <span class="kn">from</span> <span class="nn">napari._qt.layer_controls</span> <span class="kn">import</span> <span class="n">QtLayerControlsContainer</span>
+            <span class="kn">from</span> <span class="nn">.layer_controls</span> <span class="kn">import</span> <span class="n">QtLayerControlsContainer</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_controls</span> <span class="o">=</span> <span class="n">QtLayerControlsContainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controls</span>
@@ -713,20 +704,20 @@ function checkPageExistsAndRedirect(event) {
         <span class="sd">&quot;&quot;&quot;Add visuals for axes, scale bar, and welcome text.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">VispyAxesOverlay</span><span class="p">(</span>
-            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
-            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_bar</span> <span class="o">=</span> <span class="n">VispyScaleBarOverlay</span><span class="p">(</span>
-            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="p">,</span>
-            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="mf">1e6</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">_on_position_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text_overlay</span> <span class="o">=</span> <span class="n">VispyTextOverlay</span><span class="p">(</span>
-            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">text_overlay</span><span class="p">,</span>
-            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="mf">1e6</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text_overlay</span><span class="o">.</span><span class="n">_on_position_change</span>
@@ -816,7 +807,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        layer : napari.layers.Layer</span>
 <span class="sd">            Layer to be added.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">vispy_layer</span> <span class="o">=</span> <span class="n">create_vispy_visual</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
         <span class="c1"># QtPoll is experimental.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_poll</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -949,7 +940,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># CAN REMOVE THIS AFTER DEPRECATION IS DONE, see self.screenshot.</span>
         <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">grabFramebuffer</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">flash</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">napari._qt.utils</span> <span class="kn">import</span> <span class="n">add_flash_animation</span>
+            <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">add_flash_animation</span>
 
             <span class="c1"># Here we are actually applying the effect to the `_canvas_overlay`</span>
             <span class="c1"># and not # the `native` widget because it does not work on the</span>
@@ -1090,9 +1081,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        stack : bool or list[list[str]]</span>
 <span class="sd">            whether to stack files or not. Can also be a list containing</span>
 <span class="sd">            files to stack.</span>
-<span class="sd">        plugin : str</span>
+<span class="sd">        plugin: str</span>
 <span class="sd">            plugin to use for reading</span>
-<span class="sd">        layer_type : str</span>
+<span class="sd">        layer_type: str</span>
 <span class="sd">            layer type for opened layers</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">choose_plugin</span><span class="p">:</span>
@@ -1124,9 +1115,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_toggle_chunk_outlines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Toggle whether we are drawing outlines around the chunks.&quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">napari.layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="p">(</span>
-            <span class="n">_OctreeImageBase</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">..layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
 
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>
@@ -1168,7 +1157,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Imports the console the first time it is requested.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">()</span> <span class="ow">or</span> <span class="n">in_jupyter</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">():</span>
             <span class="k">return</span>
 
         <span class="c1"># force instantiation of console if not already instantiated</span>
@@ -1369,26 +1358,20 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        This is triggered from vispy whenever new data is sent to the canvas or</span>
 <span class="sd">        the camera is moved and is connected in the `QtViewer`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># The canvas corners in full world coordinates (i.e. across all layers).</span>
-        <span class="n">canvas_corners_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_corners_in_world</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-            <span class="c1"># The following condition should mostly be False. One case when it can</span>
-            <span class="c1"># be True is when a callback connected to self.viewer.dims.events.ndisplay</span>
-            <span class="c1"># is executed before layer._slice_input has been updated by another callback</span>
-            <span class="c1"># (e.g. when changing self.viewer.dims.ndisplay from 3 to 2).</span>
-            <span class="n">displayed_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
-            <span class="n">nd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">displayed_sorted</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">nd</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">:</span>
-                <span class="n">displayed_axes</span> <span class="o">=</span> <span class="n">displayed_sorted</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">[</span><span class="o">-</span><span class="n">nd</span><span class="p">:]</span>
-            <span class="n">layer</span><span class="o">.</span><span class="n">_update_draw</span><span class="p">(</span>
-                <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
-                <span class="n">corner_pixels_displayed</span><span class="o">=</span><span class="n">canvas_corners_world</span><span class="p">[</span>
-                    <span class="p">:,</span> <span class="n">displayed_axes</span>
-                <span class="p">],</span>
-                <span class="n">shape_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="p">)</span></div>
+            <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+                <span class="n">nd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">_displayed_axes</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">nd</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">:</span>
+                    <span class="n">displayed_axes</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">_displayed_axes</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">[</span><span class="o">-</span><span class="n">nd</span><span class="p">:]</span>
+                <span class="n">layer</span><span class="o">.</span><span class="n">_update_draw</span><span class="p">(</span>
+                    <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
+                    <span class="n">corner_pixels_displayed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_corners_in_world</span><span class="p">[</span>
+                        <span class="p">:,</span> <span class="n">displayed_axes</span>
+                    <span class="p">],</span>
+                    <span class="n">shape_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+                <span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.set_welcome_visible"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.set_welcome_visible">[docs]</a>    <span class="k">def</span> <span class="nf">set_welcome_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Show welcome screen widget.&quot;&quot;&quot;</span>
@@ -1500,8 +1483,8 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">napari._qt.experimental.qt_poll</span> <span class="kn">import</span> <span class="n">QtPoll</span>
-    <span class="kn">from</span> <span class="nn">napari.components.experimental.remote</span> <span class="kn">import</span> <span class="n">RemoteManager</span>
+    <span class="kn">from</span> <span class="nn">..components.experimental.remote</span> <span class="kn">import</span> <span class="n">RemoteManager</span>
+    <span class="kn">from</span> <span class="nn">.experimental.qt_poll</span> <span class="kn">import</span> <span class="n">QtPoll</span>
 
 
 <span class="k">def</span> <span class="nf">_create_qt_poll</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QtPoll</span><span class="p">]:</span>
@@ -1532,7 +1515,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">monitor</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="kn">from</span> <span class="nn">napari._qt.experimental.qt_poll</span> <span class="kn">import</span> <span class="n">QtPoll</span>
+    <span class="kn">from</span> <span class="nn">.experimental.qt_poll</span> <span class="kn">import</span> <span class="n">QtPoll</span>
 
     <span class="n">qt_poll</span> <span class="o">=</span> <span class="n">QtPoll</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
     <span class="n">camera</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">qt_poll</span><span class="o">.</span><span class="n">on_camera</span><span class="p">)</span>
@@ -1554,8 +1537,8 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">monitor</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># Not using the monitor at all</span>
 
-    <span class="kn">from</span> <span class="nn">napari.components.experimental.monitor</span> <span class="kn">import</span> <span class="n">monitor</span>
-    <span class="kn">from</span> <span class="nn">napari.components.experimental.remote</span> <span class="kn">import</span> <span class="n">RemoteManager</span>
+    <span class="kn">from</span> <span class="nn">..components.experimental.monitor</span> <span class="kn">import</span> <span class="n">monitor</span>
+    <span class="kn">from</span> <span class="nn">..components.experimental.remote</span> <span class="kn">import</span> <span class="n">RemoteManager</span>
 
     <span class="c1"># Start the monitor so we can access its events. The monitor has no</span>
     <span class="c1"># dependencies to napari except to utils.Event.</span>

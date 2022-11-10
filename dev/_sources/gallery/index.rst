@@ -152,6 +152,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Display concentric spheres in 3D.">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_concentric-spheres_thumb.png
+    :alt: Display concentric spheres in 3D.
+
+  :ref:`sphx_glr_gallery_concentric-spheres.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Display concentric spheres in 3D.</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D volume and the scale bar">
 
 .. only:: html
@@ -271,6 +288,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Display points overlaid on a 3D image">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_image-points-3d_thumb.png
+    :alt: Display points overlaid on a 3D image
+
+  :ref:`sphx_glr_gallery_image-points-3d.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Display points overlaid on a 3D image</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Image depth">
 
 .. only:: html
@@ -334,6 +368,23 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Add multiscale image</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_add-points-3d_thumb.png
+    :alt: Display a labels layer above of an image layer using the add_labels and
+
+  :ref:`sphx_glr_gallery_add-points-3d.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Display a labels layer above of an image layer using the add_labels and</div>
     </div>
 
 
@@ -759,6 +810,23 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Show points based on feature</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="View 3D labels.">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_labels3d_thumb.png
+    :alt: View 3D labels.
+
+  :ref:`sphx_glr_gallery_labels3d.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">View 3D labels.</div>
     </div>
 
 
@@ -1308,6 +1376,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="3D click and drag interactivity demo">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_interactive_move_point_3d_thumb.png
+    :alt: Interactive move point
+
+  :ref:`sphx_glr_gallery_interactive_move_point_3d.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Interactive move point</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When...">
 
 .. only:: html
@@ -1407,6 +1492,7 @@ Examples of napari usage.
    /gallery/add_3D_image
    /gallery/add_surface_2D
    /gallery/add_grayscale_image
+   /gallery/concentric-spheres
    /gallery/scale_bar
    /gallery/annotate-2d
    /gallery/nD_image
@@ -1414,10 +1500,12 @@ Examples of napari usage.
    /gallery/nD_surface
    /gallery/viewer_fps_label
    /gallery/multiple_viewers
+   /gallery/image-points-3d
    /gallery/image_depth
    /gallery/magic_viewer
    /gallery/pass_colormaps
    /gallery/add_multiscale_image
+   /gallery/add-points-3d
    /gallery/mixed-dimensions-labels
    /gallery/spherical_points
    /gallery/surface_normals_wireframe
@@ -1443,6 +1531,7 @@ Examples of napari usage.
    /gallery/reader_plugin
    /gallery/new_theme
    /gallery/show_points_based_on_feature
+   /gallery/labels3d
    /gallery/custom_key_bindings
    /gallery/without_gui_qt
    /gallery/add_points
@@ -1475,6 +1564,7 @@ Examples of napari usage.
    /gallery/shapes_to_labels
    /gallery/interaction_box_points
    /gallery/custom_mouse_functions
+   /gallery/interactive_move_point_3d
    /gallery/to_screenshot
    /gallery/annotate_segmentation_with_text
    /gallery/action_manager

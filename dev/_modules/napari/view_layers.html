@@ -279,7 +279,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        return viewer</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">from</span> <span class="nn">numpydoc.docscrape</span> <span class="kn">import</span> <span class="n">NumpyDocString</span> <span class="k">as</span> <span class="n">_NumpyDocString</span>
 
@@ -382,8 +382,10 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="k">def</span> <span class="nf">_make_viewer_then</span><span class="p">(</span>
     <span class="n">add_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">args</span><span class="p">,</span>
-    <span class="n">kwargs</span><span class="p">,</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="n">viewer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Viewer</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Create a viewer, call given add_* method, then return viewer and layer.</span>
 
@@ -394,14 +396,14 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    add_method : str</span>
 <span class="sd">        Which ``add_`` method to call on the viewer, e.g. `add_image`,</span>
 <span class="sd">        or `add_labels`.</span>
-<span class="sd">    args : list</span>
+<span class="sd">    *args : list</span>
 <span class="sd">        Positional arguments for the ``add_`` method.</span>
-<span class="sd">    kwargs : dict</span>
-<span class="sd">        Keyword arguments for either the `Viewer` constructor or for the</span>
-<span class="sd">        ``add_`` method.</span>
 <span class="sd">    viewer : Viewer, optional</span>
 <span class="sd">        A pre-existing viewer, which will be used provided, rather than</span>
 <span class="sd">        creating a new one.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Keyword arguments for either the `Viewer` constructor or for the</span>
+<span class="sd">        ``add_`` method.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -417,7 +419,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">dims_kwargs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">k</span><span class="p">:</span> <span class="n">vkwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">vkwargs</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_dims_params</span>
     <span class="p">}</span>
-    <span class="n">viewer</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;viewer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">viewer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">viewer</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">(</span><span class="o">**</span><span class="n">vkwargs</span><span class="p">)</span>
     <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;kwargs&quot;</span><span class="p">,</span> <span class="p">{}))</span>
@@ -441,42 +442,42 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="view_image"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_image">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_image</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_image&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_image&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_labels"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_labels">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_labels</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_labels&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_labels&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_points"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_points">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_points</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_points&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_points&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_shapes"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_shapes">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_shapes</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_shapes&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_shapes&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_surface"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_surface">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_surface</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_surface&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_surface&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_tracks"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_tracks">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_tracks</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_tracks&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_tracks&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_vectors"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_vectors">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_vectors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_vectors&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;add_vectors&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="view_path"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.view_path">[docs]</a><span class="nd">@_merge_layer_viewer_sigs_docs</span>
 <span class="k">def</span> <span class="nf">view_path</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span><span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="imshow"><a class="viewcode-back" href="../../api/napari.view_layers.html#napari.imshow">[docs]</a><span class="k">def</span> <span class="nf">imshow</span><span class="p">(</span>
@@ -667,7 +668,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        argument is given.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">_make_viewer_then</span><span class="p">(</span>
+        <span class="s1">&#39;add_image&#39;</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
         <span class="n">viewer</span><span class="o">=</span><span class="n">viewer</span><span class="p">,</span>
         <span class="n">channel_axis</span><span class="o">=</span><span class="n">channel_axis</span><span class="p">,</span>
         <span class="n">rgb</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span>
@@ -699,17 +702,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
         <span class="n">axis_labels</span><span class="o">=</span><span class="n">axis_labels</span><span class="p">,</span>
         <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">data</span><span class="p">])</span>
-
-    <span class="n">viewer</span><span class="p">,</span> <span class="n">layers</span> <span class="o">=</span> <span class="n">_make_viewer_then</span><span class="p">(</span>
-        <span class="s1">&#39;add_image&#39;</span><span class="p">,</span>
-        <span class="n">args</span><span class="p">,</span>
-        <span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">layers</span></div>
+    <span class="p">)</span></div>
 </pre></div>
 
             </div>

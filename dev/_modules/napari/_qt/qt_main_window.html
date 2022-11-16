@@ -381,6 +381,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_old_size</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span> <span class="o">=</span> <span class="p">[]</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span> <span class="o">=</span> <span class="p">{</span><span class="kc">False</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+        <span class="c1"># this ia sa workaround for #5335 issue. The dict is used to not</span>
+        <span class="c1"># collide shortcuts for close and close all windows</span>
+
         <span class="n">act_dlg</span> <span class="o">=</span> <span class="n">QtActivityDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">resized</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="n">act_dlg</span><span class="o">.</span><span class="n">move_to_bottom_right</span>
@@ -578,13 +582,21 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="o">.</span><span class="n">_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quit_app</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">confirm_need_local</span> <span class="o">=</span> <span class="n">confirm_need</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span><span class="p">[</span><span class="n">quit_app</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span><span class="p">[</span><span class="n">quit_app</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># here we save information that we could request confirmation on close</span>
+        <span class="c1"># So fi function `close` is called again, we don&#39;t ask again but just close</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="ow">not</span> <span class="n">confirm_need</span>
+            <span class="ow">not</span> <span class="n">confirm_need_local</span>
             <span class="ow">or</span> <span class="ow">not</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">confirm_close_window</span>
             <span class="ow">or</span> <span class="n">ConfirmCloseDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quit_app</span><span class="p">)</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">Accepted</span>
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_quit_app</span> <span class="o">=</span> <span class="n">quit_app</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span><span class="p">[</span><span class="n">quit_app</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="c1"># here we inform that confirmation dialog is not open</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span><span class="p">[</span><span class="n">quit_app</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># here we inform that confirmation dialog is not open</span>
 
     <span class="k">def</span> <span class="nf">close_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Close active dialog or active window.&quot;&quot;&quot;</span>

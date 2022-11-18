@@ -288,7 +288,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">fix_data_points</span><span class="p">,</span>
     <span class="n">points_to_squares</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.layers.points._slice</span> <span class="kn">import</span> <span class="n">_PointSliceRequest</span><span class="p">,</span> <span class="n">_PointSliceResponse</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils._color_manager_constants</span> <span class="kn">import</span> <span class="n">ColorMode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_manager</span> <span class="kn">import</span> <span class="n">ColorManager</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.interactivity_utils</span> <span class="kn">import</span> <span class="p">(</span>
@@ -1734,54 +1736,6 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># layers being rendered in 3D.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">_slice_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">dims_indices</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Determines the slice of points given the indices.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        dims_indices : sequence of int or slice</span>
-<span class="sd">            Indices to slice with.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        slice_indices : list</span>
-<span class="sd">            Indices of points in the currently viewed slice.</span>
-<span class="sd">        scale : float, (N, ) array</span>
-<span class="sd">            If in `out_of_slice_display` mode then the scale factor of points, where</span>
-<span class="sd">            values of 1 corresponds to points located in the slice, and values</span>
-<span class="sd">            less than 1 correspond to points located in neighboring slices.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Get a list of the data for the points in this slice</span>
-        <span class="n">not_disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">)</span>
-        <span class="c1"># We want a numpy array so we can use fancy indexing with the non-displayed</span>
-        <span class="c1"># indices, but as dims_indices can (and often/always does) contain slice</span>
-        <span class="c1"># objects, the array has dtype=object which is then very slow for the</span>
-        <span class="c1"># arithmetic below. As Points._round_index is always False, we can safely</span>
-        <span class="c1"># convert to float to get a major performance improvement.</span>
-        <span class="n">not_disp_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dims_indices</span><span class="p">)[</span><span class="n">not_disp</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">distances</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">-</span> <span class="n">not_disp_indices</span><span class="p">)</span>
-                <span class="n">sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
-                <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">distances</span> <span class="o">&lt;=</span> <span class="n">sizes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                <span class="n">size_match</span> <span class="o">=</span> <span class="n">sizes</span><span class="p">[</span><span class="n">matches</span><span class="p">]</span>
-                <span class="n">size_match</span><span class="p">[</span><span class="n">size_match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-                <span class="n">scale_per_dim</span> <span class="o">=</span> <span class="p">(</span><span class="n">size_match</span> <span class="o">-</span> <span class="n">distances</span><span class="p">[</span><span class="n">matches</span><span class="p">])</span> <span class="o">/</span> <span class="n">size_match</span>
-                <span class="n">scale_per_dim</span><span class="p">[</span><span class="n">size_match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-                <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">scale_per_dim</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">slice_indices</span><span class="p">,</span> <span class="n">scale</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span>
-                <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">not_disp_indices</span><span class="p">)</span>
-                <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">distances</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">slice_indices</span><span class="p">,</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[],</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Index of the point at a given 2D position in data coordinates.</span>
 
@@ -1958,8 +1912,46 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
-        <span class="c1"># get the indices of points in view</span>
-        <span class="n">indices</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
+
+        <span class="c1"># The new slicing code makes a request from the existing state and</span>
+        <span class="c1"># executes the request on the calling thread directly.</span>
+        <span class="c1"># For async slicing, the calling thread will not be the main thread.</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span>
+        <span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_PointSliceRequest</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Make a Points slice request based on the given dims and these data.&quot;&quot;&quot;</span>
+        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span>
+            <span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span>
+        <span class="p">)</span>
+        <span class="c1"># TODO: [see Image]</span>
+        <span class="c1">#   For the existing sync slicing, slice_indices is passed through</span>
+        <span class="c1"># to avoid some performance issues related to the evaluation of the</span>
+        <span class="c1"># data-to-world transform and its inverse. Async slicing currently</span>
+        <span class="c1"># absorbs these performance issues here, but we can likely improve</span>
+        <span class="c1"># things either by caching the world-to-data transform on the layer</span>
+        <span class="c1"># or by lazily evaluating it in the slice task itself.</span>
+        <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">slice_indices</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_make_slice_request_internal</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">dims_indices</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="n">_PointSliceRequest</span><span class="p">(</span>
+            <span class="n">dims</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">dims_indices</span><span class="o">=</span><span class="n">dims_indices</span><span class="p">,</span>
+            <span class="n">out_of_slice_display</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_PointSliceResponse</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Handle a slicing response.&quot;&quot;&quot;</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">indices</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">scale</span>
 
         <span class="c1"># Update the _view_size_scale in accordance to the self._indices_view setter.</span>
         <span class="c1"># If out_of_slice_display is False, scale is a number and not an array.</span>

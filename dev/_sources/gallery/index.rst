@@ -220,23 +220,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_nD_labels_thumb.png
-    :alt: nD labels
-
-  :ref:`sphx_glr_gallery_nD_labels.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">nD labels</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D surface">
 
 .. only:: html
@@ -249,6 +232,23 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">nD surface</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_nD_labels_thumb.png
+    :alt: nD labels
+
+  :ref:`sphx_glr_gallery_nD_labels.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">nD labels</div>
     </div>
 
 
@@ -968,23 +968,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ...">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_mouse_drag_callback_thumb.png
-    :alt: Mouse drag callback
-
-  :ref:`sphx_glr_gallery_mouse_drag_callback.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Mouse drag callback</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer with text using multiple face colors mapped fro...">
 
 .. only:: html
@@ -997,6 +980,23 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Add points with multicolor text</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ...">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_mouse_drag_callback_thumb.png
+    :alt: Mouse drag callback
+
+  :ref:`sphx_glr_gallery_mouse_drag_callback.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Mouse drag callback</div>
     </div>
 
 
@@ -1496,8 +1496,8 @@ Examples of napari usage.
    /gallery/scale_bar
    /gallery/annotate-2d
    /gallery/nD_image
-   /gallery/nD_labels
    /gallery/nD_surface
+   /gallery/nD_labels
    /gallery/viewer_fps_label
    /gallery/multiple_viewers
    /gallery/image-points-3d
@@ -1540,8 +1540,8 @@ Examples of napari usage.
    /gallery/nD_vectors
    /gallery/add_shapes_with_text
    /gallery/add_vectors_color_by_angle
-   /gallery/mouse_drag_callback
    /gallery/add_points_with_multicolor_text
+   /gallery/mouse_drag_callback
    /gallery/nD_points_with_features
    /gallery/tracks_3d_with_graph
    /gallery/3Dimage_plane_rendering

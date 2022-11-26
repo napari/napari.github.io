@@ -24,7 +24,7 @@ Method to get napari style in magicgui based windows
 Example how to embed magicgui widget in dialog to inherit style
 from main napari window.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-77
+.. GENERATED FROM PYTHON SOURCE LINES 8-76
 
 
 
@@ -40,7 +40,6 @@ from main napari window.
 .. code-block:: default
 
 
-    from typing import Callable
 
     from qtpy.QtWidgets import QDialog, QWidget, QVBoxLayout, QPushButton, QGridLayout, QLabel, QSpinBox
 

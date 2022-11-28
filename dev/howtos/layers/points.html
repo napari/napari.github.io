@@ -1668,14 +1668,14 @@ existing image.</p>
 <p>In this example, we will overlay some points on the image of an astronaut:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import napari
+import numpy as np
+from skimage import data
 
-<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
+viewer = napari.view_image(data.astronaut(), rgb=True)
+points = np.array([[100, 100], [200, 200], [300, 100]])
 
-<span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+points_layer = viewer.add_points(points, size=30)
 </pre></div>
 </div>
 </div>
@@ -1687,9 +1687,9 @@ existing image.</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from napari.utils import nbscreenshot
 
-<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">alt_text</span><span class="o">=</span><span class="s2">&quot;3 points overlaid on an astronaut image&quot;</span><span class="p">)</span>
+nbscreenshot(viewer, alt_text=&quot;3 points overlaid on an astronaut image&quot;)
 </pre></div>
 </div>
 </div>
@@ -1709,7 +1709,7 @@ accept the same layer-creation parameters.</p>
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_points</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(napari.view_points)
 </pre></div>
 </div>
 </div>
@@ -1983,7 +1983,7 @@ For some guidance on choosing colormaps, see the <a class="reference external" h
 docs</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">AVAILABLE_COLORMAPS</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>list(napari.utils.colormaps.AVAILABLE_COLORMAPS)
 </pre></div>
 </div>
 </div>
@@ -2025,20 +2025,20 @@ To do the same for a face color, substitute <code class="docutils literal notran
 example snippet below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
-<span class="n">point_properties</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;good_point&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]),</span>
-    <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]),</span>
-<span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>viewer = napari.view_image(data.astronaut(), rgb=True)
+points = np.array([[100, 100], [200, 200], [300, 100]])
+point_properties = {
+    &#39;good_point&#39;: np.array([True, True, False]),
+    &#39;confidence&#39;: np.array([0.99, 0.8, 0.2]),
+}
 
-<span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
-    <span class="n">points</span><span class="p">,</span>
-    <span class="n">properties</span><span class="o">=</span><span class="n">point_properties</span><span class="p">,</span>
-    <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;good_point&#39;</span><span class="p">,</span>
-    <span class="n">edge_color_cycle</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">],</span>
-    <span class="n">edge_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
+points_layer = viewer.add_points(
+    points,
+    properties=point_properties,
+    edge_color=&#39;good_point&#39;,
+    edge_color_cycle=[&#39;magenta&#39;, &#39;green&#39;],
+    edge_width=0.5,
+)
 </pre></div>
 </div>
 </div>
@@ -2050,7 +2050,7 @@ example snippet below.</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">alt_text</span><span class="o">=</span><span class="s2">&quot;3 points overlaid on an astronaut image, where the edge color of the points has been changed to a color cycle&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nbscreenshot(viewer, alt_text=&quot;3 points overlaid on an astronaut image, where the edge color of the points has been changed to a color cycle&quot;)
 </pre></div>
 </div>
 </div>
@@ -2074,19 +2074,19 @@ To do the same for an edge color, substitute <code class="docutils literal notra
 example snippet below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
-<span class="n">point_properties</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;good_point&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]),</span>
-    <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]),</span>
-<span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>viewer = napari.view_image(data.astronaut(), rgb=True)
+points = np.array([[100, 100], [200, 200], [300, 100]])
+point_properties = {
+    &#39;good_point&#39;: np.array([True, True, False]),
+    &#39;confidence&#39;: np.array([0.99, 0.8, 0.2]),
+}
 
-<span class="n">points_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span>
-    <span class="n">points</span><span class="p">,</span>
-    <span class="n">properties</span><span class="o">=</span><span class="n">point_properties</span><span class="p">,</span>
-    <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;confidence&#39;</span><span class="p">,</span>
-    <span class="n">face_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+points_layer = viewer.add_points(
+    points,
+    properties=point_properties,
+    face_color=&#39;confidence&#39;,
+    face_colormap=&#39;viridis&#39;,
+)
 </pre></div>
 </div>
 </div>
@@ -2098,7 +2098,7 @@ example snippet below.</p>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">alt_text</span><span class="o">=</span><span class="s2">&quot;3 points overlaid on an astronaut image, where the face color of the points has been changed to a colormap&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nbscreenshot(viewer, alt_text=&quot;3 points overlaid on an astronaut image, where the face color of the points has been changed to a colormap&quot;)
 </pre></div>
 </div>
 </div>

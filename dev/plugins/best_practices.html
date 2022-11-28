@@ -376,6 +376,16 @@ function checkPageExistsAndRedirect(event) {
    Set style for additional windows in your plugin
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#do-not-package-your-tests-as-a-top-level-package">
+   Do not package your tests as a top-level package
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#license-issues-when-including-code-from-3rd-parties">
+   License issues when including code from 3rd parties
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -667,6 +677,80 @@ and <a class="reference internal" href="../api/napari.qt.html#napari.qt.get_styl
 <span class="n">change_style</span><span class="p">()</span>
 
 </pre></div>
+</div>
+</section>
+<section id="do-not-package-your-tests-as-a-top-level-package">
+<h2>Do not package your tests as a top-level package<a class="headerlink" href="#do-not-package-your-tests-as-a-top-level-package" title="Permalink to this headline">¶</a></h2>
+<p>If you are using the <a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">napari plugin cookiecutter template</a>,
+your tests are already packaged in the correct way. No further action required!</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># project structure suggested by the cookiecutter template</span>
+src/
+  my_package/
+    _tests/
+      test_my_module.py
+    __init__.py
+    my_module.py
+pyproject.toml
+README.md
+</pre></div>
+</div>
+<p>However, if your project structure is already following a different scheme,
+the testing logic might live outside your package, as a top-level directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># alternative structure, no src/ directory, testing logic outside the package</span>
+my_package/
+  __init__.py
+  my_module.py
+tests/
+  conftest.py
+  test_my_module.py
+pyproject.toml
+README.md
+</pre></div>
+</div>
+<p>Under these circumstances, your build backend (usually <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>) might include <code class="docutils literal notranslate"><span class="pre">tests</span></code> as a
+separate package that will be installed next to <code class="docutils literal notranslate"><span class="pre">my_package</span></code>!
+Most of the time, this is not wanted; e.g. do you want to do <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">tests</span></code>? Probably not!
+Additionally, this unwanted behavior might cause installation issues with other projects.</p>
+<p>Ideally, you could change your project structure to follow the recommended skeleton followed in
+the cookiecutter template. Howevever, if that’s unfeasible, you can fix this in the project metadata files.</p>
+<p>You need to explicitly <em>exclude</em> the top-level <code class="docutils literal notranslate"><span class="pre">tests</span></code> directory from the packaged contents:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span># pyproject.toml
+...
+[options.packages.find]
+exclude =
+    tests
+    tests.*
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup.py</span>
+<span class="o">...</span>
+<span class="n">setup</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;tests&quot;</span><span class="p">,</span> <span class="s2">&quot;tests.*&quot;</span><span class="p">)),</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Note this also applies to other top-level directories, like <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">_tests</span></code>, <code class="docutils literal notranslate"><span class="pre">testing</span></code>, etc.</p>
+<p>You can find more information in the
+<a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/package_discovery.html">package discovery documentation for <code class="docutils literal notranslate"><span class="pre">setuptools</span></code></a>.</p>
+</section>
+<section id="license-issues-when-including-code-from-3rd-parties">
+<h2>License issues when including code from 3rd parties<a class="headerlink" href="#license-issues-when-including-code-from-3rd-parties" title="Permalink to this headline">¶</a></h2>
+<p>Plugins will often depend on 3rd party packages beyond <code class="docutils literal notranslate"><span class="pre">napari</span></code> itself.
+These dependencies are usually included in the project metadata in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.
+However, sometimes developers might include code from 3rd parties directly in their project.
+Sometimes it will be just a little snippet, maybe slightly modified to suit the project needs.
+Some other times, a whole project will be included entirely (vendoring).</p>
+<p>This constitutes an act of source code redistribution, which is usually covered by many licensing schemes.
+Most of the time, this means you need to explicitly include the vendored project license in the source.
+This is the case for Apache, BSD and MIT-style licenses.
+Do note that some projects might NOT allow redistribution without explicit approval.
+Others will prevent it entirely… Be mindful and check the requirements before distributing your package!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are vendoring other projects, please add an acknowledgement in your README.
+The license details in your project metadata should also include this information!</p>
 </div>
 </section>
 </section>

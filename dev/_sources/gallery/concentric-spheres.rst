@@ -18,9 +18,14 @@
 .. _sphx_glr_gallery_concentric-spheres.py:
 
 
+Concentric spheres
+==================
+
 Display concentric spheres in 3D.
 
-.. GENERATED FROM PYTHON SOURCE LINES 4-26
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-31
 
 
 

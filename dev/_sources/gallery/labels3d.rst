@@ -18,9 +18,14 @@
 .. _sphx_glr_gallery_labels3d.py:
 
 
+Labels 3D
+=========
+
 View 3D labels.
 
-.. GENERATED FROM PYTHON SOURCE LINES 4-39
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-44
 
 
 

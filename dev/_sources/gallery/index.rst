@@ -157,13 +157,13 @@ Examples of napari usage.
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_concentric-spheres_thumb.png
-    :alt: Display concentric spheres in 3D.
+    :alt: Concentric spheres
 
   :ref:`sphx_glr_gallery_concentric-spheres.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Display concentric spheres in 3D.</div>
+      <div class="sphx-glr-thumbnail-title">Concentric spheres</div>
     </div>
 
 
@@ -293,13 +293,13 @@ Examples of napari usage.
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_image-points-3d_thumb.png
-    :alt: Display points overlaid on a 3D image
+    :alt: Image points 3D
 
   :ref:`sphx_glr_gallery_image-points-3d.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Display points overlaid on a 3D image</div>
+      <div class="sphx-glr-thumbnail-title">Image points 3D</div>
     </div>
 
 
@@ -373,18 +373,18 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and">
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a labels layer above of an image layer using the add_labels and add_image APIs, then ad...">
 
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_add-points-3d_thumb.png
-    :alt: Display a labels layer above of an image layer using the add_labels and
+    :alt: Add points 3D
 
   :ref:`sphx_glr_gallery_add-points-3d.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Display a labels layer above of an image layer using the add_labels and</div>
+      <div class="sphx-glr-thumbnail-title">Add points 3D</div>
     </div>
 
 
@@ -820,13 +820,13 @@ Examples of napari usage.
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_labels3d_thumb.png
-    :alt: View 3D labels.
+    :alt: Labels 3D
 
   :ref:`sphx_glr_gallery_labels3d.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">View 3D labels.</div>
+      <div class="sphx-glr-thumbnail-title">Labels 3D</div>
     </div>
 
 

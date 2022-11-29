@@ -18,9 +18,14 @@
 .. _sphx_glr_gallery_image-points-3d.py:
 
 
+Image points 3D
+===============
+
 Display points overlaid on a 3D image
 
-.. GENERATED FROM PYTHON SOURCE LINES 4-19
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 9-24
 
 
 

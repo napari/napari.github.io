@@ -18,10 +18,15 @@
 .. _sphx_glr_gallery_add-points-3d.py:
 
 
+Add points 3D
+=============
+
 Display a labels layer above of an image layer using the add_labels and
 add_image APIs, then add points in 3D
 
-.. GENERATED FROM PYTHON SOURCE LINES 5-26
+.. tags:: visualization-nD
+
+.. GENERATED FROM PYTHON SOURCE LINES 10-31
 
 
 

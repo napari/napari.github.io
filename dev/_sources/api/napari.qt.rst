@@ -15,7 +15,6 @@
       :nosignatures:
       :toctree:
    
-      QtStateButton
       QtToolTipLabel
       QtViewer
       QtViewerButtons

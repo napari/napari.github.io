@@ -638,7 +638,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># where the intention here is to use the base setter, so we use the</span>
         <span class="c1"># _set_colormap method. This is important for Labels layers, because</span>
         <span class="c1"># we don&#39;t want to use get_color before set_view_slice has been</span>
-        <span class="c1"># triggered (self._update_dims(), below).</span>
+        <span class="c1"># triggered (self.refresh(), below).</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contrast_limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contrast_limits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_interpolation2d</span> <span class="o">=</span> <span class="n">Interpolation</span><span class="o">.</span><span class="n">NEAREST</span>
@@ -652,7 +652,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">connect_no_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">&#39;plane&#39;</span><span class="p">)</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_new_empty_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize the current slice to an empty image.&quot;&quot;&quot;</span>

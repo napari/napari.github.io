@@ -609,6 +609,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">cursor_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">editable</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">loaded</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">extent</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">_ndisplay</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">select</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -817,7 +818,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">scale</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -828,7 +829,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@translate</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translate</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">translate</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">translate</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -839,7 +840,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@rotate</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotate</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rotate</span> <span class="o">=</span> <span class="n">rotate</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rotate</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -850,7 +851,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@shear</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">shear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shear</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shear</span> <span class="o">=</span> <span class="n">shear</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shear</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -866,7 +867,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">coerce_affine</span><span class="p">(</span>
             <span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;physical2world&#39;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -914,12 +915,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moving_coordinates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_private_is_moving</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="nf">_update_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update the dims model and clear the extent cache.</span>
-
-<span class="sd">        This function needs to be called whenever data or transform information</span>
-<span class="sd">        changes, and should be called before events get emitted.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_update_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update the dimensionality of transforms and slices when data changes.&quot;&quot;&quot;</span>
         <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_ndim</span><span class="p">()</span>
 
         <span class="n">old_ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span>
@@ -933,10 +930,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">with_ndim</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
-        <span class="k">if</span> <span class="s1">&#39;extent&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>  <span class="c1"># This call is need for invalidate cache of extent in LayerList. If you remove it pleas ad another workaround.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
@@ -986,6 +981,18 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">world</span><span class="o">=</span><span class="n">extent_world</span><span class="p">,</span>
             <span class="n">step</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">data_to_world</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
         <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_clear_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clears the cached extent.</span>
+
+<span class="sd">        This should be called whenever this data or transform information</span>
+<span class="sd">        changes, and should be called before any related events get emitted</span>
+<span class="sd">        so that they use the updated extent values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;extent&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_slice_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1185,8 +1192,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">old_ndisplay</span> <span class="o">!=</span> <span class="n">ndisplay</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">()</span>
 
-        <span class="c1"># Update the point values</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_editable</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_input</span><span class="p">(</span>
@@ -1402,7 +1408,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="sd">&quot;&quot;&quot;Refresh all layer data based on current view slice.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_view_slice</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="p">()</span>  <span class="c1"># refresh is called in _update_dims which means that extent cache is invalidated. Then, base on this event extent cache in layerlist is invalidated.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 

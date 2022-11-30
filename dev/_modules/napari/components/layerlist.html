@@ -360,7 +360,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_process_delete_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_delete_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-        <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_clean_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -429,7 +429,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">new_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="n">new_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_name</span><span class="p">(</span><span class="n">new_layer</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
-        <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
+        <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_layer</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LayerList.toggle_selected_visibility"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.toggle_selected_visibility">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_selected_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

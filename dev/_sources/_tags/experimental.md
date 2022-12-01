@@ -8,7 +8,6 @@ caption: With this tag
 ../gallery/viewer_fps_label.rst
 ../gallery/scale_bar.rst
 ../gallery/surface_normals_wireframe.rst
-../gallery/interactive_move_point_3d.rst
 ../gallery/interaction_box_points.rst
 ../gallery/interactive_move_rectangle_3d.rst
 ../gallery/spherical_points.rst

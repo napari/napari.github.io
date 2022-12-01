@@ -50,6 +50,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates activating &#x27;transform&#x27; mode on the image layer. This allows the user ...">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_interaction_box_image_thumb.png
+    :alt: Interaction box image
+
+  :ref:`sphx_glr_gallery_interaction_box_image.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Interaction box image</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Display one image and transform it using the view_image API.">
 
 .. only:: html
@@ -79,23 +96,6 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Set theme</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates activating &#x27;transform&#x27; mode on the image layer. This allows the user ...">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_interaction_box_image_thumb.png
-    :alt: Interaction box image
-
-  :ref:`sphx_glr_gallery_interaction_box_image.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Interaction box image</div>
     </div>
 
 
@@ -135,6 +135,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D volume and the scale bar">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_scale_bar_thumb.png
+    :alt: Scale bar
+
+  :ref:`sphx_glr_gallery_scale_bar.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Scale bar</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Display one grayscale image using the add_image API.">
 
 .. only:: html
@@ -164,23 +181,6 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Concentric spheres</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Display a 3D volume and the scale bar">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_scale_bar_thumb.png
-    :alt: Scale bar
-
-  :ref:`sphx_glr_gallery_scale_bar.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Scale bar</div>
     </div>
 
 
@@ -1325,23 +1325,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When...">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_shapes_to_labels_thumb.png
-    :alt: Shapes to labels
-
-  :ref:`sphx_glr_gallery_shapes_to_labels.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Shapes to labels</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Demonstrate interaction box on points layer">
 
 .. only:: html
@@ -1359,6 +1342,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Display one shapes layer ontop of one image layer using the add_shapes and add_image APIs. When...">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_shapes_to_labels_thumb.png
+    :alt: Shapes to labels
+
+  :ref:`sphx_glr_gallery_shapes_to_labels.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Shapes to labels</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Display one 4-D image layer using the add_image API">
 
 .. only:: html
@@ -1371,23 +1371,6 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Custom mouse functions</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="3D click and drag interactivity demo">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_interactive_move_point_3d_thumb.png
-    :alt: Interactive move point
-
-  :ref:`sphx_glr_gallery_interactive_move_point_3d.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Interactive move point</div>
     </div>
 
 
@@ -1486,14 +1469,14 @@ Examples of napari usage.
 
    /gallery/add_image
    /gallery/get_current_viewer
+   /gallery/interaction_box_image
    /gallery/add_image_transformed
    /gallery/set_theme
-   /gallery/interaction_box_image
    /gallery/add_3D_image
    /gallery/add_surface_2D
+   /gallery/scale_bar
    /gallery/add_grayscale_image
    /gallery/concentric-spheres
-   /gallery/scale_bar
    /gallery/annotate-2d
    /gallery/nD_image
    /gallery/nD_surface
@@ -1561,10 +1544,9 @@ Examples of napari usage.
    /gallery/tracks_3d
    /gallery/inherit_viewer_style
    /gallery/add_shapes
-   /gallery/shapes_to_labels
    /gallery/interaction_box_points
+   /gallery/shapes_to_labels
    /gallery/custom_mouse_functions
-   /gallery/interactive_move_point_3d
    /gallery/to_screenshot
    /gallery/annotate_segmentation_with_text
    /gallery/action_manager

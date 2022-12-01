@@ -23,7 +23,7 @@ Points over time
 
 .. tags:: visualization-advanced
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-46
+.. GENERATED FROM PYTHON SOURCE LINES 7-45
 
 
 
@@ -41,7 +41,6 @@ Points over time
     import napari
     import numpy as np
     import dask.array as da
-    from skimage import data
 
 
     image4d = da.random.random(

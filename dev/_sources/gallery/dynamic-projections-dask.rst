@@ -91,7 +91,7 @@ Part 2: using magicgui to vary the slice thickness.
 .. code-block:: default
 
 
-    from magicgui import magicgui
+    from magicgui import magicgui  # noqa: E402
 
     def sliding_window_mean(
         arr: napari.types.ImageData, size: int = 1

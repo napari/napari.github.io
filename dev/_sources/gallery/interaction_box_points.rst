@@ -25,7 +25,7 @@ Demonstrate interaction box on points layer
 
 .. tags:: experimental
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-53
+.. GENERATED FROM PYTHON SOURCE LINES 9-52
 
 
 
@@ -41,7 +41,6 @@ Demonstrate interaction box on points layer
 .. code-block:: default
 
 
-    from skimage import data
     import napari
     import numpy as np
     from napari.layers.points._points_utils import points_in_box

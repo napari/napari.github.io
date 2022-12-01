@@ -17,6 +17,7 @@
    
       EmitterGroup
       Event
+      EventedDict
       EventedList
       EventedModel
       EventedSet

@@ -420,6 +420,16 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - failed to load screen information </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
 
+    <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;&lt;br&gt;&lt;b&gt;Settings path:&lt;/b&gt;&lt;br&gt;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">napari.utils._appdirs</span> <span class="kn">import</span> <span class="n">user_config_dir</span>
+
+        <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NAPARI_CONFIG&#39;</span><span class="p">,</span> <span class="n">user_config_dir</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">as_html</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;/b&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>

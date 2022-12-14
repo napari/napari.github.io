@@ -73,7 +73,7 @@ Displays an image and sets the theme to new custom theme.
     blue_theme.primary = '#50586c'  # or as hexes
     blue_theme.current = 'orange'  # or as color name
 
-    register_theme('blue', blue_theme)
+    register_theme('blue', blue_theme, "custom")
 
     # List themes
     print('New themes', available_themes())
@@ -87,7 +87,7 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  28.859 seconds)
+   **Total running time of the script:** ( 0 minutes  38.784 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:

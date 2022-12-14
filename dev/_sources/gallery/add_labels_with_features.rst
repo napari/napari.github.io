@@ -35,19 +35,8 @@ Display a labels layer with various features
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/skimage/_shared/utils.py:394: UserWarning: Color data out of range: Z < 0 in 20 pixels
-      return func(*args, **kwargs)
 
 
-
-
-
-
-|
 
 .. code-block:: default
 

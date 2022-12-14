@@ -35,8 +35,8 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Set colormaps" href="set_colormaps.html" />
-    <link rel="prev" title="Add vectors image" href="add_vectors_image.html" />
+    <link rel="next" title="Add shapes with text" href="add_shapes_with_text.html" />
+    <link rel="prev" title="Image depth" href="image_depth.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,9 +48,6 @@
 
   </head>
   <body>
-    
-    <div class="container-fluid" id="banner"></div>
-
     
     <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
@@ -328,17 +325,17 @@ to download the full example code</p>
 <span class="p">)</span>
 
 <span class="c1"># set the edge_color mode to colormap</span>
-<a href="../api/napari.layers.Points.html#id10" title="napari.layers.Points.edge_color_mode" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span></a> <span class="o">=</span> <span class="s1">&#39;colormap&#39;</span>
+<a href="../api/napari.layers.Points.html#id11" title="napari.layers.Points.edge_color_mode" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">edge_color_mode</span></a> <span class="o">=</span> <span class="s1">&#39;colormap&#39;</span>
 
 
 <span class="c1"># bind a function to toggle the good_point annotation of the selected points</span>
 <span class="nd">@viewer</span><span class="o">.</span><span class="n">bind_key</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">toggle_point_annotation</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">):</span>
-    <span class="n">selected_points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><a href="../api/napari.layers.Points.html#id24" title="napari.layers.Points.selected_data" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">selected_data</span></a><span class="p">)</span>
+    <span class="n">selected_points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><a href="../api/napari.layers.Points.html#id25" title="napari.layers.Points.selected_data" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">selected_data</span></a><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_points</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">good_point</span> <span class="o">=</span> <a href="../api/napari.layers.Points.html#id20" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span>
+        <span class="n">good_point</span> <span class="o">=</span> <a href="../api/napari.layers.Points.html#id21" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span>
         <span class="n">good_point</span><span class="p">[</span><span class="n">selected_points</span><span class="p">]</span> <span class="o">=</span> <span class="o">~</span><span class="n">good_point</span><span class="p">[</span><span class="n">selected_points</span><span class="p">]</span>
-        <a href="../api/napari.layers.Points.html#id20" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_point</span>
+        <a href="../api/napari.layers.Points.html#id21" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">points_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;good_point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_point</span>
 
         <span class="c1"># we need to manually refresh since we did not use the Points.features</span>
         <span class="c1"># setter to avoid changing the color map if all points get toggled to</span>
@@ -368,7 +365,7 @@ to download the full example code</p>
             
             <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="add_vectors_image.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="image_depth.html" title="previous page">
         <svg
             width="10"
             height="16"
@@ -384,13 +381,13 @@ to download the full example code</p>
         </svg>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Add vectors image</p>
+            <p class="prev-next-title">Image depth</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="set_colormaps.html" title="next page">
+    <a class='right-next' id="next-link" href="add_shapes_with_text.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Set colormaps</p>
+        <p class="prev-next-title">Add shapes with text</p>
     </div>
 
     <svg

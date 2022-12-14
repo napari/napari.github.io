@@ -288,6 +288,23 @@ Examples of napari usage.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Display 3D points with combinations of different renderings.">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_point_cloud_thumb.png
+    :alt: Point cloud
+
+  :ref:`sphx_glr_gallery_point_cloud.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Point cloud</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Display points overlaid on a 3D image">
 
 .. only:: html
@@ -968,23 +985,6 @@ Examples of napari usage.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ...">
-
-.. only:: html
-
-  .. image:: /gallery/images/thumb/sphx_glr_mouse_drag_callback_thumb.png
-    :alt: Mouse drag callback
-
-  :ref:`sphx_glr_gallery_mouse_drag_callback.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Mouse drag callback</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Display a points layer on top of an image layer with text using multiple face colors mapped fro...">
 
 .. only:: html
@@ -997,6 +997,23 @@ Examples of napari usage.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Add points with multicolor text</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example updating the status bar with line profile info while dragging lines around in a shapes ...">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_mouse_drag_callback_thumb.png
+    :alt: Mouse drag callback
+
+  :ref:`sphx_glr_gallery_mouse_drag_callback.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Mouse drag callback</div>
     </div>
 
 
@@ -1483,6 +1500,7 @@ Examples of napari usage.
    /gallery/nD_surface
    /gallery/viewer_fps_label
    /gallery/multiple_viewers
+   /gallery/point_cloud
    /gallery/image-points-3d
    /gallery/image_depth
    /gallery/magic_viewer
@@ -1523,8 +1541,8 @@ Examples of napari usage.
    /gallery/nD_vectors
    /gallery/add_shapes_with_text
    /gallery/add_vectors_color_by_angle
-   /gallery/mouse_drag_callback
    /gallery/add_points_with_multicolor_text
+   /gallery/mouse_drag_callback
    /gallery/nD_points_with_features
    /gallery/tracks_3d_with_graph
    /gallery/3Dimage_plane_rendering

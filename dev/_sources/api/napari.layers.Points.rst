@@ -98,6 +98,7 @@ napari.layers.Points
       ~Points.current_face_color
       ~Points.current_properties
       ~Points.current_size
+      ~Points.current_symbol
       ~Points.cursor
       ~Points.cursor_size
       ~Points.data

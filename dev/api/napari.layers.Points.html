@@ -49,9 +49,6 @@
   </head>
   <body>
     
-    <div class="container-fluid" id="banner"></div>
-
-    
     <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
   <div id="navbar-start">
@@ -715,7 +712,7 @@ composed using f-string-like syntax (e.g., ‘{property_1}, {float_property:.2f}
 A dictionary can be provided with keyword arguments to set the text values
 and display properties. See TextManager.__init__() for the valid keyword arguments.
 For example usage, see /napari/examples/add_points_with_text.py.</p></li>
-<li><p><strong>symbol</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Symbol to be used for the point markers. Must be one of the
+<li><p><strong>symbol</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array</em>) – Symbols to be used for the point markers. Must be one of the
 following: arrow, clobber, cross, diamond, disc, hbar, ring,
 square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</p></li>
 <li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>array</em>) – Size of the point marker in data pixels. If given as a scalar, all points are made
@@ -843,10 +840,10 @@ For example usage, see /napari/examples/add_points_with_text.py.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Points.symbol">
 <span class="sig-name descname"><span class="pre">symbol</span></span><a class="headerlink" href="#napari.layers.Points.symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Symbol used for all point markers.</p>
+<dd><p>Array of symbols for each point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+<dd class="field-odd"><p>array of str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -977,6 +974,17 @@ The default value is None. If set the none, the clims will be set to
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>None, (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Points.current_symbol">
+<span class="sig-name descname"><span class="pre">current_symbol</span></span><a class="headerlink" href="#napari.layers.Points.current_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Symbol for the next point to be added or the currently selected points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Symbol</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1146,6 +1154,8 @@ have their properties edited, or be deleted.</p>
 </dd>
 <dt>_view_size<span class="classifier">array (M, )</span></dt><dd><p>Size of the point markers in the currently viewed slice.</p>
 </dd>
+<dt>_view_symbol<span class="classifier">array (M, )</span></dt><dd><p>Symbols of the point markers in the currently viewed slice.</p>
+</dd>
 <dt>_view_edge_width<span class="classifier">array (M, )</span></dt><dd><p>Edge width of the point markers in the currently viewed slice.</p>
 </dd>
 <dt>_indices_view<span class="classifier">array (M, )</span></dt><dd><p>Integer indices of the points in the currently viewed slice and are shown.</p>
@@ -1168,8 +1178,8 @@ None after dragging is done.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.add" title="napari.layers.Points.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a>(coord)</p></td>
-<td><p>Adds point at coordinate.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.add" title="napari.layers.Points.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a>(coords)</p></td>
+<td><p>Adds points at coordinates.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_layer_data_tuple</span></code>()</p></td>
 <td><p></p></td>
@@ -1270,142 +1280,145 @@ None after dragging is done.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#id6" title="napari.layers.Points.current_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_size</span></code></a></p></td>
 <td><p>size of marker for the next added point.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.cursor" title="napari.layers.Points.cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id7" title="napari.layers.Points.current_symbol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_symbol</span></code></a></p></td>
+<td><p>symbol of marker for the next added point.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.cursor" title="napari.layers.Points.cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor</span></code></a></p></td>
 <td><p>String identifying cursor displayed over canvas.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.cursor_size" title="napari.layers.Points.cursor_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor_size</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.cursor_size" title="napari.layers.Points.cursor_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cursor_size</span></code></a></p></td>
 <td><p>Size of cursor if custom.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id7" title="napari.layers.Points.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id8" title="napari.layers.Points.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></td>
 <td><p>coordinates for N points in D dimensions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id8" title="napari.layers.Points.edge_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_color</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id9" title="napari.layers.Points.edge_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_color</span></code></a></p></td>
 <td><p>Array of RGBA edge colors for each point</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id9" title="napari.layers.Points.edge_color_cycle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_color_cycle</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id10" title="napari.layers.Points.edge_color_cycle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_color_cycle</span></code></a></p></td>
 <td><p>Color cycle for edge_color.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id10" title="napari.layers.Points.edge_color_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_color_mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id11" title="napari.layers.Points.edge_color_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_color_mode</span></code></a></p></td>
 <td><p>Edge color setting mode</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id11" title="napari.layers.Points.edge_colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_colormap</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id12" title="napari.layers.Points.edge_colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_colormap</span></code></a></p></td>
 <td><p>Return the colormap to be applied to a property to get the edge color.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id12" title="napari.layers.Points.edge_contrast_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_contrast_limits</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id13" title="napari.layers.Points.edge_contrast_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_contrast_limits</span></code></a></p></td>
 <td><p>contrast limits for mapping the edge_color colormap property to 0 and 1</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id13" title="napari.layers.Points.edge_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_width</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id14" title="napari.layers.Points.edge_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_width</span></code></a></p></td>
 <td><p>edge_width of all N points.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.edge_width_is_relative" title="napari.layers.Points.edge_width_is_relative"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_width_is_relative</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.edge_width_is_relative" title="napari.layers.Points.edge_width_is_relative"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_width_is_relative</span></code></a></p></td>
 <td><p>treat edge_width as a fraction of point size.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.editable" title="napari.layers.Points.editable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">editable</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.editable" title="napari.layers.Points.editable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">editable</span></code></a></p></td>
 <td><p>Whether the current layer data is editable from the viewer.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">experimental_clipping_planes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">experimental_clipping_planes</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.extent" title="napari.layers.Points.extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extent</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.extent" title="napari.layers.Points.extent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extent</span></code></a></p></td>
 <td><p>Extent of layer in data and world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id14" title="napari.layers.Points.face_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_color</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id15" title="napari.layers.Points.face_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_color</span></code></a></p></td>
 <td><p>Array of RGBA face colors for each point</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id15" title="napari.layers.Points.face_color_cycle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_color_cycle</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id16" title="napari.layers.Points.face_color_cycle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_color_cycle</span></code></a></p></td>
 <td><p>Color cycle for face_color Can be a list of colors defined by name, RGB or RGBA</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id16" title="napari.layers.Points.face_color_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_color_mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id17" title="napari.layers.Points.face_color_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_color_mode</span></code></a></p></td>
 <td><p>Face color setting mode</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id17" title="napari.layers.Points.face_colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_colormap</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id18" title="napari.layers.Points.face_colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_colormap</span></code></a></p></td>
 <td><p>Return the colormap to be applied to a property to get the face color.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id18" title="napari.layers.Points.face_contrast_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_contrast_limits</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id19" title="napari.layers.Points.face_contrast_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_contrast_limits</span></code></a></p></td>
 <td><p>clims for mapping the face_color colormap property to 0 and 1</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id19" title="napari.layers.Points.feature_defaults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_defaults</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id20" title="napari.layers.Points.feature_defaults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_defaults</span></code></a></p></td>
 <td><p>Dataframe-like with one row of feature default values.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id20" title="napari.layers.Points.features"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id21" title="napari.layers.Points.features"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features</span></code></a></p></td>
 <td><p>Dataframe-like features table.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.help" title="napari.layers.Points.help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">help</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.help" title="napari.layers.Points.help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">help</span></code></a></p></td>
 <td><p>displayed in status bar bottom right.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.interactive" title="napari.layers.Points.interactive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interactive</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.interactive" title="napari.layers.Points.interactive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interactive</span></code></a></p></td>
 <td><p>Determine if canvas pan/zoom interactivity is enabled.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.loaded" title="napari.layers.Points.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.loaded" title="napari.layers.Points.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
 <td><p>Return True if this layer is fully loaded in memory.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.metadata" title="napari.layers.Points.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.metadata" title="napari.layers.Points.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
 <td><p>Key/value map for user-stored data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id21" title="napari.layers.Points.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id22" title="napari.layers.Points.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
 <td><p>Interactive mode</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.n_dimensional" title="napari.layers.Points.n_dimensional"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_dimensional</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.n_dimensional" title="napari.layers.Points.n_dimensional"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_dimensional</span></code></a></p></td>
 <td><p>This property will soon be deprecated in favor of <cite>out_of_slice_display</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.name" title="napari.layers.Points.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.name" title="napari.layers.Points.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p>Unique name of the layer.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.ndim" title="napari.layers.Points.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.ndim" title="napari.layers.Points.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
 <td><p>Number of dimensions in the data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.opacity" title="napari.layers.Points.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.opacity" title="napari.layers.Points.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
 <td><p>Opacity value between 0.0 and 1.0.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id22" title="napari.layers.Points.out_of_slice_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_slice_display</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id23" title="napari.layers.Points.out_of_slice_display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_slice_display</span></code></a></p></td>
 <td><p>renders points slightly out of slice.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id23" title="napari.layers.Points.properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id24" title="napari.layers.Points.properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties</span></code></a></p></td>
 <td><p>Annotations for each point</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">property_choices</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">property_choices</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.rotate" title="napari.layers.Points.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.rotate" title="napari.layers.Points.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
 <td><p>Rotation matrix in world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.scale" title="napari.layers.Points.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.scale" title="napari.layers.Points.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
 <td><p>Anisotropy factors to scale data into world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id24" title="napari.layers.Points.selected_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_data</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id25" title="napari.layers.Points.selected_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_data</span></code></a></p></td>
 <td><p>set of currently selected points.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id25" title="napari.layers.Points.shading"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shading</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id26" title="napari.layers.Points.shading"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shading</span></code></a></p></td>
 <td><p>shading mode.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.shear" title="napari.layers.Points.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.shear" title="napari.layers.Points.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
 <td><p>Shear matrix in world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id26" title="napari.layers.Points.shown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shown</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id27" title="napari.layers.Points.shown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shown</span></code></a></p></td>
 <td><p>Boolean array determining which points to show</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id27" title="napari.layers.Points.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id28" title="napari.layers.Points.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a></p></td>
 <td><p>size of all N points in D dimensions.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id28" title="napari.layers.Points.symbol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">symbol</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id29" title="napari.layers.Points.symbol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">symbol</span></code></a></p></td>
 <td><p>symbol used for all point markers.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id29" title="napari.layers.Points.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id30" title="napari.layers.Points.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text</span></code></a></p></td>
 <td><p>the TextManager object containing containing the text properties</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.thumbnail" title="napari.layers.Points.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.thumbnail" title="napari.layers.Points.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
 <td><p>Integer array of thumbnail for the layer</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.translate" title="napari.layers.Points.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.translate" title="napari.layers.Points.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate_grid</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate_grid</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.visible" title="napari.layers.Points.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.visible" title="napari.layers.Points.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
 <td><p>Whether the visual is currently being displayed.</p></td>
 </tr>
 </tbody>
@@ -1413,11 +1426,11 @@ None after dragging is done.</p>
 <p class="rubric">Details</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.layers.Points.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/points/points.html#Points.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Points.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds point at coordinate.</p>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/points/points.html#Points.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Points.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds points at coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>coord</strong> (<em>sequence of indices to add point at</em>) – </p>
+<dd class="field-odd"><p><strong>coords</strong> (<em>array</em>) – Point or points to add to the layer data.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1655,6 +1668,17 @@ specified layer_type.</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="id7">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_symbol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dd><p>symbol of marker for the next added point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="napari.layers.Points.cursor">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cursor</span></span><a class="headerlink" href="#napari.layers.Points.cursor" title="Permalink to this definition">¶</a></dt>
 <dd><p>String identifying cursor displayed over canvas.</p>
@@ -1677,8 +1701,8 @@ specified layer_type.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id7">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id8">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
 <dd><p>coordinates for N points in D dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1707,8 +1731,8 @@ dimensions will be used.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id8">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id9">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
 <dd><p>Array of RGBA edge colors for each point</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1718,8 +1742,8 @@ dimensions will be used.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id9">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_color_cycle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id10">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_color_cycle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
 <dd><p>Color cycle for edge_color.
 Can be a list of colors defined by name, RGB or RGBA</p>
 <dl class="field-list simple">
@@ -1730,8 +1754,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id10">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_color_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id11">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_color_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
 <dd><p>Edge color setting mode</p>
 <p>DIRECT (default mode) allows each point to be set arbitrarily</p>
 <p>CYCLE allows the color to be set via a color cycle over an attribute</p>
@@ -1744,8 +1768,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id11">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_colormap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.colormaps.colormap.Colormap"><span class="pre">napari.utils.colormaps.colormap.Colormap</span></a></em><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id12">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_colormap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.colormaps.colormap.Colormap"><span class="pre">napari.utils.colormaps.colormap.Colormap</span></a></em><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the colormap to be applied to a property to get the edge color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1758,8 +1782,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id12">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_contrast_limits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id13">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_contrast_limits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
 <dd><p>contrast limits for mapping
 the edge_color colormap property to 0 and 1</p>
 <dl class="field-list simple">
@@ -1770,8 +1794,8 @@ the edge_color colormap property to 0 and 1</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id13">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id14">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
 <dd><p>edge_width of all N points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1809,8 +1833,8 @@ the edge_color colormap property to 0 and 1</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id14">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id15">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
 <dd><p>Array of RGBA face colors for each point</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1820,8 +1844,8 @@ the edge_color colormap property to 0 and 1</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id15">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_color_cycle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id16">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_color_cycle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id16" title="Permalink to this definition">¶</a></dt>
 <dd><p>Color cycle for face_color
 Can be a list of colors defined by name, RGB or RGBA</p>
 <dl class="field-list simple">
@@ -1832,8 +1856,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id16">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_color_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="headerlink" href="#id16" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id17">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_color_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
 <dd><p>Face color setting mode</p>
 <p>DIRECT (default mode) allows each point to be set arbitrarily</p>
 <p>CYCLE allows the color to be set via a color cycle over an attribute</p>
@@ -1846,8 +1870,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id17">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_colormap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.colormaps.colormap.Colormap"><span class="pre">napari.utils.colormaps.colormap.Colormap</span></a></em><a class="headerlink" href="#id17" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id18">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_colormap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.colormaps.colormap.Colormap"><span class="pre">napari.utils.colormaps.colormap.Colormap</span></a></em><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the colormap to be applied to a property to get the face color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1860,8 +1884,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id18">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_contrast_limits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id18" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id19">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_contrast_limits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id19" title="Permalink to this definition">¶</a></dt>
 <dd><p>clims for mapping the face_color
 colormap property to 0 and 1</p>
 <dl class="field-list simple">
@@ -1872,15 +1896,15 @@ colormap property to 0 and 1</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id19">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">feature_defaults</span></span><a class="headerlink" href="#id19" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id20">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">feature_defaults</span></span><a class="headerlink" href="#id20" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dataframe-like with one row of feature default values.</p>
 <p>See <cite>features</cite> for more details on the type of this property.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id20">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">features</span></span><a class="headerlink" href="#id20" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id21">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">features</span></span><a class="headerlink" href="#id21" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dataframe-like features table.</p>
 <p>It is an implementation detail that this is a <cite>pandas.DataFrame</cite>. In the future,
 we will target the currently-in-development Data API dataframe protocol [1].
@@ -2034,8 +2058,8 @@ Derived classes that do asynchronous loading can override this.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id21">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="headerlink" href="#id21" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id22">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="headerlink" href="#id22" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interactive mode</p>
 <p>Interactive mode. The normal, default mode is PAN_ZOOM, which
 allows for normal interactivity with the canvas.</p>
@@ -2090,8 +2114,8 @@ have their properties edited, or be deleted.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id22">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">out_of_slice_display</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#id22" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id23">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">out_of_slice_display</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#id23" title="Permalink to this definition">¶</a></dt>
 <dd><p>renders points slightly out of slice.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -2128,8 +2152,8 @@ coordinates.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id23">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">properties</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id23" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id24">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">properties</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id24" title="Permalink to this definition">¶</a></dt>
 <dd><p>Annotations for each point</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -2224,8 +2248,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id24">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selected_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.11)"><span class="pre">set</span></a></em><a class="headerlink" href="#id24" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id25">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selected_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.11)"><span class="pre">set</span></a></em><a class="headerlink" href="#id25" title="Permalink to this definition">¶</a></dt>
 <dd><p>set of currently selected points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -2235,8 +2259,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id25">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shading</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.points._points_constants.Shading</span></em><a class="headerlink" href="#id25" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id26">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shading</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.points._points_constants.Shading</span></em><a class="headerlink" href="#id26" title="Permalink to this definition">¶</a></dt>
 <dd><p>shading mode.</p>
 </dd></dl>
 
@@ -2252,14 +2276,14 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id26">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shown</span></span><a class="headerlink" href="#id26" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id27">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shown</span></span><a class="headerlink" href="#id27" title="Permalink to this definition">¶</a></dt>
 <dd><p>Boolean array determining which points to show</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id27">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id27" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id28">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id28" title="Permalink to this definition">¶</a></dt>
 <dd><p>size of all N points in D dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -2269,8 +2293,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id28">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="headerlink" href="#id28" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id29">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#id29" title="Permalink to this definition">¶</a></dt>
 <dd><p>symbol used for all point markers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -2280,8 +2304,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id29">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.utils.text_manager.TextManager</span></em><a class="headerlink" href="#id29" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id30">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.utils.text_manager.TextManager</span></em><a class="headerlink" href="#id30" title="Permalink to this definition">¶</a></dt>
 <dd><p>the TextManager object containing containing the text properties</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>

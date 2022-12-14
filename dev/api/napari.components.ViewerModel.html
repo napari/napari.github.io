@@ -49,9 +49,6 @@
   </head>
   <body>
     
-    <div class="container-fluid" id="banner"></div>
-
-    
     <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
   <div id="navbar-start">
@@ -1312,7 +1309,7 @@ composed using f-string-like syntax (e.g., ‘{property_1}, {float_property:.2f}
 A dictionary can be provided with keyword arguments to set the text values
 and display properties. See TextManager.__init__() for the valid keyword arguments.
 For example usage, see /napari/examples/add_points_with_text.py.</p></li>
-<li><p><strong>symbol</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Symbol to be used for the point markers. Must be one of the
+<li><p><strong>symbol</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>array</em>) – Symbols to be used for the point markers. Must be one of the
 following: arrow, clobber, cross, diamond, disc, hbar, ring,
 square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</p></li>
 <li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>array</em>) – Size of the point marker in data pixels. If given as a scalar, all points are made
@@ -1440,10 +1437,10 @@ For example usage, see /napari/examples/add_points_with_text.py.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.symbol">
 <span class="sig-name descname"><span class="pre">symbol</span></span><a class="headerlink" href="#napari.components.ViewerModel.symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Symbol used for all point markers.</p>
+<dd><p>Array of symbols for each point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+<dd class="field-odd"><p>array of str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1574,6 +1571,17 @@ The default value is None. If set the none, the clims will be set to
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>None, (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.current_symbol">
+<span class="sig-name descname"><span class="pre">current_symbol</span></span><a class="headerlink" href="#napari.components.ViewerModel.current_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Symbol for the next point to be added or the currently selected points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Symbol</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1742,6 +1750,8 @@ have their properties edited, or be deleted.</p>
 <dt>_view_data<span class="classifier">array (M, 2)</span></dt><dd><p>2D coordinates of points in the currently viewed slice.</p>
 </dd>
 <dt>_view_size<span class="classifier">array (M, )</span></dt><dd><p>Size of the point markers in the currently viewed slice.</p>
+</dd>
+<dt>_view_symbol<span class="classifier">array (M, )</span></dt><dd><p>Symbols of the point markers in the currently viewed slice.</p>
 </dd>
 <dt>_view_edge_width<span class="classifier">array (M, )</span></dt><dd><p>Edge width of the point markers in the currently viewed slice.</p>
 </dd>

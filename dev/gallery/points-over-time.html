@@ -35,8 +35,8 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Dynamic projections dask" href="dynamic-projections-dask.html" />
-    <link rel="prev" title="Add multiscale image" href="add_multiscale_image.html" />
+    <link rel="next" title="Add vectors color by angle" href="add_vectors_color_by_angle.html" />
+    <link rel="prev" title="To screenshot" href="to_screenshot.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,9 +48,6 @@
 
   </head>
   <body>
-    
-    <div class="container-fluid" id="banner"></div>
-
     
     <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
@@ -317,8 +314,8 @@ to download the full example code</p>
 <span class="k">def</span> <span class="nf">set_pts_features</span><span class="p">(</span><a href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pts_layer</span></a><span class="p">,</span> <span class="n">values_table</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
     <span class="c1"># step is a 4D coordinate with the current slider position for each dim</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">step</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># grab the leading (&quot;time&quot;) coordinate</span>
-    <a href="../api/napari.layers.Points.html#id20" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">pts_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">asarray</span></a><span class="p">(</span><span class="n">values_table</span><span class="p">[:,</span> <span class="n">column</span><span class="p">])</span>
-    <a href="../api/napari.layers.Points.html#id14" title="napari.layers.Points.face_color" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">pts_layer</span><span class="o">.</span><span class="n">face_color</span></a> <span class="o">=</span> <span class="s1">&#39;value&#39;</span>  <span class="c1"># force features refresh</span>
+    <a href="../api/napari.layers.Points.html#id21" title="napari.layers.Points.features" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">pts_layer</span><span class="o">.</span><span class="n">features</span></a><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">asarray</span></a><span class="p">(</span><span class="n">values_table</span><span class="p">[:,</span> <span class="n">column</span><span class="p">])</span>
+    <a href="../api/napari.layers.Points.html#id15" title="napari.layers.Points.face_color" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-property"><span class="n">pts_layer</span><span class="o">.</span><span class="n">face_color</span></a> <span class="o">=</span> <span class="s1">&#39;value&#39;</span>  <span class="c1"># force features refresh</span>
 
 
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -347,7 +344,7 @@ to download the full example code</p>
             
             <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="add_multiscale_image.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="to_screenshot.html" title="previous page">
         <svg
             width="10"
             height="16"
@@ -363,13 +360,13 @@ to download the full example code</p>
         </svg>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Add multiscale image</p>
+            <p class="prev-next-title">To screenshot</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="dynamic-projections-dask.html" title="next page">
+    <a class='right-next' id="next-link" href="add_vectors_color_by_angle.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dynamic projections dask</p>
+        <p class="prev-next-title">Add vectors color by angle</p>
     </div>
 
     <svg

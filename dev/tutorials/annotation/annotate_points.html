@@ -1640,7 +1640,7 @@ In this tutorial, we will cover creating and interacting with a Points layer wit
 </pre></div>
 </div>
 <p>The resulting viewer looks like this (images from <a class="reference external" href="https://www.nature.com/articles/s41593-018-0209-y">Mathis et al., 2018</a>, downloaded from <a class="reference external" href="https://github.com/DeepLabCut/DeepLabCut/tree/f21321ef8060c537f9df0ce9346189bda07701b5/examples/openfield-Pranav-2018-10-30/labeled-data/m4s1">here</a>):</p>
-<p><video src="../../_images/point_annotator_demo.webm" title="image: point annotator demo"><a href="../../_images/point_annotator_demo.webm">image: point annotator demo</a></video></p>
+<p><video src="../../_images/point_annotator_demo.webm" title="Demo of point annotator shows user adding keypoint labels to a video of a mouse, frame by frame. The user navigates the viewer mostly with keyboard shortcuts, and uses the computer mouse to click on keypoints like the mouse's ears and tail."><a href="../../_images/point_annotator_demo.webm">Demo of point annotator shows user adding keypoint labels to a video of a mouse, frame by frame. The user navigates the viewer mostly with keyboard shortcuts, and uses the computer mouse to click on keypoints like the mouse's ears and tail.</a></video></p>
 <p>You can explore the project in <a class="reference external" href="https://github.com/kevinyamauchi/PointAnnotator">this repository</a> or check out the main function below.
 We will walk through the code in the following sections.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
@@ -2009,7 +2009,7 @@ see the examples [<a class="reference external" href="https://github.com/napari/
 <p>Once we are happy with the annotations, we can save them to a CSV file using the builing CSV writer for the points layer.
 To do so, first, select the “Points” layer in the layer list and then click “Save Selected layer(s)”  in the “File” menu or press control+S (cmd+S on Mac OS)  to bring up the file save dialog.
 From here you can enter the file path and save the annotation coordinates as a CSV.</p>
-<p><img alt="image: points save dialog" src="../../_images/points_save_dialog.png" /></p>
+<p><img alt="Viewer with green box around a points layer in layer list. Label in green says &quot;1. Select Points layer in the layer list&quot;. Dialog in the middle of the viewer has options to add save file name and choose save location, with Cancel and Save buttons in the bottom right." src="../../_images/points_save_dialog.png" /></p>
 <p>Alternatively, we can use the <code class="docutils literal notranslate"><span class="pre">points_layer.save()</span></code> method to save the coordinates from the points layer to a CSV file.
 We can enter the command either in the script (e.g., bind a save function to a hot key) or the napari terminal.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">points_layer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;path/to/file.csv&#39;</span><span class="p">)</span>

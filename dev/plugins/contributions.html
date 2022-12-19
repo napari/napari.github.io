@@ -510,27 +510,6 @@ Expression which must evaluate as true to enable the command in the UI (menu and
 </ul>
 <section id="commands-example">
 <h3>Commands example<a class="headerlink" href="#commands-example" title="Permalink to this headline">¶</a></h3>
-<div class="tabbed-set docutils">
-<input checked="checked" id="1a64cb76-daa4-4802-bb90-6acd043d4d3f" name="80f18849-054f-4255-9daa-bc359f3999b8" type="radio">
-</input><label class="tabbed-label" for="1a64cb76-daa4-4802-bb90-6acd043d4d3f">
-yaml</label><div class="tabbed-content docutils">
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.hello_world</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hello World</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<input id="7152ae9b-9301-45c3-bf4f-031fadc646e9" name="80f18849-054f-4255-9daa-bc359f3999b8" type="radio">
-</input><label class="tabbed-label" for="7152ae9b-9301-45c3-bf4f-031fadc646e9">
-toml</label><div class="tabbed-content docutils">
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
-<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.hello_world&#39;</span><span class="w"></span>
-<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Hello World&#39;</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 <section id="contributions-readers">
@@ -552,39 +531,6 @@ Whether this reader accepts directories</p></li>
 </ul>
 <section id="readers-example">
 <h3>Readers example<a class="headerlink" href="#readers-example" title="Permalink to this headline">¶</a></h3>
-<div class="tabbed-set docutils">
-<input checked="checked" id="b3fedb37-7dfa-45c7-b059-8e4f9034387d" name="136affe6-ba9a-41ab-a281-666354236a7b" type="radio">
-</input><label class="tabbed-label" for="b3fedb37-7dfa-45c7-b059-8e4f9034387d">
-yaml</label><div class="tabbed-content docutils">
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.read_xyz</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read &quot;.xyz&quot; files</span><span class="w"></span>
-<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:get_reader</span><span class="w"></span>
-<span class="w">  </span><span class="nt">readers</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.read_xyz</span><span class="w"></span>
-<span class="w">    </span><span class="nt">filename_patterns</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;*.xyz&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">accepts_directories</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<input id="c63694c8-bd69-4233-9e24-e2e72418adf7" name="136affe6-ba9a-41ab-a281-666354236a7b" type="radio">
-</input><label class="tabbed-label" for="c63694c8-bd69-4233-9e24-e2e72418adf7">
-toml</label><div class="tabbed-content docutils">
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
-<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.read_xyz&#39;</span><span class="w"></span>
-<span class="n">python_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example_plugin.some_module:get_reader&#39;</span><span class="w"></span>
-<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Read &quot;.xyz&quot; files&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.readers]]</span><span class="w"></span>
-<span class="n">accepts_directories</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.read_xyz&#39;</span><span class="w"></span>
-<span class="n">filename_patterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&#39;*.xyz&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 <section id="contributions-writers">
@@ -610,40 +556,6 @@ Brief text used to describe this writer when presented. Empty by default. When p
 </ul>
 <section id="writers-example">
 <h3>Writers example<a class="headerlink" href="#writers-example" title="Permalink to this headline">¶</a></h3>
-<div class="tabbed-set docutils">
-<input checked="checked" id="0c3cfe09-6c9b-4b28-bb6a-d71487532c5d" name="3bc93719-3d30-4eeb-8aa8-5aebd1cb1bd0" type="radio">
-</input><label class="tabbed-label" for="0c3cfe09-6c9b-4b28-bb6a-d71487532c5d">
-yaml</label><div class="tabbed-content docutils">
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.write_points</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Save points layer to csv</span><span class="w"></span>
-<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:write_points</span><span class="w"></span>
-<span class="w">  </span><span class="nt">writers</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.write_points</span><span class="w"></span>
-<span class="w">    </span><span class="nt">layer_types</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">points</span><span class="w"></span>
-<span class="w">    </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.csv</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<input id="bfbca4ae-3fc8-4a34-82fc-59c9b954008b" name="3bc93719-3d30-4eeb-8aa8-5aebd1cb1bd0" type="radio">
-</input><label class="tabbed-label" for="bfbca4ae-3fc8-4a34-82fc-59c9b954008b">
-toml</label><div class="tabbed-content docutils">
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
-<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.write_points&#39;</span><span class="w"></span>
-<span class="n">python_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example_plugin.some_module:write_points&#39;</span><span class="w"></span>
-<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Save points layer to csv&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.writers]]</span><span class="w"></span>
-<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.write_points&#39;</span><span class="w"></span>
-<span class="n">filename_extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&#39;.csv&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
-<span class="n">layer_types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&#39;points&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 <section id="contributions-widgets">
@@ -670,66 +582,6 @@ If true, a widget will be autogenerated from the signature of the associated com
 </ul>
 <section id="widgets-example">
 <h3>Widgets example<a class="headerlink" href="#widgets-example" title="Permalink to this headline">¶</a></h3>
-<div class="tabbed-set docutils">
-<input checked="checked" id="8507e998-3139-461f-94a3-ae0bee41d4c8" name="5b52e53a-ea5e-4ed2-a293-b172575eaf38" type="radio">
-</input><label class="tabbed-label" for="8507e998-3139-461f-94a3-ae0bee41d4c8">
-yaml</label><div class="tabbed-content docutils">
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.my_widget</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Open my widget</span><span class="w"></span>
-<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:MyWidget</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.threshold_widget</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Make threshold widget with magic_factory</span><span class="w"></span>
-<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:widget_factory</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.do_threshold</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Perform threshold on image, return new image</span><span class="w"></span>
-<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:threshold</span><span class="w"></span>
-<span class="w">  </span><span class="nt">widgets</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.my_widget</span><span class="w"></span>
-<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wizard</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.threshold_widget</span><span class="w"></span>
-<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Threshold</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.do_threshold</span><span class="w"></span>
-<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Threshold</span><span class="w"></span>
-<span class="w">    </span><span class="nt">autogenerate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<input id="18d3696c-64be-46f7-b24f-9f5d80f5b46e" name="5b52e53a-ea5e-4ed2-a293-b172575eaf38" type="radio">
-</input><label class="tabbed-label" for="18d3696c-64be-46f7-b24f-9f5d80f5b46e">
-toml</label><div class="tabbed-content docutils">
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
-<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.my_widget&#39;</span><span class="w"></span>
-<span class="n">python_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example_plugin.some_module:MyWidget&#39;</span><span class="w"></span>
-<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Open my widget&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.commands]]</span><span class="w"></span>
-<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.threshold_widget&#39;</span><span class="w"></span>
-<span class="n">python_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example_plugin.some_module:widget_factory&#39;</span><span class="w"></span>
-<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Make threshold widget with magic_factory&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.commands]]</span><span class="w"></span>
-<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.do_threshold&#39;</span><span class="w"></span>
-<span class="n">python_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example_plugin.some_module:threshold&#39;</span><span class="w"></span>
-<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Perform threshold on image, return new image&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.widgets]]</span><span class="w"></span>
-<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.my_widget&#39;</span><span class="w"></span>
-<span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Wizard&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.widgets]]</span><span class="w"></span>
-<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.threshold_widget&#39;</span><span class="w"></span>
-<span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Threshold&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.widgets]]</span><span class="w"></span>
-<span class="n">autogenerate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.do_threshold&#39;</span><span class="w"></span>
-<span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Threshold&#39;</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 <section id="contributions-sample-data">
@@ -769,46 +621,6 @@ Name of plugin to use to open URI</p></li>
 </section>
 <section id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
-<div class="tabbed-set docutils">
-<input checked="checked" id="16d1299f-1f3e-4ccb-971d-285c6cce9f41" name="29133f71-ca0f-4c99-825c-36fb78635015" type="radio">
-</input><label class="tabbed-label" for="16d1299f-1f3e-4ccb-971d-285c6cce9f41">
-yaml</label><div class="tabbed-content docutils">
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.data.fractal</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create fractal image</span><span class="w"></span>
-<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:create_fractal</span><span class="w"></span>
-<span class="w">  </span><span class="nt">sample_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fractal</span><span class="w"></span>
-<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fractal</span><span class="w"></span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.data.fractal</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span><span class="w"></span>
-<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tabueran Kiribati</span><span class="w"></span>
-<span class="w">    </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://en.wikipedia.org/wiki/Napari#/media/File:Tabuaeran_Kiribati.jpg</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<input id="dc0705ae-7764-4545-a50e-3f74ab63b9b2" name="29133f71-ca0f-4c99-825c-36fb78635015" type="radio">
-</input><label class="tabbed-label" for="dc0705ae-7764-4545-a50e-3f74ab63b9b2">
-toml</label><div class="tabbed-content docutils">
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
-<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.data.fractal&#39;</span><span class="w"></span>
-<span class="n">python_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example_plugin.some_module:create_fractal&#39;</span><span class="w"></span>
-<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Create fractal image&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.sample_data]]</span><span class="w"></span>
-<span class="n">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.data.fractal&#39;</span><span class="w"></span>
-<span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Fractal&#39;</span><span class="w"></span>
-<span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;fractal&#39;</span><span class="w"></span>
-
-<span class="k">[[contributions.sample_data]]</span><span class="w"></span>
-<span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Tabueran Kiribati&#39;</span><span class="w"></span>
-<span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;napari&#39;</span><span class="w"></span>
-<span class="n">uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;https://en.wikipedia.org/wiki/Napari#/media/File:Tabuaeran_Kiribati.jpg&#39;</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 <section id="contributions-themes">
@@ -835,54 +647,6 @@ dark/light theme colors.</p>
 </ul>
 <section id="themes-example">
 <h3>Themes example<a class="headerlink" href="#themes-example" title="Permalink to this headline">¶</a></h3>
-<div class="tabbed-set docutils">
-<input checked="checked" id="631be9a6-c6e3-4dea-8bdc-c10b89f5cb19" name="76c5a983-05a1-4508-a7d6-962463ab9890" type="radio">
-</input><label class="tabbed-label" for="631be9a6-c6e3-4dea-8bdc-c10b89f5cb19">
-yaml</label><div class="tabbed-content docutils">
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">themes</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monokai</span><span class="w"></span>
-<span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Monokai</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dark</span><span class="w"></span>
-<span class="w">    </span><span class="nt">colors</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">canvas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">black</span><span class="w"></span>
-<span class="w">      </span><span class="nt">console</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">black</span><span class="w"></span>
-<span class="w">      </span><span class="nt">background</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#272822&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">foreground</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#75715e&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">primary</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#cfcfc2&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">secondary</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#f8f8f2&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">highlight</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#e6db74&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#a1ef34&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#a1ef34&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">warning</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#f92672&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#66d9ef&#39;</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<input id="cdeb63a2-1cdc-44f6-9753-475160f60fec" name="76c5a983-05a1-4508-a7d6-962463ab9890" type="radio">
-</input><label class="tabbed-label" for="cdeb63a2-1cdc-44f6-9753-475160f60fec">
-toml</label><div class="tabbed-content docutils">
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.themes]]</span><span class="w"></span>
-<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;monokai&#39;</span><span class="w"></span>
-<span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Monokai&#39;</span><span class="w"></span>
-<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;dark&#39;</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">[contributions.themes.colors]</span><span class="w"></span>
-<span class="w">    </span><span class="n">background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#272822&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">canvas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;black&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">console</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;black&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#66d9ef&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">foreground</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#75715e&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">highlight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#e6db74&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">icon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#a1ef34&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#cfcfc2&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">secondary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#f8f8f2&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#a1ef34&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">warning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#f92672&#39;</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 </section>

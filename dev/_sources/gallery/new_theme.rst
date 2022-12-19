@@ -28,19 +28,19 @@ Displays an image and sets the theme to new custom theme.
 .. GENERATED FROM PYTHON SOURCE LINES 9-41
 
 
-
-.. image-sg:: /gallery/images/sphx_glr_new_theme_001.png
-   :alt: new theme
-   :srcset: /gallery/images/sphx_glr_new_theme_001.png
-   :class: sphx-glr-single-img
-
-
 .. rst-class:: sphx-glr-script-out
 
- .. code-block:: none
+.. code-block:: pytb
 
-    Originally themes ('dark', 'light', 'system')
-    New themes ('dark', 'light', 'blue', 'system')
+    Traceback (most recent call last):
+      File "/home/runner/work/docs/docs/docs/examples/new_theme.py", line 22, in <module>
+        blue_theme.name = "blue"
+      File "/opt/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/napari/utils/events/evented_model.py", line 232, in __setattr__
+        self._super_setattr_(name, value)
+      File "/opt/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/napari/utils/events/evented_model.py", line 227, in _super_setattr_
+        super().__setattr__(name, value)
+      File "pydantic/main.py", line 358, in pydantic.main.BaseModel.__setattr__
+    ValueError: "Theme" object has no field "name"
 
 
 
@@ -83,11 +83,6 @@ Displays an image and sets the theme to new custom theme.
 
     if __name__ == '__main__':
         napari.run()
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  43.926 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:

@@ -35,19 +35,8 @@ Add points on nD shapes in 3D using a mouse callback
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /opt/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/napari/layers/base/base.py:1553: RuntimeWarning: invalid value encountered in cast
-      corners[:, displayed_axes] = data_bbox_clipped
 
 
-
-
-
-
-|
 
 .. code-block:: default
 

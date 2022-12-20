@@ -1811,12 +1811,16 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># The stored corner_pixels attribute must contain valid indices.</span>
-            <span class="n">displayed_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span>
-            <span class="n">data_bbox_clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
-                <span class="n">data_bbox_int</span><span class="p">,</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="p">)</span>
             <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-            <span class="n">corners</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_bbox_clipped</span>
+            <span class="c1"># Some empty layers (e.g. Points) may have a data extent that only</span>
+            <span class="c1"># contains nans, in which case the integer valued corner pixels</span>
+            <span class="c1"># cannot be meaningfully set.</span>
+            <span class="n">displayed_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">displayed_extent</span><span class="p">)):</span>
+                <span class="n">data_bbox_clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+                    <span class="n">data_bbox_int</span><span class="p">,</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">displayed_extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">corners</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_bbox_clipped</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">corners</span>
 
     <span class="k">def</span> <span class="nf">_get_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

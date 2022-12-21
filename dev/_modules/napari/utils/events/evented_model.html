@@ -596,6 +596,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        like arrays, whose truth value is often ambiguous. ``__eq_operators__``</span>
 <span class="sd">        is constructed in ``EqualityMetaclass.__new__``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">other</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span>
 

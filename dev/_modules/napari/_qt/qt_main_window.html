@@ -289,7 +289,16 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakValueDictionary</span>
 
-<span class="kn">from</span> <span class="nn">qtpy.QtCore</span> <span class="kn">import</span> <span class="n">QEvent</span><span class="p">,</span> <span class="n">QEventLoop</span><span class="p">,</span> <span class="n">QPoint</span><span class="p">,</span> <span class="n">QProcess</span><span class="p">,</span> <span class="n">QSize</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">Slot</span>
+<span class="kn">from</span> <span class="nn">qtpy.QtCore</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QEvent</span><span class="p">,</span>
+    <span class="n">QEventLoop</span><span class="p">,</span>
+    <span class="n">QPoint</span><span class="p">,</span>
+    <span class="n">QProcess</span><span class="p">,</span>
+    <span class="n">QRect</span><span class="p">,</span>
+    <span class="n">QSize</span><span class="p">,</span>
+    <span class="n">Qt</span><span class="p">,</span>
+    <span class="n">Slot</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QIcon</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QApplication</span><span class="p">,</span>
@@ -381,6 +390,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_maximized_flag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fullscreen_flag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normal_geometry</span> <span class="o">=</span> <span class="n">QRect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_window_pos</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_old_size</span> <span class="o">=</span> <span class="kc">None</span>
@@ -472,7 +483,62 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
                 <span class="n">inst</span> <span class="o">=</span> <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">_instances</span>
                 <span class="n">inst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>
+
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">isFullScreen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Needed to prevent errors when going to fullscreen mode on Windows</span>
+        <span class="c1"># Use a flag attribute to determine if the window is in full screen mode</span>
+        <span class="c1"># See https://bugreports.qt.io/browse/QTBUG-41309</span>
+        <span class="c1"># Based on https://github.com/spyder-ide/spyder/pull/7720</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fullscreen_flag</span>
+
+    <span class="k">def</span> <span class="nf">showNormal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Needed to prevent errors when going to fullscreen mode on Windows. Here we:</span>
+        <span class="c1">#   * Set fullscreen flag</span>
+        <span class="c1">#   * Remove `Qt.FramelessWindowHint` and `Qt.WindowStaysOnTopHint` window flags if needed</span>
+        <span class="c1">#   * Set geometry to previously stored normal geometry or default empty QRect</span>
+        <span class="c1"># Always call super `showNormal` to set Qt window state</span>
+        <span class="c1"># See https://bugreports.qt.io/browse/QTBUG-41309</span>
+        <span class="c1"># Based on https://github.com/spyder-ide/spyder/pull/7720</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fullscreen_flag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span>
+                <span class="o">^</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">FramelessWindowHint</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_normal_geometry</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">showFullScreen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Needed to prevent errors when going to fullscreen mode on Windows. Here we:</span>
+        <span class="c1">#   * Set fullscreen flag</span>
+        <span class="c1">#   * Add `Qt.FramelessWindowHint` and `Qt.WindowStaysOnTopHint` window flags if needed</span>
+        <span class="c1">#   * Call super `showNormal` to update the normal screen geometry to apply it later if needed</span>
+        <span class="c1">#   * Save window normal geometry if needed</span>
+        <span class="c1">#   * Get screen geometry</span>
+        <span class="c1">#   * Set geometry window to use total screen geometry +1 in every direction if needed</span>
+        <span class="c1"># If the workaround is not needed just call super `showFullScreen`</span>
+        <span class="c1"># See https://bugreports.qt.io/browse/QTBUG-41309</span>
+        <span class="c1"># Based on https://github.com/spyder-ide/spyder/pull/7720</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fullscreen_flag</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span>
+                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">FramelessWindowHint</span>
+                <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span>
+            <span class="p">)</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_normal_geometry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalGeometry</span><span class="p">()</span>
+            <span class="n">screen_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowHandle</span><span class="p">()</span><span class="o">.</span><span class="n">screen</span><span class="p">()</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span>
+                <span class="n">screen_rect</span><span class="o">.</span><span class="n">left</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">screen_rect</span><span class="o">.</span><span class="n">top</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">screen_rect</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="n">screen_rect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showFullScreen</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_load_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -553,8 +619,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">window_fullscreen</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowState</span><span class="o">.</span><span class="n">WindowFullScreen</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_maximized_flag</span> <span class="o">=</span> <span class="n">window_maximized</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showFullScreen</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">window_maximized</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowState</span><span class="o">.</span><span class="n">WindowMaximized</span><span class="p">)</span>
 

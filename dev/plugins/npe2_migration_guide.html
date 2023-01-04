@@ -526,30 +526,30 @@ file</span></a>.</p>
 <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code>-style plugin.</p>
 <section id="install-npe2">
 <h3>1. Install <code class="docutils literal notranslate"><span class="pre">npe2</span></code><a class="headerlink" href="#install-npe2" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install npe2
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>npe2
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">npe2</span></code> command line tool provides a few commands to help you develop your
 plugin. In this case we’re going to use <code class="docutils literal notranslate"><span class="pre">convert</span></code> to <em>modify</em> a repository
 to fit the new pattern:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ npe2 convert --help
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>npe2<span class="w"> </span>convert<span class="w"> </span>--help
 
-Usage: npe2 convert <span class="o">[</span>OPTIONS<span class="o">]</span> PATH
+Usage:<span class="w"> </span>npe2<span class="w"> </span>convert<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATH
 
-  Convert first generation napari plugin to new <span class="o">(</span>manifest<span class="o">)</span> format.
+<span class="w">  </span>Convert<span class="w"> </span>first<span class="w"> </span>generation<span class="w"> </span>napari<span class="w"> </span>plugin<span class="w"> </span>to<span class="w"> </span>new<span class="w"> </span><span class="o">(</span>manifest<span class="o">)</span><span class="w"> </span>format.
 
 Arguments:
-  PATH  Path of a <span class="nb">local</span> repository to convert <span class="o">(</span>package must also be installed
-        <span class="k">in</span> current environment<span class="o">)</span>. Or, the name of an installed package/plugin.
-        If a package is provided instead of a directory, the new manifest will
-        simply be printed to stdout.  <span class="o">[</span>required<span class="o">]</span>
+<span class="w">  </span>PATH<span class="w">  </span>Path<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span><span class="nb">local</span><span class="w"> </span>repository<span class="w"> </span>to<span class="w"> </span>convert<span class="w"> </span><span class="o">(</span>package<span class="w"> </span>must<span class="w"> </span>also<span class="w"> </span>be<span class="w"> </span>installed
+<span class="w">        </span><span class="k">in</span><span class="w"> </span>current<span class="w"> </span>environment<span class="o">)</span>.<span class="w"> </span>Or,<span class="w"> </span>the<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>an<span class="w"> </span>installed<span class="w"> </span>package/plugin.
+<span class="w">        </span>If<span class="w"> </span>a<span class="w"> </span>package<span class="w"> </span>is<span class="w"> </span>provided<span class="w"> </span>instead<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span>directory,<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>manifest<span class="w"> </span>will
+<span class="w">        </span>simply<span class="w"> </span>be<span class="w"> </span>printed<span class="w"> </span>to<span class="w"> </span>stdout.<span class="w">  </span><span class="o">[</span>required<span class="o">]</span>
 
 
 Options:
-  -n, --dry-runs  Just print manifest to stdout. Do not modify anything
-                  <span class="o">[</span>default: False<span class="o">]</span>
+<span class="w">  </span>-n,<span class="w"> </span>--dry-runs<span class="w">  </span>Just<span class="w"> </span>print<span class="w"> </span>manifest<span class="w"> </span>to<span class="w"> </span>stdout.<span class="w"> </span>Do<span class="w"> </span>not<span class="w"> </span>modify<span class="w"> </span>anything
+<span class="w">                  </span><span class="o">[</span>default:<span class="w"> </span>False<span class="o">]</span>
 
-  --help          Show this message and exit.
+<span class="w">  </span>--help<span class="w">          </span>Show<span class="w"> </span>this<span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span>exit.
 </pre></div>
 </div>
 </section>
@@ -585,10 +585,10 @@ include the manifest file in your package data.</p></li>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> command, passing a path to a plugin
 repository (here, the current directory <code class="docutils literal notranslate"><span class="pre">.</span></code>)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert the current directory</span>
-❯ npe2 convert .
-✔  Conversion complete!
-New manifest at /Users/talley/Desktop/napari-animation/napari_animation/napari.yaml.
-If you have any napari_plugin_engine imports or hook_implementation decorators, you may remove them now.
+❯<span class="w"> </span>npe2<span class="w"> </span>convert<span class="w"> </span>.
+✔<span class="w">  </span>Conversion<span class="w"> </span>complete!
+New<span class="w"> </span>manifest<span class="w"> </span>at<span class="w"> </span>/Users/talley/Desktop/napari-animation/napari_animation/napari.yaml.
+If<span class="w"> </span>you<span class="w"> </span>have<span class="w"> </span>any<span class="w"> </span>napari_plugin_engine<span class="w"> </span>imports<span class="w"> </span>or<span class="w"> </span>hook_implementation<span class="w"> </span>decorators,<span class="w"> </span>you<span class="w"> </span>may<span class="w"> </span>remove<span class="w"> </span>them<span class="w"> </span>now.
 </pre></div>
 </div>
 <p>You are encouraged to inspect the newly-generated <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file.  Refer to
@@ -647,16 +647,16 @@ command for an <code class="docutils literal notranslate"><span class="pre">npe2
 </section>
 <section id="npe2-contributions">
 <h4>npe2 contributions<a class="headerlink" href="#npe2-contributions" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span><span class="w"></span>
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari.get_reader</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari.plugins._builtins:napari_get_reader</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read data using napari&#39;s builtin reader</span><span class="w"></span>
-<span class="w">  </span><span class="nt">readers</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari.get_reader</span><span class="w"></span>
-<span class="w">      </span><span class="nt">accepts_directories</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">      </span><span class="nt">filename_patterns</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;*.csv&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;*.npy&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari.get_reader</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari.plugins._builtins:napari_get_reader</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read data using napari&#39;s builtin reader</span>
+<span class="w">  </span><span class="nt">readers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari.get_reader</span>
+<span class="w">      </span><span class="nt">accepts_directories</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">filename_patterns</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;*.csv&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;*.npy&quot;</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 </section>
@@ -685,17 +685,17 @@ presented in napari’s “Save As” dialog.</p>
 </section>
 <section id="example-npe2-contribution">
 <h4>Example npe2 contribution<a class="headerlink" href="#example-npe2-contribution" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span><span class="w"></span>
-<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari svg</span><span class="w"></span>
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.write_image</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.hook_implementations:napari_write_image</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Write Image as SVG</span><span class="w"></span>
-<span class="w">  </span><span class="nt">writers</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.write_image</span><span class="w"></span>
-<span class="w">      </span><span class="nt">layer_types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;image&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">      </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;.svg&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span>
+<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari svg</span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.write_image</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.hook_implementations:napari_write_image</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Write Image as SVG</span>
+<span class="w">  </span><span class="nt">writers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.write_image</span>
+<span class="w">      </span><span class="nt">layer_types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;image&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;.svg&quot;</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 </section>
@@ -735,18 +735,18 @@ has to be imported or run until a compatible writer is found.</p>
 </section>
 <section id="id4">
 <h4>Example npe2 contribution<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span><span class="w"></span>
-<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari SVG</span><span class="w"></span>
-<span class="nt">entry_point</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span><span class="w"></span>
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.svg_writer</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Write SVG</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.hook_implementations:writer</span><span class="w"></span>
-<span class="w">  </span><span class="nt">writers</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.svg_writer</span><span class="w"></span>
-<span class="w">      </span><span class="nt">layer_types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;image*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;labels*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;points*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;shapes*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;vectors*&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">      </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;.svg&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span>
+<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari SVG</span>
+<span class="nt">entry_point</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg</span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.svg_writer</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Write SVG</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.hook_implementations:writer</span>
+<span class="w">  </span><span class="nt">writers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_svg.svg_writer</span>
+<span class="w">      </span><span class="nt">layer_types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;image*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;labels*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;points*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;shapes*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;vectors*&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">filename_extensions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;.svg&quot;</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 </section>
@@ -782,30 +782,30 @@ contribution. For each of these <code class="docutils literal notranslate"><span
 <section id="id6">
 <h4>Example npe2 contribution<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <p><em>Dock Widget</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-animation</span><span class="w"></span>
-<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">animation</span><span class="w"></span>
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-animation.widget</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_animation._qt:AnimationWidget</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Make animation widget</span><span class="w"></span>
-<span class="w">  </span><span class="nt">widgets</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_animation.widget</span><span class="w"></span>
-<span class="w">      </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wizard</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-animation</span>
+<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">animation</span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-animation.widget</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_animation._qt:AnimationWidget</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Make animation widget</span>
+<span class="w">  </span><span class="nt">widgets</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_animation.widget</span>
+<span class="w">      </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wizard</span>
 </pre></div>
 </div>
 <p><em>Function widget</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-function-plugin</span><span class="w"></span>
-<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My function plugin!</span><span class="w"></span>
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-function-plugin.func</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_function_plugin:my_typed_function</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Open widget for my function</span><span class="w"></span>
-<span class="w">  </span><span class="nt">widgets</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-function-plugin.func</span><span class="w"></span>
-<span class="w">      </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My function</span><span class="w"></span>
-<span class="w">      </span><span class="nt">autogenerate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># &lt;-- will wrap my_typed_function with magicgui</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-function-plugin</span>
+<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My function plugin!</span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-function-plugin.func</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_function_plugin:my_typed_function</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Open widget for my function</span>
+<span class="w">  </span><span class="nt">widgets</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-function-plugin.func</span>
+<span class="w">      </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My function</span>
+<span class="w">      </span><span class="nt">autogenerate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># &lt;-- will wrap my_typed_function with magicgui</span>
 </pre></div>
 </div>
 </section>
@@ -840,18 +840,18 @@ individual sample data contribution.</p>
 </pre></div>
 </div>
 <p>Should be migrated to:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin</span><span class="w"></span>
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin.random</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate random data</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_plugin:_generate_random_data</span><span class="w"></span>
-<span class="w">  </span><span class="nt">sample_data</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Some Random Data (512 x 512)</span><span class="w"></span>
-<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random data</span><span class="w"></span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin.random</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://picsum.photos/1024</span><span class="w"></span>
-<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random image</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin</span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin.random</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generate random data</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_plugin:_generate_random_data</span>
+<span class="w">  </span><span class="nt">sample_data</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Some Random Data (512 x 512)</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random data</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin.random</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://picsum.photos/1024</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random image</span>
 </pre></div>
 </div>
 </section>
@@ -888,25 +888,25 @@ code in the plugin package!</p>
 </pre></div>
 </div>
 <p>becomes this theme contribution in the plugin manifest:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin</span><span class="w"></span>
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">themes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Super dark</span><span class="w"></span>
-<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">super_dark</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dark</span><span class="w"></span>
-<span class="w">      </span><span class="nt">colors</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">background</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(12,</span><span class="nv"> </span><span class="s">12,</span><span class="nv"> </span><span class="s">12)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">foreground</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(65,</span><span class="nv"> </span><span class="s">72,</span><span class="nv"> </span><span class="s">81)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">primary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(90,</span><span class="nv"> </span><span class="s">98,</span><span class="nv"> </span><span class="s">108)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">secondary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(134,</span><span class="nv"> </span><span class="s">142,</span><span class="nv"> </span><span class="s">147)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">highlight</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(106,</span><span class="nv"> </span><span class="s">115,</span><span class="nv"> </span><span class="s">128)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(240,</span><span class="nv"> </span><span class="s">241,</span><span class="nv"> </span><span class="s">242)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(209,</span><span class="nv"> </span><span class="s">210,</span><span class="nv"> </span><span class="s">212)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">warning</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(153,</span><span class="nv"> </span><span class="s">18,</span><span class="nv"> </span><span class="s">31)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(0,</span><span class="nv"> </span><span class="s">122,</span><span class="nv"> </span><span class="s">204)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">syntax_style</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;native&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">console</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(0,</span><span class="nv"> </span><span class="s">0,</span><span class="nv"> </span><span class="s">0)&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">canvas</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;black&quot;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin</span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">themes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Super dark</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">super_dark</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dark</span>
+<span class="w">      </span><span class="nt">colors</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">background</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(12,</span><span class="nv"> </span><span class="s">12,</span><span class="nv"> </span><span class="s">12)&quot;</span>
+<span class="w">        </span><span class="nt">foreground</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(65,</span><span class="nv"> </span><span class="s">72,</span><span class="nv"> </span><span class="s">81)&quot;</span>
+<span class="w">        </span><span class="nt">primary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(90,</span><span class="nv"> </span><span class="s">98,</span><span class="nv"> </span><span class="s">108)&quot;</span>
+<span class="w">        </span><span class="nt">secondary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(134,</span><span class="nv"> </span><span class="s">142,</span><span class="nv"> </span><span class="s">147)&quot;</span>
+<span class="w">        </span><span class="nt">highlight</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(106,</span><span class="nv"> </span><span class="s">115,</span><span class="nv"> </span><span class="s">128)&quot;</span>
+<span class="w">        </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(240,</span><span class="nv"> </span><span class="s">241,</span><span class="nv"> </span><span class="s">242)&quot;</span>
+<span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(209,</span><span class="nv"> </span><span class="s">210,</span><span class="nv"> </span><span class="s">212)&quot;</span>
+<span class="w">        </span><span class="nt">warning</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(153,</span><span class="nv"> </span><span class="s">18,</span><span class="nv"> </span><span class="s">31)&quot;</span>
+<span class="w">        </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(0,</span><span class="nv"> </span><span class="s">122,</span><span class="nv"> </span><span class="s">204)&quot;</span>
+<span class="w">        </span><span class="nt">syntax_style</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;native&quot;</span>
+<span class="w">        </span><span class="nt">console</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rgb(0,</span><span class="nv"> </span><span class="s">0,</span><span class="nv"> </span><span class="s">0)&quot;</span>
+<span class="w">        </span><span class="nt">canvas</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;black&quot;</span>
 </pre></div>
 </div>
 </section>

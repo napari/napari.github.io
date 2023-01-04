@@ -1645,25 +1645,25 @@ an existing image.</p>
 <p>In this example, we will overlay some shapes on the image of a photographer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import napari
-import numpy as np
-from skimage import data
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
-# create vector data
-n = 250
-vectors = np.zeros((n, 2, 2), dtype=np.float32)
-phi_space = np.linspace(0, 4 * np.pi, n)
-radius_space = np.linspace(0, 100, n)
-# assign x-y projection
-vectors[:, 1, 0] = radius_space * np.cos(phi_space)
-vectors[:, 1, 1] = radius_space * np.sin(phi_space)
-# assign x-y position
-vectors[:, 0] = vectors[:, 1] + 256
+<span class="c1"># create vector data</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">250</span>
+<span class="n">vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">phi_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">radius_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="c1"># assign x-y projection</span>
+<span class="n">vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">radius_space</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi_space</span><span class="p">)</span>
+<span class="n">vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">radius_space</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi_space</span><span class="p">)</span>
+<span class="c1"># assign x-y position</span>
+<span class="n">vectors</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">256</span>
 
-# add the image
-viewer = napari.view_image(data.camera(), name=&#39;photographer&#39;)
-# add the vectors
-vectors_layer = viewer.add_vectors(vectors, edge_width=3)
+<span class="c1"># add the image</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;photographer&#39;</span><span class="p">)</span>
+<span class="c1"># add the vectors</span>
+<span class="n">vectors_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_vectors</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="n">edge_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1675,9 +1675,9 @@ vectors_layer = viewer.add_vectors(vectors, edge_width=3)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from napari.utils import nbscreenshot
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
-nbscreenshot(viewer, alt_text=&quot;Vectors overlaid on an image&quot;)
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">alt_text</span><span class="o">=</span><span class="s2">&quot;Vectors overlaid on an image&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1697,7 +1697,7 @@ accept the same layer-creation parameters.</p>
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(napari.view_vectors)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_vectors</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -277,7 +277,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="Dims"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims">[docs]</a><span class="k">class</span> <span class="nc">Dims</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Dimensions object modeling slicing and displaying.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dimensions object modeling slicing and displaying.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -355,7 +355,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@root_validator</span>
     <span class="k">def</span> <span class="nf">_check_dims</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Check the consitency of dimensionaity for all attributes</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check the consitency of dimensionaity for all attributes</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -420,7 +420,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Tuple of int: Number of slider steps for each dimension.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tuple of int: Number of slider steps for each dimension.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
             <span class="nb">int</span><span class="p">((</span><span class="n">max_val</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">step_size</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">step_size</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span>
@@ -428,7 +428,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">point</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Tuple of float: Value of each dimension.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tuple of float: Value of each dimension.&quot;&quot;&quot;</span>
         <span class="c1"># The point value is computed from the range and current_step</span>
         <span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
             <span class="n">min_val</span> <span class="o">+</span> <span class="n">step_size</span> <span class="o">*</span> <span class="n">value</span>
@@ -440,12 +440,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Tuple: Dimensions that are displayed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tuple: Dimensions that are displayed.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndisplay</span> <span class="p">:]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">not_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Tuple: Dimensions that are not displayed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tuple: Dimensions that are not displayed.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">]</span>
 
     <span class="nd">@property</span>
@@ -459,7 +459,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span>
         <span class="p">],</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets ranges (min, max, step) for the given dimensions.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets ranges (min, max, step) for the given dimensions.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -495,7 +495,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">axis</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
         <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets point to slice dimension in world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets point to slice dimension in world coordinates.</span>
 
 <span class="sd">        The desired point gets transformed into an integer step</span>
 <span class="sd">        of the slider and stored in the current_step.</span>
@@ -531,7 +531,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">axis</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
         <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the slider steps at which to slice this dimension.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the slider steps at which to slice this dimension.</span>
 
 <span class="sd">        The position of the slider in world coordinates gets</span>
 <span class="sd">        calculated from the current_step of the slider.</span>
@@ -573,7 +573,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">axis</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
         <span class="n">label</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets new axis labels for the given axes.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets new axis labels for the given axes.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -605,14 +605,14 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="n">full_axis_labels</span></div>
 
 <div class="viewcode-block" id="Dims.reset"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reset dims values to initial states.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset dims values to initial states.&quot;&quot;&quot;</span>
         <span class="c1"># Don&#39;t reset axis labels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Dims.transpose"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.transpose">[docs]</a>    <span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Transpose displayed dimensions.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transpose displayed dimensions.</span>
 
 <span class="sd">        This swaps the order of the last two displayed dimensions.</span>
 <span class="sd">        The order of the displayed is taken from Dims.order.</span>
@@ -622,7 +622,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span></div>
 
     <span class="k">def</span> <span class="nf">_increment_dims_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Increment dimensions to the right along given axis, or last used axis if None</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Increment dimensions to the right along given axis, or last used axis if None</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -634,7 +634,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">set_current_step</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_increment_dims_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Increment dimensions to the left along given axis, or last used axis if None</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Increment dimensions to the left along given axis, or last used axis if None</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -646,7 +646,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">set_current_step</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_focus_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Shift focused dimension slider to be the next slider above.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift focused dimension slider to be the next slider above.&quot;&quot;&quot;</span>
         <span class="n">sliders</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">not_displayed</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sliders</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
@@ -655,7 +655,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">last_used</span> <span class="o">=</span> <span class="n">sliders</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_focus_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Shift focused dimension slider to be the next slider bellow.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift focused dimension slider to be the next slider bellow.&quot;&quot;&quot;</span>
         <span class="n">sliders</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">not_displayed</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sliders</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
@@ -664,7 +664,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">last_used</span> <span class="o">=</span> <span class="n">sliders</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_roll</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Roll order of dimensions for display.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Roll order of dimensions for display.&quot;&quot;&quot;</span>
         <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
         <span class="n">nsteps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">)</span>
         <span class="n">order</span><span class="p">[</span><span class="n">nsteps</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="n">nsteps</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
@@ -672,7 +672,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">assert_axis_in_bounds</span><span class="p">(</span><span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Assert a given value is inside the existing axes of the image.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assert a given value is inside the existing axes of the image.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>

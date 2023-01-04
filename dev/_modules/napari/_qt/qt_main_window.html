@@ -541,7 +541,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showFullScreen</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_load_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load window layout settings from configuration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
@@ -566,7 +566,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return current window settings.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current window settings.</span>
 
 <span class="sd">        Symmetric to the &#39;set_window_settings&#39; setter.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -594,7 +594,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">window_maximized</span><span class="p">,</span>
         <span class="n">window_fullscreen</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set window settings.</span>
 
 <span class="sd">        Symmetric to the &#39;get_window_settings&#39; accessor.</span>
@@ -627,7 +627,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">setUpdatesEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_save_current_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save the current geometry of the main window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the current geometry of the main window.&quot;&quot;&quot;</span>
         <span class="p">(</span>
             <span class="n">window_state</span><span class="p">,</span>
             <span class="n">window_size</span><span class="p">,</span>
@@ -650,7 +650,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">window_state</span> <span class="o">=</span> <span class="n">window_state</span>
 
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quit_app</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">confirm_need</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Override to handle closing app or just the window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle closing app or just the window.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="p">,</span> <span class="s2">&quot;_timer&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_throttler</span><span class="o">.</span><span class="n">_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quit_app</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
@@ -673,7 +673,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># here we inform that confirmation dialog is not open</span>
 
     <span class="k">def</span> <span class="nf">close_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Close active dialog or active window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close active dialog or active window.&quot;&quot;&quot;</span>
         <span class="n">parent</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">focusWidget</span><span class="p">()</span>
         <span class="k">while</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">):</span>
@@ -697,7 +697,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_ev</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">changeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Handle window state changes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle window state changes.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">WindowStateChange</span><span class="p">:</span>
             <span class="c1"># TODO: handle maximization issue. When double clicking on the</span>
             <span class="c1"># title bar on Mac the resizeEvent is called an varying amount</span>
@@ -723,7 +723,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">changeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Override to handle original size before maximizing.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to handle original size before maximizing.&quot;&quot;&quot;</span>
         <span class="c1"># the first resize event will have nonsense positions that we dont</span>
         <span class="c1"># want to store (and potentially restore)</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">oldSize</span><span class="p">()</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
@@ -737,7 +737,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This method will be called when the main window is closing.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This method will be called when the main window is closing.</span>
 
 <span class="sd">        Regardless of whether cmd Q, cmd W, or the close button is used...</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -777,7 +777,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">restart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Restart the napari application in a detached process.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Restart the napari application in a detached process.&quot;&quot;&quot;</span>
         <span class="n">process</span> <span class="o">=</span> <span class="n">QProcess</span><span class="p">()</span>
         <span class="n">process</span><span class="o">.</span><span class="n">setProgram</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
 
@@ -790,12 +790,12 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@staticmethod</span>
     <span class="nd">@Slot</span><span class="p">(</span><span class="n">Notification</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">show_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Show notification coming from a thread.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show notification coming from a thread.&quot;&quot;&quot;</span>
         <span class="n">NapariQtNotification</span><span class="o">.</span><span class="n">show_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Window"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window">[docs]</a><span class="k">class</span> <span class="nc">Window</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Application window that contains the menu bar and viewer.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Application window that contains the menu bar and viewer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -878,7 +878,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_setup_existing_themes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This function is only executed once at the startup of napari</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function is only executed once at the startup of napari</span>
 <span class="sd">        to connect events to themes that have not been connected yet.</span>
 
 <span class="sd">        Parameters</span>
@@ -944,12 +944,12 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add new theme and connect events.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add new theme and connect events.&quot;&quot;&quot;</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_remove_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Remove theme and disconnect events.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove theme and disconnect events.&quot;&quot;&quot;</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
@@ -976,7 +976,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_add_menus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add menubar to napari app.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add menubar to napari app.&quot;&quot;&quot;</span>
         <span class="c1"># TODO: move this to _QMainWindow... but then all of the Menu()</span>
         <span class="c1"># items will not have easy access to the methods on this Window obj.</span>
 
@@ -1013,7 +1013,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_debug_menu</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_toggle_menubar_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Toggle visibility of app menubar.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle visibility of app menubar.</span>
 
 <span class="sd">        This function also disables or enables a global keyboard shortcut to</span>
 <span class="sd">        show the menubar, since menubar shortcuts are only available while the</span>
@@ -1023,14 +1023,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">_toggle_fullscreen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Toggle fullscreen mode.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle fullscreen mode.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">isFullScreen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">showNormal</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">showFullScreen</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_toggle_play</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Toggle play.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle play.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">is_playing</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1043,7 +1043,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">widget_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">QtViewerDockWidget</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Add plugin dock widget if not already added.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add plugin dock widget if not already added.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1098,7 +1098,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">dock_widget</span><span class="p">,</span> <span class="n">wdg</span></div>
 
     <span class="k">def</span> <span class="nf">_add_plugin_function_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add plugin function widget if not already added.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add plugin function widget if not already added.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1132,7 +1132,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">menu</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QMenu</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Convenience method to add a QDockWidget to the main window.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convenience method to add a QDockWidget to the main window.</span>
 
 <span class="sd">        If name is not provided a generic name will be addded to avoid</span>
 <span class="sd">        `saveState` warnings on close.</span>
@@ -1229,7 +1229,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">tabify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">menu</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QMenu</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a QtViewerDockWidget to the main window</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a QtViewerDockWidget to the main window</span>
 
 <span class="sd">        If other widgets already present in area then will tabify.</span>
 
@@ -1293,7 +1293,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">remove_dock_widget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Window.remove_dock_widget"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.remove_dock_widget">[docs]</a>    <span class="k">def</span> <span class="nf">remove_dock_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">:</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Removes specified dock widget.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes specified dock widget.</span>
 
 <span class="sd">        If a QDockWidget is not provided, the existing QDockWidgets will be</span>
 <span class="sd">        searched for one whose inner widget (``.widget()``) is the provided</span>
@@ -1351,7 +1351,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">allowed_areas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">shortcut</span><span class="o">=</span><span class="n">_sentinel</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Turn a function into a dock widget via magicgui.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Turn a function into a dock widget via magicgui.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1411,7 +1411,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Window.resize"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.resize">[docs]</a>    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Resize the window.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize the window.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1423,7 +1423,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Window.set_geometry"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.set_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">set_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the geometry of the widget</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the geometry of the widget</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1439,7 +1439,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Window.geometry"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.geometry">[docs]</a>    <span class="k">def</span> <span class="nf">geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the geometry of the widget</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the geometry of the widget</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1456,7 +1456,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">rect</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">top</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Window.show"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Resize, show, and bring forward the window.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize, show, and bring forward the window.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -1522,7 +1522,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Window.activate"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Make the viewer the currently active window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make the viewer the currently active window.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>  <span class="c1"># for macOS</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">activateWindow</span><span class="p">()</span>  <span class="c1"># for Windows</span></div>
 
@@ -1530,7 +1530,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_update_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update widget color theme.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update widget color theme.&quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">event</span><span class="p">:</span>
@@ -1547,7 +1547,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">get_stylesheet</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_status_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update status bar.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update status bar.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1566,7 +1566,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_title_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update window title.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update window title.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1576,7 +1576,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_help_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update help message on status bar.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update help message on status bar.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1586,13 +1586,13 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_status_bar</span><span class="o">.</span><span class="n">setHelpText</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_restart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Restart the napari application.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Restart the napari application.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_screenshot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;QImage&#39;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Capture screenshot of the currently displayed viewer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Capture screenshot of the currently displayed viewer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1653,7 +1653,7 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="Window.screenshot"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.screenshot">[docs]</a>    <span class="k">def</span> <span class="nf">screenshot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Take currently displayed viewer and convert to an image array.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take currently displayed viewer and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1685,7 +1685,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">img</span></div>
 
 <div class="viewcode-block" id="Window.clipboard"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.clipboard">[docs]</a>    <span class="k">def</span> <span class="nf">clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Copy screenshot of current viewer to the clipboard.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Copy screenshot of current viewer to the clipboard.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1701,7 +1701,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">QApplication</span><span class="o">.</span><span class="n">clipboard</span><span class="p">()</span><span class="o">.</span><span class="n">setImage</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Carry out various teardown tasks such as event disconnection.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Carry out various teardown tasks such as event disconnection.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_setup_existing_themes</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">added</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_theme</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_remove_theme</span><span class="p">)</span>
@@ -1711,7 +1711,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">menu</span><span class="o">.</span><span class="n">_destroy</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Window.close"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Close the viewer window and cleanup sub-widgets.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the viewer window and cleanup sub-widgets.&quot;&quot;&quot;</span>
         <span class="c1"># Someone is closing us twice? Only try to delete self._qt_window</span>
         <span class="c1"># if we still have one.</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_qt_window&#39;</span><span class="p">):</span>

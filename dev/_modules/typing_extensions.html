@@ -353,7 +353,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_check_generic</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">elen</span><span class="o">=</span><span class="n">_marker</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Check correct count for parameters of a generic cls (internal helper).</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check correct count for parameters of a generic cls (internal helper).</span>
 <span class="sd">    This gives a nice error message in case of count mismatch.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">elen</span><span class="p">:</span>
@@ -369,7 +369,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">num_tv_tuples</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">TypeVarTuple</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">num_tv_tuples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">alen</span> <span class="o">&gt;=</span> <span class="n">elen</span> <span class="o">-</span> <span class="n">num_tv_tuples</span><span class="p">):</span>
                 <span class="k">return</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Too </span><span class="si">{</span><span class="s1">&#39;many&#39;</span> <span class="k">if</span> <span class="n">alen</span> <span class="o">&gt;</span> <span class="n">elen</span> <span class="k">else</span> <span class="s1">&#39;few&#39;</span><span class="si">}</span><span class="s2"> parameters for </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Too </span><span class="si">{</span><span class="s1">&#39;many&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">alen</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">elen</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;few&#39;</span><span class="si">}</span><span class="s2"> parameters for </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">;&quot;</span>
                         <span class="sa">f</span><span class="s2">&quot; actual </span><span class="si">{</span><span class="n">alen</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">elen</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
@@ -387,7 +387,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_collect_type_vars</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">typevar_types</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Collect all type variable contained in types in order of</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Collect all type variable contained in types in order of</span>
 <span class="sd">    first appearance (lexicographic order). For example::</span>
 
 <span class="sd">        _collect_type_vars((T, List[S, T])) == (T, S)</span>
@@ -434,7 +434,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
 
     <span class="k">class</span> <span class="nc">Any</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">_AnyMeta</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Special type indicating an unconstrained type.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Special type indicating an unconstrained type.</span>
 <span class="sd">        - Any is compatible with every type.</span>
 <span class="sd">        - Any assumed to have all methods.</span>
 <span class="sd">        - All values assumed to be instances of Any.</span>
@@ -488,7 +488,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="c1"># before 3.11 to keep support for the __final__ attribute.</span>
     <span class="c1"># See https://bugs.python.org/issue46342</span>
     <span class="k">def</span> <span class="nf">final</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This decorator can be used to indicate to type checkers that</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This decorator can be used to indicate to type checkers that</span>
 <span class="sd">        the decorated method cannot be overridden, and decorated class</span>
 <span class="sd">        cannot be subclassed. For example:</span>
 
@@ -565,7 +565,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">overload</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Decorator for overloaded functions/methods.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Decorator for overloaded functions/methods.</span>
 
 <span class="sd">        In a stub file, place two or more stub definitions for the same</span>
 <span class="sd">        function in a row, each decorated with @overload.  For example:</span>
@@ -605,7 +605,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">_overload_dummy</span>
 
     <span class="k">def</span> <span class="nf">get_overloads</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return all defined overloads for *func* as a sequence.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return all defined overloads for *func* as a sequence.&quot;&quot;&quot;</span>
         <span class="c1"># classmethod and staticmethod</span>
         <span class="n">f</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;__func__&quot;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_overload_registry</span><span class="p">:</span>
@@ -616,7 +616,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">mod_dict</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">clear_overloads</span><span class="p">():</span>
-        <span class="sd">&quot;&quot;&quot;Clear all overloads in the registry.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all overloads in the registry.&quot;&quot;&quot;</span>
         <span class="n">_overload_registry</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 
@@ -681,7 +681,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_maybe_adjust_parameters</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Helper function used in Protocol.__init_subclass__ and _TypedDictMeta.__new__.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function used in Protocol.__init_subclass__ and _TypedDictMeta.__new__.</span>
 
 <span class="sd">    The contents of this function are very similar</span>
 <span class="sd">    to logic found in typing.Generic.__init_subclass__</span>
@@ -752,7 +752,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># There is quite a lot of overlapping code with typing.Generic.</span>
         <span class="c1"># Unfortunately it is hard to avoid this while these live in two different</span>
         <span class="c1"># modules. The duplicated code will be removed when Protocol is moved to typing.</span>
-        <span class="sd">&quot;&quot;&quot;Base class for protocol classes. Protocol classes are defined as::</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Base class for protocol classes. Protocol classes are defined as::</span>
 
 <span class="sd">            class Proto(Protocol):</span>
 <span class="sd">                def meth(self) -&gt; int:</span>
@@ -806,7 +806,7 @@ function checkPageExistsAndRedirect(event) {
                         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                         <span class="s2">&quot;Parameters to Protocol[...] must all be type variables.&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot; Parameter </span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="sa">f</span><span class="s2">&quot; Parameter </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                         <span class="s2">&quot;Parameters to Protocol[...] must all be unique&quot;</span><span class="p">)</span>
@@ -884,7 +884,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># 3.7</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">runtime_checkable</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Mark a protocol class as a runtime protocol, so that it</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mark a protocol class as a runtime protocol, so that it</span>
 <span class="sd">        can be used with isinstance() and issubclass(). Raise TypeError</span>
 <span class="sd">        if applied to a non-protocol class.</span>
 
@@ -966,7 +966,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">fields</span><span class="p">,</span> <span class="o">=</span> <span class="n">args</span>  <span class="c1"># allow the &quot;_fields&quot; keyword be passed</span>
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;TypedDict.__new__() takes from 2 to 3 &#39;</span>
-                                <span class="sa">f</span><span class="s1">&#39;positional arguments but </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="si">}</span><span class="s1"> &#39;</span>
+                                <span class="sa">f</span><span class="s1">&#39;positional arguments but </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s1"> &#39;</span>
                                 <span class="s1">&#39;were given&#39;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="s1">&#39;_fields&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">fields</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_fields&#39;</span><span class="p">)</span>
@@ -1060,7 +1060,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">TypedDict</span> <span class="o">=</span> <span class="n">_TypedDictMeta</span><span class="p">(</span><span class="s1">&#39;TypedDict&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,),</span> <span class="p">{})</span>
     <span class="n">TypedDict</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="vm">__name__</span>
     <span class="n">TypedDict</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> \
-        <span class="sd">&quot;&quot;&quot;A simple typed name space. At runtime it is equivalent to a plain dict.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A simple typed name space. At runtime it is equivalent to a plain dict.</span>
 
 <span class="sd">        TypedDict creates a dictionary type that expects all of its</span>
 <span class="sd">        instances to have a certain set of keys, with each key</span>
@@ -1095,7 +1095,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">_TYPEDDICT_TYPES</span> <span class="o">=</span> <span class="p">(</span><span class="n">_TypedDictMeta</span><span class="p">,)</span>
 
     <span class="k">def</span> <span class="nf">is_typeddict</span><span class="p">(</span><span class="n">tp</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Check if an annotation is a TypedDict class</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if an annotation is a TypedDict class</span>
 
 <span class="sd">        For example::</span>
 <span class="sd">            class Film(TypedDict):</span>
@@ -1113,7 +1113,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="k">else</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">assert_type</span><span class="p">(</span><span class="n">__val</span><span class="p">,</span> <span class="n">__typ</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Assert (to the type checker) that the value is of the given type.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assert (to the type checker) that the value is of the given type.</span>
 
 <span class="sd">        When the type checker encounters a call to assert_type(), it</span>
 <span class="sd">        emits an error if the value is not of the specified type::</span>
@@ -1136,7 +1136,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># replaces _strip_annotations()</span>
     <span class="k">def</span> <span class="nf">_strip_extras</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Strips Annotated, Required and NotRequired from a given type.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Strips Annotated, Required and NotRequired from a given type.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">_AnnotatedAlias</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">_strip_extras</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">__origin__</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;__origin__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">__origin__</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Required</span><span class="p">,</span> <span class="n">NotRequired</span><span class="p">):</span>
@@ -1160,7 +1160,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">t</span>
 
     <span class="k">def</span> <span class="nf">get_type_hints</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">globalns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">localns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_extras</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return type hints for an object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return type hints for an object.</span>
 
 <span class="sd">        This is often the same as obj.__annotations__, but it handles</span>
 <span class="sd">        forward references encoded as string literals, adds Optional[t] if a</span>
@@ -1211,7 +1211,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># 3.7-3.8</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">class</span> <span class="nc">_AnnotatedAlias</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">_GenericAlias</span><span class="p">,</span> <span class="n">_root</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Runtime representation of an annotated type.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Runtime representation of an annotated type.</span>
 
 <span class="sd">        At its core &#39;Annotated[t, dec1, dec2, ...]&#39; is an alias for the type &#39;t&#39;</span>
 <span class="sd">        with extra annotations. The alias behaves like a normal typing alias,</span>
@@ -1232,7 +1232,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;typing_extensions.Annotated[</span><span class="si">{</span><span class="n">typing</span><span class="o">.</span><span class="n">_type_repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__origin__</span><span class="p">)</span><span class="si">}</span><span class="s2">, &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__metadata__</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">__metadata__</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">operator</span><span class="o">.</span><span class="n">getitem</span><span class="p">,</span> <span class="p">(</span>
@@ -1250,7 +1250,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__origin__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__metadata__</span><span class="p">))</span>
 
     <span class="k">class</span> <span class="nc">Annotated</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add context specific metadata to a type.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add context specific metadata to a type.</span>
 
 <span class="sd">        Example: Annotated[int, runtime_check.Unsigned] indicates to the</span>
 <span class="sd">        hypothetical runtime_check module that this type is an unsigned int.</span>
@@ -1327,7 +1327,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">_typing_GenericAlias</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_GenericAlias</span>
 
     <span class="k">def</span> <span class="nf">get_origin</span><span class="p">(</span><span class="n">tp</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the unsubscripted version of a type.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the unsubscripted version of a type.</span>
 
 <span class="sd">        This supports generic types, Callable, Tuple, Union, Literal, Final, ClassVar</span>
 <span class="sd">        and Annotated. Return None for unsupported types. Examples::</span>
@@ -1351,7 +1351,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="get_args"><a class="viewcode-back" href="../api/napari.types.html#napari.types.get_args">[docs]</a>    <span class="k">def</span> <span class="nf">get_args</span><span class="p">(</span><span class="n">tp</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get type arguments with all substitutions performed.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get type arguments with all substitutions performed.</span>
 
 <span class="sd">        For unions, basic simplifications used by Union constructor are performed.</span>
 <span class="sd">        Examples::</span>
@@ -1384,7 +1384,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@_TypeAliasForm</span>
     <span class="k">def</span> <span class="nf">TypeAlias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Special marker indicating that an assignment should</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Special marker indicating that an assignment should</span>
 <span class="sd">        be recognized as a proper type alias definition by type</span>
 <span class="sd">        checkers.</span>
 
@@ -1415,7 +1415,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">class</span> <span class="nc">_DefaultMixin</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Mixin for TypeVarLike defaults.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin for TypeVarLike defaults.&quot;&quot;&quot;</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
 
@@ -1431,7 +1431,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="c1"># Add default and infer_variance parameters from PEP 696 and 695</span>
 <span class="k">class</span> <span class="nc">TypeVar</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">,</span> <span class="n">_root</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Type variable.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Type variable.&quot;&quot;&quot;</span>
 
     <span class="vm">__module__</span> <span class="o">=</span> <span class="s1">&#39;typing&#39;</span>
 
@@ -1459,7 +1459,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># 3.7-3.9</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">class</span> <span class="nc">_Immutable</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Mixin to indicate that object should not be copied.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mixin to indicate that object should not be copied.&quot;&quot;&quot;</span>
         <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
 
         <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1469,7 +1469,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">class</span> <span class="nc">ParamSpecArgs</span><span class="p">(</span><span class="n">_Immutable</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The args for a ParamSpec object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The args for a ParamSpec object.</span>
 
 <span class="sd">        Given a ParamSpec object P, P.args is an instance of ParamSpecArgs.</span>
 
@@ -1492,7 +1492,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__origin__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">__origin__</span>
 
     <span class="k">class</span> <span class="nc">ParamSpecKwargs</span><span class="p">(</span><span class="n">_Immutable</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The kwargs for a ParamSpec object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The kwargs for a ParamSpec object.</span>
 
 <span class="sd">        Given a ParamSpec object P, P.kwargs is an instance of ParamSpecKwargs.</span>
 
@@ -1519,7 +1519,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># Add default Parameter - PEP 696</span>
     <span class="k">class</span> <span class="nc">ParamSpec</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">ParamSpec</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">,</span> <span class="n">_root</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Parameter specification variable.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parameter specification variable.&quot;&quot;&quot;</span>
 
         <span class="vm">__module__</span> <span class="o">=</span> <span class="s1">&#39;typing&#39;</span>
 
@@ -1542,7 +1542,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># Inherits from list as a workaround for Callable checks in Python &lt; 3.9.2.</span>
     <span class="k">class</span> <span class="nc">ParamSpec</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Parameter specification variable.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parameter specification variable.</span>
 
 <span class="sd">        Usage::</span>
 
@@ -1661,7 +1661,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="n">_type_repr</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_type_repr</span>
             <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">_type_repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__origin__</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
-                    <span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_type_repr</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__args__</span><span class="p">)</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                    <span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_type_repr</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">__args__</span><span class="p">)</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__origin__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__args__</span><span class="p">))</span>
@@ -1700,7 +1700,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
     <span class="nd">@_TypeAliasForm</span>
     <span class="k">def</span> <span class="nf">Concatenate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Used in conjunction with ``ParamSpec`` and ``Callable`` to represent a</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Used in conjunction with ``ParamSpec`` and ``Callable`` to represent a</span>
 <span class="sd">        higher order function which adds, removes or transforms parameters of a</span>
 <span class="sd">        callable.</span>
 
@@ -1744,7 +1744,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@_TypeGuardForm</span>
     <span class="k">def</span> <span class="nf">TypeGuard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Special typing form used to annotate the return type of a user-defined</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Special typing form used to annotate the return type of a user-defined</span>
 <span class="sd">        type guard function.  ``TypeGuard`` only accepts a single type argument.</span>
 <span class="sd">        At runtime, functions marked this way should return a boolean.</span>
 
@@ -1895,7 +1895,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">else</span><span class="p">:</span>
     <span class="nd">@_SpecialForm</span>
     <span class="k">def</span> <span class="nf">LiteralString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Represents an arbitrary literal string.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Represents an arbitrary literal string.</span>
 
 <span class="sd">        Example::</span>
 
@@ -1918,7 +1918,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">else</span><span class="p">:</span>
     <span class="nd">@_SpecialForm</span>
     <span class="k">def</span> <span class="nf">Self</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Used to spell the type of &quot;self&quot; in classes.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Used to spell the type of &quot;self&quot; in classes.</span>
 
 <span class="sd">        Example::</span>
 
@@ -1939,7 +1939,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">else</span><span class="p">:</span>
     <span class="nd">@_SpecialForm</span>
     <span class="k">def</span> <span class="nf">Never</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The bottom type, a type that has no members.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The bottom type, a type that has no members.</span>
 
 <span class="sd">        This can be used to define a function that should never be</span>
 <span class="sd">        called, or a function that never returns::</span>
@@ -1974,7 +1974,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@_ExtensionsSpecialForm</span>
     <span class="k">def</span> <span class="nf">Required</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;A special typing construct to mark a key of a total=False TypedDict</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A special typing construct to mark a key of a total=False TypedDict</span>
 <span class="sd">        as required. For example:</span>
 
 <span class="sd">            class Movie(TypedDict, total=False):</span>
@@ -1994,7 +1994,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@_ExtensionsSpecialForm</span>
     <span class="k">def</span> <span class="nf">NotRequired</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;A special typing construct to mark a key of a TypedDict as</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A special typing construct to mark a key of a TypedDict as</span>
 <span class="sd">        potentially missing. For example:</span>
 
 <span class="sd">            class Movie(TypedDict):</span>
@@ -2064,7 +2064,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@_UnpackSpecialForm</span>
     <span class="k">def</span> <span class="nf">Unpack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;A special typing construct to unpack a variadic type. For example:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A special typing construct to unpack a variadic type. For example:</span>
 
 <span class="sd">            Shape = TypeVarTuple(&#39;Shape&#39;)</span>
 <span class="sd">            Batch = NewType(&#39;Batch&#39;, int)</span>
@@ -2114,7 +2114,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># Add default Parameter - PEP 696</span>
     <span class="k">class</span> <span class="nc">TypeVarTuple</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">TypeVarTuple</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">,</span> <span class="n">_root</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Type variable tuple.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Type variable tuple.&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -2130,7 +2130,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="k">else</span><span class="p">:</span>
     <span class="k">class</span> <span class="nc">TypeVarTuple</span><span class="p">(</span><span class="n">_DefaultMixin</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Type variable tuple.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Type variable tuple.</span>
 
 <span class="sd">        Usage::</span>
 
@@ -2214,7 +2214,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">reveal_type</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">reveal_type</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">reveal_type</span><span class="p">(</span><span class="n">__obj</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Reveal the inferred type of a variable.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reveal the inferred type of a variable.</span>
 
 <span class="sd">        When a static type checker encounters a call to ``reveal_type()``,</span>
 <span class="sd">        it will emit the inferred type of the argument::</span>
@@ -2237,7 +2237,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">assert_never</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">assert_never</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">assert_never</span><span class="p">(</span><span class="n">__arg</span><span class="p">:</span> <span class="n">Never</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Never</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Assert to the type checker that a line of code is unreachable.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assert to the type checker that a line of code is unreachable.</span>
 
 <span class="sd">        Example::</span>
 
@@ -2273,7 +2273,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Decorator that marks a function, class, or metaclass as providing</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Decorator that marks a function, class, or metaclass as providing</span>
 <span class="sd">        dataclass-like behavior.</span>
 
 <span class="sd">        Example:</span>
@@ -2350,7 +2350,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">_F</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_F&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">override</span><span class="p">(</span><span class="n">__arg</span><span class="p">:</span> <span class="n">_F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_F</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Indicate that a method is intended to override a method in a base class.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indicate that a method is intended to override a method in a base class.</span>
 
 <span class="sd">        Usage:</span>
 
@@ -2430,7 +2430,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">elif</span> <span class="n">default_names</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Non-default namedtuple field </span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> &quot;</span>
                                     <span class="sa">f</span><span class="s2">&quot;cannot follow default field&quot;</span>
-                                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;s&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">default_names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2"> &quot;</span>
+                                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;s&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">default_names</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2"> &quot;</span>
                                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_names</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">nm_tpl</span> <span class="o">=</span> <span class="n">_make_nmtuple</span><span class="p">(</span>
                 <span class="n">typename</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>

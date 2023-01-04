@@ -341,7 +341,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Event"><a class="viewcode-back" href="../../../../api/napari.utils.events.Event.html#napari.utils.events.Event">[docs]</a><span class="k">class</span> <span class="nc">Event</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;Class describing events that occur and can be reacted to with callbacks.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class describing events that occur and can be reacted to with callbacks.</span>
 <span class="sd">    Each event instance contains information about a single event that has</span>
 <span class="sd">    occurred such as a key press, mouse motion, timer activation, etc.</span>
 
@@ -378,12 +378,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;The object that the event applies to (i.e. the source of the event).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The object that the event applies to (i.e. the source of the event).&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sources</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sources</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sources</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;List of objects that the event applies to (i.e. are or have</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List of objects that the event applies to (i.e. are or have</span>
 <span class="sd">        been a source of the event). Can contain multiple objects in case</span>
 <span class="sd">        the event traverses a hierarchy of objects.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -407,7 +407,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">handled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;This boolean property indicates whether the event has already been</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This boolean property indicates whether the event has already been</span>
 <span class="sd">        acted on by an event handler. Since many handlers may have access to</span>
 <span class="sd">        the same events, it is recommended that each check whether the event</span>
 <span class="sd">        has already been handled as well as set handled=True if it decides to</span>
@@ -421,7 +421,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">blocked</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;This boolean property indicates whether the event will be delivered</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This boolean property indicates whether the event will be delivered</span>
 <span class="sd">        to event callbacks. If it is set to True, then no further callbacks</span>
 <span class="sd">        will receive the event. When possible, it is recommended to use</span>
 <span class="sd">        Event.handled rather than Event.blocked.</span>
@@ -459,7 +459,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">_event_repr_depth</span> <span class="o">-=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Shorter string representation&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shorter string representation&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
 
     <span class="c1"># mypy fix for dynamic attribute access</span>
@@ -478,7 +478,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">class</span> <span class="nc">_WeakCounter</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Similar to collection counter but has weak keys.</span>
 
 <span class="sd">    It will only implement the methods we use here.</span>
@@ -503,7 +503,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="EventEmitter"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter">[docs]</a><span class="k">class</span> <span class="nc">EventEmitter</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;Encapsulates a list of event callbacks.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encapsulates a list of event callbacks.</span>
 
 <span class="sd">    Each instance of EventEmitter represents the source of a stream of similar</span>
 <span class="sd">    events, such as mouse click events or timer activation events. For</span>
@@ -570,7 +570,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ignore_callback_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Whether exceptions during callbacks will be caught by the emitter</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether exceptions during callbacks will be caught by the emitter</span>
 
 <span class="sd">        This allows it to continue invoking other callbacks if an error</span>
 <span class="sd">        occurs.</span>
@@ -583,7 +583,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">print_callback_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Print a message and stack trace if a callback raises an exception</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Print a message and stack trace if a callback raises an exception</span>
 
 <span class="sd">        Valid values are &quot;first&quot; (only show first instance), &quot;reminders&quot; (show</span>
 <span class="sd">        complete first instance, then counts), &quot;always&quot; (always show full</span>
@@ -616,17 +616,17 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">callback_refs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;The set of callback references&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The set of callback references&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_callback_refs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">callbacks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Callback</span><span class="p">,</span> <span class="n">CallbackRef</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;The set of callbacks&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The set of callbacks&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;The object that events generated by this emitter apply to&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The object that events generated by this emitter apply to&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="kc">None</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="p">()</span>
         <span class="p">)</span>  <span class="c1"># get object behind weakref</span>
@@ -638,7 +638,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_is_core_callback</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">CallbackRef</span><span class="p">,</span> <span class="n">Callback</span><span class="p">],</span> <span class="n">core</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the callback is a core callback</span>
 
 <span class="sd">        Parameters</span>
@@ -672,7 +672,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">after</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callback</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callback</span><span class="p">]],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">until</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;EventEmitter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Connect this emitter to a new callback.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect this emitter to a new callback.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -839,7 +839,7 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="EventEmitter.disconnect"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callback</span><span class="p">,</span> <span class="n">CallbackRef</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Disconnect a callback from this emitter.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect a callback from this emitter.</span>
 
 <span class="sd">        If no callback is specified, then *all* callbacks are removed.</span>
 <span class="sd">        If the callback was not already connected, then the call does nothing.</span>
@@ -900,7 +900,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_check_signature</span><span class="p">(</span><span class="n">fun</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if function will accept event parameter</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">signature</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">fun</span><span class="p">)</span>
@@ -954,7 +954,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">callback</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;__call__(**kwargs)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;__call__(**kwargs)</span>
 <span class="sd">        Invoke all callbacks for this emitter.</span>
 
 <span class="sd">        Emit a new event object, created with the given keyword</span>
@@ -1088,13 +1088,13 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">event</span>
 
 <div class="viewcode-block" id="EventEmitter.blocked"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter.blocked">[docs]</a>    <span class="k">def</span> <span class="nf">blocked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callback</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return boolean indicating whether the emitter is blocked for</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return boolean indicating whether the emitter is blocked for</span>
 <span class="sd">        the given callback.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="EventEmitter.block"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter.block">[docs]</a>    <span class="k">def</span> <span class="nf">block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callback</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Block this emitter. Any attempts to emit an event while blocked</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Block this emitter. Any attempts to emit an event while blocked</span>
 <span class="sd">        will be silently ignored. If *callback* is given, then the emitter</span>
 <span class="sd">        is only blocked for that specific callback.</span>
 
@@ -1104,7 +1104,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="p">[</span><span class="n">callback</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="EventEmitter.unblock"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter.unblock">[docs]</a>    <span class="k">def</span> <span class="nf">unblock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callback</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Unblock this emitter. See :func:`event.EventEmitter.block`.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unblock this emitter. See :func:`event.EventEmitter.block`.</span>
 
 <span class="sd">        Note: Use of ``unblock(None)`` only reverses the effect of</span>
 <span class="sd">        ``block(None)``; it does not unblock callbacks that were explicitly</span>
@@ -1126,7 +1126,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_blocked</span><span class="p">[</span><span class="n">callback</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span></div>
 
 <div class="viewcode-block" id="EventEmitter.blocker"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventEmitter.html#napari.utils.events.EventEmitter.blocker">[docs]</a>    <span class="k">def</span> <span class="nf">blocker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callback</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return an EventBlocker to be used in &#39;with&#39; statements</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an EventBlocker to be used in &#39;with&#39; statements</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -1139,7 +1139,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">class</span> <span class="nc">WarningEmitter</span><span class="p">(</span><span class="n">EventEmitter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    EventEmitter subclass used to allow deprecated events to be used with a</span>
 <span class="sd">    warning message.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1184,7 +1184,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="EmitterGroup"><a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup">[docs]</a><span class="k">class</span> <span class="nc">EmitterGroup</span><span class="p">(</span><span class="n">EventEmitter</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;EmitterGroup instances manage a set of related</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;EmitterGroup instances manage a set of related</span>
 <span class="sd">    :class:`EventEmitters &lt;vispy.event.EventEmitter&gt;`.</span>
 <span class="sd">    Its primary purpose is to provide organization for objects</span>
 <span class="sd">    that make use of multiple emitters and to reduce the boilerplate code</span>
@@ -1239,7 +1239,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EventEmitter</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the emitter assigned to the specified name.</span>
 <span class="sd">        Note that emitters may also be retrieved as an attribute of the</span>
 <span class="sd">        EmitterGroup.</span>
@@ -1249,7 +1249,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">emitter</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">Event</span><span class="p">],</span> <span class="n">EventEmitter</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alias for EmitterGroup.add(name=emitter)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">emitter</span><span class="p">})</span>  <span class="c1"># type: ignore</span>
@@ -1259,7 +1259,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">auto_connect</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">Event</span><span class="p">],</span> <span class="n">EventEmitter</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add one or more EventEmitter instances to this emitter group.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one or more EventEmitter instances to this emitter group.</span>
 <span class="sd">        Each keyword argument may be specified as either an EventEmitter</span>
 <span class="sd">        instance or an Event subclass, in which case an EventEmitter will be</span>
 <span class="sd">        generated automatically::</span>
@@ -1335,17 +1335,17 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">emitters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">EventEmitter</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;List of current emitters in this group.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List of current emitters in this group.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterates over the names of emitters in this group.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span>
 
 <div class="viewcode-block" id="EmitterGroup.block_all"><a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup.block_all">[docs]</a>    <span class="k">def</span> <span class="nf">block_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Block all emitters in this group by increase counter of semaphores for each event emitter</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">block</span><span class="p">()</span>
@@ -1353,7 +1353,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">em</span><span class="o">.</span><span class="n">block</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="EmitterGroup.unblock_all"><a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup.unblock_all">[docs]</a>    <span class="k">def</span> <span class="nf">unblock_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unblock all emitters in this group, by decrease counter of semaphores for each event emitter.</span>
 <span class="sd">        if block is called twice and unblock is called once, then events will be still blocked</span>
 <span class="sd">        https://en.wikipedia.org/wiki/Semaphore_(programming)</span>
@@ -1370,7 +1370,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">before</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callback</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callback</span><span class="p">]],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">after</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callback</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callback</span><span class="p">]],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Connect the callback to the event group. The callback will receive</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect the callback to the event group. The callback will receive</span>
 <span class="sd">        events from *all* of the emitters in the group.</span>
 
 <span class="sd">        See :func:`EventEmitter.connect() &lt;vispy.event.EventEmitter.connect&gt;`</span>
@@ -1382,7 +1382,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="EmitterGroup.disconnect"><a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callback</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Disconnect the callback from this group. See</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect the callback from this group. See</span>
 <span class="sd">        :func:`connect() &lt;vispy.event.EmitterGroup.connect&gt;` and</span>
 <span class="sd">        :func:`EventEmitter.connect() &lt;vispy.event.EventEmitter.connect&gt;` for</span>
 <span class="sd">        more information.</span>
@@ -1420,7 +1420,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">emitter</span><span class="o">.</span><span class="n">ignore_callback_errors_all</span><span class="p">(</span><span class="n">ignore</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EmitterGroup.blocker_all"><a class="viewcode-back" href="../../../../api/napari.utils.events.EmitterGroup.html#napari.utils.events.EmitterGroup.blocker_all">[docs]</a>    <span class="k">def</span> <span class="nf">blocker_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;EventBlockerAll&#39;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return an EventBlockerAll to be used in &#39;with&#39; statements</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an EventBlockerAll to be used in &#39;with&#39; statements</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -1434,7 +1434,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="k">class</span> <span class="nc">EventBlocker</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;Represents a block for an EventEmitter to be used in a context</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a block for an EventEmitter to be used in a context</span>
 <span class="sd">    manager (i.e. &#39;with&#39; statement).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1458,7 +1458,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="k">class</span> <span class="nc">EventBlockerAll</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;Represents a block_all for an EmitterGroup to be used in a context</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a block_all for an EmitterGroup to be used in a context</span>
 <span class="sd">    manager (i.e. &#39;with&#39; statement).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1473,7 +1473,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_is_pos_arg</span><span class="p">(</span><span class="n">param</span><span class="p">:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if param is positional or named and has no default parameter.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span>

@@ -279,7 +279,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">class</span> <span class="nc">PerfTimers</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Timers for performance monitoring.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Timers for performance monitoring.</span>
 
 <span class="sd">    Timers are best added using the perfmon config file, which will</span>
 <span class="sd">    monkey-patch the timers into the code at startup. See</span>
@@ -311,7 +311,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create PerfTimers.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create PerfTimers.&quot;&quot;&quot;</span>
         <span class="c1"># Maps a timer name to one Stat object.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Stat</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -319,7 +319,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PerfTraceFile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">add_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">PerfEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add one performance event.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one performance event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -340,7 +340,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Stat</span><span class="p">(</span><span class="n">duration_ms</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_instant_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add one instant event.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one instant event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -353,7 +353,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">PerfEvent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add one counter event.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one counter event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -370,13 +370,13 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">PerfEvent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Clear all timers.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all timers.&quot;&quot;&quot;</span>
         <span class="c1"># After the GUI displays timing information it clears the timers</span>
         <span class="c1"># so that we start accumulating fresh information.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">start_trace_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Start recording a trace file to disk.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start recording a trace file to disk.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -386,7 +386,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span> <span class="o">=</span> <span class="n">PerfTraceFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">stop_trace_file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Stop recording a trace file.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stop recording a trace file.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">trace_file</span> <span class="o">=</span> <span class="kc">None</span>
@@ -399,7 +399,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">print_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Time a block of code.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Time a block of code.</span>
 
 <span class="sd">    block_timer can be used when perfmon is disabled. Use perf_timer instead</span>
 <span class="sd">    if you want your timer to do nothing when perfmon is disabled.</span>
@@ -455,7 +455,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">perf_timer</span> <span class="o">=</span> <span class="n">block_timer</span>
 
     <span class="k">def</span> <span class="nf">add_instant_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add one instant event.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one instant event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -467,7 +467,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">timers</span><span class="o">.</span><span class="n">add_instant_event</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;Add one counter event.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one counter event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>

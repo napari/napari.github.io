@@ -281,7 +281,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Viewer"><a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer">[docs]</a><span class="nd">@mgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">_magicgui</span><span class="o">.</span><span class="n">proxy_viewer_ancestor</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Viewer</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Napari ndarray viewer.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Napari ndarray viewer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -339,7 +339,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window</span>
 
 <div class="viewcode-block" id="Viewer.update_console"><a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.update_console">[docs]</a>    <span class="k">def</span> <span class="nf">update_console</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update console&#39;s namespace with desired variables.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update console&#39;s namespace with desired variables.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -365,7 +365,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">canvas_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -401,11 +401,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Viewer.show"><a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Resize, show, and raise the viewer window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize, show, and raise the viewer window.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Viewer.close"><a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Close the viewer window.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the viewer window.&quot;&quot;&quot;</span>
         <span class="c1"># Remove all the layers from the viewer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="c1"># Close the main window</span>
@@ -424,7 +424,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Viewer.close_all"><a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.close_all">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">close_all</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Class metod, Close all existing viewer instances.</span>
 
 <span class="sd">        This is mostly exposed to avoid leaking of viewers when running tests.</span>
@@ -447,7 +447,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="current_viewer"><a class="viewcode-back" href="../../api/napari.html#napari.current_viewer">[docs]</a><span class="k">def</span> <span class="nf">current_viewer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Viewer</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Return the currently active napari viewer.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the currently active napari viewer.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">napari._qt.qt_main_window</span> <span class="kn">import</span> <span class="n">_QtMainWindow</span>
 

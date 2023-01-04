@@ -912,28 +912,28 @@ which add a new submenu to a contributable menu which can be populated with new
 <p>Currently, the only <code class="docutils literal notranslate"><span class="pre">napari</span></code> menu to which items can be contributed in this way is the
 layer context menu, accessible by right clicking on a layer in the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> as shown
 in the screenshot below. The new menu items and submenu are produced by the following code snippet:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo</span><span class="w"></span>
-<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Demo plugin</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo</span>
+<span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Demo plugin</span>
 
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.menu_item</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A new menu item</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_demo:menu_item</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.submenu_item</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A new item in a submenu</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_demo:submenu_item</span><span class="w"></span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.menu_item</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A new menu item</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_demo:menu_item</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.submenu_item</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A new item in a submenu</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_demo:submenu_item</span>
 
-<span class="w">  </span><span class="nt">menus</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">napari/layers/context</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">submenu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context_submenu</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.submenu_item</span><span class="w"></span>
-<span class="w">    </span><span class="nt">hello_world</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.menu_item</span><span class="w"></span>
+<span class="w">  </span><span class="nt">menus</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">napari/layers/context</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">submenu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context_submenu</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.submenu_item</span>
+<span class="w">    </span><span class="nt">hello_world</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.menu_item</span>
 
-<span class="w">  </span><span class="nt">submenus</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context_submenu</span><span class="w"></span>
-<span class="w">      </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A new submenu</span><span class="w"></span>
+<span class="w">  </span><span class="nt">submenus</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context_submenu</span>
+<span class="w">      </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A new submenu</span>
 </pre></div>
 </div>
 <p>This NAP proposes new menu IDs and new top level menus to open for contribution.</p>

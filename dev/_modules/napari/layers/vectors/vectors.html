@@ -284,7 +284,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="Vectors"><a class="viewcode-back" href="../../../../api/napari.layers.Vectors.html#napari.layers.Vectors">[docs]</a><span class="k">class</span> <span class="nc">Vectors</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Vectors layer renders lines onto the canvas.</span>
 
 <span class="sd">    Parameters</span>
@@ -516,7 +516,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;(N, 2, D) array: start point and projections of vectors.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N, 2, D) array: start point and projections of vectors.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
 
     <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
@@ -550,7 +550,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Dataframe-like features table.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dataframe-like features table.</span>
 
 <span class="sd">        It is an implementation detail that this is a `pandas.DataFrame`. In the future,</span>
 <span class="sd">        we will target the currently-in-development Data API dataframe protocol [1].</span>
@@ -596,7 +596,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;dict {str: array (N,)}, DataFrame: Annotations for each point&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;dict {str: array (N,)}, DataFrame: Annotations for each point&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
 
     <span class="nd">@properties</span><span class="o">.</span><span class="n">setter</span>
@@ -605,7 +605,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">feature_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Dataframe-like with one row of feature default values.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dataframe-like with one row of feature default values.</span>
 
 <span class="sd">        See `features` for more details on the type of this property.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -616,7 +616,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">choices</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -645,12 +645,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">state</span>
 
     <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_extent_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -669,7 +669,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">out_of_slice_display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;bool: renders vectors slightly out of slice.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: renders vectors slightly out of slice.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span>
 
     <span class="nd">@out_of_slice_display</span><span class="o">.</span><span class="n">setter</span>
@@ -680,7 +680,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;float: Width for all vectors in pixels.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: Width for all vectors in pixels.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span>
 
     <span class="nd">@edge_width</span><span class="o">.</span><span class="n">setter</span>
@@ -692,7 +692,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;float: Multiplicative factor for length of all vectors.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: Multiplicative factor for length of all vectors.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
 
     <span class="nd">@length</span><span class="o">.</span><span class="n">setter</span>
@@ -704,7 +704,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;(1 x 4) np.ndarray: Array of RGBA edge colors (applied to all vectors)&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(1 x 4) np.ndarray: Array of RGBA edge colors (applied to all vectors)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span>
 
     <span class="nd">@edge_color</span><span class="o">.</span><span class="n">setter</span>
@@ -718,7 +718,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_color</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Vectors.refresh_colors"><a class="viewcode-back" href="../../../../api/napari.layers.Vectors.html#napari.layers.Vectors.refresh_colors">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate and update edge colors if using a cycle or color map</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate and update edge colors if using a cycle or color map</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -735,7 +735,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ColorMode</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;str: Edge color setting mode</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Edge color setting mode</span>
 
 <span class="sd">        DIRECT (default mode) allows each vector to be set arbitrarily</span>
 
@@ -800,7 +800,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;list, np.ndarray :  Color cycle for edge_color.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list, np.ndarray :  Color cycle for edge_color.</span>
 <span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">categorical_colormap</span><span class="o">.</span><span class="n">fallback_color</span><span class="o">.</span><span class="n">values</span>
@@ -811,7 +811,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Colormap</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return the colormap to be applied to a property to get the edge color.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the colormap to be applied to a property to get the edge color.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -826,7 +826,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;None, (float, float): contrast limits for mapping</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;None, (float, float): contrast limits for mapping</span>
 <span class="sd">        the edge_color colormap property to 0 and 1</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">contrast_limits</span>
@@ -839,7 +839,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;(Mx4) np.ndarray : colors for the M in view vectors&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(Mx4) np.ndarray : colors for the M in view vectors&quot;&quot;&quot;</span>
         <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">]</span>
         <span class="n">face_color</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_alphas</span>
         <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">face_color</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -852,7 +852,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_slice_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">dims_indices</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Determines the slice of vectors given the indices.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determines the slice of vectors given the indices.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -910,7 +910,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="p">[],</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
 
         <span class="n">indices</span><span class="p">,</span> <span class="n">alphas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
 
@@ -930,7 +930,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_view_alphas</span> <span class="o">=</span> <span class="mf">1.0</span>
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update thumbnail with current vectors and colors.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current vectors and colors.&quot;&quot;&quot;</span>
         <span class="c1"># Set the default thumbnail to black, opacity 1</span>
         <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">)</span>
         <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -981,7 +981,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
 
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>

@@ -289,7 +289,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">no_class_attributes</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Context in which pydantic.main.ClassAttribute just passes value 2.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Context in which pydantic.main.ClassAttribute just passes value 2.</span>
 
 <span class="sd">    Due to a very annoying decision by PySide2, all class ``__signature__``</span>
 <span class="sd">    attributes may only be assigned **once**.  (This seems to be regardless of</span>
@@ -334,7 +334,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">class</span> <span class="nc">EventedMetaclass</span><span class="p">(</span><span class="n">main</span><span class="o">.</span><span class="n">ModelMetaclass</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;pydantic ModelMetaclass that preps &quot;equality checking&quot; operations.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;pydantic ModelMetaclass that preps &quot;equality checking&quot; operations.</span>
 
 <span class="sd">    A metaclass is the thing that &quot;constructs&quot; a class, and ``ModelMetaclass``</span>
 <span class="sd">    is where pydantic puts a lot of it&#39;s type introspection and ``ModelField``</span>
@@ -375,7 +375,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_get_field_dependents</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="s1">&#39;EventedModel&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Return mapping of field name -&gt; dependent set of property names.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return mapping of field name -&gt; dependent set of property names.</span>
 
 <span class="sd">    Dependencies may be declared in the Model Config to emit an event</span>
 <span class="sd">    for a computed property when a model field that it depends on changes</span>
@@ -426,7 +426,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="EventedModel"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventedModel.html#napari.utils.events.EventedModel">[docs]</a><span class="k">class</span> <span class="nc">EventedModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">EventedMetaclass</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A Model subclass that emits an event whenever a field value is changed.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A Model subclass that emits an event whenever a field value is changed.</span>
 
 <span class="sd">    Note: As per the standard pydantic behavior, default Field values are</span>
 <span class="sd">    not validated (#4138) and should be correctly typed.</span>
@@ -520,7 +520,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span>
 
     <span class="k">def</span> <span class="nf">_reset_event_source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        set the event sources of self and all the children to the correct values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># events are all messed up due to objects being probably</span>
@@ -539,7 +539,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">get_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventedModel.reset"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventedModel.html#napari.utils.events.EventedModel.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reset the state of the model to default values.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset the state of the model to default values.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defaults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
@@ -552,7 +552,7 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="EventedModel.update"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventedModel.html#napari.utils.events.EventedModel.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s1">&#39;EventedModel&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="n">recurse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Update a model in place.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a model in place.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -589,7 +589,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="n">Event</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check equality with another object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check equality with another object.</span>
 
 <span class="sd">        We override the pydantic approach (which just checks</span>
 <span class="sd">        ``self.dict() == other.dict()``) to accommodate more complicated types</span>
@@ -614,7 +614,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="EventedModel.enums_as_values"><a class="viewcode-back" href="../../../../api/napari.utils.events.EventedModel.html#napari.utils.events.EventedModel.enums_as_values">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">enums_as_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">as_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Temporarily override how enums are retrieved.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Temporarily override how enums are retrieved.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -635,7 +635,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">get_defaults</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">BaseModel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get possibly nested default values for a Model object.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get possibly nested default values for a Model object.&quot;&quot;&quot;</span>
     <span class="n">dflt</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">__fields__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>

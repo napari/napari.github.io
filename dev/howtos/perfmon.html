@@ -1736,19 +1736,19 @@ creating a napari <code class="docutils literal notranslate"><span class="pre">V
 <section id="configuration-file-format">
 <h2>Configuration file format<a class="headerlink" href="#configuration-file-format" title="Permalink to this headline">¶</a></h2>
 <p>Example configuration file:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_qt_events&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_file_on_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/latest.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_callables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;chunk_loader&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;callable_lists&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;chunk_loader&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;napari.components.chunk._loader.ChunkLoader.load_chunk&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;napari.components.chunk._loader.ChunkLoader._done&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">]</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;trace_qt_events&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_file_on_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/latest.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_callables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;chunk_loader&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;callable_lists&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;chunk_loader&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;napari.components.chunk._loader.ChunkLoader.load_chunk&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;napari.components.chunk._loader.ChunkLoader._done&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -1813,11 +1813,11 @@ will make the method take at least 100 ms:</p>
 <section id="create-a-perfmon-config-file">
 <h3>Create a perfmon config file<a class="headerlink" href="#create-a-perfmon-config-file" title="Permalink to this headline">¶</a></h3>
 <p>Create a minimal perfmon config file <code class="docutils literal notranslate"><span class="pre">/tmp/perfmon.json</span></code> that looks like this:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_qt_events&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_file_on_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/latest.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_callables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;trace_qt_events&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_file_on_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/latest.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_callables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This will write <code class="docutils literal notranslate"><span class="pre">/tmp/latest.json</span></code> every time we run napari. This file is
@@ -1828,7 +1828,7 @@ the <strong>Debug</strong> menu.</p>
 <section id="run-napari">
 <h3>Run napari<a class="headerlink" href="#run-napari" title="Permalink to this headline">¶</a></h3>
 <p>Now run napari’s <code class="docutils literal notranslate"><span class="pre">add_labels</span></code> example like this:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>    <span class="nv">NAPARI_PERFMON</span><span class="o">=</span>/tmp/perfmon.json python examples/add_labels.py
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nv">NAPARI_PERFMON</span><span class="o">=</span>/tmp/perfmon.json<span class="w"> </span>python<span class="w"> </span>examples/add_labels.py
 </pre></div>
 </div>
 <p>Use the paint tool and single-click once or twice on the labels layer. Look
@@ -1863,18 +1863,18 @@ find out they actually run fast, so you can remove them.</p>
 the trace, create a new list of callables named <code class="docutils literal notranslate"><span class="pre">labels</span></code> and put the
 <a class="reference internal" href="../api/napari.layers.Labels.html#napari.layers.Labels.paint" title="napari.layers.Labels.paint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Labels.paint</span></code></a> method into
 that list.</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_qt_events&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_file_on_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/latest.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;trace_callables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;labels&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;callable_lists&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;napari.layers.labels.Labels.paint&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">]</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;trace_qt_events&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_file_on_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/latest.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_callables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;labels&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;callable_lists&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;napari.layers.labels.Labels.paint&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>

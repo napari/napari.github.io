@@ -318,7 +318,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># in creating NAMES set inside of napari.layers.__init__</span>
 <span class="c1"># Mixin must come before Layer</span>
 <span class="k">class</span> <span class="nc">_ImageBase</span><span class="p">(</span><span class="n">IntensityVisualizationMixin</span><span class="p">,</span> <span class="n">Layer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Image layer.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Image layer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -655,7 +655,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_new_empty_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the current slice to an empty image.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the current slice to an empty image.&quot;&quot;&quot;</span>
         <span class="n">wrapper</span> <span class="o">=</span> <span class="n">_weakref_hide</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">ImageSlice</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_get_empty_image</span><span class="p">(),</span> <span class="n">wrapper</span><span class="o">.</span><span class="n">_raw_to_displayed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span>
@@ -663,14 +663,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_get_empty_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get empty image to use as the default before data is loaded.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get empty image to use as the default before data is loaded.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_order</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return the ordered displayed dimensions, but reduced to fit in the slice space.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the ordered displayed dimensions, but reduced to fit in the slice space.&quot;&quot;&quot;</span>
         <span class="n">order</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
             <span class="c1"># if rgb need to keep the final axis fixed during the</span>
@@ -682,11 +682,11 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_data_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Viewable image for the current slice. (compatibility)&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Viewable image for the current slice. (compatibility)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">view</span>
 
     <span class="k">def</span> <span class="nf">_calc_data_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the range of the data values in the currently viewed slice</span>
 <span class="sd">        or full data array</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -711,12 +711,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data_raw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Data, exactly as provided by the user.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Data, exactly as provided by the user.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_raw</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerDataProtocol</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Data, possibly in multiscale wrapper. Obeys LayerDataProtocol.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Data, possibly in multiscale wrapper. Obeys LayerDataProtocol.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
 
     <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
@@ -733,12 +733,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_editable</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_extent_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -749,7 +749,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;int: Current level of multiscale, or 0 if image.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;int: Current level of multiscale, or 0 if image.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span>
 
     <span class="nd">@data_level</span><span class="o">.</span><span class="n">setter</span>
@@ -761,7 +761,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">level_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;array: Shapes of each level of the multiscale or just of image.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Shapes of each level of the multiscale or just of image.&quot;&quot;&quot;</span>
         <span class="n">shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shapes</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
             <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">]</span>
@@ -769,12 +769,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">downsample_factors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;list: Downsample factors for each level of the multiscale.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Downsample factors for each level of the multiscale.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">iso_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;float: threshold for isosurface.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: threshold for isosurface.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iso_threshold</span>
 
     <span class="nd">@iso_threshold</span><span class="o">.</span><span class="n">setter</span>
@@ -785,7 +785,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;float: attenuation rate for attenuated_mip rendering.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: attenuation rate for attenuated_mip rendering.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attenuation</span>
 
     <span class="nd">@attenuation</span><span class="o">.</span><span class="n">setter</span>
@@ -796,7 +796,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return current interpolation mode.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current interpolation mode.</span>
 
 <span class="sd">        Selects a preset interpolation mode in vispy that determines how volume</span>
 <span class="sd">        is displayed.  Makes use of the two Texture2D interpolation methods and</span>
@@ -828,7 +828,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@interpolation</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolation</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set current interpolation mode.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set current interpolation mode.&quot;&quot;&quot;</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                 <span class="s2">&quot;Interpolation setting is deprecated since 0.4.17. Please use interpolation2d or interpolation3d&quot;</span><span class="p">,</span>
@@ -893,7 +893,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">depiction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The current 3D depiction mode.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The current 3D depiction mode.</span>
 
 <span class="sd">        Selects a preset depiction mode in vispy</span>
 <span class="sd">            * volume: images are rendered as 3D volumes.</span>
@@ -905,18 +905,18 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@depiction</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">depiction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depiction</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">VolumeDepiction</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;Set the current 3D depiction mode.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the current 3D depiction mode.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_depiction</span> <span class="o">=</span> <span class="n">VolumeDepiction</span><span class="p">(</span><span class="n">depiction</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_plane_callbacks</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">depiction</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_reset_plane_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set plane attributes to something valid.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set plane attributes to something valid.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">normal</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_plane_callbacks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set plane callbacks depending on depiction mode.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set plane callbacks depending on depiction mode.&quot;&quot;&quot;</span>
         <span class="n">plane_drag_callback_connected</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">plane_drag_callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span>
         <span class="p">)</span>
@@ -949,7 +949,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Has the data for this layer been loaded yet.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Has the data for this layer been loaded yet.</span>
 
 <span class="sd">        With asynchronous loading the layer might exist but its data</span>
 <span class="sd">        for the current slice has not been loaded.</span>
@@ -958,7 +958,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;str: Interactive mode</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Interactive mode</span>
 
 <span class="sd">        Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
 <span class="sd">        allows for normal interactivity with the canvas.</span>
@@ -995,7 +995,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Determine displayed image from raw image.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine displayed image from raw image.</span>
 
 <span class="sd">        For normal image layers, just return the actual image.</span>
 
@@ -1013,7 +1013,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">image</span>
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Set the slice output based on this layer&#39;s current state.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the slice output based on this layer&#39;s current state.&quot;&quot;&quot;</span>
         <span class="c1"># Initializes an ImageSlice for the old experimental async code.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_new_empty_slice</span><span class="p">()</span>
 
@@ -1035,7 +1035,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ImageSliceRequest</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Make an image slice request based on the given dims and this image.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make an image slice request based on the given dims and this image.&quot;&quot;&quot;</span>
         <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span>
             <span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span>
         <span class="p">)</span>
@@ -1053,7 +1053,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span>
         <span class="n">slice_indices</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ImageSliceRequest</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Needed to support old-style sync slicing through _slice_dims and</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Needed to support old-style sync slicing through _slice_dims and</span>
 <span class="sd">        _set_view_slice.</span>
 
 <span class="sd">        This is temporary scaffolding that should go away once we have completed</span>
@@ -1076,7 +1076,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_ImageSliceResponse</span><span class="p">,</span> <span class="n">indices</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Update the slice output state currently on the layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the slice output state currently on the layer.&quot;&quot;&quot;</span>
         <span class="c1"># For the old experimental async code.</span>
         <span class="n">slice_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SliceDataClass</span><span class="p">(</span>
             <span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
@@ -1111,7 +1111,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">ImageSliceData</span>
 
     <span class="k">def</span> <span class="nf">_load_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ImageSliceData</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load the image and maybe thumbnail source.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the image and maybe thumbnail source.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1126,7 +1126,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">loaded</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_on_data_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ImageSliceData</span><span class="p">,</span> <span class="n">sync</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;The given data a was loaded, use it now.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The given data a was loaded, use it now.</span>
 
 <span class="sd">        This routine is called synchronously from _load_async() above, or</span>
 <span class="sd">        it is called asynchronously sometime later when the ChunkLoader</span>
@@ -1165,7 +1165,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update thumbnail with current image data and colormap.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current image data and colormap.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">loaded</span><span class="p">:</span>
             <span class="c1"># ASYNC_TODO: Do not compute the thumbnail until we are loaded.</span>
             <span class="c1"># Is there a nicer way to prevent this from getting called?</span>
@@ -1231,7 +1231,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
 
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1276,7 +1276,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">_get_offset_data_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Adjust position for offset between viewer and data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adjust position for offset between viewer and data coordinates.</span>
 
 <span class="sd">        VisPy considers the coordinate system origin to be the canvas corner,</span>
 <span class="sd">        while napari considers the origin to be the **center** of the corner</span>
@@ -1289,7 +1289,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
 
         <span class="k">def</span> <span class="nf">on_chunk_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">ChunkRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="sd">&quot;&quot;&quot;An asynchronous ChunkRequest was loaded.</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;An asynchronous ChunkRequest was loaded.</span>
 
 <span class="sd">            Parameters</span>
 <span class="sd">            ----------</span>
@@ -1304,7 +1304,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return current rendering mode.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current rendering mode.</span>
 
 <span class="sd">        Selects a preset rendering mode in vispy that determines how</span>
 <span class="sd">        volume is displayed.  Options include:</span>
@@ -1340,7 +1340,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rendering</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>

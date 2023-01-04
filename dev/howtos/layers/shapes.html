@@ -1706,30 +1706,30 @@ existing image.</p>
 <p>In this example, we will overlay some shapes on the image of a photographer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import napari
-import numpy as np
-from skimage import data
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
-# create the list of polygons
-triangle = np.array([[11, 13], [111, 113], [22, 246]])
+<span class="c1"># create the list of polygons</span>
+<span class="n">triangle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span> <span class="p">[</span><span class="mi">111</span><span class="p">,</span> <span class="mi">113</span><span class="p">],</span> <span class="p">[</span><span class="mi">22</span><span class="p">,</span> <span class="mi">246</span><span class="p">]])</span>
 
-person = np.array([[505, 60], [402, 71], [383, 42], [251, 95], [212, 59],
-                   [131, 137], [126, 187], [191, 204], [171, 248], [211, 260],
-                   [273, 243], [264, 225], [430, 173], [512, 160]])
+<span class="n">person</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">505</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="p">[</span><span class="mi">402</span><span class="p">,</span> <span class="mi">71</span><span class="p">],</span> <span class="p">[</span><span class="mi">383</span><span class="p">,</span> <span class="mi">42</span><span class="p">],</span> <span class="p">[</span><span class="mi">251</span><span class="p">,</span> <span class="mi">95</span><span class="p">],</span> <span class="p">[</span><span class="mi">212</span><span class="p">,</span> <span class="mi">59</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">131</span><span class="p">,</span> <span class="mi">137</span><span class="p">],</span> <span class="p">[</span><span class="mi">126</span><span class="p">,</span> <span class="mi">187</span><span class="p">],</span> <span class="p">[</span><span class="mi">191</span><span class="p">,</span> <span class="mi">204</span><span class="p">],</span> <span class="p">[</span><span class="mi">171</span><span class="p">,</span> <span class="mi">248</span><span class="p">],</span> <span class="p">[</span><span class="mi">211</span><span class="p">,</span> <span class="mi">260</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">273</span><span class="p">,</span> <span class="mi">243</span><span class="p">],</span> <span class="p">[</span><span class="mi">264</span><span class="p">,</span> <span class="mi">225</span><span class="p">],</span> <span class="p">[</span><span class="mi">430</span><span class="p">,</span> <span class="mi">173</span><span class="p">],</span> <span class="p">[</span><span class="mi">512</span><span class="p">,</span> <span class="mi">160</span><span class="p">]])</span>
 
-building = np.array([[310, 382], [229, 381], [209, 401], [221, 411],
-                     [258, 411], [300, 412], [306, 435], [268, 434],
-                     [265, 454], [298, 461], [307, 461], [307, 507],
-                     [349, 510], [352, 369], [330, 366], [330, 366]])
+<span class="n">building</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">310</span><span class="p">,</span> <span class="mi">382</span><span class="p">],</span> <span class="p">[</span><span class="mi">229</span><span class="p">,</span> <span class="mi">381</span><span class="p">],</span> <span class="p">[</span><span class="mi">209</span><span class="p">,</span> <span class="mi">401</span><span class="p">],</span> <span class="p">[</span><span class="mi">221</span><span class="p">,</span> <span class="mi">411</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">258</span><span class="p">,</span> <span class="mi">411</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">412</span><span class="p">],</span> <span class="p">[</span><span class="mi">306</span><span class="p">,</span> <span class="mi">435</span><span class="p">],</span> <span class="p">[</span><span class="mi">268</span><span class="p">,</span> <span class="mi">434</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">265</span><span class="p">,</span> <span class="mi">454</span><span class="p">],</span> <span class="p">[</span><span class="mi">298</span><span class="p">,</span> <span class="mi">461</span><span class="p">],</span> <span class="p">[</span><span class="mi">307</span><span class="p">,</span> <span class="mi">461</span><span class="p">],</span> <span class="p">[</span><span class="mi">307</span><span class="p">,</span> <span class="mi">507</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">349</span><span class="p">,</span> <span class="mi">510</span><span class="p">],</span> <span class="p">[</span><span class="mi">352</span><span class="p">,</span> <span class="mi">369</span><span class="p">],</span> <span class="p">[</span><span class="mi">330</span><span class="p">,</span> <span class="mi">366</span><span class="p">],</span> <span class="p">[</span><span class="mi">330</span><span class="p">,</span> <span class="mi">366</span><span class="p">]])</span>
 
-polygons = [triangle, person, building]
+<span class="n">polygons</span> <span class="o">=</span> <span class="p">[</span><span class="n">triangle</span><span class="p">,</span> <span class="n">person</span><span class="p">,</span> <span class="n">building</span><span class="p">]</span>
 
-# add the image
-viewer = napari.view_image(data.camera(), name=&#39;photographer&#39;)
+<span class="c1"># add the image</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;photographer&#39;</span><span class="p">)</span>
 
-# add the polygons
-shapes_layer = viewer.add_shapes(polygons, shape_type=&#39;polygon&#39;, edge_width=5,
-                          edge_color=&#39;coral&#39;, face_color=&#39;royalblue&#39;)
+<span class="c1"># add the polygons</span>
+<span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">(</span><span class="n">polygons</span><span class="p">,</span> <span class="n">shape_type</span><span class="o">=</span><span class="s1">&#39;polygon&#39;</span><span class="p">,</span> <span class="n">edge_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                          <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;coral&#39;</span><span class="p">,</span> <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;royalblue&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1741,9 +1741,9 @@ shapes_layer = viewer.add_shapes(polygons, shape_type=&#39;polygon&#39;, edge_wi
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from napari.utils import nbscreenshot
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
-nbscreenshot(viewer, alt_text=&quot;Shapes overlaid on image&quot;)
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">alt_text</span><span class="o">=</span><span class="s2">&quot;Shapes overlaid on image&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1763,7 +1763,7 @@ accept the same layer-creation parameters.</p>
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(napari.view_shapes)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">view_shapes</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1977,33 +1977,33 @@ the <code class="docutils literal notranslate"><span class="pre">add</span></cod
 have mixed shape data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import napari
-import numpy as np
-from skimage import data
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
-# add the image
-viewer = napari.view_image(data.camera(), name=&#39;photographer&#39;)
+<span class="c1"># add the image</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;photographer&#39;</span><span class="p">)</span>
 
-# create a triangle
-triangle = np.array([[11, 13], [111, 113], [22, 246]])
+<span class="c1"># create a triangle</span>
+<span class="n">triangle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span> <span class="p">[</span><span class="mi">111</span><span class="p">,</span> <span class="mi">113</span><span class="p">],</span> <span class="p">[</span><span class="mi">22</span><span class="p">,</span> <span class="mi">246</span><span class="p">]])</span>
 
-# create an ellipse
-ellipse = np.array([[59, 222], [110, 289], [170, 243], [119, 176]])
+<span class="c1"># create an ellipse</span>
+<span class="n">ellipse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">59</span><span class="p">,</span> <span class="mi">222</span><span class="p">],</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">289</span><span class="p">],</span> <span class="p">[</span><span class="mi">170</span><span class="p">,</span> <span class="mi">243</span><span class="p">],</span> <span class="p">[</span><span class="mi">119</span><span class="p">,</span> <span class="mi">176</span><span class="p">]])</span>
 
-# put both shapes in a list
-mixed_shapes = [triangle, ellipse]
+<span class="c1"># put both shapes in a list</span>
+<span class="n">mixed_shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">triangle</span><span class="p">,</span> <span class="n">ellipse</span><span class="p">]</span>
 
-# add an empty shapes layer
-shapes_layer = viewer.add_shapes()
+<span class="c1"># add an empty shapes layer</span>
+<span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">()</span>
 
-# add mixed shapes using the `add` method
-shapes_layer.add(
-  mixed_shapes,
-  shape_type=[&#39;polygon&#39;, &#39;ellipse&#39;],
-  edge_width=5,
-  edge_color=&#39;coral&#39;,
-  face_color=&#39;royalblue&#39;
-)
+<span class="c1"># add mixed shapes using the `add` method</span>
+<span class="n">shapes_layer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+  <span class="n">mixed_shapes</span><span class="p">,</span>
+  <span class="n">shape_type</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;polygon&#39;</span><span class="p">,</span> <span class="s1">&#39;ellipse&#39;</span><span class="p">],</span>
+  <span class="n">edge_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+  <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;coral&#39;</span><span class="p">,</span>
+  <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;royalblue&#39;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2015,9 +2015,9 @@ shapes_layer.add(
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from napari.utils import nbscreenshot
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
-nbscreenshot(viewer, alt_text=&quot;Add new shapes to an existing shapes layer&quot;)
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">alt_text</span><span class="o">=</span><span class="s2">&quot;Add new shapes to an existing shapes layer&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2030,31 +2030,31 @@ to a layer. Their arguments are identical to those of the <code class="docutils 
 they do not take a <code class="docutils literal notranslate"><span class="pre">shape_type</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import napari
-import numpy as np
-from skimage import data
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 
-# add the image
-viewer = napari.view_image(data.camera(), name=&#39;photographer&#39;)
+<span class="c1"># add the image</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">camera</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;photographer&#39;</span><span class="p">)</span>
 
-# create some ellipses
-ellipse = np.array([[59, 222], [110, 289], [170, 243], [119, 176]])
+<span class="c1"># create some ellipses</span>
+<span class="n">ellipse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">59</span><span class="p">,</span> <span class="mi">222</span><span class="p">],</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">289</span><span class="p">],</span> <span class="p">[</span><span class="mi">170</span><span class="p">,</span> <span class="mi">243</span><span class="p">],</span> <span class="p">[</span><span class="mi">119</span><span class="p">,</span> <span class="mi">176</span><span class="p">]])</span>
 
-ellipse2 = np.array([[165, 329], [165, 401], [234, 401], [234, 329]])
+<span class="n">ellipse2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">165</span><span class="p">,</span> <span class="mi">329</span><span class="p">],</span> <span class="p">[</span><span class="mi">165</span><span class="p">,</span> <span class="mi">401</span><span class="p">],</span> <span class="p">[</span><span class="mi">234</span><span class="p">,</span> <span class="mi">401</span><span class="p">],</span> <span class="p">[</span><span class="mi">234</span><span class="p">,</span> <span class="mi">329</span><span class="p">]])</span>
 
-# put both shapes in a list
-ellipses = [ellipse, ellipse2]
+<span class="c1"># put both shapes in a list</span>
+<span class="n">ellipses</span> <span class="o">=</span> <span class="p">[</span><span class="n">ellipse</span><span class="p">,</span> <span class="n">ellipse2</span><span class="p">]</span>
 
-# add an empty shapes layer
-shapes_layer = viewer.add_shapes()
+<span class="c1"># add an empty shapes layer</span>
+<span class="n">shapes_layer</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">add_shapes</span><span class="p">()</span>
 
-# add ellipses using their convenience method
-shapes_layer.add_ellipses(
-  ellipses,
-  edge_width=5,
-  edge_color=&#39;coral&#39;,
-  face_color=&#39;royalblue&#39;
-)
+<span class="c1"># add ellipses using their convenience method</span>
+<span class="n">shapes_layer</span><span class="o">.</span><span class="n">add_ellipses</span><span class="p">(</span>
+  <span class="n">ellipses</span><span class="p">,</span>
+  <span class="n">edge_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+  <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;coral&#39;</span><span class="p">,</span>
+  <span class="n">face_color</span><span class="o">=</span><span class="s1">&#39;royalblue&#39;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2066,9 +2066,9 @@ shapes_layer.add_ellipses(
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from napari.utils import nbscreenshot
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
-nbscreenshot(viewer, alt_text=&quot;Add new ellipses to an existing shapes layer using the specific method for this layer type&quot;)
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">alt_text</span><span class="o">=</span><span class="s2">&quot;Add new ellipses to an existing shapes layer using the specific method for this layer type&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

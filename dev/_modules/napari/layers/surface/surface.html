@@ -289,7 +289,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="c1"># Mixin must come before Layer</span>
 <div class="viewcode-block" id="Surface"><a class="viewcode-back" href="../../../../api/napari.layers.Surface.html#napari.layers.Surface">[docs]</a><span class="k">class</span> <span class="nc">Surface</span><span class="p">(</span><span class="n">IntensityVisualizationMixin</span><span class="p">,</span> <span class="n">Layer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Surface layer renders meshes onto the canvas.</span>
 
 <span class="sd">    Parameters</span>
@@ -546,7 +546,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@vertices</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertices</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Array of vertices of mesh triangles.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Array of vertices of mesh triangles.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span> <span class="o">=</span> <span class="n">vertices</span>
 
@@ -560,7 +560,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@vertex_values</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">vertex_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Array of values used to color vertices..&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Array of values used to color vertices..&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span> <span class="o">=</span> <span class="n">vertex_values</span>
 
@@ -574,7 +574,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@faces</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">faces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">faces</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Array of indices of mesh triangles..&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Array of indices of mesh triangles..&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">faces</span>
 
@@ -583,12 +583,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_editable</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_extent_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -622,7 +622,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shading</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_shading</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -644,7 +644,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">state</span>
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
         <span class="n">N</span><span class="p">,</span> <span class="n">vertex_ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">values_ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span>
 
@@ -708,11 +708,11 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update thumbnail with current surface.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current surface.&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -732,7 +732,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">end_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the layer data value along a ray</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the layer data value along a ray</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>

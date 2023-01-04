@@ -349,7 +349,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">def</span> <span class="nf">_npe2_decode_selected_filter</span><span class="p">(</span>
     <span class="n">ext_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">selected_filter</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">writers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Determine the writer that should be invoked to save data.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine the writer that should be invoked to save data.</span>
 
 <span class="sd">    When npe2 can be imported, resolves a selected file extension</span>
 <span class="sd">    string into a specific writer. Otherwise, returns None.</span>
@@ -369,7 +369,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">def</span> <span class="nf">_extension_string_for_layers</span><span class="p">(</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Return an extension string and the list of corresponding writers.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return an extension string and the list of corresponding writers.</span>
 
 <span class="sd">    The extension string is a &quot;;;&quot; delimeted string of entries. Each entry</span>
 <span class="sd">    has a brief description of the file type and a list of extensions.</span>
@@ -415,7 +415,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="QtViewer"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer">[docs]</a><span class="k">class</span> <span class="nc">QtViewer</span><span class="p">(</span><span class="n">QSplitter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Qt view for the napari Viewer model.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Qt view for the napari Viewer model.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -651,12 +651,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dockPerformance</span>
 
     <span class="k">def</span> <span class="nf">_leave_canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;disable status on canvas leave&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;disable status on canvas leave&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">mouse_over_canvas</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_enter_canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;enable status on canvas enter&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;enable status on canvas enter&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;Ready&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">mouse_over_canvas</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -665,14 +665,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_bind_shortcuts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Bind shortcuts stored in SETTINGS to actions.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Bind shortcuts stored in SETTINGS to actions.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">shortcuts</span> <span class="ow">in</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">shortcuts</span><span class="o">.</span><span class="n">shortcuts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">action_manager</span><span class="o">.</span><span class="n">unbind_shortcut</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">shortcut</span> <span class="ow">in</span> <span class="n">shortcuts</span><span class="p">:</span>
                 <span class="n">action_manager</span><span class="o">.</span><span class="n">bind_shortcut</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">shortcut</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_create_canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Create the canvas and hook up events.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the canvas and hook up events.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">VispyCanvas</span><span class="p">(</span>
             <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">vsync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -710,7 +710,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_on_theme_change</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_visuals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add visuals for axes, scale bar, and welcome text.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add visuals for axes, scale bar, and welcome text.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">VispyAxesOverlay</span><span class="p">(</span>
             <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
@@ -739,7 +739,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_create_performance_dock_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create the dock widget that shows performance metrics.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the dock widget that shows performance metrics.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">perf</span><span class="o">.</span><span class="n">USE_PERFMON</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">QtViewerDockWidget</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span>
@@ -751,7 +751,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;QtConsole: iPython console terminal integrated into the napari GUI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;QtConsole: iPython console terminal integrated into the napari GUI.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="kn">from</span> <span class="nn">napari_console</span> <span class="kn">import</span> <span class="n">QtConsole</span>
@@ -790,7 +790,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">console</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_active_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When active layer changes change keymap handler.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When active layer changes change keymap handler.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_map_handler</span><span class="o">.</span><span class="n">keymap_providers</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="ow">is</span> <span class="kc">None</span>
@@ -798,7 +798,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_add_layer_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When a layer is added, set its parent and order.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When a layer is added, set its parent and order.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -809,7 +809,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When a layer is added, set its parent and order.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When a layer is added, set its parent and order.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -835,7 +835,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_reorder_layers</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When a layer is removed, remove its parent.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When a layer is removed, remove its parent.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -850,7 +850,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_reorder_layers</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_reorder_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When the list is reordered, propagate changes to draw order.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When the list is reordered, propagate changes to draw order.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
             <span class="n">vispy_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_to_visual</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
             <span class="n">vispy_layer</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">i</span>
@@ -858,7 +858,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_save_layers_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save layers (all or selected) to disk, using ``LayerList.save()``.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save layers (all or selected) to disk, using ``LayerList.save()``.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -933,12 +933,12 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">update_save_history</span><span class="p">(</span><span class="n">saved</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_update_welcome_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update welcome screen display based on layer count.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update welcome screen display based on layer count.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_screenshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Capture a screenshot of the Vispy canvas.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Capture a screenshot of the Vispy canvas.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -959,7 +959,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">img</span>
 
 <div class="viewcode-block" id="QtViewer.screenshot"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.screenshot">[docs]</a>    <span class="k">def</span> <span class="nf">screenshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take currently displayed screen and convert to an image array.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -982,7 +982,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">img</span></div>
 
 <div class="viewcode-block" id="QtViewer.clipboard"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.clipboard">[docs]</a>    <span class="k">def</span> <span class="nf">clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Take a screenshot of the currently displayed screen and copy the</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Take a screenshot of the currently displayed screen and copy the</span>
 <span class="sd">        image to the clipboard.</span>
 
 <span class="sd">        Parameters</span>
@@ -995,14 +995,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">cb</span><span class="o">.</span><span class="n">setImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_screenshot</span><span class="p">(</span><span class="n">flash</span><span class="p">))</span></div>
 
     <span class="k">def</span> <span class="nf">_screenshot_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save screenshot of current display, default .png&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save screenshot of current display, default .png&quot;&quot;&quot;</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_save_history</span><span class="p">()</span>
         <span class="n">dial</span> <span class="o">=</span> <span class="n">ScreenshotDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screenshot</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hist</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dial</span><span class="o">.</span><span class="n">exec_</span><span class="p">():</span>
             <span class="n">update_save_history</span><span class="p">(</span><span class="n">dial</span><span class="o">.</span><span class="n">selectedFiles</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_open_files_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add files from the menubar.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add files from the menubar.&quot;&quot;&quot;</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_open_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
@@ -1026,7 +1026,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">update_open_history</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_open_files_dialog_as_stack_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add files as a stack, from the menubar.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add files as a stack, from the menubar.&quot;&quot;&quot;</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_open_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
@@ -1047,7 +1047,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">update_open_history</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_open_folder_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a folder of files from the menubar.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a folder of files from the menubar.&quot;&quot;&quot;</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_open_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
@@ -1076,7 +1076,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Open files, potentially popping reader dialog for plugin selection.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open files, potentially popping reader dialog for plugin selection.</span>
 
 <span class="sd">        Call ViewerModel.open and catch errors that could</span>
 <span class="sd">        be fixed by user making a plugin choice.</span>
@@ -1123,7 +1123,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">handle_gui_reading</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_toggle_chunk_outlines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Toggle whether we are drawing outlines around the chunks.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle whether we are drawing outlines around the chunks.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">napari.layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="p">(</span>
             <span class="n">_OctreeImageBase</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1133,11 +1133,11 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">layer</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">show_grid</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">show_grid</span>
 
     <span class="k">def</span> <span class="nf">_on_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Link interactive attributes of view and viewer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Link interactive attributes of view and viewer.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">interactive</span>
 
     <span class="k">def</span> <span class="nf">_on_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the appearance of the mouse cursor.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the appearance of the mouse cursor.&quot;&quot;&quot;</span>
 
         <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span>
         <span class="k">if</span> <span class="n">cursor</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;square&#39;</span><span class="p">,</span> <span class="s1">&#39;circle&#39;</span><span class="p">}:</span>
@@ -1164,7 +1164,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">q_cursor</span><span class="p">)</span>
 
 <div class="viewcode-block" id="QtViewer.toggle_console_visibility"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.toggle_console_visibility">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_console_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Toggle console visible and not visible.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle console visible and not visible.</span>
 
 <span class="sd">        Imports the console the first time it is requested.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1194,7 +1194,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_map_canvas2world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Map position from canvas pixels into world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map position from canvas pixels into world coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1225,7 +1225,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_canvas_corners_in_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Location of the corners of canvas in world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Location of the corners of canvas in world coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1238,7 +1238,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">top_left</span><span class="p">,</span> <span class="n">bottom_right</span><span class="p">])</span>
 
 <div class="viewcode-block" id="QtViewer.on_resize"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.on_resize">[docs]</a>    <span class="k">def</span> <span class="nf">on_resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever canvas is resized.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever canvas is resized.</span>
 
 <span class="sd">        event : vispy.util.event.Event</span>
 <span class="sd">            The vispy event that triggered this method.</span>
@@ -1246,7 +1246,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_canvas_size</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
 
     <span class="k">def</span> <span class="nf">_process_mouse_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_callbacks</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add properties to the mouse event before passing the event to the</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add properties to the mouse event before passing the event to the</span>
 <span class="sd">        napari events system. Called whenever the mouse moves or is clicked.</span>
 <span class="sd">        As such, care should be taken to reduce the overhead in this function.</span>
 <span class="sd">        In future work, we should consider limiting the frequency at which</span>
@@ -1303,7 +1303,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">mouse_callbacks</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
 
 <div class="viewcode-block" id="QtViewer.on_mouse_wheel"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.on_mouse_wheel">[docs]</a>    <span class="k">def</span> <span class="nf">on_mouse_wheel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever mouse wheel activated in canvas.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever mouse wheel activated in canvas.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1313,7 +1313,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_mouse_event</span><span class="p">(</span><span class="n">mouse_wheel_callbacks</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.on_mouse_double_click"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.on_mouse_double_click">[docs]</a>    <span class="k">def</span> <span class="nf">on_mouse_double_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever a mouse double-click happen on the canvas</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever a mouse double-click happen on the canvas</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1334,7 +1334,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_mouse_event</span><span class="p">(</span><span class="n">mouse_double_click_callbacks</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.on_mouse_press"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.on_mouse_press">[docs]</a>    <span class="k">def</span> <span class="nf">on_mouse_press</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever mouse pressed in canvas.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever mouse pressed in canvas.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1344,7 +1344,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_mouse_event</span><span class="p">(</span><span class="n">mouse_press_callbacks</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.on_mouse_move"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.on_mouse_move">[docs]</a>    <span class="k">def</span> <span class="nf">on_mouse_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever mouse moves over canvas.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever mouse moves over canvas.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1354,7 +1354,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_mouse_event</span><span class="p">(</span><span class="n">mouse_move_callbacks</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.on_mouse_release"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.on_mouse_release">[docs]</a>    <span class="k">def</span> <span class="nf">on_mouse_release</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever mouse released in canvas.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever mouse released in canvas.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1364,7 +1364,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_mouse_event</span><span class="p">(</span><span class="n">mouse_release_callbacks</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.on_draw"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.on_draw">[docs]</a>    <span class="k">def</span> <span class="nf">on_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever the canvas is drawn.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever the canvas is drawn.</span>
 
 <span class="sd">        This is triggered from vispy whenever new data is sent to the canvas or</span>
 <span class="sd">        the camera is moved and is connected in the `QtViewer`.</span>
@@ -1391,12 +1391,12 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.set_welcome_visible"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.set_welcome_visible">[docs]</a>    <span class="k">def</span> <span class="nf">set_welcome_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Show welcome screen widget.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show welcome screen widget.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span> <span class="o">=</span> <span class="n">visible</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.keyPressEvent"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.keyPressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever a key is pressed.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever a key is pressed.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1407,7 +1407,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="QtViewer.keyReleaseEvent"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.keyReleaseEvent">[docs]</a>    <span class="k">def</span> <span class="nf">keyReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called whenever a key is released.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever a key is released.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1418,7 +1418,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="QtViewer.dragEnterEvent"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.dragEnterEvent">[docs]</a>    <span class="k">def</span> <span class="nf">dragEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Ignore event if not dragging &amp; dropping a file or URL to open.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ignore event if not dragging &amp; dropping a file or URL to open.</span>
 
 <span class="sd">        Using event.ignore() here allows the event to pass through the</span>
 <span class="sd">        parent widget to its child widget, otherwise the parent widget</span>
@@ -1436,13 +1436,13 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_set_drag_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set dedicated status message when dragging files into viewer&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set dedicated status message when dragging files into viewer&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
             <span class="s1">&#39;Hold &lt;Alt&gt; key to open plugin selection. Hold &lt;Shift&gt; to open files as stack.&#39;</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="QtViewer.dropEvent"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.dropEvent">[docs]</a>    <span class="k">def</span> <span class="nf">dropEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add local files and web URLS with drag and drop.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add local files and web URLS with drag and drop.</span>
 
 <span class="sd">        For each file, attempt to open with existing associated reader</span>
 <span class="sd">        (if available). If no reader is associated or opening fails,</span>
@@ -1478,7 +1478,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.closeEvent"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Cleanup and close.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cleanup and close.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1505,7 +1505,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_create_qt_poll</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QtPoll</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Create and return a QtPoll instance, if needed.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and return a QtPoll instance, if needed.</span>
 
 <span class="sd">    Create a QtPoll instance for octree or monitor.</span>
 
@@ -1542,7 +1542,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">def</span> <span class="nf">_create_remote_manager</span><span class="p">(</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span><span class="p">,</span> <span class="n">qt_poll</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RemoteManager</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Create and return a RemoteManager instance, if we need one.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and return a RemoteManager instance, if we need one.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

@@ -753,17 +753,17 @@ and three commands <code class="docutils literal notranslate"><span class="pre">
 <p>Begin by installing <a class="reference external" href="https://asv.readthedocs.io/en/stable/">airspeed velocity</a>
 in your development environment. Prior to installation, be sure to activate your
 development environment, then if using <code class="docutils literal notranslate"><span class="pre">venv</span></code> you may install the requirement with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> napari-dev/bin/activate
-pip install asv
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>napari-dev/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>asv
 </pre></div>
 </div>
 <p>If you are using conda, then the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate napari-dev
-conda install asv
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>napari-dev
+conda<span class="w"> </span>install<span class="w"> </span>asv
 </pre></div>
 </div>
 <p>is more appropriate. Once installed, it is useful to run the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv machine
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv<span class="w"> </span>machine
 </pre></div>
 </div>
 <p>To let airspeed velocity know more information about your machine.</p>
@@ -784,7 +784,7 @@ method and its execution time is not factored into the benchmarks.</p>
 
 
 <span class="k">class</span> <span class="nc">ViewImageSuite</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Benchmarks for viewing images in the viewer.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Benchmarks for viewing images in the viewer.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="ow">or</span> <span class="n">QApplication</span><span class="p">([])</span>
@@ -796,7 +796,7 @@ method and its execution time is not factored into the benchmarks.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">time_view_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Time to view an image.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Time to view an image.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -810,7 +810,7 @@ more about the features of <code class="docutils literal notranslate"><span clas
 <h2>Testing the benchmarks locally<a class="headerlink" href="#testing-the-benchmarks-locally" title="Permalink to this headline">¶</a></h2>
 <p>Prior to running the true benchmark, it is often worthwhile to test that the
 code is free of typos. To do so, you may use the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv dev -b ViewImageSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv<span class="w"> </span>dev<span class="w"> </span>-b<span class="w"> </span>ViewImageSuite
 </pre></div>
 </div>
 <p>Where the <code class="docutils literal notranslate"><span class="pre">ViewImageSuite</span></code> above will be run once in your current environment
@@ -824,7 +824,7 @@ environment to see the performance of your change as you are developing new
 features. The command <code class="docutils literal notranslate"><span class="pre">asv</span> <span class="pre">run</span> <span class="pre">-E</span> <span class="pre">existing</span></code> will specify that you wish to run
 the benchmark in your existing environment. This will save a significant amount
 of time since building napari can be a time consuming task:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv run -E existing -b ViewImageSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv<span class="w"> </span>run<span class="w"> </span>-E<span class="w"> </span>existing<span class="w"> </span>-b<span class="w"> </span>ViewImageSuite
 </pre></div>
 </div>
 </section>
@@ -833,24 +833,24 @@ of time since building napari can be a time consuming task:</p>
 <p>Often, the goal of a PR is to compare the results of the modifications in terms
 of speed to a snapshot of the code that is in the main branch of the
 <code class="docutils literal notranslate"><span class="pre">napari</span></code> repository. The command <code class="docutils literal notranslate"><span class="pre">asv</span> <span class="pre">continuous</span></code> is of help here:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv continuous main your-current-branch -b ViewImageSuite
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv<span class="w"> </span>continuous<span class="w"> </span>main<span class="w"> </span>your-current-branch<span class="w"> </span>-b<span class="w"> </span>ViewImageSuite
 </pre></div>
 </div>
 <p>This call will build out the environments specified in the <code class="docutils literal notranslate"><span class="pre">asv.conf.json</span></code>
 file and compare the performance of the benchmark between your current commit
 and the code in the main branch.</p>
 <p>The output may look something like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ asv continuous main your-current-branch -b ViewImageSuite
-· Creating environments
-· Discovering benchmarks
-·· Uninstalling from conda-py3.7-cython-numpy1.15-scipy
-·· Installing 544c0fe3 &lt;benchmark_docs&gt; into conda-py3.7-cython-numpy1.15-scipy.
-· Running <span class="m">4</span> total benchmarks <span class="o">(</span><span class="m">2</span> commits * <span class="m">2</span> environments * <span class="m">1</span> benchmarks<span class="o">)</span>
-<span class="o">[</span>  <span class="m">0</span>.00%<span class="o">]</span> · For napari commit 37c764cb &lt;benchmark_docs~1&gt; <span class="o">(</span>round <span class="m">1</span>/2<span class="o">)</span>:
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>asv<span class="w"> </span>continuous<span class="w"> </span>main<span class="w"> </span>your-current-branch<span class="w"> </span>-b<span class="w"> </span>ViewImageSuite
+·<span class="w"> </span>Creating<span class="w"> </span>environments
+·<span class="w"> </span>Discovering<span class="w"> </span>benchmarks
+··<span class="w"> </span>Uninstalling<span class="w"> </span>from<span class="w"> </span>conda-py3.7-cython-numpy1.15-scipy
+··<span class="w"> </span>Installing<span class="w"> </span>544c0fe3<span class="w"> </span>&lt;benchmark_docs&gt;<span class="w"> </span>into<span class="w"> </span>conda-py3.7-cython-numpy1.15-scipy.
+·<span class="w"> </span>Running<span class="w"> </span><span class="m">4</span><span class="w"> </span>total<span class="w"> </span>benchmarks<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>commits<span class="w"> </span>*<span class="w"> </span><span class="m">2</span><span class="w"> </span>environments<span class="w"> </span>*<span class="w"> </span><span class="m">1</span><span class="w"> </span>benchmarks<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">0</span>.00%<span class="o">]</span><span class="w"> </span>·<span class="w"> </span>For<span class="w"> </span>napari<span class="w"> </span>commit<span class="w"> </span>37c764cb<span class="w"> </span>&lt;benchmark_docs~1&gt;<span class="w"> </span><span class="o">(</span>round<span class="w"> </span><span class="m">1</span>/2<span class="o">)</span>:
 <span class="o">[</span>...<span class="o">]</span>
-<span class="o">[</span><span class="m">100</span>.00%<span class="o">]</span> ··· ...Image.ViewImageSuite.time_view_image           <span class="m">33</span>.2±2ms
+<span class="o">[</span><span class="m">100</span>.00%<span class="o">]</span><span class="w"> </span>···<span class="w"> </span>...Image.ViewImageSuite.time_view_image<span class="w">           </span><span class="m">33</span>.2±2ms
 
-BENCHMARKS NOT SIGNIFICANTLY CHANGED.
+BENCHMARKS<span class="w"> </span>NOT<span class="w"> </span>SIGNIFICANTLY<span class="w"> </span>CHANGED.
 </pre></div>
 </div>
 <p>In this case, the differences between HEAD on your-current-branch and main are not significant
@@ -861,20 +861,20 @@ enough for airspeed velocity to report.</p>
 <p>The airspeed velocity tool also supports code profiling using <a class="reference external" href="https://docs.python.org/3/library/profile.html#module-cProfile"><code class="docutils literal notranslate"><span class="pre">cProfile</span></code></a>. For detailed instructions on how to use the profiling functionality see the
 <a class="reference external" href="https://asv.readthedocs.io/en/stable/using.html#running-a-benchmark-in-the-profiler">asv profiling documentation</a>.</p>
 <p>To profile a particular benchmark in napari you can run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv profile benchmark_qt_viewer.QtViewerSuite.time_create_viewer -g snakeviz --python<span class="o">=</span>same
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv<span class="w"> </span>profile<span class="w"> </span>benchmark_qt_viewer.QtViewerSuite.time_create_viewer<span class="w"> </span>-g<span class="w"> </span>snakeviz<span class="w"> </span>--python<span class="o">=</span>same
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">benchmark_qt_viewer</span></code> is the file name, <code class="docutils literal notranslate"><span class="pre">QtViewerSuite</span></code> is the test suite class name,
 and <code class="docutils literal notranslate"><span class="pre">time_create_viewer</span></code> is the test method.</p>
 <p>To profile a particular parameterized benchmark you can run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv profile <span class="s2">&quot;benchmark_image_layer.Image2DSuite.time_create_layer\(512\)&quot;</span> -g snakeviz --python<span class="o">=</span>same
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>asv<span class="w"> </span>profile<span class="w"> </span><span class="s2">&quot;benchmark_image_layer.Image2DSuite.time_create_layer\(512\)&quot;</span><span class="w"> </span>-g<span class="w"> </span>snakeviz<span class="w"> </span>--python<span class="o">=</span>same
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">benchmark_image_layer</span></code> is the file name, <code class="docutils literal notranslate"><span class="pre">Image2DSuite</span></code> is the test suite class name,
 and <code class="docutils literal notranslate"><span class="pre">time_to_create_layer</span></code> is the test method and <code class="docutils literal notranslate"><span class="pre">512</span></code> is a valid parameter input to the test method.</p>
 <p>Note that we in both these cases we have sent the output of the profiling to <a class="reference external" href="http://jiffyclub.github.io/snakeviz/">snakeviz</a>
 which you can pip install with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install snakeviz
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>snakeviz
 </pre></div>
 </div>
 <p>and we use <code class="docutils literal notranslate"><span class="pre">--python=same</span></code> to profile against our current python environment.</p>

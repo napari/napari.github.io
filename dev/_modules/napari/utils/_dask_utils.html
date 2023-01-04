@@ -285,7 +285,7 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="resize_dask_cache"><a class="viewcode-back" href="../../../api/napari.utils.html#napari.utils.resize_dask_cache">[docs]</a><span class="k">def</span> <span class="nf">resize_dask_cache</span><span class="p">(</span>
     <span class="n">nbytes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mem_fraction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cache</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Create or resize the dask cache used for opportunistic caching.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create or resize the dask cache used for opportunistic caching.</span>
 
 <span class="sd">    The cache object is an instance of a :class:`Cache`, (which</span>
 <span class="sd">    wraps a :class:`cachey.Cache`).</span>
@@ -341,7 +341,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_is_dask_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return True if data is a dask array or a list/tuple of dask arrays.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if data is a dask array or a list/tuple of dask arrays.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">da</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
         <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Sequence</span><span class="p">)</span>
         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">da</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">)</span>
@@ -351,7 +351,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">def</span> <span class="nf">configure_dask</span><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">Cache</span><span class="p">]]]]:</span>
-    <span class="sd">&quot;&quot;&quot;Spin up cache and return context manager that optimizes Dask indexing.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Spin up cache and return context manager that optimizes Dask indexing.</span>
 
 <span class="sd">    This function determines whether data is a dask array or list of dask</span>
 <span class="sd">    arrays and prepares some optimizations if so.</span>

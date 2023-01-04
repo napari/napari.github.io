@@ -481,8 +481,8 @@ napari to detect the plugin at runtime.</p></li>
 <h2>1. Create a new directory<a class="headerlink" href="#create-a-new-directory" title="Permalink to this headline">¶</a></h2>
 <p>Let’s create a new folder called <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> for your plugin files,
 and navigate into it.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir napari-hello
-<span class="nb">cd</span> napari-hello
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>napari-hello
+<span class="nb">cd</span><span class="w"> </span>napari-hello
 </pre></div>
 </div>
 </section>
@@ -491,16 +491,16 @@ and navigate into it.</p>
 <p>In your root <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> folder, create a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file,
 then create a <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> directory with a single <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file inside of it.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="2cbc11e5-fe1a-4202-8c5c-85e4f43b811d" name="a9dcdb1d-0a50-4c48-af0d-ddfa9faf5b5b" type="radio">
-</input><label class="tabbed-label" for="2cbc11e5-fe1a-4202-8c5c-85e4f43b811d">
+<input checked="checked" id="5f8cf990-073a-44c6-9612-363c6e8c017d" name="2d04a090-e8cb-4952-b071-1986830b4d5b" type="radio">
+</input><label class="tabbed-label" for="5f8cf990-073a-44c6-9612-363c6e8c017d">
 macOS / Linux</label><div class="tabbed-content docutils">
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir napari_hello
-touch napari_hello/__init__.py napari_hello/napari.yaml pyproject.toml setup.cfg
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>napari_hello
+touch<span class="w"> </span>napari_hello/__init__.py<span class="w"> </span>napari_hello/napari.yaml<span class="w"> </span>pyproject.toml<span class="w"> </span>setup.cfg
 </pre></div>
 </div>
 </div>
-<input id="119421eb-9053-4d6f-a6ba-8d461cb11ccb" name="a9dcdb1d-0a50-4c48-af0d-ddfa9faf5b5b" type="radio">
-</input><label class="tabbed-label" for="119421eb-9053-4d6f-a6ba-8d461cb11ccb">
+<input id="1ee72255-34b0-44ac-9d91-0cf122244652" name="2d04a090-e8cb-4952-b071-1986830b4d5b" type="radio">
+</input><label class="tabbed-label" for="1ee72255-34b0-44ac-9d91-0cf122244652">
 Windows</label><div class="tabbed-content docutils">
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">mkdir</span> napari_hello
 <span class="k">copy</span> /b napari_hello\__init__.py +,,
@@ -528,7 +528,7 @@ Windows</label><div class="tabbed-content docutils">
 underscores. Our <em>package</em> is named <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code>, and it includes a
 single top-level module, called <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code>.</p>
 <p>You would <em>install</em> this package with</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install napari-hello
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari-hello
 </pre></div>
 </div>
 <p>… and <em>import</em> it with …</p>
@@ -550,9 +550,9 @@ build your package. For more background, see
 </div>
 <p>Here, we declare we want to use <a class="reference external" href="https://setuptools.pypa.io/en/latest/">setuptools</a>
 for packaging our plugin.  Paste the following text into <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[build-system]</span><span class="w"></span>
-<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;setuptools&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;wheel&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;setuptools.build_meta&quot;</span><span class="w"></span>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[build-system]</span>
+<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;setuptools&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;wheel&quot;</span><span class="p">]</span>
+<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;setuptools.build_meta&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -563,14 +563,14 @@ looks for package metadata. Here, we provide the bare minimum package metadata
 (name and version), along with a <a class="reference external" href="https://pypi.org/classifiers/">PyPI classifier</a>
 that identifies the package as a napari plugin.</p>
 <p>Paste the following text into <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[metadata]</span><span class="w"></span>
-<span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">napari-hello</span><span class="w"></span>
-<span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.0.1</span><span class="w"></span>
-<span class="na">classifiers</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="na">Framework :: napari</span><span class="w"></span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[metadata]</span>
+<span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">napari-hello</span>
+<span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.0.1</span>
+<span class="na">classifiers</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">Framework</span><span class="w"> </span><span class="o">:</span><span class="s">: napari</span>
 
-<span class="k">[options]</span><span class="w"></span>
-<span class="na">packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">find:</span><span class="w"></span>
+<span class="k">[options]</span>
+<span class="na">packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">find:</span>
 </pre></div>
 </div>
 <p>There is a <em>lot</em> more than can go in the package metadata.
@@ -612,16 +612,16 @@ and that we’d like napari to <strong>autogenerate</strong> the widget from the
 (so we don’t need to deal with any GUI code).</p></li>
 </ol>
 <p>Add the following text to <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-hello</span><span class="w"></span>
-<span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-hello.say_hi</span><span class="w"></span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Say hello, world!</span><span class="w"></span>
-<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_hello:show_hello_message</span><span class="w"></span>
-<span class="w">  </span><span class="nt">widgets</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-hello.say_hi</span><span class="w">  </span><span class="c1"># note, same as command.id above</span><span class="w"></span>
-<span class="w">      </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hello World</span><span class="w"></span>
-<span class="w">      </span><span class="nt">autogenerate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-hello</span>
+<span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-hello.say_hi</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Say hello, world!</span>
+<span class="w">      </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari_hello:show_hello_message</span>
+<span class="w">  </span><span class="nt">widgets</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-hello.say_hi</span><span class="w">  </span><span class="c1"># note, same as command.id above</span>
+<span class="w">      </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hello World</span>
+<span class="w">      </span><span class="nt">autogenerate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -656,21 +656,21 @@ advertise components it provides to be discovered and used by other code.</p>
 </li>
 </ol>
 <p>With the above changes, your final <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file should look like this:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[metadata]</span><span class="w"></span>
-<span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">napari-hello</span><span class="w"></span>
-<span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.0.1</span><span class="w"></span>
-<span class="na">classifiers</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="na">Framework :: napari</span><span class="w"></span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[metadata]</span>
+<span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">napari-hello</span>
+<span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.0.1</span>
+<span class="na">classifiers</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">Framework</span><span class="w"> </span><span class="o">:</span><span class="s">: napari</span>
 
-<span class="k">[options]</span><span class="w"></span>
-<span class="na">packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">find:</span><span class="w"></span>
-<span class="na">include_package_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span><span class="w"></span>
-<span class="na">install_requires</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="na">napari</span><span class="w"></span>
+<span class="k">[options]</span>
+<span class="na">packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">find:</span>
+<span class="na">include_package_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">install_requires</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">napari</span>
 
-<span class="k">[options.entry_points]</span><span class="w"></span>
-<span class="na">napari.manifest</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="na">napari-hello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">napari_hello:napari.yaml</span><span class="w"></span>
+<span class="k">[options.entry_points]</span>
+<span class="na">napari.manifest</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">napari-hello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">napari_hello:napari.yaml</span>
 </pre></div>
 </div>
 </section>
@@ -682,7 +682,7 @@ and then run napari.  Note: we’re using <code class="docutils literal notransl
 package (in the current working directory) in <a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs">“editable” mode</a>.
 This means that changes we make to our package during development will be
 detected when we re-run napari, without having to run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> again.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install -e .
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 napari
 </pre></div>
 </div>
@@ -698,8 +698,8 @@ This will ask you a few questions about your new plugin, and
 autogenerate a package structure much like the one above. It additionally
 includes conveniences like testing, continuous integration, version
 management, and deployment hooks.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install cookiecutter
-cookiecutter https://github.com/napari/cookiecutter-napari-plugin
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cookiecutter
+cookiecutter<span class="w"> </span>https://github.com/napari/cookiecutter-napari-plugin
 </pre></div>
 </div>
 </section>

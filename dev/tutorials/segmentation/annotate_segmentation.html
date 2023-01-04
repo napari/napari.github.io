@@ -1624,7 +1624,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold determined via</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold determined via</span>
 <span class="sd">    Otsu&#39;s method.</span>
 
 <span class="sd">    Parameters</span>
@@ -1651,7 +1651,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">make_bbox</span><span class="p">(</span><span class="n">bbox_extents</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the coordinates of the corners of a</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the coordinates of the corners of a</span>
 <span class="sd">    bounding box from the extents</span>
 
 <span class="sd">    Parameters</span>
@@ -1680,7 +1680,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">circularity</span><span class="p">(</span><span class="n">perimeter</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the circularity of the region</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the circularity of the region</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1745,7 +1745,7 @@ function checkPageExistsAndRedirect(event) {
 <h2>Segmentation<a class="headerlink" href="#segmentation" title="Permalink to this headline">¶</a></h2>
 <p>We start by defining a function to perform segmentation of an image based on intensity. Based on the <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding.html">skimage segmentation example</a>, we determine the threshold intensity that separates the foreground and background pixels using <a class="reference external" href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu’s method</a>. We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">segment</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Segment an image using an intensity threshold</span>
 <span class="sd">    determined via Otsu&#39;s method.</span>
 
 <span class="sd">    Parameters</span>
@@ -1817,7 +1817,7 @@ function checkPageExistsAndRedirect(event) {
 </div>
 <p>Since we know the coins are circular, we want to calculate the circularity of each detected region. We define a function <code class="docutils literal notranslate"><span class="pre">circularity()</span></code> to determine the circularity of each region.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">circularity</span><span class="p">(</span><span class="n">perimeter</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the circularity of the region</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the circularity of the region</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1844,7 +1844,7 @@ function checkPageExistsAndRedirect(event) {
 </div>
 <p>We will use a napari shapes layer to visualize the bounding box of the segmentation. The napari shapes layer requires each shape to be defined by the coordinates of corner. Since regionprops returns the bounding box as a tuple of <code class="docutils literal notranslate"><span class="pre">(min_row,</span> <span class="pre">min_column,</span> <span class="pre">max_row,</span> <span class="pre">max_column)</span></code> we define a function <code class="docutils literal notranslate"><span class="pre">make_bbox()</span></code> to convert the regionprops bounding box to the napari shapes format.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_bbox</span><span class="p">(</span><span class="n">bbox_extents</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the coordinates of the corners of a</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the coordinates of the corners of a</span>
 <span class="sd">    bounding box from the extents</span>
 
 <span class="sd">    Parameters</span>

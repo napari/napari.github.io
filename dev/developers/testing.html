@@ -802,20 +802,20 @@ you don’t already have the test requirements in your environment, run <code cl
 <p>There are a very small number of tests (&lt;5) that require showing GUI elements, (such
 as testing screenshots). By default, these are only run during continuous integration.
 If you’d like to include them in local tests, set the environment variable “CI”:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">CI</span><span class="o">=</span><span class="m">1</span> pytest
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">CI</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>pytest
 </pre></div>
 </div>
 <section id="tips-for-speeding-up-local-testing">
 <h3>Tips for speeding up local testing<a class="headerlink" href="#tips-for-speeding-up-local-testing" title="Permalink to this headline">¶</a></h3>
 <p>Very often when developing new code, you don’t need or want to run the entire test suite (which can take many minutes to finish).  With <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, it’s easy to run a subset of your tests:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># run tests in a specific subdirectory</span>
-pytest napari/components
+pytest<span class="w"> </span>napari/components
 <span class="c1"># run tests in a specific file</span>
-pytest napari/components/_tests/test_add_layers.py
+pytest<span class="w"> </span>napari/components/_tests/test_add_layers.py
 <span class="c1"># run a specific test within a specific file</span>
-pytest napari/components/_tests/test_add_layers.py::test_add_layers_with_plugins
+pytest<span class="w"> </span>napari/components/_tests/test_add_layers.py::test_add_layers_with_plugins
 <span class="c1"># select tests based on substring match of test name:</span>
-pytest napari/layers/ -k <span class="s1">&#39;points and not bindings&#39;</span>
+pytest<span class="w"> </span>napari/layers/<span class="w"> </span>-k<span class="w"> </span><span class="s1">&#39;points and not bindings&#39;</span>
 </pre></div>
 </div>
 <p>In general, it pays to learn a few of the <a class="reference external" href="https://docs.pytest.org/en/latest/example/index.html">tips and tricks</a> of running pytest.</p>
@@ -824,13 +824,13 @@ pytest napari/layers/ -k <span class="s1">&#39;points and not bindings&#39;</spa
 <h3>Testing coverage locally<a class="headerlink" href="#testing-coverage-locally" title="Permalink to this headline">¶</a></h3>
 <p>We always aim for good <a class="reference external" href="https://en.wikipedia.org/wiki/Code_coverage">test coverage</a> and we use <a class="reference external" href="https://app.codecov.io/gh/napari/napari">codecov</a> during continuous integration to make sure we maintain good coverage.  If you’d like to test coverage locally as you develop new code, you can install <a class="reference external" href="https://github.com/pytest-dev/pytest-cov"><code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code></a> and take advantage of a few handy commands:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the full test suite with coverage</span>
-pytest --cov<span class="o">=</span>napari
+pytest<span class="w"> </span>--cov<span class="o">=</span>napari
 <span class="c1"># instead of coverage in the console, get a nice browser-based cov-report</span>
-pytest --cov<span class="o">=</span>napari --cov-report<span class="o">=</span>html
-open htmlcov/index.html  <span class="c1"># look at the report</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>napari<span class="w"> </span>--cov-report<span class="o">=</span>html
+open<span class="w"> </span>htmlcov/index.html<span class="w">  </span><span class="c1"># look at the report</span>
 <span class="c1"># run a subset of tests with coverage</span>
-pytest --cov<span class="o">=</span>napari.layers.shapes --cov-report<span class="o">=</span>html napari/layers/shapes
-open htmlcov/index.html  <span class="c1"># look at the report</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>napari.layers.shapes<span class="w"> </span>--cov-report<span class="o">=</span>html<span class="w"> </span>napari/layers/shapes
+open<span class="w"> </span>htmlcov/index.html<span class="w">  </span><span class="c1"># look at the report</span>
 </pre></div>
 </div>
 </section>

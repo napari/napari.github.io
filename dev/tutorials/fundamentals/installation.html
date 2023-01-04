@@ -1690,8 +1690,8 @@ napari into a clean virtual environment using an environment manager like
 <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">conda</a> or
 <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a>.</p>
 <p>This should be set up <em>before</em> you install napari. For example, with <code class="docutils literal notranslate"><span class="pre">conda</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda create -y -n napari-env -c conda-forge <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
-conda activate napari-env
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>napari-env<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+conda<span class="w"> </span>activate<span class="w"> </span>napari-env
 </pre></div>
 </div>
 </div>
@@ -1700,11 +1700,11 @@ conda activate napari-env
 <p class="admonition-title"><strong>1. From pip</strong></p>
 <p>napari can be installed on most macOS, Linux, and Windows systems with Python
 3.7, 3.8, and 3.9 using pip:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python -m pip install <span class="s2">&quot;napari[all]&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&quot;</span>
 </pre></div>
 </div>
 <p>You can then upgrade napari to a new version using</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python -m pip install <span class="s2">&quot;napari[all]&quot;</span> --upgrade
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[all]&quot;</span><span class="w"> </span>--upgrade
 </pre></div>
 </div>
 <p><em>(See <a class="reference internal" href="#choosing-a-different-qt-backend"><span class="std std-doc">Choosing a different Qt backend</span></a> below for an explanation of the <code class="docutils literal notranslate"><span class="pre">[all]</span></code>
@@ -1714,22 +1714,22 @@ notation.)</em></p>
 <p class="admonition-title"><strong>2. From conda-forge</strong></p>
 <p>If you prefer to manage packages with conda, napari is available on the
 conda-forge channel. You can install it with:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge napari
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>napari
 </pre></div>
 </div>
 <p>You can then upgrade to a new version of napari using</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda update napari
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>update<span class="w"> </span>napari
 </pre></div>
 </div>
 <p>If you want to install napari with PySide2 as the backend you need to install it using</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge <span class="s2">&quot;napari=*=*pyside2&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="s2">&quot;napari=*=*pyside2&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title"><strong>3. From the main branch on Github</strong></p>
 <p>To install the latest version with yet to be released features from github via pip, call</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python -m pip install <span class="s2">&quot;git+https://github.com/napari/napari.git#egg=napari[all]&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/napari/napari.git#egg=napari[all]&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -1759,10 +1759,10 @@ them.</p>
 <p>Running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;napari[all]&quot;</span></code> will install the default framework – currently
 PyQt5, but this could change in the future.</p>
 <p>To install napari with a specific framework, you can use:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install <span class="s2">&quot;napari[pyqt5]&quot;</span>    <span class="c1"># for PyQt5</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[pyqt5]&quot;</span><span class="w">    </span><span class="c1"># for PyQt5</span>
 
 <span class="c1"># OR</span>
-pip install <span class="s2">&quot;napari[pyside2]&quot;</span>  <span class="c1"># for PySide2</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;napari[pyside2]&quot;</span><span class="w">  </span><span class="c1"># for PySide2</span>
 </pre></div>
 </div>
 <div class="admonition note">

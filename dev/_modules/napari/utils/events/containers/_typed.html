@@ -291,7 +291,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="TypedMutableSequence"><a class="viewcode-back" href="../../../../../api/napari.utils.events.TypedMutableSequence.html#napari.utils.events.TypedMutableSequence">[docs]</a><span class="k">class</span> <span class="nc">TypedMutableSequence</span><span class="p">(</span><span class="n">MutableSequence</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;List mixin that enforces item type, and enables custom indexing.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List mixin that enforces item type, and enables custom indexing.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -381,7 +381,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>  <span class="c1"># noqa: F811</span>
-        <span class="sd">&quot;&quot;&quot;Get an item from the list</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get an item from the list</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -437,26 +437,26 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">new</span>
 
 <div class="viewcode-block" id="TypedMutableSequence.copy"><a class="viewcode-back" href="../../../../../api/napari.utils.events.TypedMutableSequence.html#napari.utils.events.TypedMutableSequence.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TypedMutableSequence[_T]&#39;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return a shallow copy of the list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a shallow copy of the list.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__newlike__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;TypedMutableSequence[_T]&#39;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add other to self, return new object.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add other to self, return new object.&quot;&quot;&quot;</span>
         <span class="n">copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">copy</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">copy</span>
 
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;TypedMutableSequence[_T]&#39;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add other to self in place (self += other).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add other to self in place (self += other).&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add other to self in place (self += other).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add other to self in place (self += other).&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">other</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TypedMutableSequence.index"><a class="viewcode-back" href="../../../../../api/napari.utils.events.TypedMutableSequence.html#napari.utils.events.TypedMutableSequence.index">[docs]</a>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_L</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return first index of value.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return first index of value.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -500,7 +500,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Iter indices from start to stop.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Iter indices from start to stop.</span>
 
 <span class="sd">        While this is trivial for this basic sequence type, this method lets</span>
 <span class="sd">        subclasses (like NestableEventedList modify how they are traversed).</span>

@@ -298,7 +298,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">ensure_tuple_index</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">MaybeNestedIndex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestedIndex</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return index as a tuple of ints or slices.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index as a tuple of ints or slices.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -330,7 +330,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">split_nested_index</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">MaybeNestedIndex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">ParentIndex</span><span class="p">,</span> <span class="n">Index</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Given a nested index, return (nested_parent_index, row).</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a nested index, return (nested_parent_index, row).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -371,7 +371,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="NestableEventedList"><a class="viewcode-back" href="../../../../../api/napari.utils.events.NestableEventedList.html#napari.utils.events.NestableEventedList">[docs]</a><span class="k">class</span> <span class="nc">NestableEventedList</span><span class="p">(</span><span class="n">EventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;Nestable Mutable Sequence that emits recursive events when altered.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Nestable Mutable Sequence that emits recursive events when altered.</span>
 
 <span class="sd">    ``NestableEventedList`` instances can be indexed with a ``tuple`` of</span>
 <span class="sd">    ``int`` (e.g. ``mylist[0, 2, 1]``) to retrieve nested child objects.</span>
@@ -494,7 +494,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_delitem_indices</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
 <div class="viewcode-block" id="NestableEventedList.insert"><a class="viewcode-back" href="../../../../../api/napari.utils.events.NestableEventedList.html#napari.utils.events.NestableEventedList.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Insert object before index.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert object before index.&quot;&quot;&quot;</span>
         <span class="c1"># this is delicate, we want to preserve the evented list when nesting</span>
         <span class="c1"># but there is a high risk here of clobbering attributes of a special</span>
         <span class="c1"># child class</span>
@@ -503,7 +503,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_reemit_child_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;An item in the list emitted an event.  Re-emit with index&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;An item in the list emitted an event.  Re-emit with index&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">):</span>
             <span class="c1"># This event is coming from a nested List...</span>
             <span class="c1"># update the index as a nested index.</span>
@@ -516,7 +516,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_non_negative_index</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">parent_index</span><span class="p">:</span> <span class="n">ParentIndex</span><span class="p">,</span> <span class="n">dest_index</span><span class="p">:</span> <span class="n">Index</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Index</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Make sure dest_index is a positive index inside parent_index.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make sure dest_index is a positive index inside parent_index.&quot;&quot;&quot;</span>
         <span class="n">destination_group</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">parent_index</span><span class="p">]</span>
         <span class="c1"># not handling slice indexes</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_index</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dest_index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -526,7 +526,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_move_plan</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sources</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">MaybeNestedIndex</span><span class="p">],</span> <span class="n">dest_index</span><span class="p">:</span> <span class="n">NestedIndex</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">NestedIndex</span><span class="p">,</span> <span class="n">NestedIndex</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Prepared indices for a complicated nested multi-move.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepared indices for a complicated nested multi-move.</span>
 
 <span class="sd">        Given a set of possibly-nested ``sources`` from anywhere in the tree,</span>
 <span class="sd">        and a single ``dest_index``, this function computes and yields</span>
@@ -635,7 +635,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">src_index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NestedIndex</span><span class="p">],</span>
         <span class="n">dest_index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NestedIndex</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Move a single item from ``src_index`` to ``dest_index``.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Move a single item from ``src_index`` to ``dest_index``.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -721,7 +721,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">e</span>
 
     <span class="k">def</span> <span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="p">()):</span>
-        <span class="sd">&quot;&quot;&quot;Iter indices from start to stop.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Iter indices from start to stop.</span>
 
 <span class="sd">        Depth first traversal of the tree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -731,7 +731,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">yield from</span> <span class="n">item</span><span class="o">.</span><span class="n">_iter_indices</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">root</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="p">,))</span>
 
 <div class="viewcode-block" id="NestableEventedList.has_index"><a class="viewcode-back" href="../../../../../api/napari.utils.events.NestableEventedList.html#napari.utils.events.NestableEventedList.has_index">[docs]</a>    <span class="k">def</span> <span class="nf">has_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return true if `index` is valid for this nestable list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if `index` is valid for this nestable list.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">return</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>

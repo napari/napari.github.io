@@ -333,7 +333,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="Shapes"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes">[docs]</a><span class="k">class</span> <span class="nc">Shapes</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Shapes layer.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Shapes layer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -829,7 +829,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_initialize_current_color_for_empty_layer</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">ColorType</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize current_{edge,face}_color when starting with empty layer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize current_{edge,face}_color when starting with empty layer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -873,7 +873,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list: Each element is an (N, D) array of the vertices of a shape.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Each element is an (N, D) array of the vertices of a shape.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">data</span>
 
     <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
@@ -941,7 +941,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Dataframe-like features table.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dataframe-like features table.</span>
 
 <span class="sd">        It is an implementation detail that this is a `pandas.DataFrame`. In the future,</span>
 <span class="sd">        we will target the currently-in-development Data API dataframe protocol [1].</span>
@@ -994,7 +994,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">feature_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Dataframe-like with one row of feature default values.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dataframe-like with one row of feature default values.</span>
 
 <span class="sd">        See `features` for more details on the type of this property.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1002,7 +1002,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;dict {str: np.ndarray (N,)}, DataFrame: Annotations for each shape&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;dict {str: np.ndarray (N,)}, DataFrame: Annotations for each shape&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
 
     <span class="nd">@properties</span><span class="o">.</span><span class="n">setter</span>
@@ -1014,7 +1014,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">choices</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1023,7 +1023,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_extent_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1039,12 +1039,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nshapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;int: Total number of shapes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;int: Total number of shapes.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shapes</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;float: Width of shape edges including lines and paths.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: Width of shape edges including lines and paths.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_width</span>
 
     <span class="nd">@current_edge_width</span><span class="o">.</span><span class="n">setter</span>
@@ -1057,7 +1057,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;str: color of shape edges including lines and paths.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: color of shape edges including lines and paths.&quot;&quot;&quot;</span>
         <span class="n">hex_</span> <span class="o">=</span> <span class="n">rgb_to_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_color</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">hex_to_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hex_</span><span class="p">,</span> <span class="n">hex_</span><span class="p">)</span>
 
@@ -1073,7 +1073,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;str: color of shape faces.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: color of shape faces.&quot;&quot;&quot;</span>
         <span class="n">hex_</span> <span class="o">=</span> <span class="n">rgb_to_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_face_color</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">hex_to_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hex_</span><span class="p">,</span> <span class="n">hex_</span><span class="p">)</span>
 
@@ -1089,7 +1089,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;dict{str: np.ndarray(1,)}: properties for the next added shape.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;dict{str: np.ndarray(1,)}: properties for the next added shape.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">currents</span><span class="p">()</span>
 
     <span class="nd">@current_properties</span><span class="o">.</span><span class="n">setter</span>
@@ -1113,7 +1113,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shape_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list of str: name of shape type for each shape.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list of str: name of shape type for each shape.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shape_types</span>
 
     <span class="nd">@shape_type</span><span class="o">.</span><span class="n">setter</span>
@@ -1137,7 +1137,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;(N x 4) np.ndarray: Array of RGBA face colors for each shape&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N x 4) np.ndarray: Array of RGBA face colors for each shape&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">edge_color</span>
 
     <span class="nd">@edge_color</span><span class="o">.</span><span class="n">setter</span>
@@ -1148,7 +1148,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Union[list, np.ndarray] :  Color cycle for edge_color.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Union[list, np.ndarray] :  Color cycle for edge_color.</span>
 
 <span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1160,7 +1160,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Colormap</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return the colormap to be applied to a property to get the edge color.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the colormap to be applied to a property to get the edge color.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1175,7 +1175,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;None, (float, float): contrast limits for mapping</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;None, (float, float): contrast limits for mapping</span>
 <span class="sd">        the edge_color colormap property to 0 and 1</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_contrast_limits</span>
@@ -1188,7 +1188,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;str: Edge color setting mode</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Edge color setting mode</span>
 
 <span class="sd">        DIRECT (default mode) allows each shape color to be set arbitrarily</span>
 
@@ -1204,7 +1204,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;(N x 4) np.ndarray: Array of RGBA face colors for each shape&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N x 4) np.ndarray: Array of RGBA face colors for each shape&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">face_color</span>
 
     <span class="nd">@face_color</span><span class="o">.</span><span class="n">setter</span>
@@ -1215,7 +1215,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Union[np.ndarray, cycle]:  Color cycle for face_color</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Union[np.ndarray, cycle]:  Color cycle for face_color</span>
 <span class="sd">        Can be a list of colors defined by name, RGB or RGBA</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_color_cycle_values</span>
@@ -1226,7 +1226,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Colormap</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return the colormap to be applied to a property to get the face color.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the colormap to be applied to a property to get the face color.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1241,7 +1241,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_contrast_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;None, (float, float) : clims for mapping the face_color</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;None, (float, float) : clims for mapping the face_color</span>
 <span class="sd">        colormap property to 0 and 1</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_face_contrast_limits</span>
@@ -1254,7 +1254,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">face_color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;str: Face color setting mode</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Face color setting mode</span>
 
 <span class="sd">        DIRECT (default mode) allows each shape color to be set arbitrarily</span>
 
@@ -1271,7 +1271,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_set_color_mode</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ColorMode</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the face_color_mode or edge_color_mode property</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the face_color_mode or edge_color_mode property</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1328,7 +1328,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_set_color_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_cycle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the face_color_cycle or edge_color_cycle property</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the face_color_cycle or edge_color_cycle property</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1353,12 +1353,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list of float: edge width for each shape.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list of float: edge width for each shape.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">edge_widths</span>
 
     <span class="nd">@edge_width</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set edge width of shapes using float or list of float.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set edge width of shapes using float or list of float.</span>
 
 <span class="sd">        If list of float, must be of equal length to n shapes</span>
 
@@ -1382,12 +1382,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">z_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list of int: z_index for each shape.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list of int: z_index for each shape.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">z_indices</span>
 
     <span class="nd">@z_index</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">z_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z_index</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set z_index of shape using either int or list of int.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set z_index of shape using either int or list of int.</span>
 
 <span class="sd">        When list of int is provided, must be of equal length to n shapes.</span>
 
@@ -1411,7 +1411,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">selected_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;set: set of currently selected shapes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;set: set of currently selected shapes.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span>
 
     <span class="nd">@selected_data</span><span class="o">.</span><span class="n">setter</span>
@@ -1463,7 +1463,7 @@ function checkPageExistsAndRedirect(event) {
                     <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">unique_properties</span>
 
     <span class="k">def</span> <span class="nf">_set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the face_color or edge_color property</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the face_color or edge_color property</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1502,7 +1502,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">color_event</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Shapes.refresh_colors"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.refresh_colors">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate and update face and edge colors if using a cycle or color map</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate and update face and edge colors if using a cycle or color map</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1521,7 +1521,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_refresh_color</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate and update face or edge colors if using a cycle or color map</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate and update face or edge colors if using a cycle or color map</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1546,7 +1546,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">color_event</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_initialize_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">n_shapes</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the face/edge colors the Shapes layer will be initialized with</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the face/edge colors the Shapes layer will be initialized with</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1590,7 +1590,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">init_colors</span>
 
     <span class="k">def</span> <span class="nf">_map_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update_color_mapping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate the mapping for face or edge colors if using a cycle or color map</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the mapping for face or edge colors if using a cycle or color map</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1676,7 +1676,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">colors</span>
 
     <span class="k">def</span> <span class="nf">_get_new_shape_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adding</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the color for the shape(s) to be added.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the color for the shape(s) to be added.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1731,7 +1731,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">new_colors</span>
 
     <span class="k">def</span> <span class="nf">_is_color_mapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;determines if the new color argument is for directly setting or cycle/colormap&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;determines if the new color argument is for directly setting or cycle/colormap&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">color</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">True</span>
@@ -1748,7 +1748,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1786,7 +1786,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Get the values of the text elements in view</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the values of the text elements in view</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1800,7 +1800,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_text_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the coordinates of the text elements in view</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the coordinates of the text elements in view</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1831,13 +1831,13 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Get the colors of the text elements at the given indices.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the colors of the text elements at the given indices.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_view_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;MODE: Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;MODE: Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
 <span class="sd">        allows for normal interactivity with the canvas.</span>
 
 <span class="sd">        The SELECT mode allows for entire shapes to be selected, moved and</span>
@@ -1889,7 +1889,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_set_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set editable mode based on layer properties.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set editable mode based on layer properties.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">editable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1908,7 +1908,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">face_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add rectangles to the current layer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add rectangles to the current layer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1966,7 +1966,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">face_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add ellipses to the current layer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add ellipses to the current layer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2024,7 +2024,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">face_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add polygons to the current layer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add polygons to the current layer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2079,7 +2079,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">face_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add lines to the current layer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add lines to the current layer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2135,7 +2135,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">face_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add paths to the current layer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add paths to the current layer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2191,7 +2191,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">face_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add shapes to the current layer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add shapes to the current layer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2281,7 +2281,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">face_contrast_limits</span><span class="p">,</span>
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add shapes to the data view.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add shapes to the data view.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2370,7 +2370,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z_refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add shapes to the data view.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add shapes to the data view.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2469,7 +2469,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_add_shapes_to_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape_inputs</span><span class="p">,</span> <span class="n">data_view</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Build new shapes and add them to the _data_view&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build new shapes and add them to the _data_view&quot;&quot;&quot;</span>
 
         <span class="n">shape_inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape_inputs</span><span class="p">)</span>
 
@@ -2503,7 +2503,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TextManager</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;TextManager: The TextManager object containing the text properties&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;TextManager: The TextManager object containing the text properties&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text</span>
 
     <span class="nd">@text</span><span class="o">.</span><span class="n">setter</span>
@@ -2514,14 +2514,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Shapes.refresh_text"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.refresh_text">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Refresh the text values.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh the text values.</span>
 
 <span class="sd">        This is generally used if the properties were updated without changing the data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the view given the slicing indices.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the view given the slicing indices.&quot;&quot;&quot;</span>
         <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ndisplay</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -2544,7 +2544,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">slice_key</span>
 
 <div class="viewcode-block" id="Shapes.interaction_box"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.interaction_box">[docs]</a>    <span class="k">def</span> <span class="nf">interaction_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create the interaction box around a shape or list of shapes.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the interaction box around a shape or list of shapes.</span>
 <span class="sd">        If a single index is passed then the boudning box will be inherited</span>
 <span class="sd">        from that shapes interaction box. If list of indices is passed it will</span>
 <span class="sd">        be computed directly.</span>
@@ -2593,7 +2593,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">box</span></div>
 
     <span class="k">def</span> <span class="nf">_outline_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Find outlines of any selected or hovered shapes.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find outlines of any selected or hovered shapes.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -2629,7 +2629,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span>
 
     <span class="k">def</span> <span class="nf">_compute_vertices_and_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute location of highlight vertices and box for rendering.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute location of highlight vertices and box for rendering.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -2721,7 +2721,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">face_color</span><span class="p">,</span> <span class="n">edge_color</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">width</span>
 
     <span class="k">def</span> <span class="nf">_set_highlight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Render highlights of shapes.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Render highlights of shapes.</span>
 
 <span class="sd">        Includes boundaries, vertices, interaction boxes, and the drag</span>
 <span class="sd">        selection box when appropriate.</span>
@@ -2744,7 +2744,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">highlight</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_finish_drawing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reset properties used in shape drawing.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset properties used in shape drawing.&quot;&quot;&quot;</span>
         <span class="n">index</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_moving_value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_moving</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -2771,7 +2771,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Shapes.block_thumbnail_update"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.block_thumbnail_update">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">block_thumbnail_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Use this context manager to block thumbnail updates&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this context manager to block thumbnail updates&quot;&quot;&quot;</span>
         <span class="n">previous</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_thumbnail_update</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_allow_thumbnail_update</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">try</span><span class="p">:</span>
@@ -2780,7 +2780,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_allow_thumbnail_update</span> <span class="o">=</span> <span class="n">previous</span></div>
 
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update thumbnail with current shapes and colors.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current shapes and colors.&quot;&quot;&quot;</span>
         <span class="c1"># Set the thumbnail to black, opacity 1</span>
         <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">)</span>
         <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -2816,7 +2816,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
 
 <div class="viewcode-block" id="Shapes.remove_selected"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.remove_selected">[docs]</a>    <span class="k">def</span> <span class="nf">remove_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Remove any selected shapes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove any selected shapes.&quot;&quot;&quot;</span>
         <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
         <span class="n">to_remove</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">to_remove</span><span class="p">:</span>
@@ -2836,7 +2836,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_rotate_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;Perform a rotation on the selected box.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a rotation on the selected box.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2853,7 +2853,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span> <span class="o">=</span> <span class="n">box</span> <span class="o">@</span> <span class="n">transform</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">center</span>
 
     <span class="k">def</span> <span class="nf">_scale_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;Perform a scaling on the selected box.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a scaling on the selected box.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2874,7 +2874,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span> <span class="o">=</span> <span class="n">box</span> <span class="o">+</span> <span class="n">center</span>
 
     <span class="k">def</span> <span class="nf">_transform_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;Perform a linear transformation on the selected box.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a linear transformation on the selected box.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2893,7 +2893,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span> <span class="o">=</span> <span class="n">box</span> <span class="o">+</span> <span class="n">center</span>
 
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2968,7 +2968,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">end_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the layer data value along a ray</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the layer data value along a ray</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -3000,7 +3000,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">end_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the shape index and intersection point of the first shape</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the shape index and intersection point of the first shape</span>
 <span class="sd">        (i.e., closest to start_point) along the specified 3D line segment.</span>
 
 <span class="sd">        Note: this method is meant to be used for 3D intersection and returns</span>
@@ -3055,7 +3055,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">view_direction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the shape index and intersection point of the first shape</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the shape index and intersection point of the first shape</span>
 <span class="sd">        (i.e., closest to start_point) &quot;under&quot; a mouse click.</span>
 
 <span class="sd">        See examples/add_points_on_nD_shapes.py for example usage.</span>
@@ -3095,7 +3095,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">shape_index</span><span class="p">,</span> <span class="n">intersection_point</span></div>
 
 <div class="viewcode-block" id="Shapes.move_to_front"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.move_to_front">[docs]</a>    <span class="k">def</span> <span class="nf">move_to_front</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Moves selected objects to be displayed in front of all others.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Moves selected objects to be displayed in front of all others.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">new_z_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_z_index</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -3104,7 +3104,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Shapes.move_to_back"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.move_to_back">[docs]</a>    <span class="k">def</span> <span class="nf">move_to_back</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Moves selected objects to be displayed behind all others.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Moves selected objects to be displayed behind all others.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">new_z_index</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_z_index</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
@@ -3113,7 +3113,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_copy_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Copy selected shapes to clipboard.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Copy selected shapes to clipboard.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{</span>
@@ -3131,7 +3131,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="nf">_paste_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Paste any shapes from clipboard and then selects them.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Paste any shapes from clipboard and then selects them.&quot;&quot;&quot;</span>
         <span class="n">cur_shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># Calculate offset based on dimension shifts</span>
@@ -3163,7 +3163,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">move_to_front</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Shapes.to_masks"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.to_masks">[docs]</a>    <span class="k">def</span> <span class="nf">to_masks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return an array of binary masks, one for each shape.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an array of binary masks, one for each shape.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -3189,7 +3189,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">masks</span></div>
 
 <div class="viewcode-block" id="Shapes.to_labels"><a class="viewcode-back" href="../../../../api/napari.layers.Shapes.html#napari.layers.Shapes.to_labels">[docs]</a>    <span class="k">def</span> <span class="nf">to_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return an integer labels image.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an integer labels image.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>

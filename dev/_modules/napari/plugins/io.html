@@ -290,7 +290,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">stack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HookImplementation</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Iterate reader hooks and return first non-None LayerData or None.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Iterate reader hooks and return first non-None LayerData or None.</span>
 
 <span class="sd">    This function returns as soon as the path has been read successfully,</span>
 <span class="sd">    while catching any plugin exceptions, storing them for later retrieval,</span>
@@ -437,7 +437,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_writer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Write list of layers or individual layer to a path using writer plugins.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write list of layers or individual layer to a path using writer plugins.</span>
 
 <span class="sd">    If ``plugin`` is not provided and only one layer is passed, then we</span>
 <span class="sd">    directly call ``plugin_manager.hook.napari_write_&lt;layer&gt;()`` which</span>
@@ -525,7 +525,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_is_null_layer_sentinel</span><span class="p">(</span><span class="n">layer_data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Checks if the layer data returned from a reader function indicates an</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Checks if the layer data returned from a reader function indicates an</span>
 <span class="sd">    empty file. The sentinel value used for this is ``[(None,)]``.</span>
 
 <span class="sd">    Parameters</span>
@@ -554,7 +554,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">plugin_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_writer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Write data from multiple layers data with a plugin.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write data from multiple layers data with a plugin.</span>
 
 <span class="sd">    If a ``plugin_name`` is not provided we loop through plugins to find the</span>
 <span class="sd">    first one that knows how to handle the combination of layers and is able to</span>
@@ -668,7 +668,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">plugin_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">_writer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterContribution</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Write single layer data with a plugin.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write single layer data with a plugin.</span>
 
 <span class="sd">    If ``plugin_name`` is not provided then we just directly call</span>
 <span class="sd">    ``plugin_manager.hook.napari_write_&lt;layer&gt;()`` which will loop through</span>

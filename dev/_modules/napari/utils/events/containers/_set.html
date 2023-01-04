@@ -278,7 +278,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="EventedSet"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet">[docs]</a><span class="k">class</span> <span class="nc">EventedSet</span><span class="p">(</span><span class="n">MutableSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;An unordered collection of unique elements.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An unordered collection of unique elements.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -327,14 +327,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="n">added</span><span class="p">,</span> <span class="n">removed</span><span class="o">=</span><span class="n">removed</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventedSet.add"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add an element to the set, if not already present.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an element to the set, if not already present.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pre_add_hook</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_emit_change</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="p">{</span><span class="n">value</span><span class="p">},</span> <span class="n">removed</span><span class="o">=</span><span class="p">{})</span></div>
 
 <div class="viewcode-block" id="EventedSet.discard"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.discard">[docs]</a>    <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Remove an element from a set if it is a member.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove an element from a set if it is a member.</span>
 
 <span class="sd">        If the element is not a member, do nothing.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -363,7 +363,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
 
 <div class="viewcode-block" id="EventedSet.update"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Update this set with the union of this set and others&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update this set with the union of this set and others&quot;&quot;&quot;</span>
         <span class="n">to_add</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">others</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">to_add</span><span class="p">:</span>
             <span class="n">to_add</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_pre_add_hook</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_add</span><span class="p">}</span>
@@ -371,42 +371,42 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_emit_change</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">to_add</span><span class="p">),</span> <span class="n">removed</span><span class="o">=</span><span class="p">{})</span></div>
 
 <div class="viewcode-block" id="EventedSet.copy"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return a shallow copy of this set.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a shallow copy of this set.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EventedSet.difference"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.difference">[docs]</a>    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return set of all elements that are in this set but not other.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return set of all elements that are in this set but not other.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="EventedSet.difference_update"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.difference_update">[docs]</a>    <span class="k">def</span> <span class="nf">difference_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Remove all elements of another set from this set.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all elements of another set from this set.&quot;&quot;&quot;</span>
         <span class="n">to_remove</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">others</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">to_remove</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">difference_update</span><span class="p">(</span><span class="n">to_remove</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_emit_change</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="p">{},</span> <span class="n">removed</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">to_remove</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="EventedSet.intersection"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.intersection">[docs]</a>    <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return all elements that are in both sets as a new set.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return all elements that are in both sets as a new set.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="EventedSet.intersection_update"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.intersection_update">[docs]</a>    <span class="k">def</span> <span class="nf">intersection_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Remove all elements of in this set that are not present in other.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all elements of in this set that are not present in other.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">difference_update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="EventedSet.issubset"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.issubset">[docs]</a>    <span class="k">def</span> <span class="nf">issubset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns whether another set contains this set or not&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns whether another set contains this set or not&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">others</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EventedSet.issuperset"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.issuperset">[docs]</a>    <span class="k">def</span> <span class="nf">issuperset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns whether this set contains another set or not&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns whether this set contains another set or not&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="n">others</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EventedSet.symmetric_difference"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.symmetric_difference">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Returns set of elements that are in exactly one of the sets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns set of elements that are in exactly one of the sets&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="EventedSet.symmetric_difference_update"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.symmetric_difference_update">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_difference_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Update set to the symmetric difference of itself and another.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update set to the symmetric difference of itself and another.</span>
 
 <span class="sd">        This will remove any items in this set that are also in `other`, and</span>
 <span class="sd">        add any items in others that are not present in this set.</span>
@@ -418,7 +418,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_emit_change</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="n">to_add</span><span class="p">,</span> <span class="n">removed</span><span class="o">=</span><span class="n">to_remove</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EventedSet.union"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="n">EventedSet</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return a set containing the union of sets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a set containing the union of sets&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">others</span><span class="p">))</span></div>
 
     <span class="nd">@classmethod</span>
@@ -427,7 +427,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="EventedSet.validate"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.validate">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">ModelField</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Pydantic validator.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pydantic validator.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">pydantic.utils</span> <span class="kn">import</span> <span class="n">sequence_like</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">sequence_like</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
@@ -454,7 +454,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_json_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return an object that can be used by json.dumps.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an object that can be used by json.dumps.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 </pre></div>
 

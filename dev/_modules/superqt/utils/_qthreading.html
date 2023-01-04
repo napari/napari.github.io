@@ -319,7 +319,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">def</span> <span class="nf">as_generator_function</span><span class="p">(</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">_R</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">_P</span><span class="p">,</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_R</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Turns a regular function (single return) into a generator function.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Turns a regular function (single return) into a generator function.&quot;&quot;&quot;</span>
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">genwrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_R</span><span class="p">]:</span>
@@ -340,7 +340,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="WorkerBase"><a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase">[docs]</a><span class="k">class</span> <span class="nc">WorkerBase</span><span class="p">(</span><span class="n">QRunnable</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">_R</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;Base class for creating a Worker that can run in another thread.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for creating a Worker that can run in another thread.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -372,7 +372,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">signals</span> <span class="o">=</span> <span class="n">SignalsClass</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SigInst</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Pass through attr requests to signals to simplify connection API.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pass through attr requests to signals to simplify connection API.</span>
 
 <span class="sd">        The goal is to enable `worker.yielded.connect` instead of</span>
 <span class="sd">        `worker.signals.yielded.connect`. Because multiple inheritance of Qt</span>
@@ -393,7 +393,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
 <div class="viewcode-block" id="WorkerBase.quit"><a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Send a request to abort the worker.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a request to abort the worker.</span>
 
 <span class="sd">        !!! note</span>
 <span class="sd">            It is entirely up to subclasses to honor this method by checking</span>
@@ -404,16 +404,16 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">abort_requested</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Whether the worker has been requested to stop.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the worker has been requested to stop.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abort_requested</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Whether the worker has been started.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the worker has been started.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span>
 
 <div class="viewcode-block" id="WorkerBase.run"><a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Start the worker.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the worker.</span>
 
 <span class="sd">        The end-user should never need to call this function.</span>
 <span class="sd">        But it cannot be made private or renamed, since it is called by Qt.</span>
@@ -464,7 +464,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_finished</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="WorkerBase.work"><a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.work">[docs]</a>    <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="ne">Exception</span> <span class="o">|</span> <span class="n">_R</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Main method to execute the worker.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method to execute the worker.</span>
 
 <span class="sd">        The end-user should never need to call this function.</span>
 <span class="sd">        But subclasses must implement this method (See</span>
@@ -494,7 +494,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="WorkerBase.start"><a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Start this worker in a thread and add it to the global threadpool.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start this worker in a thread and add it to the global threadpool.</span>
 
 <span class="sd">        The order of method calls when starting a worker is:</span>
 
@@ -529,7 +529,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="WorkerBase.await_workers"><a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBase.html#napari.qt.threading.WorkerBase.await_workers">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">await_workers</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">msecs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Ask all workers to quit, and wait up to `msec` for quit.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ask all workers to quit, and wait up to `msec` for quit.</span>
 
 <span class="sd">        Attempts to clean up all running workers by calling `worker.quit()`</span>
 <span class="sd">        method.  Any workers in the `WorkerBase._worker_set` set will have this</span>
@@ -584,7 +584,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">class</span> <span class="nc">FunctionWorker</span><span class="p">(</span><span class="n">WorkerBase</span><span class="p">[</span><span class="n">_R</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;QRunnable with signals that wraps a simple long-running function.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;QRunnable with signals that wraps a simple long-running function.</span>
 
 <span class="sd">    !!! note</span>
 <span class="sd">        `FunctionWorker` does not provide a way to stop a very long-running</span>
@@ -632,7 +632,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">class</span> <span class="nc">GeneratorWorker</span><span class="p">(</span><span class="n">WorkerBase</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">_Y</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">_R</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;QRunnable with signals that wraps a long-running generator.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;QRunnable with signals that wraps a long-running generator.</span>
 
 <span class="sd">    Provides a convenient way to run a generator function in another thread,</span>
 <span class="sd">    while allowing 2-way communication between threads, using plain-python</span>
@@ -681,7 +681,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="GeneratorWorker.work"><a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.work">[docs]</a>    <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_R</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Core event loop that calls the original function.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Core event loop that calls the original function.</span>
 
 <span class="sd">        Enters a continual loop, yielding and returning from the original</span>
 <span class="sd">        function.  Checks for various events (quit, pause, resume, etc...).</span>
@@ -718,7 +718,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="GeneratorWorker.send"><a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_S</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Send a value into the function (if a generator was used).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a value into the function (if a generator was used).&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_incoming_value</span> <span class="o">=</span> <span class="n">value</span></div>
 
     <span class="k">def</span> <span class="nf">_next_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_S</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
@@ -730,23 +730,23 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_paused</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Whether the worker is currently paused.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the worker is currently paused.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span>
 
 <div class="viewcode-block" id="GeneratorWorker.toggle_pause"><a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.toggle_pause">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Request to pause the worker if playing or resume if paused.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Request to pause the worker if playing or resume if paused.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_resume_requested</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pause_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="GeneratorWorker.pause"><a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Request to pause the worker.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Request to pause the worker.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pause_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="GeneratorWorker.resume"><a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Send a request to resume the worker.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a request to resume the worker.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_resume_requested</span> <span class="o">=</span> <span class="kc">True</span></div>
 
@@ -791,7 +791,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">_ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FunctionWorker</span> <span class="o">|</span> <span class="n">GeneratorWorker</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Convenience function to start a function in another thread.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to start a function in another thread.</span>
 
 <span class="sd">    By default, uses `FunctionWorker` for functions and `GeneratorWorker` for</span>
 <span class="sd">    generators, but a custom `WorkerBase` subclass may be provided.  If so, it must be a</span>
@@ -929,7 +929,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">worker_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ignore_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Decorator that runs a function in a separate thread when called.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator that runs a function in a separate thread when called.</span>
 
 <span class="sd">    When called, the decorated function returns a</span>
 <span class="sd">    [`WorkerBase`][superqt.utils.WorkerBase].  See</span>
@@ -1067,7 +1067,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">_connect</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Convenience function to start a worker in a `QThread`.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to start a worker in a `QThread`.</span>
 
 <span class="sd">    thread, not as the actual code or object that runs in that</span>
 <span class="sd">    thread.  The QThread object is created on the main thread and lives there.</span>

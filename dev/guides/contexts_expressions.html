@@ -1791,9 +1791,9 @@ plugin might only want to provide a function if “the active layer has at least
 dimensions”. For this, napari recognizes the name <code class="docutils literal notranslate"><span class="pre">&quot;active_layer_ndim&quot;</span></code> used
 in an expression. In a plugin manifest, the plugin can provide a <em>when clause</em>
 to enable/disable a given command:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">command</span><span class="p">:</span><span class="w"></span>
-<span class="w">   </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myplugin.my_command</span><span class="w"></span>
-<span class="w">   </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">active_layer_ndim &gt;= 3</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">command</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myplugin.my_command</span>
+<span class="w">   </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">active_layer_ndim &gt;= 3</span>
 </pre></div>
 </div>
 <p>Some example context key names (currently) include:</p>
@@ -2026,10 +2026,10 @@ selected image is a (non-RGB) <code class="docutils literal notranslate"><span c
 express conditions.  For example, this plugin manifest offers up a command
 (just a callable) that is only enabled when the the active layer is an RGB
 image.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_plugin</span><span class="w"></span>
-<span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_plugin.some_command</span><span class="w"></span>
-<span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">active_layer_is_rgb</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_plugin</span>
+<span class="nt">commands</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_plugin.some_command</span>
+<span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">active_layer_is_rgb</span>
 </pre></div>
 </div>
 <p>When this manifest is parsed, those expressions will be converted into

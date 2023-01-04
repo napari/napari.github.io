@@ -367,7 +367,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
 <span class="k">def</span> <span class="nf">center_cross_on_mouse</span><span class="p">(</span>
     <span class="n">viewer_model</span><span class="p">:</span> <a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">viewer_model</span><span class="o">.</span><span class="n">ViewerModel</span></a><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;move the cross to the mouse position&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;move the cross to the mouse position&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">viewer_model</span><span class="p">,</span> <span class="s2">&quot;mouse_over_canvas&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
         <span class="c1"># There is no way for napari 0.4.15 to check if mouse is over sending canvas.</span>
@@ -399,7 +399,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
 
 
 <span class="k">class</span> <span class="nc">own_partial</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Workaround for deepcopy not copying partial functions</span>
 <span class="sd">    (Qt widgets are not serializable)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -433,14 +433,14 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
         <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;for drag and drop open files&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;for drag and drop open files&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_qt_open</span><span class="p">(</span>
             <span class="n">filenames</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="n">plugin</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">CrossWidget</span><span class="p">(</span><span class="n">QCheckBox</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Widget to control the cross layer. because of the performance reason</span>
 <span class="sd">    the cross update is throttled</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -461,7 +461,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
 
     <span class="nd">@qthrottled</span><span class="p">(</span><span class="n">leading</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_update_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the extent of the data.</span>
 
 <span class="sd">        Ignores the the cross layer itself in calculating the extent.</span>
@@ -522,7 +522,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
 
 
 <span class="k">class</span> <span class="nc">ExampleWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dummy widget showcasing how to place additional widgets to the right</span>
 <span class="sd">    of the additional viewers.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -539,7 +539,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
 
 
 <span class="k">class</span> <span class="nc">MultipleViewerWidget</span><span class="p">(</span><span class="n">QSplitter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The main widget of the example.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The main widget of the example.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -585,7 +585,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model2</span><span class="o">.</span><span class="n">reset_view</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_layer_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        update of current active layer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block</span><span class="p">:</span>
@@ -623,7 +623,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model2</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
 
     <span class="k">def</span> <span class="nf">_layer_added</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;add layer to additional viewers and connect all required events&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;add layer to additional viewers and connect all required events&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model1</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
             <span class="n">event</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">copy_layer</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;model1&quot;</span><span class="p">)</span>
         <span class="p">)</span>
@@ -656,13 +656,13 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_order_update</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_sync_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;sync name of layers&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;sync name of layers&quot;&quot;&quot;</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model1</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model2</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span>
 
     <span class="k">def</span> <span class="nf">_sync_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;sync data modification from additional viewers&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;sync data modification from additional viewers&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model2</span><span class="p">]:</span>
@@ -676,7 +676,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_set_data_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        synchronize data refresh between layers</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block</span><span class="p">:</span>
@@ -692,12 +692,12 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_layer_removed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;remove layer in all viewers&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;remove layer in all viewers&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model1</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model2</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_layer_moved</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;update order of layers&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;update order of layers&quot;&quot;&quot;</span>
         <span class="n">dest_index</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">event</span><span class="o">.</span><span class="n">new_index</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">new_index</span> <span class="o">&lt;</span> <span class="n">event</span><span class="o">.</span><span class="n">index</span>
@@ -707,7 +707,7 @@ current dims point (<cite>viewer.dims.point</cite>).</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer_model2</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dest_index</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_property_sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sync layers properties (except the name)&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sync layers properties (except the name)&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">try</span><span class="p">:</span>

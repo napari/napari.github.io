@@ -310,7 +310,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="NotificationSeverity"><a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationSeverity.html#napari.utils.notifications.NotificationSeverity">[docs]</a><span class="k">class</span> <span class="nc">NotificationSeverity</span><span class="p">(</span><span class="n">StringEnum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Severity levels for the notification dialog.  Along with icons for each.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Severity levels for the notification dialog.  Along with icons for each.&quot;&quot;&quot;</span>
 
     <span class="n">ERROR</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">WARNING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
@@ -350,7 +350,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="Notification"><a class="viewcode-back" href="../../../api/napari.utils.notifications.Notification.html#napari.utils.notifications.Notification">[docs]</a><span class="k">class</span> <span class="nc">Notification</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A Notifcation event.  Usually created by :class:`NotificationManager`.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A Notifcation event.  Usually created by :class:`NotificationManager`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -404,7 +404,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="ErrorNotification"><a class="viewcode-back" href="../../../api/napari.utils.notifications.ErrorNotification.html#napari.utils.notifications.ErrorNotification">[docs]</a><span class="k">class</span> <span class="nc">ErrorNotification</span><span class="p">(</span><span class="n">Notification</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Notification at an Error severity level.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -451,7 +451,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="WarningNotification"><a class="viewcode-back" href="../../../api/napari.utils.notifications.WarningNotification.html#napari.utils.notifications.WarningNotification">[docs]</a><span class="k">class</span> <span class="nc">WarningNotification</span><span class="p">(</span><span class="n">Notification</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Notification at a Warning severity level.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -473,7 +473,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="NotificationManager"><a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationManager.html#napari.utils.notifications.NotificationManager">[docs]</a><span class="k">class</span> <span class="nc">NotificationManager</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A notification manager, to route all notifications through.</span>
 
 <span class="sd">    Only one instance is in general available through napari; as we need</span>
@@ -518,7 +518,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">restore_hooks</span><span class="p">()</span>
 
 <div class="viewcode-block" id="NotificationManager.install_hooks"><a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationManager.html#napari.utils.notifications.NotificationManager.install_hooks">[docs]</a>    <span class="k">def</span> <span class="nf">install_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Install a `sys.excepthook`, a `showwarning` hook and a</span>
 <span class="sd">        threading.excepthook to display any message in the UI,</span>
 <span class="sd">        storing the previous hooks to be restored if necessary.</span>
@@ -539,7 +539,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">warnings</span><span class="o">.</span><span class="n">showwarning</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_warning</span></div>
 
 <div class="viewcode-block" id="NotificationManager.restore_hooks"><a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationManager.html#napari.utils.notifications.NotificationManager.restore_hooks">[docs]</a>    <span class="k">def</span> <span class="nf">restore_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove hooks installed by `install_hooks` and restore previous hooks.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">threading</span><span class="p">,</span> <span class="s1">&#39;excepthook&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
@@ -603,7 +603,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="show_info"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_info">[docs]</a><span class="k">def</span> <span class="nf">show_info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show an info message in the notification manager.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
@@ -612,7 +612,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">show_warning</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show a warning in the notification manager.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
@@ -621,7 +621,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="show_error"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_error">[docs]</a><span class="k">def</span> <span class="nf">show_error</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show an error in the notification manager.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
@@ -630,7 +630,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="show_console_notification"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_console_notification">[docs]</a><span class="k">def</span> <span class="nf">show_console_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show a notification in the console.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
@@ -654,7 +654,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_setup_thread_excepthook</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Workaround for `sys.excepthook` thread bug from:</span>
 <span class="sd">    http://bugs.python.org/issue1230540</span>
 <span class="sd">    &quot;&quot;&quot;</span>

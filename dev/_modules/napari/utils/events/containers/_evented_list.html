@@ -306,7 +306,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="EventedList"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedList.html#napari.utils.events.EventedList">[docs]</a><span class="k">class</span> <span class="nc">EventedList</span><span class="p">(</span><span class="n">TypedMutableSequence</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;Mutable Sequence that emits events when altered.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mutable Sequence that emits events when altered.</span>
 
 <span class="sd">    This class is designed to behave exactly like the builtin ``list``, but</span>
 <span class="sd">    will emit events before and after all mutations (insertion, removal,</span>
@@ -450,17 +450,17 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">parent</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_process_delete_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">_T</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Allow process item in inherited class before event was emitted&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Allow process item in inherited class before event was emitted&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="EventedList.insert"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedList.html#napari.utils.events.EventedList.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Insert ``value`` before index.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert ``value`` before index.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserting</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect_child_emitters</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_reemit_child_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;An item in the list emitted an event.  Re-emit with index&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;An item in the list emitted an event.  Re-emit with index&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">):</span>
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">))</span>
@@ -469,12 +469,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_disconnect_child_emitters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">_T</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Disconnect all events from the child from the reemitter.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect all events from the child from the reemitter.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">SupportsEvents</span><span class="p">):</span>
             <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reemit_child_event</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_connect_child_emitters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">_T</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Connect all events from the child to be reemitted.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect all events from the child to be reemitted.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">SupportsEvents</span><span class="p">):</span>
             <span class="c1"># make sure the event source has been set on the child</span>
             <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -482,7 +482,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">child</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reemit_child_event</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventedList.move"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedList.html#napari.utils.events.EventedList.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dest_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Insert object at ``src_index`` before ``dest_index``.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert object at ``src_index`` before ``dest_index``.</span>
 
 <span class="sd">        Both indices refer to the list prior to any object removal</span>
 <span class="sd">        (pre-move space).</span>
@@ -505,7 +505,7 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="EventedList.move_multiple"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedList.html#napari.utils.events.EventedList.move_multiple">[docs]</a>    <span class="k">def</span> <span class="nf">move_multiple</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sources</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Index</span><span class="p">],</span> <span class="n">dest_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Move a batch of `sources` indices, to a single destination.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Move a batch of `sources` indices, to a single destination.</span>
 
 <span class="sd">        Note, if `dest_index` is higher than any of the `sources`, then</span>
 <span class="sd">        the resulting position of the moved objects after the move operation</span>
@@ -556,7 +556,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">move_plan</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_move_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sources</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Index</span><span class="p">],</span> <span class="n">dest_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Prepared indices for a multi-move.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepared indices for a multi-move.</span>
 
 <span class="sd">        Given a set of ``sources`` from anywhere in the list,</span>
 <span class="sd">        and a single ``dest_index``, this function computes and yields</span>
@@ -621,7 +621,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">d_inc</span> <span class="o">+=</span> <span class="mi">1</span>
 
 <div class="viewcode-block" id="EventedList.reverse"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedList.html#napari.utils.events.EventedList.reverse">[docs]</a>    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Reverse list *IN PLACE*.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reverse list *IN PLACE*.&quot;&quot;&quot;</span>
         <span class="c1"># reimplementing this method to emit a change event</span>
         <span class="c1"># If this method were removed, .reverse() would still be available,</span>
         <span class="c1"># it would just emit a &quot;changed&quot; event for each moved index in the list</span>

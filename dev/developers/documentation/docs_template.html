@@ -801,15 +801,15 @@ be easily achieved in your notebook with napari’s <code class="docutils litera
 point in time. This screenshot will be displayed to the user in the notebook.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import napari
-from napari.utils import nbscreenshot
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
 
-viewer = napari.Viewer()
-# opens sample data and adds layer to the Viewer
-viewer.open_sample(&#39;napari&#39;, &#39;cells3d&#39;)
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<span class="c1"># opens sample data and adds layer to the Viewer</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">open_sample</span><span class="p">(</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="s1">&#39;cells3d&#39;</span><span class="p">)</span>
 
-# takes a screenshot and produces it as output for this cell
-nbscreenshot(viewer, alt_text=&quot;Example generated screenshot of the napari viewer.&quot;)
+<span class="c1"># takes a screenshot and produces it as output for this cell</span>
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="n">alt_text</span><span class="o">=</span><span class="s2">&quot;Example generated screenshot of the napari viewer.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

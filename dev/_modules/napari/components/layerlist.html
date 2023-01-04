@@ -285,7 +285,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="LayerList"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList">[docs]</a><span class="k">class</span> <span class="nc">LayerList</span><span class="p">(</span><span class="n">SelectableEventedList</span><span class="p">[</span><span class="n">Layer</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;List-like layer collection with built-in reordering and callback hooks.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List-like layer collection with built-in reordering and callback hooks.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -376,7 +376,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">LayerList</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_coerce_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Coerce a name into a unique equivalent.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerce a name into a unique equivalent.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -397,7 +397,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">name</span>
 
     <span class="k">def</span> <span class="nf">_update_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Coerce name of the layer in `event.layer`.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerce name of the layer in `event.layer`.&quot;&quot;&quot;</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_name</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
 
@@ -424,7 +424,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LayerList.insert"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Insert ``value`` before index.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert ``value`` before index.&quot;&quot;&quot;</span>
         <span class="p">(</span><span class="n">value</span><span class="p">,)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_unique</span><span class="p">((</span><span class="n">value</span><span class="p">,))</span>
         <span class="n">new_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="n">new_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_name</span><span class="p">(</span><span class="n">new_layer</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -433,13 +433,13 @@ function checkPageExistsAndRedirect(event) {
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_layer</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LayerList.toggle_selected_visibility"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.toggle_selected_visibility">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_selected_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Toggle visibility of selected layers&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle visibility of selected layers&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">visible</span></div>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
 
 <span class="sd">        Default to 2D with (-0.5, 511.5) min/ max values if no data is present.</span>
 <span class="sd">        Corresponds to pixels centered at [0, ..., 511].</span>
@@ -486,7 +486,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">min_v</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">max_v</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_get_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_extent_list</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
 
 <span class="sd">        Default to 2D with (-0.5, 511.5) min/ max values if no data is present.</span>
 <span class="sd">        Corresponds to pixels centered at [0, ..., 511].</span>
@@ -508,7 +508,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">_step_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Ideal step size between planes in world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ideal step size between planes in world coordinates.</span>
 
 <span class="sd">        Computes the best step size that allows all data planes to be</span>
 <span class="sd">        sampled if moving through the full range of world coordinates.</span>
@@ -537,7 +537,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_size_from_scales</span><span class="p">(</span><span class="n">scales</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LayerList.get_extent"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.get_extent">[docs]</a>    <span class="k">def</span> <span class="nf">get_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Layer</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return extent for a given layer list.</span>
 <span class="sd">        This function is useful for calculating the extent of a subset of layers</span>
 <span class="sd">        when preparing and updating some supplementary layers.</span>
@@ -562,12 +562,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layers in data and world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in data and world coordinates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_extent</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Get ranges for Dims.range in world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get ranges for Dims.range in world coordinates.</span>
 
 <span class="sd">        This shares some code in common with the `extent` property, but</span>
 <span class="sd">        determines Dims.range settings for each dimension such that each</span>
@@ -619,7 +619,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Maximum dimensionality of layers.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Maximum dimensionality of layers.</span>
 
 <span class="sd">        Defaults to 2 if no data is present.</span>
 
@@ -669,7 +669,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">_writer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;WriterContribution&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Save all or only selected layers to a path using writer plugins.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save all or only selected layers to a path using writer plugins.</span>
 
 <span class="sd">        If ``plugin`` is not provided and only one layer is targeted, then we</span>
 <span class="sd">        directly call the corresponding``napari_write_&lt;layer_type&gt;`` hook (see</span>

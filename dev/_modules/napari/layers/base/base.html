@@ -315,7 +315,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">no_op</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A convenient no-op event for the layer mouse binding.</span>
 
 <span class="sd">    This makes it easier to handle many cases by inserting this as</span>
@@ -338,7 +338,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Layer"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer">[docs]</a><span class="nd">@mgui</span><span class="o">.</span><span class="n">register_type</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="n">get_layers</span><span class="p">,</span> <span class="n">return_callback</span><span class="o">=</span><span class="n">add_layer_to_viewer</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Layer</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProvider</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base layer class.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base layer class.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -629,7 +629,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return self.name.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return self.name.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -637,7 +637,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> layer </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">Modeclass</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper to manage callbacks in multiple layers</span>
 
 <span class="sd">        Parameters</span>
@@ -692,7 +692,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;str: Unique name of the layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Unique name of the layer.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
@@ -706,7 +706,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Key/value map for user-stored data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Key/value map for user-stored data.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
 
     <span class="nd">@metadata</span><span class="o">.</span><span class="n">setter</span>
@@ -720,7 +720,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return True if this layer is fully loaded in memory.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if this layer is fully loaded in memory.</span>
 
 <span class="sd">        This base class says that layers are permanently in the loaded state.</span>
 <span class="sd">        Derived classes that do asynchronous loading can override this.</span>
@@ -729,7 +729,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">opacity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;float: Opacity value between 0.0 and 1.0.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;float: Opacity value between 0.0 and 1.0.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opacity</span>
 
     <span class="nd">@opacity</span><span class="o">.</span><span class="n">setter</span>
@@ -749,7 +749,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">blending</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Blending mode: Determines how RGB and alpha values get mixed.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Blending mode: Determines how RGB and alpha values get mixed.</span>
 
 <span class="sd">        Blending.OPAQUE</span>
 <span class="sd">            Allows for only the top layer to be visible and corresponds to</span>
@@ -785,7 +785,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">visible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;bool: Whether the visual is currently being displayed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: Whether the visual is currently being displayed.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visible</span>
 
     <span class="nd">@visible</span><span class="o">.</span><span class="n">setter</span>
@@ -797,7 +797,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">editable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;bool: Whether the current layer data is editable from the viewer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: Whether the current layer data is editable from the viewer.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_editable</span>
 
     <span class="nd">@editable</span><span class="o">.</span><span class="n">setter</span>
@@ -810,7 +810,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list: Anisotropy factors to scale data into world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Anisotropy factors to scale data into world coordinates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span>
 
     <span class="nd">@scale</span><span class="o">.</span><span class="n">setter</span>
@@ -823,7 +823,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list: Factors to shift the layer by in units of world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Factors to shift the layer by in units of world coordinates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span>
 
     <span class="nd">@translate</span><span class="o">.</span><span class="n">setter</span>
@@ -834,7 +834,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;array: Rotation matrix in world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Rotation matrix in world coordinates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rotate</span>
 
     <span class="nd">@rotate</span><span class="o">.</span><span class="n">setter</span>
@@ -845,7 +845,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;array: Shear matrix in world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Shear matrix in world coordinates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shear</span>
 
     <span class="nd">@shear</span><span class="o">.</span><span class="n">setter</span>
@@ -856,7 +856,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">affine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;napari.utils.transforms.Affine: Extra affine transform to go from physical to world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;napari.utils.transforms.Affine: Extra affine transform to go from physical to world coordinates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;physical2world&#39;</span><span class="p">]</span>
 
     <span class="nd">@affine</span><span class="o">.</span><span class="n">setter</span>
@@ -894,7 +894,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_translate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list: Factors to shift the layer by.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Factors to shift the layer by.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;world2grid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span>
 
     <span class="nd">@_translate_grid</span><span class="o">.</span><span class="n">setter</span>
@@ -916,7 +916,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_private_is_moving</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">_update_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update the dimensionality of transforms and slices when data changes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the dimensionality of transforms and slices when data changes.&quot;&quot;&quot;</span>
         <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_ndim</span><span class="p">()</span>
 
         <span class="n">old_ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span>
@@ -947,7 +947,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">_extent_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -957,7 +957,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Range of layer in world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Range of layer in world coordinates.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -970,7 +970,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layer in data and world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data and world coordinates.&quot;&quot;&quot;</span>
         <span class="n">extent_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span>
         <span class="n">data_to_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span>
         <span class="n">extent_world</span> <span class="o">=</span> <span class="n">get_extent_world</span><span class="p">(</span>
@@ -983,7 +983,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_clear_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Clears the cached extent.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clears the cached extent.</span>
 
 <span class="sd">        This should be called whenever this data or transform information</span>
 <span class="sd">        changes, and should be called before any related events get emitted</span>
@@ -996,7 +996,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_slice_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;(D, ) array: Slice indices in data coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(D, ) array: Slice indices in data coordinates.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># All dims are displayed dimensions</span>
             <span class="k">return</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
@@ -1014,7 +1014,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">editable</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_get_base_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get dictionary of attributes on base layer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get dictionary of attributes on base layer.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1053,7 +1053,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;array: Integer array of thumbnail for the layer&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;array: Integer array of thumbnail for the layer&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail</span>
 
     <span class="nd">@thumbnail</span><span class="o">.</span><span class="n">setter</span>
@@ -1082,12 +1082,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;int: Number of dimensions in the data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;int: Number of dimensions in the data.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;str: displayed in status bar bottom right.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: displayed in status bar bottom right.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_help</span>
 
     <span class="nd">@help</span><span class="o">.</span><span class="n">setter</span>
@@ -1099,7 +1099,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;bool: Determine if canvas pan/zoom interactivity is enabled.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: Determine if canvas pan/zoom interactivity is enabled.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interactive</span>
 
     <span class="nd">@interactive</span><span class="o">.</span><span class="n">setter</span>
@@ -1111,7 +1111,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;str: String identifying cursor displayed over canvas.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: String identifying cursor displayed over canvas.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
 
     <span class="nd">@cursor</span><span class="o">.</span><span class="n">setter</span>
@@ -1123,7 +1123,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cursor_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;int | None: Size of cursor if custom. None yields default size.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;int | None: Size of cursor if custom. None yields default size.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_size</span>
 
     <span class="nd">@cursor_size</span><span class="o">.</span><span class="n">setter</span>
@@ -1167,7 +1167,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_slice_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Slice data with values from a global dims model.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Slice data with values from a global dims model.</span>
 
 <span class="sd">        Note this will likely be moved off the base layer soon.</span>
 
@@ -1227,7 +1227,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position in data coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1249,7 +1249,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Value of the data at a position.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position.</span>
 
 <span class="sd">        If the layer is not visible, return None.</span>
 
@@ -1322,7 +1322,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">end_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the layer data value along a ray</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the layer data value along a ray</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1349,7 +1349,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate the length of the projection of a line between two mouse</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the length of the projection of a line between two mouse</span>
 <span class="sd">        clicks onto a vector (or array of vectors) in data coordinates.</span>
 
 <span class="sd">        Parameters</span>
@@ -1395,7 +1395,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="o">=</span> <span class="n">previous</span>
 
     <span class="k">def</span> <span class="nf">_set_highlight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Render layer highlights when appropriate.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Render layer highlights when appropriate.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1405,7 +1405,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="Layer.refresh"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Refresh all layer data based on current view slice.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh all layer data based on current view slice.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_view_slice</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="p">()</span>
@@ -1413,7 +1413,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Layer.world_to_data"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.world_to_data">[docs]</a>    <span class="k">def</span> <span class="nf">world_to_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Convert from world coordinates to data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert from world coordinates to data coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1435,7 +1435,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">simplified</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">coords</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Layer.data_to_world"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.data_to_world">[docs]</a>    <span class="k">def</span> <span class="nf">data_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Convert from data coordinates to world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert from data coordinates to world coordinates.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1459,7 +1459,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_world_to_displayed_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Convert world to data coordinates for displayed dimensions only.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert world to data coordinates for displayed dimensions only.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1481,7 +1481,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_data_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Affine</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;The transform from data to world coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The transform from data to world coordinates.</span>
 
 <span class="sd">        This affine transform is composed from the affine property and the</span>
 <span class="sd">        other transform properties in the following order:</span>
@@ -1491,7 +1491,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">simplified</span>
 
     <span class="k">def</span> <span class="nf">_world_to_data_ray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Convert a vector defining an orientation from world coordinates to data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a vector defining an orientation from world coordinates to data coordinates.</span>
 <span class="sd">        For example, this would be used to convert the view ray.</span>
 
 <span class="sd">        Parameters</span>
@@ -1513,7 +1513,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_world_to_displayed_data_ray</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">vector_world</span><span class="p">,</span> <span class="n">dims_displayed</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Convert an orientation from world to displayed data coordinates.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert an orientation from world to displayed data coordinates.</span>
 
 <span class="sd">        For example, this would be used to convert the view ray.</span>
 
@@ -1535,7 +1535,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_world_to_layer_dims</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world_dims</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">ndim_world</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Map world dimensions to layer dimensions while maintaining order.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map world dimensions to layer dimensions while maintaining order.</span>
 
 <span class="sd">        This is used to map dimensions from the full world space defined by ``Dims``</span>
 <span class="sd">        to the subspace that a layer inhabits, so that those can be used to index the</span>
@@ -1566,7 +1566,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="n">order</span> <span class="o">&gt;=</span> <span class="n">offset</span><span class="p">]</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_display_bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;An axis aligned (ndisplay, 2) bounding box around the data&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;An axis aligned (ndisplay, 2) bounding box around the data&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">[:,</span> <span class="n">dims_displayed</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
 
 <div class="viewcode-block" id="Layer.click_plane_from_click_data"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.click_plane_from_click_data">[docs]</a>    <span class="k">def</span> <span class="nf">click_plane_from_click_data</span><span class="p">(</span>
@@ -1575,7 +1575,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">view_direction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate a (point, normal) plane parallel to the canvas in data</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate a (point, normal) plane parallel to the canvas in data</span>
 <span class="sd">        coordinates, centered on the centre of rotation of the camera.</span>
 
 <span class="sd">        Parameters</span>
@@ -1605,7 +1605,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the start and end point for the ray extending</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the start and end point for the ray extending</span>
 <span class="sd">        from a point through the data bounding box.</span>
 
 <span class="sd">        Parameters</span>
@@ -1653,7 +1653,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span></div>
 
     <span class="k">def</span> <span class="nf">_get_offset_data_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Adjust position for offset between viewer and data coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adjust position for offset between viewer and data coordinates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">position</span>
 
     <span class="k">def</span> <span class="nf">_get_ray_intersections</span><span class="p">(</span>
@@ -1664,7 +1664,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">bounding_box</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the start and end point for the ray extending</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the start and end point for the ray extending</span>
 <span class="sd">        from a point through the data bounding box.</span>
 
 <span class="sd">        Parameters</span>
@@ -1745,7 +1745,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_update_draw</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">corner_pixels_displayed</span><span class="p">,</span> <span class="n">shape_threshold</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update canvas scale and corner values on draw.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update canvas scale and corner values on draw.</span>
 
 <span class="sd">        For layer multiscale determining if a new resolution level or tile is</span>
 <span class="sd">        required.</span>
@@ -1879,7 +1879,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Status message information of the data at a coordinate position.</span>
 
 <span class="sd">        Parameters</span>
@@ -1925,7 +1925,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        tooltip message of the data at a coordinate position.</span>
 
 <span class="sd">        Parameters</span>
@@ -1950,7 +1950,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
 <div class="viewcode-block" id="Layer.save"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Save this layer to ``path`` with default (or specified) plugin.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save this layer to ``path`` with default (or specified) plugin.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1988,7 +1988,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Layer</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Create layer from `data` of type `layer_type`.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create layer from `data` of type `layer_type`.</span>
 
 <span class="sd">        Primarily intended for usage by reader plugin hooks and creating a</span>
 <span class="sd">        layer from an unwrapped layer data tuple.</span>

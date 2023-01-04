@@ -309,7 +309,7 @@ to download the full example code</p>
 
 <span class="c1"># create the GUI for selecting the values</span>
 <span class="k">def</span> <span class="nf">create_label_menu</span><span class="p">(</span><span class="n">shapes_layer</span><span class="p">,</span> <span class="n">label_feature</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Create a label menu widget that can be added to the napari viewer dock</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a label menu widget that can be added to the napari viewer dock</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -330,7 +330,7 @@ to download the full example code</p>
     <a href="https://pyapp-kit.github.io/magicgui/usage/_autosummary/magicgui.widgets.Container.html#magicgui.widgets.Container" title="magicgui.widgets.Container" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_widget</span></a> <span class="o">=</span> <a href="https://pyapp-kit.github.io/magicgui/usage/_autosummary/magicgui.widgets.Container.html#magicgui.widgets.Container" title="magicgui.widgets.Container" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class"><span class="n">Container</span></a><span class="p">(</span><span class="n">widgets</span><span class="o">=</span><span class="p">[</span><span class="n">label_menu</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">update_label_menu</span><span class="p">():</span>
-        <span class="sd">&quot;&quot;&quot;This is a callback function that updates the label menu when</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a callback function that updates the label menu when</span>
 <span class="sd">        the default features of the Shapes layer change</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">new_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">shapes_layer</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="n">label_feature</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
@@ -340,7 +340,7 @@ to download the full example code</p>
     <span class="n">shapes_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">feature_defaults</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">update_label_menu</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">set_selected_features_to_default</span><span class="p">():</span>
-        <span class="sd">&quot;&quot;&quot;This is a callback that updates the feature values of the currently</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a callback that updates the feature values of the currently</span>
 <span class="sd">        selected shapes. This is a side-effect of the deprecated current_properties</span>
 <span class="sd">        setter, but does not occur when modifying feature_defaults.&quot;&quot;&quot;</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">shapes_layer</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span>
@@ -352,7 +352,7 @@ to download the full example code</p>
     <span class="n">shapes_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shapes_layer</span><span class="o">.</span><span class="n">refresh_text</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">label_changed</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This is a callback that update the default features on the Shapes layer</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a callback that update the default features on the Shapes layer</span>
 <span class="sd">        when the label menu selection changes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">shapes_layer</span><span class="o">.</span><span class="n">feature_defaults</span><span class="p">[</span><span class="n">label_feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>

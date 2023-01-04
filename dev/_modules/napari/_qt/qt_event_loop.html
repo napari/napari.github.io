@@ -337,7 +337,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">app_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ipy_interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QApplication</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Get or create the Qt QApplication.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get or create the Qt QApplication.</span>
 
 <span class="sd">    There is only one global QApplication instance, which can be retrieved by</span>
 <span class="sd">    calling get_app again, (or by using QApplication.instance())</span>
@@ -488,7 +488,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">quit_app</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Close all windows and quit the QApplication if napari started it.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Close all windows and quit the QApplication if napari started it.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">Viewer</span><span class="o">.</span><span class="n">_instances</span><span class="p">):</span>
         <span class="n">v</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">QApplication</span><span class="o">.</span><span class="n">closeAllWindows</span><span class="p">()</span>
@@ -527,7 +527,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="gui_qt"><a class="viewcode-back" href="../../../api/napari.html#napari.gui_qt">[docs]</a><span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">gui_qt</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">startup_logo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">gui_exceptions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Start a Qt event loop in which to run the application.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start a Qt event loop in which to run the application.</span>
 
 <span class="sd">    NOTE: This context manager is deprecated!. Prefer using :func:`napari.run`.</span>
 
@@ -572,7 +572,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_ipython_has_eventloop</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return True if IPython %gui qt is active.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if IPython %gui qt is active.</span>
 
 <span class="sd">    Using this is better than checking ``QApp.thread().loopLevel() &gt; 0``,</span>
 <span class="sd">    because IPython starts and stops the event loop continuously to accept code</span>
@@ -591,7 +591,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_pycharm_has_eventloop</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">QApplication</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return true if running in PyCharm and eventloop is active.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if running in PyCharm and eventloop is active.</span>
 
 <span class="sd">    Explicit checking is necessary because PyCharm runs a custom interactive</span>
 <span class="sd">    shell which overrides `InteractiveShell.enable_gui()`, breaking some</span>
@@ -603,7 +603,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_try_enable_ipython_gui</span><span class="p">(</span><span class="n">gui</span><span class="o">=</span><span class="s1">&#39;qt&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Start %gui qt the eventloop.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start %gui qt the eventloop.&quot;&quot;&quot;</span>
     <span class="n">ipy_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;IPython&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ipy_module</span><span class="p">:</span>
         <span class="k">return</span>
@@ -618,7 +618,7 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="run"><a class="viewcode-back" href="../../../api/napari.qt.html#napari.run">[docs]</a><span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">gui_exceptions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_loop_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">_func_name</span><span class="o">=</span><span class="s1">&#39;run&#39;</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Start the Qt Event Loop</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start the Qt Event Loop</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

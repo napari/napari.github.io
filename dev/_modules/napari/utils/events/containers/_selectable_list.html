@@ -276,7 +276,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="SelectableEventedList"><a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList">[docs]</a><span class="k">class</span> <span class="nc">SelectableEventedList</span><span class="p">(</span><span class="n">Selectable</span><span class="p">[</span><span class="n">_T</span><span class="p">],</span> <span class="n">EventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;List model that also supports selection.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List model that also supports selection.</span>
 
 <span class="sd">    Events</span>
 <span class="sd">    ------</span>
@@ -314,7 +314,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_pre_add_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preselect_hook</span>
 
     <span class="k">def</span> <span class="nf">_preselect_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Called before adding an item to the selection.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called before adding an item to the selection.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -335,11 +335,11 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="n">value</span></div>
 
 <div class="viewcode-block" id="SelectableEventedList.select_all"><a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.select_all">[docs]</a>    <span class="k">def</span> <span class="nf">select_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select all items in the list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select all items in the list.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SelectableEventedList.remove_selected"><a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.remove_selected">[docs]</a>    <span class="k">def</span> <span class="nf">remove_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Remove selected items from list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove selected items from list.&quot;&quot;&quot;</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">):</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -355,7 +355,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">new</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="SelectableEventedList.move_selected"><a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.move_selected">[docs]</a>    <span class="k">def</span> <span class="nf">move_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">insert</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reorder list by moving the item at index and inserting it</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reorder list by moving the item at index and inserting it</span>
 <span class="sd">        at the insert index. If additional items are selected these will</span>
 <span class="sd">        get inserted at the insert index too. This allows for rearranging</span>
 <span class="sd">        the list based on dragging and dropping a selection of items, where</span>
@@ -392,7 +392,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">move_multiple</span><span class="p">(</span><span class="n">moving</span><span class="p">,</span> <span class="n">insert</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SelectableEventedList.select_next"><a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.select_next">[docs]</a>    <span class="k">def</span> <span class="nf">select_next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Selects next item from list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects next item from list.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_current</span><span class="p">)</span> <span class="o">+</span> <span class="n">step</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -406,7 +406,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="SelectableEventedList.select_previous"><a class="viewcode-back" href="../../../../../api/napari.utils.events.SelectableEventedList.html#napari.utils.events.SelectableEventedList.select_previous">[docs]</a>    <span class="k">def</span> <span class="nf">select_previous</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Selects previous item from list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects previous item from list.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">select_next</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">shift</span><span class="p">)</span></div></div>
 
 

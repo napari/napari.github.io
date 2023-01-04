@@ -698,7 +698,7 @@ simplifies understanding the call relationship between functions.</p>
 <p><img alt="A section of an example call graph showing the functions called in napari's layerlist and some of their profile statistics such as call count and cumulative percentage time spent." src="../_images/execution_graph.png" /></p>
 <p>The basic tool for profile in Python is the built-in module <code class="docutils literal notranslate"><span class="pre">cProfile</span></code>.
 To profile an entire script, use the call:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m cProfile path_to_script.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>cProfile<span class="w"> </span>path_to_script.py
 </pre></div>
 </div>
 <p>The output will be a table similar to this one:</p>
@@ -726,7 +726,7 @@ To profile an entire script, use the call:</p>
 Because the output for complex programs such as napari can be very long,
 we suggest piping output to <code class="docutils literal notranslate"><span class="pre">less</span></code>, or saving it to a file,
 which can be investigated later. To save the output to file use the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m cProfile -o result.pstat path_to_script.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>cProfile<span class="w"> </span>-o<span class="w"> </span>result.pstat<span class="w"> </span>path_to_script.py
 </pre></div>
 </div>
 <p>Once the file is saved, you can investigate using free tools. Some options include:</p>
@@ -745,7 +745,7 @@ which can be investigated later. To save the output to file use the <code class=
 You can install it with pip like any other Python library using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">snakeviz</span></code>.
 This will provide the <code class="docutils literal notranslate"><span class="pre">snakeviz</span></code> command, which you can call to create an in-browser
 visualization of your profiling data. Use the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>snakeviz path/to/result.pstat   
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>snakeviz<span class="w"> </span>path/to/result.pstat<span class="w">   </span>
 </pre></div>
 </div>
 <p>This should cause a new page to open in your browser with your profiling information.
@@ -763,12 +763,12 @@ You can install graphviz with system package managers:</p>
 </ul>
 <p>You can then use <code class="docutils literal notranslate"><span class="pre">gprof2dot</span></code>, a Python library, to convert the <code class="docutils literal notranslate"><span class="pre">.pstat</span></code>
 statistics to a <code class="docutils literal notranslate"><span class="pre">.dot</span></code> graph file and use graphviz:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m gprof2dot -f pstats  -n <span class="m">5</span>  result.pstat -o result.dot
-$ dot -Tpng -o result.png result.dot
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>gprof2dot<span class="w"> </span>-f<span class="w"> </span>pstats<span class="w">  </span>-n<span class="w"> </span><span class="m">5</span><span class="w">  </span>result.pstat<span class="w"> </span>-o<span class="w"> </span>result.dot
+$<span class="w"> </span>dot<span class="w"> </span>-Tpng<span class="w"> </span>-o<span class="w"> </span>result.png<span class="w"> </span>result.dot
 </pre></div>
 </div>
 <p>If your shell supports piping, this can all be combined into one command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m gprof2dot -f pstats  -n <span class="m">5</span>  result.pstat -o <span class="p">|</span> dot -Tpng -o result.png
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>gprof2dot<span class="w"> </span>-f<span class="w"> </span>pstats<span class="w">  </span>-n<span class="w"> </span><span class="m">5</span><span class="w">  </span>result.pstat<span class="w"> </span>-o<span class="w"> </span><span class="p">|</span><span class="w"> </span>dot<span class="w"> </span>-Tpng<span class="w"> </span>-o<span class="w"> </span>result.png
 </pre></div>
 </div>
 </li>

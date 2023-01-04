@@ -356,7 +356,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="c1"># KeymapProvider &amp; MousemapProvider should eventually be moved off the ViewerModel</span>
 <div class="viewcode-block" id="ViewerModel"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel">[docs]</a><span class="k">class</span> <span class="nc">ViewerModel</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProvider</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Viewer containing the rendered scene, layers, and controlling elements</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Viewer containing the rendered scene, layers, and controlling elements</span>
 <span class="sd">    including dimension sliders, and control bars for color limits.</span>
 
 <span class="sd">    Parameters</span>
@@ -487,7 +487,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">_update_viewer_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Keep viewer grid settings up to date with settings values.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Keep viewer grid settings up to date with settings values.&quot;&quot;&quot;</span>
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 
@@ -512,7 +512,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">v</span>
 
 <div class="viewcode-block" id="ViewerModel.json"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Serialize to json.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Serialize to json.&quot;&quot;&quot;</span>
         <span class="c1"># Manually exclude the layer list and active layer which cannot be serialized at this point</span>
         <span class="c1"># and mouse and keybindings don&#39;t belong on model</span>
         <span class="c1"># https://github.com/samuelcolvin/pydantic/pull/2231</span>
@@ -522,7 +522,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ViewerModel.dict"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.dict">[docs]</a>    <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Convert to a dictionary.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert to a dictionary.&quot;&quot;&quot;</span>
         <span class="c1"># Manually exclude the layer list and active layer which cannot be serialized at this point</span>
         <span class="c1"># and mouse and keybindings don&#39;t belong on model</span>
         <span class="c1"># https://github.com/samuelcolvin/pydantic/pull/2231</span>
@@ -535,12 +535,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Simple string representation&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Simple string representation&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;napari.Viewer: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1">&#39;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_sliced_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates after slicing.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates after slicing.</span>
 
 <span class="sd">        D is either 2 or 3 depending on if the displayed data is 2D or 3D.</span>
 
@@ -559,7 +559,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
 
 <div class="viewcode-block" id="ViewerModel.reset_view"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.reset_view">[docs]</a>    <span class="k">def</span> <span class="nf">reset_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reset the camera view.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset the camera view.&quot;&quot;&quot;</span>
 
         <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sliced_extent_world</span>
         <span class="n">scene_size</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -593,7 +593,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_new_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create new labels layer filling full world coordinates space.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create new labels layer filling full world coordinates space.&quot;&quot;&quot;</span>
         <span class="n">layers_extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span>
         <span class="n">extent</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">world</span>
         <span class="n">scale</span> <span class="o">=</span> <span class="n">layers_extent</span><span class="o">.</span><span class="n">step</span>
@@ -607,7 +607,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">empty_labels</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corner</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Updates the contained layers.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Updates the contained layers.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -625,7 +625,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
 
     <span class="k">def</span> <span class="nf">_on_active_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update viewer state for a new active layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update viewer state for a new active layer.&quot;&quot;&quot;</span>
         <span class="n">active_layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="k">if</span> <span class="n">active_layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -662,19 +662,19 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">layers_change</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_update_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the viewer interactivity with the `event.interactive` bool.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer interactivity with the `event.interactive` bool.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">interactive</span>
 
     <span class="k">def</span> <span class="nf">_update_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the viewer cursor with the `event.cursor` string.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer cursor with the `event.cursor` string.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">cursor</span>
 
     <span class="k">def</span> <span class="nf">_update_cursor_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the viewer cursor_size with the `event.cursor_size` int.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer cursor_size with the `event.cursor_size` int.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">cursor_size</span>
 
     <span class="k">def</span> <span class="nf">_update_status_bar_from_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update the status bar based on the current cursor position.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the status bar based on the current cursor position.</span>
 
 <span class="sd">        This is generally used as a callback when cursor.position is updated.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -702,7 +702,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
 
     <span class="k">def</span> <span class="nf">_on_grid_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Arrange the current layers is a 2D grid.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Arrange the current layers is a 2D grid.&quot;&quot;&quot;</span>
         <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sliced_extent_world</span>
         <span class="n">n_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
@@ -710,7 +710,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_subplot</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="p">(</span><span class="n">i_row</span><span class="p">,</span> <span class="n">i_column</span><span class="p">),</span> <span class="n">extent</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_subplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">extent</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Shift a layer to a specified position in a 2D grid.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift a layer to a specified position in a 2D grid.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -729,7 +729,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">experimental</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Experimental commands for IPython console.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Experimental commands for IPython console.</span>
 
 <span class="sd">        For example run &quot;viewer.experimental.cmds.loader.help&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -740,7 +740,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="n">ExperimentalNamespace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Connect new layer events.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect new layer events.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -780,7 +780,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update layer help text base on layer mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">layer_to_func_and_mode</span> <span class="o">=</span> <span class="p">{</span>
@@ -815,7 +815,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span>
 
     <span class="k">def</span> <span class="nf">_on_remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Disconnect old layer events.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect old layer events.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -837,7 +837,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_grid_change</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ViewerModel.add_layer"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.add_layer">[docs]</a>    <span class="k">def</span> <span class="nf">add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Layer</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add a layer to the viewer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a layer to the viewer.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -887,7 +887,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Add an image layer to the layer list.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an image layer to the layer list.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1110,7 +1110,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">reader_plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Open `sample` from `plugin` and add it to the viewer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open `sample` from `plugin` and add it to the viewer.</span>
 
 <span class="sd">        To see all available samples registered by plugins, use</span>
 <span class="sd">        :func:`napari.plugins.available_samples`</span>
@@ -1207,7 +1207,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Open a path or list of paths with plugins, and add layers to viewer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open a path or list of paths with plugins, and add layers to viewer.</span>
 
 <span class="sd">        A list of paths will be handed one-by-one to the napari_get_reader hook</span>
 <span class="sd">        if stack is False, otherwise the full list is passed to each plugin</span>
@@ -1308,7 +1308,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Open paths if plugin choice is unambiguous, raising any errors.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open paths if plugin choice is unambiguous, raising any errors.</span>
 
 <span class="sd">        This function will open paths if there is no plugin choice to be made</span>
 <span class="sd">        i.e. there is a preferred reader associated with this file extension,</span>
@@ -1438,7 +1438,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">plugin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Load a path or a list of paths into the viewer using plugins.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a path or a list of paths into the viewer using plugins.</span>
 
 <span class="sd">        This function is mostly called from self.open_path, where the ``stack``</span>
 <span class="sd">        argument determines whether a list of strings is handed to plugins one</span>
@@ -1521,7 +1521,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Add arbitrary layer data to the viewer.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add arbitrary layer data to the viewer.</span>
 
 <span class="sd">        Primarily intended for usage by reader plugin hooks.</span>
 
@@ -1603,7 +1603,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">_normalize_layer_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">LayerData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FullLayerData</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Accepts any layerdata tuple, and returns a fully qualified tuple.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accepts any layerdata tuple, and returns a fully qualified tuple.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1660,7 +1660,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fallback_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FullLayerData</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Merge data returned from plugins with options specified by user.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge data returned from plugins with options specified by user.</span>
 
 <span class="sd">    If ``data == (_data, _meta, _type)``.  Then:</span>
 
@@ -1717,7 +1717,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <span class="k">def</span> <span class="nf">prune_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Return copy of ``kwargs`` with only keys valid for ``add_&lt;layer_type&gt;``</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return copy of ``kwargs`` with only keys valid for ``add_&lt;layer_type&gt;``</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1770,7 +1770,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">valid_add_kwargs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Return a dict where keys are layer types &amp; values are valid kwargs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dict where keys are layer types &amp; values are valid kwargs.&quot;&quot;&quot;</span>
     <span class="n">valid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">meth</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">meth</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;add_&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;layer&#39;</span><span class="p">:</span>

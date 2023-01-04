@@ -881,53 +881,53 @@ native to macOS, and that’s the method we use with napari.</p></li>
 <p>The configuration is done through a <code class="docutils literal notranslate"><span class="pre">construct.yaml</span></code> file, documented <a class="reference external" href="https://github.com/conda/constructor/blob/main/CONSTRUCT.md">here</a>. We generate one on
 the fly in the <code class="docutils literal notranslate"><span class="pre">build_installers.py</span></code> script found in <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code>.
 Roughly, we will build this configuration file:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># os-agnostic configuration</span><span class="w"></span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span><span class="w"></span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.0.1&quot;</span><span class="w">  </span><span class="c1"># this is the _internal_ version of the installer infrastructure</span><span class="w"></span>
-<span class="nt">company</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Napari</span><span class="w"></span>
-<span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EULA.md</span><span class="w"></span>
-<span class="nt">channels</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># - local  # only in certain situations, like nightly installers where we build napari locally</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/label/bundle_tools</span><span class="w">  </span><span class="c1"># temporary location of our forks of the constructor stack</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span><span class="w"></span>
-<span class="nt">specs</span><span class="p">:</span><span class="w"> </span><span class="c1"># specs for the &#39;base&#39;  environment</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to the version of the running interpreter, configured in the CI</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda</span><span class="w">    </span><span class="c1"># we add these to manage different napari versions</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba</span><span class="w">    </span><span class="c1"># we add these to manage different napari versions</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w">      </span><span class="c1"># we add these to manage different napari versions</span><span class="w"></span>
-<span class="nt">extra_envs</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">napari-0.4.16</span><span class="p">:</span><span class="w"> </span><span class="c1"># this is the environment that will actually contain the napari packages</span><span class="w"></span>
-<span class="w">    </span><span class="nt">specs</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari=0.4.16=*pyside*</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-menu=0.4.16</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to a specific version, configured by CI</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda</span><span class="w">    </span><span class="c1"># needed for the plugin manager</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba</span><span class="w">    </span><span class="c1"># needed for the plugin manager</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w">      </span><span class="c1"># needed for the plugin manager</span><span class="w"></span>
-<span class="nt">menu_packages</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-menu</span><span class="w">  </span><span class="c1"># don&#39;t create shortcuts for anything else in the environment</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># os-agnostic configuration</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.0.1&quot;</span><span class="w">  </span><span class="c1"># this is the _internal_ version of the installer infrastructure</span>
+<span class="nt">company</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Napari</span>
+<span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EULA.md</span>
+<span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># - local  # only in certain situations, like nightly installers where we build napari locally</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/label/bundle_tools</span><span class="w">  </span><span class="c1"># temporary location of our forks of the constructor stack</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="nt">specs</span><span class="p">:</span><span class="w"> </span><span class="c1"># specs for the &#39;base&#39;  environment</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to the version of the running interpreter, configured in the CI</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda</span><span class="w">    </span><span class="c1"># we add these to manage different napari versions</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba</span><span class="w">    </span><span class="c1"># we add these to manage different napari versions</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w">      </span><span class="c1"># we add these to manage different napari versions</span>
+<span class="nt">extra_envs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">napari-0.4.16</span><span class="p">:</span><span class="w"> </span><span class="c1"># this is the environment that will actually contain the napari packages</span>
+<span class="w">    </span><span class="nt">specs</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari=0.4.16=*pyside*</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-menu=0.4.16</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to a specific version, configured by CI</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda</span><span class="w">    </span><span class="c1"># needed for the plugin manager</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba</span><span class="w">    </span><span class="c1"># needed for the plugin manager</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w">      </span><span class="c1"># needed for the plugin manager</span>
+<span class="nt">menu_packages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-menu</span><span class="w">  </span><span class="c1"># don&#39;t create shortcuts for anything else in the environment</span>
 
-<span class="c1"># linux-specific config</span><span class="w"></span>
-<span class="nt">default_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$HOME/napari-0.0.1</span><span class="w">  </span><span class="c1"># default installation path</span><span class="w"></span>
+<span class="c1"># linux-specific config</span>
+<span class="nt">default_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$HOME/napari-0.0.1</span><span class="w">  </span><span class="c1"># default installation path</span>
 
-<span class="c1"># macos-specific config</span><span class="w"></span>
-<span class="nt">default_location_pkg </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Library</span><span class="w"> </span><span class="c1"># first component of the default path under ~/</span><span class="w"></span>
-<span class="nt">pkg_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-0.0.1</span><span class="w">  </span><span class="c1"># second component of the default path</span><span class="w"></span>
-<span class="nt">installer_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkg</span><span class="w">  </span><span class="c1"># otherwise, defaults to sh (Linux-like)</span><span class="w"></span>
-<span class="nt">welcome_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_1227x600.png</span><span class="w">  </span><span class="c1"># bg image with the napari logo on bottom-left corner</span><span class="w"></span>
-<span class="nt">welcome_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/osx_pkg_welcome.rtf</span><span class="w">  </span><span class="c1"># rendered text in the first screen</span><span class="w"></span>
-<span class="nt">conclusion_text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># set to an empty string to revert constructor customizations back to system&#39;s</span><span class="w"></span>
-<span class="nt">readme_text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># set to an empty string to revert constructor customizations back to system&#39;s</span><span class="w"></span>
-<span class="nt">signing_identity_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Apple</span><span class="nv"> </span><span class="s">Developer</span><span class="nv"> </span><span class="s">ID:</span><span class="nv"> </span><span class="s">...&quot;</span><span class="w">  </span><span class="c1"># Name of our installer signing certicate</span><span class="w"></span>
+<span class="c1"># macos-specific config</span>
+<span class="nt">default_location_pkg </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Library</span><span class="w"> </span><span class="c1"># first component of the default path under ~/</span>
+<span class="nt">pkg_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-0.0.1</span><span class="w">  </span><span class="c1"># second component of the default path</span>
+<span class="nt">installer_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkg</span><span class="w">  </span><span class="c1"># otherwise, defaults to sh (Linux-like)</span>
+<span class="nt">welcome_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_1227x600.png</span><span class="w">  </span><span class="c1"># bg image with the napari logo on bottom-left corner</span>
+<span class="nt">welcome_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/osx_pkg_welcome.rtf</span><span class="w">  </span><span class="c1"># rendered text in the first screen</span>
+<span class="nt">conclusion_text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># set to an empty string to revert constructor customizations back to system&#39;s</span>
+<span class="nt">readme_text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># set to an empty string to revert constructor customizations back to system&#39;s</span>
+<span class="nt">signing_identity_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Apple</span><span class="nv"> </span><span class="s">Developer</span><span class="nv"> </span><span class="s">ID:</span><span class="nv"> </span><span class="s">...&quot;</span><span class="w">  </span><span class="c1"># Name of our installer signing certicate</span>
 
-<span class="c1"># windows-specific config</span><span class="w"></span>
-<span class="nt">welcome_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_164x314.png</span><span class="w">  </span><span class="c1"># logo image for the first screen</span><span class="w"></span>
-<span class="nt">header_image</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_150x57.png</span><span class="w">  </span><span class="c1"># logo image (top left) for the rest of the installer</span><span class="w"></span>
-<span class="nt">icon_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/resources/icon.ico</span><span class="w">  </span><span class="c1"># favicon for the taskbar and title bar</span><span class="w"></span>
-<span class="nt">default_prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%USERPROFILE%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for user installs</span><span class="w"></span>
-<span class="nt">default_prefix_domain_user</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%LOCALAPPDATA%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for network installs</span><span class="w"></span>
-<span class="nt">default_prefix_all_users</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%ALLUSERSPROFILE%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for admin installs</span><span class="w"></span>
-<span class="nt">signing_certificate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certificate.pfx</span><span class="w">  </span><span class="c1"># path to signing certificate</span><span class="w"></span>
+<span class="c1"># windows-specific config</span>
+<span class="nt">welcome_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_164x314.png</span><span class="w">  </span><span class="c1"># logo image for the first screen</span>
+<span class="nt">header_image</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">resources/napari_150x57.png</span><span class="w">  </span><span class="c1"># logo image (top left) for the rest of the installer</span>
+<span class="nt">icon_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/resources/icon.ico</span><span class="w">  </span><span class="c1"># favicon for the taskbar and title bar</span>
+<span class="nt">default_prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%USERPROFILE%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for user installs</span>
+<span class="nt">default_prefix_domain_user</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%LOCALAPPDATA%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for network installs</span>
+<span class="nt">default_prefix_all_users</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%ALLUSERSPROFILE%/napari-0.0.1&#39;</span><span class="w">  </span><span class="c1"># default location for admin installs</span>
+<span class="nt">signing_certificate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certificate.pfx</span><span class="w">  </span><span class="c1"># path to signing certificate</span>
 </pre></div>
 </div>
 <p>The main OS-agnostic keys are:</p>

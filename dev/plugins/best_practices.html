@@ -513,9 +513,9 @@ good idea to delay importing your plugin-specific dependencies and modules until
 responsive at startup.</p>
 </div>
 <p>Consider the following example plugin:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[options.entry_points]</span><span class="w"></span>
-<span class="na">napari.plugin</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">  </span><span class="na">plugin-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mypackage.napari_plugin</span><span class="w"></span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[options.entry_points]</span>
+<span class="na">napari.plugin</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="na">plugin-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mypackage.napari_plugin</span>
 </pre></div>
 </div>
 <p>In this example, <code class="docutils literal notranslate"><span class="pre">my_heavy_dependency_like_tensorflow</span></code> will be imported
@@ -685,11 +685,11 @@ and <a class="reference internal" href="../api/napari.qt.html#napari.qt.get_styl
 your tests are already packaged in the correct way. No further action required!</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># project structure suggested by the cookiecutter template</span>
 src/
-  my_package/
-    _tests/
-      test_my_module.py
-    __init__.py
-    my_module.py
+<span class="w">  </span>my_package/
+<span class="w">    </span>_tests/
+<span class="w">      </span>test_my_module.py
+<span class="w">    </span>__init__.py
+<span class="w">    </span>my_module.py
 pyproject.toml
 README.md
 </pre></div>
@@ -698,11 +698,11 @@ README.md
 the testing logic might live outside your package, as a top-level directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># alternative structure, no src/ directory, testing logic outside the package</span>
 my_package/
-  __init__.py
-  my_module.py
+<span class="w">  </span>__init__.py
+<span class="w">  </span>my_module.py
 tests/
-  conftest.py
-  test_my_module.py
+<span class="w">  </span>conftest.py
+<span class="w">  </span>test_my_module.py
 pyproject.toml
 README.md
 </pre></div>

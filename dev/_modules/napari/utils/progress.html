@@ -274,7 +274,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="progress"><a class="viewcode-back" href="../../../api/napari.utils.progress.html#napari.utils.progress">[docs]</a><span class="k">class</span> <span class="nc">progress</span><span class="p">(</span><span class="n">tqdm</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This class inherits from tqdm and provides an interface for</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class inherits from tqdm and provides an interface for</span>
 <span class="sd">    progress bars in the napari viewer. Progress bars can be created</span>
 <span class="sd">    directly by wrapping an iterable or by providing a total number</span>
 <span class="sd">    of expected updates.</span>
@@ -368,7 +368,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">total</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">total</span><span class="p">)</span>
 
 <div class="viewcode-block" id="progress.display"><a class="viewcode-back" href="../../../api/napari.utils.progress.html#napari.utils.progress.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Update the display and emit eta event.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the display and emit eta event.&quot;&quot;&quot;</span>
         <span class="c1"># just plain tqdm if we don&#39;t have gui</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gui</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_init</span><span class="p">:</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
@@ -378,12 +378,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">eta</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">etas</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="progress.update"><a class="viewcode-back" href="../../../api/napari.utils.progress.html#napari.utils.progress.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update progress value by n and emit value event&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update progress value by n and emit value event&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="progress.increment_with_overflow"><a class="viewcode-back" href="../../../api/napari.utils.progress.html#napari.utils.progress.increment_with_overflow">[docs]</a>    <span class="k">def</span> <span class="nf">increment_with_overflow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update if not exceeding total, else set indeterminate range.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update if not exceeding total, else set indeterminate range.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">overflow</span><span class="p">()</span>
@@ -391,12 +391,12 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="progress.set_description"><a class="viewcode-back" href="../../../api/napari.utils.progress.html#napari.utils.progress.set_description">[docs]</a>    <span class="k">def</span> <span class="nf">set_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update progress description and emit description event.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update progress description and emit description event.&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">description</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">desc</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="progress.close"><a class="viewcode-back" href="../../../api/napari.utils.progress.html#napari.utils.progress.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Close progress object and emit event.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close progress object and emit event.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">disable</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">progress</span><span class="o">.</span><span class="n">_all_instances</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -404,7 +404,7 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="progrange"><a class="viewcode-back" href="../../../api/napari.utils.html#napari.utils.progrange">[docs]</a><span class="k">def</span> <span class="nf">progrange</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Shorthand for ``progress(range(*args), **kwargs)``.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Shorthand for ``progress(range(*args), **kwargs)``.</span>
 
 <span class="sd">    Adds tqdm based progress bar to napari viewer, if it</span>
 <span class="sd">    exists, and returns the wrapped range object.</span>

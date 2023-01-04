@@ -859,7 +859,7 @@ release though we need to generate the release notes.</p>
 For each release generate the list to include everything since the last release for which there
 are release notes (which should just be the last release). For example making the release notes
 for the <code class="docutils literal notranslate"><span class="pre">0.2.1</span></code> release can be done as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python docs/release/generate_release_notes.py v0.2.0 main --version <span class="m">0</span>.2.1 <span class="p">|</span> tee docs/release/release_0_2_1.md
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>docs/release/generate_release_notes.py<span class="w"> </span>v0.2.0<span class="w"> </span>main<span class="w"> </span>--version<span class="w"> </span><span class="m">0</span>.2.1<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>docs/release/release_0_2_1.md
 </pre></div>
 </div>
 </li>
@@ -890,7 +890,7 @@ file <code class="docutils literal notranslate"><span class="pre">/tools/strings
 </ol>
 <p>You can execute tests locally from the repository root, and follow the instructions printed
 on the <code class="docutils literal notranslate"><span class="pre">stdout</span></code> if any test fails.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest tools/ --tb<span class="o">=</span>short
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>tools/<span class="w"> </span>--tb<span class="o">=</span>short
 </pre></div>
 </div>
 </section>
@@ -900,11 +900,11 @@ on the <code class="docutils literal notranslate"><span class="pre">stdout</span
 Using release candidates allows us to test releases on PyPI without using up the actual
 release number.</p>
 <p>You can tag the current source code as a release candidate with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Zrc1 main
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>vX.Y.Zrc1<span class="w"> </span>main
 </pre></div>
 </div>
 <p>If the tag is meant for a previous version of main, simply reference the specific commit:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Zrc1 abcde42
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>vX.Y.Zrc1<span class="w"> </span>abcde42
 </pre></div>
 </div>
 <p>Note here how we are using <code class="docutils literal notranslate"><span class="pre">rc</span></code> for release candidate to create a version of our release we can test
@@ -915,11 +915,11 @@ before making the real release.</p>
 <h2>Testing the release candidate<a class="headerlink" href="#testing-the-release-candidate" title="Permalink to this headline">¶</a></h2>
 <p>Our CI automatically makes a release, copying the release notes to the tag and uploading the distribution to PyPI.
 You can trigger this by pushing the new tag to <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git push upstream --tags
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>upstream<span class="w"> </span>--tags
 </pre></div>
 </div>
 <p>The release candidate can then be tested with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --pre napari
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--pre<span class="w"> </span>napari
 </pre></div>
 </div>
 <p>It is recommended that the release candidate is tested in a virtual environment in order to isolate dependencies.</p>
@@ -931,8 +931,8 @@ incrementing the number after <code class="docutils literal notranslate"><span c
 <h2>Generating the actual release<a class="headerlink" href="#generating-the-actual-release" title="Permalink to this headline">¶</a></h2>
 <p>To generate the actual release you will now repeat the processes above but now dropping the <code class="docutils literal notranslate"><span class="pre">rc</span></code>.
 For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag vX.Y.Z main
-git push upstream --tags
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>vX.Y.Z<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>upstream<span class="w"> </span>--tags
 </pre></div>
 </div>
 </section>

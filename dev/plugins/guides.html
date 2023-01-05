@@ -22,9 +22,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
@@ -36,6 +34,7 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Test and Deploy" href="test_deploy.html" />
@@ -483,6 +482,76 @@ otherwise, they will not be invoked when a directory is passed to <code class="d
 </div>
 <section id="reader-example">
 <h3>Reader example<a class="headerlink" href="#reader-example" title="Permalink to this headline">¶</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+npe2</label><div class="sd-tab-content docutils">
+<p><strong>python implementation</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
+<span class="n">PathLike</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">PathOrPaths</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">]]</span>
+<span class="n">ReaderFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">PathOrPaths</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]]</span>
+
+
+<span class="k">def</span> <span class="nf">get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
+    <span class="c1"># If we recognize the format, we return the actual reader function</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.xyz&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xyz_file_reader</span>
+    <span class="c1"># otherwise we return None.</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># somehow read data from path</span>
+    <span class="n">layer_attributes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;etc...&quot;</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="n">layer_attributes</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p><strong>manifest</strong></p>
+<p>See <a class="reference internal" href="contributions.html#contributions-readers"><span class="std std-ref">Readers contribution reference</span></a>
+for field details.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.read_xyz</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read &quot;.xyz&quot; files</span>
+<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:get_reader</span>
+<span class="w">  </span><span class="nt">readers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.read_xyz</span>
+<span class="w">    </span><span class="nt">filename_patterns</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;*.xyz&#39;</span>
+<span class="w">    </span><span class="nt">accepts_directories</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+napari-plugin-engine</label><div class="sd-tab-content docutils">
+<div class="admonition-deprecated admonition">
+<p class="admonition-title">Deprecated!</p>
+<p>This demonstrates the now-deprecated <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code> pattern.</p>
+</div>
+<p><strong>python implementation</strong></p>
+<p><a class="reference external" href="https://napari.org/stable/plugins/npe1.html#napari.plugins.hook_specifications.napari_get_reader">hook specification</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
+
+
+<span class="nd">@napari_hook_implementation</span>
+<span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
+    <span class="c1"># If we recognize the format, we return the actual reader function</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.xyz&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xyz_file_reader</span>
+    <span class="c1"># otherwise we return None.</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">xyz_file_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">PathOrPaths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># somehow read data from path</span>
+    <span class="n">layer_properties</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;etc...&quot;</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="n">layer_properties</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
 <hr class="docutils" />
 </section>
 </section>
@@ -578,6 +647,74 @@ and a <code class="docutils literal notranslate"><span class="pre">vectors</span
 </section>
 <section id="writer-example">
 <h3>Writer example<a class="headerlink" href="#writer-example" title="Permalink to this headline">¶</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+npe2</label><div class="sd-tab-content docutils">
+<p><strong>python implementation</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
+<span class="k">def</span> <span class="nf">write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">attributes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">):</span>
+        <span class="o">...</span>  <span class="c1"># save layer_data and attributes to file</span>
+
+    <span class="c1"># return path to any file(s) that were successfully written</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>manifest</strong></p>
+<p>See <a class="reference internal" href="contributions.html#contributions-writers"><span class="std std-ref">Writers contribution reference</span></a>
+for field details.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.write_points</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Save points layer to csv</span>
+<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:write_points</span>
+<span class="w">  </span><span class="nt">writers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.write_points</span>
+<span class="w">    </span><span class="nt">layer_types</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">points</span>
+<span class="w">    </span><span class="nt">filename_extensions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.csv</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+napari-plugin-engine</label><div class="sd-tab-content docutils">
+<div class="admonition-deprecated admonition">
+<p class="admonition-title">Deprecated!</p>
+<p>This demonstrates the now-deprecated <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code> pattern.</p>
+</div>
+<p><strong>python implementation</strong></p>
+<p><a class="reference external" href="https://napari.org/stable/plugins/npe1.html#single-layers-io">hook specification</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
+
+<span class="nd">@napari_hook_implementation</span>
+<span class="k">def</span> <span class="nf">napari_write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write points data and metadata into a path.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to file, directory, or resource (like a URL).</span>
+<span class="sd">    data : array (N, D)</span>
+<span class="sd">        Points layer data</span>
+<span class="sd">    meta : dict</span>
+<span class="sd">        Points metadata.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : str or None</span>
+<span class="sd">        If data is successfully written, return the ``path`` that was written.</span>
+<span class="sd">        Otherwise, if nothing was done, return ``None``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
 <hr class="docutils" />
 </section>
 </section>
@@ -634,6 +771,123 @@ field in the <a class="reference internal" href="contributions.html#contribution
 </ol>
 <section id="widget-example">
 <h3>Widget example<a class="headerlink" href="#widget-example" title="Permalink to this headline">¶</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-4">
+npe2</label><div class="sd-tab-content docutils">
+<p><strong>python implementation</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
+<span class="n">Widget</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;magicgui.widgets.Widget&quot;</span><span class="p">,</span> <span class="s2">&quot;qtpy.QtWidgets.QWidget&quot;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Any QtWidgets.QWidget or magicgui.widgets.Widget subclass can be used.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s2">&quot;napari.viewer.Viewer&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="o">...</span>
+
+<span class="nd">@magic_factory</span>
+<span class="k">def</span> <span class="nf">widget_factory</span><span class="p">(</span>
+    <span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate thresholded image.</span>
+
+<span class="sd">    This pattern uses magicgui.magic_factory directly to turn a function</span>
+<span class="sd">    into a callable that returns a widget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">threshold</span><span class="p">(</span>
+    <span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate thresholded image.</span>
+
+<span class="sd">    This function will be turned into a widget using `autogenerate: true`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>manifest</strong></p>
+<p>See <a class="reference internal" href="contributions.html#contributions-widgets"><span class="std std-ref">Widgets contribution reference</span></a> for field details.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.my_widget</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Open my widget</span>
+<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:MyWidget</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.threshold_widget</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Make threshold widget with magic_factory</span>
+<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:widget_factory</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.do_threshold</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Perform threshold on image, return new image</span>
+<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:threshold</span>
+<span class="w">  </span><span class="nt">widgets</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.my_widget</span>
+<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wizard</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.threshold_widget</span>
+<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Threshold</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.do_threshold</span>
+<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Threshold</span>
+<span class="w">    </span><span class="nt">autogenerate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-5">
+napari-plugin-engine</label><div class="sd-tab-content docutils">
+<div class="admonition-deprecated admonition">
+<p class="admonition-title">Deprecated!</p>
+<p>This demonstrates the now-deprecated <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code> pattern.</p>
+</div>
+<p><strong>python implementation</strong></p>
+<p><a class="reference external" href="https://napari.org/stable/plugins/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_dock_widget">hook_specification</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
+<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
+
+
+<span class="k">class</span> <span class="nc">AnimationWizard</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s2">&quot;napari.viewer.Viewer&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="o">...</span>
+
+
+<span class="nd">@magic_factory</span>
+<span class="k">def</span> <span class="nf">widget_factory</span><span class="p">(</span>
+    <span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate thresholded image.</span>
+
+<span class="sd">    This pattern uses magicgui.magic_factory directly to turn a function</span>
+<span class="sd">    into a callable that returns a widget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">threshold</span><span class="p">(</span>
+    <span class="n">image</span><span class="p">:</span> <span class="s2">&quot;napari.types.ImageData&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;napari.types.LabelsData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate thresholded image.</span>
+
+<span class="sd">    This function will be turned into a widget using `autogenerate: true`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+
+<span class="c1"># in the first generation plugin engine, these widgets were declared</span>
+<span class="c1"># using special `napari_hook_implementation`-decorated functions.</span>
+
+<span class="nd">@napari_hook_implementation</span>
+<span class="k">def</span> <span class="nf">napari_experimental_provide_dock_widget</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">AnimationWizard</span><span class="p">,</span> <span class="n">widget_factory</span><span class="p">]</span>
+
+
+<span class="nd">@napari_hook_implementation</span>
+<span class="k">def</span> <span class="nf">napari_experimental_provide_function</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">threshold</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
 <hr class="docutils" />
 </section>
 </section>
@@ -648,6 +902,69 @@ It can take the form of a <strong>Sample Data URI</strong> that points to a stat
 or <strong>Sample Data Function</strong> that generates layer data on demand.</p>
 <section id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-6">
+npe2</label><div class="sd-tab-content docutils">
+<p><strong>python implementation</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
+<span class="k">def</span> <span class="nf">create_fractal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LayerData</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An example of a  Sample Data Function.</span>
+
+<span class="sd">    Note: Sample Data with URIs don&#39;t need python code.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># do something cool to create a fractal</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My cool fractal&quot;</span><span class="p">})]</span>
+</pre></div>
+</div>
+<p><strong>manifest</strong></p>
+<p>See <a class="reference internal" href="contributions.html#contributions-sample-data"><span class="std std-ref">Sample Data contribution reference</span></a>
+for field details.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.data.fractal</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create fractal image</span>
+<span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:create_fractal</span>
+<span class="w">  </span><span class="nt">sample_data</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fractal</span>
+<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fractal</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.data.fractal</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span>
+<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tabueran Kiribati</span>
+<span class="w">    </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://en.wikipedia.org/wiki/Napari#/media/File:Tabuaeran_Kiribati.jpg</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-7">
+napari-plugin-engine</label><div class="sd-tab-content docutils">
+<div class="admonition-deprecated admonition">
+<p class="admonition-title">Deprecated!</p>
+<p>This demonstrates the now-deprecated <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code> pattern.</p>
+</div>
+<p><strong>python implementation</strong></p>
+<p><a class="reference external" href="https://napari.org/stable/plugins/npe1.html#napari.plugins.hook_specifications.napari_provide_sample_data">hook specification</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
+
+<span class="k">def</span> <span class="nf">_generate_random_data</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;random data&#39;</span><span class="p">})]</span>
+
+<span class="nd">@napari_hook_implementation</span>
+<span class="k">def</span> <span class="nf">napari_provide_sample_data</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;random data&#39;</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
+        <span class="s1">&#39;random image&#39;</span><span class="p">:</span> <span class="s1">&#39;https://picsum.photos/1024&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sample_key&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;display_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Some Random Data (512 x 512)&#39;</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
 <hr class="docutils" />
 </section>
 </section>

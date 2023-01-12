@@ -919,6 +919,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
+        <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
             <span class="n">shape_type</span><span class="o">=</span><span class="n">shape_type</span><span class="p">,</span>

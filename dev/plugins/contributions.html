@@ -747,9 +747,9 @@ toml</label><div class="sd-tab-content docutils">
 for more details on implementing this contribution.</p>
 <p><strong>Fields</strong></p>
 <ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.command</span></code></strong> : Identifier of a command that returns layer data tuple.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.key</span></code></strong> : A unique key to identify this sample.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.display_name</span></code></strong> : String to show in the UI when referring to this sample</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">sample_data.command</span></code></strong> : Identifier of a command that returns layer data tuple.</p></li>
 </ul>
 </section>
 <section id="sample-data-uri">
@@ -781,9 +781,9 @@ yaml</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create fractal image</span>
 <span class="w">    </span><span class="nt">python_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_plugin.some_module:create_fractal</span>
 <span class="w">  </span><span class="nt">sample_data</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fractal</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.data.fractal</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fractal</span>
 <span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fractal</span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin.data.fractal</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari</span>
 <span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tabueran Kiribati</span>
 <span class="w">    </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://en.wikipedia.org/wiki/Napari#/media/File:Tabuaeran_Kiribati.jpg</span>
@@ -825,6 +825,8 @@ dark/light theme colors.</p>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.id</span></code></strong> : Identifier of the color theme as used in the user settings.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.label</span></code></strong> : Label of the color theme as shown in the UI.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.type</span></code></strong> : Base theme type, used for icons and filling in unprovided colors. Must be either <code class="docutils literal notranslate"><span class="pre">'dark'</span></code> or  <code class="docutils literal notranslate"><span class="pre">'light'</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.syntax_style</span></code></strong> :
+<em>(Optional: default=None).</em></p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">themes.colors</span></code></strong> : Theme colors. Valid keys include: <code class="docutils literal notranslate"><span class="pre">canvas</span></code>, <code class="docutils literal notranslate"><span class="pre">console</span></code>, <code class="docutils literal notranslate"><span class="pre">background</span></code>, <code class="docutils literal notranslate"><span class="pre">foreground</span></code>, <code class="docutils literal notranslate"><span class="pre">primary</span></code>, <code class="docutils literal notranslate"><span class="pre">secondary</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">icon</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">current</span></code>. All keys are optional. Color values can be defined via:</p>
 <ul>
 <li><p>name: <code class="docutils literal notranslate"><span class="pre">&quot;Black&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;azure&quot;</span></code></p></li>
@@ -846,6 +848,7 @@ yaml</label><div class="sd-tab-content docutils">
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monokai</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Monokai</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dark</span>
+<span class="w">    </span><span class="nt">syntax_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monokai</span>
 <span class="w">    </span><span class="nt">colors</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">canvas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">black</span>
 <span class="w">      </span><span class="nt">console</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">black</span>
@@ -867,6 +870,7 @@ toml</label><div class="sd-tab-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.themes]]</span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;monokai&#39;</span>
 <span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Monokai&#39;</span>
+<span class="n">syntax_style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;monokai&#39;</span>
 <span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;dark&#39;</span>
 
 <span class="w">    </span><span class="k">[contributions.themes.colors]</span>

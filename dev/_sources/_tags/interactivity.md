@@ -6,6 +6,6 @@ maxdepth: 1
 caption: With this tag
 ---
 ../gallery/cursor_position.rst
-../gallery/cursor_ray.rst
 ../gallery/interactive_scripting.rst
+../gallery/cursor_ray.rst
 ```

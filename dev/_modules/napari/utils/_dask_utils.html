@@ -279,6 +279,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="n">_DASK_CACHE</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">_DEFAULT_MEM_FRACTION</span> <span class="o">=</span> <span class="mf">0.25</span>
 
+<span class="n">DaskIndexer</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">Cache</span><span class="p">]]]]</span>
+
 
 <div class="viewcode-block" id="resize_dask_cache"><a class="viewcode-back" href="../../../api/napari.utils.html#napari.utils.resize_dask_cache">[docs]</a><span class="k">def</span> <span class="nf">resize_dask_cache</span><span class="p">(</span>
     <span class="n">nbytes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mem_fraction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -346,9 +348,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">configure_dask</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">Cache</span><span class="p">]]]]:</span>
+<span class="k">def</span> <span class="nf">configure_dask</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DaskIndexer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Spin up cache and return context manager that optimizes Dask indexing.</span>
 
 <span class="sd">    This function determines whether data is a dask array or list of dask</span>

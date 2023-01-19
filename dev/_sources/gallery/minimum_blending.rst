@@ -30,7 +30,9 @@ values, as opposed to the more conventional black [0, 0, 0]. For example, try th
 colormaps prefixed with *I*, such as *I Forest* or *I Bordeaux*, from 
 ChrisLUTs: https://github.com/cleterrier/ChrisLUTs .
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-34
+.. tags:: visualization-basic
+
+.. GENERATED FROM PYTHON SOURCE LINES 16-36
 
 
 

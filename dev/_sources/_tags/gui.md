@@ -16,6 +16,7 @@ caption: With this tag
 ../gallery/multiple_viewers.rst
 ../gallery/magic_parameter_sweep.rst
 ../gallery/3Dimage_plane_rendering.rst
+../gallery/inherit_viewer_style.rst
 ../gallery/action_manager.rst
 ../gallery/set_theme.rst
 ```

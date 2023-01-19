@@ -13,6 +13,7 @@ caption: With this tag
 ../gallery/add_vectors.rst
 ../gallery/add_shapes_with_features.rst
 ../gallery/layers.rst
+../gallery/minimum_blending.rst
 ../gallery/add_points_with_features.rst
 ../gallery/tracks_2d.rst
 ../gallery/add_shapes.rst

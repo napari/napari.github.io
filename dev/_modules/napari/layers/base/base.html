@@ -608,7 +608,6 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">editable</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">loaded</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">_ndisplay</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">select</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;layer.events.select&#39; is deprecated and will be removed in napari v0.4.9, use &#39;viewer.layers.selection.events.changed&#39; instead, and inspect the &#39;added&#39; attribute on the event.&quot;</span><span class="p">,</span>
@@ -1180,16 +1179,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            rendered in canvas.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">==</span> <span class="n">slice_input</span><span class="p">:</span>
             <span class="k">return</span>
-
-        <span class="n">old_ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">slice_input</span>
-
-        <span class="k">if</span> <span class="n">old_ndisplay</span> <span class="o">!=</span> <span class="n">ndisplay</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_ndisplay</span><span class="p">()</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_editable</span><span class="p">()</span>
 

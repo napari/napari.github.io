@@ -654,7 +654,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            If the terminal source is a slice, or if the source is this root</span>
 <span class="sd">            object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;move(src_index=</span><span class="si">{</span><span class="n">src_index</span><span class="si">}</span><span class="s2">, dest_index=</span><span class="si">{</span><span class="n">dest_index</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;move(src_index=</span><span class="si">%s</span><span class="s2">, dest_index=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="n">src_index</span><span class="p">,</span>
+            <span class="n">dest_index</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">src_par_i</span><span class="p">,</span> <span class="n">src_i</span> <span class="o">=</span> <span class="n">split_nested_index</span><span class="p">(</span><span class="n">src_index</span><span class="p">)</span>
         <span class="n">dest_par_i</span><span class="p">,</span> <span class="n">dest_i</span> <span class="o">=</span> <span class="n">split_nested_index</span><span class="p">(</span><span class="n">dest_index</span><span class="p">)</span>
         <span class="n">dest_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_non_negative_index</span><span class="p">(</span><span class="n">dest_par_i</span><span class="p">,</span> <span class="n">dest_i</span><span class="p">)</span>

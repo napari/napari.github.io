@@ -709,7 +709,7 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.threading.GeneratorWorker.await_workers" title="napari.qt.threading.GeneratorWorker.await_workers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">await_workers</span></code></a>([msecs])</p></td>
 <td><p>Ask all workers to quit, and wait up to <cite>msec</cite> for quit.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.threading.GeneratorWorker.create" title="napari.qt.threading.GeneratorWorker.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>(Callable[[], None])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.threading.GeneratorWorker.create" title="napari.qt.threading.GeneratorWorker.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>(functionToRun)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.threading.GeneratorWorker.pause" title="napari.qt.threading.GeneratorWorker.pause"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pause</span></code></a>()</p></td>
@@ -727,7 +727,7 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.threading.GeneratorWorker.send" title="napari.qt.threading.GeneratorWorker.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a>(value)</p></td>
 <td><p>Send a value into the function (if a generator was used).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.threading.GeneratorWorker.setAutoDelete" title="napari.qt.threading.GeneratorWorker.setAutoDelete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAutoDelete</span></code></a>(self, bool)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.threading.GeneratorWorker.setAutoDelete" title="napari.qt.threading.GeneratorWorker.setAutoDelete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAutoDelete</span></code></a>(self, _autoDelete)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.threading.GeneratorWorker.start" title="napari.qt.threading.GeneratorWorker.start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start</span></code></a>()</p></td>
@@ -816,7 +816,7 @@ timeout is ignored (waits for the last thread to exit).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.create">
-<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Callable[[],</span> <span class="pre">None]</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QRunnable</span></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.create" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functionToRun</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QRunnable</span></span></span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -887,7 +887,7 @@ method (except with good reason), and instead should implement
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.threading.GeneratorWorker.setAutoDelete">
-<span class="sig-name descname"><span class="pre">setAutoDelete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.setAutoDelete" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setAutoDelete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_autoDelete</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.qt.threading.GeneratorWorker.setAutoDelete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

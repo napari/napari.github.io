@@ -42,11 +42,11 @@ using the layers swap method and remove one
 .. code-block:: default
 
 
+    import numpy as np
     from skimage import data
     from skimage.color import rgb2gray
-    import numpy as np
-    import napari
 
+    import napari
 
     # create the viewer with several image layers
     viewer = napari.view_image(rgb2gray(data.astronaut()), name='astronaut')

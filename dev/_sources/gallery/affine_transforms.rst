@@ -25,7 +25,7 @@ Display an image and its corners before and after an affine transform
 
 .. tags:: visualization-advanced
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-47
+.. GENERATED FROM PYTHON SOURCE LINES 9-48
 
 
 
@@ -41,8 +41,9 @@ Display an image and its corners before and after an affine transform
 .. code-block:: default
 
     import numpy as np
-    import napari
     import scipy.ndimage as ndi
+
+    import napari
 
     # Create a random image
     image = np.random.random((5, 5))

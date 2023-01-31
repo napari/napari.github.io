@@ -564,7 +564,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">splash</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">yield</span> <span class="n">app</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># noqa: BLE001</span>
         <span class="n">notification_manager</span><span class="o">.</span><span class="n">receive_error</span><span class="p">(</span><span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span>
     <span class="n">run</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span> <span class="n">gui_exceptions</span><span class="o">=</span><span class="n">gui_exceptions</span><span class="p">,</span> <span class="n">_func_name</span><span class="o">=</span><span class="s1">&#39;gui_qt&#39;</span><span class="p">)</span></div>
 

@@ -372,7 +372,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">]</span> <span class="o">=</span> <span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
         <span class="n">actions</span><span class="p">:</span> <span class="n">ActionSequence</span> <span class="o">=</span> <span class="p">(),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">severity</span> <span class="o">=</span> <span class="n">NotificationSeverity</span><span class="p">(</span><span class="n">severity</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">severity</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
@@ -408,7 +408,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
         <span class="n">actions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="p">())</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">actions</span><span class="p">)</span>
@@ -457,7 +457,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lineno</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">warning</span><span class="p">))</span>
         <span class="n">actions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="p">())</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="n">actions</span><span class="p">)</span>
@@ -572,11 +572,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">catch_error</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">__excepthook__</span><span class="p">(</span><span class="n">exctype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">)</span>
             <span class="k">return</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">Notification</span><span class="o">.</span><span class="n">from_exception</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">Notification</span><span class="o">.</span><span class="n">from_exception</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">receive_warning</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -665,7 +661,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">def</span> <span class="nf">run_with_except_hook</span><span class="p">(</span><span class="o">*</span><span class="n">args2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs2</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">_run</span><span class="p">(</span><span class="o">*</span><span class="n">args2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs2</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span><span class="p">(</span><span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">run</span> <span class="o">=</span> <span class="n">run_with_except_hook</span>

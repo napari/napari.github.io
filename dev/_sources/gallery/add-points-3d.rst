@@ -42,10 +42,10 @@ add_image APIs, then add points in 3D
 .. code-block:: default
 
 
-    from skimage import data
     from scipy import ndimage as ndi
-    import napari
+    from skimage import data
 
+    import napari
 
     blobs = data.binary_blobs(
             length=128, volume_fraction=0.1, n_dim=3

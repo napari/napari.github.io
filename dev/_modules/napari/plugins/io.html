@@ -399,7 +399,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">try</span><span class="p">:</span>
             <span class="n">layer_data</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">npe1_path</span><span class="p">)</span>  <span class="c1"># try to read data</span>
             <span class="n">hookimpl</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">implementation</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
             <span class="k">raise</span> <span class="n">PluginCallError</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">implementation</span><span class="p">,</span> <span class="n">cause</span><span class="o">=</span><span class="n">exc</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_data</span><span class="p">:</span>
@@ -655,8 +655,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">writer_function</span><span class="p">(</span><span class="n">abspath_or_url</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">layer_data</span><span class="p">),</span>
             <span class="n">implementation</span><span class="o">.</span><span class="n">plugin_name</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">PluginCallError</span><span class="p">(</span><span class="n">implementation</span><span class="p">,</span> <span class="n">cause</span><span class="o">=</span><span class="n">exc</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># noqa: BLE001</span>
+        <span class="k">raise</span> <span class="n">PluginCallError</span><span class="p">(</span><span class="n">implementation</span><span class="p">,</span> <span class="n">cause</span><span class="o">=</span><span class="n">exc</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
 
 
 <span class="k">def</span> <span class="nf">_write_single_layer_with_plugins</span><span class="p">(</span>

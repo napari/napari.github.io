@@ -1169,13 +1169,21 @@ to download the full example code</p>
 <p>Example how to embed magicgui widget in dialog to inherit style
 from main napari window.</p>
 <p class="tags"><span>Tags: </span><a class="reference external" href="../_tags/gui.html">gui</a><span>, </span><a class="reference external" href="../_tags/interactivity.html">interactivity</a></p>
-<img src="../_images/sphx_glr_inherit_viewer_style_001.png" srcset="../_images/sphx_glr_inherit_viewer_style_001.png" alt="inherit viewer style" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QGridLayout</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QSpinBox</span>
-
-<span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <a href="https://pyapp-kit.github.io/magicgui/api/magicgui.html#magicgui.magicgui" title="magicgui.magicgui" class="sphx-glr-backref-module-magicgui sphx-glr-backref-type-py-function"><span class="n">magicgui</span></a>
+<img src="../_images/sphx_glr_inherit_viewer_style_001.png" srcset="../_images/sphx_glr_inherit_viewer_style_001.png" alt="inherit viewer style" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <a href="https://pyapp-kit.github.io/magicgui/api/magicgui.html#magicgui.magicgui" title="magicgui.magicgui" class="sphx-glr-backref-module-magicgui sphx-glr-backref-type-py-function"><span class="n">magicgui</span></a>
+<span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QDialog</span><span class="p">,</span>
+    <span class="n">QGridLayout</span><span class="p">,</span>
+    <span class="n">QLabel</span><span class="p">,</span>
+    <span class="n">QPushButton</span><span class="p">,</span>
+    <span class="n">QSpinBox</span><span class="p">,</span>
+    <span class="n">QVBoxLayout</span><span class="p">,</span>
+    <span class="n">QWidget</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">from</span> <span class="nn">napari.qt</span> <span class="kn">import</span> <a href="../api/napari.qt.html#napari.qt.get_stylesheet" title="napari.qt.get_stylesheet" class="sphx-glr-backref-module-napari-qt sphx-glr-backref-type-py-function"><span class="n">get_stylesheet</span></a>
 <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
+
 
 <span class="c1"># The magicgui widget shown by selecting the &#39;Show widget&#39; button of MyWidget</span>
 <span class="nd">@magicgui</span>
@@ -1191,7 +1199,7 @@ from main napari window.</p>
 
 
 <span class="k">class</span> <span class="nc">MyDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">first_input</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">second_input</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
@@ -1210,7 +1218,7 @@ from main napari window.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn1</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Show dialog&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn1</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span><span class="p">)</span>

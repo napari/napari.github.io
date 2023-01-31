@@ -25,7 +25,7 @@ Barebones reader plugin example, using ``imageio.imread```
 
 .. tags:: historical
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-32
+.. GENERATED FROM PYTHON SOURCE LINES 9-31
 
 
 
@@ -35,9 +35,8 @@ Barebones reader plugin example, using ``imageio.imread```
 
 .. code-block:: default
 
-    from napari_plugin_engine import napari_hook_implementation
     from imageio import formats, imread
-
+    from napari_plugin_engine import napari_hook_implementation
 
     readable_extensions = tuple({x for f in formats for x in f.extensions})
 

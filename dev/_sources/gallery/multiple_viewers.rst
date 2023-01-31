@@ -54,8 +54,8 @@ Create multiple viewers from the same script
 
 
     from skimage import data
-    import napari
 
+    import napari
 
     # add the image
     photographer = data.camera()

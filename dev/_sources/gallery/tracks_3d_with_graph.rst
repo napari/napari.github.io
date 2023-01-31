@@ -23,7 +23,7 @@ Tracks 3D with graph
 
 .. tags:: visualization-advanced
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-55
+.. GENERATED FROM PYTHON SOURCE LINES 7-56
 
 
 
@@ -39,8 +39,9 @@ Tracks 3D with graph
 .. code-block:: default
 
 
-    import napari
     import numpy as np
+
+    import napari
 
 
     def _circle(r, theta):

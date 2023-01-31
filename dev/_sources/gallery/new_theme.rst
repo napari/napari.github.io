@@ -53,9 +53,9 @@ Displays an image and sets the theme to new custom theme.
 
 
     from skimage import data
+
     import napari
     from napari.utils.theme import available_themes, get_theme, register_theme
-
 
     # create the viewer with an image
     viewer = napari.view_image(data.astronaut(), rgb=True, name='astronaut')
@@ -87,7 +87,7 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  23.945 seconds)
+   **Total running time of the script:** ( 0 minutes  36.830 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:

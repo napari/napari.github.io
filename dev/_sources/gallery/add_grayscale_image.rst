@@ -41,10 +41,10 @@ Display one grayscale image using the add_image API.
 .. code-block:: default
 
 
-    from skimage import data
-    import napari
     import numpy as np
+    from skimage import data
 
+    import napari
 
     # simulating a grayscale image here for testing contrast limits adjustments
     image = data.astronaut().mean(-1) * 100 + 100

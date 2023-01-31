@@ -292,7 +292,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="n">events</span><span class="p">:</span> <span class="n">EmitterGroup</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">()):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
         <span class="n">_events</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;changed&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
         <span class="c1"># For inheritance: If the mro already provides an EmitterGroup, add...</span>
@@ -320,8 +320,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># for subclasses to potentially check value before adding</span>
         <span class="k">return</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="nf">_emit_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">added</span><span class="o">=</span><span class="nb">set</span><span class="p">(),</span> <span class="n">removed</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+    <span class="k">def</span> <span class="nf">_emit_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">added</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">removed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># provides a hook for subclasses to update internal state before emit</span>
+        <span class="k">if</span> <span class="n">added</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">added</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">removed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="p">(</span><span class="n">added</span><span class="o">=</span><span class="n">added</span><span class="p">,</span> <span class="n">removed</span><span class="o">=</span><span class="n">removed</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventedSet.add"><a class="viewcode-back" href="../../../../../api/napari.utils.events.EventedSet.html#napari.utils.events.EventedSet.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

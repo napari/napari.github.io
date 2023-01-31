@@ -39,12 +39,12 @@ bbox annotator
 .. code-block:: default
 
 
-    from magicgui.widgets import ComboBox, Container
-    import napari
     import numpy as np
     import pandas as pd
+    from magicgui.widgets import ComboBox, Container
     from skimage import data
 
+    import napari
 
     # set up the categorical annotation values and text display properties
     box_annotations = ['person', 'sky', 'camera']

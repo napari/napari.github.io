@@ -23,7 +23,7 @@ Tracks 2D
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-65
+.. GENERATED FROM PYTHON SOURCE LINES 7-66
 
 
 
@@ -39,8 +39,9 @@ Tracks 2D
 .. code-block:: default
 
 
-    import napari
     import numpy as np
+
+    import napari
 
 
     def _circle(r, theta):

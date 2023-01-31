@@ -33,7 +33,7 @@ on every slice.
 
 .. tags:: visualization-nD
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-37
+.. GENERATED FROM PYTHON SOURCE LINES 17-38
 
 
 
@@ -49,9 +49,10 @@ on every slice.
 .. code-block:: default
 
 
-    from skimage.data import binary_blobs
-    from scipy import ndimage as ndi
     import numpy as np
+    from scipy import ndimage as ndi
+    from skimage.data import binary_blobs
+
     import napari
 
     blobs3d = binary_blobs(length=64, volume_fraction=0.1, n_dim=3).astype(float)

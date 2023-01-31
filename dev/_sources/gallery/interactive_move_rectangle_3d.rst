@@ -25,7 +25,7 @@ Shift a rectangle along its normal vector in 3D
 
 .. tags:: experimental
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-73
+.. GENERATED FROM PYTHON SOURCE LINES 9-74
 
 
 
@@ -41,8 +41,9 @@ Shift a rectangle along its normal vector in 3D
 .. code-block:: default
 
 
-    import napari
     import numpy as np
+
+    import napari
 
     rectangle = np.array(
         [

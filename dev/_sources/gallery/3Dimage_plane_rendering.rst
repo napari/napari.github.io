@@ -26,7 +26,7 @@ with a simple widget for modifying plane parameters.
 
 .. tags:: visualization-advanced, gui, layers
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-56
+.. GENERATED FROM PYTHON SOURCE LINES 10-57
 
 
 
@@ -41,10 +41,11 @@ with a simple widget for modifying plane parameters.
 
 .. code-block:: default
 
-    import napari
     import numpy as np
-    from napari.utils.translations import trans
     from skimage import data
+
+    import napari
+    from napari.utils.translations import trans
 
     viewer = napari.Viewer(ndisplay=3)
 

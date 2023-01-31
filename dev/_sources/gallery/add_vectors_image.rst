@@ -55,9 +55,9 @@ Each vector position is defined by an (x-proj, y-proj) element where
 .. code-block:: default
 
 
-    import napari
     import numpy as np
 
+    import napari
 
     # create the viewer and window
     viewer = napari.Viewer()

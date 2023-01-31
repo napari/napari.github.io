@@ -26,7 +26,7 @@ multiple face colors mapped from features for the points and text.
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-55
+.. GENERATED FROM PYTHON SOURCE LINES 10-56
 
 
 
@@ -43,6 +43,7 @@ multiple face colors mapped from features for the points and text.
 
 
     import numpy as np
+
     import napari
 
     # add the image with three points

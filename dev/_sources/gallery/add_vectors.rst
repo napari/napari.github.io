@@ -45,10 +45,10 @@ Each vector position is defined by an (x, y, x-proj, y-proj) element where
 .. code-block:: default
 
 
-    import napari
-    from skimage import data
     import numpy as np
+    from skimage import data
 
+    import napari
 
     # create the viewer and window
     viewer = napari.Viewer()

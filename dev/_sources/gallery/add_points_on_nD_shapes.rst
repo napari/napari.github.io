@@ -25,7 +25,7 @@ Add points on nD shapes in 3D using a mouse callback
 
 .. tags:: visualization-nD
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-75
+.. GENERATED FROM PYTHON SOURCE LINES 9-76
 
 
 
@@ -41,8 +41,9 @@ Add points on nD shapes in 3D using a mouse callback
 .. code-block:: default
 
 
-    import napari
     import numpy as np
+
+    import napari
 
     # Create rectangles in 4D
     data = [

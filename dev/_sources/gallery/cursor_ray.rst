@@ -25,7 +25,7 @@ Depict a ray through a layer in 3D to demonstrate interactive 3D functionality
 
 .. tags:: interactivity
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-67
+.. GENERATED FROM PYTHON SOURCE LINES 9-68
 
 
 
@@ -41,6 +41,7 @@ Depict a ray through a layer in 3D to demonstrate interactive 3D functionality
 .. code-block:: default
 
     import numpy as np
+
     import napari
 
     sidelength_data = 64

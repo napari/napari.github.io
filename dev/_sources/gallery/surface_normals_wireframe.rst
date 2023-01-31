@@ -53,9 +53,9 @@ Display a 3D mesh with normals and wireframe
 .. code-block:: default
 
 
-    from vispy.io import read_mesh, load_data_file
-    import napari
+    from vispy.io import load_data_file, read_mesh
 
+    import napari
 
     vert, faces, _, _ = read_mesh(load_data_file('orig/triceratops.obj.gz'))
 

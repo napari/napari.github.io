@@ -25,7 +25,7 @@ Display points overlaid on a 3D image
 
 .. tags:: visualization-nD
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-24
+.. GENERATED FROM PYTHON SOURCE LINES 9-25
 
 
 
@@ -41,6 +41,7 @@ Display points overlaid on a 3D image
 .. code-block:: default
 
     from skimage import data, feature, filters
+
     import napari
 
     cells = data.cells3d()

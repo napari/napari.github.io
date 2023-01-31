@@ -54,9 +54,9 @@ which are vector projections centered on a pixel of the MxNxP grid
 .. code-block:: default
 
 
-    import napari
     import numpy as np
 
+    import napari
 
     # create the viewer and window
     viewer = napari.Viewer()

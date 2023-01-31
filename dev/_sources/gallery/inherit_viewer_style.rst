@@ -26,7 +26,7 @@ from main napari window.
 
 .. tags::  gui, interactivity
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-77
+.. GENERATED FROM PYTHON SOURCE LINES 10-85
 
 
 
@@ -42,13 +42,21 @@ from main napari window.
 .. code-block:: default
 
 
-    from qtpy.QtWidgets import QDialog, QWidget, QVBoxLayout, QPushButton, QGridLayout, QLabel, QSpinBox
-
     from magicgui import magicgui
+    from qtpy.QtWidgets import (
+        QDialog,
+        QGridLayout,
+        QLabel,
+        QPushButton,
+        QSpinBox,
+        QVBoxLayout,
+        QWidget,
+    )
 
     import napari
     from napari.qt import get_stylesheet
     from napari.settings import get_settings
+
 
     # The magicgui widget shown by selecting the 'Show widget' button of MyWidget
     @magicgui
@@ -64,7 +72,7 @@ from main napari window.
 
 
     class MyDialog(QDialog):
-        def __init__(self, parent=None):
+        def __init__(self, parent=None) -> None:
             super().__init__(parent)
             self.first_input = QSpinBox()
             self.second_input = QSpinBox()
@@ -83,7 +91,7 @@ from main napari window.
             self.close()
 
     class MyWidget(QWidget):
-        def __init__(self):
+        def __init__(self) -> None:
             super().__init__()
             self.btn1 = QPushButton('Show dialog')
             self.btn1.clicked.connect(self.show_dialog)

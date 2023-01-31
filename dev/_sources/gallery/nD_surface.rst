@@ -42,8 +42,8 @@ Display a 3D surface
 
 
     import numpy as np
-    import napari
 
+    import napari
 
     # create the viewer and window
     viewer = napari.Viewer(ndisplay=3)

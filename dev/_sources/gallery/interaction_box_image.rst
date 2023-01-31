@@ -27,7 +27,7 @@ This allows the user to manipulate the image via the interaction box
 
 .. tags:: experimental
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-20
+.. GENERATED FROM PYTHON SOURCE LINES 11-21
 
 
 
@@ -44,6 +44,7 @@ This allows the user to manipulate the image via the interaction box
 
 
     from skimage import data
+
     import napari
 
     viewer = napari.view_image(data.astronaut(), rgb=True)

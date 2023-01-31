@@ -23,7 +23,7 @@ Tracks 3D
 
 .. tags:: visualization-advanced
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-79
+.. GENERATED FROM PYTHON SOURCE LINES 7-80
 
 
 
@@ -39,8 +39,9 @@ Tracks 3D
 .. code-block:: default
 
 
-    import napari
     import numpy as np
+
+    import napari
 
 
     def lissajous(t):

@@ -42,9 +42,9 @@ lines around in a shapes layer.
 .. code-block:: default
 
 
-    from skimage import data
-    from skimage import measure
     import numpy as np
+    from skimage import data, measure
+
     import napari
 
 

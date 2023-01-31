@@ -25,7 +25,7 @@ Display a 3D volume and the scale bar
 
 .. tags:: experimental
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-27
+.. GENERATED FROM PYTHON SOURCE LINES 9-28
 
 
 
@@ -40,8 +40,9 @@ Display a 3D volume and the scale bar
 
 .. code-block:: default
 
-    import napari
     from skimage import data
+
+    import napari
 
     cells = data.cells3d()
 

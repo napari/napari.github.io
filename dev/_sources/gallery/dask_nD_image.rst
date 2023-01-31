@@ -47,12 +47,12 @@ Display a dask array
         raise ModuleNotFoundError(
             """This example uses a dask array but dask is not
         installed. To install try 'pip install dask'."""
-        )
+        ) from None
 
     import numpy as np
     from skimage import data
-    import napari
 
+    import napari
 
     blobs = da.stack(
         [

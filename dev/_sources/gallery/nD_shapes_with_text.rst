@@ -39,8 +39,8 @@ nD shapes with text
 .. code-block:: default
 
     from skimage import data
-    import napari
 
+    import napari
 
     blobs = data.binary_blobs(
         length=100, blob_size_fraction=0.05, n_dim=3, volume_fraction=0.03

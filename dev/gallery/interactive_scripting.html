@@ -1167,11 +1167,12 @@ to download the full example code</p>
 <section class="sphx-glr-example-title" id="interactive-scripting">
 <span id="sphx-glr-gallery-interactive-scripting-py"></span><h1>Interactive scripting<a class="headerlink" href="#interactive-scripting" title="Permalink to this headline">¶</a></h1>
 <p class="tags"><span>Tags: </span><a class="reference external" href="../_tags/interactivity.html">interactivity</a></p>
-<img src="../_images/sphx_glr_interactive_scripting_001.png" srcset="../_images/sphx_glr_interactive_scripting_001.png" alt="interactive scripting" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<img src="../_images/sphx_glr_interactive_scripting_001.png" srcset="../_images/sphx_glr_interactive_scripting_001.png" alt="interactive scripting" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
 <span class="kn">import</span> <span class="nn">napari</span>
 <span class="kn">from</span> <span class="nn">napari.qt</span> <span class="kn">import</span> <a href="../api/napari.qt.html#napari.qt.thread_worker" title="napari.qt.thread_worker" class="sphx-glr-backref-module-napari-qt sphx-glr-backref-type-py-function"><span class="n">thread_worker</span></a>
-<span class="kn">import</span> <span class="nn">time</span>
-
 
 <span class="c1"># create the viewer with an image</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.random.html#numpy.random.random" title="numpy.random.random" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
@@ -1184,7 +1185,7 @@ to download the full example code</p>
 <span class="nd">@thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;yielded&#39;</span><span class="p">:</span> <span class="n">update_layer</span><span class="p">})</span>
 <span class="k">def</span> <span class="nf">create_data</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">update_period</span><span class="p">,</span> <span class="n">num_updates</span><span class="p">):</span>
     <span class="c1"># number of times to update</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_updates</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">_k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_updates</span><span class="p">):</span>
         <span class="k">yield</span> <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.random.html#numpy.random.random" title="numpy.random.random" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
         <a href="https://docs.python.org/3/library/time.html#time.sleep" title="time.sleep" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span></a><span class="p">(</span><span class="n">update_period</span><span class="p">)</span>
 

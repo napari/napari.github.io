@@ -262,7 +262,8 @@ function checkPageExistsAndRedirect(event) {
             <div>
               
   <h1>Source code for napari.utils.info</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -314,21 +315,17 @@ function checkPageExistsAndRedirect(event) {
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Discover MacOS or Linux Human readable information. For Linux provide information about distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;linux&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_linux_sys_name</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">):</span>
                 <span class="n">res</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
                     <span class="p">[</span><span class="s2">&quot;sw_vers&quot;</span><span class="p">,</span> <span class="s2">&quot;-productVersion&quot;</span><span class="p">],</span>
                     <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;MacOS </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">:</span>
-                <span class="k">pass</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="k">pass</span>
     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
 
@@ -367,7 +364,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{</span><span class="n">API_NAME</span><span class="si">}</span><span class="s2">&lt;/b&gt;: </span><span class="si">{</span><span class="n">API_VERSION</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
         <span class="p">)</span>
 
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
         <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Qt&lt;/b&gt;: Import failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">)&lt;br&gt;&quot;</span>
 
     <span class="n">modules</span> <span class="o">=</span> <span class="p">(</span>
@@ -387,7 +384,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">try</span><span class="p">:</span>
             <span class="n">loaded</span><span class="p">[</span><span class="n">module</span><span class="p">]</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
             <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&lt;/b&gt;: </span><span class="si">{</span><span class="n">loaded</span><span class="p">[</span><span class="n">module</span><span class="p">]</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
             <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&lt;/b&gt;: Import failed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">)&lt;br&gt;&quot;</span>
 
     <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;&lt;br&gt;&lt;b&gt;OpenGL:&lt;/b&gt;&lt;br&gt;&quot;</span>
@@ -415,7 +412,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">screen_list</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">.</span><span class="n">screens</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">screen</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">screen_list</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
             <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - screen </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: resolution </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span><span class="si">}</span><span class="s2">, scale </span><span class="si">{</span><span class="n">screen</span><span class="o">.</span><span class="n">devicePixelRatio</span><span class="p">()</span><span class="si">}</span><span class="s2">&lt;br&gt;&quot;</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa BLE001</span>
         <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - failed to load screen information </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;&lt;br&gt;&lt;b&gt;Settings path:&lt;/b&gt;&lt;br&gt;&quot;</span>

@@ -28,7 +28,7 @@ the "gui_qt()" context manager.
 
 .. tags:: historical
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-39
+.. GENERATED FROM PYTHON SOURCE LINES 12-41
 
 
 
@@ -56,9 +56,11 @@ the "gui_qt()" context manager.
 .. code-block:: default
 
 
-    from skimage import data
-    import napari
     from collections import Counter
+
+    from skimage import data
+
+    import napari
 
     viewer = napari.view_image(data.astronaut(), rgb=True)
 

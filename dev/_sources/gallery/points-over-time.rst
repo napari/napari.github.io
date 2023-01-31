@@ -38,10 +38,10 @@ Points over time
 
 .. code-block:: default
 
-    import napari
-    import numpy as np
     import dask.array as da
+    import numpy as np
 
+    import napari
 
     image4d = da.random.random(
             (4000, 32, 256, 256),

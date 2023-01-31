@@ -32,7 +32,7 @@ ChrisLUTs: https://github.com/cleterrier/ChrisLUTs .
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-36
+.. GENERATED FROM PYTHON SOURCE LINES 16-37
 
 
 
@@ -49,6 +49,7 @@ ChrisLUTs: https://github.com/cleterrier/ChrisLUTs .
 
 
     from skimage import data
+
     import napari
 
     # create a viewer

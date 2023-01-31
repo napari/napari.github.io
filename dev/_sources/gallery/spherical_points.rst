@@ -38,9 +38,9 @@ Spherical points
 
 .. code-block:: default
 
-    import napari
     import numpy as np
 
+    import napari
 
     np.random.seed()
 

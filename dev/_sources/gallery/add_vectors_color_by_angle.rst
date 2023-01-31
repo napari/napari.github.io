@@ -42,10 +42,10 @@ The color of the vectors is mapped to their 'angle' feature.
 .. code-block:: default
 
 
-    import napari
-    from skimage import data
     import numpy as np
+    from skimage import data
 
+    import napari
 
     # create the viewer and window
     viewer = napari.Viewer()

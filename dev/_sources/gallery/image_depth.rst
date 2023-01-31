@@ -23,7 +23,7 @@ Image depth
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-27
+.. GENERATED FROM PYTHON SOURCE LINES 7-28
 
 
 
@@ -39,8 +39,9 @@ Image depth
 .. code-block:: default
 
 
-    import napari
     import numpy as np
+
+    import napari
 
     im_data = np.zeros((50, 50, 50))
     im_data[30:40, 25:35, 25:35] = 1

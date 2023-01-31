@@ -28,17 +28,17 @@ them using magicgui.
 
 .. tags:: visualization-advanced
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-19
+.. GENERATED FROM PYTHON SOURCE LINES 12-20
 
 .. code-block:: default
 
 
-    import numpy as np
-    import napari
     import dask.array as da
+    import numpy as np
     from dask.array.lib.stride_tricks import sliding_window_view
     from skimage import data
 
+    import napari
 
 
 
@@ -46,11 +46,12 @@ them using magicgui.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-21
+
+.. GENERATED FROM PYTHON SOURCE LINES 21-22
 
 Part 1: using code to view a specific value.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-37
+.. GENERATED FROM PYTHON SOURCE LINES 22-38
 
 .. code-block:: default
 
@@ -82,16 +83,17 @@ Part 1: using code to view a specific value.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-39
+.. GENERATED FROM PYTHON SOURCE LINES 39-40
 
 Part 2: using magicgui to vary the slice thickness.
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-70
+.. GENERATED FROM PYTHON SOURCE LINES 40-72
 
 .. code-block:: default
 
 
     from magicgui import magicgui  # noqa: E402
+
 
     def sliding_window_mean(
         arr: napari.types.ImageData, size: int = 1

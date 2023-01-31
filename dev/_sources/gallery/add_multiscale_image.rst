@@ -53,11 +53,11 @@ Displays a multiscale image
 .. code-block:: default
 
 
+    import numpy as np
     from skimage import data
     from skimage.transform import pyramid_gaussian
-    import napari
-    import numpy as np
 
+    import napari
 
     # create multiscale from astronaut image
     base = np.tile(data.astronaut(), (8, 8, 1))

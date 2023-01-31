@@ -1168,14 +1168,14 @@ to download the full example code</p>
 <span id="sphx-glr-gallery-add-labels-with-features-py"></span><h1>Add labels with features<a class="headerlink" href="#add-labels-with-features" title="Permalink to this headline">¶</a></h1>
 <p>Display a labels layer with various features</p>
 <p class="tags"><span>Tags: </span><a class="reference external" href="../_tags/layers.html">layers</a><span>, </span><a class="reference external" href="../_tags/analysis.html">analysis</a></p>
-<img src="../_images/sphx_glr_add_labels_with_features_001.png" srcset="../_images/sphx_glr_add_labels_with_features_001.png" alt="add labels with features" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+<img src="../_images/sphx_glr_add_labels_with_features_001.png" srcset="../_images/sphx_glr_add_labels_with_features_001.png" alt="add labels with features" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
 <span class="kn">from</span> <span class="nn">skimage.filters</span> <span class="kn">import</span> <span class="n">threshold_otsu</span>
-<span class="kn">from</span> <span class="nn">skimage.segmentation</span> <span class="kn">import</span> <span class="n">clear_border</span>
 <span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="kn">import</span> <span class="n">label</span>
-<span class="kn">from</span> <span class="nn">skimage.morphology</span> <span class="kn">import</span> <span class="n">closing</span><span class="p">,</span> <span class="n">square</span><span class="p">,</span> <span class="n">remove_small_objects</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">napari</span>
+<span class="kn">from</span> <span class="nn">skimage.morphology</span> <span class="kn">import</span> <span class="n">closing</span><span class="p">,</span> <span class="n">remove_small_objects</span><span class="p">,</span> <span class="n">square</span>
+<span class="kn">from</span> <span class="nn">skimage.segmentation</span> <span class="kn">import</span> <span class="n">clear_border</span>
 
+<span class="kn">import</span> <span class="nn">napari</span>
 
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">image</span></a> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">coins</span><span class="p">()[</span><span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">50</span><span class="p">]</span>
 

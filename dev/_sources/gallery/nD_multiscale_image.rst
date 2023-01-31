@@ -54,10 +54,10 @@ Displays an nD multiscale image
 .. code-block:: default
 
 
-    from skimage.transform import pyramid_gaussian
-    import napari
     import numpy as np
+    from skimage.transform import pyramid_gaussian
 
+    import napari
 
     # create multiscale from random data
     base = np.random.random((1536, 1536))

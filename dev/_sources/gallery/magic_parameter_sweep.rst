@@ -29,7 +29,7 @@ It demonstrates:
 
 .. tags:: gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-49
+.. GENERATED FROM PYTHON SOURCE LINES 13-51
 
 
 
@@ -46,8 +46,10 @@ It demonstrates:
 
     import skimage.data
     import skimage.filters
-    import napari
     from typing_extensions import Annotated
+
+    import napari
+
 
     # Define our gaussian_blur function.
     # Note that we can use forward references for the napari type annotations.

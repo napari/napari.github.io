@@ -266,6 +266,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
@@ -1001,22 +1002,32 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">dial</span><span class="o">.</span><span class="n">exec_</span><span class="p">():</span>
             <span class="n">update_save_history</span><span class="p">(</span><span class="n">dial</span><span class="o">.</span><span class="n">selectedFiles</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">_open_files_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add files from the menubar.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_open_file_dialog_uni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open dialog to get list of files from user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
         <span class="n">hist</span> <span class="o">=</span> <span class="n">get_open_history</span><span class="p">()</span>
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
 
-        <span class="n">filenames</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getOpenFileNames</span><span class="p">(</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-            <span class="n">caption</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Select file(s)...&#39;</span><span class="p">),</span>
-            <span class="n">directory</span><span class="o">=</span><span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-            <span class="n">options</span><span class="o">=</span><span class="p">(</span>
-                <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
-                <span class="k">if</span> <span class="n">in_ipython</span><span class="p">()</span>
-                <span class="k">else</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
+        <span class="n">open_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;parent&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="s2">&quot;pyside&quot;</span> <span class="ow">in</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="c1"># PySide6</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s2">&quot;dir&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s2">&quot;directory&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">in_ipython</span><span class="p">():</span>
+            <span class="n">open_kwargs</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
+
+        <span class="k">return</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getOpenFileNames</span><span class="p">(</span><span class="o">**</span><span class="n">open_kwargs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_open_files_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add files from the menubar.&quot;&quot;&quot;</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_file_dialog_uni</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Select file(s)...&#39;</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">filenames</span> <span class="o">!=</span> <span class="p">[])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">filenames</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
@@ -1027,20 +1038,8 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_open_files_dialog_as_stack_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add files as a stack, from the menubar.&quot;&quot;&quot;</span>
-        <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">()</span>
-        <span class="n">hist</span> <span class="o">=</span> <span class="n">get_open_history</span><span class="p">()</span>
-        <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
 
-        <span class="n">filenames</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getOpenFileNames</span><span class="p">(</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-            <span class="n">caption</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Select files...&#39;</span><span class="p">),</span>
-            <span class="n">directory</span><span class="o">=</span><span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># home dir by default</span>
-            <span class="n">options</span><span class="o">=</span><span class="p">(</span>
-                <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
-                <span class="k">if</span> <span class="n">in_ipython</span><span class="p">()</span>
-                <span class="k">else</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_file_dialog_uni</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Select files...&#39;</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">filenames</span> <span class="o">!=</span> <span class="p">[])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">filenames</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_open</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">choose_plugin</span><span class="o">=</span><span class="n">choose_plugin</span><span class="p">)</span>

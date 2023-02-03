@@ -678,6 +678,11 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contributing-documentation">
+   Contributing documentation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#adding-icons">
    Adding icons
   </a>
@@ -722,11 +727,6 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#building-the-docs">
-   Building the docs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#code-of-conduct">
    Code of Conduct
   </a>
@@ -764,35 +764,71 @@ function checkPageExistsAndRedirect(event) {
 <section id="setting-up-a-development-installation">
 <span id="dev-installation"></span><h2>Setting up a development installation<a class="headerlink" href="#setting-up-a-development-installation" title="Permalink to this headline">¶</a></h2>
 <p>In order to make changes to <code class="docutils literal notranslate"><span class="pre">napari</span></code>, you will need to <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects#forking-a-repository">fork</a> the
-<a class="reference external" href="https://github.com/napari/napari">repository</a>.</p>
-<p>If you are not familiar with <code class="docutils literal notranslate"><span class="pre">git</span></code>, we recommend reading up on <a class="reference external" href="https://docs.github.com/en/get-started/using-git/about-git#basic-git-commands">this guide</a>.</p>
-<p>Clone the forked repository to your local machine and change directories:</p>
+<a class="reference external" href="https://github.com/napari/napari">repository</a>. If you are not familiar with <code class="docutils literal notranslate"><span class="pre">git</span></code>, we recommend reading up on <a class="reference external" href="https://docs.github.com/en/get-started/using-git/about-git#basic-git-commands">this guide</a>.</p>
+<ol class="arabic">
+<li><p>Clone the forked repository to your local machine and change directories:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-username/napari.git
 <span class="nb">cd</span><span class="w"> </span>napari
 </pre></div>
 </div>
-<p>Set the <code class="docutils literal notranslate"><span class="pre">upstream</span></code> remote to the base <code class="docutils literal notranslate"><span class="pre">napari</span></code> repository:</p>
+</li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">upstream</span></code> remote to the base <code class="docutils literal notranslate"><span class="pre">napari</span></code> repository:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/napari/napari.git
 </pre></div>
 </div>
-<p>We recommend starting with a fresh Python virtual environment, using an environment manager like
-<a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">conda</a> or <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a>. Then, install the napari package
-in editable mode and all of the developer tools, along with a supported Qt backend. For example, for PyQt5, the default, you would use the following:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[pyqt,dev]&quot;</span><span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
+</li>
+<li><p>If you haven’t already, create a development environment:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Using <code class="docutils literal notranslate"><span class="pre">conda</span></code></label><div class="sd-tab-content docutils">
+<p>After <a class="reference external" href="https://www.anaconda.com/products/distribution">installing <code class="docutils literal notranslate"><span class="pre">conda</span></code></a>, create an environment called <code class="docutils literal notranslate"><span class="pre">napari-env</span></code> with Python 3.9 and activate it.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>napari-env<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+conda<span class="w"> </span>activate<span class="w"> </span>napari-env
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Using <code class="docutils literal notranslate"><span class="pre">venv</span></code></label><div class="sd-tab-content docutils">
+<p>After installing Python on your machine, create a virtual environment on your terminal and activate it. On Linux and MacOS, you can run</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>&lt;path-to-env&gt;
+<span class="nb">source</span><span class="w"> </span>&lt;path-to-env&gt;/bin/activate
+</pre></div>
+</div>
+<p>See the <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a> documentation for instructions on Windows.</p>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is highly recommended to create a fresh environment when working with
+napari, to prevent issues with outdated or conflicting packages in your
+development environment.</p>
+</div>
+</li>
+<li><p>Install the package in editable mode, along with all of the developer tools.</p>
+<p>If you only want to use napari, you can install it on most macOS, Linux and
+Windows systems with Python 3.8–3.10
+by following the directions on the
+<a class="reference internal" href="../tutorials/fundamentals/installation.html#install-as-python-package-recommended"><span class="std std-doc">instructions page</span></a>.</p>
+<p>napari supports different Qt backends, and you can choose which one to install and use.</p>
+<p>For example, for PyQt5, the default, you would use the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[pyqt,dev]&quot;</span><span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
 </pre></div>
 </div>
 <p>If you want to use PySide2 instead, you would use:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[pyside,dev]&quot;</span><span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[pyside,dev]&quot;</span><span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
 </pre></div>
 </div>
 <p>Finally, if you already have a Qt backend installed or want to use an experimental one like Qt6 use:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span><span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span><span class="w">  </span><span class="c1"># (quotes only needed for zsh shell)</span>
 </pre></div>
 </div>
-<p>We use <a class="reference external" href="https://pre-commit.com"><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></a> to sort imports with
-<a class="reference external" href="https://github.com/PyCQA/isort"><code class="docutils literal notranslate"><span class="pre">isort</span></code></a>, format code with
-<a class="reference external" href="https://github.com/psf/black"><code class="docutils literal notranslate"><span class="pre">black</span></code></a>, and lint with
-<a class="reference external" href="https://github.com/PyCQA/flake8"><code class="docutils literal notranslate"><span class="pre">flake8</span></code></a> automatically prior to each commit.
+<p>Note that in this last case you will need to install your Qt backend separately.</p>
+</li>
+<li><p>We use <a class="reference external" href="https://pre-commit.com"><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></a> to format code with
+<a class="reference external" href="https://github.com/psf/black"><code class="docutils literal notranslate"><span class="pre">black</span></code></a> and lint with
+<a class="reference external" href="https://github.com/charliermarsh/ruff"><code class="docutils literal notranslate"><span class="pre">ruff</span></code></a> automatically prior to each commit.
 To minimize test errors when submitting pull requests, please install <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>
 in your environment as follows:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>install
@@ -814,6 +850,13 @@ the <a class="reference external" href="https://peps.python.org/pep-0008/">PEP 8
 <p>If you wish to tell the linter to ignore a specific line use the <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">noqa</span></code>
 comment along with the specific error code (e.g. <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">sys</span>&#160; <span class="pre">#</span> <span class="pre">noqa:</span> <span class="pre">E402</span></code>) but
 please do not ignore errors lightly.</p>
+</li>
+</ol>
+<p>Now you are all set to start developing with napari.</p>
+</section>
+<section id="contributing-documentation">
+<h2>Contributing documentation<a class="headerlink" href="#contributing-documentation" title="Permalink to this headline">¶</a></h2>
+<p>If you wish to contribute documentation changes to napari, please read the <a class="reference internal" href="documentation/index.html"><span class="doc std std-doc">guide on contributing documentation</span></a>.</p>
 </section>
 <section id="adding-icons">
 <h2>Adding icons<a class="headerlink" href="#adding-icons" title="Permalink to this headline">¶</a></h2>
@@ -944,16 +987,6 @@ git<span class="w"> </span>merge<span class="w"> </span>main
 </div>
 <p>You can then make a
 <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects#making-a-pull-request">pull-request</a> to <code class="docutils literal notranslate"><span class="pre">napari</span></code>’s <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.</p>
-</section>
-<section id="building-the-docs">
-<h2>Building the docs<a class="headerlink" href="#building-the-docs" title="Permalink to this headline">¶</a></h2>
-<p>From the project root:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>docs
-</pre></div>
-</div>
-<p>The docs will be built at <code class="docutils literal notranslate"><span class="pre">docs/_build/html</span></code>.</p>
-<p>Most web browsers will allow you to preview HTML pages.
-Try entering <code class="docutils literal notranslate"><span class="pre">file:///absolute/path/to/napari/docs/_build/html/index.html</span></code> in your address bar.</p>
 </section>
 <section id="code-of-conduct">
 <h2>Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this headline">¶</a></h2>

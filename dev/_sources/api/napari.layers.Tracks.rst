@@ -72,6 +72,7 @@ napari.layers.Tracks
    
       ~Tracks.affine
       ~Tracks.blending
+      ~Tracks.bounding_box
       ~Tracks.class_keymap
       ~Tracks.colomaps_dict
       ~Tracks.color_by
@@ -96,6 +97,7 @@ napari.layers.Tracks
       ~Tracks.interactive
       ~Tracks.loaded
       ~Tracks.metadata
+      ~Tracks.mode
       ~Tracks.name
       ~Tracks.ndim
       ~Tracks.opacity

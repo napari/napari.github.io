@@ -271,7 +271,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 
-<span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base._base_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">highlight_box_handles</span><span class="p">,</span>
+    <span class="n">transform_with_box</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
 <span class="kn">from</span> <span class="nn">napari.layers.labels._labels_constants</span> <span class="kn">import</span> <span class="p">(</span>
@@ -468,6 +472,34 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        background label `0` is selected.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
+
+    <span class="n">_drag_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">transform_with_box</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="n">pick</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_move_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">highlight_box_handles</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">_cursor_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
     <span class="n">_history_limit</span> <span class="o">=</span> <span class="mi">100</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -564,7 +596,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preserve_labels</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -925,7 +956,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span> <span class="o">=</span> <span class="nb">filter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
-    <span class="nd">@property</span>
+    <span class="nd">@Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">getter</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;MODE: Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
 <span class="sd">        allows for normal interactivity with the canvas.</span>
@@ -952,43 +983,15 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">)</span>
 
-    <span class="n">_drag_modes</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="n">pick</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="n">_move_modes</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="n">_cursor_modes</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="nd">@mode</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mode</span><span class="p">]):</span>
-        <span class="n">mode</span><span class="p">,</span> <span class="n">changed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">Mode</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">changed</span><span class="p">:</span>
-            <span class="k">return</span>
+    <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mode</span>
 
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">{</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">}:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_cursor_size</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">mode</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">preserve_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

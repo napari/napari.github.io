@@ -109,13 +109,12 @@ napari.components.ViewerModel
 
    .. autosummary::
    
+      ~ViewerModel.axes
       ~ViewerModel.class_keymap
       ~ViewerModel.events
       ~ViewerModel.experimental
-      
-      
-      
-      
+      ~ViewerModel.scale_bar
+      ~ViewerModel.text_overlay
       
       
       

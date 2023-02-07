@@ -268,6 +268,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
@@ -509,7 +510,21 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;new_index&#39;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
                     <span class="nb">setattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">ei</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_reemit_child_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+        <span class="c1"># if the starting event was from a nestable envented list, we can</span>
+        <span class="c1"># use the same event type here (e.g: removed, inserted)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">NestableEventedList</span><span class="p">):</span>
+            <span class="n">emitter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">emitter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span>
+
+        <span class="c1"># same as normal evented_list, but now we need to account for the</span>
+        <span class="c1"># potentially different emitter</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+
+        <span class="n">emitter</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_non_negative_index</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">parent_index</span><span class="p">:</span> <span class="n">ParentIndex</span><span class="p">,</span> <span class="n">dest_index</span><span class="p">:</span> <span class="n">Index</span>

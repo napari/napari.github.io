@@ -273,6 +273,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gmean</span>
 
 <span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base._base_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">highlight_box_handles</span><span class="p">,</span>
+    <span class="n">transform_with_box</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.points._points_constants</span> <span class="kn">import</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">Shading</span>
 <span class="kn">from</span> <span class="nn">napari.layers.points._points_mouse_bindings</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">highlight</span><span class="p">,</span> <span class="n">select</span>
 <span class="kn">from</span> <span class="nn">napari.layers.points._points_utils</span> <span class="kn">import</span> <span class="p">(</span>
@@ -550,6 +554,28 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        None after dragging is done.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
+
+    <span class="n">_drag_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">transform_with_box</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span> <span class="n">add</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="n">select</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_move_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">highlight_box_handles</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="n">highlight</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">_cursor_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span> <span class="s1">&#39;crosshair&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
     <span class="c1"># TODO  write better documentation for edge_color and face_color</span>
 
     <span class="c1"># The max number of points that will ever be used to render the thumbnail</span>
@@ -601,6 +627,32 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="n">data</span><span class="p">,</span> <span class="n">ndim</span> <span class="o">=</span> <span class="n">fix_data_points</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
 
+        <span class="c1"># Indices of selected points</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_history</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="c1"># Indices of selected points within the currently viewed slice</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Index of hovered point</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value_stored</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_index</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_box</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_start</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_normal</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_up</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># initialize view data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__indices_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box_stored</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_selecting</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_round_index</span> <span class="o">=</span> <span class="kc">False</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
             <span class="n">ndim</span><span class="p">,</span>
@@ -619,7 +671,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-            <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">edge_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">edge_width_is_relative</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -682,22 +733,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_value_stored</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_index</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_box</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_start</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_normal</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_up</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="c1"># initialize view data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__indices_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box_stored</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_selecting</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_round_index</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="n">color_properties</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">property_choices</span>
@@ -1570,7 +1605,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="n">create_box</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-    <span class="nd">@property</span>
+    <span class="nd">@Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">getter</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Interactive mode</span>
 
@@ -1585,45 +1620,19 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">)</span>
 
-    <span class="n">_drag_modes</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span> <span class="n">add</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="n">select</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="n">_move_modes</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="n">highlight</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="n">_cursor_modes</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span> <span class="s1">&#39;crosshair&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="nd">@mode</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
-        <span class="n">old_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span>
-        <span class="n">mode</span><span class="p">,</span> <span class="n">changed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">Mode</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">changed</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="k">assert</span> <span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mode</span>
+    <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mode</span>
 
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">if</span> <span class="n">mode</span> <span class="o">!=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span> <span class="ow">or</span> <span class="n">old_mode</span> <span class="o">!=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">!=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">!=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mode</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_indices_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

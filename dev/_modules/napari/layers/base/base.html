@@ -277,7 +277,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">npe2</span> <span class="kn">import</span> <span class="n">plugin_manager</span> <span class="k">as</span> <span class="n">pm</span>
 
-<span class="kn">from</span> <span class="nn">napari.layers.base._base_constants</span> <span class="kn">import</span> <span class="n">Blending</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base._base_constants</span> <span class="kn">import</span> <span class="n">Blending</span><span class="p">,</span> <span class="n">Mode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base._base_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">highlight_box_handles</span><span class="p">,</span>
+    <span class="n">transform_with_box</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.interactivity_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">drag_data_to_projected_distance</span><span class="p">,</span>
@@ -296,7 +300,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">add_layers_to_viewer</span><span class="p">,</span>
     <span class="n">get_layers</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedDict</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">find_front_back_face</span><span class="p">,</span>
@@ -478,6 +482,22 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    * `_basename()`: base/default name of the layer</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
+
+    <span class="n">_drag_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">transform_with_box</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_move_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">highlight_box_handles</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">_cursor_modes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">data</span><span class="p">,</span>
@@ -496,6 +516,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># this should move to future &quot;data source&quot; object.</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;pan_zoom&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -531,6 +552,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="o">=</span> <span class="n">multiscale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_experimental_clipping_planes</span> <span class="o">=</span> <span class="n">ClippingPlaneList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">(</span><span class="s1">&#39;pan_zoom&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
 
@@ -585,6 +607,15 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span> <span class="o">=</span> <span class="n">experimental_clipping_planes</span>
 
+        <span class="c1"># circular import</span>
+        <span class="kn">from</span> <span class="nn">napari.components.overlays.bounding_box</span> <span class="kn">import</span> <span class="n">BoundingBoxOverlay</span>
+        <span class="kn">from</span> <span class="nn">napari.components.overlays.interaction_box</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">SelectionBoxOverlay</span><span class="p">,</span>
+            <span class="n">TransformBoxOverlay</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span> <span class="o">=</span> <span class="n">EventedDict</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span>
             <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">refresh</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -608,6 +639,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">editable</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">loaded</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">_overlays</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">select</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;layer.events.select&#39; is deprecated and will be removed in napari v0.4.9, use &#39;viewer.layers.selection.events.changed&#39; instead, and inspect the &#39;added&#39; attribute on the event.&quot;</span><span class="p">,</span>
@@ -622,8 +654,21 @@ function checkPageExistsAndRedirect(event) {
                 <span class="p">),</span>
                 <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;deselect&#39;</span><span class="p">,</span>
             <span class="p">),</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;transform_box&#39;</span><span class="p">:</span> <span class="n">TransformBoxOverlay</span><span class="p">(),</span>
+                <span class="s1">&#39;selection_box&#39;</span><span class="p">:</span> <span class="n">SelectionBoxOverlay</span><span class="p">(),</span>
+                <span class="s1">&#39;bounding_box&#39;</span><span class="p">:</span> <span class="n">BoundingBoxOverlay</span><span class="p">(),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="c1"># TODO: we try to avoid inner event connection, but this might be the only way</span>
+        <span class="c1">#       until we figure out nested evented objects</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_overlays</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return self.name.&quot;&quot;&quot;</span>
@@ -633,37 +678,33 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> layer </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">Modeclass</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper to manage callbacks in multiple layers</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        mode : Modeclass | str</span>
+<span class="sd">        mode : type(self._modeclass) | str</span>
 <span class="sd">            New mode for the current layer.</span>
-<span class="sd">        Modeclass : Enum</span>
-<span class="sd">            Enum for the current class representing the modes it can takes,</span>
-<span class="sd">            this is usually specific on each subclass.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        tuple (new Mode, mode changed)</span>
+<span class="sd">        bool : whether mode changed</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">mode</span> <span class="o">=</span> <span class="n">Modeclass</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">editable</span><span class="p">:</span>
-            <span class="n">mode</span> <span class="o">=</span> <span class="n">Modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">mode</span><span class="p">,</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Modeclass</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">mode</span>
+
+        <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;Mode not recognized: </span><span class="si">{mode}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-        <span class="n">old_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
 
         <span class="k">for</span> <span class="n">callback_list</span><span class="p">,</span> <span class="n">mode_dict</span> <span class="ow">in</span> <span class="p">[</span>
             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mouse_drag_callbacks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drag_modes</span><span class="p">),</span>
@@ -675,13 +716,44 @@ function checkPageExistsAndRedirect(event) {
                 <span class="p">),</span>
             <span class="p">),</span>
         <span class="p">]:</span>
-            <span class="k">if</span> <span class="n">mode_dict</span><span class="p">[</span><span class="n">old_mode</span><span class="p">]</span> <span class="ow">in</span> <span class="n">callback_list</span><span class="p">:</span>
-                <span class="n">callback_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">mode_dict</span><span class="p">[</span><span class="n">old_mode</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">mode_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">]</span> <span class="ow">in</span> <span class="n">callback_list</span><span class="p">:</span>
+                <span class="n">callback_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">mode_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">])</span>
             <span class="n">callback_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mode_dict</span><span class="p">[</span><span class="n">mode</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_modes</span><span class="p">[</span><span class="n">mode</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
-        <span class="k">return</span> <span class="n">mode</span><span class="p">,</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;transform_box&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s1">&#39;hold &lt;space&gt; to pan/zoom, hold &lt;shift&gt; to preserve aspect ratio and rotate in 45° increments&#39;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="n">mode</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Interactive mode</span>
+
+<span class="sd">        Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
+<span class="sd">        allows for normal interactivity with the canvas.</span>
+
+<span class="sd">        TRANSFORM allows for manipulation of the layer transform.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">)</span>
+
+    <span class="nd">@mode</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_basename</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
@@ -1157,6 +1229,10 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">plane</span> <span class="o">=</span> <span class="n">ClippingPlane</span><span class="p">()</span>
             <span class="n">plane</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_plane</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_experimental_clipping_planes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;bounding_box&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span><span class="p">():</span>

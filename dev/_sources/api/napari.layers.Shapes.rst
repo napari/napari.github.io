@@ -120,6 +120,7 @@ napari.layers.Shapes
    
       ~Shapes.affine
       ~Shapes.blending
+      ~Shapes.bounding_box
       ~Shapes.class_keymap
       ~Shapes.current_edge_color
       ~Shapes.current_edge_width

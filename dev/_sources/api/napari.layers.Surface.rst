@@ -78,6 +78,7 @@ napari.layers.Surface
    
       ~Surface.affine
       ~Surface.blending
+      ~Surface.bounding_box
       ~Surface.class_keymap
       ~Surface.colormap
       ~Surface.colormaps
@@ -96,6 +97,7 @@ napari.layers.Surface
       ~Surface.interactive
       ~Surface.loaded
       ~Surface.metadata
+      ~Surface.mode
       ~Surface.name
       ~Surface.ndim
       ~Surface.opacity

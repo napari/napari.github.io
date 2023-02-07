@@ -124,14 +124,13 @@ napari.Viewer
 
    .. autosummary::
    
+      ~Viewer.axes
       ~Viewer.class_keymap
       ~Viewer.events
       ~Viewer.experimental
+      ~Viewer.scale_bar
+      ~Viewer.text_overlay
       ~Viewer.window
-      
-      
-      
-      
       
       
       

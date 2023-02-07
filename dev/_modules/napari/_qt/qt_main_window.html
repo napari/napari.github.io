@@ -399,8 +399,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># this ia sa workaround for #5335 issue. The dict is used to not</span>
         <span class="c1"># collide shortcuts for close and close all windows</span>
 
-        <span class="n">act_dlg</span> <span class="o">=</span> <span class="n">QtActivityDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">resized</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">act_dlg</span> <span class="o">=</span> <span class="n">QtActivityDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">resized</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="n">act_dlg</span><span class="o">.</span><span class="n">move_to_bottom_right</span>
         <span class="p">)</span>
         <span class="n">act_dlg</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
@@ -1635,7 +1635,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">grabFramebuffer</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">flash</span><span class="p">:</span>
-                    <span class="n">add_flash_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="p">)</span>
+                    <span class="n">add_flash_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="p">)</span>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="c1"># make sure we always go back to the right canvas size</span>
                 <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

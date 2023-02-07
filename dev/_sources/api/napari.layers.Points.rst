@@ -91,6 +91,7 @@ napari.layers.Points
       ~Points.affine
       ~Points.antialiasing
       ~Points.blending
+      ~Points.bounding_box
       ~Points.canvas_size_limits
       ~Points.class_keymap
       ~Points.current_edge_color

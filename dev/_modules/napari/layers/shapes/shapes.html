@@ -273,6 +273,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">vispy.color</span> <span class="kn">import</span> <span class="n">get_color_names</span>
 
 <span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base._base_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">highlight_box_handles</span><span class="p">,</span>
+    <span class="n">transform_with_box</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.shapes._shape_list</span> <span class="kn">import</span> <span class="n">ShapeList</span>
 <span class="kn">from</span> <span class="nn">napari.layers.shapes._shapes_constants</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Box</span><span class="p">,</span>
@@ -571,6 +575,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        won&#39;t update during interactive events</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
     <span class="n">_colors</span> <span class="o">=</span> <span class="n">get_color_names</span><span class="p">()</span>
     <span class="n">_vertex_size</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="n">_rotation_handle_length</span> <span class="o">=</span> <span class="mi">20</span>
@@ -583,6 +588,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="n">_drag_modes</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">transform_with_box</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="n">select</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span> <span class="n">select</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">VERTEX_INSERT</span><span class="p">:</span> <span class="n">vertex_insert</span><span class="p">,</span>
@@ -592,11 +598,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_LINE</span><span class="p">:</span> <span class="n">add_line</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_PATH</span><span class="p">:</span> <span class="n">add_path_polygon</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_POLYGON</span><span class="p">:</span> <span class="n">add_path_polygon</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">_move_modes</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">highlight_box_handles</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="n">highlight</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span> <span class="n">highlight</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">VERTEX_INSERT</span><span class="p">:</span> <span class="n">highlight</span><span class="p">,</span>
@@ -606,11 +612,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_LINE</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_PATH</span><span class="p">:</span> <span class="n">add_path_polygon_creating</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_POLYGON</span><span class="p">:</span> <span class="n">add_path_polygon_creating</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">_double_click_modes</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">VERTEX_INSERT</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
@@ -620,11 +626,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_LINE</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_PATH</span><span class="p">:</span> <span class="n">finish_drawing_shape</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_POLYGON</span><span class="p">:</span> <span class="n">finish_drawing_shape</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">_cursor_modes</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">:</span> <span class="s1">&#39;pointing&#39;</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span> <span class="s1">&#39;pointing&#39;</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">VERTEX_INSERT</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
@@ -634,7 +640,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_LINE</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_PATH</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_POLYGON</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">_interactive_modes</span> <span class="o">=</span> <span class="p">{</span>
@@ -708,7 +713,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-            <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">edge_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">edge_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">face_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -774,10 +778,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_creating</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># change mode once to trigger the</span>
-        <span class="c1"># Mode setting logic</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_shapes</span><span class="p">(</span>
@@ -1836,7 +1836,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_view_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
+    <span class="nd">@Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">getter</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;MODE: Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
 <span class="sd">        allows for normal interactivity with the canvas.</span>
@@ -1858,19 +1858,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mode</span><span class="p">]):</span>
-        <span class="n">mode</span><span class="p">,</span> <span class="n">changed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">Mode</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">changed</span><span class="p">:</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Mode</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;Mode not recognized: </span><span class="si">{mode}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-
-        <span class="n">old_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
 
         <span class="n">draw_modes</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">Mode</span><span class="o">.</span><span class="n">SELECT</span><span class="p">,</span>
@@ -1879,11 +1872,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">Mode</span><span class="o">.</span><span class="n">VERTEX_REMOVE</span><span class="p">,</span>
         <span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
-
         <span class="c1"># don&#39;t update thumbnail on mode changes</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_thumbnail_update</span><span class="p">():</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">mode</span> <span class="ow">in</span> <span class="n">draw_modes</span> <span class="ow">and</span> <span class="n">old_mode</span> <span class="ow">in</span> <span class="n">draw_modes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">mode</span> <span class="ow">in</span> <span class="n">draw_modes</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="ow">in</span> <span class="n">draw_modes</span><span class="p">):</span>
                 <span class="c1"># Shapes._finish_drawing() calls Shapes.refresh()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_finish_drawing</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>

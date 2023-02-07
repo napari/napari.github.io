@@ -296,9 +296,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_welcome</span> <span class="kn">import</span> <span class="n">QtWidgetOverlay</span>
 <span class="kn">from</span> <span class="nn">napari.components.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">napari.components.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
-<span class="kn">from</span> <span class="nn">napari.components.overlays._interaction_box_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">InteractionBoxMouseBindings</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.components.overlays</span> <span class="kn">import</span> <span class="n">CanvasOverlay</span><span class="p">,</span> <span class="n">Overlay</span><span class="p">,</span> <span class="n">SceneOverlay</span>
 <span class="kn">from</span> <span class="nn">napari.errors</span> <span class="kn">import</span> <span class="n">MultipleReaderError</span><span class="p">,</span> <span class="n">ReaderPluginError</span>
 <span class="kn">from</span> <span class="nn">napari.layers.base.base</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_npe2</span>
@@ -328,13 +326,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari_builtins.io</span> <span class="kn">import</span> <span class="n">imsave_extensions</span>
 
 <span class="kn">from</span> <span class="nn">napari._vispy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
-    <span class="n">VispyAxesOverlay</span><span class="p">,</span>
     <span class="n">VispyCamera</span><span class="p">,</span>
     <span class="n">VispyCanvas</span><span class="p">,</span>
-    <span class="n">VispyScaleBarOverlay</span><span class="p">,</span>
-    <span class="n">VispyInteractionBox</span><span class="p">,</span>
-    <span class="n">VispyTextOverlay</span><span class="p">,</span>
     <span class="n">create_vispy_layer</span><span class="p">,</span>
+    <span class="n">create_vispy_overlay</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -487,20 +482,21 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># This dictionary holds the corresponding vispy visual for each layer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_to_visual</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlay_to_visual</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_canvas</span><span class="p">()</span>
 
         <span class="c1"># Stacked widget to provide a welcome page</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span> <span class="o">=</span> <span class="n">QtWidgetOverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="n">show_welcome_screen</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">sig_dropped</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropEvent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">leave</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_leave_canvas</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">enter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_enter_canvas</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span> <span class="o">=</span> <span class="n">QtWidgetOverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">native</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="n">show_welcome_screen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">sig_dropped</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropEvent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">leave</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_leave_canvas</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">enter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_enter_canvas</span><span class="p">)</span>
 
         <span class="n">main_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
         <span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
         <span class="n">main_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="p">)</span>
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
         <span class="n">main_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">main_widget</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">main_layout</span><span class="p">)</span>
@@ -536,9 +532,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">on_draw</span><span class="p">)</span>
 
-        <span class="c1"># Add axes, scale bar</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_add_visuals</span><span class="p">()</span>
-
         <span class="c1"># Create the experimental QtPool for octree and/or monitor.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_poll</span> <span class="o">=</span> <span class="n">_create_qt_poll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="p">)</span>
 
@@ -565,6 +558,8 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">overlay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_overlay</span><span class="p">(</span><span class="n">overlay</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">controls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtLayerControlsContainer</span><span class="p">:</span>
@@ -710,34 +705,15 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_diconnect_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_on_theme_change</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_add_visuals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add visuals for axes, scale bar, and welcome text.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_add_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overlay</span><span class="p">:</span> <span class="n">Overlay</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">vispy_overlay</span> <span class="o">=</span> <span class="n">create_vispy_overlay</span><span class="p">(</span><span class="n">overlay</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">VispyAxesOverlay</span><span class="p">(</span>
-            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
-            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scale_bar</span> <span class="o">=</span> <span class="n">VispyScaleBarOverlay</span><span class="p">(</span>
-            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scale_bar</span><span class="p">,</span>
-            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale_bar</span><span class="o">.</span><span class="n">_on_position_change</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_overlay</span> <span class="o">=</span> <span class="n">VispyTextOverlay</span><span class="p">(</span>
-            <span class="n">overlay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">text_overlay</span><span class="p">,</span>
-            <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text_overlay</span><span class="o">.</span><span class="n">_on_position_change</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interaction_box_visual</span> <span class="o">=</span> <span class="n">VispyInteractionBox</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mf">1e6</span> <span class="o">+</span> <span class="mi">3</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interaction_box_mousebindings</span> <span class="o">=</span> <span class="n">InteractionBoxMouseBindings</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interaction_box_visual</span>
-        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">overlay</span><span class="p">,</span> <span class="n">CanvasOverlay</span><span class="p">):</span>
+            <span class="n">vispy_overlay</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">overlay</span><span class="p">,</span> <span class="n">SceneOverlay</span><span class="p">):</span>
+            <span class="n">vispy_overlay</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">scene</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlay_to_visual</span><span class="p">[</span><span class="n">overlay</span><span class="p">]</span> <span class="o">=</span> <span class="n">vispy_overlay</span>
 
     <span class="k">def</span> <span class="nf">_create_performance_dock_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the dock widget that shows performance metrics.&quot;&quot;&quot;</span>
@@ -936,7 +912,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_update_welcome_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update welcome screen display based on layer count.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_screenshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Capture a screenshot of the Vispy canvas.</span>
@@ -952,11 +928,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">flash</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">napari._qt.utils</span> <span class="kn">import</span> <span class="n">add_flash_animation</span>
 
-            <span class="c1"># Here we are actually applying the effect to the `_canvas_overlay`</span>
+            <span class="c1"># Here we are actually applying the effect to the `_welcome_widget`</span>
             <span class="c1"># and not # the `native` widget because it does not work on the</span>
             <span class="c1"># `native` widget. It&#39;s probably because the widget is in a stack</span>
             <span class="c1"># with the `QtWelcomeWidget`.</span>
-            <span class="n">add_flash_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="p">)</span>
+            <span class="n">add_flash_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">img</span>
 
 <div class="viewcode-block" id="QtViewer.screenshot"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.screenshot">[docs]</a>    <span class="k">def</span> <span class="nf">screenshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flash</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -1393,7 +1369,7 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="QtViewer.set_welcome_visible"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.set_welcome_visible">[docs]</a>    <span class="k">def</span> <span class="nf">set_welcome_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visible</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Show welcome screen widget.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_welcome_screen</span> <span class="o">=</span> <span class="n">visible</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas_overlay</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_welcome_widget</span><span class="o">.</span><span class="n">set_welcome_visible</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QtViewer.keyPressEvent"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.keyPressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Called whenever a key is pressed.</span>

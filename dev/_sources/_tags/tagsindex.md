@@ -8,7 +8,7 @@ caption: Tags
 maxdepth: 1
 ---
 analysis (4) <analysis>
-experimental (10) <experimental>
+experimental (9) <experimental>
 gui (14) <gui>
 historical (4) <historical>
 interactivity (4) <interactivity>

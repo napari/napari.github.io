@@ -301,7 +301,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="s1">&#39;ErrorNotification&#39;</span><span class="p">,</span>
     <span class="s1">&#39;WarningNotification&#39;</span><span class="p">,</span>
     <span class="s1">&#39;NotificationManager&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;show_debug&#39;</span><span class="p">,</span>
     <span class="s1">&#39;show_info&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;show_warning&#39;</span><span class="p">,</span>
     <span class="s1">&#39;show_error&#39;</span><span class="p">,</span>
     <span class="s1">&#39;show_console_notification&#39;</span><span class="p">,</span>
 <span class="p">]</span>
@@ -596,6 +598,15 @@ function checkPageExistsAndRedirect(event) {
 <span class="n">notification_manager</span> <span class="o">=</span> <span class="n">NotificationManager</span><span class="p">()</span>
 
 
+<div class="viewcode-block" id="show_debug"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_debug">[docs]</a><span class="k">def</span> <span class="nf">show_debug</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Show a debug message in the notification manager.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
+        <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="show_info"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_info">[docs]</a><span class="k">def</span> <span class="nf">show_info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show an info message in the notification manager.</span>
@@ -605,13 +616,13 @@ function checkPageExistsAndRedirect(event) {
     <span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">show_warning</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="show_warning"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_warning">[docs]</a><span class="k">def</span> <span class="nf">show_warning</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show a warning in the notification manager.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">notification_manager</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
         <span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="show_error"><a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_error">[docs]</a><span class="k">def</span> <span class="nf">show_error</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>

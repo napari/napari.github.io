@@ -79,6 +79,7 @@ napari.layers.Image
       ~Image.affine
       ~Image.attenuation
       ~Image.blending
+      ~Image.bounding_box
       ~Image.class_keymap
       ~Image.colormap
       ~Image.colormaps

@@ -72,6 +72,7 @@ napari.layers.Layer
    
       ~Layer.affine
       ~Layer.blending
+      ~Layer.bounding_box
       ~Layer.class_keymap
       ~Layer.cursor
       ~Layer.cursor_size
@@ -83,6 +84,7 @@ napari.layers.Layer
       ~Layer.interactive
       ~Layer.loaded
       ~Layer.metadata
+      ~Layer.mode
       ~Layer.name
       ~Layer.ndim
       ~Layer.opacity

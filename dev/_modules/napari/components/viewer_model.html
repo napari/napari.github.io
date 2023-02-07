@@ -284,7 +284,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">validator</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">validator</span>
 
 <span class="kn">from</span> <span class="nn">napari</span> <span class="kn">import</span> <span class="n">layers</span>
 <span class="kn">from</span> <span class="nn">napari.components._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
@@ -295,7 +295,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.components.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
 <span class="kn">from</span> <span class="nn">napari.components.overlays</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">AxesOverlay</span><span class="p">,</span>
-    <span class="n">Overlays</span><span class="p">,</span>
+    <span class="n">Overlay</span><span class="p">,</span>
     <span class="n">ScaleBarOverlay</span><span class="p">,</span>
     <span class="n">TextOverlay</span><span class="p">,</span>
 <span class="p">)</span>
@@ -305,19 +305,37 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">NoAvailableReaderError</span><span class="p">,</span>
     <span class="n">ReaderPluginError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Labels</span><span class="p">,</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">Points</span><span class="p">,</span> <span class="n">Shapes</span>
+<span class="kn">from</span> <span class="nn">napari.layers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Image</span><span class="p">,</span>
+    <span class="n">Labels</span><span class="p">,</span>
+    <span class="n">Layer</span><span class="p">,</span>
+    <span class="n">Points</span><span class="p">,</span>
+    <span class="n">Shapes</span><span class="p">,</span>
+    <span class="n">Surface</span><span class="p">,</span>
+    <span class="n">Tracks</span><span class="p">,</span>
+    <span class="n">Vectors</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers._source</span> <span class="kn">import</span> <span class="n">layer_source</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._image_key_bindings</span> <span class="kn">import</span> <span class="n">image_fun_to_mode</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_labels</span>
 <span class="kn">from</span> <span class="nn">napari.layers.labels._labels_key_bindings</span> <span class="kn">import</span> <span class="n">labels_fun_to_mode</span>
 <span class="kn">from</span> <span class="nn">napari.layers.points._points_key_bindings</span> <span class="kn">import</span> <span class="n">points_fun_to_mode</span>
 <span class="kn">from</span> <span class="nn">napari.layers.shapes._shapes_key_bindings</span> <span class="kn">import</span> <span class="n">shapes_fun_to_mode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.surface._surface_key_bindings</span> <span class="kn">import</span> <span class="n">surface_fun_to_mode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.tracks._tracks_key_bindings</span> <span class="kn">import</span> <span class="n">tracks_fun_to_mode</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.stack_utils</span> <span class="kn">import</span> <span class="n">split_channels</span>
+<span class="kn">from</span> <span class="nn">napari.layers.vectors._vectors_key_bindings</span> <span class="kn">import</span> <span class="n">vectors_fun_to_mode</span>
 <span class="kn">from</span> <span class="nn">napari.plugins.utils</span> <span class="kn">import</span> <span class="n">get_potential_readers</span><span class="p">,</span> <span class="n">get_preferred_reader</span>
 <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span> <span class="nn">napari.utils._register</span> <span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
 <span class="kn">from</span> <span class="nn">napari.utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">ensure_colormap</span>
-<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">,</span> <span class="n">disconnect_events</span>
+<span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Event</span><span class="p">,</span>
+    <span class="n">EventedDict</span><span class="p">,</span>
+    <span class="n">EventedModel</span><span class="p">,</span>
+    <span class="n">disconnect_events</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span> <span class="nn">napari.utils.key_bindings</span> <span class="kn">import</span> <span class="n">KeymapProvider</span>
 <span class="kn">from</span> <span class="nn">napari.utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
@@ -352,6 +370,13 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">return</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span>
 
 
+<span class="n">DEFAULT_OVERLAYS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;scale_bar&#39;</span><span class="p">:</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span>
+    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">TextOverlay</span><span class="p">,</span>
+    <span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="n">AxesOverlay</span><span class="p">,</span>
+<span class="p">}</span>
+
+
 <span class="c1"># KeymapProvider &amp; MousemapProvider should eventually be moved off the ViewerModel</span>
 <div class="viewcode-block" id="ViewerModel"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel">[docs]</a><span class="k">class</span> <span class="nc">ViewerModel</span><span class="p">(</span><span class="n">KeymapProvider</span><span class="p">,</span> <span class="n">MousemapProvider</span><span class="p">,</span> <span class="n">EventedModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Viewer containing the rendered scene, layers, and controlling elements</span>
@@ -382,9 +407,6 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># Using allow_mutation=False means these attributes aren&#39;t settable and don&#39;t</span>
     <span class="c1"># have an event emitter associated with them</span>
-    <span class="n">axes</span><span class="p">:</span> <span class="n">AxesOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="n">AxesOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">)</span>
     <span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Camera</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Dims</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -392,20 +414,15 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="n">LayerList</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>  <span class="c1"># Need to create custom JSON encoder for layer!</span>
-    <span class="n">scale_bar</span><span class="p">:</span> <span class="n">ScaleBarOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="n">ScaleBarOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">)</span>
-    <span class="n">text_overlay</span><span class="p">:</span> <span class="n">TextOverlay</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="n">TextOverlay</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">)</span>
-    <span class="n">overlays</span><span class="p">:</span> <span class="n">Overlays</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Overlays</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
     <span class="n">help</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="n">status</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Ready&#39;</span>
     <span class="n">tooltip</span><span class="p">:</span> <span class="n">Tooltip</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Tooltip</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">_current_theme</span><span class="p">)</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;napari&#39;</span>
-
+    <span class="c1"># private track of overlays, only expose the old ones for backward compatibility</span>
+    <span class="n">_overlays</span><span class="p">:</span> <span class="n">EventedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Overlay</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">EventedDict</span>
+    <span class="p">)</span>
     <span class="c1"># 2-tuple indicating height and width</span>
     <span class="n">_canvas_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
     <span class="n">_ctx</span><span class="p">:</span> <span class="n">Mapping</span>
@@ -482,6 +499,21 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># Add mouse callback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mouse_wheel_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dims_scroll</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">DEFAULT_OVERLAYS</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+
+    <span class="c1"># simple properties exposing overlays for backward compatibility</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;axes&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scale_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;scale_bar&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">text_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_tooltip_visible_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
@@ -663,7 +695,8 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_update_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer interactivity with the `event.interactive` bool.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">interactive</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">interactive</span>
 
     <span class="k">def</span> <span class="nf">_update_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the viewer cursor with the `event.cursor` string.&quot;&quot;&quot;</span>
@@ -787,6 +820,10 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">Points</span><span class="p">:</span> <span class="n">points_fun_to_mode</span><span class="p">,</span>
             <span class="n">Labels</span><span class="p">:</span> <span class="n">labels_fun_to_mode</span><span class="p">,</span>
             <span class="n">Shapes</span><span class="p">:</span> <span class="n">shapes_fun_to_mode</span><span class="p">,</span>
+            <span class="n">Vectors</span><span class="p">:</span> <span class="n">vectors_fun_to_mode</span><span class="p">,</span>
+            <span class="n">Image</span><span class="p">:</span> <span class="n">image_fun_to_mode</span><span class="p">,</span>
+            <span class="n">Surface</span><span class="p">:</span> <span class="n">surface_fun_to_mode</span><span class="p">,</span>
+            <span class="n">Tracks</span><span class="p">:</span> <span class="n">tracks_fun_to_mode</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="n">help_li</span> <span class="o">=</span> <span class="p">[]</span>
@@ -797,7 +834,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">continue</span>
             <span class="n">action_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;napari:</span><span class="si">{</span><span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="n">desc</span> <span class="o">=</span> <span class="n">action_manager</span><span class="o">.</span><span class="n">_actions</span><span class="p">[</span><span class="n">action_name</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">shortcuts</span><span class="p">[</span><span class="n">action_name</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">shortcuts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">action_name</span><span class="p">,</span> <span class="p">[]):</span>
                 <span class="k">continue</span>
             <span class="n">help_li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>

@@ -75,6 +75,7 @@ napari.layers.Vectors
    
       ~Vectors.affine
       ~Vectors.blending
+      ~Vectors.bounding_box
       ~Vectors.class_keymap
       ~Vectors.cursor
       ~Vectors.cursor_size
@@ -95,6 +96,7 @@ napari.layers.Vectors
       ~Vectors.length
       ~Vectors.loaded
       ~Vectors.metadata
+      ~Vectors.mode
       ~Vectors.name
       ~Vectors.ndim
       ~Vectors.opacity

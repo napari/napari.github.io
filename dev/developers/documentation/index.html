@@ -708,6 +708,18 @@ function checkPageExistsAndRedirect(event) {
   <a class="reference internal nav-link" href="#preview-your-document">
    3. Preview your document
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-locally">
+     3.1. Building locally
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-the-ci-artifacts">
+     3.2. Use the CI artifacts
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#submit-your-pull-request">
@@ -921,6 +933,8 @@ installed.</p>
 <p>There are two ways you can preview the documentation website: by building
 locally, or downloading the GitHub Actions built documentation when you submit
 your pull request.</p>
+<section id="building-locally">
+<h3>3.1. Building locally<a class="headerlink" href="#building-locally" title="Permalink to this headline">¶</a></h3>
 <p>To build the documentation locally, run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> from the root of your local
 clone of the <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> repository (assuming you’ve installed the
 <a class="reference internal" href="#prerequisites"><span class="std std-doc">docs prerequisites</span></a>).</p>
@@ -955,7 +969,32 @@ folder structure is</p>
 </div>
 </div>
 <p>The rendered HTML will be placed in <code class="docutils literal notranslate"><span class="pre">docs/_build</span></code>. Find <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in this
-folder and drag it into a browser to preview the website with your new document.</p>
+folder and drag it into a browser to preview the website with your new document.
+You can also run this Python one-liner to deploy a quick local server on
+<a class="reference external" href="http://localhost:8000">http://localhost:8000</a>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--directory<span class="w"> </span>docs/_build
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>There’s another <code class="docutils literal notranslate"><span class="pre">make</span></code> task you can use for live previews while editing docs:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w"> </span>html-live
+<span class="c1"># or for faster reloads:</span>
+<span class="c1"># make html-live SPHINXOPTS=&quot;-j4&quot;</span>
+</pre></div>
+</div>
+<p>The first run will take a bit longer and a few napari instances will pop up
+here and there, but the successive ones (triggered automatically every time
+you save a file under <code class="docutils literal notranslate"><span class="pre">docs/</span></code>) will be faster!
+The browser preview will open up automatically at <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1</span></code>,
+no need for further action! Edit the documents at will, and the browser will
+auto-reload.
+Once you are done with the live previews, you can exit via <kbd>Ctrl</kbd>+<kbd>C</kbd>
+on your terminal.</p>
+</div>
+</section>
+<section id="use-the-ci-artifacts">
+<h3>3.2. Use the CI artifacts<a class="headerlink" href="#use-the-ci-artifacts" title="Permalink to this headline">¶</a></h3>
 <p>Alternatively, when you submit your pull request, the napari docs repository
 continuous integration includes a GitHub action that builds the documentation
 and saves the artifact for you to download. This is another way to check that
@@ -974,6 +1013,16 @@ then:</p>
 <li><p>Scroll down to <strong>Artifacts</strong> and click on <strong>docs</strong> to download the built documentation:</p></li>
 </ol>
 <p><img alt="doc-continuous-integration-1" src="../../_images/doc-ci-3.png" /></p>
+<ol class="arabic simple" start="4">
+<li><p>Extract the compressed archive and open the <code class="docutils literal notranslate"><span class="pre">docs/index.html</span></code> file on your preferred browser.
+You can also use Python’s <code class="docutils literal notranslate"><span class="pre">http.server</span></code> module to open a local server on
+<a class="reference external" href="http://localhost:8000">http://localhost:8000</a>:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/Downloads/docs<span class="w">  </span><span class="c1"># or the path where you extracted the &#39;docs&#39; artifact</span>
+$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server
+</pre></div>
+</div>
+</section>
 </section>
 <section id="submit-your-pull-request">
 <h2>4. Submit your pull request<a class="headerlink" href="#submit-your-pull-request" title="Permalink to this headline">¶</a></h2>

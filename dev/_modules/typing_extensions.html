@@ -266,10 +266,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">collections.abc</span>
 <span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">types</span> <span class="k">as</span> <span class="nn">_types</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
@@ -315,6 +317,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="s1">&#39;assert_type&#39;</span><span class="p">,</span>
     <span class="s1">&#39;clear_overloads&#39;</span><span class="p">,</span>
     <span class="s1">&#39;dataclass_transform&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;deprecated&#39;</span><span class="p">,</span>
     <span class="s1">&#39;get_overloads&#39;</span><span class="p">,</span>
     <span class="s1">&#39;final&#39;</span><span class="p">,</span>
     <span class="s1">&#39;get_args&#39;</span><span class="p">,</span>
@@ -992,6 +995,8 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">_typeddict_new</span><span class="o">.</span><span class="n">__text_signature__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;($cls, _typename, _fields=None,&#39;</span>
                                          <span class="s1">&#39; /, *, total=True, **kwargs)&#39;</span><span class="p">)</span>
 
+    <span class="n">_TAKES_MODULE</span> <span class="o">=</span> <span class="s2">&quot;module&quot;</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span>
+
     <span class="k">class</span> <span class="nc">_TypedDictMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
@@ -1017,8 +1022,10 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">annotations</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">own_annotations</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__annotations__&#39;</span><span class="p">,</span> <span class="p">{})</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;TypedDict(&#39;Name&#39;, {f0: t0, f1: t1, ...}); each t must be a type&quot;</span>
+            <span class="n">kwds</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="n">tp_dict</span><span class="o">.</span><span class="vm">__module__</span><span class="p">}</span> <span class="k">if</span> <span class="n">_TAKES_MODULE</span> <span class="k">else</span> <span class="p">{}</span>
             <span class="n">own_annotations</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">n</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">tp</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">tp</span> <span class="ow">in</span> <span class="n">own_annotations</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="n">n</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">tp</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">tp</span> <span class="ow">in</span> <span class="n">own_annotations</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
             <span class="p">}</span>
             <span class="n">required_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="n">optional_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -1421,7 +1428,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__default__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;Default must be a type&quot;</span><span class="p">)</span>
                                       <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">default</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">default</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">default</span> <span class="o">!=</span> <span class="n">_marker</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__default__</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="s2">&quot;Default must be a type&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__default__</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1435,7 +1442,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">constraints</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">covariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">infer_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                 <span class="n">default</span><span class="o">=</span><span class="n">_marker</span><span class="p">,</span> <span class="n">infer_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">constraints</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">bound</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="n">covariant</span><span class="p">,</span>
                          <span class="n">contravariant</span><span class="o">=</span><span class="n">contravariant</span><span class="p">)</span>
         <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
@@ -1522,7 +1529,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="vm">__module__</span> <span class="o">=</span> <span class="s1">&#39;typing&#39;</span>
 
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                     <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                     <span class="n">default</span><span class="o">=</span><span class="n">_marker</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">bound</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="n">covariant</span><span class="p">,</span>
                              <span class="n">contravariant</span><span class="o">=</span><span class="n">contravariant</span><span class="p">)</span>
             <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
@@ -1598,7 +1605,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="n">ParamSpecKwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                     <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                     <span class="n">default</span><span class="o">=</span><span class="n">_marker</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([</span><span class="bp">self</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__covariant__</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">covariant</span><span class="p">)</span>
@@ -2114,7 +2121,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">class</span> <span class="nc">TypeVarTuple</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">TypeVarTuple</span><span class="p">,</span> <span class="n">_DefaultMixin</span><span class="p">,</span> <span class="n">_root</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Type variable tuple.&quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_marker</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
 
@@ -2177,7 +2184,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">__unpacked__</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_marker</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">name</span>
             <span class="n">_DefaultMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
 
@@ -2257,7 +2264,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Expected code to be unreachable&quot;</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typing</span><span class="p">,</span> <span class="s1">&#39;dataclass_transform&#39;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">12</span><span class="p">):</span>
+    <span class="c1"># dataclass_transform exists in 3.11 but lacks the frozen_default parameter</span>
     <span class="n">dataclass_transform</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">dataclass_transform</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">dataclass_transform</span><span class="p">(</span>
@@ -2265,6 +2273,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">eq_default</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">order_default</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">kw_only_default</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">frozen_default</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">field_specifiers</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span>
             <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span>
             <span class="o">...</span>
@@ -2321,6 +2330,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">          assumed to be True or False if it is omitted by the caller.</span>
 <span class="sd">        - ``kw_only_default`` indicates whether the ``kw_only`` parameter is</span>
 <span class="sd">          assumed to be True or False if it is omitted by the caller.</span>
+<span class="sd">        - ``frozen_default`` indicates whether the ``frozen`` parameter is</span>
+<span class="sd">          assumed to be True or False if it is omitted by the caller.</span>
 <span class="sd">        - ``field_specifiers`` specifies a static list of supported classes</span>
 <span class="sd">          or functions that describe fields, similar to ``dataclasses.field()``.</span>
 
@@ -2335,6 +2346,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s2">&quot;eq_default&quot;</span><span class="p">:</span> <span class="n">eq_default</span><span class="p">,</span>
                 <span class="s2">&quot;order_default&quot;</span><span class="p">:</span> <span class="n">order_default</span><span class="p">,</span>
                 <span class="s2">&quot;kw_only_default&quot;</span><span class="p">:</span> <span class="n">kw_only_default</span><span class="p">,</span>
+                <span class="s2">&quot;frozen_default&quot;</span><span class="p">:</span> <span class="n">frozen_default</span><span class="p">,</span>
                 <span class="s2">&quot;field_specifiers&quot;</span><span class="p">:</span> <span class="n">field_specifiers</span><span class="p">,</span>
                 <span class="s2">&quot;kwargs&quot;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">,</span>
             <span class="p">}</span>
@@ -2366,10 +2378,101 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        This helps prevent bugs that may occur when a base class is changed</span>
 <span class="sd">        without an equivalent change to a child class.</span>
 
+<span class="sd">        There is no runtime checking of these properties. The decorator</span>
+<span class="sd">        sets the ``__override__`` attribute to ``True`` on the decorated object</span>
+<span class="sd">        to allow runtime introspection.</span>
+
 <span class="sd">        See PEP 698 for details.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">__arg</span><span class="o">.</span><span class="n">__override__</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="c1"># Skip the attribute silently if it is not writable.</span>
+            <span class="c1"># AttributeError happens if the object has __slots__ or a</span>
+            <span class="c1"># read-only property, TypeError if it&#39;s a builtin class.</span>
+            <span class="k">pass</span>
         <span class="k">return</span> <span class="n">__arg</span>
+
+
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typing</span><span class="p">,</span> <span class="s2">&quot;deprecated&quot;</span><span class="p">):</span>
+    <span class="n">deprecated</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">deprecated</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">_T</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_T&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">deprecated</span><span class="p">(</span>
+        <span class="n">__msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">category</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="ne">Warning</span><span class="p">]]</span> <span class="o">=</span> <span class="ne">DeprecationWarning</span><span class="p">,</span>
+        <span class="n">stacklevel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">_T</span><span class="p">],</span> <span class="n">_T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indicate that a class, function or overload is deprecated.</span>
+
+<span class="sd">        Usage:</span>
+
+<span class="sd">            @deprecated(&quot;Use B instead&quot;)</span>
+<span class="sd">            class A:</span>
+<span class="sd">                pass</span>
+
+<span class="sd">            @deprecated(&quot;Use g instead&quot;)</span>
+<span class="sd">            def f():</span>
+<span class="sd">                pass</span>
+
+<span class="sd">            @overload</span>
+<span class="sd">            @deprecated(&quot;int support is deprecated&quot;)</span>
+<span class="sd">            def g(x: int) -&gt; int: ...</span>
+<span class="sd">            @overload</span>
+<span class="sd">            def g(x: str) -&gt; int: ...</span>
+
+<span class="sd">        When this decorator is applied to an object, the type checker</span>
+<span class="sd">        will generate a diagnostic on usage of the deprecated object.</span>
+
+<span class="sd">        No runtime warning is issued. The decorator sets the ``__deprecated__``</span>
+<span class="sd">        attribute on the decorated object to the deprecation message</span>
+<span class="sd">        passed to the decorator. If applied to an overload, the decorator</span>
+<span class="sd">        must be after the ``@overload`` decorator for the attribute to</span>
+<span class="sd">        exist on the overload as returned by ``get_overloads()``.</span>
+
+<span class="sd">        See PEP 702 for details.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">__arg</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_T</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">__arg</span><span class="o">.</span><span class="n">__deprecated__</span> <span class="o">=</span> <span class="n">__msg</span>
+                <span class="k">return</span> <span class="n">__arg</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">__arg</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+                <span class="n">original_new</span> <span class="o">=</span> <span class="n">__arg</span><span class="o">.</span><span class="fm">__new__</span>
+                <span class="n">has_init</span> <span class="o">=</span> <span class="n">__arg</span><span class="o">.</span><span class="fm">__init__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__init__</span>
+
+                <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">original_new</span><span class="p">)</span>
+                <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">__msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="c1"># Mirrors a similar check in object.__new__.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_init</span> <span class="ow">and</span> <span class="p">(</span><span class="n">args</span> <span class="ow">or</span> <span class="n">kwargs</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">() takes no arguments&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">original_new</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">original_new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">original_new</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+
+                <span class="n">__arg</span><span class="o">.</span><span class="fm">__new__</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="fm">__new__</span><span class="p">)</span>
+                <span class="n">__arg</span><span class="o">.</span><span class="n">__deprecated__</span> <span class="o">=</span> <span class="fm">__new__</span><span class="o">.</span><span class="n">__deprecated__</span> <span class="o">=</span> <span class="n">__msg</span>
+                <span class="k">return</span> <span class="n">__arg</span>
+            <span class="k">elif</span> <span class="n">callable</span><span class="p">(</span><span class="n">__arg</span><span class="p">):</span>
+                <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">__arg</span><span class="p">)</span>
+                <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">__msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">__arg</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+                <span class="n">__arg</span><span class="o">.</span><span class="n">__deprecated__</span> <span class="o">=</span> <span class="n">wrapper</span><span class="o">.</span><span class="n">__deprecated__</span> <span class="o">=</span> <span class="n">__msg</span>
+                <span class="k">return</span> <span class="n">wrapper</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s2">&quot;@deprecated decorator with non-None category must be applied to &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;a class or callable, not </span><span class="si">{</span><span class="n">__arg</span><span class="si">!r}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">decorator</span>
 
 
 <span class="c1"># We have to do some monkey patching to deal with the dual nature of</span>

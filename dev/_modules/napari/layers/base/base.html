@@ -645,14 +645,14 @@ function checkPageExistsAndRedirect(event) {
                     <span class="s2">&quot;&#39;layer.events.select&#39; is deprecated and will be removed in napari v0.4.9, use &#39;viewer.layers.selection.events.changed&#39; instead, and inspect the &#39;added&#39; attribute on the event.&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;select&#39;</span><span class="p">,</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;select&#39;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">deselect</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;&#39;layer.events.deselect&#39; is deprecated and will be removed in napari v0.4.9, use &#39;viewer.layers.selection.events.changed&#39; instead, and inspect the &#39;removed&#39; attribute on the event.&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;deselect&#39;</span><span class="p">,</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;deselect&#39;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
@@ -882,7 +882,6 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_on_editable_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes side-effects on this layer related to changes of the editable state.&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1163,11 +1162,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_help</span>
 
     <span class="nd">@help</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">help</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">help</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">help</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">help_text</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">help_text</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">help</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_help</span> <span class="o">=</span> <span class="n">help</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">help</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="n">help</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_help</span> <span class="o">=</span> <span class="n">help_text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">help</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="n">help_text</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1471,7 +1470,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        force : bool</span>
 <span class="sd">            Bool that forces a redraw to occur when `True`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span>
 
 <div class="viewcode-block" id="Layer.refresh"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh all layer data based on current view slice.&quot;&quot;&quot;</span>

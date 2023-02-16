@@ -475,7 +475,7 @@ function checkPageExistsAndRedirect(event) {
                     <span class="s2">&quot;This event will be removed in 0.5.0. Please use viewer.layers.events instead&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;layers_change&quot;</span><span class="p">,</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s2">&quot;layers_change&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">reset_view</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1132,7 +1132,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="n">layerdata_list</span> <span class="o">=</span> <span class="n">split_channels</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">channel_axis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-            <span class="n">layer_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">layer_list</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">i_kwargs</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">layerdata_list</span><span class="p">:</span>
                 <span class="n">layer</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">i_kwargs</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
@@ -1674,7 +1674,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="p">)</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">())</span>
+        <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">({})</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -1806,7 +1806,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">valid_add_kwargs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dict where keys are layer types &amp; values are valid kwargs.&quot;&quot;&quot;</span>
-    <span class="n">valid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">meth</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">meth</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;add_&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;layer&#39;</span><span class="p">:</span>
             <span class="k">continue</span>

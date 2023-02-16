@@ -57,7 +57,7 @@ Display one 4-D image layer using the ``add_image`` API
         msg = 'this is a good image'
         viewer.status = msg
         print(msg)
-        next(viewer)
+        set_layer_data(viewer)
 
 
     @viewer.bind_key('r')
@@ -65,10 +65,10 @@ Display one 4-D image layer using the ``add_image`` API
         msg = 'this is a bad image'
         viewer.status = msg
         print(msg)
-        next(viewer)
+        set_layer_data(viewer)
 
 
-    def next(viewer):
+    def set_layer_data(viewer):
         blobs = data.binary_blobs(
             length=128, blob_size_fraction=0.05, n_dim=2, volume_fraction=0.25
         ).astype(float)

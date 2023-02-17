@@ -301,7 +301,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.layers.base.base</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">napari.plugins</span> <span class="kn">import</span> <span class="n">_npe2</span>
 <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
-<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span>
+<span class="kn">from</span> <span class="nn">napari.settings._application</span> <span class="kn">import</span> <span class="n">DaskSettings</span>
+<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">perf</span><span class="p">,</span> <span class="n">resize_dask_cache</span>
 <span class="kn">from</span> <span class="nn">napari.utils._proxies</span> <span class="kn">import</span> <span class="n">ReadOnlyWrapper</span>
 <span class="kn">from</span> <span class="nn">napari.utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps.standardize_color</span> <span class="kn">import</span> <span class="n">transform_color</span>
@@ -338,6 +339,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="kn">from</span> <span class="nn">napari._qt.layer_controls</span> <span class="kn">import</span> <span class="n">QtLayerControlsContainer</span>
     <span class="kn">from</span> <span class="nn">napari.components</span> <span class="kn">import</span> <span class="n">ViewerModel</span>
+    <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 
 
 <span class="k">def</span> <span class="nf">_npe2_decode_selected_filter</span><span class="p">(</span>
@@ -556,10 +558,31 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># bind shortcuts stored in settings last.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bind_shortcuts</span><span class="p">()</span>
 
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dask_cache_settings</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">dask</span><span class="p">)</span>
+
+        <span class="n">settings</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">dask</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_dask_cache_settings</span>
+        <span class="p">)</span>
+
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">overlay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_overlay</span><span class="p">(</span><span class="n">overlay</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_update_dask_cache_settings</span><span class="p">(</span>
+        <span class="n">dask_setting</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">DaskSettings</span><span class="p">,</span> <span class="n">Event</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update dask cache to match settings.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dask_setting</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dask_setting</span><span class="p">,</span> <span class="n">DaskSettings</span><span class="p">):</span>
+            <span class="n">dask_setting</span> <span class="o">=</span> <span class="n">dask_setting</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="n">enabled</span> <span class="o">=</span> <span class="n">dask_setting</span><span class="o">.</span><span class="n">enabled</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">dask_setting</span><span class="o">.</span><span class="n">cache</span>
+        <span class="n">resize_dask_cache</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">enabled</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">controls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QtLayerControlsContainer</span><span class="p">:</span>

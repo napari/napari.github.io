@@ -288,29 +288,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="kn">from</span> <span class="nn">magicgui.widgets</span> <span class="kn">import</span> <span class="n">FunctionGui</span>
     <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">DTypeLike</span>  <span class="c1"># requires numpy 1.20</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="c1"># Anything that can be coerced into numpy.dtype.</span>
-    <span class="c1"># Reference: https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">TypeVar</span>
-
-    <span class="n">_DType_co</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_DType_co&quot;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="c1"># A protocol for anything with the dtype attribute</span>
-    <span class="k">class</span> <span class="nc">_SupportsDType</span><span class="p">(</span><span class="n">Protocol</span><span class="p">[</span><span class="n">_DType_co</span><span class="p">]):</span>
-        <span class="nd">@property</span>
-        <span class="k">def</span> <span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_DType_co</span><span class="p">:</span>
-            <span class="o">...</span>
-
-    <span class="n">DTypeLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>  <span class="c1"># type: ignore</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>  <span class="c1"># default data type (float64)</span>
-        <span class="kc">None</span><span class="p">,</span>
-        <span class="nb">type</span><span class="p">,</span>  <span class="c1"># array-scalar types and generic types</span>
-        <span class="n">_SupportsDType</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">],</span>  <span class="c1"># anything with a dtype attribute</span>
-        <span class="nb">str</span><span class="p">,</span>  <span class="c1"># character codes, type strings, e.g. &#39;float64&#39;</span>
-    <span class="p">]</span>
-
 
 <span class="c1"># This is a WOEFULLY inadequate stub for a duck-array type.</span>
 <span class="c1"># Mostly, just a placeholder for the concept of needing an ArrayLike type.</span>
@@ -359,16 +336,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># while their names should not change (without deprecation), their typing</span>
 <span class="c1"># implementations may... or may be rolled over to napari/image-types</span>
 
-<span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;20&#39;</span><span class="p">):</span>
-    <span class="c1"># this hack is because NewType doesn&#39;t allow `Any` as a base type</span>
-    <span class="c1"># and numpy &lt;=1.20 didn&#39;t provide type stubs for np.ndarray</span>
-    <span class="c1"># https://github.com/python/mypy/issues/6701#issuecomment-609638202</span>
-    <span class="k">class</span> <span class="nc">ArrayBase</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">ArrayBase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>  <span class="c1"># type: ignore</span>
+<span class="n">ArrayBase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 
 
 <span class="n">ImageData</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s2">&quot;ImageData&quot;</span><span class="p">,</span> <span class="n">ArrayBase</span><span class="p">)</span>

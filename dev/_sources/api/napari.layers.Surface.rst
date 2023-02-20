@@ -100,6 +100,7 @@ napari.layers.Surface
       ~Surface.mode
       ~Surface.name
       ~Surface.ndim
+      ~Surface.normals
       ~Surface.opacity
       ~Surface.rotate
       ~Surface.scale
@@ -112,6 +113,7 @@ napari.layers.Surface
       ~Surface.vertex_values
       ~Surface.vertices
       ~Surface.visible
+      ~Surface.wireframe
       
       
       

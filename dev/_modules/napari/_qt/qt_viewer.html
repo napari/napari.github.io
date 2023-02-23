@@ -829,6 +829,10 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="n">vispy_layer</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">scene</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_to_visual</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="n">vispy_layer</span>
+
+        <span class="c1"># ensure correct canvas blending</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">visible</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reorder_layers</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_reorder_layers</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
@@ -840,6 +844,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            The napari event that triggered this method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">visible</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reorder_layers</span><span class="p">)</span>
         <span class="n">vispy_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_to_visual</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
         <span class="n">vispy_layer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">del</span> <span class="n">vispy_layer</span>
@@ -848,9 +853,19 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_reorder_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;When the list is reordered, propagate changes to draw order.&quot;&quot;&quot;</span>
+        <span class="n">first_visible_found</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
             <span class="n">vispy_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_to_visual</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
             <span class="n">vispy_layer</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">i</span>
+
+            <span class="c1"># the bottommost visible layer needs special treatment for blending</span>
+            <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">visible</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">first_visible_found</span><span class="p">:</span>
+                <span class="n">vispy_layer</span><span class="o">.</span><span class="n">first_visible</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">first_visible_found</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">vispy_layer</span><span class="o">.</span><span class="n">first_visible</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">vispy_layer</span><span class="o">.</span><span class="n">_on_blending_change</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_draw_order</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 

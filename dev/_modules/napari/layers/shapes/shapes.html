@@ -1016,10 +1016,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine number of dimensions of the layer.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">ndim</span>
 
     <span class="nd">@property</span>
@@ -1732,10 +1729,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_is_color_mapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;determines if the new color argument is for directly setting or cycle/colormap&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">color</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">True</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="n">color</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
@@ -2509,13 +2503,13 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the view given the slicing indices.&quot;&quot;&quot;</span>
         <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">ndisplay</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ndisplay</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ndisplay_stored</span> <span class="o">=</span> <span class="n">ndisplay</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_dims_order</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_display_order_stored</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
@@ -2636,9 +2630,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="c1"># If in select mode just show the interaction boudning box</span>
                 <span class="c1"># including its vertices and the rotation handle</span>
                 <span class="n">box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_box</span><span class="p">[</span><span class="n">Box</span><span class="o">.</span><span class="n">WITH_HANDLE</span><span class="p">]</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">face_color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>
-                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">face_color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_color</span>
@@ -2669,9 +2661,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ADD_PATH</span><span class="p">:</span>
                     <span class="n">vertices</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">face_color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>
-                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">face_color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_color</span>

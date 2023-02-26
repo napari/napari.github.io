@@ -525,22 +525,21 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">n_vectors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
         <span class="c1"># Adjust the props/color arrays when the number of vectors has changed</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n_vectors</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">n_vectors</span> <span class="o">&lt;</span> <span class="n">previous_n_vectors</span><span class="p">:</span>
-                    <span class="c1"># If there are now fewer points, remove the size and colors of the</span>
-                    <span class="c1"># extra ones</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">n_vectors</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span>
-                            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_vectors</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
-                        <span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">blocker_all</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n_vectors</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">n_vectors</span> <span class="o">&lt;</span> <span class="n">previous_n_vectors</span><span class="p">:</span>
+                <span class="c1"># If there are now fewer points, remove the size and colors of the</span>
+                <span class="c1"># extra ones</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">n_vectors</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_remove</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_vectors</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+                    <span class="p">)</span>
 
-                <span class="k">elif</span> <span class="n">n_vectors</span> <span class="o">&gt;</span> <span class="n">previous_n_vectors</span><span class="p">:</span>
-                    <span class="c1"># If there are now more points, add the size and colors of the</span>
-                    <span class="c1"># new ones</span>
-                    <span class="n">adding</span> <span class="o">=</span> <span class="n">n_vectors</span> <span class="o">-</span> <span class="n">previous_n_vectors</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="n">adding</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">n_vectors</span> <span class="o">&gt;</span> <span class="n">previous_n_vectors</span><span class="p">:</span>
+                <span class="c1"># If there are now more points, add the size and colors of the</span>
+                <span class="c1"># new ones</span>
+                <span class="n">adding</span> <span class="o">=</span> <span class="n">n_vectors</span> <span class="o">-</span> <span class="n">previous_n_vectors</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="n">adding</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>

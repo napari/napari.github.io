@@ -1227,10 +1227,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
         <span class="n">raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
-            <span class="n">shape</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">shape</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span> <span class="k">else</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">):</span>
             <span class="c1"># handle 3D views of 2D data by omitting extra coordinate</span>

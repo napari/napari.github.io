@@ -28,21 +28,14 @@ Displays an nD multiscale image
 .. GENERATED FROM PYTHON SOURCE LINES 9-29
 
 
-
-.. image-sg:: /gallery/images/sphx_glr_nD_multiscale_image_001.png
-   :alt: nD multiscale image
-   :srcset: /gallery/images/sphx_glr_nD_multiscale_image_001.png
-   :class: sphx-glr-single-img
-
-
 .. rst-class:: sphx-glr-script-out
 
- .. code-block:: none
+.. code-block:: pytb
 
-    base shape (8, 1536, 1536)
-    /home/runner/work/docs/docs/docs/examples/nD_multiscale_image.py:20: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
-      pyramid_gaussian(base, downscale=2, max_layer=2, multichannel=False)
-    multiscale level shapes:  [(8, 1536, 1536), (4, 768, 768), (2, 384, 384)]
+    Traceback (most recent call last):
+      File "/home/runner/work/docs/docs/docs/examples/nD_multiscale_image.py", line 20, in <module>
+        pyramid_gaussian(base, downscale=2, max_layer=2, multichannel=False)
+    TypeError: pyramid_gaussian() got an unexpected keyword argument 'multichannel'
 
 
 

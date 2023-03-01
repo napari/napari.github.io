@@ -404,6 +404,8 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Viewer.close"><a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the viewer window.&quot;&quot;&quot;</span>
+        <span class="c1"># Shutdown the slicer first to avoid processing any more tasks.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
         <span class="c1"># Remove all the layers from the viewer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="c1"># Close the main window</span>

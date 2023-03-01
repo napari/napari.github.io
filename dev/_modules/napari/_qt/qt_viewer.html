@@ -276,6 +276,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">qtpy.QtCore</span> <span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">Qt</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QCursor</span><span class="p">,</span> <span class="n">QGuiApplication</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span>
+<span class="kn">from</span> <span class="nn">superqt</span> <span class="kn">import</span> <span class="n">ensure_main_thread</span>
 
 <span class="kn">from</span> <span class="nn">napari._qt.containers</span> <span class="kn">import</span> <span class="n">QtLayerList</span>
 <span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_reader_dialog</span> <span class="kn">import</span> <span class="n">handle_gui_reading</span>
@@ -509,6 +510,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="s1">&#39;pointing&#39;</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">PointingHandCursor</span><span class="p">,</span>
             <span class="s1">&#39;standard&#39;</span><span class="p">:</span> <span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">ArrowCursor</span><span class="p">,</span>
         <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_slice_ready</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_active_change</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_welcome_screen</span><span class="p">)</span>
@@ -785,6 +788,19 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">console</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
             <span class="n">console</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="p">)</span>
+
+    <span class="nd">@ensure_main_thread</span>
+    <span class="k">def</span> <span class="nf">_on_slice_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">for</span> <span class="n">layer</span><span class="p">,</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Update the layer slice state to temporarily support behavior</span>
+            <span class="c1"># that depends on it.</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="c1"># The rest of `Layer.refresh` after `set_view_slice`, where `set_data`</span>
+            <span class="c1"># notifies the corresponding vispy layer of the new slice.</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="p">()</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_active_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;When active layer changes change keymap handler.&quot;&quot;&quot;</span>

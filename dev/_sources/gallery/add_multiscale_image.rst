@@ -28,20 +28,14 @@ Displays a multiscale image
 .. GENERATED FROM PYTHON SOURCE LINES 9-28
 
 
-
-.. image-sg:: /gallery/images/sphx_glr_add_multiscale_image_001.png
-   :alt: add multiscale image
-   :srcset: /gallery/images/sphx_glr_add_multiscale_image_001.png
-   :class: sphx-glr-single-img
-
-
 .. rst-class:: sphx-glr-script-out
 
- .. code-block:: none
+.. code-block:: pytb
 
-    /home/runner/work/docs/docs/docs/examples/add_multiscale_image.py:19: FutureWarning: `multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.
-      pyramid_gaussian(base, downscale=2, max_layer=4, multichannel=True)
-    multiscale level shapes:  [(4096, 4096), (2048, 2048), (1024, 1024), (512, 512), (256, 256)]
+    Traceback (most recent call last):
+      File "/home/runner/work/docs/docs/docs/examples/add_multiscale_image.py", line 19, in <module>
+        pyramid_gaussian(base, downscale=2, max_layer=4, multichannel=True)
+    TypeError: pyramid_gaussian() got an unexpected keyword argument 'multichannel'
 
 
 

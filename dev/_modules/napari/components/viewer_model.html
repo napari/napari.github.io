@@ -287,6 +287,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">validator</span>
 
 <span class="kn">from</span> <span class="nn">napari</span> <span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">from</span> <span class="nn">napari.components._layer_slicer</span> <span class="kn">import</span> <span class="n">_LayerSlicer</span>
 <span class="kn">from</span> <span class="nn">napari.components._viewer_mouse_bindings</span> <span class="kn">import</span> <span class="n">dims_scroll</span>
 <span class="kn">from</span> <span class="nn">napari.components.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">napari.components.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span>
@@ -429,6 +430,10 @@ function checkPageExistsAndRedirect(event) {
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
     <span class="n">mouse_over_canvas</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Need to use default factory because slicer is not copyable which</span>
+    <span class="c1"># is required for default values.</span>
+    <span class="n">_layer_slicer</span><span class="p">:</span> <span class="n">_LayerSlicer</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">_LayerSlicer</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()</span>
@@ -638,6 +643,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">empty_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">empty_labels</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corner</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_on_layer_reload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span>
+            <span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">layer</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_update_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Updates the contained layers.</span>
 
@@ -647,10 +657,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            List of layers to update. If none provided updates all.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span>
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
-            <span class="n">layer</span><span class="o">.</span><span class="n">_slice_dims</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span>
-            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+        <span class="c1"># If the currently selected layer is sliced asynchronously, then the value</span>
+        <span class="c1"># shown with this position may be incorrect. See the discussion for more details:</span>
+        <span class="c1"># https://github.com/napari/napari/pull/5377#discussion_r1036280855</span>
         <span class="n">position</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">]:</span>
             <span class="n">position</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
@@ -795,6 +805,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shear</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_update_name</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reload</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_reload</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">):</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_mode_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>

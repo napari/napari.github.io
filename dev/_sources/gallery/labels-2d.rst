@@ -29,20 +29,16 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 .. GENERATED FROM PYTHON SOURCE LINES 10-33
 
 
-
-.. image-sg:: /gallery/images/sphx_glr_labels-2d_001.png
-   :alt: labels 2d
-   :srcset: /gallery/images/sphx_glr_labels-2d_001.png
-   :class: sphx-glr-single-img
-
-
 .. rst-class:: sphx-glr-script-out
 
- .. code-block:: none
+.. code-block:: pytb
 
-    /opt/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/skimage/_shared/utils.py:338: FutureWarning: `multichannel` is a deprecated argument name for `slic`. It will be removed in version 1.0. Please use `channel_axis` instead.
-      warnings.warn(self.warning_msg.format(
-    The color of label 5 is [0.28053862 0.22821146 0.6264092  1.        ]
+    Traceback (most recent call last):
+      File "/home/runner/work/docs/docs/docs/examples/labels-2d.py", line 24, in <module>
+        labels = slic(astro, multichannel=True, compactness=20) + 1
+      File "/opt/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/skimage/_shared/utils.py", line 326, in fixed_func
+        return func(*args, **kwargs)
+    TypeError: slic() got an unexpected keyword argument 'multichannel'
 
 
 

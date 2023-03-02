@@ -28,14 +28,18 @@ Displays an nD multiscale image
 .. GENERATED FROM PYTHON SOURCE LINES 9-32
 
 
+
+.. image-sg:: /gallery/images/sphx_glr_nD_multiscale_image_non_uniform_001.png
+   :alt: nD multiscale image non uniform
+   :srcset: /gallery/images/sphx_glr_nD_multiscale_image_non_uniform_001.png
+   :class: sphx-glr-single-img
+
+
 .. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
+ .. code-block:: none
 
-    Traceback (most recent call last):
-      File "/home/runner/work/docs/docs/docs/examples/nD_multiscale_image_non_uniform.py", line 20, in <module>
-        pyramid_gaussian(base, downscale=2, max_layer=3, multichannel=True)
-    TypeError: pyramid_gaussian() got an unexpected keyword argument 'multichannel'
+    multiscale level shapes:  [(6, 1536, 1536, 3), (6, 768, 768, 3), (6, 384, 384, 3), (6, 192, 192, 3)]
 
 
 
@@ -57,7 +61,7 @@ Displays an nD multiscale image
     astronaut = data.astronaut()
     base = np.tile(astronaut, (3, 3, 1))
     multiscale = list(
-        pyramid_gaussian(base, downscale=2, max_layer=3, multichannel=True)
+        pyramid_gaussian(base, downscale=2, max_layer=3, channel_axis=-1)
     )
     multiscale = [
         np.array([p * (abs(3 - i) + 1) / 4 for i in range(6)]) for p in multiscale

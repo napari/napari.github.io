@@ -28,14 +28,18 @@ Displays a multiscale image
 .. GENERATED FROM PYTHON SOURCE LINES 9-28
 
 
+
+.. image-sg:: /gallery/images/sphx_glr_add_multiscale_image_001.png
+   :alt: add multiscale image
+   :srcset: /gallery/images/sphx_glr_add_multiscale_image_001.png
+   :class: sphx-glr-single-img
+
+
 .. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
+ .. code-block:: none
 
-    Traceback (most recent call last):
-      File "/home/runner/work/docs/docs/docs/examples/add_multiscale_image.py", line 19, in <module>
-        pyramid_gaussian(base, downscale=2, max_layer=4, multichannel=True)
-    TypeError: pyramid_gaussian() got an unexpected keyword argument 'multichannel'
+    multiscale level shapes:  [(4096, 4096), (2048, 2048), (1024, 1024), (512, 512), (256, 256)]
 
 
 
@@ -56,7 +60,7 @@ Displays a multiscale image
     # create multiscale from astronaut image
     base = np.tile(data.astronaut(), (8, 8, 1))
     multiscale = list(
-        pyramid_gaussian(base, downscale=2, max_layer=4, multichannel=True)
+        pyramid_gaussian(base, downscale=2, max_layer=4, channel_axis=-1)
     )
     print('multiscale level shapes: ', [p.shape[:2] for p in multiscale])
 

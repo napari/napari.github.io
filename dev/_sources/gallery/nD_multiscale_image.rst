@@ -28,14 +28,19 @@ Displays an nD multiscale image
 .. GENERATED FROM PYTHON SOURCE LINES 9-29
 
 
+
+.. image-sg:: /gallery/images/sphx_glr_nD_multiscale_image_001.png
+   :alt: nD multiscale image
+   :srcset: /gallery/images/sphx_glr_nD_multiscale_image_001.png
+   :class: sphx-glr-single-img
+
+
 .. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
+ .. code-block:: none
 
-    Traceback (most recent call last):
-      File "/home/runner/work/docs/docs/docs/examples/nD_multiscale_image.py", line 20, in <module>
-        pyramid_gaussian(base, downscale=2, max_layer=2, multichannel=False)
-    TypeError: pyramid_gaussian() got an unexpected keyword argument 'multichannel'
+    base shape (8, 1536, 1536)
+    multiscale level shapes:  [(8, 1536, 1536), (4, 768, 1536), (2, 384, 1536)]
 
 
 
@@ -57,7 +62,7 @@ Displays an nD multiscale image
     base = np.array([base * (8 - i) / 8 for i in range(8)])
     print('base shape', base.shape)
     multiscale = list(
-        pyramid_gaussian(base, downscale=2, max_layer=2, multichannel=False)
+        pyramid_gaussian(base, downscale=2, max_layer=2, channel_axis=-1)
     )
     print('multiscale level shapes: ', [p.shape for p in multiscale])
 

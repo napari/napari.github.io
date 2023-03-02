@@ -29,16 +29,18 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 .. GENERATED FROM PYTHON SOURCE LINES 10-33
 
 
+
+.. image-sg:: /gallery/images/sphx_glr_labels-2d_001.png
+   :alt: labels 2d
+   :srcset: /gallery/images/sphx_glr_labels-2d_001.png
+   :class: sphx-glr-single-img
+
+
 .. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
+ .. code-block:: none
 
-    Traceback (most recent call last):
-      File "/home/runner/work/docs/docs/docs/examples/labels-2d.py", line 24, in <module>
-        labels = slic(astro, multichannel=True, compactness=20) + 1
-      File "/opt/hostedtoolcache/Python/3.9.16/x64/lib/python3.9/site-packages/skimage/_shared/utils.py", line 326, in fixed_func
-        return func(*args, **kwargs)
-    TypeError: slic() got an unexpected keyword argument 'multichannel'
+    The color of label 5 is [0.28053862 0.22821146 0.6264092  1.        ]
 
 
 
@@ -63,7 +65,7 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 
     # add the labels
     # we add 1 because SLIC returns labels from 0, which we consider background
-    labels = slic(astro, multichannel=True, compactness=20) + 1
+    labels = slic(astro, channel_axis=-1, compactness=20) + 1
     label_layer = viewer.add_labels(labels, name='segmentation')
 
     # Set the labels layer mode to picker with a string

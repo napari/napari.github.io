@@ -216,7 +216,7 @@ current dims point (`viewer.dims.point`).
         def _update_extent(self):
             """
             Calculate the extent of the data.
-        
+
             Ignores the the cross layer itself in calculating the extent.
             """
             if NAPARI_GE_4_16:

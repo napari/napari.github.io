@@ -25,19 +25,19 @@
 
    
    .. autofunction:: view_labels
-   .. autofunction:: run
-   .. autofunction:: view_path
-   .. autofunction:: gui_qt
-   .. autofunction:: save_layers
-   .. autofunction:: view_surface
-   .. autofunction:: sys_info
-   .. autofunction:: view_points
-   .. autofunction:: view_image
-   .. autofunction:: current_viewer
-   .. autofunction:: view_shapes
-   .. autofunction:: view_vectors
    .. autofunction:: view_tracks
+   .. autofunction:: sys_info
+   .. autofunction:: view_shapes
+   .. autofunction:: current_viewer
+   .. autofunction:: view_vectors
    .. autofunction:: imshow
+   .. autofunction:: gui_qt
+   .. autofunction:: view_image
+   .. autofunction:: view_points
+   .. autofunction:: view_path
+   .. autofunction:: save_layers
+   .. autofunction:: run
+   .. autofunction:: view_surface
    
    
 

@@ -934,6 +934,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an image layer to the layer list.</span>
 
@@ -1065,6 +1066,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Each dict defines a clipping plane in 3D in data coordinates.</span>
 <span class="sd">            Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
 <span class="sd">            Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">        custom_interpolation_kernel_2d : np.ndarray</span>
+<span class="sd">            Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1108,6 +1111,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="s1">&#39;cache&#39;</span><span class="p">:</span> <span class="n">cache</span><span class="p">,</span>
             <span class="s1">&#39;plane&#39;</span><span class="p">:</span> <span class="n">plane</span><span class="p">,</span>
             <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">:</span> <span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="c1"># these arguments are *already* iterables in the single-channel case.</span>
@@ -1120,6 +1124,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="s1">&#39;contrast_limits&#39;</span><span class="p">,</span>
             <span class="s1">&#39;metadata&#39;</span><span class="p">,</span>
             <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="n">channel_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

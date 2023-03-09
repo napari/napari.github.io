@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_add_image.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_add_image.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -57,6 +57,8 @@ Display one image using the :func:`view_image` API.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

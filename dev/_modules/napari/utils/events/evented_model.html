@@ -362,22 +362,47 @@ function checkPageExistsAndRedirect(event) {
                 <span class="c1"># required for pydantic&gt;=1.8.0 due to:</span>
                 <span class="c1"># https://github.com/samuelcolvin/pydantic/pull/2064</span>
                 <span class="n">EventedModel</span><span class="o">.</span><span class="n">__config__</span><span class="o">.</span><span class="n">json_encoders</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">type_</span><span class="p">]</span> <span class="o">=</span> <span class="n">encoder</span>
-        <span class="c1"># check for @_.setters defined on the class, so we can allow them</span>
-        <span class="c1"># in EventedModel.__setattr__</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">__property_setters__</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># check for properties defined on the class, so we can allow them</span>
+        <span class="c1"># in EventedModel.__setattr__ and create events</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">namespace</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span> <span class="ow">and</span> <span class="n">attr</span><span class="o">.</span><span class="n">fset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">cls</span><span class="o">.</span><span class="n">__property_setters__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">__field_dependents__</span> <span class="o">=</span> <span class="n">_get_field_dependents</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span>
+
+
+<span class="k">def</span> <span class="nf">_update_dependents_from_property_code</span><span class="p">(</span>
+    <span class="bp">cls</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">deps</span><span class="p">,</span> <span class="n">visited</span><span class="o">=</span><span class="p">()</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recursively find all the dependents of a property by inspecting the code object.</span>
+
+<span class="sd">    Update the given deps dictionary with the new findings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">prop</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
+            <span class="n">deps</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prop_name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="c1"># to avoid infinite recursion, we shouldn&#39;t re-check getter we&#39;ve already seen</span>
+            <span class="n">visited</span> <span class="o">=</span> <span class="n">visited</span> <span class="o">+</span> <span class="p">(</span><span class="n">name</span><span class="p">,)</span>
+            <span class="c1"># sub_prop is the new property, but we leave prop_name the same</span>
+            <span class="n">sub_prop</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">_update_dependents_from_property_code</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">,</span> <span class="n">sub_prop</span><span class="p">,</span> <span class="n">deps</span><span class="p">,</span> <span class="n">visited</span>
+            <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get_field_dependents</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="s1">&#39;EventedModel&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return mapping of field name -&gt; dependent set of property names.</span>
 
-<span class="sd">    Dependencies may be declared in the Model Config to emit an event</span>
-<span class="sd">    for a computed property when a model field that it depends on changes</span>
-<span class="sd">    e.g.  (@property &#39;c&#39; depends on model fields &#39;a&#39; and &#39;b&#39;)</span>
+<span class="sd">    Dependencies will be guessed by inspecting the code of each property</span>
+<span class="sd">    in order to emit an event for a computed property when a model field</span>
+<span class="sd">    that it depends on changes (e.g: @property &#39;c&#39; depends on model fields</span>
+<span class="sd">    &#39;a&#39; and &#39;b&#39;). Alternatvely, dependencies may be declared excplicitly</span>
+<span class="sd">    in the Model Config.</span>
+
+<span class="sd">    Note: accessing a field with `getattr()` instead of dot notation won&#39;t</span>
+<span class="sd">    be automatically detected.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -393,33 +418,42 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            def c(self, val: Sequence[int]):</span>
 <span class="sd">                self.a, self.b = val</span>
 
+<span class="sd">            @property</span>
+<span class="sd">            def d(self) -&gt; int:</span>
+<span class="sd">                return sum(self.c)</span>
+
+<span class="sd">            @d.setter</span>
+<span class="sd">            def d(self, val: int):</span>
+<span class="sd">                self.c = [val // 2, val // 2]</span>
+
 <span class="sd">            class Config:</span>
-<span class="sd">                dependencies={&#39;c&#39;: [&#39;a&#39;, &#39;b&#39;]}</span>
+<span class="sd">                dependencies={</span>
+<span class="sd">                    &#39;c&#39;: [&#39;a&#39;, &#39;b&#39;],</span>
+<span class="sd">                    &#39;d&#39;: [&#39;a&#39;, &#39;b&#39;]</span>
+<span class="sd">                }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__property_setters__</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{}</span>
 
     <span class="n">deps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="n">_deps</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__config__</span><span class="p">,</span> <span class="s1">&#39;dependencies&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_deps</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">prop</span><span class="p">,</span> <span class="n">fields</span> <span class="ow">in</span> <span class="n">_deps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">prop</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__property_setters__</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">prop_name</span><span class="p">,</span> <span class="n">fields</span> <span class="ow">in</span> <span class="n">_deps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">prop_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s1">&#39;Fields with dependencies must be property.setters. &#39;</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prop</span><span class="si">!r}</span><span class="s1"> is not.&#39;</span>
+                    <span class="s1">&#39;Fields with dependencies must be properties. &#39;</span>
+                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prop_name</span><span class="si">!r}</span><span class="s1"> is not.&#39;</span>
                 <span class="p">)</span>
             <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized field dependency: </span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">deps</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+                <span class="n">deps</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prop_name</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># if dependencies haven&#39;t been explicitly defined, we can glean</span>
         <span class="c1"># them from the property.fget code object:</span>
-        <span class="k">for</span> <span class="n">prop</span><span class="p">,</span> <span class="n">setter</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__property_setters__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">setter</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__fields__</span><span class="p">:</span>
-                    <span class="n">deps</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">prop_name</span><span class="p">,</span> <span class="n">prop</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__properties__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">_update_dependents_from_property_code</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">deps</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">deps</span>
 
 
@@ -433,8 +467,8 @@ function checkPageExistsAndRedirect(event) {
     <span class="c1"># add private attributes for event emission</span>
     <span class="n">_events</span><span class="p">:</span> <span class="n">EmitterGroup</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">EmitterGroup</span><span class="p">)</span>
 
-    <span class="c1"># mapping of name -&gt; property obj for methods that are property setters</span>
-    <span class="n">__property_setters__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">property</span><span class="p">]]</span>
+    <span class="c1"># mapping of name -&gt; property obj for methods that are properties</span>
+    <span class="n">__properties__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">property</span><span class="p">]]</span>
     <span class="c1"># mapping of field name -&gt; dependent set of property names</span>
     <span class="c1"># when field is changed, an event for dependent properties will be emitted.</span>
     <span class="n">__field_dependents__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
@@ -472,7 +506,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-            <span class="o">**</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">field_events</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__property_setters__</span><span class="p">))</span>
+            <span class="o">**</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">field_events</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__properties__</span><span class="p">))</span>
         <span class="p">)</span>
 
         <span class="c1"># while seemingly redundant, this next line is very important to maintain</span>
@@ -483,10 +517,14 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_super_setattr_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># pydantic will raise a ValueError if extra fields are not allowed</span>
-        <span class="c1"># so we first check to see if this field has a property.setter.</span>
+        <span class="c1"># so we first check to see if this field is a property</span>
         <span class="c1"># if so, we use it instead.</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__property_setters__</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__property_setters__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__properties__</span><span class="p">:</span>
+            <span class="n">setter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__properties__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">fset</span>
+            <span class="k">if</span> <span class="n">setter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># raise same error as normal properties</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;can&#39;t set attribute &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+            <span class="n">setter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
@@ -498,19 +536,37 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># grab current value</span>
         <span class="n">before</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
+        <span class="n">before_deps</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="c1"># we still need to check for deprecated properties</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__field_dependents__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{}):</span>
+                <span class="n">before_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
 
         <span class="c1"># set value using original setter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_super_setattr_</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
         <span class="c1"># if different we emit the event with new value</span>
         <span class="n">after</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">after_deps</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="c1"># we still need to check for deprecated properties</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__field_dependents__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{}):</span>
+                <span class="n">after_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
+
         <span class="n">are_equal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">eq</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">are_equal</span><span class="p">(</span><span class="n">after</span><span class="p">,</span> <span class="n">before</span><span class="p">):</span>
             <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">name</span><span class="p">)(</span><span class="n">value</span><span class="o">=</span><span class="n">after</span><span class="p">)</span>  <span class="c1"># emit event</span>
 
-            <span class="c1"># emit events for any dependent computed property setters as well</span>
-            <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__field_dependents__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{}):</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">dep</span><span class="p">)(</span><span class="n">value</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dep</span><span class="p">))</span>
+            <span class="c1"># emit events for any dependent computed properties as well</span>
+            <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">before_deps</span><span class="p">:</span>
+                <span class="c1"># NOTE: this comparison might be expensive! If it is too much, we</span>
+                <span class="c1">#       can always remove the are_equal check and fire events for</span>
+                <span class="c1">#       all dependents indiscriminately</span>
+                <span class="n">are_equal</span> <span class="o">=</span> <span class="n">pick_equality_operator</span><span class="p">(</span><span class="n">after_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">are_equal</span><span class="p">(</span><span class="n">after_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">],</span> <span class="n">before_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">]):</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">dep</span><span class="p">)(</span><span class="n">value</span><span class="o">=</span><span class="n">after_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">])</span>
 
     <span class="c1"># expose the private EmitterGroup publically</span>
     <span class="nd">@property</span>

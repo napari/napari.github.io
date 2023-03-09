@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_interactive_move_rectangle_3d.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_interactive_move_rectangle_3d.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -112,6 +112,8 @@ Shift a rectangle along its normal vector in 3D
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

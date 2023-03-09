@@ -346,8 +346,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    gamma : float</span>
 <span class="sd">        Gamma correction for determining colormap linearity. Defaults to 1.</span>
 <span class="sd">    interpolation : str</span>
-<span class="sd">        Interpolation mode used by vispy. Must be one of our supported</span>
-<span class="sd">        modes.</span>
+<span class="sd">        Interpolation mode used by vispy. Must be one of our supported modes.</span>
+<span class="sd">        &#39;custom&#39; is a special mode for 2D interpolation in which a regular grid</span>
+<span class="sd">        of samples are taken from the texture around a position using &#39;linear&#39;</span>
+<span class="sd">        interpolation before being multiplied with a custom interpolation kernel</span>
+<span class="sd">        (provided with &#39;custom_interpolation_kernel_2d&#39;).</span>
 <span class="sd">    rendering : str</span>
 <span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
 <span class="sd">        modes.</span>
@@ -408,6 +411,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
 <span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
 <span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">    custom_interpolation_kernel_2d : np.ndarray</span>
+<span class="sd">        Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -451,8 +456,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    gamma : float</span>
 <span class="sd">        Gamma correction for determining colormap linearity.</span>
 <span class="sd">    interpolation : str</span>
-<span class="sd">        Interpolation mode used by vispy. Must be one of our supported</span>
-<span class="sd">        modes.</span>
+<span class="sd">        Interpolation mode used by vispy. Must be one of our supported modes.</span>
+<span class="sd">        &#39;custom&#39; is a special mode for 2D interpolation in which a regular grid</span>
+<span class="sd">        of samples are taken from the texture around a position using &#39;linear&#39;</span>
+<span class="sd">        interpolation before being multiplied with a custom interpolation kernel</span>
+<span class="sd">        (provided with &#39;custom_interpolation_kernel_2d&#39;).</span>
 <span class="sd">    rendering : str</span>
 <span class="sd">        Rendering mode used by vispy. Must be one of our supported</span>
 <span class="sd">        modes.</span>
@@ -467,6 +475,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        {&#39;position&#39;, &#39;normal&#39;, &#39;thickness&#39;}.</span>
 <span class="sd">    experimental_clipping_planes : ClippingPlaneList</span>
 <span class="sd">        Clipping planes defined in data coordinates, used to clip the volume.</span>
+<span class="sd">    custom_interpolation_kernel_2d : np.ndarray</span>
+<span class="sd">        Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -509,6 +519,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">depiction</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">,</span>
         <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">magic_name</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -578,6 +589,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">depiction</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">iso_threshold</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">attenuation</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_array_like</span> <span class="o">=</span> <span class="kc">True</span>
@@ -647,6 +659,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">plane</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plane</span> <span class="o">=</span> <span class="n">plane</span>
         <span class="n">connect_no_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plane</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s1">&#39;plane&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">custom_interpolation_kernel_2d</span> <span class="o">=</span> <span class="n">custom_interpolation_kernel_2d</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
@@ -877,6 +890,10 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@interpolation3d</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">interpolation3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;custom&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s1">&#39;custom interpolation is not implemented yet for 3D rendering&#39;</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bicubic&#39;</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;cubic&#39;</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
@@ -943,6 +960,17 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">plane</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">SlicingPlane</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plane</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">plane</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">custom_interpolation_kernel_2d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_custom_interpolation_kernel_2d</span>
+
+    <span class="nd">@custom_interpolation_kernel_2d</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">custom_interpolation_kernel_2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_custom_interpolation_kernel_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">custom_interpolation_kernel_2d</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1328,6 +1356,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s1">&#39;attenuation&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">attenuation</span><span class="p">,</span>
                 <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span>
                 <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>

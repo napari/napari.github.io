@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_add_points_with_features.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_add_points_with_features.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -106,6 +106,8 @@ Display a points layer on top of an image layer using the ``add_points`` and
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

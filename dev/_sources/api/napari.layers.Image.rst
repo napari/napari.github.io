@@ -87,6 +87,7 @@ napari.layers.Image
       ~Image.contrast_limits_range
       ~Image.cursor
       ~Image.cursor_size
+      ~Image.custom_interpolation_kernel_2d
       ~Image.data
       ~Image.data_level
       ~Image.data_raw

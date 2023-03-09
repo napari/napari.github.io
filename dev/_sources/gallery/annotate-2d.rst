@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_annotate-2d.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_annotate-2d.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -77,6 +77,8 @@ Display one points layer ontop of one image layer using the ``add_points`` and
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

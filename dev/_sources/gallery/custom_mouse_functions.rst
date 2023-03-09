@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_custom_mouse_functions.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_custom_mouse_functions.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -121,6 +121,8 @@ Display one 4-D image layer using the ``add_image`` API
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

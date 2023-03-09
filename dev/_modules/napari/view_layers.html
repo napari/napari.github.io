@@ -506,6 +506,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">viewer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s1">&#39;napari&#39;</span><span class="p">,</span>
     <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -643,6 +644,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Each dict defines a clipping plane in 3D in data coordinates.</span>
 <span class="sd">        Valid dictionary keys are {&#39;position&#39;, &#39;normal&#39;, and &#39;enabled&#39;}.</span>
 <span class="sd">        Values on the negative side of the normal are discarded if the plane is enabled.</span>
+<span class="sd">    custom_interpolation_kernel_2d : np.ndarray</span>
+<span class="sd">        Convolution kernel used with the &#39;custom&#39; interpolation mode in 2D rendering.</span>
 <span class="sd">    viewer : Viewer object, optional, by default None.</span>
 <span class="sd">    title : string, optional</span>
 <span class="sd">        The title of the viewer window. By default &#39;napari&#39;.</span>
@@ -695,6 +698,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
         <span class="n">plane</span><span class="o">=</span><span class="n">plane</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+        <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
         <span class="n">ndisplay</span><span class="o">=</span><span class="n">ndisplay</span><span class="p">,</span>
         <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_magic_image_arithmetic.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_magic_image_arithmetic.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -95,6 +95,8 @@ Basic example of using magicgui to create an Image Arithmetic GUI in napari.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

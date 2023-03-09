@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_viewer_fps_label.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_viewer_fps_label.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -78,6 +78,8 @@ Display a 3D volume and the fps label.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_nD_points.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_nD_points.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -82,6 +82,8 @@ across the dimensions, specified by their size
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_multiple_viewer_widget.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_multiple_viewer_widget.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -499,6 +499,8 @@ current dims point (`viewer.dims.point`).
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

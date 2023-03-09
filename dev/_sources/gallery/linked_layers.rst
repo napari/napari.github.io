@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_linked_layers.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_linked_layers.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -71,6 +71,8 @@ linked layers, all of the other layers follow.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

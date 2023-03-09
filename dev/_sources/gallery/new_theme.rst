@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_new_theme.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_new_theme.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -87,7 +87,7 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  22.486 seconds)
+   **Total running time of the script:** ( 0 minutes  22.635 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:
@@ -95,6 +95,8 @@ Displays an image and sets the theme to new custom theme.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

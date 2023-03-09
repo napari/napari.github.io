@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_magic_viewer.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_magic_viewer.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -64,6 +64,8 @@ Example showing how to access the current viewer from a function widget.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

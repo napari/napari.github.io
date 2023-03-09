@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_minimum_blending.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_minimum_blending.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -75,6 +75,8 @@ ChrisLUTs: https://github.com/cleterrier/ChrisLUTs .
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

@@ -116,6 +116,7 @@ napari.layers.Labels
       ~Labels.contrast_limits_range
       ~Labels.cursor
       ~Labels.cursor_size
+      ~Labels.custom_interpolation_kernel_2d
       ~Labels.data
       ~Labels.data_level
       ~Labels.data_raw

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_get_current_viewer.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_get_current_viewer.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -61,6 +61,8 @@ viewer when the viewer is out of scope.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

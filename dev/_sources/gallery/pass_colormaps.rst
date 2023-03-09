@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_pass_colormaps.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_pass_colormaps.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -70,6 +70,8 @@ Add named or unnamed vispy colormaps to existing layers.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

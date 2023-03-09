@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_add_vectors.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_add_vectors.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -81,6 +81,8 @@ Each vector position is defined by an (x, y, x-proj, y-proj) element where
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

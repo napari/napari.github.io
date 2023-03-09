@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_add_points_with_multicolor_text.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_add_points_with_multicolor_text.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -94,6 +94,8 @@ multiple face colors mapped from features for the points and text.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

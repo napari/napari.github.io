@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_cursor_ray.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_cursor_ray.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -106,6 +106,8 @@ Depict a ray through a layer in 3D to demonstrate interactive 3D functionality
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_add-points-3d.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_add-points-3d.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -69,6 +69,8 @@ add_image APIs, then add points in 3D
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

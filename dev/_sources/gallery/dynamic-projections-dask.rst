@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_dynamic-projections-dask.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_dynamic-projections-dask.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -141,6 +141,8 @@ Part 2: using magicgui to vary the slice thickness.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

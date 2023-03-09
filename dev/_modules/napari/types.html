@@ -273,6 +273,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">Iterable</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
     <span class="n">NewType</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
     <span class="n">Type</span><span class="p">,</span>
@@ -413,6 +414,19 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
             <span class="n">register_type</span><span class="p">(</span>
                 <span class="n">Future</span><span class="p">[</span><span class="n">data_type</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
+                <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
+                <span class="n">return_callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span>
+                    <span class="n">_mgui</span><span class="o">.</span><span class="n">add_future_data</span><span class="p">,</span> <span class="n">_from_tuple</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="n">register_type</span><span class="p">(</span>
+            <span class="n">Optional</span><span class="p">[</span><span class="n">data_type</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
+            <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
+            <span class="n">return_callback</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">add_layer_data_to_viewer</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+            <span class="n">register_type</span><span class="p">(</span>
+                <span class="n">Future</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">data_type</span><span class="p">]],</span>  <span class="c1"># type: ignore</span>
                 <span class="n">choices</span><span class="o">=</span><span class="n">_mgui</span><span class="o">.</span><span class="n">get_layers_data</span><span class="p">,</span>
                 <span class="n">return_callback</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span>
                     <span class="n">_mgui</span><span class="o">.</span><span class="n">add_future_data</span><span class="p">,</span> <span class="n">_from_tuple</span><span class="o">=</span><span class="kc">False</span>

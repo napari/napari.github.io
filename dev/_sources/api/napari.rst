@@ -24,20 +24,20 @@
    .. rubric:: Functions
 
    
-   .. autofunction:: view_image
    .. autofunction:: view_tracks
-   .. autofunction:: view_labels
-   .. autofunction:: view_points
-   .. autofunction:: run
-   .. autofunction:: view_path
-   .. autofunction:: view_shapes
-   .. autofunction:: gui_qt
    .. autofunction:: save_layers
+   .. autofunction:: view_points
    .. autofunction:: imshow
-   .. autofunction:: current_viewer
-   .. autofunction:: view_vectors
-   .. autofunction:: view_surface
+   .. autofunction:: view_image
+   .. autofunction:: gui_qt
+   .. autofunction:: view_path
    .. autofunction:: sys_info
+   .. autofunction:: current_viewer
+   .. autofunction:: view_shapes
+   .. autofunction:: view_labels
+   .. autofunction:: view_surface
+   .. autofunction:: view_vectors
+   .. autofunction:: run
    
    
 

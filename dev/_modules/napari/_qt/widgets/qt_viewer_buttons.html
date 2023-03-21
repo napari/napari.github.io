@@ -282,7 +282,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_spinbox</span> <span class="kn">import</span> <span class="n">QtSpinBox</span>
 <span class="kn">from</span> <span class="nn">napari._qt.widgets.qt_tooltip</span> <span class="kn">import</span> <span class="n">QtToolTipLabel</span>
 <span class="kn">from</span> <span class="nn">napari.utils.action_manager</span> <span class="kn">import</span> <span class="n">action_manager</span>
-<span class="kn">from</span> <span class="nn">napari.utils.interactions</span> <span class="kn">import</span> <span class="n">Shortcut</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span><span class="p">,</span> <span class="n">in_python_repl</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
@@ -316,7 +315,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">viewer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">deleteButton</span> <span class="o">=</span> <span class="n">QtDeleteButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">deleteButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
+            <span class="s1">&#39;delete_button&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;napari:delete_selected_layers&#39;</span>
+        <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">newPointsButton</span> <span class="o">=</span> <span class="n">QtViewerPushButton</span><span class="p">(</span>
             <span class="s1">&#39;new_points&#39;</span><span class="p">,</span>
             <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;New points layer&#39;</span><span class="p">),</span>
@@ -599,80 +602,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
-
-
-<span class="k">class</span> <span class="nc">QtDeleteButton</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete button to remove selected layers.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    viewer : napari.components.ViewerModel</span>
-<span class="sd">        Napari viewer containing the rendered scene, layers, and controls.</span>
-
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    hover : bool</span>
-<span class="sd">        Hover is true while mouse cursor is on the button widget.</span>
-<span class="sd">    viewer : napari.components.ViewerModel</span>
-<span class="sd">        Napari viewer containing the rendered scene, layers, and controls.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">viewer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;Delete selected layers (</span><span class="si">{shortcut}</span><span class="s2">)&quot;</span><span class="p">,</span>
-                <span class="n">shortcut</span><span class="o">=</span><span class="n">Shortcut</span><span class="p">(</span><span class="s2">&quot;Control-Backspace&quot;</span><span class="p">),</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setAcceptDrops</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">remove_selected</span><span class="p">())</span>
-
-    <span class="k">def</span> <span class="nf">dragEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The cursor enters the widget during a drag and drop operation.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        event : qtpy.QtCore.QEvent</span>
-<span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hover</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">dragLeaveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The cursor leaves the widget during a drag and drop operation.</span>
-
-<span class="sd">        Using event.ignore() here allows the event to pass through the</span>
-<span class="sd">        parent widget to its child widget, otherwise the parent widget</span>
-<span class="sd">        would catch the event and not pass it on to the child widget.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        event : qtpy.QtCore.QEvent</span>
-<span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hover</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">dropEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The drag and drop mouse event is completed.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        event : qtpy.QtCore.QDropEvent</span>
-<span class="sd">            Event from the Qt context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
-        <span class="n">layer_name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">mimeData</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">selected</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">remove_selected</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">_omit_viewer_args</span><span class="p">(</span><span class="n">constructor</span><span class="p">):</span>

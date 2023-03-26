@@ -1312,14 +1312,28 @@ conda-forge channel. We also recommend this path for users of arm64 macOS machin
 installed for napari. If it takes too long or you get the wrong version of napari
 (see below), consider:</p>
 <ol class="arabic simple">
-<li><p>Overriding your default channels to use only <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> by adding <code class="docutils literal notranslate"><span class="pre">--override-channels</span></code>
-and specifying the napari and Python versions explicitly. For example, use <code class="docutils literal notranslate"><span class="pre">python=3.9</span></code>
-to get Python 3.9 and <code class="docutils literal notranslate"><span class="pre">napari=0.5.0</span></code> to specify the napari version as
-0.5.0, the current release.</p></li>
-<li><p>You can try installing <a class="reference external" href="https://github.com/mamba-org/mamba"><code class="docutils literal notranslate"><span class="pre">mamba</span></code></a> in your base
-environment with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-n</span> <span class="pre">base</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">mamba</span></code> and use its faster solver
-by replacing <code class="docutils literal notranslate"><span class="pre">conda</span></code> for <code class="docutils literal notranslate"><span class="pre">mamba</span></code> in the above instructions.</p></li>
+<li><p>Overriding your default channels to use only <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> by adding
+<code class="docutils literal notranslate"><span class="pre">--override-channels</span></code> and specifying the napari and Python versions explicitly.
+For example, use <code class="docutils literal notranslate"><span class="pre">python=3.9</span></code> to get Python 3.9 and
+<code class="docutils literal notranslate"><span class="pre">napari=0.5.0</span></code> to specify the napari version as 0.5.0,
+the current release.</p></li>
+<li><p>Switching to the new, faster <a class="reference external" href="https://conda.github.io/conda-libmamba-solver/libmamba-vs-classic/"><code class="docutils literal notranslate"><span class="pre">libmamba</span></code> solver</a>,
+by updating your <code class="docutils literal notranslate"><span class="pre">conda</span></code> (&gt;22.11), if needed, and then installing and activating
+the solver, as follows:</p></li>
 </ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="o">-</span><span class="n">n</span> <span class="n">base</span> <span class="n">conda</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">n</span> <span class="n">base</span> <span class="n">conda</span><span class="o">-</span><span class="n">libmamba</span><span class="o">-</span><span class="n">solver</span>
+<span class="n">conda</span> <span class="n">config</span> <span class="o">--</span><span class="nb">set</span> <span class="n">solver</span> <span class="n">libmamba</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Alternately, consider installing <a class="reference external" href="https://github.com/mamba-org/mamba"><code class="docutils literal notranslate"><span class="pre">mamba</span></code></a>
+in your base environment with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-n</span> <span class="pre">base</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">mamba</span></code>.
+Then you can use <code class="docutils literal notranslate"><span class="pre">mamba</span></code> by replacing <code class="docutils literal notranslate"><span class="pre">conda</span></code> with <code class="docutils literal notranslate"><span class="pre">mamba</span></code> in the installation instructions, for example:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="n">napari</span>
+</pre></div>
+</div>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title"><strong>3. From the main branch on Github</strong></p>

@@ -351,8 +351,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_console</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Viewer.screenshot"><a class="viewcode-back" href="../../api/napari.Viewer.html#napari.Viewer.screenshot">[docs]</a>    <span class="k">def</span> <span class="nf">screenshot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -450,10 +449,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the currently active napari viewer.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">napari._qt.qt_main_window</span> <span class="kn">import</span> <span class="n">_QtMainWindow</span>
-
-        <span class="k">return</span> <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">current_viewer</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_QtMainWindow</span><span class="o">.</span><span class="n">current_viewer</span><span class="p">()</span></div>
 </pre></div>
 
             </div>

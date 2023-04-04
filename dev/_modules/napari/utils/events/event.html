@@ -457,9 +457,9 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
                 <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">attr</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attrs</span><span class="p">))</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">_event_repr_depth</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Shorter string representation&quot;&quot;&quot;</span>
@@ -654,16 +654,18 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        core : str</span>
 <span class="sd">            Name of core module, for example &#39;napari&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">partial</span><span class="p">):</span>
-                <span class="n">callback</span> <span class="o">=</span> <span class="n">callback</span><span class="o">.</span><span class="n">func</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">callback</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">core</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
-            <span class="n">obj</span> <span class="o">=</span> <span class="n">callback</span><span class="p">[</span><span class="mi">0</span><span class="p">]()</span>  <span class="c1"># get object behind weakref</span>
-            <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># object is dead</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">partial</span><span class="p">):</span>
+            <span class="n">callback</span> <span class="o">=</span> <span class="n">callback</span><span class="o">.</span><span class="n">func</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">callback</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">core</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">core</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
-
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">callback</span><span class="p">[</span><span class="mi">0</span><span class="p">]()</span>  <span class="c1"># get object behind weakref</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># object is dead</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">core</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
@@ -734,7 +736,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">callback</span><span class="p">,</span> <span class="n">pass_event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_cb</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">callback</span> <span class="ow">in</span> <span class="n">callbacks</span><span class="p">:</span>
-            <span class="k">return</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
         <span class="c1"># deal with the ref</span>
         <span class="n">_ref</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
@@ -1288,7 +1290,7 @@ function checkPageExistsAndRedirect(event) {
                         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                         <span class="s2">&quot;The name &#39;</span><span class="si">{name}</span><span class="s2">&#39; cannot be used as an emitter; it is already an attribute of EmitterGroup&quot;</span><span class="p">,</span>
@@ -1487,7 +1489,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="p">)</span>
 
 
-<span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">):</span>
+<span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ModuleNotFoundError</span><span class="p">):</span>
     <span class="c1"># this could move somewhere higher up in napari imports ... but where?</span>
     <span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;dotenv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load_dotenv</span><span class="p">()</span>
 

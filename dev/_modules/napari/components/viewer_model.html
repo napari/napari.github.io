@@ -592,8 +592,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
                 <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span><span class="p">)]</span>
             <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
 
 <div class="viewcode-block" id="ViewerModel.reset_view"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.reset_view">[docs]</a>    <span class="k">def</span> <span class="nf">reset_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset the camera view.&quot;&quot;&quot;</span>
@@ -1145,16 +1145,15 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">layer</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">layerdata_list</span> <span class="o">=</span> <span class="n">split_channels</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">channel_axis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-            <span class="n">layer_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">i_kwargs</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">layerdata_list</span><span class="p">:</span>
-                <span class="n">layer</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">i_kwargs</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-                <span class="n">layer_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">layerdata_list</span> <span class="o">=</span> <span class="n">split_channels</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">channel_axis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">layer_list</span></div>
+        <span class="n">layer_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">**</span><span class="n">i_kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">i_kwargs</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">layerdata_list</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">layer_list</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">layer_list</span></div>
 
 <div class="viewcode-block" id="ViewerModel.open_sample"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.open_sample">[docs]</a>    <span class="k">def</span> <span class="nf">open_sample</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1238,18 +1237,18 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">for</span> <span class="n">datum</span> <span class="ow">in</span> <span class="n">data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
                     <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_layer_from_data</span><span class="p">(</span><span class="o">*</span><span class="n">datum</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">added</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">plugin</span><span class="o">=</span><span class="n">reader_plugin</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s1">&#39;Got unexpected type for sample (</span><span class="si">{plugin!r}</span><span class="s1">, </span><span class="si">{sample!r}</span><span class="s1">): </span><span class="si">{data_type}</span><span class="s1">&#39;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                        <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
-                        <span class="n">data_type</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
-                    <span class="p">)</span>
-                <span class="p">)</span></div>
+
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;Got unexpected type for sample (</span><span class="si">{plugin!r}</span><span class="s1">, </span><span class="si">{sample!r}</span><span class="s1">): </span><span class="si">{data_type}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
+                    <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
+                    <span class="n">data_type</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ViewerModel.open"><a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1640,7 +1639,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">layer</span> <span class="o">=</span> <span class="n">add_method</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">meta</span> <span class="ow">or</span> <span class="p">{}))</span>
         <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="k">if</span> <span class="s1">&#39;unexpected keyword argument&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">exc</span>
+                <span class="k">raise</span>
             <span class="n">bad_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;keyword argument &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>

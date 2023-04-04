@@ -316,7 +316,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="nb">slice</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">index</span><span class="p">,)</span>  <span class="c1"># single integer inserts to self</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">index</span>
 
     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
@@ -437,7 +437,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>  <span class="c1"># noqa</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NestableEventedList</span><span class="p">[</span><span class="n">_T</span><span class="p">]:</span>
         <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="nd">@overload</span>
@@ -506,7 +506,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">):</span>
             <span class="c1"># This event is coming from a nested List...</span>
             <span class="c1"># update the index as a nested index.</span>
-            <span class="n">ei</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">),)</span> <span class="o">+</span> <span class="n">ensure_tuple_index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">ei</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">),</span> <span class="o">*</span><span class="n">ensure_tuple_index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;new_index&#39;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
                     <span class="nb">setattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">ei</span><span class="p">)</span>
@@ -575,7 +575,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="n">dest_par</span><span class="p">,</span> <span class="n">dest_i</span> <span class="o">=</span> <span class="n">split_nested_index</span><span class="p">(</span><span class="n">dest_index</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;Destination index may not be a slice&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -617,7 +617,7 @@ function checkPageExistsAndRedirect(event) {
 
             <span class="n">src_par</span><span class="p">,</span> <span class="n">src_i</span> <span class="o">=</span> <span class="n">split_nested_index</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                         <span class="s2">&quot;Terminal source index may not be a slice&quot;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -639,7 +639,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">if</span> <span class="n">src_par</span> <span class="o">==</span> <span class="n">dest_par</span> <span class="ow">and</span> <span class="n">src_i</span> <span class="o">==</span> <span class="n">dest_i</span> <span class="o">-</span> <span class="n">ddec</span><span class="p">:</span>
                 <span class="k">continue</span>
 
-            <span class="k">yield</span> <span class="n">src_par</span> <span class="o">+</span> <span class="p">(</span><span class="n">src_i</span><span class="p">,),</span> <span class="n">dest_par</span> <span class="o">+</span> <span class="p">(</span><span class="n">dest_i</span> <span class="o">-</span> <span class="n">ddec</span><span class="p">,)</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="o">*</span><span class="n">src_par</span><span class="p">,</span> <span class="n">src_i</span><span class="p">),</span> <span class="p">(</span><span class="o">*</span><span class="n">dest_par</span><span class="p">,</span> <span class="n">dest_i</span> <span class="o">-</span> <span class="n">ddec</span><span class="p">)</span>
             <span class="n">popped</span><span class="p">[</span><span class="n">src_par</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src_i</span><span class="p">)</span>
             <span class="n">dumped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dest_i</span> <span class="o">-</span> <span class="n">ddec</span><span class="p">)</span>
 
@@ -677,10 +677,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">src_par_i</span><span class="p">,</span> <span class="n">src_i</span> <span class="o">=</span> <span class="n">split_nested_index</span><span class="p">(</span><span class="n">src_index</span><span class="p">)</span>
         <span class="n">dest_par_i</span><span class="p">,</span> <span class="n">dest_i</span> <span class="o">=</span> <span class="n">split_nested_index</span><span class="p">(</span><span class="n">dest_index</span><span class="p">)</span>
         <span class="n">dest_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_non_negative_index</span><span class="p">(</span><span class="n">dest_par_i</span><span class="p">,</span> <span class="n">dest_i</span><span class="p">)</span>
-        <span class="n">dest_index</span> <span class="o">=</span> <span class="n">dest_par_i</span> <span class="o">+</span> <span class="p">(</span><span class="n">dest_i</span><span class="p">,)</span>
+        <span class="n">dest_index</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">dest_par_i</span><span class="p">,</span> <span class="n">dest_i</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;Terminal source index may not be a slice&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -688,7 +688,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;Destination index may not be a slice&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -725,7 +725,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__newlike__</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span><span class="p">:</span>
-            <span class="n">_types</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">NestableEventedList</span><span class="p">,)</span>
+            <span class="n">_types</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span><span class="p">),</span> <span class="n">NestableEventedList</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">_types</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
@@ -743,9 +743,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Depth first traversal of the tree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]):</span>
-            <span class="k">yield</span> <span class="n">root</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="p">,)</span> <span class="k">if</span> <span class="n">root</span> <span class="k">else</span> <span class="n">i</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="n">root</span> <span class="k">else</span> <span class="n">i</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">NestableEventedList</span><span class="p">):</span>
-                <span class="k">yield from</span> <span class="n">item</span><span class="o">.</span><span class="n">_iter_indices</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">root</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="p">,))</span>
+                <span class="k">yield from</span> <span class="n">item</span><span class="o">.</span><span class="n">_iter_indices</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
 
 <div class="viewcode-block" id="NestableEventedList.has_index"><a class="viewcode-back" href="../../../../../api/napari.utils.events.NestableEventedList.html#napari.utils.events.NestableEventedList.has_index">[docs]</a>    <span class="k">def</span> <span class="nf">has_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if `index` is valid for this nestable list.&quot;&quot;&quot;</span>
@@ -754,9 +754,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-                <span class="k">return</span> <span class="kc">True</span>
             <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not supported index type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div></div>
 </pre></div>
 

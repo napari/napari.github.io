@@ -293,7 +293,14 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;VERSION_ID&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> (no version)&#39;</span>
 
-    <span class="k">try</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">_linux_sys_name_lsb_release</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_linux_sys_name_lsb_release</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Try to discover linux system name base on lsb_release command output</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">):</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
             <span class="p">[</span><span class="s2">&quot;lsb_release&quot;</span><span class="p">,</span> <span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
@@ -306,8 +313,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="ow">not</span> <span class="n">version_str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Release&quot;</span><span class="p">]):</span>
             <span class="n">version_str</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Release&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">version_str</span>
-    <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">:</span>
-        <span class="k">pass</span>
     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
 

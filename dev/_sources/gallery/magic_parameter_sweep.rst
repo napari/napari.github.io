@@ -29,7 +29,7 @@ It demonstrates:
 
 .. tags:: gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-53
+.. GENERATED FROM PYTHON SOURCE LINES 13-54
 
 
 
@@ -72,6 +72,7 @@ It demonstrates:
         """Apply a gaussian blur to ``layer``."""
         if layer:
             return skimage.filters.gaussian(layer.data, sigma=sigma, mode=mode)
+        return None
 
 
     # create a viewer and add some images

@@ -42,9 +42,9 @@ Action manager
     application, not part of the napari viewer model. If your use case
     requires access to qt_viewer, please open an issue to discuss.
       layer_buttons = viewer.window.qt_viewer.layerButtons
-    calling <function register_action at 0x7fb9d0a1c8b0>
-    calling <function bind_shortcut at 0x7fb9d0a1c4c0>
-    calling <function bind_button at 0x7fb9d0a1c820>
+    calling <function bind_shortcut at 0x7f217442b8b0>
+    calling <function bind_button at 0x7f217442b160>
+    calling <function register_action at 0x7f217442b0d0>
 
 
 
@@ -102,7 +102,7 @@ Action manager
 
     def register_action():
         # Here we pass ViewerModel as the KeymapProvider as we want it to handle the shortcuts.
-        # we could also pass none and bind the shortcuts at the window level – though we
+        # we could also pass none and bind the shortcuts at the window level - though we
         # are trying to not change the KeymapProvider API too much for now.
         # we give an action name to the action for configuration purposes as we need
         # it to be storable in json.

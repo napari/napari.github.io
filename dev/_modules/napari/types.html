@@ -284,7 +284,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">get_args</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">dask.array</span>
+    <span class="c1"># dask zarr should be imported as `import dask.array as da` But here it is used only in type annotation to</span>
+    <span class="c1"># register it as a valid type fom magicgui so is passed as string and requires full qualified name to allow</span>
+    <span class="c1"># magicgui properly register it.</span>
+    <span class="kn">import</span> <span class="nn">dask.array</span>  <span class="c1"># noqa: ICN001</span>
     <span class="kn">import</span> <span class="nn">zarr</span>
     <span class="kn">from</span> <span class="nn">magicgui.widgets</span> <span class="kn">import</span> <span class="n">FunctionGui</span>
     <span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>

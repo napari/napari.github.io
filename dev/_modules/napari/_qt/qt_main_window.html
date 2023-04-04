@@ -667,6 +667,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span><span class="p">[</span><span class="n">quit_app</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">None</span>
         <span class="c1"># here we inform that confirmation dialog is not open</span>
 
     <span class="k">def</span> <span class="nf">close_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1108,7 +1109,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">full_name</span> <span class="o">=</span> <span class="n">plugin_menu_item_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="n">widget_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">full_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dock_widgets</span><span class="p">:</span>
-            <span class="k">return</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
         <span class="n">func</span> <span class="o">=</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">_function_widgets</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">][</span><span class="n">widget_name</span><span class="p">]</span>
 
@@ -1256,7 +1257,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">dock_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
                 <span class="n">dock_widget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">dock_widget</span><span class="o">.</span><span class="n">area</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">):</span>
-                <span class="n">_wdg</span> <span class="o">=</span> <span class="n">current_dws_in_area</span> <span class="o">+</span> <span class="p">[</span><span class="n">dock_widget</span><span class="p">]</span>
+                <span class="n">_wdg</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">current_dws_in_area</span><span class="p">,</span> <span class="n">dock_widget</span><span class="p">]</span>
                 <span class="c1"># add sizes to push lower widgets up</span>
                 <span class="n">sizes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_wdg</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">resizeDocks</span><span class="p">(</span>
@@ -1399,13 +1400,13 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">allowed_areas</span><span class="o">=</span><span class="n">allowed_areas</span><span class="p">,</span>
                 <span class="n">shortcut</span><span class="o">=</span><span class="n">shortcut</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span>
-                <span class="n">widget</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span>
-                <span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">,</span>
-                <span class="n">allowed_areas</span><span class="o">=</span><span class="n">allowed_areas</span><span class="p">,</span>
-            <span class="p">)</span></div>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_dock_widget</span><span class="p">(</span>
+            <span class="n">widget</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span>
+            <span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">,</span>
+            <span class="n">allowed_areas</span><span class="o">=</span><span class="n">allowed_areas</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Window.resize"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.resize">[docs]</a>    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize the window.</span>

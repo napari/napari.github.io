@@ -25,7 +25,7 @@ Basic example of using magicgui to create an Image Arithmetic GUI in napari.
 
 .. tags:: gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-57
+.. GENERATED FROM PYTHON SOURCE LINES 9-58
 
 
 
@@ -76,6 +76,7 @@ Basic example of using magicgui to create an Image Arithmetic GUI in napari.
         """Adds, subtracts, multiplies, or divides two same-shaped image layers."""
         if layerA is not None and layerB is not None:
             return operation.value(layerA, layerB)
+        return None
 
 
     # create a new viewer with a couple image layers

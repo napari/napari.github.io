@@ -572,47 +572,47 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Determine minimum step size across all layers</span>
-            <span class="n">layer_extent_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
-            <span class="n">scales</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
-            <span class="n">min_steps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_size_from_scales</span><span class="p">(</span><span class="n">scales</span><span class="p">)</span>
 
-            <span class="c1"># Pixel-based layers need to be offset by 0.5 * min_steps to align</span>
-            <span class="c1"># Dims.range with pixel centers in world coordinates</span>
-            <span class="n">pixel_offsets</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="mf">0.5</span> <span class="o">*</span> <span class="n">min_steps</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">_ImageBase</span><span class="p">)</span>
-                <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_steps</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span>
-            <span class="p">]</span>
+        <span class="c1"># Determine minimum step size across all layers</span>
+        <span class="n">layer_extent_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
+        <span class="n">scales</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
+        <span class="n">min_steps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_size_from_scales</span><span class="p">(</span><span class="n">scales</span><span class="p">)</span>
 
-            <span class="c1"># Non-pixel layers need an offset of the range stop by min_steps since the upper</span>
-            <span class="c1"># limit of Dims.range is non-inclusive.</span>
-            <span class="n">point_offsets</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_steps</span><span class="p">)</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">_ImageBase</span><span class="p">)</span>
-                <span class="k">else</span> <span class="n">min_steps</span>
-                <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span>
-            <span class="p">]</span>
+        <span class="c1"># Pixel-based layers need to be offset by 0.5 * min_steps to align</span>
+        <span class="c1"># Dims.range with pixel centers in world coordinates</span>
+        <span class="n">pixel_offsets</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="mf">0.5</span> <span class="o">*</span> <span class="n">min_steps</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">_ImageBase</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_steps</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span>
+        <span class="p">]</span>
 
-            <span class="c1"># Determine world coordinate extents similarly to</span>
-            <span class="c1"># `_get_extent_world`, but including offsets calculated above.</span>
-            <span class="n">extrema</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
-            <span class="n">mins</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">o1</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">o1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">extrema</span><span class="p">,</span> <span class="n">pixel_offsets</span><span class="p">)</span>
-            <span class="p">]</span>
-            <span class="n">maxs</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">o1</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+</span> <span class="n">o2</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
-                <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">o1</span><span class="p">,</span> <span class="n">o2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">extrema</span><span class="p">,</span> <span class="n">pixel_offsets</span><span class="p">,</span> <span class="n">point_offsets</span><span class="p">)</span>
-            <span class="p">]</span>
-            <span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_and_max</span><span class="p">(</span><span class="n">mins</span><span class="p">,</span> <span class="n">maxs</span><span class="p">)</span>
+        <span class="c1"># Non-pixel layers need an offset of the range stop by min_steps since the upper</span>
+        <span class="c1"># limit of Dims.range is non-inclusive.</span>
+        <span class="n">point_offsets</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_steps</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">_ImageBase</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">min_steps</span>
+            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span>
+        <span class="p">]</span>
 
-            <span class="c1"># form range tuples, switching back to original dimension order</span>
-            <span class="k">return</span> <span class="p">[</span>
-                <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span><span class="p">,</span> <span class="n">min_steps</span><span class="p">)</span>
-            <span class="p">]</span>
+        <span class="c1"># Determine world coordinate extents similarly to</span>
+        <span class="c1"># `_get_extent_world`, but including offsets calculated above.</span>
+        <span class="n">extrema</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
+        <span class="n">mins</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">o1</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">o1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">extrema</span><span class="p">,</span> <span class="n">pixel_offsets</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">maxs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">o1</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+</span> <span class="n">o2</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+            <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">o1</span><span class="p">,</span> <span class="n">o2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">extrema</span><span class="p">,</span> <span class="n">pixel_offsets</span><span class="p">,</span> <span class="n">point_offsets</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_and_max</span><span class="p">(</span><span class="n">mins</span><span class="p">,</span> <span class="n">maxs</span><span class="p">)</span>
+
+        <span class="c1"># form range tuples, switching back to original dimension order</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span><span class="p">,</span> <span class="n">min_steps</span><span class="p">)</span>
+        <span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -697,7 +697,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        If ``plugin`` is provided and multiple layers are targeted, then</span>
 <span class="sd">        we call we call</span>
 <span class="sd">        :meth:`~napari.plugins.hook_specifications.napari_get_writer` for</span>
-<span class="sd">        that plugin, and if it doesn’t return a ``WriterFunction`` we error,</span>
+<span class="sd">        that plugin, and if it doesn`t return a ``WriterFunction`` we error,</span>
 <span class="sd">        otherwise we call it and if that fails if it we error.</span>
 
 <span class="sd">        Parameters</span>

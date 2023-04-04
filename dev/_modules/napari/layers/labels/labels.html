@@ -1134,14 +1134,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">max_nbytes</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">nbytes</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">data_range</span> <span class="o">*</span> <span class="n">nbytes_low_discrepancy</span> <span class="o">&gt;</span> <span class="n">max_nbytes</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_low_discrepancy_image</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">data_range</span><span class="p">:</span>
-                <span class="n">new_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">min_label_val0</span><span class="p">,</span> <span class="n">max_label_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">new_all_vals</span><span class="p">,</span> <span class="n">min_label_val0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_index</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">data_range</span><span class="p">:</span>
+            <span class="n">new_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">min_label_val0</span><span class="p">,</span> <span class="n">max_label_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">new_all_vals</span><span class="p">,</span> <span class="n">min_label_val0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_index</span>
 
     <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine displayed image from a saved raw image and a saved seed.</span>
@@ -1780,10 +1780,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># for difference from indexing numpy</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-
-            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
             <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
 </pre></div>
 

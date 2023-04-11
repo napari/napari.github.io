@@ -482,7 +482,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># try to read it back in  </span>
     <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="n">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Running the command <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">.</span></code> in the root directory of the plugin, we discover all the functions recognized as tests. It should recognize <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> because it’s a test file, prefixed with the word test. <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> was found and passed the test.</p>
@@ -499,7 +499,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="c1"># try to read it back in  </span>
     <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="n">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
 </pre></div>
 </div>
 <p>Once we run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> we can see that it traced back that the callable of <code class="docutils literal notranslate"><span class="pre">reader</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code> and it has filled in the fact that <code class="docutils literal notranslate"><span class="pre">reader</span></code> at the time of the assertion was <code class="docutils literal notranslate"><span class="pre">None</span></code>. This is useful in debugging.</p>
@@ -529,7 +529,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>  
     
     <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="n">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
     
     <span class="n">layer_data_list</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">,</span> <span class="n">List</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>  
@@ -546,7 +546,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>  
     
     <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="n">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
     
     <span class="n">layer_data_list</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">,</span> <span class="n">List</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>  

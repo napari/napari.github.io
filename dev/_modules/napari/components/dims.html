@@ -264,7 +264,10 @@ function checkPageExistsAndRedirect(event) {
   <h1>Source code for napari.components.dims</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Integral</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
     <span class="n">Literal</span><span class="p">,</span>
+    <span class="n">NamedTuple</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
     <span class="n">Tuple</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
@@ -278,6 +281,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 
+<span class="k">class</span> <span class="nc">RangeTuple</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">start</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">stop</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">step</span><span class="p">:</span> <span class="nb">float</span>
+
+
 <div class="viewcode-block" id="Dims"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims">[docs]</a><span class="k">class</span> <span class="nc">Dims</span><span class="p">(</span><span class="n">EventedModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Dimensions object modeling slicing and displaying.</span>
 
@@ -287,18 +296,21 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Number of dimensions.</span>
 <span class="sd">    ndisplay : int</span>
 <span class="sd">        Number of displayed dimensions.</span>
-<span class="sd">    last_used : int</span>
-<span class="sd">        Dimension which was last used.</span>
 <span class="sd">    range : tuple of 3-tuple of float</span>
-<span class="sd">        List of tuples (min, max, step), one for each dimension. In a world</span>
-<span class="sd">        coordinates space. As with Python&#39;s `range` and `slice`, max is not</span>
-<span class="sd">        included.</span>
-<span class="sd">    current_step : tuple of int</span>
-<span class="sd">        Tuple of the slider position for each dims slider, in slider coordinates.</span>
+<span class="sd">        List of tuples (min, max, step), one for each dimension in world</span>
+<span class="sd">        coordinates space.</span>
+<span class="sd">    point : tuple of floats</span>
+<span class="sd">        Dims position in world coordinates for each dimension.</span>
+<span class="sd">    margin_left : tuple of floats</span>
+<span class="sd">        Left margin in world pixels of the slice for each dimension.</span>
+<span class="sd">    margin_right : tuple of floats</span>
+<span class="sd">        Right margin in world pixels of the slice for each dimension.</span>
 <span class="sd">    order : tuple of int</span>
 <span class="sd">        Tuple of ordering the dimensions, where the last dimensions are rendered.</span>
 <span class="sd">    axis_labels : tuple of str</span>
 <span class="sd">        Tuple of labels for each dimension.</span>
+<span class="sd">    last_used : int</span>
+<span class="sd">        Dimension which was last interacted with.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -306,25 +318,29 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Number of dimensions.</span>
 <span class="sd">    ndisplay : int</span>
 <span class="sd">        Number of displayed dimensions.</span>
-<span class="sd">    last_used : int</span>
-<span class="sd">        Dimension which was last used.</span>
 <span class="sd">    range : tuple of 3-tuple of float</span>
-<span class="sd">        List of tuples (min, max, step), one for each dimension. In a world</span>
-<span class="sd">        coordinates space. As with Python&#39;s `range` and `slice`, max is not</span>
-<span class="sd">        included.</span>
-<span class="sd">    current_step : tuple of int</span>
-<span class="sd">        Tuple the slider position for each dims slider, in slider coordinates.</span>
+<span class="sd">        List of tuples (min, max, step), one for each dimension in world</span>
+<span class="sd">        coordinates space.</span>
+<span class="sd">    point : tuple of floats</span>
+<span class="sd">        Dims position in world coordinates for each dimension.</span>
+<span class="sd">    margin_left : tuple of floats</span>
+<span class="sd">        Left margin (=thickness) in world pixels of the slice for each dimension.</span>
+<span class="sd">    margin_right : tuple of floats</span>
+<span class="sd">        Right margin (=thickness) in world pixels of the slice for each dimension.</span>
 <span class="sd">    order : tuple of int</span>
 <span class="sd">        Tuple of ordering the dimensions, where the last dimensions are rendered.</span>
 <span class="sd">    axis_labels : tuple of str</span>
 <span class="sd">        Tuple of labels for each dimension.</span>
+<span class="sd">    last_used : int</span>
+<span class="sd">        Dimension which was last used.</span>
+<span class="sd">        Tuple the slider position for each dims slider, in world coordinates.</span>
+<span class="sd">    current_step : tuple of int</span>
+<span class="sd">        Current step for each dimension (same as point, but in slider coordinates).</span>
 <span class="sd">    nsteps : tuple of int</span>
 <span class="sd">        Number of steps available to each slider. These are calculated from</span>
 <span class="sd">        the ``range``.</span>
-<span class="sd">    point : tuple of float</span>
-<span class="sd">        List of floats setting the current value of the range slider when in</span>
-<span class="sd">        POINT mode, one for each dimension. In a world coordinates space. These</span>
-<span class="sd">        are calculated from the ``current_step`` and ``range``.</span>
+<span class="sd">    thickness : tuple of floats</span>
+<span class="sd">        Thickness of the slice (sum of both margins) for each dimension in world coordinates.</span>
 <span class="sd">    displayed : tuple of int</span>
 <span class="sd">        List of dimensions that are displayed. These are calculated from the</span>
 <span class="sd">        ``order`` and ``ndisplay``.</span>
@@ -339,23 +355,63 @@ function checkPageExistsAndRedirect(event) {
     <span class="c1"># fields</span>
     <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">ndisplay</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">last_used</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="nb">range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
-    <span class="n">current_step</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
     <span class="n">order</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
     <span class="n">axis_labels</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="nb">range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">RangeTuple</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">margin_left</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">margin_right</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">point</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="n">last_used</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="c1"># private vars</span>
     <span class="n">_scroll_progress</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="c1"># validators</span>
-    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_string_to_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">v</span>
+    <span class="c1"># check fields is false to allow private fields to work</span>
+    <span class="nd">@validator</span><span class="p">(</span>
+        <span class="s1">&#39;order&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axis_labels&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;point&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;margin_left&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;margin_right&#39;</span><span class="p">,</span>
+        <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_as_tuple</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-    <span class="nd">@root_validator</span><span class="p">(</span><span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_check_ranges</span><span class="p">(</span><span class="n">ranges</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure the range values are sane.</span>
+
+<span class="sd">        - start &lt; stop</span>
+<span class="sd">        - step &gt; 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ranges</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">stop</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s1">&#39;start and stop must be strictly increasing, but got (</span><span class="si">{start}</span><span class="s1">, </span><span class="si">{stop}</span><span class="s1">) for axis </span><span class="si">{axis}</span><span class="s1">&#39;</span><span class="p">,</span>
+                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+                        <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+                        <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s1">&#39;step must be strictly positive, but got </span><span class="si">{step}</span><span class="s1"> for axis </span><span class="si">{axis}</span><span class="s1">.&#39;</span><span class="p">,</span>
+                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
+                        <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="k">return</span> <span class="n">ranges</span>
+
+    <span class="nd">@root_validator</span><span class="p">(</span><span class="n">skip_on_failure</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_check_dims</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check the consitency of dimensionaity for all attributes</span>
 
@@ -364,81 +420,107 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        values : dict</span>
 <span class="sd">            Values dictionary to update dims model with.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">updated</span> <span class="o">=</span> <span class="p">{}</span>
+
         <span class="n">ndim</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;ndim&#39;</span><span class="p">]</span>
 
-        <span class="c1"># Check the range tuple has same number of elements as ndim</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),)</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="n">ndim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">])</span>
-            <span class="p">)</span> <span class="o">+</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">][</span><span class="o">-</span><span class="n">ndim</span><span class="p">:]</span>
+        <span class="n">range_</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">RangeTuple</span><span class="p">(</span><span class="o">*</span><span class="n">rng</span><span class="p">)</span> <span class="k">for</span> <span class="n">rng</span> <span class="ow">in</span> <span class="n">range_</span><span class="p">)</span>
 
-        <span class="c1"># Check the current step tuple has same number of elements as ndim</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;current_step&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;current_step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="n">ndim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;current_step&#39;</span><span class="p">])</span>
-            <span class="p">)</span> <span class="o">+</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;current_step&#39;</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;current_step&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;current_step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;current_step&#39;</span><span class="p">][</span><span class="o">-</span><span class="n">ndim</span><span class="p">:]</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="c1"># ensure point is limited to range</span>
+        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">pt</span><span class="p">,</span> <span class="n">rng</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">])</span>
+        <span class="p">)</span>
 
+        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;margin_left&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span>
+            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;margin_left&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span>
+        <span class="p">)</span>
+        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;margin_right&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ensure_len</span><span class="p">(</span>
+            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;margin_right&#39;</span><span class="p">],</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mf">0.0</span>
+        <span class="p">)</span>
+
+        <span class="c1"># order and label default computation is too different to include in ensure_len()</span>
         <span class="c1"># Check the order tuple has same number of elements as ndim</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-                <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]))</span>
-            <span class="p">)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="n">ndim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span>
-                <span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">][</span><span class="o">-</span><span class="n">ndim</span><span class="p">:]</span>
-            <span class="p">)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span>
+        <span class="n">order_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
+            <span class="c1"># new dims are always prepended</span>
+            <span class="n">prepended_dims</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="n">order_ndim</span><span class="p">))</span>
+            <span class="c1"># maintain existing order, but shift accordingly</span>
+            <span class="n">existing_order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="n">ndim</span> <span class="o">-</span> <span class="n">order_ndim</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">order</span><span class="p">)</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="n">prepended_dims</span> <span class="o">+</span> <span class="n">existing_order</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="n">ndim</span><span class="p">:])</span>
+        <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">order</span>
 
         <span class="c1"># Check the order is a permutation of 0, ..., ndim - 1</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;Invalid ordering </span><span class="si">{order}</span><span class="s2"> for </span><span class="si">{ndim}</span><span class="s2"> dimensions&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">order</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">],</span>
+                    <span class="n">order</span><span class="o">=</span><span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">],</span>
                     <span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
         <span class="c1"># Check the axis labels tuple has same number of elements as ndim</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
+        <span class="n">axis_labels</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span>
+        <span class="n">labels_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_labels</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels_ndim</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
             <span class="c1"># Append new &quot;default&quot; labels to existing ones</span>
-            <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span>
-                <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">])))</span>
-            <span class="p">):</span>
-                <span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="n">axis_labels</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">labels_ndim</span><span class="p">))):</span>
+                <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]))))</span>
-                    <span class="o">+</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span>
+                <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="n">labels_ndim</span><span class="p">)))</span> <span class="o">+</span> <span class="n">axis_labels</span>
                 <span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
-            <span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">][</span><span class="o">-</span><span class="n">ndim</span><span class="p">:]</span>
+        <span class="k">elif</span> <span class="n">labels_ndim</span> <span class="o">&gt;</span> <span class="n">ndim</span><span class="p">:</span>
+            <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;axis_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">axis_labels</span><span class="p">[</span><span class="o">-</span><span class="n">ndim</span><span class="p">:]</span>
 
-        <span class="k">return</span> <span class="n">values</span>
+        <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">values</span><span class="p">,</span> <span class="o">**</span><span class="n">updated</span><span class="p">}</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">nsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tuple of int: Number of slider steps for each dimension.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">nsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="nb">int</span><span class="p">((</span><span class="n">max_val</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">step_size</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">step_size</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span>
+            <span class="c1"># &quot;or 1&quot; ensures degenerate dimension works</span>
+            <span class="nb">int</span><span class="p">((</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">step</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">rng</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span>
         <span class="p">)</span>
 
+    <span class="nd">@nsteps</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">nsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">nsteps</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">rng</span><span class="p">,</span> <span class="n">nsteps</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="p">]</span>
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">point</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tuple of float: Value of each dimension.&quot;&quot;&quot;</span>
-        <span class="c1"># The point value is computed from the range and current_step</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="n">min_val</span> <span class="o">+</span> <span class="n">step_size</span> <span class="o">*</span> <span class="n">value</span>
-            <span class="k">for</span> <span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">step_size</span><span class="p">),</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span>
-            <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">current_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">point</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">step</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">point</span><span class="p">,</span> <span class="n">rng</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">point</span>
+
+    <span class="nd">@current_step</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">current_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">rng</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="n">point</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">step</span>
+            <span class="k">for</span> <span class="n">point</span><span class="p">,</span> <span class="n">rng</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">thickness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">left</span> <span class="o">+</span> <span class="n">right</span>
+            <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">margin_left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin_right</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="nd">@thickness</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">thickness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">margin_left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin_right</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">val</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
@@ -471,26 +553,13 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Range specified as (min, max, step) or a sequence of these range</span>
 <span class="sd">            tuples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="n">assert_axis_in_bounds</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_range</span><span class="p">:</span>
-                <span class="n">full_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
-                <span class="n">full_range</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">_range</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">full_range</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">full_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
-            <span class="c1"># cast range to list for list comparison below</span>
-            <span class="n">_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_range</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">_range</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;axis and _range sequences must have equal length&quot;</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="n">_range</span> <span class="o">!=</span> <span class="n">full_range</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">_range</span><span class="p">):</span>
-                    <span class="n">ax</span> <span class="o">=</span> <span class="n">assert_axis_in_bounds</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ax</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-                    <span class="n">full_range</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">full_range</span></div>
+        <span class="n">axis</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_input</span><span class="p">(</span>
+            <span class="n">axis</span><span class="p">,</span> <span class="n">_range</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">full_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="n">full_range</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">full_range</span></div>
 
 <div class="viewcode-block" id="Dims.set_point"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.set_point">[docs]</a>    <span class="k">def</span> <span class="nf">set_point</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -499,9 +568,6 @@ function checkPageExistsAndRedirect(event) {
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets point to slice dimension in world coordinates.</span>
 
-<span class="sd">        The desired point gets transformed into an integer step</span>
-<span class="sd">        of the slider and stored in the current_step.</span>
-
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        axis : int or sequence of int</span>
@@ -509,66 +575,28 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        value : scalar or sequence of scalars</span>
 <span class="sd">            Value of the point for each axis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="n">assert_axis_in_bounds</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">step_size</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
-            <span class="n">raw_step</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">step_size</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_current_step</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">raw_step</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;axis and value sequences must have equal length&quot;</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="n">raw_steps</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-                <span class="n">ax</span> <span class="o">=</span> <span class="n">assert_axis_in_bounds</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ax</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-                <span class="n">min_val</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">step_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span>
-                <span class="n">raw_steps</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">val</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">step_size</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_current_step</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">raw_steps</span><span class="p">)</span></div>
+        <span class="n">axis</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_input</span><span class="p">(</span>
+            <span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="n">full_point</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="n">full_point</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="n">full_point</span></div>
 
-<div class="viewcode-block" id="Dims.set_current_step"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.set_current_step">[docs]</a>    <span class="k">def</span> <span class="nf">set_current_step</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">set_current_step</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">axis</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
-        <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the slider steps at which to slice this dimension.</span>
-
-<span class="sd">        The position of the slider in world coordinates gets</span>
-<span class="sd">        calculated from the current_step of the slider.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        axis : int or sequence of int</span>
-<span class="sd">            Dimension index or a sequence of axes whos step will be set.</span>
-<span class="sd">        value : scalar or sequence of scalars</span>
-<span class="sd">            Value of the step for each axis.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="n">assert_axis_in_bounds</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-            <span class="n">step</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">!=</span> <span class="n">step</span><span class="p">:</span>
-                <span class="n">full_current_step</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_step</span><span class="p">)</span>
-                <span class="n">full_current_step</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">step</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span> <span class="o">=</span> <span class="n">full_current_step</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">full_current_step</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_step</span><span class="p">)</span>
-            <span class="c1"># cast value to list for list comparison below</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;axis and value sequences must have equal length&quot;</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">full_current_step</span><span class="p">:</span>
-                <span class="c1"># (computed) nsteps property outside of the loop for efficiency</span>
-                <span class="n">nsteps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span>
-                <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-                    <span class="n">ax</span> <span class="o">=</span> <span class="n">assert_axis_in_bounds</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ax</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-                    <span class="n">step</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">nsteps</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-                    <span class="n">full_current_step</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">step</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span> <span class="o">=</span> <span class="n">full_current_step</span></div>
+        <span class="n">axis</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_input</span><span class="p">(</span>
+            <span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="n">range_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
+        <span class="n">value_world</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="n">rng</span> <span class="o">=</span> <span class="n">range_</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span>
+            <span class="n">value_world</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="n">val</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_point</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">value_world</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Dims.set_axis_label"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.set_axis_label">[docs]</a>    <span class="k">def</span> <span class="nf">set_axis_label</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -584,34 +612,24 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        label : str or sequence of str</span>
 <span class="sd">            Given labels for the specified axes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="n">assert_axis_in_bounds</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
-                <span class="n">full_axis_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">)</span>
-                <span class="n">full_axis_labels</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="n">full_axis_labels</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">last_used</span> <span class="o">=</span> <span class="n">axis</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">full_axis_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">)</span>
-            <span class="c1"># cast label to list for list comparison below</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;axis and label sequences must have equal length&quot;</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="n">label</span> <span class="o">!=</span> <span class="n">full_axis_labels</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
-                    <span class="n">ax</span> <span class="o">=</span> <span class="n">assert_axis_in_bounds</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ax</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-                    <span class="n">full_axis_labels</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="n">full_axis_labels</span></div>
+        <span class="n">axis</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_input</span><span class="p">(</span>
+            <span class="n">axis</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="n">full_axis_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+            <span class="n">full_axis_labels</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="n">full_axis_labels</span></div>
 
 <div class="viewcode-block" id="Dims.reset"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset dims values to initial states.&quot;&quot;&quot;</span>
         <span class="c1"># Don&#39;t reset axis labels</span>
+        <span class="c1"># TODO: could be optimized with self.update, but need to fix</span>
+        <span class="c1">#       event firing in EventedModel first</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_step</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">margin_left</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">margin_right</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span></div>
 
 <div class="viewcode-block" id="Dims.transpose"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.transpose">[docs]</a>    <span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Transpose displayed dimensions.</span>
@@ -670,11 +688,66 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
         <span class="n">nsteps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsteps</span><span class="p">)</span>
         <span class="n">order</span><span class="p">[</span><span class="n">nsteps</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="n">nsteps</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_sanitize_input</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value_is_sequence</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure that axis and value are the same length, that axes are not</span>
+<span class="sd">        out of bounds, and coerces to lists for easier processing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">value_is_sequence</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;cannot set multiple values to a single axis&#39;</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">axis</span> <span class="o">=</span> <span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">axis</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;axis and value sequences must have equal length&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axis</span><span class="p">:</span>
+            <span class="n">ensure_axis_in_bounds</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">axis</span><span class="p">,</span> <span class="n">value</span></div>
 
 
-<span class="k">def</span> <span class="nf">assert_axis_in_bounds</span><span class="p">(</span><span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assert a given value is inside the existing axes of the image.</span>
+<span class="k">def</span> <span class="nf">ensure_len</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">pad_width</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensure that the value has the required number of elements.</span>
+
+<span class="sd">    Right-crop if value is too long; left-pad with default if too short.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value : Tuple</span>
+<span class="sd">        A tuple of values to be resized.</span>
+<span class="sd">    ndim : int</span>
+<span class="sd">        Number of desired values.</span>
+<span class="sd">    default : Tuple</span>
+<span class="sd">        Default element for left-padding.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
+        <span class="c1"># left pad</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">pad_width</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span><span class="n">length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span> <span class="n">value</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">length</span><span class="p">:</span>
+        <span class="c1"># right-crop</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="o">-</span><span class="n">length</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">ensure_axis_in_bounds</span><span class="p">(</span><span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure a given value is inside the existing axes of the image.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>

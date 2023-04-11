@@ -1243,25 +1243,33 @@ from 2D to 3D), you can use <code class="docutils literal notranslate"><span cla
 <td><p>Number of displayed dimensions.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Literal[2,</span> <span class="pre">3]</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.last_used</span></code></p></td>
-<td><p>Dimension which was last used.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.range</span></code></p></td>
-<td><p>List of tuples (min, max, step), one for each dimension. In a world coordinates space. As with Python’s <code class="docutils literal notranslate"><span class="pre">range</span></code> and <code class="docutils literal notranslate"><span class="pre">slice</span></code>, max is not included.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.current_step</span></code></p></td>
-<td><p>Tuple of the slider position for each dims slider, in slider coordinates.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.order</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.order</span></code></p></td>
 <td><p>Tuple of ordering the dimensions, where the last dimensions are rendered.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.axis_labels</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.axis_labels</span></code></p></td>
 <td><p>Tuple of labels for each dimension.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.range</span></code></p></td>
+<td><p>List of tuples (min, max, step), one for each dimension in world coordinates space.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RangeTuple</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.margin_left</span></code></p></td>
+<td><p>Left margin in world pixels of the slice for each dimension.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.margin_right</span></code></p></td>
+<td><p>Right margin in world pixels of the slice for each dimension.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.point</span></code></p></td>
+<td><p>Dims position in world coordinates for each dimension.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.dims.events.last_used</span></code></p></td>
+<td><p>Dimension which was last interacted with.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer.grid.events.stride</span></code></p></td>
 <td><p>Number of layers to place in each grid square before moving on to the next square. The default ordering is to place the most visible layer in the top left corner of the grid. A negative stride will cause the order in which the layers are placed in the grid to be reversed.</p></td>

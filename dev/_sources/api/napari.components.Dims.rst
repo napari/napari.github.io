@@ -85,12 +85,15 @@ napari.components.Dims
 
    .. autosummary::
    
+      ~Dims.current_step
       ~Dims.displayed
       ~Dims.displayed_order
       ~Dims.events
       ~Dims.not_displayed
       ~Dims.nsteps
-      ~Dims.point
+      ~Dims.thickness
+      
+      
       
       
       

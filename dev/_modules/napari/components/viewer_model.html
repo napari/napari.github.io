@@ -689,9 +689,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ranges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_ranges</span>
-            <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranges</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="n">ndim</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">set_range</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">),</span> <span class="n">ranges</span><span class="p">)</span>
+            <span class="c1"># TODO: can be optimized with dims.update(), but events need fixing</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranges</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">ranges</span>
 
         <span class="n">new_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndim</span>
         <span class="n">dim_diff</span> <span class="o">=</span> <span class="n">new_dim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
@@ -819,8 +819,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">()</span>
             <span class="n">ranges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">_ranges</span>
-            <span class="n">midpoint</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rounded_division</span><span class="p">(</span><span class="o">*</span><span class="n">_range</span><span class="p">)</span> <span class="k">for</span> <span class="n">_range</span> <span class="ow">in</span> <span class="n">ranges</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">set_point</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ranges</span><span class="p">)),</span> <span class="n">midpoint</span><span class="p">)</span>
+            <span class="n">midpoint</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rounded_division</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">ranges</span>
+            <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">current_step</span> <span class="o">=</span> <span class="n">midpoint</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
@@ -1232,7 +1235,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="k">with</span> <span class="n">layer_source</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">sample</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
                 <span class="n">added</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">datum</span> <span class="ow">in</span> <span class="n">data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
                     <span class="n">added</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_layer_from_data</span><span class="p">(</span><span class="o">*</span><span class="n">datum</span><span class="p">))</span>

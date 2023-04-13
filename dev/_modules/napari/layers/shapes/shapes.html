@@ -682,7 +682,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">ndim</span> <span class="o">=</span> <span class="mi">2</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ndim</span><span class="p">))</span>
@@ -1761,6 +1761,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Dictionary of layer state.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_base_state</span><span class="p">()</span>
+        <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span>
+        <span class="n">edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">face_color</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_face_color</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">edge_color</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="n">edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_color</span>
         <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">{</span>
                 <span class="s1">&#39;ndim&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
@@ -1771,11 +1777,11 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s1">&#39;opacity&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">,</span>
                 <span class="s1">&#39;z_index&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_index</span><span class="p">,</span>
                 <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
-                <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">,</span>
+                <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="n">face_color</span><span class="p">,</span>
                 <span class="s1">&#39;face_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_color_cycle</span><span class="p">,</span>
                 <span class="s1">&#39;face_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_colormap</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="s1">&#39;face_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_contrast_limits</span><span class="p">,</span>
-                <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">,</span>
+                <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="n">edge_color</span><span class="p">,</span>
                 <span class="s1">&#39;edge_color_cycle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color_cycle</span><span class="p">,</span>
                 <span class="s1">&#39;edge_colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_colormap</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="s1">&#39;edge_contrast_limits&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_contrast_limits</span><span class="p">,</span>

@@ -389,14 +389,16 @@ function checkPageExistsAndRedirect(event) {
                     <span class="s2">&quot;QApplication already existed, these arguments to to &#39;get_app&#39; were ignored: </span><span class="si">{args}</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">args</span><span class="o">=</span><span class="n">set_values</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="p">),</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">perf_config</span> <span class="ow">and</span> <span class="n">perf_config</span><span class="o">.</span><span class="n">trace_qt_events</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;Using NAPARI_PERFMON with an already-running QtApp (--gui qt?) is not supported.&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="p">),</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
@@ -552,6 +554,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="ne">FutureWarning</span><span class="p">,</span>
+        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">get_app</span><span class="p">()</span>
@@ -665,7 +668,8 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s2">&quot;Refusing to run a QApplication with no topLevelWidgets. To run the app anyway, use `</span><span class="si">{_func_name}</span><span class="s2">(force=True)`&quot;</span><span class="p">,</span>
                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">_func_name</span><span class="o">=</span><span class="n">_func_name</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span>
 
@@ -679,7 +683,8 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">_func_name</span><span class="o">=</span><span class="n">_func_name</span><span class="p">,</span>
                 <span class="n">max_loop_level</span><span class="o">=</span><span class="n">loops</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span>
     <span class="k">with</span> <span class="n">notification_manager</span><span class="p">,</span> <span class="n">_maybe_allow_interrupt</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>

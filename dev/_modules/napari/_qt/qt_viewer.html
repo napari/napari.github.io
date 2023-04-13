@@ -769,7 +769,8 @@ function checkPageExistsAndRedirect(event) {
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                         <span class="s1">&#39;napari-console not found. It can be installed with&#39;</span>
                         <span class="s1">&#39; &quot;pip install napari_console&quot;&#39;</span>
-                    <span class="p">)</span>
+                    <span class="p">),</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -777,7 +778,8 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                         <span class="s1">&#39;error importing napari-console. See console for full error.&#39;</span>
-                    <span class="p">)</span>
+                    <span class="p">),</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span>

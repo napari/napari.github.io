@@ -84,7 +84,7 @@ Shift a rectangle along its normal vector in 3D
         if shape_index is None:
             return
 
-        layer.interactive = False
+        layer.mouse_pan = False
 
         start_position = np.copy(event.position)
         yield
@@ -100,7 +100,7 @@ Shift a rectangle along its normal vector in 3D
             new_rectangle = layer.data[shape_index] + shift_data_coordinates
             layer.add(new_rectangle)
             yield
-        layer.interactive = True
+        layer.mouse_pan = True
 
 
     if __name__ == '__main__':

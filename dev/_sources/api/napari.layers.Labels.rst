@@ -138,6 +138,8 @@ napari.layers.Labels
       ~Labels.loaded
       ~Labels.metadata
       ~Labels.mode
+      ~Labels.mouse_pan
+      ~Labels.mouse_zoom
       ~Labels.n_edit_dimensions
       ~Labels.name
       ~Labels.ndim

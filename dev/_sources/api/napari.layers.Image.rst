@@ -108,6 +108,8 @@ napari.layers.Image
       ~Image.loaded
       ~Image.metadata
       ~Image.mode
+      ~Image.mouse_pan
+      ~Image.mouse_zoom
       ~Image.name
       ~Image.ndim
       ~Image.opacity

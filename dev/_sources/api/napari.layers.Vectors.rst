@@ -97,6 +97,8 @@ napari.layers.Vectors
       ~Vectors.loaded
       ~Vectors.metadata
       ~Vectors.mode
+      ~Vectors.mouse_pan
+      ~Vectors.mouse_zoom
       ~Vectors.name
       ~Vectors.ndim
       ~Vectors.opacity

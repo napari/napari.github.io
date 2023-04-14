@@ -961,7 +961,31 @@ level.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Layer.interactive">
 <span class="sig-name descname"><span class="pre">interactive</span></span><a class="headerlink" href="#napari.layers.Layer.interactive" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determine if canvas pan/zoom interactivity is enabled.</p>
+<dd><p>Determine if canvas pan/zoom interactivity is enabled.
+This attribute is deprecated since 0.5.0 and should not be used.
+Use the mouse_pan and mouse_zoom attributes instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Layer.mouse_pan">
+<span class="sig-name descname"><span class="pre">mouse_pan</span></span><a class="headerlink" href="#napari.layers.Layer.mouse_pan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if canvas interactive panning is enabled with the mouse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.layers.Layer.mouse_zoom">
+<span class="sig-name descname"><span class="pre">mouse_zoom</span></span><a class="headerlink" href="#napari.layers.Layer.mouse_zoom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if canvas interactive zooming is enabled with the mouse.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
@@ -1119,8 +1143,8 @@ depends on the current zoom level.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#id4" title="napari.layers.Layer.help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">help</span></code></a></p></td>
 <td><p>displayed in status bar bottom right.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id5" title="napari.layers.Layer.interactive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interactive</span></code></a></p></td>
-<td><p>Determine if canvas pan/zoom interactivity is enabled.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.interactive" title="napari.layers.Layer.interactive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interactive</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.loaded" title="napari.layers.Layer.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
 <td><p>Return True if this layer is fully loaded in memory.</p></td>
@@ -1131,37 +1155,43 @@ depends on the current zoom level.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Layer.mode" title="napari.layers.Layer.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
 <td><p>Interactive mode</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id6" title="napari.layers.Layer.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id5" title="napari.layers.Layer.mouse_pan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_pan</span></code></a></p></td>
+<td><p>Determine if canvas interactive panning is enabled with the mouse.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id6" title="napari.layers.Layer.mouse_zoom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouse_zoom</span></code></a></p></td>
+<td><p>Determine if canvas interactive zooming is enabled with the mouse.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#id7" title="napari.layers.Layer.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p>Unique name of the layer.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id7" title="napari.layers.Layer.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id8" title="napari.layers.Layer.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
 <td><p>Number of dimensions in the data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id8" title="napari.layers.Layer.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id9" title="napari.layers.Layer.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opacity</span></code></a></p></td>
 <td><p>Opacity value between 0.0 and 1.0.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id9" title="napari.layers.Layer.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id10" title="napari.layers.Layer.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
 <td><p>Rotation matrix in world coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id10" title="napari.layers.Layer.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id11" title="napari.layers.Layer.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
 <td><p>Anisotropy factors to scale data into world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id11" title="napari.layers.Layer.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id12" title="napari.layers.Layer.shear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shear</span></code></a></p></td>
 <td><p>Shear matrix in world coordinates.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Layer.source" title="napari.layers.Layer.source"><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id12" title="napari.layers.Layer.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id13" title="napari.layers.Layer.thumbnail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thumbnail</span></code></a></p></td>
 <td><p>Integer array of thumbnail for the layer</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id13" title="napari.layers.Layer.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id14" title="napari.layers.Layer.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Factors to shift the layer by in units of world coordinates.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate_grid</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id14" title="napari.layers.Layer.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id15" title="napari.layers.Layer.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visible</span></code></a></p></td>
 <td><p>Whether the visual is currently being displayed.</p></td>
 </tr>
 </tbody>
@@ -1490,17 +1520,6 @@ and converted into data coordinates. False by default.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id5">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interactive</span></span><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determine if canvas pan/zoom interactivity is enabled.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
 <dt class="sig sig-object py" id="napari.layers.Layer.loaded">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loaded</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.layers.Layer.loaded" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if this layer is fully loaded in memory.</p>
@@ -1529,8 +1548,30 @@ allows for normal interactivity with the canvas.</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="id5">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mouse_pan</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if canvas interactive panning is enabled with the mouse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="id6">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mouse_zoom</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if canvas interactive zooming is enabled with the mouse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id7">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unique name of the layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1540,8 +1581,8 @@ allows for normal interactivity with the canvas.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id7">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id8">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of dimensions in the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1551,8 +1592,8 @@ allows for normal interactivity with the canvas.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id8">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">opacity</span></span><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id9">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">opacity</span></span><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
 <dd><p>Opacity value between 0.0 and 1.0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1595,8 +1636,8 @@ coordinates.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id9">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rotate</span></span><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id10">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rotate</span></span><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotation matrix in world coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1630,8 +1671,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id10">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id11">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
 <dd><p>Anisotropy factors to scale data into world coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1641,8 +1682,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id11">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shear</span></span><a class="headerlink" href="#id11" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id12">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shear</span></span><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shear matrix in world coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1652,8 +1693,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id12">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">thumbnail</span></span><a class="headerlink" href="#id12" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id13">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">thumbnail</span></span><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integer array of thumbnail for the layer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1663,8 +1704,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id13">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translate</span></span><a class="headerlink" href="#id13" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id14">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translate</span></span><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
 <dd><p>Factors to shift the layer by in units of world coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1674,8 +1715,8 @@ through to find the first one that can save the data.</p></li>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id14">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visible</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#id14" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id15">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visible</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether the visual is currently being displayed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>

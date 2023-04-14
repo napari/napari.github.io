@@ -150,6 +150,8 @@ napari.layers.Shapes
       ~Shapes.loaded
       ~Shapes.metadata
       ~Shapes.mode
+      ~Shapes.mouse_pan
+      ~Shapes.mouse_zoom
       ~Shapes.name
       ~Shapes.ndim
       ~Shapes.nshapes

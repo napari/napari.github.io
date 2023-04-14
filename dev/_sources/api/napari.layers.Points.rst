@@ -125,6 +125,8 @@ napari.layers.Points
       ~Points.loaded
       ~Points.metadata
       ~Points.mode
+      ~Points.mouse_pan
+      ~Points.mouse_zoom
       ~Points.n_dimensional
       ~Points.name
       ~Points.ndim

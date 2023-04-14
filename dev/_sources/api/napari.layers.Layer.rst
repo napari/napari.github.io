@@ -85,6 +85,8 @@ napari.layers.Layer
       ~Layer.loaded
       ~Layer.metadata
       ~Layer.mode
+      ~Layer.mouse_pan
+      ~Layer.mouse_zoom
       ~Layer.name
       ~Layer.ndim
       ~Layer.opacity

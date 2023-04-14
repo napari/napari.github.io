@@ -98,6 +98,8 @@ napari.layers.Surface
       ~Surface.loaded
       ~Surface.metadata
       ~Surface.mode
+      ~Surface.mouse_pan
+      ~Surface.mouse_zoom
       ~Surface.name
       ~Surface.ndim
       ~Surface.normals

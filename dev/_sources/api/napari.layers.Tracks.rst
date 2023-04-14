@@ -98,6 +98,8 @@ napari.layers.Tracks
       ~Tracks.loaded
       ~Tracks.metadata
       ~Tracks.mode
+      ~Tracks.mouse_pan
+      ~Tracks.mouse_zoom
       ~Tracks.name
       ~Tracks.ndim
       ~Tracks.opacity

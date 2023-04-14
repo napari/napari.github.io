@@ -262,7 +262,8 @@ function checkPageExistsAndRedirect(event) {
             <div>
               
   <h1>Source code for napari.components.camera</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">validator</span>
@@ -291,7 +292,13 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    perspective : float</span>
 <span class="sd">        Perspective (aka &quot;field of view&quot; in vispy) of the camera (if 3D).</span>
 <span class="sd">    interactive : bool</span>
-<span class="sd">        If the camera interactivity is enabled or not.</span>
+<span class="sd">        If the camera mouse pan/zoom is enabled or not.</span>
+<span class="sd">        This attribute is deprecated since 0.5.0 and should not be used.</span>
+<span class="sd">        Use the mouse_pan and mouse_zoom attributes instead.</span>
+<span class="sd">    mouse_pan : bool</span>
+<span class="sd">        If the camera interactive panning with the mouse is enabled or not.</span>
+<span class="sd">    mouse_zoom : bool</span>
+<span class="sd">        If the camera interactive zooming with the mouse is enabled or not.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># fields</span>
@@ -299,7 +306,8 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">zoom</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="n">angles</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">)</span>
     <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">mouse_pan</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">mouse_zoom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="c1"># validators</span>
     <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;angles&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -446,7 +454,24 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">up_direction_nd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
         <span class="n">up_direction_nd</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">up_direction</span>
-        <span class="k">return</span> <span class="n">up_direction_nd</span></div></div>
+        <span class="k">return</span> <span class="n">up_direction_nd</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s1">&#39;`Camera.interactive` is deprecated since 0.5.0 and will be removed in 0.6.0.&#39;</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_zoom</span>
+
+    <span class="nd">@interactive</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s1">&#39;`Camera.interactive` is deprecated since 0.5.0 and will be removed in 0.6.0.&#39;</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">interactive</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">interactive</span></div>
 </pre></div>
 
             </div>

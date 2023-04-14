@@ -459,6 +459,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Displayed in status bar bottom right.</span>
 <span class="sd">    interactive : bool</span>
 <span class="sd">        Determine if canvas pan/zoom interactivity is enabled.</span>
+<span class="sd">        This attribute is deprecated since 0.5.0 and should not be used.</span>
+<span class="sd">        Use the mouse_pan and mouse_zoom attributes instead.</span>
+<span class="sd">    mouse_pan : bool</span>
+<span class="sd">        Determine if canvas interactive panning is enabled with the mouse.</span>
+<span class="sd">    mouse_zoom : bool</span>
+<span class="sd">        Determine if canvas interactive zooming is enabled with the mouse.</span>
 <span class="sd">    cursor : str</span>
 <span class="sd">        String identifying which cursor displayed over canvas.</span>
 <span class="sd">    cursor_size : int | None</span>
@@ -547,7 +553,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_help</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_size</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_interactive</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mouse_pan</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mouse_zoom</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="o">=</span> <span class="n">multiscale</span>
@@ -633,7 +640,15 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">thumbnail</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">status</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">interactive</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">interactive</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;layer.events.interactive is deprecated since 0.5.0 and will be removed in 0.6.0. Please use layer.events.mouse_pan and layer.events.mouse_zoom&quot;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;interactive&#39;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">mouse_pan</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">mouse_zoom</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">cursor</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">cursor_size</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">editable</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -722,7 +737,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">callback_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mode_dict</span><span class="p">[</span><span class="n">mode</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_modes</span><span class="p">[</span><span class="n">mode</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;transform_box&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="o">.</span><span class="n">TRANSFORM</span>
         <span class="p">)</span>
@@ -1168,16 +1183,58 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">help</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="n">help_text</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: Determine if canvas pan/zoom interactivity is enabled.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interactive</span>
+    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s2">&quot;Layer.interactive is deprecated since napari 0.5.0 and will be removed in 0.6.0. Please use Layer.mouse_pan and Layer.mouse_zoom instead&quot;</span>
+            <span class="p">),</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_zoom</span>
 
     <span class="nd">@interactive</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interactive</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">interactive</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interactive</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                <span class="s2">&quot;Layer.interactive is deprecated since napari 0.5.0 and will be removed in 0.6.0. Please use Layer.mouse_pan and Layer.mouse_zoom instead&quot;</span>
+            <span class="p">),</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interactive</span><span class="o">.</span><span class="n">blocker</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">interactive</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">interactive</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mouse_pan</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: Determine if canvas interactive panning is enabled with the mouse.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mouse_pan</span>
+
+    <span class="nd">@mouse_pan</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">mouse_pan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_pan</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mouse_pan</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mouse_pan</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_interactive</span> <span class="o">=</span> <span class="n">interactive</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mouse_pan</span> <span class="o">=</span> <span class="n">mouse_pan</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mouse_pan</span><span class="p">(</span><span class="n">mouse_pan</span><span class="o">=</span><span class="n">mouse_pan</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span>
+            <span class="n">interactive</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_zoom</span>
+        <span class="p">)</span>  <span class="c1"># Deprecated since 0.5.0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mouse_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bool: Determine if canvas interactive zooming is enabled with the mouse.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mouse_zoom</span>
+
+    <span class="nd">@mouse_zoom</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">mouse_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_zoom</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mouse_zoom</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mouse_zoom</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mouse_zoom</span> <span class="o">=</span> <span class="n">mouse_zoom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mouse_zoom</span><span class="p">(</span><span class="n">mouse_zoom</span><span class="o">=</span><span class="n">mouse_zoom</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span>
+            <span class="n">interactive</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_zoom</span>
+        <span class="p">)</span>  <span class="c1"># Deprecated since 0.5.0</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

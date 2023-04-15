@@ -563,8 +563,18 @@ function checkPageExistsAndRedirect(event) {
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_size</span></code></p></td>
+<td><p>Size of the marker for the next point to be added or the currently selected point.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Width of the symbol edge in pixels.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_edge_width</span></code></p></td>
+<td><p>Edge width of the marker for the next point to be added or the currently selected point.</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
@@ -608,201 +618,206 @@ function checkPageExistsAndRedirect(event) {
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_symbol</span></code></p></td>
+<td><p>Symbol for the next point to be added or the currently selected points.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.out_of_slice_display</span></code></p></td>
 <td><p>If True, renders points not just in central plane but also slightly out of slice according to specified point marker size.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.n_dimensional</span></code></p></td>
 <td><p>This property will soon be deprecated in favor of ‘out_of_slice_display’. Use that instead.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.highlight</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.shading</span></code></p></td>
 <td><p>Render lighting and shading on points. Options are:  * ‘none’   No shading is added to the points. * ‘spherical’   Shading and depth buffer are changed to give a 3D spherical look to the points</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.antialiasing</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.canvas_size_limits</span></code></p></td>
 <td><p>Lower and upper limits for the size of points in canvas pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
 <td><p>Features table where each row corresponds to a point and each column is a feature.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
 <td><p>The default value of each feature in a table with one row.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.length</span></code></p></td>
 <td><p>Multiplicative factor on projections for length of all vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Width for all vectors in pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color</span></code></p></td>
 <td><p>Color of all of the vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color_mode</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each vector. Each property should be an array of length N, where N is the number of vectors.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.out_of_slice_display</span></code></p></td>
 <td><p>If True, renders vectors not just in central plane but also slightly out of slice according to specified point marker size.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
 <td><p>Features table where each row corresponds to a vector and each column is a feature.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
 <td><p>Stores the default value of each feature in a table with one row.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_width</span></code></p></td>
 <td><p>Thickness of lines and edges. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.edge_color</span></code></p></td>
 <td><p>If string can be any color name recognized by vispy or hex value if starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>. If array-like must be 1-dimensional array with 3 or 4 elements. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.face_color</span></code></p></td>
 <td><p>If string can be any color name recognized by vispy or hex value if starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>. If array-like must be 1-dimensional array with 3 or 4 elements. If a list is supplied it must be the same length as the length of <code class="docutils literal notranslate"><span class="pre">data</span></code> and each element will be applied to each shape otherwise the same value will be used for all shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each shape. Each property should be an array of length N, where N is the number of shapes.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_edge_color</span></code></p></td>
 <td><p>Color of the edge of the next shape to be added or the currently selected shape.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_face_color</span></code></p></td>
 <td><p>Color of the face of the next shape to be added or the currently selected shape.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.current_properties</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.highlight</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.features</span></code></p></td>
 <td><p>Features table where each row corresponds to a shape and each column is a feature.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.feature_defaults</span></code></p></td>
 <td><p>The default value of each feature in a table with one row.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.shading</span></code></p></td>
 <td><p>One of a list of preset shading modes that determine the lighting model using when rendering the surface in 3D.  * <code class="docutils literal notranslate"><span class="pre">Shading.NONE</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='none'</span></code>. * <code class="docutils literal notranslate"><span class="pre">Shading.FLAT</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='flat'</span></code>. * <code class="docutils literal notranslate"><span class="pre">Shading.SMOOTH</span></code>   Corresponds to <code class="docutils literal notranslate"><span class="pre">shading='smooth'</span></code>.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.wireframe</span></code></p></td>
 <td><p>Whether and how to display the edges of the surface mesh with a wireframe.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.normals</span></code></p></td>
 <td><p>Whether and how to display the face and vertex normals of the surface mesh.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.tail_width</span></code></p></td>
 <td><p>Width of the track tails in pixels.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.tail_length</span></code></p></td>
 <td><p>Length of the positive (backward in time) tails in units of time.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.head_length</span></code></p></td>
 <td><p>Length of the positive (forward in time) tails in units of time.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_id</span></code></p></td>
 <td><p>display the track id</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_tail</span></code></p></td>
 <td><p>display the track tail</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.display_graph</span></code></p></td>
 <td><p>display the graph edges</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.color_by</span></code></p></td>
 <td><p>Track property (from property keys) by which to color vertices.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.colormap</span></code></p></td>
 <td><p>Default colormap to use to set vertex colors. Specialized colormaps, relating to specified properties can be passed to the layer via colormaps_dict.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.properties</span></code></p></td>
 <td><p>Properties for each point. Each property should be an array of length N, where N is the number of points.</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.rebuild_tracks</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.rebuild_graph</span></code></p></td>
 <td><p></p></td>
 <td><p></p></td>

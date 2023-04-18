@@ -1055,13 +1055,13 @@ them.</p>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">napari.types</span> <span class="kn">import</span> <span class="n">ImageData</span><span class="p">,</span> <span class="n">LayerDataTuple</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">image</span> <span class="p">:</span> <span class="n">ImageData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerDataTuple</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># process the image</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="n">image</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># return it + some layer properties</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;colormap&#39;</span><span class="p">:</span><span class="s1">&#39;turbo&#39;</span><span class="p">}</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@napari_hook_implementation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">napari_experimental_provide_function</span><span class="p">():</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">my_function</span>
@@ -1113,7 +1113,7 @@ You can replace existing themes by using the same names.</p>
 <span class="gp">... </span>        <span class="p">}</span>
 <span class="gp">... </span>    <span class="p">}</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">themes</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@napari_hook_implementation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">napari_experimental_provide_theme</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">get_new_theme</span><span class="p">()</span>
@@ -1152,7 +1152,7 @@ or class.</p>
 <p>An example with a QtWidget:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">napari_viewer</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari_viewer</span>
@@ -1170,7 +1170,7 @@ or class.</p>
 <span class="gp">...</span>
 <span class="gp">... </span>        <span class="c1"># activate layout</span>
 <span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@napari_hook_implementation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">napari_experimental_provide_dock_widget</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">MyWidget</span>
@@ -1179,13 +1179,13 @@ or class.</p>
 <p>An example using magicgui:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">magic_factory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@magic_factory</span><span class="p">(</span><span class="n">auto_call</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">16</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">threshold</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">data</span><span class="p">:</span> <span class="s1">&#39;napari.types.ImageData&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span>
 <span class="gp">... </span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;napari.types.LabelsData&#39;</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@napari_hook_implementation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">napari_experimental_provide_dock_widget</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">threshold</span>

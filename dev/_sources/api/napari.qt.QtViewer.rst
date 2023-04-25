@@ -548,27 +548,6 @@ napari.qt.QtViewer
       ~QtViewer.objectName
    
    
-      ~QtViewer.on_draw
-   
-   
-      ~QtViewer.on_mouse_double_click
-   
-   
-      ~QtViewer.on_mouse_move
-   
-   
-      ~QtViewer.on_mouse_press
-   
-   
-      ~QtViewer.on_mouse_release
-   
-   
-      ~QtViewer.on_mouse_wheel
-   
-   
-      ~QtViewer.on_resize
-   
-   
       ~QtViewer.opaqueResize
    
    
@@ -1126,6 +1105,7 @@ napari.qt.QtViewer
       ~QtViewer.Sunken
       ~QtViewer.VLine
       ~QtViewer.WinPanel
+      ~QtViewer.camera
       ~QtViewer.console
       ~QtViewer.controls
       ~QtViewer.customContextMenuRequested
@@ -1135,10 +1115,12 @@ napari.qt.QtViewer
       ~QtViewer.dockLayerList
       ~QtViewer.dockPerformance
       ~QtViewer.layerButtons
+      ~QtViewer.layer_to_visual
       ~QtViewer.layers
       ~QtViewer.objectNameChanged
       ~QtViewer.splitterMoved
       ~QtViewer.staticMetaObject
+      ~QtViewer.view
       ~QtViewer.viewerButtons
       ~QtViewer.windowIconChanged
       ~QtViewer.windowIconTextChanged

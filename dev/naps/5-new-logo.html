@@ -129,7 +129,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables naps/5-new-logo and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables naps/5-new-logo and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -156,7 +156,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "naps/5-new-logo.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {

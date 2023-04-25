@@ -127,7 +127,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables developers/documentation/index and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables developers/documentation/index and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -154,7 +154,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "developers/documentation/index.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -757,7 +757,8 @@ documentation.</p>
 repository is where all the narrative documentation (e.g. tutorials, how-to
 guides) pull requests should be made. Meanwhile, changes to docstrings or to the
 <a class="reference external" href="https://napari.org/gallery">examples gallery</a> should be made to the
-<a class="reference external" href="https://github.com/napari/napari">napari/napari</a> repository.</p>
+<a class="reference external" href="https://github.com/napari/napari">napari/napari</a> repository (see also
+<a class="reference internal" href="../contributing.html#add-examples"><span class="std std-ref">Adding examples to the Gallery</span></a>).</p>
 </section>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
@@ -934,9 +935,9 @@ locally, or downloading the GitHub Actions built documentation when you submit
 your pull request.</p>
 <section id="building-locally">
 <h3>3.1. Building locally<a class="headerlink" href="#building-locally" title="Permalink to this headline">¶</a></h3>
-<p>To build the documentation locally, run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> from the root of your local
-clone of the <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> repository (assuming you’ve installed the
-<a class="reference internal" href="#prerequisites"><span class="std std-doc">docs prerequisites</span></a>).</p>
+<p>To build the documentation locally from scratch, run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> from the root
+of your local clone of the <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> repository (assuming you’ve installed
+the <a class="reference internal" href="#prerequisites"><span class="std std-doc">docs prerequisites</span></a>).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>docs
 </pre></div>
 </div>
@@ -979,7 +980,7 @@ You can also run this Python one-liner to deploy a quick local server on
 <p>There’s another <code class="docutils literal notranslate"><span class="pre">make</span></code> task you can use for live previews while editing docs:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w"> </span>html-live
 <span class="c1"># or for faster reloads:</span>
-<span class="c1"># make html-live SPHINXOPTS=&quot;-j4&quot;</span>
+$<span class="w"> </span>make<span class="w"> </span>html-live<span class="w"> </span><span class="nv">SPHINXOPTS</span><span class="o">=</span><span class="s2">&quot;-j4&quot;</span>
 </pre></div>
 </div>
 <p>The first run will take a bit longer and a few napari instances will pop up
@@ -990,6 +991,17 @@ no need for further action! Edit the documents at will, and the browser will
 auto-reload.
 Once you are done with the live previews, you can exit via <kbd>Ctrl</kbd>+<kbd>C</kbd>
 on your terminal.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you have <a class="reference external" href="https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml">xvfb</a>
+installed on your system, you can also run a “headless GUI” build by using the
+<code class="docutils literal notranslate"><span class="pre">docs-xvfb</span></code> command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w"> </span>docs-xvfb
+</pre></div>
+</div>
+<p>This will prevent all but the first napari window from being shown during the docs
+build.</p>
 </div>
 </section>
 <section id="use-the-ci-artifacts">

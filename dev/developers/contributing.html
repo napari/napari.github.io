@@ -127,7 +127,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables developers/contributing and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables developers/contributing and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -154,7 +154,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "developers/contributing.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -682,6 +682,14 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-examples-to-the-gallery">
+   Adding examples to the
+   <span class="xref myst">
+    Gallery
+   </span>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#adding-icons">
    Adding icons
   </a>
@@ -856,6 +864,57 @@ please do not ignore errors lightly.</p>
 <section id="contributing-documentation">
 <h2>Contributing documentation<a class="headerlink" href="#contributing-documentation" title="Permalink to this headline">¶</a></h2>
 <p>If you wish to contribute documentation changes to napari, please read the <a class="reference internal" href="documentation/index.html"><span class="doc std std-doc">guide on contributing documentation</span></a>.</p>
+</section>
+<section id="adding-examples-to-the-gallery">
+<span id="add-examples"></span><h2>Adding examples to the <a class="reference internal" href="../gallery.html#gallery"><span class="std std-ref">Gallery</span></a><a class="headerlink" href="#adding-examples-to-the-gallery" title="Permalink to this headline">¶</a></h2>
+<p>All of the examples in the <a class="reference internal" href="../gallery.html#gallery"><span class="std std-ref">examples Gallery</span></a> are Python scripts that
+live under <a class="reference external" href="https://github.com/napari/napari/tree/main/examples">the <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder of the napari repository</a>.
+Because of how this gallery is built, every such Python script needs a docstring
+containing at least a title (following the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> format of docstrings in
+Python) and one or more <em>tags</em>. This ensures the example will be shown in the
+correct place in the table of contents for the gallery (see, for example, the
+<a class="reference internal" href="../_tags/tagsindex.html#tagoverview"><span class="std std-ref">Tags</span></a> page.)</p>
+<p>Here’s an example of what that means. The example file
+<a class="reference external" href="https://github.com/napari/napari/blob/main/examples/add_image.py">add_image.py</a>
+contains the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Add image</span>
+<span class="sd">=========</span>
+
+<span class="sd">Display one image using the :func:`view_image` API.</span>
+
+<span class="sd">.. tags:: visualization-basic</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="c1"># create the viewer with an image</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">(),</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The equals signs under “Add image” mark this as the example title. The text
+below is a short description of the example, and the tags are assigned by the
+use of the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">tags::</span></code> directive. In this case, the only tag associated with
+this example is <code class="docutils literal notranslate"><span class="pre">visualization-basic</span></code>. Multiple tags can be separated with a
+comma.</p>
+<p>Note that the examples are <code class="docutils literal notranslate"><span class="pre">.py</span></code> source files, and any outputs and images will
+be autogenerated when the documentation site is built.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are running any of these examples in an interactive environment (e.g. a Jupyter notebook or
+IPython console), the block</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>is not necessary—you can copy-paste the code above it. However, it is required when running examples as scripts, using for example <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">add_image.py</span></code>.
+Because our example gallery is built from Python scripts, you need to ensure this
+block is present in all contributed examples.</p>
+</div>
 </section>
 <section id="adding-icons">
 <h2>Adding icons<a class="headerlink" href="#adding-icons" title="Permalink to this headline">¶</a></h2>

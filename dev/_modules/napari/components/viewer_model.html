@@ -122,7 +122,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/components/viewer_model and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables _modules/napari/components/viewer_model and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -149,7 +149,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "_modules/napari/components/viewer_model.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -398,12 +398,37 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    window : Window</span>
-<span class="sd">        Parent window.</span>
-<span class="sd">    layers : LayerList</span>
-<span class="sd">        List of contained layers.</span>
-<span class="sd">    dims : Dimensions</span>
+<span class="sd">    camera: napari.components.camera.Camera</span>
+<span class="sd">        The camera object modeling the position and view.</span>
+<span class="sd">    cursor: napari.components.cursor.Cursor</span>
+<span class="sd">        The cursor object containing the position and properties of the cursor.</span>
+<span class="sd">    dims : napari.components.dims.Dimensions</span>
 <span class="sd">        Contains axes, indices, dimensions and sliders.</span>
+<span class="sd">    grid: napari.components.grid.Gridcanvas</span>
+<span class="sd">        Gridcanvas allowing for the current implementation of a gridview of the canvas.</span>
+<span class="sd">    help: str</span>
+<span class="sd">        A help message of the viewer model</span>
+<span class="sd">    layers : napari.components.layerlist.LayerList</span>
+<span class="sd">        List of contained layers.</span>
+<span class="sd">    mouse_over_canvas: bool</span>
+<span class="sd">        Indicating whether the mouse cursor is on the viewer canvas.</span>
+<span class="sd">    theme: str</span>
+<span class="sd">        Name of the Napari theme of the viewer</span>
+<span class="sd">    title: str</span>
+<span class="sd">        The title of the viewer model</span>
+<span class="sd">    tooltip: napari.components.tooltip.Tooltip</span>
+<span class="sd">        A tooltip showing extra information on the cursor</span>
+<span class="sd">    window : napari._qt.qt_main_window.Window</span>
+<span class="sd">        Parent window.</span>
+<span class="sd">    _canvas_size: Tuple[int, int]</span>
+<span class="sd">        The canvas size following the Numpy convention of height x width</span>
+<span class="sd">    _ctx: Mapping</span>
+<span class="sd">        Viewer object context mapping.</span>
+<span class="sd">    _layer_slicer: napari.components._layer_slicer._Layer_Slicer</span>
+<span class="sd">        A layer slicer object controlling the creation of a slice</span>
+<span class="sd">    _overlays: napari.utils.events.containers._evented_dict.EventedDict[str, Overlay]</span>
+<span class="sd">        An EventedDict with as keys the string names of different napari overlays and as values the napari.Overlay</span>
+<span class="sd">        objects.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Using allow_mutation=False means these attributes aren&#39;t settable and don&#39;t</span>
@@ -425,7 +450,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">default_factory</span><span class="o">=</span><span class="n">EventedDict</span>
     <span class="p">)</span>
     <span class="c1"># 2-tuple indicating height and width</span>
-    <span class="n">_canvas_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+    <span class="n">_canvas_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
     <span class="n">_ctx</span><span class="p">:</span> <span class="n">Mapping</span>
     <span class="c1"># To check if mouse is over canvas to avoid race conditions between</span>
     <span class="c1"># different events systems</span>
@@ -678,6 +703,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">cursor_size</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_pan</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">mouse_pan</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">mouse_zoom</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">mouse_zoom</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_status_bar_from_cursor</span><span class="p">()</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">rounded_division</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>

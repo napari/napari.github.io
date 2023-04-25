@@ -127,7 +127,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.qt.QtViewer and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.qt.QtViewer and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -154,7 +154,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "api/napari.qt.QtViewer.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -693,7 +693,7 @@ function checkPageExistsAndRedirect(event) {
 <h1>napari.qt.QtViewer<a class="headerlink" href="#napari-qt-qtviewer" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="napari.qt.QtViewer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.qt.</span></span><span class="sig-name descname"><span class="pre">QtViewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">viewer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel"><span class="pre">ViewerModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_welcome_screen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napari.qt.</span></span><span class="sig-name descname"><span class="pre">QtViewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">viewer:</span> <span class="pre">ViewerModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_welcome_screen:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas_class:</span> <span class="pre">Type[VispyCanvas]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'napari._vispy.canvas.VispyCanvas'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QSplitter</span></code></p>
 <p>Qt view for the napari Viewer model.</p>
 <dl class="field-list simple">
@@ -702,38 +702,19 @@ function checkPageExistsAndRedirect(event) {
 <li><p><strong>viewer</strong> (<a class="reference internal" href="napari.components.ViewerModel.html#napari.components.ViewerModel" title="napari.components.ViewerModel"><em>napari.components.ViewerModel</em></a>) – Napari viewer containing the rendered scene, layers, and controls.</p></li>
 <li><p><strong>show_welcome_screen</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Flag to show a welcome message when no layers are present in the
 canvas. Default is <cite>False</cite>.</p></li>
+<li><p><strong>canvas_class</strong> (<em>napari._vispy.canvas.VispyCanvas</em>) – The VispyCanvas class providing the Vispy SceneCanvas. Users can also
+have a custom canvas here.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.qt.QtViewer.canvas">
 <span class="sig-name descname"><span class="pre">canvas</span></span><a class="headerlink" href="#napari.qt.QtViewer.canvas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Canvas for rendering the current view.</p>
+<dd><p>The VispyCanvas class providing the Vispy SceneCanvas. Users can also
+have a custom canvas here.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>vispy.scene.SceneCanvas</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.console">
-<span class="sig-name descname"><span class="pre">console</span></span><a class="headerlink" href="#napari.qt.QtViewer.console" title="Permalink to this definition">¶</a></dt>
-<dd><p>IPython console terminal integrated into the napari GUI.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>QtConsole</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.controls">
-<span class="sig-name descname"><span class="pre">controls</span></span><a class="headerlink" href="#napari.qt.QtViewer.controls" title="Permalink to this definition">¶</a></dt>
-<dd><p>Qt view for GUI controls.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>QtLayerControlsContainer</p>
+<dd class="field-odd"><p>napari._vispy.canvas.VispyCanvas</p>
 </dd>
 </dl>
 </dd></dl>
@@ -750,78 +731,12 @@ canvas. Default is <cite>False</cite>.</p></li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.dockConsole">
-<span class="sig-name descname"><span class="pre">dockConsole</span></span><a class="headerlink" href="#napari.qt.QtViewer.dockConsole" title="Permalink to this definition">¶</a></dt>
-<dd><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p>
+<dt class="sig sig-object py" id="napari.qt.QtViewer.show_welcome_screen">
+<span class="sig-name descname"><span class="pre">show_welcome_screen</span></span><a class="headerlink" href="#napari.qt.QtViewer.show_welcome_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean indicating whether to show the welcome screen.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>QtViewerDockWidget</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.dockLayerControls">
-<span class="sig-name descname"><span class="pre">dockLayerControls</span></span><a class="headerlink" href="#napari.qt.QtViewer.dockLayerControls" title="Permalink to this definition">¶</a></dt>
-<dd><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>QtViewerDockWidget</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.dockLayerList">
-<span class="sig-name descname"><span class="pre">dockLayerList</span></span><a class="headerlink" href="#napari.qt.QtViewer.dockLayerList" title="Permalink to this definition">¶</a></dt>
-<dd><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>QtViewerDockWidget</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.layerButtons">
-<span class="sig-name descname"><span class="pre">layerButtons</span></span><a class="headerlink" href="#napari.qt.QtViewer.layerButtons" title="Permalink to this definition">¶</a></dt>
-<dd><p>Button controls for napari layers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>QtLayerButtons</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.layers">
-<span class="sig-name descname"><span class="pre">layers</span></span><a class="headerlink" href="#napari.qt.QtViewer.layers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Qt view for LayerList controls.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>QtLayerList</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.layer_to_visual">
-<span class="sig-name descname"><span class="pre">layer_to_visual</span></span><a class="headerlink" href="#napari.qt.QtViewer.layer_to_visual" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary mapping napari layers with their corresponding vispy_layers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.view">
-<span class="sig-name descname"><span class="pre">view</span></span><a class="headerlink" href="#napari.qt.QtViewer.view" title="Permalink to this definition">¶</a></dt>
-<dd><p>View displayed by vispy canvas. Adds a vispy ViewBox as a child widget.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>vispy scene widget</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -838,12 +753,45 @@ canvas. Default is <cite>False</cite>.</p></li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.viewerButtons">
-<span class="sig-name descname"><span class="pre">viewerButtons</span></span><a class="headerlink" href="#napari.qt.QtViewer.viewerButtons" title="Permalink to this definition">¶</a></dt>
-<dd><p>Button controls for the napari viewer.</p>
+<dt class="sig sig-object py" id="napari.qt.QtViewer._key_map_handler">
+<span class="sig-name descname"><span class="pre">_key_map_handler</span></span><a class="headerlink" href="#napari.qt.QtViewer._key_map_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>KeymapHandler handling the calling functionality when keys are pressed that have a callback function mapped</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="napari.qt.QtViewerButtons.html#napari.qt.QtViewerButtons" title="napari.qt.QtViewerButtons">QtViewerButtons</a></p>
+<dd class="field-odd"><p>napari.utils.key_bindings.KeymapHandler</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.qt.QtViewer._qt_poll">
+<span class="sig-name descname"><span class="pre">_qt_poll</span></span><a class="headerlink" href="#napari.qt.QtViewer._qt_poll" title="Permalink to this definition">¶</a></dt>
+<dd><p>A QtPoll object required for octree or monitor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Optional[napari._qt.experimental.qt_poll.QtPoll]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.qt.QtViewer._remote_manager">
+<span class="sig-name descname"><span class="pre">_remote_manager</span></span><a class="headerlink" href="#napari.qt.QtViewer._remote_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>A remote manager processing commands from remote clients and sending out messages when polled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>napari.components.experimental.remote.RemoteManager</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.qt.QtViewer._welcome_widget">
+<span class="sig-name descname"><span class="pre">_welcome_widget</span></span><a class="headerlink" href="#napari.qt.QtViewer._welcome_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>QtWidgetOverlay providing the stacked widgets for the welcome page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>napari._qt.widgets.qt_welcome.QtWidgetOverlay</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1386,549 +1334,528 @@ canvas. Default is <cite>False</cite>.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.objectName" title="napari.qt.QtViewer.objectName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">objectName</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.on_draw" title="napari.qt.QtViewer.on_draw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_draw</span></code></a>(event)</p></td>
-<td><p>Called whenever the canvas is drawn.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.on_mouse_double_click" title="napari.qt.QtViewer.on_mouse_double_click"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_mouse_double_click</span></code></a>(event)</p></td>
-<td><p>Called whenever a mouse double-click happen on the canvas</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.on_mouse_move" title="napari.qt.QtViewer.on_mouse_move"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_mouse_move</span></code></a>(event)</p></td>
-<td><p>Called whenever mouse moves over canvas.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.on_mouse_press" title="napari.qt.QtViewer.on_mouse_press"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_mouse_press</span></code></a>(event)</p></td>
-<td><p>Called whenever mouse pressed in canvas.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.on_mouse_release" title="napari.qt.QtViewer.on_mouse_release"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_mouse_release</span></code></a>(event)</p></td>
-<td><p>Called whenever mouse released in canvas.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.on_mouse_wheel" title="napari.qt.QtViewer.on_mouse_wheel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_mouse_wheel</span></code></a>(event)</p></td>
-<td><p>Called whenever mouse wheel activated in canvas.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.on_resize" title="napari.qt.QtViewer.on_resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_resize</span></code></a>(event)</p></td>
-<td><p>Called whenever canvas is resized.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.opaqueResize" title="napari.qt.QtViewer.opaqueResize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opaqueResize</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.opaqueResize" title="napari.qt.QtViewer.opaqueResize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">opaqueResize</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.orientation" title="napari.qt.QtViewer.orientation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">orientation</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.orientation" title="napari.qt.QtViewer.orientation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">orientation</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.overrideWindowFlags" title="napari.qt.QtViewer.overrideWindowFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overrideWindowFlags</span></code></a>(self, type)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.overrideWindowFlags" title="napari.qt.QtViewer.overrideWindowFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overrideWindowFlags</span></code></a>(self, type)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.overrideWindowState" title="napari.qt.QtViewer.overrideWindowState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overrideWindowState</span></code></a>(self, state)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.overrideWindowState" title="napari.qt.QtViewer.overrideWindowState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overrideWindowState</span></code></a>(self, state)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.paintEngine" title="napari.qt.QtViewer.paintEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paintEngine</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.paintEngine" title="napari.qt.QtViewer.paintEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paintEngine</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.paintEvent" title="napari.qt.QtViewer.paintEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paintEvent</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.paintEvent" title="napari.qt.QtViewer.paintEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paintEvent</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.paintingActive" title="napari.qt.QtViewer.paintingActive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paintingActive</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.paintingActive" title="napari.qt.QtViewer.paintingActive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paintingActive</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.palette" title="napari.qt.QtViewer.palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">palette</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.palette" title="napari.qt.QtViewer.palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">palette</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.parent" title="napari.qt.QtViewer.parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.parent" title="napari.qt.QtViewer.parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.parentWidget" title="napari.qt.QtViewer.parentWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parentWidget</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.parentWidget" title="napari.qt.QtViewer.parentWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parentWidget</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.physicalDpiX" title="napari.qt.QtViewer.physicalDpiX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physicalDpiX</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.physicalDpiX" title="napari.qt.QtViewer.physicalDpiX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physicalDpiX</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.physicalDpiY" title="napari.qt.QtViewer.physicalDpiY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physicalDpiY</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.physicalDpiY" title="napari.qt.QtViewer.physicalDpiY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physicalDpiY</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.pos" title="napari.qt.QtViewer.pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.pos" title="napari.qt.QtViewer.pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pos</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.previousInFocusChain" title="napari.qt.QtViewer.previousInFocusChain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">previousInFocusChain</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.previousInFocusChain" title="napari.qt.QtViewer.previousInFocusChain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">previousInFocusChain</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.property" title="napari.qt.QtViewer.property"><code class="xref py py-obj docutils literal notranslate"><span class="pre">property</span></code></a>(self, name)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.property" title="napari.qt.QtViewer.property"><code class="xref py py-obj docutils literal notranslate"><span class="pre">property</span></code></a>(self, name)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.pyqtConfigure" title="napari.qt.QtViewer.pyqtConfigure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyqtConfigure</span></code></a>(...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.pyqtConfigure" title="napari.qt.QtViewer.pyqtConfigure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyqtConfigure</span></code></a>(...)</p></td>
 <td><p>Each keyword argument is either the name of a Qt property or a Qt signal.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.raise_" title="napari.qt.QtViewer.raise_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">raise_</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.raise_" title="napari.qt.QtViewer.raise_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">raise_</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.receivers" title="napari.qt.QtViewer.receivers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">receivers</span></code></a>(self, signal)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.receivers" title="napari.qt.QtViewer.receivers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">receivers</span></code></a>(self, signal)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.rect" title="napari.qt.QtViewer.rect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rect</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.rect" title="napari.qt.QtViewer.rect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rect</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.refresh" title="napari.qt.QtViewer.refresh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refresh</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.refresh" title="napari.qt.QtViewer.refresh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refresh</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.releaseKeyboard" title="napari.qt.QtViewer.releaseKeyboard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">releaseKeyboard</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.releaseKeyboard" title="napari.qt.QtViewer.releaseKeyboard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">releaseKeyboard</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.releaseMouse" title="napari.qt.QtViewer.releaseMouse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">releaseMouse</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.releaseMouse" title="napari.qt.QtViewer.releaseMouse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">releaseMouse</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.releaseShortcut" title="napari.qt.QtViewer.releaseShortcut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">releaseShortcut</span></code></a>(self, id)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.releaseShortcut" title="napari.qt.QtViewer.releaseShortcut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">releaseShortcut</span></code></a>(self, id)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.removeAction" title="napari.qt.QtViewer.removeAction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">removeAction</span></code></a>(self, action)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.removeAction" title="napari.qt.QtViewer.removeAction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">removeAction</span></code></a>(self, action)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.removeEventFilter" title="napari.qt.QtViewer.removeEventFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">removeEventFilter</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.removeEventFilter" title="napari.qt.QtViewer.removeEventFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">removeEventFilter</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.render" title="napari.qt.QtViewer.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a>(, sourceRegion, flags, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.render" title="napari.qt.QtViewer.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a>(, sourceRegion, flags, ...)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.repaint" title="napari.qt.QtViewer.repaint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">repaint</span></code></a>(-&gt; None
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.repaint" title="napari.qt.QtViewer.repaint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">repaint</span></code></a>(-&gt; None
  -&gt; None)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.replaceWidget" title="napari.qt.QtViewer.replaceWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replaceWidget</span></code></a>(self, index, widget)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.replaceWidget" title="napari.qt.QtViewer.replaceWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replaceWidget</span></code></a>(self, index, widget)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.resize" title="napari.qt.QtViewer.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.resize" title="napari.qt.QtViewer.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.resizeEvent" title="napari.qt.QtViewer.resizeEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resizeEvent</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.resizeEvent" title="napari.qt.QtViewer.resizeEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resizeEvent</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.restoreGeometry" title="napari.qt.QtViewer.restoreGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">restoreGeometry</span></code></a>(self, geometry)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.restoreGeometry" title="napari.qt.QtViewer.restoreGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">restoreGeometry</span></code></a>(self, geometry)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.restoreState" title="napari.qt.QtViewer.restoreState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">restoreState</span></code></a>(self, state)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.restoreState" title="napari.qt.QtViewer.restoreState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">restoreState</span></code></a>(self, state)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.saveGeometry" title="napari.qt.QtViewer.saveGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saveGeometry</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.saveGeometry" title="napari.qt.QtViewer.saveGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saveGeometry</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.saveState" title="napari.qt.QtViewer.saveState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saveState</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.saveState" title="napari.qt.QtViewer.saveState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">saveState</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.screen" title="napari.qt.QtViewer.screen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screen</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.screen" title="napari.qt.QtViewer.screen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screen</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.screenshot" title="napari.qt.QtViewer.screenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screenshot</span></code></a>([path, flash])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.screenshot" title="napari.qt.QtViewer.screenshot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screenshot</span></code></a>([path, flash])</p></td>
 <td><p>Take currently displayed screen and convert to an image array.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.scroll" title="napari.qt.QtViewer.scroll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scroll</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.scroll" title="napari.qt.QtViewer.scroll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scroll</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sender" title="napari.qt.QtViewer.sender"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sender</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sender" title="napari.qt.QtViewer.sender"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sender</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.senderSignalIndex" title="napari.qt.QtViewer.senderSignalIndex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">senderSignalIndex</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.senderSignalIndex" title="napari.qt.QtViewer.senderSignalIndex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">senderSignalIndex</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAcceptDrops" title="napari.qt.QtViewer.setAcceptDrops"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAcceptDrops</span></code></a>(self, on)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAcceptDrops" title="napari.qt.QtViewer.setAcceptDrops"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAcceptDrops</span></code></a>(self, on)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAccessibleDescription" title="napari.qt.QtViewer.setAccessibleDescription"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAccessibleDescription</span></code></a>(self, description)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAccessibleDescription" title="napari.qt.QtViewer.setAccessibleDescription"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAccessibleDescription</span></code></a>(self, description)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAccessibleName" title="napari.qt.QtViewer.setAccessibleName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAccessibleName</span></code></a>(self, name)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAccessibleName" title="napari.qt.QtViewer.setAccessibleName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAccessibleName</span></code></a>(self, name)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAttribute" title="napari.qt.QtViewer.setAttribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAttribute</span></code></a>(self, attribute[, on])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAttribute" title="napari.qt.QtViewer.setAttribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAttribute</span></code></a>(self, attribute[, on])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAutoFillBackground" title="napari.qt.QtViewer.setAutoFillBackground"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAutoFillBackground</span></code></a>(self, enabled)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setAutoFillBackground" title="napari.qt.QtViewer.setAutoFillBackground"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAutoFillBackground</span></code></a>(self, enabled)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setBackgroundRole" title="napari.qt.QtViewer.setBackgroundRole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setBackgroundRole</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setBackgroundRole" title="napari.qt.QtViewer.setBackgroundRole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setBackgroundRole</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setBaseSize" title="napari.qt.QtViewer.setBaseSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setBaseSize</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setBaseSize" title="napari.qt.QtViewer.setBaseSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setBaseSize</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setChildrenCollapsible" title="napari.qt.QtViewer.setChildrenCollapsible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setChildrenCollapsible</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setChildrenCollapsible" title="napari.qt.QtViewer.setChildrenCollapsible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setChildrenCollapsible</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setCollapsible" title="napari.qt.QtViewer.setCollapsible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setCollapsible</span></code></a>(self, index, a1)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setCollapsible" title="napari.qt.QtViewer.setCollapsible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setCollapsible</span></code></a>(self, index, a1)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setContentsMargins" title="napari.qt.QtViewer.setContentsMargins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setContentsMargins</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setContentsMargins" title="napari.qt.QtViewer.setContentsMargins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setContentsMargins</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setContextMenuPolicy" title="napari.qt.QtViewer.setContextMenuPolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setContextMenuPolicy</span></code></a>(self, policy)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setContextMenuPolicy" title="napari.qt.QtViewer.setContextMenuPolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setContextMenuPolicy</span></code></a>(self, policy)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setCursor" title="napari.qt.QtViewer.setCursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setCursor</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setCursor" title="napari.qt.QtViewer.setCursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setCursor</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setDisabled" title="napari.qt.QtViewer.setDisabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDisabled</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setDisabled" title="napari.qt.QtViewer.setDisabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDisabled</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setEnabled" title="napari.qt.QtViewer.setEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setEnabled</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setEnabled" title="napari.qt.QtViewer.setEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setEnabled</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFixedHeight" title="napari.qt.QtViewer.setFixedHeight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFixedHeight</span></code></a>(self, h)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFixedHeight" title="napari.qt.QtViewer.setFixedHeight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFixedHeight</span></code></a>(self, h)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFixedSize" title="napari.qt.QtViewer.setFixedSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFixedSize</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFixedSize" title="napari.qt.QtViewer.setFixedSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFixedSize</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFixedWidth" title="napari.qt.QtViewer.setFixedWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFixedWidth</span></code></a>(self, w)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFixedWidth" title="napari.qt.QtViewer.setFixedWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFixedWidth</span></code></a>(self, w)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFocus" title="napari.qt.QtViewer.setFocus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFocus</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFocus" title="napari.qt.QtViewer.setFocus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFocus</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFocusPolicy" title="napari.qt.QtViewer.setFocusPolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFocusPolicy</span></code></a>(self, policy)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFocusPolicy" title="napari.qt.QtViewer.setFocusPolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFocusPolicy</span></code></a>(self, policy)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFocusProxy" title="napari.qt.QtViewer.setFocusProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFocusProxy</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFocusProxy" title="napari.qt.QtViewer.setFocusProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFocusProxy</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFont" title="napari.qt.QtViewer.setFont"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFont</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFont" title="napari.qt.QtViewer.setFont"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFont</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setForegroundRole" title="napari.qt.QtViewer.setForegroundRole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setForegroundRole</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setForegroundRole" title="napari.qt.QtViewer.setForegroundRole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setForegroundRole</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFrameRect" title="napari.qt.QtViewer.setFrameRect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFrameRect</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFrameRect" title="napari.qt.QtViewer.setFrameRect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFrameRect</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFrameShadow" title="napari.qt.QtViewer.setFrameShadow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFrameShadow</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFrameShadow" title="napari.qt.QtViewer.setFrameShadow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFrameShadow</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFrameShape" title="napari.qt.QtViewer.setFrameShape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFrameShape</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFrameShape" title="napari.qt.QtViewer.setFrameShape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFrameShape</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFrameStyle" title="napari.qt.QtViewer.setFrameStyle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFrameStyle</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setFrameStyle" title="napari.qt.QtViewer.setFrameStyle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFrameStyle</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setGeometry" title="napari.qt.QtViewer.setGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setGeometry</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setGeometry" title="napari.qt.QtViewer.setGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setGeometry</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setGraphicsEffect" title="napari.qt.QtViewer.setGraphicsEffect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setGraphicsEffect</span></code></a>(self, effect)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setGraphicsEffect" title="napari.qt.QtViewer.setGraphicsEffect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setGraphicsEffect</span></code></a>(self, effect)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setHandleWidth" title="napari.qt.QtViewer.setHandleWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setHandleWidth</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setHandleWidth" title="napari.qt.QtViewer.setHandleWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setHandleWidth</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setHidden" title="napari.qt.QtViewer.setHidden"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setHidden</span></code></a>(self, hidden)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setHidden" title="napari.qt.QtViewer.setHidden"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setHidden</span></code></a>(self, hidden)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setInputMethodHints" title="napari.qt.QtViewer.setInputMethodHints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setInputMethodHints</span></code></a>(self, hints)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setInputMethodHints" title="napari.qt.QtViewer.setInputMethodHints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setInputMethodHints</span></code></a>(self, hints)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setLayout" title="napari.qt.QtViewer.setLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setLayout</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setLayout" title="napari.qt.QtViewer.setLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setLayout</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setLayoutDirection" title="napari.qt.QtViewer.setLayoutDirection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setLayoutDirection</span></code></a>(self, direction)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setLayoutDirection" title="napari.qt.QtViewer.setLayoutDirection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setLayoutDirection</span></code></a>(self, direction)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setLineWidth" title="napari.qt.QtViewer.setLineWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setLineWidth</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setLineWidth" title="napari.qt.QtViewer.setLineWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setLineWidth</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setLocale" title="napari.qt.QtViewer.setLocale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setLocale</span></code></a>(self, locale)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setLocale" title="napari.qt.QtViewer.setLocale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setLocale</span></code></a>(self, locale)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMask" title="napari.qt.QtViewer.setMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMask</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMask" title="napari.qt.QtViewer.setMask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMask</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMaximumHeight" title="napari.qt.QtViewer.setMaximumHeight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMaximumHeight</span></code></a>(self, maxh)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMaximumHeight" title="napari.qt.QtViewer.setMaximumHeight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMaximumHeight</span></code></a>(self, maxh)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMaximumSize" title="napari.qt.QtViewer.setMaximumSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMaximumSize</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMaximumSize" title="napari.qt.QtViewer.setMaximumSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMaximumSize</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMaximumWidth" title="napari.qt.QtViewer.setMaximumWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMaximumWidth</span></code></a>(self, maxw)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMaximumWidth" title="napari.qt.QtViewer.setMaximumWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMaximumWidth</span></code></a>(self, maxw)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMidLineWidth" title="napari.qt.QtViewer.setMidLineWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMidLineWidth</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMidLineWidth" title="napari.qt.QtViewer.setMidLineWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMidLineWidth</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMinimumHeight" title="napari.qt.QtViewer.setMinimumHeight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMinimumHeight</span></code></a>(self, minh)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMinimumHeight" title="napari.qt.QtViewer.setMinimumHeight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMinimumHeight</span></code></a>(self, minh)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMinimumSize" title="napari.qt.QtViewer.setMinimumSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMinimumSize</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMinimumSize" title="napari.qt.QtViewer.setMinimumSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMinimumSize</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMinimumWidth" title="napari.qt.QtViewer.setMinimumWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMinimumWidth</span></code></a>(self, minw)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMinimumWidth" title="napari.qt.QtViewer.setMinimumWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMinimumWidth</span></code></a>(self, minw)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMouseTracking" title="napari.qt.QtViewer.setMouseTracking"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMouseTracking</span></code></a>(self, enable)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setMouseTracking" title="napari.qt.QtViewer.setMouseTracking"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setMouseTracking</span></code></a>(self, enable)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setObjectName" title="napari.qt.QtViewer.setObjectName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setObjectName</span></code></a>(self, name)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setObjectName" title="napari.qt.QtViewer.setObjectName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setObjectName</span></code></a>(self, name)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setOpaqueResize" title="napari.qt.QtViewer.setOpaqueResize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setOpaqueResize</span></code></a>(self[, opaque])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setOpaqueResize" title="napari.qt.QtViewer.setOpaqueResize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setOpaqueResize</span></code></a>(self[, opaque])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setOrientation" title="napari.qt.QtViewer.setOrientation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setOrientation</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setOrientation" title="napari.qt.QtViewer.setOrientation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setOrientation</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setPalette" title="napari.qt.QtViewer.setPalette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setPalette</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setPalette" title="napari.qt.QtViewer.setPalette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setPalette</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setParent" title="napari.qt.QtViewer.setParent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setParent</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setParent" title="napari.qt.QtViewer.setParent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setParent</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setProperty" title="napari.qt.QtViewer.setProperty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setProperty</span></code></a>(self, name, value)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setProperty" title="napari.qt.QtViewer.setProperty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setProperty</span></code></a>(self, name, value)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setRubberBand" title="napari.qt.QtViewer.setRubberBand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setRubberBand</span></code></a>(self, position)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setRubberBand" title="napari.qt.QtViewer.setRubberBand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setRubberBand</span></code></a>(self, position)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setShortcutAutoRepeat" title="napari.qt.QtViewer.setShortcutAutoRepeat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setShortcutAutoRepeat</span></code></a>(self, id[, enabled])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setShortcutAutoRepeat" title="napari.qt.QtViewer.setShortcutAutoRepeat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setShortcutAutoRepeat</span></code></a>(self, id[, enabled])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setShortcutEnabled" title="napari.qt.QtViewer.setShortcutEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setShortcutEnabled</span></code></a>(self, id[, enabled])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setShortcutEnabled" title="napari.qt.QtViewer.setShortcutEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setShortcutEnabled</span></code></a>(self, id[, enabled])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setSizeIncrement" title="napari.qt.QtViewer.setSizeIncrement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSizeIncrement</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setSizeIncrement" title="napari.qt.QtViewer.setSizeIncrement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSizeIncrement</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setSizePolicy" title="napari.qt.QtViewer.setSizePolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSizePolicy</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setSizePolicy" title="napari.qt.QtViewer.setSizePolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSizePolicy</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setSizes" title="napari.qt.QtViewer.setSizes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSizes</span></code></a>(self, list)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setSizes" title="napari.qt.QtViewer.setSizes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSizes</span></code></a>(self, list)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setStatusTip" title="napari.qt.QtViewer.setStatusTip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setStatusTip</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setStatusTip" title="napari.qt.QtViewer.setStatusTip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setStatusTip</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setStretchFactor" title="napari.qt.QtViewer.setStretchFactor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setStretchFactor</span></code></a>(self, index, stretch)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setStretchFactor" title="napari.qt.QtViewer.setStretchFactor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setStretchFactor</span></code></a>(self, index, stretch)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setStyle" title="napari.qt.QtViewer.setStyle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setStyle</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setStyle" title="napari.qt.QtViewer.setStyle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setStyle</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setStyleSheet" title="napari.qt.QtViewer.setStyleSheet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setStyleSheet</span></code></a>(self, styleSheet)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setStyleSheet" title="napari.qt.QtViewer.setStyleSheet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setStyleSheet</span></code></a>(self, styleSheet)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setTabOrder" title="napari.qt.QtViewer.setTabOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTabOrder</span></code></a>(a0, a1)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setTabOrder" title="napari.qt.QtViewer.setTabOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTabOrder</span></code></a>(a0, a1)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setTabletTracking" title="napari.qt.QtViewer.setTabletTracking"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTabletTracking</span></code></a>(self, enable)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setTabletTracking" title="napari.qt.QtViewer.setTabletTracking"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTabletTracking</span></code></a>(self, enable)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setToolTip" title="napari.qt.QtViewer.setToolTip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setToolTip</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setToolTip" title="napari.qt.QtViewer.setToolTip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setToolTip</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setToolTipDuration" title="napari.qt.QtViewer.setToolTipDuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setToolTipDuration</span></code></a>(self, msec)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setToolTipDuration" title="napari.qt.QtViewer.setToolTipDuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setToolTipDuration</span></code></a>(self, msec)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setUpdatesEnabled" title="napari.qt.QtViewer.setUpdatesEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setUpdatesEnabled</span></code></a>(self, enable)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setUpdatesEnabled" title="napari.qt.QtViewer.setUpdatesEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setUpdatesEnabled</span></code></a>(self, enable)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setVisible" title="napari.qt.QtViewer.setVisible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setVisible</span></code></a>(self, visible)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setVisible" title="napari.qt.QtViewer.setVisible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setVisible</span></code></a>(self, visible)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWhatsThis" title="napari.qt.QtViewer.setWhatsThis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWhatsThis</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWhatsThis" title="napari.qt.QtViewer.setWhatsThis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWhatsThis</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowFilePath" title="napari.qt.QtViewer.setWindowFilePath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowFilePath</span></code></a>(self, filePath)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowFilePath" title="napari.qt.QtViewer.setWindowFilePath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowFilePath</span></code></a>(self, filePath)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowFlag" title="napari.qt.QtViewer.setWindowFlag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowFlag</span></code></a>(self, a0[, on])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowFlag" title="napari.qt.QtViewer.setWindowFlag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowFlag</span></code></a>(self, a0[, on])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowFlags" title="napari.qt.QtViewer.setWindowFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowFlags</span></code></a>(self, type)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowFlags" title="napari.qt.QtViewer.setWindowFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowFlags</span></code></a>(self, type)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowIcon" title="napari.qt.QtViewer.setWindowIcon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowIcon</span></code></a>(self, icon)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowIcon" title="napari.qt.QtViewer.setWindowIcon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowIcon</span></code></a>(self, icon)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowIconText" title="napari.qt.QtViewer.setWindowIconText"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowIconText</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowIconText" title="napari.qt.QtViewer.setWindowIconText"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowIconText</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowModality" title="napari.qt.QtViewer.setWindowModality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowModality</span></code></a>(self, windowModality)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowModality" title="napari.qt.QtViewer.setWindowModality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowModality</span></code></a>(self, windowModality)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowModified" title="napari.qt.QtViewer.setWindowModified"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowModified</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowModified" title="napari.qt.QtViewer.setWindowModified"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowModified</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowOpacity" title="napari.qt.QtViewer.setWindowOpacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowOpacity</span></code></a>(self, level)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowOpacity" title="napari.qt.QtViewer.setWindowOpacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowOpacity</span></code></a>(self, level)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowRole" title="napari.qt.QtViewer.setWindowRole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowRole</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowRole" title="napari.qt.QtViewer.setWindowRole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowRole</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowState" title="napari.qt.QtViewer.setWindowState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowState</span></code></a>(self, state)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowState" title="napari.qt.QtViewer.setWindowState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowState</span></code></a>(self, state)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowTitle" title="napari.qt.QtViewer.setWindowTitle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowTitle</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.setWindowTitle" title="napari.qt.QtViewer.setWindowTitle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWindowTitle</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.set_welcome_visible" title="napari.qt.QtViewer.set_welcome_visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_welcome_visible</span></code></a>(visible)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.set_welcome_visible" title="napari.qt.QtViewer.set_welcome_visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_welcome_visible</span></code></a>(visible)</p></td>
 <td><p>Show welcome screen widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sharedPainter" title="napari.qt.QtViewer.sharedPainter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sharedPainter</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sharedPainter" title="napari.qt.QtViewer.sharedPainter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sharedPainter</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.show" title="napari.qt.QtViewer.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.show" title="napari.qt.QtViewer.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showEvent" title="napari.qt.QtViewer.showEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showEvent</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showEvent" title="napari.qt.QtViewer.showEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showEvent</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showFullScreen" title="napari.qt.QtViewer.showFullScreen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showFullScreen</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showFullScreen" title="napari.qt.QtViewer.showFullScreen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showFullScreen</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showMaximized" title="napari.qt.QtViewer.showMaximized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showMaximized</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showMaximized" title="napari.qt.QtViewer.showMaximized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showMaximized</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showMinimized" title="napari.qt.QtViewer.showMinimized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showMinimized</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showMinimized" title="napari.qt.QtViewer.showMinimized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showMinimized</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showNormal" title="napari.qt.QtViewer.showNormal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showNormal</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.showNormal" title="napari.qt.QtViewer.showNormal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showNormal</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.signalsBlocked" title="napari.qt.QtViewer.signalsBlocked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signalsBlocked</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.signalsBlocked" title="napari.qt.QtViewer.signalsBlocked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signalsBlocked</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.size" title="napari.qt.QtViewer.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.size" title="napari.qt.QtViewer.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sizeHint" title="napari.qt.QtViewer.sizeHint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizeHint</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sizeHint" title="napari.qt.QtViewer.sizeHint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizeHint</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sizeIncrement" title="napari.qt.QtViewer.sizeIncrement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizeIncrement</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sizeIncrement" title="napari.qt.QtViewer.sizeIncrement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizeIncrement</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sizePolicy" title="napari.qt.QtViewer.sizePolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizePolicy</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sizePolicy" title="napari.qt.QtViewer.sizePolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizePolicy</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sizes" title="napari.qt.QtViewer.sizes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizes</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.sizes" title="napari.qt.QtViewer.sizes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizes</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.stackUnder" title="napari.qt.QtViewer.stackUnder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stackUnder</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.stackUnder" title="napari.qt.QtViewer.stackUnder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stackUnder</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.startTimer" title="napari.qt.QtViewer.startTimer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">startTimer</span></code></a>(self, interval[, timerType])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.startTimer" title="napari.qt.QtViewer.startTimer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">startTimer</span></code></a>(self, interval[, timerType])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.statusTip" title="napari.qt.QtViewer.statusTip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">statusTip</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.statusTip" title="napari.qt.QtViewer.statusTip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">statusTip</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.style" title="napari.qt.QtViewer.style"><code class="xref py py-obj docutils literal notranslate"><span class="pre">style</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.style" title="napari.qt.QtViewer.style"><code class="xref py py-obj docutils literal notranslate"><span class="pre">style</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.styleSheet" title="napari.qt.QtViewer.styleSheet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">styleSheet</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.styleSheet" title="napari.qt.QtViewer.styleSheet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">styleSheet</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.tabletEvent" title="napari.qt.QtViewer.tabletEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tabletEvent</span></code></a>(self, a0)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.tabletEvent" title="napari.qt.QtViewer.tabletEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tabletEvent</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.testAttribute" title="napari.qt.QtViewer.testAttribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">testAttribute</span></code></a>(self, attribute)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.testAttribute" title="napari.qt.QtViewer.testAttribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">testAttribute</span></code></a>(self, attribute)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.thread" title="napari.qt.QtViewer.thread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thread</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.thread" title="napari.qt.QtViewer.thread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thread</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.timerEvent" title="napari.qt.QtViewer.timerEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timerEvent</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.timerEvent" title="napari.qt.QtViewer.timerEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timerEvent</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.toggle_console_visibility" title="napari.qt.QtViewer.toggle_console_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_console_visibility</span></code></a>([event])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.toggle_console_visibility" title="napari.qt.QtViewer.toggle_console_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_console_visibility</span></code></a>([event])</p></td>
 <td><p>Toggle console visible and not visible.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.toolTip" title="napari.qt.QtViewer.toolTip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toolTip</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.toolTip" title="napari.qt.QtViewer.toolTip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toolTip</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.toolTipDuration" title="napari.qt.QtViewer.toolTipDuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toolTipDuration</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.toolTipDuration" title="napari.qt.QtViewer.toolTipDuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toolTipDuration</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.tr" title="napari.qt.QtViewer.tr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tr</span></code></a>(self, sourceText[, disambiguation, n])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.tr" title="napari.qt.QtViewer.tr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tr</span></code></a>(self, sourceText[, disambiguation, n])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.underMouse" title="napari.qt.QtViewer.underMouse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">underMouse</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.underMouse" title="napari.qt.QtViewer.underMouse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">underMouse</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.ungrabGesture" title="napari.qt.QtViewer.ungrabGesture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ungrabGesture</span></code></a>(self, type)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.ungrabGesture" title="napari.qt.QtViewer.ungrabGesture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ungrabGesture</span></code></a>(self, type)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.unsetCursor" title="napari.qt.QtViewer.unsetCursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unsetCursor</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.unsetCursor" title="napari.qt.QtViewer.unsetCursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unsetCursor</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.unsetLayoutDirection" title="napari.qt.QtViewer.unsetLayoutDirection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unsetLayoutDirection</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.unsetLayoutDirection" title="napari.qt.QtViewer.unsetLayoutDirection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unsetLayoutDirection</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.unsetLocale" title="napari.qt.QtViewer.unsetLocale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unsetLocale</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.unsetLocale" title="napari.qt.QtViewer.unsetLocale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unsetLocale</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.update" title="napari.qt.QtViewer.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(-&gt; None
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.update" title="napari.qt.QtViewer.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(-&gt; None
  -&gt; None)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.updateGeometry" title="napari.qt.QtViewer.updateGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">updateGeometry</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.updateGeometry" title="napari.qt.QtViewer.updateGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">updateGeometry</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.updateMicroFocus" title="napari.qt.QtViewer.updateMicroFocus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">updateMicroFocus</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.updateMicroFocus" title="napari.qt.QtViewer.updateMicroFocus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">updateMicroFocus</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.updatesEnabled" title="napari.qt.QtViewer.updatesEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">updatesEnabled</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.updatesEnabled" title="napari.qt.QtViewer.updatesEnabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">updatesEnabled</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.visibleRegion" title="napari.qt.QtViewer.visibleRegion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visibleRegion</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.visibleRegion" title="napari.qt.QtViewer.visibleRegion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visibleRegion</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.whatsThis" title="napari.qt.QtViewer.whatsThis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">whatsThis</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.whatsThis" title="napari.qt.QtViewer.whatsThis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">whatsThis</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.wheelEvent" title="napari.qt.QtViewer.wheelEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wheelEvent</span></code></a>(self, a0)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.wheelEvent" title="napari.qt.QtViewer.wheelEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wheelEvent</span></code></a>(self, a0)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.widget" title="napari.qt.QtViewer.widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">widget</span></code></a>(self, index)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.widget" title="napari.qt.QtViewer.widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">widget</span></code></a>(self, index)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.width" title="napari.qt.QtViewer.width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">width</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.width" title="napari.qt.QtViewer.width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">width</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.widthMM" title="napari.qt.QtViewer.widthMM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">widthMM</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.widthMM" title="napari.qt.QtViewer.widthMM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">widthMM</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.winId" title="napari.qt.QtViewer.winId"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winId</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.winId" title="napari.qt.QtViewer.winId"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winId</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.window" title="napari.qt.QtViewer.window"><code class="xref py py-obj docutils literal notranslate"><span class="pre">window</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.window" title="napari.qt.QtViewer.window"><code class="xref py py-obj docutils literal notranslate"><span class="pre">window</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowFilePath" title="napari.qt.QtViewer.windowFilePath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowFilePath</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowFilePath" title="napari.qt.QtViewer.windowFilePath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowFilePath</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowFlags" title="napari.qt.QtViewer.windowFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowFlags</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowFlags" title="napari.qt.QtViewer.windowFlags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowFlags</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowHandle" title="napari.qt.QtViewer.windowHandle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowHandle</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowHandle" title="napari.qt.QtViewer.windowHandle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowHandle</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowIcon" title="napari.qt.QtViewer.windowIcon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowIcon</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowIcon" title="napari.qt.QtViewer.windowIcon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowIcon</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowIconText" title="napari.qt.QtViewer.windowIconText"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowIconText</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowIconText" title="napari.qt.QtViewer.windowIconText"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowIconText</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowModality" title="napari.qt.QtViewer.windowModality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowModality</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowModality" title="napari.qt.QtViewer.windowModality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowModality</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowOpacity" title="napari.qt.QtViewer.windowOpacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowOpacity</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowOpacity" title="napari.qt.QtViewer.windowOpacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowOpacity</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowRole" title="napari.qt.QtViewer.windowRole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowRole</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowRole" title="napari.qt.QtViewer.windowRole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowRole</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowState" title="napari.qt.QtViewer.windowState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowState</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowState" title="napari.qt.QtViewer.windowState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowState</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowTitle" title="napari.qt.QtViewer.windowTitle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowTitle</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowTitle" title="napari.qt.QtViewer.windowTitle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowTitle</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowType" title="napari.qt.QtViewer.windowType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowType</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowType" title="napari.qt.QtViewer.windowType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowType</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.x" title="napari.qt.QtViewer.x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.x" title="napari.qt.QtViewer.x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.y" title="napari.qt.QtViewer.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.y" title="napari.qt.QtViewer.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></a>(self)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -2021,35 +1948,41 @@ canvas. Default is <cite>False</cite>.</p></li>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">WinPanel</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id0" title="napari.qt.QtViewer.console"><code class="xref py py-obj docutils literal notranslate"><span class="pre">console</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.camera" title="napari.qt.QtViewer.camera"><code class="xref py py-obj docutils literal notranslate"><span class="pre">camera</span></code></a></p></td>
+<td><p>The Vispy camera class which contains both the 2d and 3d camera used to describe the perspective by which a scene is viewed and interacted with.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.console" title="napari.qt.QtViewer.console"><code class="xref py py-obj docutils literal notranslate"><span class="pre">console</span></code></a></p></td>
 <td><p>iPython console terminal integrated into the napari GUI.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.controls" title="napari.qt.QtViewer.controls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">controls</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.controls" title="napari.qt.QtViewer.controls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">controls</span></code></a></p></td>
+<td><p>Qt view for GUI controls.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.customContextMenuRequested" title="napari.qt.QtViewer.customContextMenuRequested"><code class="xref py py-obj docutils literal notranslate"><span class="pre">customContextMenuRequested</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.customContextMenuRequested" title="napari.qt.QtViewer.customContextMenuRequested"><code class="xref py py-obj docutils literal notranslate"><span class="pre">customContextMenuRequested</span></code></a></p></td>
 <td><p>QPoint) [signal]</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.destroyed" title="napari.qt.QtViewer.destroyed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">destroyed</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.destroyed" title="napari.qt.QtViewer.destroyed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">destroyed</span></code></a></p></td>
 <td><p>typing.Optional[QObject] = None) [signal]</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.dockConsole" title="napari.qt.QtViewer.dockConsole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockConsole</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.dockConsole" title="napari.qt.QtViewer.dockConsole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockConsole</span></code></a></p></td>
+<td><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.dockLayerControls" title="napari.qt.QtViewer.dockLayerControls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockLayerControls</span></code></a></p></td>
+<td><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.dockLayerList" title="napari.qt.QtViewer.dockLayerList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockLayerList</span></code></a></p></td>
+<td><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockPerformance</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.dockLayerControls" title="napari.qt.QtViewer.dockLayerControls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockLayerControls</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.layerButtons" title="napari.qt.QtViewer.layerButtons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">layerButtons</span></code></a></p></td>
+<td><p>Button controls for napari layers.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.dockLayerList" title="napari.qt.QtViewer.dockLayerList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockLayerList</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockPerformance</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.layerButtons" title="napari.qt.QtViewer.layerButtons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">layerButtons</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.layer_to_visual" title="napari.qt.QtViewer.layer_to_visual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">layer_to_visual</span></code></a></p></td>
+<td><p>Mapping of Napari layer to Vispy layer.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.layers" title="napari.qt.QtViewer.layers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">layers</span></code></a></p></td>
-<td><p></p></td>
+<td><p>Qt view for LayerList controls.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.objectNameChanged" title="napari.qt.QtViewer.objectNameChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">objectNameChanged</span></code></a></p></td>
 <td><p>str) [signal]</p></td>
@@ -2060,16 +1993,19 @@ canvas. Default is <cite>False</cite>.</p></li>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">staticMetaObject</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.viewerButtons" title="napari.qt.QtViewer.viewerButtons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewerButtons</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.view" title="napari.qt.QtViewer.view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">view</span></code></a></p></td>
+<td><p>Rectangular  vispy viewbox widget in which a subscene is rendered.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowIconChanged" title="napari.qt.QtViewer.windowIconChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowIconChanged</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.viewerButtons" title="napari.qt.QtViewer.viewerButtons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewerButtons</span></code></a></p></td>
+<td><p>Button controls for the napari viewer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowIconChanged" title="napari.qt.QtViewer.windowIconChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowIconChanged</span></code></a></p></td>
 <td><p>QIcon) [signal]</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowIconTextChanged" title="napari.qt.QtViewer.windowIconTextChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowIconTextChanged</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowIconTextChanged" title="napari.qt.QtViewer.windowIconTextChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowIconTextChanged</span></code></a></p></td>
 <td><p>str) [signal]</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowTitleChanged" title="napari.qt.QtViewer.windowTitleChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowTitleChanged</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napari.qt.QtViewer.windowTitleChanged" title="napari.qt.QtViewer.windowTitleChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">windowTitleChanged</span></code></a></p></td>
 <td><p>str) [signal]</p></td>
 </tr>
 </tbody>
@@ -2185,6 +2121,13 @@ canvas. Default is <cite>False</cite>.</p></li>
 <span class="sig-name descname"><span class="pre">blockSignals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.qt.QtViewer.blockSignals" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.camera">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">camera</span></span><a class="headerlink" href="#napari.qt.QtViewer.camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Vispy camera class which contains both the 2d and 3d camera used to describe the perspective by which a
+scene is viewed and interacted with. Access directly within the QtViewer will become deprecated.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.QtViewer.changeEvent">
 <span class="sig-name descname"><span class="pre">changeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.qt.QtViewer.changeEvent" title="Permalink to this definition">¶</a></dt>
@@ -2277,8 +2220,8 @@ the screenshot was captured.</p>
 <dd></dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id0">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">console</span></span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="napari.qt.QtViewer.console">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">console</span></span><a class="headerlink" href="#napari.qt.QtViewer.console" title="Permalink to this definition">¶</a></dt>
 <dd><p>iPython console terminal integrated into the napari GUI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -2306,6 +2249,12 @@ the screenshot was captured.</p>
 <dt class="sig sig-object py" id="napari.qt.QtViewer.contextMenuPolicy">
 <span class="sig-name descname"><span class="pre">contextMenuPolicy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Qt.ContextMenuPolicy</span></span></span><a class="headerlink" href="#napari.qt.QtViewer.contextMenuPolicy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.controls">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">controls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">QtLayerControlsContainer</span></em><a class="headerlink" href="#napari.qt.QtViewer.controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Qt view for GUI controls.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.QtViewer.count">
@@ -2405,6 +2354,24 @@ the screenshot was captured.</p>
 <dt class="sig sig-object py" id="napari.qt.QtViewer.disconnectNotify">
 <span class="sig-name descname"><span class="pre">disconnectNotify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QMetaMethod</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.qt.QtViewer.disconnectNotify" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.dockConsole">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dockConsole</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget</span></em><a class="headerlink" href="#napari.qt.QtViewer.dockConsole" title="Permalink to this definition">¶</a></dt>
+<dd><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.dockLayerControls">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dockLayerControls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget</span></em><a class="headerlink" href="#napari.qt.QtViewer.dockLayerControls" title="Permalink to this definition">¶</a></dt>
+<dd><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.dockLayerList">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dockLayerList</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget</span></em><a class="headerlink" href="#napari.qt.QtViewer.dockLayerList" title="Permalink to this definition">¶</a></dt>
+<dd><p>QWidget wrapped in a QDockWidget with forwarded viewer events.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.QtViewer.dragEnterEvent">
@@ -2902,6 +2869,24 @@ this choice.</p>
 <span class="sig-name descname"><span class="pre">killTimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napari.qt.QtViewer.killTimer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.layerButtons">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">layerButtons</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari._qt.widgets.qt_viewer_buttons.QtLayerButtons</span></em><a class="headerlink" href="#napari.qt.QtViewer.layerButtons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Button controls for napari layers.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.layer_to_visual">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">layer_to_visual</span></span><a class="headerlink" href="#napari.qt.QtViewer.layer_to_visual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapping of Napari layer to Vispy layer. Added for backward compatibility</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.layers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">layers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari._qt.containers.qt_layer_list.QtLayerList</span></em><a class="headerlink" href="#napari.qt.QtViewer.layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Qt view for LayerList controls.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.QtViewer.layout">
 <span class="sig-name descname"><span class="pre">layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QLayout</span></span></span><a class="headerlink" href="#napari.qt.QtViewer.layout" title="Permalink to this definition">¶</a></dt>
@@ -3106,90 +3091,6 @@ this choice.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>objectNameChanged(self, objectName</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.on_draw">
-<span class="sig-name descname"><span class="pre">on_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer.on_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer.on_draw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called whenever the canvas is drawn.</p>
-<p>This is triggered from vispy whenever new data is sent to the canvas or
-the camera is moved and is connected in the <cite>QtViewer</cite>.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.on_mouse_double_click">
-<span class="sig-name descname"><span class="pre">on_mouse_double_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer.on_mouse_double_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer.on_mouse_double_click" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called whenever a mouse double-click happen on the canvas</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>vispy.event.Event</em>) – The vispy event that triggered this method. The <cite>event.type</cite> will always be <cite>mouse_double_click</cite></p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Note that this triggers in addition to the usual mouse press and mouse release.
-Therefore a double click from the user will likely triggers the following event in sequence:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>mouse_press</p></li>
-<li><p>mouse_release</p></li>
-<li><p>mouse_double_click</p></li>
-<li><p>mouse_release</p></li>
-</ul>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.on_mouse_move">
-<span class="sig-name descname"><span class="pre">on_mouse_move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer.on_mouse_move"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer.on_mouse_move" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called whenever mouse moves over canvas.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>vispy.event.Event</em>) – The vispy event that triggered this method.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.on_mouse_press">
-<span class="sig-name descname"><span class="pre">on_mouse_press</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer.on_mouse_press"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer.on_mouse_press" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called whenever mouse pressed in canvas.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>vispy.event.Event</em>) – The vispy event that triggered this method.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.on_mouse_release">
-<span class="sig-name descname"><span class="pre">on_mouse_release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer.on_mouse_release"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer.on_mouse_release" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called whenever mouse released in canvas.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>vispy.event.Event</em>) – The vispy event that triggered this method.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.on_mouse_wheel">
-<span class="sig-name descname"><span class="pre">on_mouse_wheel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer.on_mouse_wheel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer.on_mouse_wheel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called whenever mouse wheel activated in canvas.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>vispy.event.Event</em>) – The vispy event that triggered this method.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napari.qt.QtViewer.on_resize">
-<span class="sig-name descname"><span class="pre">on_resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/_qt/qt_viewer.html#QtViewer.on_resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.qt.QtViewer.on_resize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called whenever canvas is resized.</p>
-<dl class="simple">
-<dt>event<span class="classifier">vispy.util.event.Event</span></dt><dd><p>The vispy event that triggered this method.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4037,6 +3938,19 @@ upper-left corner of the rendered region.</p>
 <dt class="sig sig-object py" id="napari.qt.QtViewer.updatesEnabled">
 <span class="sig-name descname"><span class="pre">updatesEnabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#napari.qt.QtViewer.updatesEnabled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.view">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">view</span></span><a class="headerlink" href="#napari.qt.QtViewer.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rectangular  vispy viewbox widget in which a subscene is rendered. Access directly within the QtViewer will
+become deprecated.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="napari.qt.QtViewer.viewerButtons">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">viewerButtons</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.qt.QtViewerButtons.html#napari.qt.QtViewerButtons" title="napari._qt.widgets.qt_viewer_buttons.QtViewerButtons"><span class="pre">napari._qt.widgets.qt_viewer_buttons.QtViewerButtons</span></a></em><a class="headerlink" href="#napari.qt.QtViewer.viewerButtons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Button controls for the napari viewer.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.qt.QtViewer.visibleRegion">

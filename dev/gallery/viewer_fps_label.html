@@ -127,7 +127,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables gallery/viewer_fps_label and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables gallery/viewer_fps_label and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -154,7 +154,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "gallery/viewer_fps_label.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -639,7 +639,7 @@ function checkPageExistsAndRedirect(event) {
        <img src="../_static/icons/sidebar-triangle.png"/>
       </label>
       <a class="reference internal" href="../_tags/gui.html">
-       gui (14)
+       gui (15)
       </a>
       <ul>
        <li class="toctree-l4">
@@ -680,6 +680,11 @@ function checkPageExistsAndRedirect(event) {
        <li class="toctree-l4">
         <a class="reference internal" href="custom_key_bindings.html">
          Custom key bindings
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="image_custom_kernel.html">
+         Custom image interpolation kernels
         </a>
        </li>
        <li class="toctree-l4">
@@ -1015,7 +1020,7 @@ function checkPageExistsAndRedirect(event) {
        <img src="../_static/icons/sidebar-triangle.png"/>
       </label>
       <a class="reference internal" href="../_tags/visualization-nD.html">
-       visualization-nD (18)
+       visualization-nD (21)
       </a>
       <ul>
        <li class="toctree-l4">
@@ -1084,6 +1089,16 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
+        <a class="reference internal" href="image_custom_kernel.html">
+         Custom image interpolation kernels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="surface_texture_and_colors.html">
+         Surface with texture and vertex_colors
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="add-points-3d.html">
          Add points 3D
         </a>
@@ -1091,6 +1106,11 @@ function checkPageExistsAndRedirect(event) {
        <li class="toctree-l4">
         <a class="reference internal" href="nD_labels.html">
          nD labels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="surface_multi_texture.html">
+         Surface with multiple textures
         </a>
        </li>
        <li class="toctree-l4">
@@ -1162,17 +1182,7 @@ to download the full example code</p>
 <span id="sphx-glr-gallery-viewer-fps-label-py"></span><h1>Viewer FPS label<a class="headerlink" href="#viewer-fps-label" title="Permalink to this headline">¶</a></h1>
 <p>Display a 3D volume and the fps label.</p>
 <p class="tags"><span>Tags: </span><a class="reference external" href="../_tags/experimental.html">experimental</a></p>
-<img src="../_images/sphx_glr_viewer_fps_label_001.png" srcset="../_images/sphx_glr_viewer_fps_label_001.png" alt="viewer fps label" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/docs/docs/docs/examples/viewer_fps_label.py:22: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
-v0.5.0. It is considered an &quot;implementation detail&quot; of the napari
-application, not part of the napari viewer model. If your use case
-requires access to qt_viewer, please open an issue to discuss.
-  viewer.window.qt_viewer.canvas.measure_fps(callback=update_fps)
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<img src="../_images/sphx_glr_viewer_fps_label_001.png" srcset="../_images/sphx_glr_viewer_fps_label_001.png" alt="viewer fps label" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">napari</span>
 
@@ -1185,7 +1195,9 @@ requires access to qt_viewer, please open an issue to discuss.
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
 <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.random.html#numpy.random.random" title="numpy.random.random" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">text_overlay</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
-<a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">measure_fps</span></a><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">update_fps</span><span class="p">)</span>
+<span class="c1"># note: this is using a private attribute, so it might break</span>
+<span class="c1"># without warningin future versions!</span>
+<a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_scene_canvas</span><span class="o">.</span><span class="n">measure_fps</span></a><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">update_fps</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>

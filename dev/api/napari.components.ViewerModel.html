@@ -127,7 +127,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.components.ViewerModel and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.components.ViewerModel and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -154,7 +154,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "api/napari.components.ViewerModel.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -710,23 +710,23 @@ ndisplay is 2 or 3.</p></li>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.ViewerModel.window">
-<span class="sig-name descname"><span class="pre">window</span></span><a class="headerlink" href="#napari.components.ViewerModel.window" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parent window.</p>
+<dt class="sig sig-object py" id="napari.components.ViewerModel.camera">
+<span class="sig-name descname"><span class="pre">camera</span></span><a class="headerlink" href="#napari.components.ViewerModel.camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>The camera object modeling the position and view.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="napari.qt.Window.html#napari.qt.Window" title="napari.qt.Window">Window</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="napari.components.Camera.html#napari.components.Camera" title="napari.components.camera.Camera">napari.components.camera.Camera</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="napari.components.ViewerModel.layers">
-<span class="sig-name descname"><span class="pre">layers</span></span><a class="headerlink" href="#napari.components.ViewerModel.layers" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of contained layers.</p>
+<dt class="sig sig-object py" id="napari.components.ViewerModel.cursor">
+<span class="sig-name descname"><span class="pre">cursor</span></span><a class="headerlink" href="#napari.components.ViewerModel.cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The cursor object containing the position and properties of the cursor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList">LayerList</a></p>
+<dd class="field-odd"><p>napari.components.cursor.Cursor</p>
 </dd>
 </dl>
 </dd></dl>
@@ -737,7 +737,140 @@ ndisplay is 2 or 3.</p></li>
 <dd><p>Contains axes, indices, dimensions and sliders.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Dimensions</p>
+<dd class="field-odd"><p>napari.components.dims.Dimensions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><a class="headerlink" href="#napari.components.ViewerModel.grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gridcanvas allowing for the current implementation of a gridview of the canvas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>napari.components.grid.Gridcanvas</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.help">
+<span class="sig-name descname"><span class="pre">help</span></span><a class="headerlink" href="#napari.components.ViewerModel.help" title="Permalink to this definition">¶</a></dt>
+<dd><p>A help message of the viewer model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.layers">
+<span class="sig-name descname"><span class="pre">layers</span></span><a class="headerlink" href="#napari.components.ViewerModel.layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of contained layers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="napari.components.LayerList.html#napari.components.LayerList" title="napari.components.layerlist.LayerList">napari.components.layerlist.LayerList</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.mouse_over_canvas">
+<span class="sig-name descname"><span class="pre">mouse_over_canvas</span></span><a class="headerlink" href="#napari.components.ViewerModel.mouse_over_canvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicating whether the mouse cursor is on the viewer canvas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.theme">
+<span class="sig-name descname"><span class="pre">theme</span></span><a class="headerlink" href="#napari.components.ViewerModel.theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the Napari theme of the viewer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#napari.components.ViewerModel.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>The title of the viewer model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.tooltip">
+<span class="sig-name descname"><span class="pre">tooltip</span></span><a class="headerlink" href="#napari.components.ViewerModel.tooltip" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tooltip showing extra information on the cursor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>napari.components.tooltip.Tooltip</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel.window">
+<span class="sig-name descname"><span class="pre">window</span></span><a class="headerlink" href="#napari.components.ViewerModel.window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parent window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="napari.window.Window.html#napari.window.Window" title="napari._qt.qt_main_window.Window">napari._qt.qt_main_window.Window</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel._canvas_size">
+<span class="sig-name descname"><span class="pre">_canvas_size</span></span><a class="headerlink" href="#napari.components.ViewerModel._canvas_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The canvas size following the Numpy convention of height x width</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Tuple[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel._ctx">
+<span class="sig-name descname"><span class="pre">_ctx</span></span><a class="headerlink" href="#napari.components.ViewerModel._ctx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Viewer object context mapping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Mapping</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel._layer_slicer">
+<span class="sig-name descname"><span class="pre">_layer_slicer</span></span><a class="headerlink" href="#napari.components.ViewerModel._layer_slicer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A layer slicer object controlling the creation of a slice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>napari.components._layer_slicer._Layer_Slicer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="napari.components.ViewerModel._overlays">
+<span class="sig-name descname"><span class="pre">_overlays</span></span><a class="headerlink" href="#napari.components.ViewerModel._overlays" title="Permalink to this definition">¶</a></dt>
+<dd><p>An EventedDict with as keys the string names of different napari overlays and as values the napari.Overlay
+objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="napari.utils.events.EventedDict.html#napari.utils.events.EventedDict" title="napari.utils.events.containers._evented_dict.EventedDict">napari.utils.events.containers._evented_dict.EventedDict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Overlay]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2156,23 +2289,36 @@ won’t update during interactive events</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.ViewerModel.add_surface">
-<span class="sig-name descname"><span class="pre">add_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gray'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'flat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wireframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="napari.layers.Surface.html#napari.layers.Surface" title="napari.layers.surface.surface.Surface"><span class="pre">napari.layers.surface.surface.Surface</span></a></span></span><a class="headerlink" href="#napari.components.ViewerModel.add_surface" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gray'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'translucent'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'flat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_clipping_planes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wireframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">texture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">texcoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertex_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="napari.layers.Surface.html#napari.layers.Surface" title="napari.layers.surface.surface.Surface"><span class="pre">napari.layers.surface.surface.Surface</span></a></span></span><a class="headerlink" href="#napari.components.ViewerModel.add_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a Surface layer to the layer list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>2-tuple</em><em> or </em><em>3-tuple of array</em>) – The first element of the tuple is an (N, D) array of vertices of
-mesh triangles. The second is an (M, 3) array of int of indices
-of the mesh triangles. The optional third element is the
-(K0, …, KL, N) array of values used to color vertices where the
-additional L dimensions are used to color the same mesh with
-different values. If not provided, it defaults to ones.</p></li>
+<li><p><strong>data</strong> (<em>2-tuple</em><em> or </em><em>3-tuple of array</em>) – <p>The first element of the tuple is an (N, D) array of vertices of
+mesh triangles.</p>
+<p>The second is an (M, 3) array of int of indices of the mesh triangles.</p>
+<p>The optional third element is the (K0, …, KL, N) array of values
+(vertex_values) used to color vertices where the additional L
+dimensions are used to color the same mesh with different values. If
+not provided, it defaults to ones.</p>
+</p></li>
 <li><p><strong>colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Colormap to use for luminance images. If a string must be the name
 of a supported colormap from vispy or matplotlib. If a tuple the
 first value must be a string to assign as a name to a colormap and
 the second item must be a Colormap. If a dict the key must be a
 string to assign as a name to a colormap and the value must be a
 Colormap.</p></li>
+<li><p><strong>texture</strong> (<em>(</em><em>I</em><em>, </em><em>J</em><em>) or </em><em>(</em><em>I</em><em>, </em><em>J</em><em>, </em><em>C</em><em>) </em><em>array</em>) – A 2D texture to be mapped onto the mesh using <cite>texcoords</cite>.
+C may be 3 (RGB) or 4 (RGBA) channels for a color texture.</p></li>
+<li><p><strong>texcoords</strong> (<em>(</em><em>N</em><em>, </em><em>2</em><em>) </em><em>array</em>) – 2D coordinates for each vertex, mapping into the texture.
+The number of texture coords must match the number of vertices (N).
+Coordinates should be in [0.0, 1.0] and are scaled to sample the 2D
+texture. Coordinates outside this range will wrap, but this behavior
+should be considered an implementation detail: there are no plans to
+change it, but it’s a feature of the underlying vispy visual.</p></li>
+<li><p><strong>vertex_colors</strong> (<em>(</em><em>N</em><em>, </em><em>C</em><em>) or </em><em>(</em><em>K0</em><em>, </em><em>...</em><em>, </em><em>KL</em><em>, </em><em>N</em><em>, </em><em>C</em><em>) </em><em>array of color values</em>) – Take care that the (optional) L additional dimensions match those of
+vertex_values for proper slicing.
+C may be 3 (RGB) or 4 (RGBA) channels.</p></li>
 <li><p><strong>contrast_limits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> (</em><em>2</em><em>,</em><em>)</em>) – Color limits to be used for determining the colormap bounds for
 luminance images. If not passed is calculated as the min and max of
 the image.</p></li>

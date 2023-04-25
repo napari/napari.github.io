@@ -18,8 +18,11 @@ caption: With this tag
 ../gallery/nD_points_with_features.rst
 ../gallery/nD_image.rst
 ../gallery/add_points_on_nD_shapes.rst
+../gallery/image_custom_kernel.rst
+../gallery/surface_texture_and_colors.rst
 ../gallery/add-points-3d.rst
 ../gallery/nD_labels.rst
+../gallery/surface_multi_texture.rst
 ../gallery/add_3D_image.rst
 ../gallery/nD_surface.rst
 ../gallery/nD_shapes_with_text.rst

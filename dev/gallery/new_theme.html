@@ -127,7 +127,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables gallery/new_theme and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables gallery/new_theme and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -154,7 +154,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "gallery/new_theme.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -639,7 +639,7 @@ function checkPageExistsAndRedirect(event) {
        <img src="../_static/icons/sidebar-triangle.png"/>
       </label>
       <a class="reference internal" href="../_tags/gui.html">
-       gui (14)
+       gui (15)
       </a>
       <ul>
        <li class="toctree-l4">
@@ -680,6 +680,11 @@ function checkPageExistsAndRedirect(event) {
        <li class="toctree-l4">
         <a class="reference internal" href="custom_key_bindings.html">
          Custom key bindings
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="image_custom_kernel.html">
+         Custom image interpolation kernels
         </a>
        </li>
        <li class="toctree-l4">
@@ -1015,7 +1020,7 @@ function checkPageExistsAndRedirect(event) {
        <img src="../_static/icons/sidebar-triangle.png"/>
       </label>
       <a class="reference internal" href="../_tags/visualization-nD.html">
-       visualization-nD (18)
+       visualization-nD (21)
       </a>
       <ul>
        <li class="toctree-l4">
@@ -1084,6 +1089,16 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
+        <a class="reference internal" href="image_custom_kernel.html">
+         Custom image interpolation kernels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="surface_texture_and_colors.html">
+         Surface with texture and vertex_colors
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="add-points-3d.html">
          Add points 3D
         </a>
@@ -1091,6 +1106,11 @@ function checkPageExistsAndRedirect(event) {
        <li class="toctree-l4">
         <a class="reference internal" href="nD_labels.html">
          nD labels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="surface_multi_texture.html">
+         Surface with multiple textures
         </a>
        </li>
        <li class="toctree-l4">
@@ -1202,7 +1222,7 @@ New themes [&#39;dark&#39;, &#39;light&#39;, &#39;blue&#39;, &#39;system&#39;]
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  24.262 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  30.841 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-new-theme-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/5ab43bb7a007411954202a2bf2684acb/new_theme.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">new_theme.py</span></code></a></p>

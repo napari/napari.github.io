@@ -25,7 +25,7 @@ Display a 3D volume and the fps label.
 
 .. tags:: experimental
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-26
+.. GENERATED FROM PYTHON SOURCE LINES 9-28
 
 
 
@@ -35,22 +35,8 @@ Display a 3D volume and the fps label.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/runner/work/docs/docs/docs/examples/viewer_fps_label.py:22: FutureWarning: Public access to Window.qt_viewer is deprecated and will be removed in
-    v0.5.0. It is considered an "implementation detail" of the napari
-    application, not part of the napari viewer model. If your use case
-    requires access to qt_viewer, please open an issue to discuss.
-      viewer.window.qt_viewer.canvas.measure_fps(callback=update_fps)
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -67,7 +53,9 @@ Display a 3D volume and the fps label.
     viewer = napari.Viewer()
     viewer.add_image(np.random.random((5, 5, 5)), colormap='red', opacity=0.8)
     viewer.text_overlay.visible = True
-    viewer.window.qt_viewer.canvas.measure_fps(callback=update_fps)
+    # note: this is using a private attribute, so it might break
+    # without warningin future versions!
+    viewer.window._qt_viewer.canvas._scene_canvas.measure_fps(callback=update_fps)
 
     if __name__ == '__main__':
         napari.run()

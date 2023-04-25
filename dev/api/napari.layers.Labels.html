@@ -127,7 +127,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables api/napari.layers.Labels and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables api/napari.layers.Labels and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -154,7 +154,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "api/napari.layers.Labels.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -1059,10 +1059,13 @@ background label <cite>0</cite> is selected.</p>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_view_slice</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">undo</span></code>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.swap_selected_and_background_labels" title="napari.layers.Labels.swap_selected_and_background_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap_selected_and_background_labels</span></code></a>()</p></td>
+<td><p>Swap between the selected label and the background label.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">undo</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Labels.world_to_data" title="napari.layers.Labels.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Labels.world_to_data" title="napari.layers.Labels.world_to_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">world_to_data</span></code></a>(position)</p></td>
 <td><p>Convert from world coordinates to data coordinates.</p></td>
 </tr>
 </tbody>
@@ -2150,6 +2153,12 @@ through to find the first one that can save the data.</p></li>
 <dt class="sig sig-object py" id="napari.layers.Labels.show_selected_label">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">show_selected_label</span></span><a class="headerlink" href="#napari.layers.Labels.show_selected_label" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether to filter displayed labels to only the selected label or not</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napari.layers.Labels.swap_selected_and_background_labels">
+<span class="sig-name descname"><span class="pre">swap_selected_and_background_labels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/napari/layers/labels/labels.html#Labels.swap_selected_and_background_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.layers.Labels.swap_selected_and_background_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Swap between the selected label and the background label.</p>
 </dd></dl>
 
 <dl class="py property">

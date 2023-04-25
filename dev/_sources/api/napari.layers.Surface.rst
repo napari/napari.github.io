@@ -109,9 +109,12 @@ napari.layers.Surface
       ~Surface.shading
       ~Surface.shear
       ~Surface.source
+      ~Surface.texcoords
+      ~Surface.texture
       ~Surface.thumbnail
       ~Surface.translate
       ~Surface.translate_grid
+      ~Surface.vertex_colors
       ~Surface.vertex_values
       ~Surface.vertices
       ~Surface.visible

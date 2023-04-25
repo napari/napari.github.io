@@ -125,7 +125,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables guides/_layer_events and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables guides/_layer_events and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -152,7 +152,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "guides/_layer_events.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -765,6 +765,16 @@ function checkPageExistsAndRedirect(event) {
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">layer.events.normals</span></code></p></td>
 <td><p>Whether and how to display the face and vertex normals of the surface mesh.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.texture</span></code></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Surface</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">layer.events.texcoords</span></code></p></td>
+<td><p></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tracks</span></code></p></td>

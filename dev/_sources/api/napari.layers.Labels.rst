@@ -86,6 +86,9 @@ napari.layers.Labels
       ~Labels.set_view_slice
    
    
+      ~Labels.swap_selected_and_background_labels
+   
+   
       ~Labels.undo
    
    

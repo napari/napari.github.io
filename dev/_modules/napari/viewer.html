@@ -122,7 +122,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/viewer and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables _modules/napari/viewer and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -149,7 +149,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "_modules/napari/viewer.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -369,7 +369,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        path : str</span>
 <span class="sd">            Filename for saving screenshot image.</span>
 <span class="sd">        size : tuple (int, int)</span>
-<span class="sd">            Size (resolution) of the screenshot. By default, the currently displayed size.</span>
+<span class="sd">            Size (resolution height x width) of the screenshot. By default, the currently displayed size.</span>
 <span class="sd">            Only used if `canvas_only` is True.</span>
 <span class="sd">        scale : float</span>
 <span class="sd">            Scale factor used to increase resolution of canvas for the screenshot. By default, the currently displayed resolution.</span>

@@ -13,6 +13,7 @@ caption: With this tag
 ../gallery/action_manager.rst
 ../gallery/magic_image_arithmetic.rst
 ../gallery/custom_key_bindings.rst
+../gallery/image_custom_kernel.rst
 ../gallery/magic_viewer.rst
 ../gallery/multiple_viewer_widget.rst
 ../gallery/magic_parameter_sweep.rst

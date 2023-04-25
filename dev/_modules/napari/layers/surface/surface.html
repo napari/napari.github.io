@@ -122,7 +122,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables _modules/napari/layers/surface/surface and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
+     variables _modules/napari/layers/surface/surface and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -149,7 +149,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "_modules/napari/layers/surface/surface.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -263,7 +263,7 @@ function checkPageExistsAndRedirect(event) {
               
   <h1>Source code for napari.layers.surface.surface</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -291,15 +291,29 @@ function checkPageExistsAndRedirect(event) {
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Surface layer renders meshes onto the canvas.</span>
 
+<span class="sd">    Surfaces may be colored by:</span>
+<span class="sd">        * setting `vertex_values`, which colors the surface with the selected</span>
+<span class="sd">          `colormap` (default is uniform ones)</span>
+<span class="sd">        * setting `vertex_colors`, which replaces/overrides any color from</span>
+<span class="sd">          `vertex_values`</span>
+<span class="sd">        * setting both `texture` and `texcoords`, which blends a the value from</span>
+<span class="sd">          a texture (image) with the underlying color from `vertex_values` or</span>
+<span class="sd">          `vertex_colors`. Blending is achieved by multiplying the texture</span>
+<span class="sd">          color by the underlying color - an underlying value of &quot;white&quot; will</span>
+<span class="sd">          result in the unaltered texture color.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : 2-tuple or 3-tuple of array</span>
 <span class="sd">        The first element of the tuple is an (N, D) array of vertices of</span>
-<span class="sd">        mesh triangles. The second is an (M, 3) array of int of indices</span>
-<span class="sd">        of the mesh triangles. The optional third element is the</span>
-<span class="sd">        (K0, ..., KL, N) array of values used to color vertices where the</span>
-<span class="sd">        additional L dimensions are used to color the same mesh with</span>
-<span class="sd">        different values. If not provided, it defaults to ones.</span>
+<span class="sd">        mesh triangles.</span>
+
+<span class="sd">        The second is an (M, 3) array of int of indices of the mesh triangles.</span>
+
+<span class="sd">        The optional third element is the (K0, ..., KL, N) array of values</span>
+<span class="sd">        (vertex_values) used to color vertices where the additional L</span>
+<span class="sd">        dimensions are used to color the same mesh with different values. If</span>
+<span class="sd">        not provided, it defaults to ones.</span>
 <span class="sd">    colormap : str, napari.utils.Colormap, tuple, dict</span>
 <span class="sd">        Colormap to use for luminance images. If a string must be the name</span>
 <span class="sd">        of a supported colormap from vispy or matplotlib. If a tuple the</span>
@@ -307,6 +321,20 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        the second item must be a Colormap. If a dict the key must be a</span>
 <span class="sd">        string to assign as a name to a colormap and the value must be a</span>
 <span class="sd">        Colormap.</span>
+<span class="sd">    texture: (I, J) or (I, J, C) array</span>
+<span class="sd">        A 2D texture to be mapped onto the mesh using `texcoords`.</span>
+<span class="sd">        C may be 3 (RGB) or 4 (RGBA) channels for a color texture.</span>
+<span class="sd">    texcoords: (N, 2) array</span>
+<span class="sd">        2D coordinates for each vertex, mapping into the texture.</span>
+<span class="sd">        The number of texture coords must match the number of vertices (N).</span>
+<span class="sd">        Coordinates should be in [0.0, 1.0] and are scaled to sample the 2D</span>
+<span class="sd">        texture. Coordinates outside this range will wrap, but this behavior</span>
+<span class="sd">        should be considered an implementation detail: there are no plans to</span>
+<span class="sd">        change it, but it&#39;s a feature of the underlying vispy visual.</span>
+<span class="sd">    vertex_colors: (N, C) or (K0, ..., KL, N, C) array of color values</span>
+<span class="sd">        Take care that the (optional) L additional dimensions match those of</span>
+<span class="sd">        vertex_values for proper slicing.</span>
+<span class="sd">        C may be 3 (RGB) or 4 (RGBA) channels.</span>
 <span class="sd">    contrast_limits : list (2,)</span>
 <span class="sd">        Color limits to be used for determining the colormap bounds for</span>
 <span class="sd">        luminance images. If not passed is calculated as the min and max of</span>
@@ -437,6 +465,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">wireframe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">normals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">texture</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">texcoords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">vertex_colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ndim</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
@@ -463,6 +494,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">shading</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">wireframe</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">normals</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">texture</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">texcoords</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># assign mesh data and establish default behavior</span>
@@ -481,6 +514,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span><span class="p">))</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_texture</span> <span class="o">=</span> <span class="n">texture</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_texcoords</span> <span class="o">=</span> <span class="n">texcoords</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_colors</span> <span class="o">=</span> <span class="n">vertex_colors</span>
+
         <span class="c1"># Set contrast_limits and colormaps</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gamma</span> <span class="o">=</span> <span class="n">gamma</span>
         <span class="k">if</span> <span class="n">contrast_limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -495,6 +532,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_colors</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># Trigger generation of view slice and thumbnail.</span>
         <span class="c1"># Use _update_dims instead of refresh here because _get_ndim is</span>
@@ -567,10 +605,38 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@vertex_values</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">vertex_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Array of values used to color vertices..&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Array of values (n, 1) used to color vertices with a colormap.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">vertex_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">vertex_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_values</span> <span class="o">=</span> <span class="n">vertex_values</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">vertex_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_colors</span>
+
+    <span class="nd">@vertex_colors</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">vertex_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex_colors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Values used to directly color vertices.</span>
+
+<span class="sd">        Note that dims sliders for this layer are based on vertex_values, so</span>
+<span class="sd">        make sure the shape of vertex_colors matches the shape of vertex_values</span>
+<span class="sd">        for proper slicing. That is: vertex_colors should be None, one set</span>
+<span class="sd">        (N, C), or completely match the dimensions of vertex_values</span>
+<span class="sd">        (K0, ..., KL, N, C).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">vertex_colors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">vertex_colors</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+        <span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;texture should be None or ndarray; got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">vertex_colors</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_colors</span> <span class="o">=</span> <span class="n">vertex_colors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
@@ -581,7 +647,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@faces</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">faces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">faces</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Array of indices of mesh triangles..&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Array of indices of mesh triangles.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">faces</span>
 
@@ -667,6 +733,39 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_normals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">normals</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_normals</span><span class="p">)</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">texture</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_texture</span>
+
+    <span class="nd">@texture</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">texture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texture</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">texture</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">texture</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;texture should be None or ndarray; got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">texture</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_texture</span> <span class="o">=</span> <span class="n">texture</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">texture</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_texture</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">texcoords</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_texcoords</span>
+
+    <span class="nd">@texcoords</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">texcoords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texcoords</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">texcoords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">texcoords</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;texcoords should be None or ndarray; got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">texcoords</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_texcoords</span> <span class="o">=</span> <span class="n">texcoords</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">texcoords</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_texcoords</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_has_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the layer has sufficient data for texturing&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">texcoords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">texcoords</span><span class="p">)</span>
+        <span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get dictionary of layer state.</span>
 
@@ -685,37 +784,67 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                 <span class="s1">&#39;wireframe&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">wireframe</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
                 <span class="s1">&#39;normals&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">normals</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span>
+                <span class="s1">&#39;texture&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">texture</span><span class="p">,</span>
+                <span class="s1">&#39;texcoords&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">texcoords</span><span class="p">,</span>
+                <span class="s1">&#39;vertex_colors&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_colors</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
+
+    <span class="k">def</span> <span class="nf">_slice_associated_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">vertex_ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">dims</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return associated layer data (e.g. vertex values, colors) within</span>
+<span class="sd">        the current slice.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">data_ndim</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">data_ndim</span> <span class="o">&gt;=</span> <span class="n">dims</span><span class="p">:</span>
+            <span class="c1"># Get indices for axes corresponding to data dimensions</span>
+            <span class="n">data_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[:</span><span class="o">-</span><span class="n">vertex_ndim</span><span class="p">]</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data_indices</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="n">dims</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s2">&quot;Assigning multiple data per vertex after slicing &quot;</span>
+                        <span class="s2">&quot;is not allowed. All dimensions corresponding to &quot;</span>
+                        <span class="s2">&quot;vertex data must be non-displayed dimensions. Data &quot;</span>
+                        <span class="s2">&quot;may not be visible.&quot;</span><span class="p">,</span>
+                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">data</span>
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the view given the indices to slice with.&quot;&quot;&quot;</span>
         <span class="n">N</span><span class="p">,</span> <span class="n">vertex_ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">values_ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span>
 
-        <span class="c1"># Take vertex_values dimensionality into account if more than one value</span>
-        <span class="c1"># is provided per vertex.</span>
-        <span class="k">if</span> <span class="n">values_ndim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># Get indices for axes corresponding to values dimensions</span>
-            <span class="n">values_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[:</span><span class="o">-</span><span class="n">vertex_ndim</span><span class="p">]</span>
-            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="p">[</span><span class="n">values_indices</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                        <span class="s2">&quot;Assigning multiple values per vertex after slicing is not allowed. All dimensions corresponding to vertex_values must be non-displayed dimensions. Data will not be visible.&quot;</span><span class="p">,</span>
-                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_associated_data</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span><span class="p">,</span>
+            <span class="n">vertex_ndim</span><span class="p">,</span>
+        <span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span> <span class="o">=</span> <span class="n">values</span>
-            <span class="c1"># Determine which axes of the vertices data are being displayed</span>
-            <span class="c1"># and not displayed, ignoring the additional dimensions</span>
-            <span class="c1"># corresponding to the vertex_values.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_associated_data</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vertex_colors</span><span class="p">,</span>
+            <span class="n">vertex_ndim</span><span class="p">,</span>
+            <span class="n">dims</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">values_ndim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[</span><span class="o">-</span><span class="n">vertex_ndim</span><span class="p">:])</span>
             <span class="n">disp</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">d</span>
@@ -730,7 +859,6 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">0</span>
             <span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_view_vertex_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_values</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
             <span class="n">not_disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">)</span>
             <span class="n">disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>

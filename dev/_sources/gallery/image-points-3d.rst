@@ -58,6 +58,11 @@ Display points overlaid on a 3D image
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  20.979 seconds)
+
+
 .. _sphx_glr_download_gallery_image-points-3d.py:
 
 .. only:: html

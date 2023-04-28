@@ -296,6 +296,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.components.layerlist</span> <span class="kn">import</span> <span class="n">LayerList</span>
 <span class="kn">from</span> <span class="nn">napari.components.overlays</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">AxesOverlay</span><span class="p">,</span>
+    <span class="n">BrushCircleOverlay</span><span class="p">,</span>
     <span class="n">Overlay</span><span class="p">,</span>
     <span class="n">ScaleBarOverlay</span><span class="p">,</span>
     <span class="n">TextOverlay</span><span class="p">,</span>
@@ -375,6 +376,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="s1">&#39;scale_bar&#39;</span><span class="p">:</span> <span class="n">ScaleBarOverlay</span><span class="p">,</span>
     <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">TextOverlay</span><span class="p">,</span>
     <span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="n">AxesOverlay</span><span class="p">,</span>
+    <span class="s1">&#39;brush_circle&#39;</span><span class="p">:</span> <span class="n">BrushCircleOverlay</span><span class="p">,</span>
 <span class="p">}</span>
 
 
@@ -544,6 +546,10 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">text_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_brush_circle_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s1">&#39;brush_circle&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_tooltip_visible_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>

@@ -262,7 +262,8 @@ function checkPageExistsAndRedirect(event) {
             <div>
               
   <h1>Source code for napari.utils.progress</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
+<span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">takewhile</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
@@ -414,6 +415,71 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">progress</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cancelable_progress"><a class="viewcode-back" href="../../../api/napari.utils.cancelable_progress.html#napari.utils.cancelable_progress">[docs]</a><span class="k">class</span> <span class="nc">cancelable_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class inherits from progress, providing the additional</span>
+<span class="sd">    ability to cancel expensive executions. When progress is</span>
+<span class="sd">    canceled by the user in the napari UI, two things will happen:</span>
+
+<span class="sd">    Firstly, the is_canceled attribute will become True, and the</span>
+<span class="sd">    for loop will terminate after the current iteration, regardless</span>
+<span class="sd">    of whether or not the iterator had more items.</span>
+
+<span class="sd">    Secondly, cancel_callback will be called, allowing the computation</span>
+<span class="sd">    to close resources, repair state, etc.</span>
+
+<span class="sd">    See napari.utils.progress and tqdm.tqdm API for valid args and kwargs:</span>
+<span class="sd">    https://tqdm.github.io/docs/tqdm/</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; def long_running(steps=10, delay=0.1):</span>
+<span class="sd">    ...     def on_cancel():</span>
+<span class="sd">    ...         print(&quot;Canceled operation&quot;)</span>
+<span class="sd">    ...     for i in cancelable_progress(range(steps), cancel_callback=on_cancel):</span>
+<span class="sd">    ...         sleep(delay)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">iterable</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">desc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">total</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">nest_under</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;progress&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cancel_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_callback</span> <span class="o">=</span> <span class="n">cancel_callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_canceled</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">nest_under</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">:</span>
+        <span class="n">itr</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">is_canceled</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_canceled</span><span class="p">:</span>
+                <span class="c1"># If we&#39;ve canceled, run the callback and then notify takewhile</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cancel_callback</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cancel_callback</span><span class="p">()</span>
+                <span class="c1"># Perform additional cleanup for generators</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iterable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">iterable</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">False</span>
+                <span class="c1"># Otherwise, continue</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">takewhile</span><span class="p">(</span><span class="n">is_canceled</span><span class="p">,</span> <span class="n">itr</span><span class="p">)</span>
+
+<div class="viewcode-block" id="cancelable_progress.cancel"><a class="viewcode-back" href="../../../api/napari.utils.cancelable_progress.html#napari.utils.cancelable_progress.cancel">[docs]</a>    <span class="k">def</span> <span class="nf">cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cancels the execution of the underlying computation.</span>
+<span class="sd">        Note that the current iteration will be allowed to complete, however</span>
+<span class="sd">        future iterations will not be run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_canceled</span> <span class="o">=</span> <span class="kc">True</span></div></div>
 </pre></div>
 
             </div>

@@ -17,6 +17,7 @@
    
       Colormap
       nbscreenshot
+      cancelable_progress
       progress
    
    

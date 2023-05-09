@@ -127,7 +127,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables gallery/action_manager and {'json_url': 'https://napari.org/version_switcher.json', 'version_match': 'latest'}.
+     variables gallery/action_manager and {'json_url': 'https://napari.org/dev/_static/version_switcher.json', 'version_match': 'latest'}.
 -->
 
 <script type="text/javascript">
@@ -154,7 +154,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("https://napari.org/version_switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("https://napari.org/dev/_static/version_switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "gallery/action_manager.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -1186,9 +1186,9 @@ v0.5.0. It is considered an &quot;implementation detail&quot; of the napari
 application, not part of the napari viewer model. If your use case
 requires access to qt_viewer, please open an issue to discuss.
   layer_buttons = viewer.window.qt_viewer.layerButtons
-calling &lt;function bind_button at 0x7f37705e55e0&gt;
-calling &lt;function bind_shortcut at 0x7f37705e5d30&gt;
-calling &lt;function register_action at 0x7f37705e5ca0&gt;
+calling &lt;function register_action at 0x7f1ebeb30ca0&gt;
+calling &lt;function bind_shortcut at 0x7f1ebeb30d30&gt;
+calling &lt;function bind_button at 0x7f1ebeb305e0&gt;
 </pre></div>
 </div>
 <div class="line-block">

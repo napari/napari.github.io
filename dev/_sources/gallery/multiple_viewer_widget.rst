@@ -30,7 +30,7 @@ current dims point (`viewer.dims.point`).
 
 .. tags:: gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-461
+.. GENERATED FROM PYTHON SOURCE LINES 14-465
 
 
 
@@ -360,6 +360,8 @@ current dims point (`viewer.dims.point`).
             for model in [self.viewer, self.viewer_model1, self.viewer_model2]:
                 if model.dims is event.source:
                     continue
+                if len(self.viewer.layers) != len(model.layers):
+                    continue
                 model.dims.current_step = event.value
 
         def _order_update(self):
@@ -490,6 +492,8 @@ current dims point (`viewer.dims.point`).
 
         view.window.add_dock_widget(dock_widget, name="Sample")
         view.window.add_dock_widget(cross, name="Cross", area="left")
+
+        view.open_sample('napari', 'cells3d')
 
         napari.run()
 

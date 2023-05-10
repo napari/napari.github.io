@@ -446,8 +446,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># order and label default computation is too different to include in ensure_len()</span>
         <span class="c1"># Check the order tuple has same number of elements as ndim</span>
         <span class="n">order</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span>
-        <span class="n">order_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ndim</span><span class="p">:</span>
+            <span class="n">order_ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
             <span class="c1"># new dims are always prepended</span>
             <span class="n">prepended_dims</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="n">order_ndim</span><span class="p">))</span>
             <span class="c1"># maintain existing order, but shift accordingly</span>
@@ -458,7 +458,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">order</span>
 
         <span class="c1"># Check the order is a permutation of 0, ..., ndim - 1</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">updated</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;Invalid ordering </span><span class="si">{order}</span><span class="s2"> for </span><span class="si">{ndim}</span><span class="s2"> dimensions&quot;</span><span class="p">,</span>
@@ -494,10 +494,10 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@nsteps</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">nsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">nsteps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">RangeTuple</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">nsteps</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">rng</span><span class="p">,</span> <span class="n">nsteps</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="p">]</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -508,10 +508,10 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@current_step</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">current_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
             <span class="n">rng</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="n">point</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">step</span>
             <span class="k">for</span> <span class="n">point</span><span class="p">,</span> <span class="n">rng</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
-        <span class="p">]</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">thickness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
@@ -561,7 +561,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">full_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="n">full_range</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">full_range</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">full_range</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Dims.set_point"><a class="viewcode-back" href="../../../api/napari.components.Dims.html#napari.components.Dims.set_point">[docs]</a>    <span class="k">def</span> <span class="nf">set_point</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -583,7 +583,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">full_point</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="n">full_point</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="n">full_point</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">full_point</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">set_current_step</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

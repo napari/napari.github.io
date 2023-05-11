@@ -289,6 +289,8 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">pick</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.labels._labels_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">expand_slice</span><span class="p">,</span>
+    <span class="n">get_contours</span><span class="p">,</span>
     <span class="n">indices_in_shape</span><span class="p">,</span>
     <span class="n">interpolate_coordinates</span><span class="p">,</span>
     <span class="n">sphere_indices</span><span class="p">,</span>
@@ -541,10 +543,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_colors</span> <span class="o">=</span> <span class="n">num_colors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span> <span class="o">=</span> <span class="n">label_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_colors</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_contour</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_int_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="kc">None</span>
@@ -587,6 +591,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">contour</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">features</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">paint</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">labels_update</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span> <span class="o">=</span> <span class="n">_FeatureTable</span><span class="o">.</span><span class="n">from_layer</span><span class="p">(</span>
@@ -601,6 +606,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_prev_selected_label</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
@@ -698,7 +704,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span> <span class="o">=</span> <span class="n">seed</span>
         <span class="c1"># invalidate _all_vals to trigger re-generation</span>
         <span class="c1"># in _raw_to_displayed</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># invalidate the cached color mapping</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
@@ -941,6 +948,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@color_mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">color_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LabelColorMode</span><span class="p">]):</span>
         <span class="n">color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="p">(</span><span class="n">color_mode</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">DIRECT</span><span class="p">:</span>
             <span class="n">custom_colormap</span><span class="p">,</span> <span class="n">label_color_index</span> <span class="o">=</span> <span class="n">color_dict_to_colormap</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
@@ -954,6 +962,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Unsupported Color Mode&quot;</span><span class="p">))</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># invalidates labels cache</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">color_mode</span><span class="p">()</span>
@@ -1152,13 +1161,37 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">data_range</span><span class="p">:</span>
             <span class="n">new_all_vals</span> <span class="o">=</span> <span class="n">low_discrepancy_image</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">min_label_val0</span><span class="p">,</span> <span class="n">max_label_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">min_label_val0</span><span class="p">,</span> <span class="n">max_label_val</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">new_all_vals</span><span class="p">,</span> <span class="n">min_label_val0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_index</span>
 
-    <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_partial_labels_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares and displays only an updated part of the labels.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">loaded</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">dims_displayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
+        <span class="n">raw_displayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>
+
+        <span class="c1"># Keep only the dimensions that correspond to the current view</span>
+        <span class="n">updated_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">dims_displayed</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">offset</span> <span class="o">=</span> <span class="p">[</span><span class="n">axis_slice</span><span class="o">.</span><span class="n">start</span> <span class="k">for</span> <span class="n">axis_slice</span> <span class="ow">in</span> <span class="n">updated_slice</span><span class="p">]</span>
+
+        <span class="n">colors_sliced</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_to_displayed</span><span class="p">(</span>
+            <span class="n">raw_displayed</span><span class="p">,</span> <span class="n">data_slice</span><span class="o">=</span><span class="n">updated_slice</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">labels_update</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">colors_sliced</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine displayed image from a saved raw image and a saved seed.</span>
 
 <span class="sd">        This function ensures that the 0 label gets mapped to the 0 displayed</span>
@@ -1169,42 +1202,103 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        raw : array or int</span>
 <span class="sd">            Raw integer input image.</span>
 
+<span class="sd">        data_slice : numpy array slice</span>
+<span class="sd">            Slice that specifies the portion of the input image that</span>
+<span class="sd">            should be computed and displayed.</span>
+<span class="sd">            If None, the whole input image will be processed.</span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        image : array</span>
-<span class="sd">            Image mapped between 0 and 1 to be displayed.</span>
+<span class="sd">        mapped_labels : array</span>
+<span class="sd">            Encoded colors mapped between 0 and 1 to be displayed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">data_slice</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-        <span class="n">raw_modified</span> <span class="o">=</span> <span class="n">raw</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">raw</span>  <span class="c1"># for readability</span>
+        <span class="n">sliced_labels</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">raw_modified</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-                <span class="n">struct_elem</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">generate_binary_structure</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                <span class="n">thickness</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span>
-                <span class="n">thick_struct_elem</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">iterate_structure</span><span class="p">(</span>
-                    <span class="n">struct_elem</span><span class="p">,</span> <span class="n">thickness</span>
-                <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
-                <span class="n">boundaries</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">grey_dilation</span><span class="p">(</span>
-                    <span class="n">raw</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="n">struct_elem</span>
-                <span class="p">)</span> <span class="o">!=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">grey_erosion</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="n">thick_struct_elem</span><span class="p">)</span>
-                <span class="n">raw_modified</span><span class="p">[</span><span class="n">boundaries</span><span class="p">]</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="n">boundaries</span><span class="p">]</span>
-            <span class="k">elif</span> <span class="n">raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">labels</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="c1"># Add one more pixel for the correct borders computation</span>
+                <span class="n">expanded_slice</span> <span class="o">=</span> <span class="n">expand_slice</span><span class="p">(</span><span class="n">data_slice</span><span class="p">,</span> <span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">sliced_labels</span> <span class="o">=</span> <span class="n">get_contours</span><span class="p">(</span>
+                    <span class="n">labels</span><span class="p">[</span><span class="n">expanded_slice</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">contour</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Remove the latest one-pixel border from the result</span>
+                <span class="n">delta_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="nb">slice</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="n">s2</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">s2</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data_slice</span><span class="p">,</span> <span class="n">expanded_slice</span><span class="p">)</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">sliced_labels</span> <span class="o">=</span> <span class="n">sliced_labels</span><span class="p">[</span><span class="n">delta_slice</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">labels</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                         <span class="s2">&quot;Contours are not displayed during 3D rendering&quot;</span><span class="p">,</span>
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">sliced_labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sliced_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
+
+        <span class="c1"># cache the labels and keep track of when values are changed</span>
+        <span class="n">update_mask</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">labels</span><span class="o">.</span><span class="n">shape</span>
+        <span class="p">):</span>
+            <span class="n">update_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span> <span class="o">!=</span> <span class="n">sliced_labels</span>
+            <span class="c1"># Select only a subset with changes for further computations</span>
+            <span class="n">labels_to_map</span> <span class="o">=</span> <span class="n">sliced_labels</span><span class="p">[</span><span class="n">update_mask</span><span class="p">]</span>
+            <span class="c1"># Update the cache</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">][</span><span class="n">update_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels_to_map</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span>
+                <span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">sliced_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">labels_to_map</span> <span class="o">=</span> <span class="n">sliced_labels</span>
+
+        <span class="c1"># If there are no changes, just return the cached image</span>
+        <span class="k">if</span> <span class="n">labels_to_map</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
+
+        <span class="n">mapped_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_labels_to_colors</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">update_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">][</span><span class="n">update_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_labels</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_labels</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_map_labels_to_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels_to_map</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert an integer labels to a float array of encoded colors.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        labels_to_map : array</span>
+<span class="sd">            Integer input labels.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">             Encoded colors mapped between 0 and 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_color_lookup_func</span><span class="p">(</span>
-                <span class="n">raw_modified</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">raw_modified</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">raw_modified</span><span class="p">)</span>
+                <span class="n">labels_to_map</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
         <span class="p">):</span>
-            <span class="n">min_label_id</span> <span class="o">=</span> <span class="n">raw_modified</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-            <span class="n">max_label_id</span> <span class="o">=</span> <span class="n">raw_modified</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="n">min_label_id</span> <span class="o">=</span> <span class="n">labels_to_map</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="n">max_label_id</span> <span class="o">=</span> <span class="n">labels_to_map</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
             <span class="n">upper_bound_n_unique_labels</span> <span class="o">=</span> <span class="n">max_label_id</span> <span class="o">-</span> <span class="n">min_label_id</span>
             <span class="n">none_color_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_color_index</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
 
@@ -1215,45 +1309,48 @@ function checkPageExistsAndRedirect(event) {
                         <span class="k">for</span> <span class="n">label_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_label_id</span><span class="p">,</span> <span class="n">max_label_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
                     <span class="p">]</span>
                 <span class="p">)</span>
-                <span class="n">image</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">raw_modified</span> <span class="o">-</span> <span class="n">min_label_id</span><span class="p">]</span>
+                <span class="n">mapped_labels</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">labels_to_map</span> <span class="o">-</span> <span class="n">min_label_id</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">unique_ids</span><span class="p">,</span> <span class="n">inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">raw_modified</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="n">unique_ids</span><span class="p">,</span> <span class="n">inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">mapped_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
                     <span class="p">[</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_label_color_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_id</span><span class="p">,</span> <span class="n">none_color_index</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">label_id</span> <span class="ow">in</span> <span class="n">unique_ids</span>
                     <span class="p">]</span>
-                <span class="p">)[</span><span class="n">inv</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">raw_modified</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="p">)[</span><span class="n">inv</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">labels_to_map</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="p">):</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span><span class="n">raw_modified</span><span class="p">)</span>
+            <span class="n">mapped_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">)</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="p">):</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span><span class="n">raw_modified</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span><span class="p">)</span>
+            <span class="n">mapped_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span><span class="p">(</span>
+                <span class="n">labels_to_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">DIRECT</span>
         <span class="p">):</span>
-            <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span>
-            <span class="k">if</span> <span class="n">selected</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_color_index</span><span class="p">:</span>
-                <span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">selected_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_label</span>
+            <span class="k">if</span> <span class="n">selected_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_color_index</span><span class="p">:</span>
+                <span class="n">selected_label</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_color_index</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-                <span class="n">raw_modified</span> <span class="o">==</span> <span class="n">selected</span><span class="p">,</span>
-                <span class="n">index</span><span class="p">[</span><span class="n">selected</span><span class="p">],</span>
+            <span class="n">mapped_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="n">labels_to_map</span> <span class="o">==</span> <span class="n">selected_label</span><span class="p">,</span>
+                <span class="n">index</span><span class="p">[</span><span class="n">selected_label</span><span class="p">],</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-                    <span class="n">raw_modified</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">,</span>
+                    <span class="n">labels_to_map</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">,</span>
                     <span class="n">index</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span>
                     <span class="n">index</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">],</span>
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported Color Mode&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">image</span>
+
+        <span class="k">return</span> <span class="n">mapped_labels</span>
 
     <span class="k">def</span> <span class="nf">new_colormap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
@@ -1265,7 +1362,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">elif</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_to_displayed</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label</span><span class="p">]))</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_labels_to_colors</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label</span><span class="p">]))</span>
             <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">col</span></div>
 
@@ -1556,7 +1653,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_partial_labels_refresh</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Labels.paint"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.paint">[docs]</a>    <span class="k">def</span> <span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint over existing labels with a new label, using the selected</span>
@@ -1648,6 +1745,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        ----------</span>
 <span class="sd">        ..[1] https://numpy.org/doc/stable/user/basics.indexing.html</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">changed_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">!=</span> <span class="n">value</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">changed_indices</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">indices</span> <span class="ow">or</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_history</span><span class="p">(</span>
             <span class="p">(</span>
                 <span class="n">indices</span><span class="p">,</span>
@@ -1658,8 +1761,37 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># update the labels image</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="c1"># tensorstore and xarray do not return their indices in</span>
+        <span class="c1"># np.ndarray format, so they need to be converted explicitly</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+
+        <span class="n">updated_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="nb">slice</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">axis_indices</span> <span class="ow">in</span> <span class="n">indices</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contour</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Expand the slice by 1 pixel as the changes can go beyond</span>
+            <span class="c1"># the original slice because of the morphological dilation</span>
+            <span class="c1"># (1 pixel because get_countours always applies 1 pixel dilation)</span>
+            <span class="n">updated_slice</span> <span class="o">=</span> <span class="n">expand_slice</span><span class="p">(</span><span class="n">updated_slice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="n">updated_slice</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="nb">slice</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">start</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">stop</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">updated_slice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span><span class="p">)</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+
         <span class="k">if</span> <span class="n">refresh</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_partial_labels_refresh</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Labels.get_status"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

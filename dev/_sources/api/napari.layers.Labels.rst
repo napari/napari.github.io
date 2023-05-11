@@ -108,6 +108,7 @@ napari.layers.Labels
       ~Labels.blending
       ~Labels.bounding_box
       ~Labels.brush_size
+      ~Labels.brush_size_on_mouse_move
       ~Labels.class_keymap
       ~Labels.color
       ~Labels.color_mode

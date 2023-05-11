@@ -283,7 +283,11 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">LabelsRendering</span><span class="p">,</span>
     <span class="n">Mode</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_mouse_bindings</span> <span class="kn">import</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pick</span>
+<span class="kn">from</span> <span class="nn">napari.layers.labels._labels_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BrushSizeOnMouseMove</span><span class="p">,</span>
+    <span class="n">draw</span><span class="p">,</span>
+    <span class="n">pick</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.labels._labels_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">indices_in_shape</span><span class="p">,</span>
     <span class="n">interpolate_coordinates</span><span class="p">,</span>
@@ -483,13 +487,15 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
     <span class="p">}</span>
 
+    <span class="n">brush_size_on_mouse_move</span> <span class="o">=</span> <span class="n">BrushSizeOnMouseMove</span><span class="p">(</span><span class="n">min_brush_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
     <span class="n">_move_modes</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="n">highlight_box_handles</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PICK</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="n">brush_size_on_mouse_move</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
-        <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">brush_size_on_mouse_move</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">_cursor_modes</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>

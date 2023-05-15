@@ -2001,7 +2001,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># absorbs these performance issues here, but we can likely improve</span>
         <span class="c1"># things either by caching the world-to-data transform on the layer</span>
         <span class="c1"># or by lazily evaluating it in the slice task itself.</span>
-        <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+        <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_indices</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">,</span> <span class="n">round_index</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">slice_indices</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_request_internal</span><span class="p">(</span>

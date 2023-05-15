@@ -746,6 +746,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@ensure_main_thread</span>
     <span class="k">def</span> <span class="nf">_on_slice_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="n">responses</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;QtViewer._on_slice_ready: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">responses</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">layer</span><span class="p">,</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="c1"># Update the layer slice state to temporarily support behavior</span>
             <span class="c1"># that depends on it.</span>

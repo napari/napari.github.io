@@ -497,7 +497,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    out_of_slice_display : bool</span>
 <span class="sd">        If True, renders points not just in central plane but also slightly out of slice</span>
 <span class="sd">        according to specified point marker size.</span>
-<span class="sd">    selected_data : set</span>
+<span class="sd">    selected_data : Selection</span>
 <span class="sd">        Integer indices of any selected points.</span>
 <span class="sd">    mode : str</span>
 <span class="sd">        Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
@@ -632,7 +632,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">data</span><span class="p">,</span> <span class="n">ndim</span> <span class="o">=</span> <span class="n">fix_data_points</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
 
         <span class="c1"># Indices of selected points</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_stored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data_history</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="c1"># Indices of selected points within the currently viewed slice</span>
@@ -2299,8 +2298,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_selected_view</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
                 <span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">,</span> <span class="n">npoints</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]))</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
-                <span class="nb">range</span><span class="p">(</span><span class="n">totpoints</span><span class="p">,</span> <span class="n">totpoints</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">totpoints</span><span class="p">,</span> <span class="n">totpoints</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])))</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 

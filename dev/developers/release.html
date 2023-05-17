@@ -748,6 +748,28 @@ function checkPageExistsAndRedirect(event) {
      Generating the actual release
     </a>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conda-forge-packages">
+     conda-forge packages
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#new-releases">
+       New releases
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#patch-dependencies-of-previous-releases">
+       Patch dependencies of previous releases
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#broken-packages">
+       Broken packages
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
 </ul>
@@ -790,6 +812,7 @@ it will include generating release notes, documentation, etc.</p>
 <h2>Two weeks before release (one week before release candidate)<a class="headerlink" href="#two-weeks-before-release-one-week-before-release-candidate" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Look through currently open PRs and get a sense of what would be good to merge before the first release candidate</p></li>
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">conda-recipe/meta.yaml</span></code> in <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> is up-to-date (e.g. <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies match <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> requirements).</p></li>
 <li><p>Create a zulip thread in the release channel letting people know the release candidate is coming and pointing out PRs that would be nice to merge before release</p></li>
 </ul>
 <p>At this stage, bug fixes and features that are close to landing should be prioritized. The release manager will follow up with PR authors, reviewing and merging as needed.</p>
@@ -933,6 +956,67 @@ For example:</p>
 git<span class="w"> </span>push<span class="w"> </span>upstream<span class="w"> </span>--tags
 </pre></div>
 </div>
+</section>
+<section id="conda-forge-packages">
+<h2>conda-forge packages<a class="headerlink" href="#conda-forge-packages" title="Permalink to this headline">¶</a></h2>
+<p>The packages on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> are not controlled directly by our repositories.
+Instead, they are governed by the <code class="docutils literal notranslate"><span class="pre">conda-forge/napari-feedstock</span></code> repository.
+The essential actions are automated, but there are a few maintenance notes we need to have in mind.</p>
+<section id="new-releases">
+<h3>New releases<a class="headerlink" href="#new-releases" title="Permalink to this headline">¶</a></h3>
+<p>Once the PyPI release is available, the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> bots will submit a PR to <code class="docutils literal notranslate"><span class="pre">conda-forge/napari-feedstock</span></code> within a few hours.
+Merging that PR to <code class="docutils literal notranslate"><span class="pre">main</span></code> will trigger the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> release.
+Accounting for the build times and the CDN sync, this means that the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> packages will be available 30-60 mins after the PR is merged.</p>
+<p>Before merging, please pay special attention to these aspects:</p>
+<ul class="simple">
+<li><p>Version string has been correctly updated. The build number should have been reset to <code class="docutils literal notranslate"><span class="pre">0</span></code> now.</p></li>
+<li><p>The CI passes correctly. Do check the logs, especially the test section (search for <code class="docutils literal notranslate"><span class="pre">TEST</span> <span class="pre">START</span></code>).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies match the runtime requirements of the PyPI release (listed in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>).
+Watch for modified version constraints, as well as added or removed packages.
+Note that the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> packages include some more dependencies for convenience,
+so you might need to check the <code class="docutils literal notranslate"><span class="pre">extras</span></code> sections in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See these PRs for examples on previous conda-forge releases:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/conda-forge/napari-feedstock/pull/41">napari v0.4.16</a></p></li>
+<li><p><a class="reference external" href="https://github.com/conda-forge/napari-feedstock/pull/42">napari v0.4.17</a></p></li>
+</ul>
+</div>
+</section>
+<section id="patch-dependencies-of-previous-releases">
+<h3>Patch dependencies of previous releases<a class="headerlink" href="#patch-dependencies-of-previous-releases" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> offers a mechanism to patch the metadata of existing releases.
+This is useful when a new dependency release breaks <code class="docutils literal notranslate"><span class="pre">napari</span></code> in some way or, in general,
+when the metadata of an existing package is proven wrong after it has been released.</p>
+<p>To amend the metadata, we need to:</p>
+<ul class="simple">
+<li><p>Encode the patch instructions as a PR to
+<a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock"><code class="docutils literal notranslate"><span class="pre">conda-forge/conda-forge-repodata-patches-feedstock</span></code></a>:</p>
+<ul>
+<li><p>Add the required changes to <code class="docutils literal notranslate"><span class="pre">recipe/gen_patch_json.py</span></code>, under the <a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1562"><code class="docutils literal notranslate"><span class="pre">record_name</span> <span class="pre">==</span> <span class="pre">'napari'</span></code> section</a>.</p></li>
+<li><p>Use a <a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1564">timestamp condition</a> to ensure only existing releases are patched.</p></li>
+</ul>
+</li>
+<li><p>If necessary, make sure the metadata is amended in the feedstock too.
+Usually this is not needed until a new release is made, but it’s important to remember!</p></li>
+</ul>
+<p>Some previous examples include:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/pull/314">Fix <code class="docutils literal notranslate"><span class="pre">vispy</span></code> dependencies</a></p></li>
+<li><p><a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/pull/214">Fix <code class="docutils literal notranslate"><span class="pre">pillow</span></code> dependencies</a></p></li>
+</ul>
+</section>
+<section id="broken-packages">
+<h3>Broken packages<a class="headerlink" href="#broken-packages" title="Permalink to this headline">¶</a></h3>
+<p>In some cases, a wrongly merged PR might cause the release of a broken artifact.
+If this is not fixable with a metadata patch (see above), then the packages can be marked as broken.
+To do so, we can submit a PR to <code class="docutils literal notranslate"><span class="pre">conda-forge/admin-requests</span></code>.</p>
+<p>For more details, follow the instructions for
+<a class="reference external" href="https://github.com/conda-forge/admin-requests#mark-packages-as-broken-on-conda-forge">“Mark packages as broken on conda-forge”</a>.</p>
+<p>Please make sure a correct build for the problematic release is available before (or shortly after) the <code class="docutils literal notranslate"><span class="pre">admin-requests</span></code> PR is merged!</p>
+</section>
 </section>
 </section>
 

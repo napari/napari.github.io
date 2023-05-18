@@ -890,7 +890,7 @@ at the end of the test.  When using this function, it is <strong>not</strong> ne
 use a <code class="docutils literal notranslate"><span class="pre">qtbot</span></code> fixture, nor should you do any additional cleanup (such as
 using <code class="docutils literal notranslate"><span class="pre">qtbot.addWidget</span></code> or calling <code class="docutils literal notranslate"><span class="pre">viewer.close()</span></code>) at the end of the test.
 Duplicate cleanup may cause an error.  Use the fixture as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the make_napari_viewer fixture is defined in napari/conftest.py</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the make_napari_viewer fixture is defined in napari/utils/_testsupport.py</span>
 <span class="k">def</span> <span class="nf">test_something_with_a_viewer</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">):</span>
     <span class="c1"># make_napari_viewer takes any keyword arguments that napari.Viewer() takes</span>
     <span class="n">viewer</span> <span class="o">=</span> <span class="n">make_napari_viewer</span><span class="p">()</span>
@@ -903,7 +903,7 @@ Duplicate cleanup may cause an error.  Use the fixture as follows:</p>
 </ol>
 <blockquote>
 <div><p>If you’re curious to see the actual <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture definition, it’s
-in <code class="docutils literal notranslate"><span class="pre">napari/conftest.py</span></code></p>
+in <code class="docutils literal notranslate"><span class="pre">napari/utils/_testsupport.py</span></code></p>
 </div></blockquote>
 </section>
 <section id="mocking-fake-it-till-you-make-it">

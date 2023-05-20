@@ -96,7 +96,6 @@ napari.layers.Layer
       ~Layer.source
       ~Layer.thumbnail
       ~Layer.translate
-      ~Layer.translate_grid
       ~Layer.visible
       
       

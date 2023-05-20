@@ -167,7 +167,6 @@ napari.layers.Shapes
       ~Shapes.text
       ~Shapes.thumbnail
       ~Shapes.translate
-      ~Shapes.translate_grid
       ~Shapes.visible
       ~Shapes.z_index
       

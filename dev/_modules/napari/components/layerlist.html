@@ -342,20 +342,6 @@ function checkPageExistsAndRedirect(event) {
 
             <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ctx_keys</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
 
-        <span class="c1"># temporary: see note in _on_selection_event</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_selection_changed</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_on_selection_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="c1"># This method is a temporary workaround to the fact that the Points</span>
-        <span class="c1"># layer needs to know when its selection state changes so that it can</span>
-        <span class="c1"># update the highlight state.  This (and the layer._on_selection</span>
-        <span class="c1"># method) can be removed once highlighting logic has been removed from</span>
-        <span class="c1"># the layer model.</span>
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">added</span><span class="p">:</span>
-            <span class="n">layer</span><span class="o">.</span><span class="n">_on_selection</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">removed</span><span class="p">:</span>
-            <span class="n">layer</span><span class="o">.</span><span class="n">_on_selection</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">_process_delete_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_delete_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>

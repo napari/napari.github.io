@@ -117,7 +117,6 @@ napari.layers.Tracks
       ~Tracks.track_labels
       ~Tracks.track_times
       ~Tracks.translate
-      ~Tracks.translate_grid
       ~Tracks.use_fade
       ~Tracks.visible
       

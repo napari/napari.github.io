@@ -658,20 +658,6 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">reload</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">_overlays</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
-            <span class="n">select</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;&#39;layer.events.select&#39; is deprecated and will be removed in napari v0.4.9, use &#39;viewer.layers.selection.events.changed&#39; instead, and inspect the &#39;added&#39; attribute on the event.&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
-                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;select&#39;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">deselect</span><span class="o">=</span><span class="n">WarningEmitter</span><span class="p">(</span>
-                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;&#39;layer.events.deselect&#39; is deprecated and will be removed in napari v0.4.9, use &#39;viewer.layers.selection.events.changed&#39; instead, and inspect the &#39;removed&#39; attribute on the event.&quot;</span><span class="p">,</span>
-                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
-                <span class="n">type_name</span><span class="o">=</span><span class="s1">&#39;deselect&#39;</span><span class="p">,</span>
-            <span class="p">),</span>
             <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -962,28 +948,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="p">()</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">translate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;translate_grid will become private in v0.4.14. See Layer.translate or Layer.data_to_world() instead.&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="ne">DeprecationWarning</span><span class="p">,</span>
-            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translate_grid</span>
-
-    <span class="nd">@translate_grid</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">translate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translate_grid</span><span class="p">):</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                <span class="s2">&quot;translate_grid will become private in v0.4.14. See Layer.translate or Layer.data_to_world() instead.&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="ne">DeprecationWarning</span><span class="p">,</span>
-            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_translate_grid</span> <span class="o">=</span> <span class="n">translate_grid</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_translate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2102,18 +2066,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="kn">from</span> <span class="nn">napari.plugins.io</span> <span class="kn">import</span> <span class="n">save_layers</span>
 
         <span class="k">return</span> <span class="n">save_layers</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">_on_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="c1"># This method is a temporary workaround to the fact that the Points</span>
-        <span class="c1"># layer needs to know when its selection state changes so that it can</span>
-        <span class="c1"># update the highlight state.  This, along with the events.select and</span>
-        <span class="c1"># events.deselect emitters, (and the LayerList._on_selection_event</span>
-        <span class="c1"># method) can be removed once highlighting logic has been removed from</span>
-        <span class="c1"># the layer model.</span>
-        <span class="k">if</span> <span class="n">selected</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">deselect</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Layer.create"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.create">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>

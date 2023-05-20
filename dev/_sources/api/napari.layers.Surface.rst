@@ -113,7 +113,6 @@ napari.layers.Surface
       ~Surface.texture
       ~Surface.thumbnail
       ~Surface.translate
-      ~Surface.translate_grid
       ~Surface.vertex_colors
       ~Surface.vertex_values
       ~Surface.vertices

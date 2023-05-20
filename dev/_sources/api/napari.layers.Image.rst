@@ -121,7 +121,6 @@ napari.layers.Image
       ~Image.source
       ~Image.thumbnail
       ~Image.translate
-      ~Image.translate_grid
       ~Image.visible
       
       

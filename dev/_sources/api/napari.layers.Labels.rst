@@ -162,7 +162,6 @@ napari.layers.Labels
       ~Labels.source
       ~Labels.thumbnail
       ~Labels.translate
-      ~Labels.translate_grid
       ~Labels.visible
       
       

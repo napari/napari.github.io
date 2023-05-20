@@ -146,7 +146,6 @@ napari.layers.Points
       ~Points.text
       ~Points.thumbnail
       ~Points.translate
-      ~Points.translate_grid
       ~Points.visible
       
       

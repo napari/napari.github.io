@@ -272,6 +272,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">Dict</span><span class="p">,</span>
     <span class="n">Iterable</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
+    <span class="n">Literal</span><span class="p">,</span>
     <span class="n">NewType</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
@@ -301,10 +302,13 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># since it includes all valid arguments for np.array() ( int, float, str...)</span>
 <span class="n">ArrayLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="s1">&#39;dask.array.Array&#39;</span><span class="p">,</span> <span class="s1">&#39;zarr.Array&#39;</span><span class="p">]</span>
 
+<span class="n">LayerTypeName</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
+    <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">,</span> <span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="s2">&quot;shapes&quot;</span><span class="p">,</span> <span class="s2">&quot;surface&quot;</span><span class="p">,</span> <span class="s2">&quot;tracks&quot;</span><span class="p">,</span> <span class="s2">&quot;vectors&quot;</span>
+<span class="p">]</span>
 
 <span class="c1"># layer data may be: (data,) (data, meta), or (data, meta, layer_type)</span>
 <span class="c1"># using &quot;Any&quot; for the data type until ArrayLike is more mature.</span>
-<span class="n">FullLayerData</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+<span class="n">FullLayerData</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">LayerTypeName</span><span class="p">]</span>
 <span class="n">LayerData</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="n">FullLayerData</span><span class="p">]</span>
 
 <span class="n">PathLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>

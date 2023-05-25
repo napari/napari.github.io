@@ -847,16 +847,18 @@ and/or removed from the set.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.components.LayerList.extent">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.components.layerlist.Extent</span></em><a class="headerlink" href="#napari.components.LayerList.extent" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.utils.layer_utils.Extent</span></em><a class="headerlink" href="#napari.components.LayerList.extent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extent of layers in data and world coordinates.</p>
+<p>Extent bounds are inclusive. See Layer.extent for a detailed explanation
+of how extents are calculated.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napari.components.LayerList.get_extent">
-<span class="sig-name descname"><span class="pre">get_extent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">napari.layers.base.base.Layer</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">napari.components.layerlist.Extent</span></span></span><a class="reference internal" href="../_modules/napari/components/layerlist.html#LayerList.get_extent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.LayerList.get_extent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return extent for a given layer list.
-This function is useful for calculating the extent of a subset of layers
-when preparing and updating some supplementary layers.
+<span class="sig-name descname"><span class="pre">get_extent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="napari.layers.Layer.html#napari.layers.Layer" title="napari.layers.base.base.Layer"><span class="pre">napari.layers.base.base.Layer</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">napari.layers.utils.layer_utils.Extent</span></span></span><a class="reference internal" href="../_modules/napari/components/layerlist.html#LayerList.get_extent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#napari.components.LayerList.get_extent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return extent for a given layer list.</p>
+<p>Extent bounds are inclusive. This function is useful for calculating the extent
+of a subset of layers when preparing and updating some supplementary layers.
 For example see the cross Vectors layer in the <cite>multiple_viewer_widget</cite> example.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

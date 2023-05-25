@@ -296,13 +296,19 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">ref</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_cb</span><span class="p">(</span><span class="o">*</span><span class="n">value</span><span class="p">):</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">ref</span><span class="p">(),</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ob</span> <span class="o">:=</span> <span class="n">ref</span><span class="p">())</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">emitter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">_cb</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="n">emitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_cb</span><span class="p">)</span>
     <span class="c1"># There are scenarios where emitter is deleted before obj.</span>
     <span class="c1"># Also there is no option to create weakref to QT Signal</span>
     <span class="c1"># but even if keep reference to base object and signal name it is possible to meet</span>
     <span class="c1"># problem with C++ &quot;wrapped C/C++ object has been deleted&quot;</span>
+
+    <span class="c1"># In all of these 3 functions, this should be uncommented instead of using</span>
+    <span class="c1"># the if clause in _cb but that causes a segmentation fault in tests</span>
     <span class="c1"># weakref.finalize(obj, emitter.disconnect, _cb)</span>
 
 
@@ -310,7 +316,10 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">ref</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_cb</span><span class="p">(</span><span class="o">*</span><span class="n">_value</span><span class="p">):</span>
-        <span class="nb">getattr</span><span class="p">(</span><span class="n">ref</span><span class="p">(),</span> <span class="n">attr</span><span class="p">)()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ob</span> <span class="o">:=</span> <span class="n">ref</span><span class="p">())</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">emitter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">_cb</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">attr</span><span class="p">)()</span>
 
     <span class="n">emitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_cb</span><span class="p">)</span>
     <span class="c1"># as in connect_setattr</span>
@@ -322,9 +331,13 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">ref</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_cb</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">ref</span><span class="p">(),</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ob</span> <span class="o">:=</span> <span class="n">ref</span><span class="p">())</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">emitter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">_cb</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="n">emitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_cb</span><span class="p">)</span>
+    <span class="c1"># weakref.finalize(obj, emitter.disconnect, _cb)</span>
 </pre></div>
 
             </div>

@@ -611,9 +611,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_level</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">displayed_axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span>
-        <span class="p">][</span><span class="n">displayed_axes</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span><span class="p">][</span><span class="n">displayed_axes</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_new_empty_slice</span><span class="p">()</span>
 
@@ -753,7 +753,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        extent_data : array, shape (2, D)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)),</span> <span class="n">shape</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)),</span> <span class="n">shape</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_extent_data_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span>
+        <span class="k">return</span> <span class="n">extent</span> <span class="o">+</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">+</span><span class="mf">0.5</span><span class="p">]]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1006,7 +1011,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># This can happen when slicing layers with different extents.</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]):</span>
                 <span class="k">return</span>
 
         <span class="c1"># For the old experimental async code.</span>

@@ -269,7 +269,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
@@ -288,6 +288,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">drag_data_to_projected_distance</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Extent</span><span class="p">,</span>
     <span class="n">coerce_affine</span><span class="p">,</span>
     <span class="n">compute_multiscale_level_and_corners</span><span class="p">,</span>
     <span class="n">convert_to_uint8</span><span class="p">,</span>
@@ -314,7 +315,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span><span class="p">,</span> <span class="n">CompositeAffine</span><span class="p">,</span> <span class="n">TransformChain</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
-<span class="n">Extent</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Extent&#39;</span><span class="p">,</span> <span class="s1">&#39;data world step&#39;</span><span class="p">)</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;napari.layers.base.base&quot;</span><span class="p">)</span>
 
 
@@ -657,6 +657,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">loaded</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">reload</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">_extent_augmented</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">_overlays</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
@@ -897,7 +898,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extents_and_refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">scale</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -908,7 +909,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@translate</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translate</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">translate</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extents_and_refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">translate</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -919,7 +920,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@rotate</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotate</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rotate</span> <span class="o">=</span> <span class="n">rotate</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extents_and_refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">rotate</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -930,7 +931,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@shear</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">shear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shear</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;data2physical&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shear</span> <span class="o">=</span> <span class="n">shear</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extents_and_refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">shear</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -946,7 +947,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">coerce_affine</span><span class="p">(</span>
             <span class="n">affine</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;physical2world&#39;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extents_and_refresh</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">affine</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -988,7 +989,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extents_and_refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
@@ -1013,6 +1014,19 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_extent_data_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data coordinates.</span>
+
+<span class="sd">        Differently from Layer._extent_data, this also includes the &quot;size&quot; of</span>
+<span class="sd">        data points; for example, Point sizes and Image pixel width are included.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        extent_data : array, shape (2, D)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Range of layer in world coordinates.</span>
 
@@ -1021,18 +1035,60 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        extent_world : array, shape (2, D)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get full nD bounding box</span>
+        <span class="k">return</span> <span class="n">get_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_extent_world_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Range of layer in world coordinates.</span>
+
+<span class="sd">        Differently from Layer._extent_world, this also includes the &quot;size&quot; of</span>
+<span class="sd">        data points; for example, Point sizes and Image pixel width are included.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        extent_world : array, shape (2, D)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get full nD bounding box</span>
         <span class="k">return</span> <span class="n">get_extent_world</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_array_like</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data_augmented</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span>
         <span class="p">)</span>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data and world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layer in data and world coordinates.</span>
+
+<span class="sd">        For image-like layers, these coordinates are the locations of the</span>
+<span class="sd">        pixels in `Layer.data` which are treated like sample points that are</span>
+<span class="sd">        centered in the rendered version of those pixels.</span>
+<span class="sd">        For other layers, these coordinates are the points or vertices stored</span>
+<span class="sd">        in `Layer.data`.</span>
+<span class="sd">        Lower and upper bounds are inclusive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">extent_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span>
         <span class="n">data_to_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span>
-        <span class="n">extent_world</span> <span class="o">=</span> <span class="n">get_extent_world</span><span class="p">(</span>
-            <span class="n">extent_data</span><span class="p">,</span> <span class="n">data_to_world</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_array_like</span>
+        <span class="n">extent_world</span> <span class="o">=</span> <span class="n">get_extent_world</span><span class="p">(</span><span class="n">extent_data</span><span class="p">,</span> <span class="n">data_to_world</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Extent</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">extent_data</span><span class="p">,</span>
+            <span class="n">world</span><span class="o">=</span><span class="n">extent_world</span><span class="p">,</span>
+            <span class="n">step</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">data_to_world</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
         <span class="p">)</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">_extent_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Augmented extent of layer in data and world coordinates.</span>
+
+<span class="sd">        Differently from Layer.extent, this also includes the &quot;size&quot; of data</span>
+<span class="sd">        points; for example, Point sizes and Image pixel width are included.</span>
+
+<span class="sd">        For image-like layers, these coordinates are the locations of the</span>
+<span class="sd">        pixels in `Layer.data` which are treated like sample points that are</span>
+<span class="sd">        centered in the rendered version of those pixels.</span>
+<span class="sd">        For other layers, these coordinates are the points or vertices stored</span>
+<span class="sd">        in `Layer.data`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extent_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data_augmented</span>
+        <span class="n">data_to_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span>
+        <span class="n">extent_world</span> <span class="o">=</span> <span class="n">get_extent_world</span><span class="p">(</span><span class="n">extent_data</span><span class="p">,</span> <span class="n">data_to_world</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Extent</span><span class="p">(</span>
             <span class="n">data</span><span class="o">=</span><span class="n">extent_data</span><span class="p">,</span>
             <span class="n">world</span><span class="o">=</span><span class="n">extent_world</span><span class="p">,</span>
@@ -1040,15 +1096,26 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_clear_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clears the cached extent.</span>
-
-<span class="sd">        This should be called whenever this data or transform information</span>
-<span class="sd">        changes, and should be called before any related events get emitted</span>
-<span class="sd">        so that they use the updated extent values.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear extent cache and emit extent event.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;extent&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_clear_extent_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear extent_augmented cache and emit extent_augmented event.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;_extent_augmented&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_augmented</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_extent_augmented</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_clear_extents_and_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clears the cached extents, emits events and refreshes the layer.</span>
+
+<span class="sd">        This should be called whenever this data or transform information</span>
+<span class="sd">        changes, and should be called before any other related events</span>
+<span class="sd">        are emitted so that they use the updated extent values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent_augmented</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -1667,6 +1734,14 @@ function checkPageExistsAndRedirect(event) {
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;An axis aligned (ndisplay, 2) bounding box around the data&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">[:,</span> <span class="n">dims_displayed</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
 
+    <span class="k">def</span> <span class="nf">_display_bounding_box_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;An augmented, axis-aligned (ndisplay, 2) bounding box.</span>
+
+<span class="sd">        This bounding box for includes the &quot;full&quot; size of the layer, including</span>
+<span class="sd">        for example the size of points or pixels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data_augmented</span><span class="p">[:,</span> <span class="n">dims_displayed</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+
 <div class="viewcode-block" id="Layer.click_plane_from_click_data"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.click_plane_from_click_data">[docs]</a>    <span class="k">def</span> <span class="nf">click_plane_from_click_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">click_position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
@@ -1740,6 +1815,8 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># create the bounding box in data coordinates</span>
         <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span>
+        <span class="c1"># bounding box is with upper limit excluded in the uses below</span>
+        <span class="n">bounding_box</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_ray_intersections</span><span class="p">(</span>
             <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
@@ -1892,7 +1969,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># space of the selected level. Using the level&#39;s data</span>
             <span class="c1"># shape only works for images, but that&#39;s the only case we</span>
             <span class="c1"># handle now and downsample_factors is also only on image layers.</span>
-            <span class="n">max_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">level</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">displayed_axes</span><span class="p">)</span>
+            <span class="n">max_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">level</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">displayed_axes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
             <span class="n">corners</span><span class="p">[:,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">scaled_corners</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">max_coords</span><span class="p">)</span>
             <span class="n">display_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
                 <span class="n">corners</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">displayed_axes</span><span class="p">]</span> <span class="o">-</span> <span class="n">corners</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">displayed_axes</span><span class="p">]</span>
@@ -1905,7 +1982,6 @@ function checkPageExistsAndRedirect(event) {
                 <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">=</span> <span class="n">level</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">corners</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">Event</span><span class="p">(</span><span class="s1">&#39;reload&#39;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">))</span>
-
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># The stored corner_pixels attribute must contain valid indices.</span>
             <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>

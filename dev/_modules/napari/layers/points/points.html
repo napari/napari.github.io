@@ -535,8 +535,8 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    _view_data : array (M, 2)</span>
-<span class="sd">        2D coordinates of points in the currently viewed slice.</span>
+<span class="sd">    _view_data : array (M, D)</span>
+<span class="sd">        coordinates of points in the currently viewed slice.</span>
 <span class="sd">    _view_size : array (M, )</span>
 <span class="sd">        Size of the point markers in the currently viewed slice.</span>
 <span class="sd">    _view_symbol : array (M, )</span>
@@ -1020,7 +1020,20 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">maxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">mins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">extrema</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">mins</span><span class="p">,</span> <span class="n">maxs</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">extrema</span>
+        <span class="k">return</span> <span class="n">extrema</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_extent_data_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># _extent_data is a property that returns a new/copied array, which</span>
+        <span class="c1"># is safe to modify below</span>
+        <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">extent</span>
+
+        <span class="n">max_point_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">max_point_size</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">max_point_size</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">extent</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">out_of_slice_display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1092,6 +1105,7 @@ function checkPageExistsAndRedirect(event) {
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent_augmented</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -1117,6 +1131,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent_augmented</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_size</span><span class="p">()</span>
@@ -1898,22 +1913,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="n">selection</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">selection</span>
-
-    <span class="k">def</span> <span class="nf">_display_bounding_box_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;An augmented, axis-aligned (ndisplay, 2) bounding box.</span>
-
-<span class="sd">        This bounding box for includes the full size of displayed points</span>
-<span class="sd">        and enables calculation of intersections in `Layer._get_value_3d()`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">max_point_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span><span class="p">)</span>
-        <span class="n">bounding_box</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-        <span class="n">bounding_box</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">max_point_size</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">bounding_box</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">max_point_size</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="k">return</span> <span class="n">bounding_box</span>
 
 <div class="viewcode-block" id="Points.get_ray_intersections"><a class="viewcode-back" href="../../../../api/napari.layers.Points.html#napari.layers.Points.get_ray_intersections">[docs]</a>    <span class="k">def</span> <span class="nf">get_ray_intersections</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

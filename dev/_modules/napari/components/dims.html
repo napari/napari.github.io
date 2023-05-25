@@ -298,7 +298,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Number of displayed dimensions.</span>
 <span class="sd">    range : tuple of 3-tuple of float</span>
 <span class="sd">        List of tuples (min, max, step), one for each dimension in world</span>
-<span class="sd">        coordinates space.</span>
+<span class="sd">        coordinates space. Lower and upper bounds are inclusive.</span>
 <span class="sd">    point : tuple of floats</span>
 <span class="sd">        Dims position in world coordinates for each dimension.</span>
 <span class="sd">    margin_left : tuple of floats</span>
@@ -320,7 +320,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Number of displayed dimensions.</span>
 <span class="sd">    range : tuple of 3-tuple of float</span>
 <span class="sd">        List of tuples (min, max, step), one for each dimension in world</span>
-<span class="sd">        coordinates space.</span>
+<span class="sd">        coordinates space. Lower and upper bounds are inclusive.</span>
 <span class="sd">    point : tuple of floats</span>
 <span class="sd">        Dims position in world coordinates for each dimension.</span>
 <span class="sd">    margin_left : tuple of floats</span>
@@ -488,14 +488,16 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">nsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
             <span class="c1"># &quot;or 1&quot; ensures degenerate dimension works</span>
-            <span class="nb">int</span><span class="p">((</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">step</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="nb">int</span><span class="p">((</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">step</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="k">for</span> <span class="n">rng</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span>
         <span class="p">)</span>
 
     <span class="nd">@nsteps</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">nsteps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="n">RangeTuple</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">nsteps</span><span class="p">)</span>
+            <span class="n">RangeTuple</span><span class="p">(</span>
+                <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nsteps</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
             <span class="k">for</span> <span class="n">rng</span><span class="p">,</span> <span class="n">nsteps</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="p">)</span>
 

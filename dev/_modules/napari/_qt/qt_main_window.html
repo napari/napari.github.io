@@ -339,7 +339,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">in_ipython</span><span class="p">,</span>
     <span class="n">in_jupyter</span><span class="p">,</span>
     <span class="n">in_python_repl</span><span class="p">,</span>
-    <span class="n">running_as_bundled_app</span><span class="p">,</span>
+    <span class="n">running_as_constructor_app</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.notifications</span> <span class="kn">import</span> <span class="n">Notification</span>
 <span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">_themes</span><span class="p">,</span> <span class="n">get_system_theme</span>
@@ -779,7 +779,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">process</span> <span class="o">=</span> <span class="n">QProcess</span><span class="p">()</span>
         <span class="n">process</span><span class="o">.</span><span class="n">setProgram</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">running_as_bundled_app</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">running_as_constructor_app</span><span class="p">():</span>
             <span class="n">process</span><span class="o">.</span><span class="n">setArguments</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 
         <span class="n">process</span><span class="o">.</span><span class="n">startDetached</span><span class="p">()</span>

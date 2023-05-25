@@ -1390,8 +1390,14 @@ the edge_color colormap property to 0 and 1</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.layers.Vectors.extent">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.base.base.Extent</span></em><a class="headerlink" href="#napari.layers.Vectors.extent" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.utils.layer_utils.Extent</span></em><a class="headerlink" href="#napari.layers.Vectors.extent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extent of layer in data and world coordinates.</p>
+<p>For image-like layers, these coordinates are the locations of the
+pixels in <cite>Layer.data</cite> which are treated like sample points that are
+centered in the rendered version of those pixels.
+For other layers, these coordinates are the points or vertices stored
+in <cite>Layer.data</cite>.
+Lower and upper bounds are inclusive.</p>
 </dd></dl>
 
 <dl class="py property">

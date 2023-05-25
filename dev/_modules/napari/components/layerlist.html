@@ -264,19 +264,16 @@ function checkPageExistsAndRedirect(event) {
   <h1>Source code for napari.components.layerlist</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">napari.layers</span> <span class="kn">import</span> <span class="n">Layer</span>
-<span class="kn">from</span> <span class="nn">napari.layers.image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">Extent</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.containers</span> <span class="kn">import</span> <span class="n">SelectableEventedList</span>
 <span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">inc_name_count</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
-
-<span class="n">Extent</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Extent&#39;</span><span class="p">,</span> <span class="s1">&#39;data world step&#39;</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">npe2.manifest.io</span> <span class="kn">import</span> <span class="n">WriterContribution</span>
@@ -345,14 +342,15 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_process_delete_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_delete_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_extent_augmented</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_clean_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">cached_properties</span> <span class="o">=</span> <span class="p">(</span>
             <span class="s1">&#39;extent&#39;</span><span class="p">,</span>
             <span class="s1">&#39;_extent_world&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;_extent_world_augmented&#39;</span><span class="p">,</span>
             <span class="s1">&#39;_step_size&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;_ranges&#39;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">cached_properties</span><span class="p">]</span>
 
@@ -414,6 +412,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">new_layer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_name</span><span class="p">(</span><span class="n">new_layer</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">()</span>
         <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
+        <span class="n">new_layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_extent_augmented</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_cache</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_layer</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LayerList.toggle_selected_visibility"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.toggle_selected_visibility">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_selected_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -433,6 +432,22 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        extent_world : array, shape (2, D)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_extent_world</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">_extent_world_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
+
+<span class="sd">        Default to 2D with (-0.5, 511.5) min/ max values if no data is present.</span>
+<span class="sd">        Corresponds to pixels centered at [0, ..., 511].</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        extent_world : array, shape (2, D)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_extent_world</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">_extent_augmented</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">],</span>
+            <span class="n">augmented</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_min_and_max</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mins_list</span><span class="p">,</span> <span class="n">maxes_list</span><span class="p">):</span>
         <span class="c1"># Reverse dimensions since it is the last dimensions that are</span>
@@ -468,19 +483,23 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># switch back to original order</span>
         <span class="k">return</span> <span class="n">min_v</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">max_v</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_get_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_extent_list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_extent_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_extent_list</span><span class="p">,</span> <span class="n">augmented</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in world coordinates.</span>
 
-<span class="sd">        Default to 2D with (-0.5, 511.5) min/ max values if no data is present.</span>
-<span class="sd">        Corresponds to pixels centered at [0, ..., 511].</span>
+<span class="sd">        Default to 2D image-like with (0, 511) min/ max values if no data is present.</span>
+<span class="sd">        Corresponds to image with 512 pixels in each dimension.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        extent_world : array, shape (2, D)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">min_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
-            <span class="n">max_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mf">511.5</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+            <span class="n">min_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+            <span class="n">max_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mf">511.0</span><span class="p">)</span>
+            <span class="c1"># image-like augmented extent is actually expanded by 0.5</span>
+            <span class="k">if</span> <span class="n">augmented</span><span class="p">:</span>
+                <span class="n">min_v</span> <span class="o">-=</span> <span class="mf">0.5</span>
+                <span class="n">max_v</span> <span class="o">+=</span> <span class="mf">0.5</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">extrema</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
             <span class="n">mins</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">extrema</span><span class="p">]</span>
@@ -522,8 +541,9 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="LayerList.get_extent"><a class="viewcode-back" href="../../../api/napari.components.LayerList.html#napari.components.LayerList.get_extent">[docs]</a>    <span class="k">def</span> <span class="nf">get_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Layer</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return extent for a given layer list.</span>
-<span class="sd">        This function is useful for calculating the extent of a subset of layers</span>
-<span class="sd">        when preparing and updating some supplementary layers.</span>
+
+<span class="sd">        Extent bounds are inclusive. This function is useful for calculating the extent</span>
+<span class="sd">        of a subset of layers when preparing and updating some supplementary layers.</span>
 <span class="sd">        For example see the cross Vectors layer in the `multiple_viewer_widget` example.</span>
 
 <span class="sd">        Parameters</span>
@@ -545,60 +565,19 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Extent</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extent of layers in data and world coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extent of layers in data and world coordinates.</span>
+
+<span class="sd">        Extent bounds are inclusive. See Layer.extent for a detailed explanation</span>
+<span class="sd">        of how extents are calculated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_extent</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
-    <span class="nd">@cached_property</span>
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get ranges for Dims.range in world coordinates.</span>
-
-<span class="sd">        This shares some code in common with the `extent` property, but</span>
-<span class="sd">        determines Dims.range settings for each dimension such that each</span>
-<span class="sd">        range is aligned to pixel centers at the finest scale.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-
-        <span class="c1"># Determine minimum step size across all layers</span>
-        <span class="n">layer_extent_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
-        <span class="n">scales</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">step</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
-        <span class="n">min_steps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_size_from_scales</span><span class="p">(</span><span class="n">scales</span><span class="p">)</span>
-
-        <span class="c1"># Pixel-based layers need to be offset by 0.5 * min_steps to align</span>
-        <span class="c1"># Dims.range with pixel centers in world coordinates</span>
-        <span class="n">pixel_offsets</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="mf">0.5</span> <span class="o">*</span> <span class="n">min_steps</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">_ImageBase</span><span class="p">)</span>
-            <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_steps</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span>
-        <span class="p">]</span>
-
-        <span class="c1"># Non-pixel layers need an offset of the range stop by min_steps since the upper</span>
-        <span class="c1"># limit of Dims.range is non-inclusive.</span>
-        <span class="n">point_offsets</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_steps</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">_ImageBase</span><span class="p">)</span>
-            <span class="k">else</span> <span class="n">min_steps</span>
-            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span>
-        <span class="p">]</span>
-
-        <span class="c1"># Determine world coordinate extents similarly to</span>
-        <span class="c1"># `_get_extent_world`, but including offsets calculated above.</span>
-        <span class="n">extrema</span> <span class="o">=</span> <span class="p">[</span><span class="n">extent</span><span class="o">.</span><span class="n">world</span> <span class="k">for</span> <span class="n">extent</span> <span class="ow">in</span> <span class="n">layer_extent_list</span><span class="p">]</span>
-        <span class="n">mins</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">o1</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">o1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">extrema</span><span class="p">,</span> <span class="n">pixel_offsets</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="n">maxs</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">o1</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+</span> <span class="n">o2</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
-            <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">o1</span><span class="p">,</span> <span class="n">o2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">extrema</span><span class="p">,</span> <span class="n">pixel_offsets</span><span class="p">,</span> <span class="n">point_offsets</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_and_max</span><span class="p">(</span><span class="n">mins</span><span class="p">,</span> <span class="n">maxs</span><span class="p">)</span>
-
-        <span class="c1"># form range tuples, switching back to original dimension order</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span><span class="p">,</span> <span class="n">min_steps</span><span class="p">)</span>
-        <span class="p">]</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get ranges for Dims.range in world coordinates.&quot;&quot;&quot;</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extent</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ext</span><span class="o">.</span><span class="n">world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ext</span><span class="o">.</span><span class="n">world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ext</span><span class="o">.</span><span class="n">step</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>

@@ -928,6 +928,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># note: self.color_mode returns a string and this comparison fails,</span>
         <span class="c1"># so use self._color_mode</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_selected_label</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># invalidates labels cache</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Labels.swap_selected_and_background_labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.swap_selected_and_background_labels">[docs]</a>    <span class="k">def</span> <span class="nf">swap_selected_and_background_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -980,6 +981,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="nd">@show_selected_label</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">show_selected_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_val</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span> <span class="o">=</span> <span class="n">filter_val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">getter</span>
@@ -1407,8 +1409,15 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span><span class="p">,</span> <span class="n">n_points</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
             <span class="n">im_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>
+            <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span>
+            <span class="c1"># the display bounding box is returned as a closed interval</span>
+            <span class="c1"># (i.e. the endpoint is included) by the method, but we need</span>
+            <span class="c1"># open intervals in the code that follows, so we add 1.</span>
+            <span class="n">bounding_box</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
             <span class="n">clamped</span> <span class="o">=</span> <span class="n">clamp_point_to_bounding_box</span><span class="p">(</span>
-                <span class="n">sample_points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span>
+                <span class="n">sample_points</span><span class="p">,</span>
+                <span class="n">bounding_box</span><span class="p">,</span>
             <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
             <span class="n">values</span> <span class="o">=</span> <span class="n">im_slice</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">clamped</span><span class="o">.</span><span class="n">T</span><span class="p">)]</span>
             <span class="n">nonzero_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>

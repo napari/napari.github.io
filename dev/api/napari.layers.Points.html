@@ -1157,7 +1157,7 @@ have their properties edited, or be deleted.</p>
 
 <p class="rubric">Notes</p>
 <dl class="simple">
-<dt>_view_data<span class="classifier">array (M, 2)</span></dt><dd><p>2D coordinates of points in the currently viewed slice.</p>
+<dt>_view_data<span class="classifier">array (M, D)</span></dt><dd><p>coordinates of points in the currently viewed slice.</p>
 </dd>
 <dt>_view_size<span class="classifier">array (M, )</span></dt><dd><p>Size of the point markers in the currently viewed slice.</p>
 </dd>
@@ -1841,8 +1841,14 @@ the edge_color colormap property to 0 and 1</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.layers.Points.extent">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.base.base.Extent</span></em><a class="headerlink" href="#napari.layers.Points.extent" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">napari.layers.utils.layer_utils.Extent</span></em><a class="headerlink" href="#napari.layers.Points.extent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extent of layer in data and world coordinates.</p>
+<p>For image-like layers, these coordinates are the locations of the
+pixels in <cite>Layer.data</cite> which are treated like sample points that are
+centered in the rendered version of those pixels.
+For other layers, these coordinates are the points or vertices stored
+in <cite>Layer.data</cite>.
+Lower and upper bounds are inclusive.</p>
 </dd></dl>
 
 <dl class="py property">

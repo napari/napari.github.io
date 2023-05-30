@@ -1193,23 +1193,6 @@ function checkPageExistsAndRedirect(event) {
   <a class="reference internal nav-link" href="#install-as-a-bundled-app">
    Install as a bundled app
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#installing-the-macos-bundle">
-     Installing the MacOS bundle
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#installing-the-windows-bundle">
-     Installing the Windows bundle
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#installing-the-linux-bundle">
-     Installing the Linux bundle
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#next-steps">
@@ -1268,12 +1251,6 @@ all its features.</p>
 <h3>Prerequisites for installing napari as a bundled app<a class="headerlink" href="#prerequisites-for-installing-napari-as-a-bundled-app" title="Permalink to this headline">¶</a></h3>
 <p>This is the easiest way to install napari if you only wish to use it as a standalone GUI app.
 This installation method does not have any prerequisites.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Note that the bundled app is still
-in active development, and may not be very stable. We strongly recommend
-<a class="reference internal" href="#install-as-python-package-recommended"><span class="std std-doc">installing as a Python package instead</span></a>.</p>
-</div>
 <p><a class="reference internal" href="#install-as-a-bundled-app"><span class="std std-doc">Click here</span></a> to see instructions
 for installing the bundled app.</p>
 </section>
@@ -1418,78 +1395,25 @@ you’re not using.</p>
 <section id="install-as-a-bundled-app">
 <h2>Install as a bundled app<a class="headerlink" href="#install-as-a-bundled-app" title="Permalink to this headline">¶</a></h2>
 <p>napari can also be installed as a bundled app on each of the major platforms,
-MacOS, Windows, and Linux with a simple one click download and installation
+MacOS, Windows, and Linux with a simple one-click download and installation
 process. You might want to install napari as a bundled app if you are unfamiliar
 with installing Python packages or if you were unable to get the installation
 process described above working. The bundled app version of napari is the same
 version that you can get through the above described processes, and can still be
 extended with napari plugins installed directly via the app.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Note that the bundled app is still
+in active development, and may not be very stable. We strongly recommend
+<a class="reference internal" href="#install-as-python-package-recommended"><span class="std std-doc">installing as a Python package instead</span></a>.</p>
+</div>
 <p>To access the cross platform bundles you can visit our <a class="reference external" href="https://github.com/napari/napari/releases">release
 page</a> and scroll to the release you
 are interested in. For example, the bundles for napari 0.5.0 can be
 accessed <a class="reference external" href="https://github.com/napari/napari/releases/tag/v0.5.0">here</a>.
 To get to the download link, just scroll all the way to bottom of the page and
-expand the <code class="docutils literal notranslate"><span class="pre">Assets</span></code> section to get a view that looks like this:</p>
-<p><img alt="Cropped screenshot from GitHub with the Assets section (or &quot;tab&quot;) expanded, containing links to download the app in the form of zip files for Linux, macOS, Windows, in addition to other links." src="../../_images/bundle_assets.png" /></p>
-<p>You can then download the appropriate zip file for your platform.</p>
-<section id="installing-the-macos-bundle">
-<h3>Installing the MacOS bundle<a class="headerlink" href="#installing-the-macos-bundle" title="Permalink to this headline">¶</a></h3>
-<p>Once you have downloaded the MacOS bundle zip you will have a zip file with a
-name like <code class="docutils literal notranslate"><span class="pre">napari-0.3.7-macOS.zip</span></code>. After unzipping you will have a file with a
-name like <code class="docutils literal notranslate"><span class="pre">napari-0.3.7.dmg</span></code>. Double clicking the <code class="docutils literal notranslate"><span class="pre">dmg</span></code> will open a new finder
-window giving you the option to install napari into your <code class="docutils literal notranslate"><span class="pre">Applications</span></code> folder
-by dragging the <code class="docutils literal notranslate"><span class="pre">napari</span></code> icon onto the <code class="docutils literal notranslate"><span class="pre">Applications</span></code> icon.</p>
-<p><img alt="Finder window of the napari bundle dmg file, containing the napari app icon and a shortcut icon to the Applications folder." src="../../_images/bundle_install.png" /></p>
-<p>After you drag the <code class="docutils literal notranslate"><span class="pre">napari</span></code> icon onto the <code class="docutils literal notranslate"><span class="pre">Applications</span></code> icon napari will be
-installed in your Applications folder and available for opening by double
-clicking on it.</p>
-<p><img alt="Finder window of the Applications folder containing the napari app." src="../../_images/bundle_applications_folder.png" /></p>
-<p>The first time you try and open napari you will get the “unverified developer
-warning” that appears below:</p>
-<p><img alt="Finder pop up with the warning &quot;napari cannot be opened because the developer cannot be verified&quot; and the options &quot;Move to Trash&quot; or &quot;Cancel.&quot;" src="../../_images/bundle_dev_warning.png" /></p>
-<p>Don’t be alarmed, this is because the napari team has not yet obtained a
-developer certificate from Apple, but we will be doing this promptly. It is safe
-to click “Cancel”. To get napari to open you must enter “Systems Preferences”
-and click the “Security &amp; Privacy” icon, circled in red below:</p>
-<p><img alt="MacOS System Preferences with the Security &amp; Privacy settings on the far right of the second row." src="../../_images/bundle_security_privacy.png" /></p>
-<p>Once inside the “Security &amp; Privacy” tab, you should see a message about napari
-being blocked and an “Open Anyway” button, circled in red below:</p>
-<p><img alt="System Preferences Security &amp; Privacy section's General tab. At the bottom of the window there is a notification that napari was blocked and the button to &quot;Open Anyway.&quot;" src="../../_images/bundle_open_anyway.png" /></p>
-<p>After clicking this button you’ll get one final warning about napari not being
-verified, but now you’ll have an “Open” button, as seen below:</p>
-<p><img alt="Finder pop up with the warning &quot;macOS cannot verify the developer of napari. Are you sure you want to open it?&quot; and the options &quot;Move to Trash,&quot; &quot;Open,&quot; or &quot;Cancel.&quot;" src="../../_images/bundle_open.png" /></p>
-<p>After clicking “Open”, the viewer should appear. Don’t worry, you only have to
-go through this process once when you install a new bundle.</p>
-</section>
-<section id="installing-the-windows-bundle">
-<h3>Installing the Windows bundle<a class="headerlink" href="#installing-the-windows-bundle" title="Permalink to this headline">¶</a></h3>
-<p>Once you have downloaded the Windows bundle zip you will have a zip file with a
-name like <code class="docutils literal notranslate"><span class="pre">napari-0.3.7-Windows.zip</span></code>. Unzip the bundle (you may like to use a
-tool like <a class="reference external" href="https://www.7-zip.org/">7-zip</a> for this) and double click on msi
-file, eg: <code class="docutils literal notranslate"><span class="pre">napari-0.3.7.msi</span></code></p>
-<p>The napari setup wizard will then open. Click “Next” to begin the installation.</p>
-<p><img alt="napari Setup window with a welcome message and button to continue with &quot;Next.&quot;" src="../../_images/windows_bundle_installer_start.png" /></p>
-<p><img alt="napari Setup window in the process of installing napari. The progress bar has a Status that describes which step is in progress." src="../../_images/windows_bundle_installer_progress.png" /></p>
-<p>After the setup wizard has installed napari, click “Finish” to exit.</p>
-<p><img alt="napari Setup window success message with the button to &quot;Finish&quot; installation." src="../../_images/windows_bundle_installer_finish.png" /></p>
-<p>When you launch the bundled napari app on Windows, first you’ll see an empty
-command terminal appear (do not close this window - you can ignore it). The
-command terminal will be followed by a napari splash screen, and then the main
-napari user interface window will appear a few seconds later. Note that errors
-which might occur during your napari session will appear on the command terminal -
-so if something is not working, it might pay to take a look at the terminal!</p>
-<p><img alt="Windows command terminal on napari launch." src="../../_images/windows_bundle_command_terminal.png" /></p>
-<p>You can launch napari from the Windows start menu.</p>
-<p><img alt="Windows start menu with napari listed as a launchable app." src="../../_images/windows_launch_napari.png" /></p>
-<p>The very first time you launch napari the startup time will be fairly slow, but
-after that you will find that napari launches more quickly.</p>
-</section>
-<section id="installing-the-linux-bundle">
-<h3>Installing the Linux bundle<a class="headerlink" href="#installing-the-linux-bundle" title="Permalink to this headline">¶</a></h3>
-<p>(Guide coming soon… In the meantime, if you try it and encounter issues, see
-below for how to contact us.)</p>
+expand the <code class="docutils literal notranslate"><span class="pre">Assets</span></code> section. You can then download the appropriate file for your platform.</p>
 <!-- #endregion -->
-</section>
 </section>
 <section id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
@@ -1502,7 +1426,7 @@ guidelines</span></a></p></li>
 <li><p>if you are running into issues or bugs, please open a new issue on our <a class="reference external" href="https://github.com/napari/napari/issues">issue
 tracker</a></p>
 <ul>
-<li><p>include the output of <code class="docutils literal notranslate"><span class="pre">napari</span> <span class="pre">-info</span></code>
+<li><p>include the output of <code class="docutils literal notranslate"><span class="pre">napari</span> <span class="pre">--info</span></code>
 (or go to <code class="docutils literal notranslate"><span class="pre">Help&gt;Info</span></code> in the viewer and copy paste the information)</p></li>
 </ul>
 </li>

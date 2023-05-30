@@ -705,82 +705,70 @@ function checkPageExistsAndRedirect(event) {
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#briefcase-based-installers">
-     Briefcase-based installers
+    <a class="reference internal nav-link" href="#default-installation-path">
+     Default installation path
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#constructor-based-installers">
-     Constructor-based installers
+    <a class="reference internal nav-link" href="#branding">
+     Branding
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#signing">
+     Signing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#details-of-our-constructor-stack-fork">
+     Details of our
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       constructor
+      </span>
+     </code>
+     stack fork
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#default-installation-path">
-       Default installation path
+      <a class="reference internal nav-link" href="#changes-in-menuinst">
+       Changes in
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         menuinst
+        </span>
+       </code>
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#branding">
-       Branding
+      <a class="reference internal nav-link" href="#changes-in-conda">
+       Changes in
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         conda
+        </span>
+       </code>
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#signing">
-       Signing
+      <a class="reference internal nav-link" href="#changes-in-conda-standalone">
+       Changes in
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         conda-standalone
+        </span>
+       </code>
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#details-of-our-constructor-stack-fork">
-       Details of our
+      <a class="reference internal nav-link" href="#changes-in-constructor">
+       Changes in
        <code class="docutils literal notranslate">
         <span class="pre">
          constructor
         </span>
        </code>
-       stack fork
       </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#changes-in-menuinst">
-         Changes in
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           menuinst
-          </span>
-         </code>
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#changes-in-conda">
-         Changes in
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           conda
-          </span>
-         </code>
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#changes-in-conda-standalone">
-         Changes in
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           conda-standalone
-          </span>
-         </code>
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#changes-in-constructor">
-         Changes in
-         <code class="docutils literal notranslate">
-          <span class="pre">
-           constructor
-          </span>
-         </code>
-        </a>
-       </li>
-      </ul>
      </li>
     </ul>
    </li>
@@ -875,23 +863,13 @@ with no prior knowledge of <code class="docutils literal notranslate"><span clas
 <li><p>It will provide a convenient way of opening the application, like a shortcut or a menu entry.</p></li>
 <li><p>It will allow the user to uninstall the application, leaving no artifacts behind.</p></li>
 </ul>
-<p>Right now, we are using two ways of generating the installers:</p>
-<ul class="simple">
-<li><p>With <code class="docutils literal notranslate"><span class="pre">briefcase</span></code>, which takes PyPI packages.</p></li>
-<li><p>With <code class="docutils literal notranslate"><span class="pre">constructor</span></code>, which takes <code class="docutils literal notranslate"><span class="pre">conda</span></code> packages.</p></li>
-</ul>
-<p><code class="docutils literal notranslate"><span class="pre">conda</span></code> packages offer several advantages when it comes to bundling dependencies, since it makes very few assumptions about the underlying system installation.
+<p>We use <code class="docutils literal notranslate"><span class="pre">constructor</span></code> to build the bundled installers, which takes <code class="docutils literal notranslate"><span class="pre">conda</span></code> packages.
+<code class="docutils literal notranslate"><span class="pre">conda</span></code> packages offer several advantages when it comes to bundling dependencies, since it makes very few assumptions about the underlying system installation.
 As a result, <code class="docutils literal notranslate"><span class="pre">constructor</span></code> bundles include libraries that might be missing in the target system and hence should provide a more robust user experience.</p>
-<section id="briefcase-based-installers">
-<h3>Briefcase-based installers<a class="headerlink" href="#briefcase-based-installers" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://github.com/beeware/briefcase"><code class="docutils literal notranslate"><span class="pre">briefcase</span></code></a> based installers are marked for deprecation, so we will not discuss them here.
-If you are curious, you can check <code class="docutils literal notranslate"><span class="pre">bundle.py</span></code> and <code class="docutils literal notranslate"><span class="pre">.github/workflows/make_bundle.yml</span></code> for details.</p>
-</section>
-<section id="constructor-based-installers">
-<h3>Constructor-based installers<a class="headerlink" href="#constructor-based-installers" title="Permalink to this headline">¶</a></h3>
-<p>We use <code class="docutils literal notranslate"><span class="pre">constructor</span></code> to build the <code class="docutils literal notranslate"><span class="pre">napari</span></code> installers through the <code class="docutils literal notranslate"><span class="pre">.github/workflows/make_bundle_conda.yml</span></code> workflow,
-which only specifies the triggers used to call the actual workflow implementation under the <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> repository.
-This repository stores all the logic and files needed to create the nightly <code class="docutils literal notranslate"><span class="pre">conda</span></code> packages and the <code class="docutils literal notranslate"><span class="pre">constructor</span></code> installers.</p>
+<p>The automation is implemented in the <code class="docutils literal notranslate"><span class="pre">.github/workflows/make_bundle_conda.yml</span></code> workflow, which only
+specifies the triggers used to call the actual workflow implementation under the <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code>
+repository. This repository stores all the logic and files needed to create the nightly <code class="docutils literal notranslate"><span class="pre">conda</span></code>
+packages and the <code class="docutils literal notranslate"><span class="pre">constructor</span></code> installers.</p>
 <p><a class="reference external" href="https://github.com/conda/constructor"><code class="docutils literal notranslate"><span class="pre">constructor</span></code></a> allows you to build cross-platform installers out of <code class="docutils literal notranslate"><span class="pre">conda</span></code> packages.
 It supports the following installer types:</p>
 <ul class="simple">
@@ -910,7 +888,7 @@ For a hypothetical napari v1.2.3 we would have built this configuration file:</p
 <span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EULA.md</span>
 <span class="nt">channels</span><span class="p">:</span>
 <span class="w">  </span><span class="c1"># - local  # only in certain situations, like nightly installers where we build napari locally</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/label/bundle_tools</span><span class="w">  </span><span class="c1"># temporary location of our forks of the constructor stack</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/label/bundle_tools_2</span><span class="w">  </span><span class="c1"># temporary location of our forks of the constructor stack</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
 <span class="nt">specs</span><span class="p">:</span><span class="w"> </span><span class="c1"># specs for the &#39;base&#39;  environment</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to the version of the running interpreter, configured in the CI</span>
@@ -956,7 +934,7 @@ For a hypothetical napari v1.2.3 we would have built this configuration file:</p
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">channels</span></code>: where the packages will be downloaded from.
 We mainly rely on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> for this, where <code class="docutils literal notranslate"><span class="pre">napari</span></code> is published.
-However, we also have <code class="docutils literal notranslate"><span class="pre">napari/label/bundle_tools</span></code>, where we store our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack forks (more on this later).
+However, we also have <code class="docutils literal notranslate"><span class="pre">napari/label/bundle_tools_2</span></code>, where we store our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack forks (more on this later).
 In nightly installers, we locally build our own development packages for <code class="docutils literal notranslate"><span class="pre">conda</span></code>, without resorting to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>.
 To make use of those (which are eventually published to <code class="docutils literal notranslate"><span class="pre">napari/label/nightly</span></code>),
 we unpack the GitHub Actions artifact in a specific location that <code class="docutils literal notranslate"><span class="pre">constructor</span></code> recognizes as a <em>local</em> channel once indexed.</p></li>
@@ -968,7 +946,7 @@ We only want the shortcuts provided by <code class="docutils literal notranslate
 </ul>
 <p>Then, depending on the operating systems and the installer format, we customize the configuration a bit more.</p>
 <section id="default-installation-path">
-<h4>Default installation path<a class="headerlink" href="#default-installation-path" title="Permalink to this headline">¶</a></h4>
+<h3>Default installation path<a class="headerlink" href="#default-installation-path" title="Permalink to this headline">¶</a></h3>
 <p>This depends on each OS. Our general strategy is to put the general installation under
 <code class="docutils literal notranslate"><span class="pre">~/&lt;hidden&gt;/napari-&lt;VERSION&gt;</span></code>, which will eventually contain the napari installations under
 <code class="docutils literal notranslate"><span class="pre">envs/</span></code>, with environments named as <code class="docutils literal notranslate"><span class="pre">napari-&lt;VERSION&gt;</span></code>. However, there are several constrains we
@@ -989,7 +967,7 @@ can be found, by default, on the following locations:</p>
 </ul>
 </section>
 <section id="branding">
-<h4>Branding<a class="headerlink" href="#branding" title="Permalink to this headline">¶</a></h4>
+<h3>Branding<a class="headerlink" href="#branding" title="Permalink to this headline">¶</a></h3>
 <p>Graphical installers can be customized with logos and icons. These images are stored under the
 <code class="docutils literal notranslate"><span class="pre">resources/</span></code> directory (outside the source), except for the square logos/icons (which
 are stored under <code class="docutils literal notranslate"><span class="pre">napari/resources/</span></code> so the shortcuts can find them after the installation).</p>
@@ -997,7 +975,7 @@ are stored under <code class="docutils literal notranslate"><span class="pre">na
 screen on macOS.</p>
 </section>
 <section id="signing">
-<h4>Signing<a class="headerlink" href="#signing" title="Permalink to this headline">¶</a></h4>
+<h3>Signing<a class="headerlink" href="#signing" title="Permalink to this headline">¶</a></h3>
 <p>In order to avoid security warnings on the target platform, we need to sign the generated installer.</p>
 <p>On macOS, once Apple’s <em>Installer Certificate</em> has been installed to a keychain and unlocked
 for its use, you can have <code class="docutils literal notranslate"><span class="pre">constructor</span></code> handle the signing via <code class="docutils literal notranslate"><span class="pre">productsign</span></code> automatically.
@@ -1013,7 +991,7 @@ a path to a PFX certificate and then have the Windows SDK <code class="docutils 
 <p>More details about our packaging infrastructure can be found in the <a class="reference external" href="https://napari.org/dev/naps/2-conda-based-packaging.html">NAP-2 document</a>.</p>
 </section>
 <section id="details-of-our-constructor-stack-fork">
-<h4>Details of our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack fork<a class="headerlink" href="#details-of-our-constructor-stack-fork" title="Permalink to this headline">¶</a></h4>
+<h3>Details of our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack fork<a class="headerlink" href="#details-of-our-constructor-stack-fork" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>Note: All these changes have been sent upstream. See progress in <a class="reference external" href="https://github.com/napari/packaging/issues/15">this issue</a>.</p>
 </div></blockquote>
@@ -1093,7 +1071,7 @@ are retrieved from the Azure UI and manually uploaded to the <code class="docuti
 upstream. For now, this not the case. Speaking of which, what are our changes? Below you can find
 a high-level list of the main changes introduced in the stack.</p>
 <section id="changes-in-menuinst">
-<h5>Changes in <code class="docutils literal notranslate"><span class="pre">menuinst</span></code><a class="headerlink" href="#changes-in-menuinst" title="Permalink to this headline">¶</a></h5>
+<h4>Changes in <code class="docutils literal notranslate"><span class="pre">menuinst</span></code><a class="headerlink" href="#changes-in-menuinst" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Add cross-platform specification for shortcut configuration</p></li>
 <li><p>Enable support on Windows, Linux and macOS</p></li>
@@ -1105,7 +1083,7 @@ a high-level list of the main changes introduced in the stack.</p>
 </ul>
 </section>
 <section id="changes-in-conda">
-<h5>Changes in <code class="docutils literal notranslate"><span class="pre">conda</span></code><a class="headerlink" href="#changes-in-conda" title="Permalink to this headline">¶</a></h5>
+<h4>Changes in <code class="docutils literal notranslate"><span class="pre">conda</span></code><a class="headerlink" href="#changes-in-conda" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Add API support for menuinst v2</p></li>
 <li><p>Enable code paths for non-Windows Platforms</p></li>
@@ -1114,7 +1092,7 @@ a high-level list of the main changes introduced in the stack.</p>
 </ul>
 </section>
 <section id="changes-in-conda-standalone">
-<h5>Changes in <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code><a class="headerlink" href="#changes-in-conda-standalone" title="Permalink to this headline">¶</a></h5>
+<h4>Changes in <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code><a class="headerlink" href="#changes-in-conda-standalone" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Unvendor menuinst patches</p></li>
 <li><p>Do not vendor constructor NSIS scripts</p></li>
@@ -1122,7 +1100,7 @@ a high-level list of the main changes introduced in the stack.</p>
 </ul>
 </section>
 <section id="changes-in-constructor">
-<h5>Changes in <code class="docutils literal notranslate"><span class="pre">constructor</span></code><a class="headerlink" href="#changes-in-constructor" title="Permalink to this headline">¶</a></h5>
+<h4>Changes in <code class="docutils literal notranslate"><span class="pre">constructor</span></code><a class="headerlink" href="#changes-in-constructor" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">--shortcuts-only</span></code></p></li>
 <li><p>Add branding options for macOS PKG installers</p></li>
@@ -1132,7 +1110,6 @@ a high-level list of the main changes introduced in the stack.</p>
 <li><p>Add notarization for macOS PKG</p></li>
 </ul>
 <!-- hyperlinks -->
-</section>
 </section>
 </section>
 </section>

@@ -15,12 +15,8 @@
       :nosignatures:
       :toctree:
    
-      ArrayBase
-      Path
       SampleDict
-      TracebackType
-      TypedDict
-      partial
+      ArrayBase
    
    
 
@@ -31,16 +27,13 @@
    
    .. autofunction:: ImageData
    .. autofunction:: LabelsData
-   .. autofunction:: LayerDataTuple
-   .. autofunction:: NewType
    .. autofunction:: PointsData
    .. autofunction:: ShapesData
    .. autofunction:: SurfaceData
    .. autofunction:: TracksData
    .. autofunction:: VectorsData
-   .. autofunction:: get_args
+   .. autofunction:: LayerDataTuple
    .. autofunction:: image_reader_to_layerdata_reader
-   .. autofunction:: wraps
    
    
 

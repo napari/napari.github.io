@@ -547,8 +547,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">=</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_contour</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_int_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_lookup_func</span> <span class="o">=</span> <span class="kc">None</span>
@@ -986,7 +986,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
-    <span class="nd">@Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">getter</span>
+    <span class="c1"># Only overriding to change the docstring</span>
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;MODE: Interactive mode. The normal, default mode is PAN_ZOOM, which</span>
 <span class="sd">        allows for normal interactivity with the canvas.</span>
@@ -1011,7 +1012,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        In ERASE mode the cursor functions similarly to PAINT mode, but to</span>
 <span class="sd">        paint with background label, which effectively removes the label.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">fget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1"># Only overriding to change the docstring of the setter above</span>
+    <span class="nd">@mode</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="n">Layer</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_mode_setter_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
         <span class="n">mode</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_mode_setter_helper</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
@@ -1197,7 +1203,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">labels_update</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">colors_sliced</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine displayed image from a saved raw image and a saved seed.</span>
 
 <span class="sd">        This function ensures that the 0 label gets mapped to the 0 displayed</span>
@@ -1256,6 +1264,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">update_mask</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">labels</span><span class="o">.</span><span class="n">shape</span>
         <span class="p">):</span>
             <span class="n">update_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span> <span class="o">!=</span> <span class="n">sliced_labels</span>
@@ -1264,11 +1273,13 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># Update the cache</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">][</span><span class="n">update_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels_to_map</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="n">_cached_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="n">_cached_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">sliced_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="n">_cached_labels</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span>
                 <span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">sliced_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
             <span class="n">labels_to_map</span> <span class="o">=</span> <span class="n">sliced_labels</span>
 
         <span class="c1"># If there are no changes, just return the cached image</span>
@@ -1411,7 +1422,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span><span class="p">,</span> <span class="n">n_points</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
             <span class="n">im_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span>
-            <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span>
+            <span class="n">bounding_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_bounding_box</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">))</span>
             <span class="c1"># the display bounding box is returned as a closed interval</span>
             <span class="c1"># (i.e. the endpoint is included) by the method, but we need</span>
             <span class="c1"># open intervals in the code that follows, so we add 1.</span>
@@ -1846,9 +1857,11 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">source_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_source_info</span><span class="p">()</span>
-        <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_layer_coords_status</span><span class="p">(</span>
-            <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span> <span class="n">value</span>
-        <span class="p">)</span>
+
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="k">if</span> <span class="n">pos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:]</span>
+        <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_layer_coords_status</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
         <span class="c1"># if this labels layer has properties</span>
         <span class="n">properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">(</span>
@@ -1940,7 +1953,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">napari.layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
 
-<div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels">[docs]</a>    <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">Labels</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels">[docs]</a>    <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">Labels</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>  <span class="c1"># type: ignore[no-redef]</span>
         <span class="k">pass</span></div>
 
 

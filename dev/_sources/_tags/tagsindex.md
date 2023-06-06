@@ -9,9 +9,9 @@ maxdepth: 1
 ---
 analysis (4) <analysis>
 experimental (9) <experimental>
-gui (15) <gui>
+gui (16) <gui>
 historical (4) <historical>
-interactivity (4) <interactivity>
+interactivity (5) <interactivity>
 layers (5) <layers>
 visualization-advanced (13) <visualization-advanced>
 visualization-basic (22) <visualization-basic>

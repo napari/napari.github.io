@@ -9,6 +9,7 @@ caption: With this tag
 ../gallery/image_custom_kernel.rst
 ../gallery/magic_image_arithmetic.rst
 ../gallery/set_theme.rst
+../gallery/fourier_transform_playground.rst
 ../gallery/bbox_annotator.rst
 ../gallery/magic_viewer.rst
 ../gallery/mouse_drag_callback.rst

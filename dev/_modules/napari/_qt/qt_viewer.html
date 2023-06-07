@@ -833,9 +833,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">dlg</span><span class="o">.</span><span class="n">setHistory</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
 
         <span class="n">filename</span><span class="p">,</span> <span class="n">selected_filter</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-            <span class="n">caption</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Save </span><span class="si">{msg}</span><span class="s1"> layers&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">),</span>
-            <span class="n">directory</span><span class="o">=</span><span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># home dir by default,</span>
+            <span class="bp">self</span><span class="p">,</span>  <span class="c1"># parent</span>
+            <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Save </span><span class="si">{msg}</span><span class="s1"> layers&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">),</span>  <span class="c1"># caption</span>
+            <span class="c1"># home dir by default</span>
+            <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># directory in PyQt, dir in PySide</span>
             <span class="nb">filter</span><span class="o">=</span><span class="n">ext_str</span><span class="p">,</span>
             <span class="n">options</span><span class="o">=</span><span class="p">(</span>
                 <span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>

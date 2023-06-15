@@ -63,7 +63,7 @@ Displays an image and sets the theme to new custom theme.
     # List themes
     print('Originally themes', available_themes())
 
-    blue_theme = get_theme('dark', False)
+    blue_theme = get_theme('dark')
     blue_theme.id = "blue"
     blue_theme.icon = (
         'rgb(0, 255, 255)'  # you can provide colors as rgb(XXX, YYY, ZZZ)
@@ -87,7 +87,7 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  26.267 seconds)
+   **Total running time of the script:** ( 0 minutes  25.089 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:

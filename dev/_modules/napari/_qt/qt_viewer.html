@@ -265,12 +265,13 @@ function checkPageExistsAndRedirect(event) {
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakSet</span>
+<span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakSet</span><span class="p">,</span> <span class="n">ref</span>
 
 <span class="kn">from</span> <span class="nn">qtpy.QtCore</span> <span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">Qt</span>
 <span class="kn">from</span> <span class="nn">qtpy.QtGui</span> <span class="kn">import</span> <span class="n">QGuiApplication</span>
@@ -447,6 +448,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_viewerButtons</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_map_handler</span> <span class="o">=</span> <span class="n">KeymapHandler</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_map_handler</span><span class="o">.</span><span class="n">keymap_providers</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerList</span> <span class="o">=</span> <span class="kc">None</span>
@@ -701,6 +703,92 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
+    <span class="k">def</span> <span class="nf">_weakref_if_possible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a weakref to obj.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obj : object</span>
+<span class="sd">            Cannot create weakrefs to many Python built-in datatypes such as</span>
+<span class="sd">            list, dict, str.</span>
+
+<span class="sd">            From https://docs.python.org/3/library/weakref.html: &quot;Objects which</span>
+<span class="sd">            support weak references include class instances, functions written</span>
+<span class="sd">            in Python (but not in C), instance methods, sets, frozensets, some</span>
+<span class="sd">            file objects, generators, type objects, sockets, arrays, deques,</span>
+<span class="sd">            regular expression pattern objects, and code objects.&quot;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        weakref or object</span>
+<span class="sd">            Returns a weakref if possible.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">newref</span> <span class="o">=</span> <span class="n">ref</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">newref</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="k">return</span> <span class="n">newref</span>
+
+    <span class="k">def</span> <span class="nf">_unwrap_if_weakref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return value or if that is weakref the object referenced by value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : object or weakref</span>
+<span class="sd">            No-op for types other than weakref.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        unwrapped: object or None</span>
+<span class="sd">            Returns referenced object, or None if weakref is dead.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">unwrapped</span> <span class="o">=</span> <span class="n">value</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">else</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">unwrapped</span>
+
+<div class="viewcode-block" id="QtViewer.add_to_console_backlog"><a class="viewcode-back" href="../../../api/napari.qt.QtViewer.html#napari.qt.QtViewer.add_to_console_backlog">[docs]</a>    <span class="k">def</span> <span class="nf">add_to_console_backlog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save variables for pushing to console when it is instantiated.</span>
+
+<span class="sd">        This function will create weakrefs when possible to avoid holding on to</span>
+<span class="sd">        too much memory unnecessarily.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        variables : dict, str or list/tuple of str</span>
+<span class="sd">            The variables to inject into the console&#39;s namespace. If a dict, a</span>
+<span class="sd">            simple update is done. If a str, the string is assumed to have</span>
+<span class="sd">            variable names separated by spaces. A list/tuple of str can also</span>
+<span class="sd">            be used to give the variable names. If just the variable names are</span>
+<span class="sd">            give (list/tuple/str) then the variable values looked up in the</span>
+<span class="sd">            callers frame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">vlist</span> <span class="o">=</span> <span class="n">variables</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">vlist</span> <span class="o">=</span> <span class="n">variables</span>
+            <span class="n">vdict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">cf</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">vlist</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">vdict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cf</span><span class="o">.</span><span class="n">f_globals</span><span class="p">,</span> <span class="n">cf</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa: E722</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s1">&#39;Could not get variable </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> from &#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cf</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">vdict</span> <span class="o">=</span> <span class="n">variables</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;variables must be a dict/str/list/tuple&#39;</span><span class="p">)</span>
+        <span class="c1"># weakly reference values if possible</span>
+        <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weakref_if_possible</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vdict</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console_backlog</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dict</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">console_backlog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List: items to push to console when instantiated.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;QtConsole: iPython console terminal integrated into the napari GUI.&quot;&quot;&quot;</span>
@@ -716,6 +804,16 @@ function checkPageExistsAndRedirect(event) {
                     <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
                         <span class="p">{</span><span class="s1">&#39;napari&#39;</span><span class="p">:</span> <span class="n">napari</span><span class="p">,</span> <span class="s1">&#39;action_manager&#39;</span><span class="p">:</span> <span class="n">action_manager</span><span class="p">}</span>
                     <span class="p">)</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">console_backlog</span><span class="p">:</span>
+                        <span class="c1"># recover weak refs</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_if_weakref</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_if_weakref</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>

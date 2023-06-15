@@ -21,32 +21,19 @@
 Update console
 ==============
 
-Display one shapes layer ontop of one image layer using the add_shapes and
-add_image APIs. When the window is closed it will print the coordinates of
-your shapes.
+Display one shapes layer on top of one image layer using the add_shapes and
+add_image APIs.
 
 .. tags:: historical
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-82
+.. GENERATED FROM PYTHON SOURCE LINES 10-81
 
 
 
-.. rst-class:: sphx-glr-horizontal
-
-
-    *
-
-      .. image-sg:: /gallery/images/sphx_glr_update_console_001.png
-          :alt: update console
-          :srcset: /gallery/images/sphx_glr_update_console_001.png
-          :class: sphx-glr-multi-img
-
-    *
-
-      .. image-sg:: /gallery/images/sphx_glr_update_console_002.png
-          :alt: update console
-          :srcset: /gallery/images/sphx_glr_update_console_002.png
-          :class: sphx-glr-multi-img
+.. image-sg:: /gallery/images/sphx_glr_update_console_001.png
+   :alt: update console
+   :srcset: /gallery/images/sphx_glr_update_console_001.png
+   :class: sphx-glr-single-img
 
 
 
@@ -65,7 +52,7 @@ your shapes.
 
     # add the image
     photographer = data.camera()
-    image_layer = napari.view_image(photographer, name='photographer')
+    image_layer = viewer.add_image(photographer, name='photographer')
 
     # create a list of polygons
     polygons = [

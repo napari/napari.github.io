@@ -44,6 +44,9 @@ napari.qt.QtViewer
       ~QtViewer.addWidget
    
    
+      ~QtViewer.add_to_console_backlog
+   
+   
       ~QtViewer.adjustSize
    
    
@@ -1107,6 +1110,7 @@ napari.qt.QtViewer
       ~QtViewer.WinPanel
       ~QtViewer.camera
       ~QtViewer.console
+      ~QtViewer.console_backlog
       ~QtViewer.controls
       ~QtViewer.customContextMenuRequested
       ~QtViewer.destroyed

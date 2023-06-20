@@ -31,7 +31,10 @@ introduction, check out the
 
 All our layers support a visibility toggle that allows you to set the `visible`
 property of each layer. This property is located inside the layer widget in the
-layers list and is represented by an eye icon.
+layers list and is represented by an eye icon indicating the `visibility` button.
+Note that you can Option/Alt-click on the `visibility` button to show *just* that
+one layer, hiding all others. If you then Option/Alt-click on the `visibility` 
+button of a layer a second time, the visibility state of all layers will be restored.  
 
 (layer_opacity)=
 ## Layer opacity

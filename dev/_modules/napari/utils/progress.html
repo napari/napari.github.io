@@ -349,6 +349,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">is_init</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
+        <span class="c1"># if the progress bar is set to disable the &#39;desc&#39; member is not set by the</span>
+        <span class="c1"># tqdm super constructor, so we set it to a dummy value to avoid errors thrown below</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">disable</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">desc</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;progress&quot;</span><span class="p">))</span>
         <span class="n">progress</span><span class="o">.</span><span class="n">_all_instances</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>

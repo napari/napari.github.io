@@ -395,6 +395,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_window_pos</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_old_size</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_close_dialog</span> <span class="o">=</span> <span class="p">{</span><span class="kc">False</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
         <span class="c1"># this ia sa workaround for #5335 issue. The dict is used to not</span>
@@ -540,6 +541,32 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">showFullScreen</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="c1"># Handle showing hidden menubar on mouse move event.</span>
+        <span class="c1"># We do not hide menubar when a menu is being shown or</span>
+        <span class="c1"># we are not in menubar toggled state</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">QApplication</span><span class="o">.</span><span class="n">activePopupWidget</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">MouseMove</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">isHidden</span><span class="p">():</span>
+                    <span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+                    <span class="c1"># set mouse-sensitive zone to trigger showing the menubar</span>
+                    <span class="n">rect</span><span class="o">.</span><span class="n">setHeight</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">rect</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">globalPos</span><span class="p">()):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">rect</span> <span class="o">=</span> <span class="n">QRect</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">QPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">rect</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">globalPos</span><span class="p">()):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Leave</span> <span class="ow">and</span> <span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">QMainWindow</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_window_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -790,6 +817,16 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">process</span><span class="o">.</span><span class="n">startDetached</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">quit_app</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">toggle_menubar_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change menubar to be shown or to be hidden and shown on mouse movement.</span>
+
+<span class="sd">        For the mouse movement functionality see the `eventFilter` implementation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visibility</span>
+
     <span class="nd">@staticmethod</span>
     <span class="nd">@Slot</span><span class="p">(</span><span class="n">Notification</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">show_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">):</span>
@@ -822,7 +859,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># create QApplication if it doesn&#39;t already exist</span>
-        <span class="n">get_app</span><span class="p">()</span>
+        <span class="n">qapp</span> <span class="o">=</span> <span class="n">get_app</span><span class="p">()</span>
 
         <span class="c1"># Dictionary holding dock widgets</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dock_widgets</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
@@ -832,6 +869,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># Connect the Viewer and create the Main Window</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span> <span class="o">=</span> <span class="n">_QtMainWindow</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">qapp</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
 
         <span class="c1"># connect theme events before collecting plugin-provided themes</span>
         <span class="c1"># to ensure icons from the plugins are generated correctly.</span>
@@ -1022,8 +1060,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        show the menubar, since menubar shortcuts are only available while the</span>
 <span class="sd">        menubar is visible.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">isVisible</span><span class="p">())</span>
+        <span class="n">toggle_menubar_visibility</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">toggle_menubar_visibility</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">toggle_menubar_visibility</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_toggle_fullscreen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle fullscreen mode.&quot;&quot;&quot;</span>

@@ -450,9 +450,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        For example usage, see /napari/examples/add_points_with_text.py.</span>
 <span class="sd">    symbol : array of str</span>
 <span class="sd">        Array of symbols for each point.</span>
-<span class="sd">    size : array (N, D)</span>
-<span class="sd">        Array of sizes for each point in each dimension. Must have the same</span>
-<span class="sd">        shape as the layer `data`.</span>
+<span class="sd">    size : array (N,)</span>
+<span class="sd">        Array of sizes for each point. Must have the same shape as the layer `data`.</span>
 <span class="sd">    edge_width : array (N,)</span>
 <span class="sd">        Width of the marker edges in pixels for all points</span>
 <span class="sd">    edge_width : array (N,)</span>
@@ -818,16 +817,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="c1"># If there are now more points, add the size and colors of the</span>
                 <span class="c1"># new ones</span>
                 <span class="n">adding</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">cur_npoints</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">new_size</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">:</span>
-                        <span class="n">new_size</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># Add the default size, with a value for each dimension</span>
-                    <span class="n">new_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="p">)</span>
-                <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">new_size</span><span class="p">],</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_size</span><span class="p">,</span> <span class="n">adding</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">new_edge_width</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
@@ -1086,14 +1076,15 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N, D) array: size of all N points in D dimensions.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(N,) array: size of all N points.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
 
     <span class="nd">@size</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># deprecated anisotropic sizes; extra check should be removed in future version</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
                     <span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1105,6 +1096,17 @@ function checkPageExistsAndRedirect(event) {
                         <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                        <span class="s2">&quot;Point sizes must be isotropic; the average from each dimension will be used instead. &quot;</span>
+                        <span class="s2">&quot;This will become an error in a future version.&quot;</span><span class="p">,</span>
+                        <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent_augmented</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -1115,22 +1117,36 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@current_size</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">current_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">)</span> <span class="ow">and</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span>
-        <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="n">message</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s1">&#39;current_size value must be positive, value will be left at </span><span class="si">{value}</span><span class="s1">.&#39;</span><span class="p">,</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;Point sizes must be isotropic; the average from each dimension will be used instead. &quot;</span>
+                    <span class="s2">&quot;This will become an error in a future version.&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_size</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;currrent size must be a number&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s1">&#39;current_size value must be positive.&#39;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span> <span class="o">=</span> <span class="n">size</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_clear_extent_augmented</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
@@ -1250,8 +1266,8 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">current_edge_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge_width</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_properties</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">edge_width</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">edge_width</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_width</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_edge_width</span><span class="p">()</span>
@@ -1579,43 +1595,36 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">()</span>
             <span class="k">return</span>
         <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_data</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="n">unique_edge_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">unique_edge_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_color</span> <span class="o">=</span> <span class="n">unique_edge_color</span>
 
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="n">unique_face_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">unique_face_color</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">face_color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_face_color</span> <span class="o">=</span> <span class="n">unique_face_color</span>
 
-        <span class="c1"># Calculate the mean size across the displayed dimensions for</span>
-        <span class="c1"># each point to be consistent with `_view_size`.</span>
-        <span class="n">mean_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">unique_size</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">mean_size</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">unique_size</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_size</span> <span class="o">=</span> <span class="n">unique_size</span>
 
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="n">unique_edge_width</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">unique_edge_width</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span> <span class="o">=</span> <span class="n">unique_edge_width</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">unique_symbol</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">unique_symbol</span> <span class="o">:=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_symbol</span> <span class="o">=</span> <span class="n">unique_symbol</span>
 
-        <span class="n">unique_properties</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">unique_properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="n">unique_properties</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">unique_properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unique_element</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unique_properties</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_update_properties</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unique_properties</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">current_properties</span> <span class="o">=</span> <span class="n">unique_properties</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Points.interaction_box"><a class="viewcode-back" href="../../../../api/napari.layers.Points.html#napari.layers.Points.interaction_box">[docs]</a>    <span class="k">def</span> <span class="nf">interaction_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -1743,18 +1752,11 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        view_size : (N x D) np.ndarray</span>
+<span class="sd">        view_size : (N,) np.ndarray</span>
 <span class="sd">            Array of sizes for the N points in view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># Get the point sizes and scale for ndim display</span>
-            <span class="n">sizes</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
-                <span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span>
-            <span class="p">)</span>
-
+            <span class="n">sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_indices_view</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_size_scale</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># if no points, return an empty list</span>
             <span class="n">sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
@@ -1837,6 +1839,11 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">displayed_position</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
             <span class="p">]</span>
+            <span class="c1"># positions are scaled anisotropically by scale, but sizes are not,</span>
+            <span class="c1"># so we need to calculate the ratio to correctly map to screen coordinates</span>
+            <span class="n">scale_ratio</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
             <span class="c1"># Get the point sizes</span>
             <span class="c1"># TODO: calculate distance in canvas space to account for canvas_size_limits.</span>
             <span class="c1"># Without this implementation, point hover and selection (and anything depending</span>
@@ -1844,7 +1851,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># unexpected behaviour. See #3734 for details.</span>
             <span class="n">distances</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">view_data</span> <span class="o">-</span> <span class="n">displayed_position</span><span class="p">)</span>
             <span class="n">in_slice_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
-                <span class="n">distances</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="n">distances</span>
+                <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">scale_ratio</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
                 <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">in_slice_matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -1897,10 +1905,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
         <span class="n">rotated_click_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">plane_point</span><span class="p">)</span>
 
+        <span class="c1"># positions are scaled anisotropically by scale, but sizes are not,</span>
+        <span class="c1"># so we need to calculate the ratio to correctly map to screen coordinates</span>
+        <span class="n">scale_ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="c1"># find the points the click intersects</span>
-        <span class="n">distances</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">rotated_points</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">rotated_click_point</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">rotated_points</span> <span class="o">-</span> <span class="n">rotated_click_point</span><span class="p">)</span>
         <span class="n">in_slice_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
-            <span class="n">distances</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">distances</span>
+            <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">scale_ratio</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
             <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">in_slice_matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -2375,16 +2387,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="c1"># Calculating the radii of the output points in the mask is complex.</span>
-
-        <span class="c1"># Points.size tells the size of the points in pixels in each dimension,</span>
-        <span class="c1"># so we take the arithmetic mean across dimensions to define a scalar size</span>
-        <span class="c1"># per point, which is consistent with visualization.</span>
-        <span class="n">mean_radii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">radii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mi">2</span>
 
         <span class="c1"># Scale each radius by the geometric mean scale of the Points layer to</span>
         <span class="c1"># keep the balls isotropic when visualized in world coordinates.</span>
-        <span class="c1"># Then scale each radius by the scale of the output image mask</span>
-        <span class="c1"># using the geometric mean if isotropic output is desired.</span>
         <span class="c1"># The geometric means are used instead of the arithmetic mean</span>
         <span class="c1"># to maintain the volume scaling factor of the transforms.</span>
         <span class="n">point_data_to_world_scale</span> <span class="o">=</span> <span class="n">gmean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">scale</span><span class="p">))</span>
@@ -2395,7 +2401,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
         <span class="n">radii_scale</span> <span class="o">=</span> <span class="n">point_data_to_world_scale</span> <span class="o">*</span> <span class="n">mask_world_to_data_scale</span>
 
-        <span class="n">output_data_radii</span> <span class="o">=</span> <span class="n">mean_radii</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">radii_scale</span><span class="p">)</span>
+        <span class="n">output_data_radii</span> <span class="o">=</span> <span class="n">radii</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">radii_scale</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">coords</span><span class="p">,</span> <span class="n">radii</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
             <span class="n">points_in_mask_data_coords</span><span class="p">,</span> <span class="n">output_data_radii</span>

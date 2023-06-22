@@ -78,6 +78,11 @@ Points over time
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.014 seconds)
+
+
 .. _sphx_glr_download_gallery_points-over-time.py:
 
 .. only:: html

@@ -498,6 +498,11 @@ function checkPageExistsAndRedirect(event) {
      instance.
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adding-to-the-viewer">
+     Adding to the viewer
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -1150,6 +1155,16 @@ tuple from a given layer</p>
 <span class="go">)</span>
 </pre></div>
 </div>
+</section>
+<section id="adding-to-the-viewer">
+<h3>Adding to the viewer<a class="headerlink" href="#adding-to-the-viewer" title="Permalink to this headline">¶</a></h3>
+<p>To add a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple to the napari viewer, use :meth:<code class="docutils literal notranslate"><span class="pre">Layer.create</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">image_layer_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;My Image&#39;</span><span class="p">,</span> <span class="s1">&#39;colormap&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">},</span> <span class="s1">&#39;image&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">current_viewer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">*</span><span class="n">image_layer_data</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The only attribute that can’t be passed to <code class="docutils literal notranslate"><span class="pre">napari.layers.Layer.create</span></code> that is otherwise valid for a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple is ‘channel_axis’.</p>
 </section>
 </section>
 </section>

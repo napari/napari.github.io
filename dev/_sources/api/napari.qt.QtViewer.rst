@@ -1109,6 +1109,7 @@ napari.qt.QtViewer
       ~QtViewer.VLine
       ~QtViewer.WinPanel
       ~QtViewer.camera
+      ~QtViewer.chunk_receiver
       ~QtViewer.console
       ~QtViewer.console_backlog
       ~QtViewer.controls

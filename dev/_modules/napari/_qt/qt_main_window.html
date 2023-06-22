@@ -409,6 +409,10 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setStatusBar</span><span class="p">(</span><span class="n">ViewerStatusBar</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
+        <span class="c1"># Prevent QLineEdit based widgets to keep focus even when clicks are</span>
+        <span class="c1"># done outside the widget. See #1571</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFocusPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">FocusPolicy</span><span class="o">.</span><span class="n">StrongFocus</span><span class="p">)</span>
+
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
 
         <span class="c1"># TODO:</span>

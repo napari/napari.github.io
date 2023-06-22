@@ -286,15 +286,12 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">move_plane_along_normal</span> <span class="k">as</span> <span class="n">plane_drag_callback</span><span class="p">,</span>
     <span class="n">set_plane_position</span> <span class="k">as</span> <span class="n">plane_double_click_callback</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.image._image_slice</span> <span class="kn">import</span> <span class="n">ImageSlice</span>
-<span class="kn">from</span> <span class="nn">napari.layers.image._image_slice_data</span> <span class="kn">import</span> <span class="n">ImageSliceData</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span><span class="p">,</span> <span class="n">guess_rgb</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._slice</span> <span class="kn">import</span> <span class="n">_ImageSliceRequest</span><span class="p">,</span> <span class="n">_ImageSliceResponse</span>
 <span class="kn">from</span> <span class="nn">napari.layers.intensity_mixin</span> <span class="kn">import</span> <span class="n">IntensityVisualizationMixin</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">calc_data_range</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.plane</span> <span class="kn">import</span> <span class="n">SlicingPlane</span>
-<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dask_utils</span> <span class="kn">import</span> <span class="n">DaskIndexer</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">get_dtype_limits</span><span class="p">,</span> <span class="n">normalize_dtype</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">AVAILABLE_COLORMAPS</span>
@@ -302,13 +299,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">WarningEmitter</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event_utils</span> <span class="kn">import</span> <span class="n">connect_no_arg</span>
 <span class="kn">from</span> <span class="nn">napari.utils.migrations</span> <span class="kn">import</span> <span class="n">rename_argument</span>
-<span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">reorder_after_dim_reduction</span>
 <span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">napari.components</span> <span class="kn">import</span> <span class="n">Dims</span>
-    <span class="kn">from</span> <span class="nn">napari.components.experimental.chunk</span> <span class="kn">import</span> <span class="n">ChunkRequest</span>
 
 
 <span class="c1"># It is important to contain at least one abstractmethod to properly exclude this class</span>
@@ -620,7 +615,9 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span><span class="p">][</span><span class="n">displayed_axes</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_new_empty_slice</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">_ImageSliceResponse</span><span class="o">.</span><span class="n">make_empty</span><span class="p">(</span>
+            <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span>
+        <span class="p">)</span>
 
         <span class="c1"># Set contrast limits, colormaps and plane parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gamma</span> <span class="o">=</span> <span class="n">gamma</span>
@@ -666,32 +663,6 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># Trigger generation of view slice and thumbnail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_new_empty_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the current slice to an empty image.&quot;&quot;&quot;</span>
-        <span class="n">wrapper</span> <span class="o">=</span> <span class="n">_weakref_hide</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">ImageSlice</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_get_empty_image</span><span class="p">(),</span> <span class="n">wrapper</span><span class="o">.</span><span class="n">_raw_to_displayed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">def</span> <span class="nf">_get_empty_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get empty image to use as the default before data is loaded.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
-
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_get_order</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the ordered displayed dimensions, but reduced to fit in the slice space.&quot;&quot;&quot;</span>
-        <span class="n">order</span> <span class="o">=</span> <span class="n">reorder_after_dim_reduction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">:</span>
-            <span class="c1"># if rgb need to keep the final axis fixed during the</span>
-            <span class="c1"># transpose. The index of the final axis depends on how many</span>
-            <span class="c1"># axes are displayed.</span>
-            <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">order</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">order</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_data_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -980,15 +951,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_custom_interpolation_kernel_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">custom_interpolation_kernel_2d</span><span class="p">()</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Has the data for this layer been loaded yet.</span>
-
-<span class="sd">        With asynchronous loading the layer might exist but its data</span>
-<span class="sd">        for the current slice has not been loaded.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">loaded</span>
-
     <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine displayed image from raw image.</span>
 
@@ -1009,18 +971,15 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the slice output based on this layer&#39;s current state.&quot;&quot;&quot;</span>
-        <span class="c1"># Initializes an ImageSlice for the old experimental async code.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_new_empty_slice</span><span class="p">()</span>
-
         <span class="c1"># Skip if any non-displayed data indices are out of bounds.</span>
         <span class="c1"># This can happen when slicing layers with different extents.</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">_ImageSliceResponse</span><span class="o">.</span><span class="n">make_empty</span><span class="p">(</span>
+                    <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span>
+                <span class="p">)</span>
                 <span class="k">return</span>
-
-        <span class="c1"># For the old experimental async code.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># The new slicing code makes a request from the existing state and</span>
         <span class="c1"># executes the request on the calling thread directly.</span>
@@ -1028,7 +987,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span>
             <span class="n">slice_input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span>
             <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
-            <span class="n">lazy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">dask_indexer</span><span class="o">=</span><span class="n">nullcontext</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">()</span>
@@ -1039,7 +997,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span>
             <span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span>
         <span class="p">)</span>
-        <span class="c1"># TODO: for the existing sync slicing, indices is passed through</span>
+        <span class="c1"># For the existing sync slicing, indices is passed through</span>
         <span class="c1"># to avoid some performance issues related to the evaluation of the</span>
         <span class="c1"># data-to-world transform and its inverse. Async slicing currently</span>
         <span class="c1"># absorbs these performance issues here, but we can likely improve</span>
@@ -1049,7 +1007,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span>
             <span class="n">slice_input</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
             <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
-            <span class="n">lazy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">dask_indexer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -1058,7 +1015,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="o">*</span><span class="p">,</span>
         <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span>
         <span class="n">indices</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">lazy</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">dask_indexer</span><span class="p">:</span> <span class="n">DaskIndexer</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ImageSliceRequest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Needed to support old-style sync slicing through _slice_dims and</span>
@@ -1079,27 +1035,15 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">thumbnail_level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_level</span><span class="p">,</span>
             <span class="n">level_shapes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">level_shapes</span><span class="p">,</span>
             <span class="n">downsample_factors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">downsample_factors</span><span class="p">,</span>
-            <span class="n">lazy</span><span class="o">=</span><span class="n">lazy</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the slice output state currently on the layer.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the slice output state currently on the layer. Currently used</span>
+<span class="sd">        for both sync and async slicing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">dims</span>
-
-        <span class="c1"># For the old experimental async code.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">slice_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SliceDataClass</span><span class="p">(</span>
-            <span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-            <span class="n">indices</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span>
-            <span class="n">image</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">thumbnail_source</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">,</span>
-        <span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">tile_to_data</span>
-
-        <span class="c1"># For the old experimental async code, where loading might be sync</span>
-        <span class="c1"># or async.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_load_slice</span><span class="p">(</span><span class="n">slice_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">response</span>
 
         <span class="c1"># Maybe reset the contrast limits based on the new slice.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_calc_clims</span><span class="p">:</span>
@@ -1109,78 +1053,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keep_auto_contrast</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_contrast_limits</span><span class="p">()</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_SliceDataClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Use special ChunkedSlideData for async.</span>
-        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">napari.layers.image.experimental._chunked_slice_data</span> <span class="kn">import</span> <span class="p">(</span>
-                <span class="n">ChunkedSliceData</span><span class="p">,</span>
-            <span class="p">)</span>
-
-            <span class="k">return</span> <span class="n">ChunkedSliceData</span>
-        <span class="k">return</span> <span class="n">ImageSliceData</span>
-
-    <span class="k">def</span> <span class="nf">_load_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ImageSliceData</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the image and maybe thumbnail source.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        data : Slice</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="c1"># The load was synchronous.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_on_data_loaded</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># The load will be asynchronous. Signal that our self.loaded</span>
-            <span class="c1"># property is now false, since the load is in progress.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">loaded</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_on_data_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ImageSliceData</span><span class="p">,</span> <span class="n">sync</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The given data a was loaded, use it now.</span>
-
-<span class="sd">        This routine is called synchronously from _load_async() above, or</span>
-<span class="sd">        it is called asynchronously sometime later when the ChunkLoader</span>
-<span class="sd">        finishes loading the data in a worker thread or process.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        data : ChunkRequest</span>
-<span class="sd">            The request that was satisfied/loaded.</span>
-<span class="sd">        sync : bool</span>
-<span class="sd">            If True the chunk was loaded synchronously.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Transpose after the load.</span>
-        <span class="n">data</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_order</span><span class="p">())</span>
-
-        <span class="c1"># Pass the loaded data to the slice.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">on_loaded</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="c1"># Slice rejected it, was it for the wrong indices?</span>
-            <span class="k">return</span>
-
-        <span class="c1"># Notify the world.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">scale</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">translate</span><span class="p">()</span>
-
-        <span class="c1"># Announcing we are in the loaded state will make our node visible</span>
-        <span class="c1"># if it was invisible during the load.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">loaded</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">sync</span><span class="p">:</span>
-            <span class="c1"># TODO_ASYNC: Avoid calling self.refresh(), because it would</span>
-            <span class="c1"># call our _set_view_slice(). Do we need a &quot;refresh without</span>
-            <span class="c1"># set_view_slice()&quot; method that we can call?</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="p">)</span>  <span class="c1"># update vispy</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
-
     <span class="k">def</span> <span class="nf">_update_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update thumbnail with current image data and colormap.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">loaded</span><span class="p">:</span>
-            <span class="c1"># ASYNC_TODO: Do not compute the thumbnail until we are loaded.</span>
-            <span class="c1"># Is there a nicer way to prevent this from getting called?</span>
-            <span class="k">return</span>
-
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">thumbnail</span><span class="o">.</span><span class="n">view</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -1286,23 +1160,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">position</span><span class="p">]</span>
 
-    <span class="c1"># For async we add an on_chunk_loaded() method.</span>
-    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_loading</span><span class="p">:</span>
 
-        <span class="k">def</span> <span class="nf">on_chunk_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">ChunkRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;An asynchronous ChunkRequest was loaded.</span>
-
-<span class="sd">            Parameters</span>
-<span class="sd">            ----------</span>
-<span class="sd">            request : ChunkRequest</span>
-<span class="sd">                This request was loaded.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="c1"># Convert the ChunkRequest to SliceData and use it.</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SliceDataClass</span><span class="o">.</span><span class="n">from_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_on_data_loaded</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../../../api/napari.layers.Image.html#napari.layers.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current rendering mode.</span>
@@ -1367,27 +1226,10 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">state</span>
-
-
-<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">napari.layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
-
-<div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../../../api/napari.layers.Image.html#napari.layers.Image">[docs]</a>    <span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">Image</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+        <span class="k">return</span> <span class="n">state</span></div>
 
 
 <span class="n">Image</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">_ImageBase</span><span class="o">.</span><span class="vm">__doc__</span>
-
-
-<span class="k">class</span> <span class="nc">_weakref_hide</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">weakref</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_raw_to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">()</span><span class="o">.</span><span class="n">_raw_to_displayed</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
 </pre></div>
 
             </div>

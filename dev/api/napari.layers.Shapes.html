@@ -1228,7 +1228,7 @@ won’t update during interactive events</p>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Shapes.loaded" title="napari.layers.Shapes.loaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loaded</span></code></a></p></td>
-<td><p>Return True if this layer is fully loaded in memory.</p></td>
+<td><p>True if this layer is fully loaded in memory, False otherwise.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Shapes.metadata" title="napari.layers.Shapes.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></p></td>
 <td><p>Key/value map for user-stored data.</p></td>
@@ -2118,9 +2118,10 @@ that can be used to rotate the box</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="napari.layers.Shapes.loaded">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loaded</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#napari.layers.Shapes.loaded" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True if this layer is fully loaded in memory.</p>
-<p>This base class says that layers are permanently in the loaded state.
-Derived classes that do asynchronous loading can override this.</p>
+<dd><p>True if this layer is fully loaded in memory, False otherwise.</p>
+<p>Layers that only support sync slicing are always fully loaded.
+Layers that support async slicing can be temporarily not loaded
+while slicing is occurring.</p>
 </dd></dl>
 
 <dl class="py property">

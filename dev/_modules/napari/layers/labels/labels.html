@@ -277,6 +277,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">transform_with_box</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span>
+<span class="kn">from</span> <span class="nn">napari.layers.image._slice</span> <span class="kn">import</span> <span class="n">_ImageSliceResponse</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image.image</span> <span class="kn">import</span> <span class="n">_ImageBase</span>
 <span class="kn">from</span> <span class="nn">napari.layers.labels._labels_constants</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">LabelColorMode</span><span class="p">,</span>
@@ -297,7 +298,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">transform_color</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
-<span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">config</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">color_dict_to_colormap</span><span class="p">,</span>
@@ -313,7 +313,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
 
 
-<span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels">[docs]</a><span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Labels (or segmentation) layer.</span>
 
 <span class="sd">    An image-like layer where every pixel contains an integer ID</span>
@@ -1180,10 +1180,15 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_all_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lookup_with_index</span>
 
+    <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to convert raw slice data to displayed label colors.&quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">to_displayed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_raw_to_displayed</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_partial_labels_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepares and displays only an updated part of the labels.&quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">loaded</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">loaded</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="n">dims_displayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
@@ -1947,14 +1952,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">idx</span>
             <span class="ow">and</span> <span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
-        <span class="p">]</span>
-
-
-<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">async_octree</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">napari.layers.image.experimental.octree_image</span> <span class="kn">import</span> <span class="n">_OctreeImageBase</span>
-
-<div class="viewcode-block" id="Labels"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels">[docs]</a>    <span class="k">class</span> <span class="nc">Labels</span><span class="p">(</span><span class="n">Labels</span><span class="p">,</span> <span class="n">_OctreeImageBase</span><span class="p">):</span>  <span class="c1"># type: ignore[no-redef]</span>
-        <span class="k">pass</span></div>
+        <span class="p">]</span></div>
 
 
 <span class="k">def</span> <span class="nf">_coerce_indices_for_vectorization</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>

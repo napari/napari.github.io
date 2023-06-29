@@ -125,6 +125,11 @@ This example demonstrates how surfaces may be colored by:
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.524 seconds)
+
+
 .. _sphx_glr_download_gallery_surface_texture_and_colors.py:
 
 .. only:: html

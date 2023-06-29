@@ -63,7 +63,7 @@ Display a 3D volume and the scale bar
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.152 seconds)
+   **Total running time of the script:** ( 0 minutes  10.708 seconds)
 
 
 .. _sphx_glr_download_gallery_scale_bar.py:

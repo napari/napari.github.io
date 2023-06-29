@@ -111,6 +111,7 @@ napari.layers.Vectors
       ~Vectors.source
       ~Vectors.thumbnail
       ~Vectors.translate
+      ~Vectors.vector_style
       ~Vectors.visible
       
       

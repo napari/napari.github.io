@@ -79,7 +79,7 @@ across the dimensions, specified by their size
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.408 seconds)
+   **Total running time of the script:** ( 0 minutes  12.640 seconds)
 
 
 .. _sphx_glr_download_gallery_nD_points.py:

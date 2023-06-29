@@ -167,7 +167,7 @@ your shapes.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  15.948 seconds)
+   **Total running time of the script:** ( 0 minutes  17.263 seconds)
 
 
 .. _sphx_glr_download_gallery_to_screenshot.py:

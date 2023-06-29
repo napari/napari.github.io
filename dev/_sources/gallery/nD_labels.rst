@@ -58,7 +58,7 @@ Display a labels layer above of an image layer using the ``add_labels`` and
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.435 seconds)
+   **Total running time of the script:** ( 0 minutes  10.574 seconds)
 
 
 .. _sphx_glr_download_gallery_nD_labels.py:

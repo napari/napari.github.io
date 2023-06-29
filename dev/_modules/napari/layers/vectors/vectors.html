@@ -275,6 +275,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
 <span class="kn">from</span> <span class="nn">napari.layers.vectors._vector_utils</span> <span class="kn">import</span> <span class="n">fix_data_vectors</span>
+<span class="kn">from</span> <span class="nn">napari.layers.vectors._vectors_constants</span> <span class="kn">import</span> <span class="n">VectorStyle</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
@@ -306,6 +307,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        possible values for each property.</span>
 <span class="sd">    edge_width : float</span>
 <span class="sd">        Width for all vectors in pixels.</span>
+<span class="sd">    vector_style : str</span>
+<span class="sd">        One of a list of preset display modes that determines how vectors are displayed.</span>
+<span class="sd">        Allowed values are {&#39;line&#39;, &#39;triangle&#39;, and &#39;arrow&#39;}.</span>
 <span class="sd">    length : float</span>
 <span class="sd">        Multiplicative factor on projections for length of all vectors.</span>
 <span class="sd">    edge_color : str</span>
@@ -372,6 +376,15 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        where N is the number of vectors.</span>
 <span class="sd">    edge_width : float</span>
 <span class="sd">        Width for all vectors in pixels.</span>
+<span class="sd">    vector_style : VectorStyle</span>
+<span class="sd">        Determines how vectors are displayed.</span>
+
+<span class="sd">        * ``VectorStyle.LINE``:</span>
+<span class="sd">        Vectors are displayed as lines.</span>
+<span class="sd">        * ``VectorStyle.TRIANGLE``:</span>
+<span class="sd">        Vectors are displayed as triangles.</span>
+<span class="sd">        * ``VectorStyle.ARROW``:</span>
+<span class="sd">        Vectors are displayed as arrows.</span>
 <span class="sd">    length : float</span>
 <span class="sd">        Multiplicative factor on projections for length of all vectors.</span>
 <span class="sd">    edge_color : str</span>
@@ -423,6 +436,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">property_choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">edge_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">vector_style</span><span class="o">=</span><span class="s1">&#39;triangle&#39;</span><span class="p">,</span>
         <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
         <span class="n">edge_color_cycle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">edge_colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
@@ -469,6 +483,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">length</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">edge_width</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">edge_color</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">vector_style</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">edge_color_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">properties</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">out_of_slice_display</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
@@ -477,6 +492,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="c1"># Save the vector style params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector_style</span> <span class="o">=</span> <span class="n">VectorStyle</span><span class="p">(</span><span class="n">vector_style</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_edge_width</span> <span class="o">=</span> <span class="n">edge_width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_out_of_slice_display</span> <span class="o">=</span> <span class="n">out_of_slice_display</span>
 
@@ -635,6 +651,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">{</span>
                 <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
                 <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">,</span>
+                <span class="s1">&#39;vector_style&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_style</span><span class="p">,</span>
                 <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span>
                 <span class="k">else</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="o">.</span><span class="n">current_color</span><span class="p">],</span>
@@ -697,6 +714,27 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">edge_width</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">vector_style</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Vectors display mode: Determines how vectors are displayed.</span>
+
+<span class="sd">        VectorStyle.LINE</span>
+<span class="sd">                Displays vectors as rectangular lines.</span>
+<span class="sd">            VectorStyle.TRIANGLE</span>
+<span class="sd">                Displays vectors as triangles.</span>
+<span class="sd">            VectorStyle.ARROW</span>
+<span class="sd">                Displays vectors as arrows.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vector_style</span><span class="p">)</span>
+
+    <span class="nd">@vector_style</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">vector_style</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector_style</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">old_vector_style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector_style</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector_style</span> <span class="o">=</span> <span class="n">VectorStyle</span><span class="p">(</span><span class="n">vector_style</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector_style</span> <span class="o">!=</span> <span class="n">old_vector_style</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">vector_style</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
@@ -850,7 +888,12 @@ function checkPageExistsAndRedirect(event) {
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;(Mx4) np.ndarray : colors for the M in view vectors&quot;&quot;&quot;</span>
         <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">]</span>
         <span class="n">face_color</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_alphas</span>
-        <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">face_color</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_style</span> <span class="o">==</span> <span class="s1">&#39;line&#39;</span><span class="p">:</span>
+            <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">face_color</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_style</span> <span class="o">==</span> <span class="s1">&#39;arrow&#39;</span><span class="p">:</span>
+            <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">face_color</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">face_color</span><span class="p">,</span> <span class="n">face_color</span><span class="p">])</span>

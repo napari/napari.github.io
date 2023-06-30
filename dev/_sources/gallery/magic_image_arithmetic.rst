@@ -91,11 +91,6 @@ Basic example of using magicgui to create an Image Arithmetic GUI in napari.
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  10.084 seconds)
-
-
 .. _sphx_glr_download_gallery_magic_image_arithmetic.py:
 
 .. only:: html

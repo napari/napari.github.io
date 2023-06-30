@@ -137,11 +137,6 @@ your shapes.
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  11.228 seconds)
-
-
 .. _sphx_glr_download_gallery_shapes_to_labels.py:
 
 .. only:: html

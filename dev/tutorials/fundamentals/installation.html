@@ -1200,6 +1200,11 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-constraints-files">
+   Using constraints files
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#install-as-a-bundled-app">
    Install as a bundled app
   </a>
@@ -1295,6 +1300,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>napari-env
 </div>
 <p><em>(See <a class="reference internal" href="#choosing-a-different-qt-backend"><span class="std std-doc">Choosing a different Qt backend</span></a> below for an explanation of the <code class="docutils literal notranslate"><span class="pre">[all]</span></code>
 notation.)</em></p>
+<p><em>(See<span class="xref myst">Using constraints file</span> for help installing older versions of napari)</em></p>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title"><strong>2. From conda-forge</strong></p>
@@ -1400,6 +1406,21 @@ and then use <code class="docutils literal notranslate"><span class="pre">pip</s
 <p class="admonition-title">Note</p>
 <p>If you switch backends, it’s a good idea to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span></code> the one
 you’re not using.</p>
+</div>
+</section>
+<section id="using-constraints-files">
+<h2>Using constraints files<a class="headerlink" href="#using-constraints-files" title="Permalink to this headline">¶</a></h2>
+<p>Since napari 0.4.18, we store constraints files with information about each exact dependency version against which napari was tested.
+This could be useful if you need to install napari as a package from PyPI, and prevents creating environments where napari does not start or work properly.</p>
+<p>The constraints files are stored in the napari repository under <code class="docutils literal notranslate"><span class="pre">resources/constraints/constraints_py3.10.txt</span></code>. To find
+constraints for specific releases, go under the link <code class="docutils literal notranslate"><span class="pre">https://github.com/napari/napari/tree/{tag}/resources/constraints</span></code>
+replacing <code class="docutils literal notranslate"><span class="pre">{tag}</span></code> with the desired napari version.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari<span class="o">[</span>backend_selection<span class="o">]</span><span class="w"> </span>-c<span class="w"> </span>path/to/constraints/file
+</pre></div>
+</div>
+<p>For example, if you would like to install napari on python 3.10:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>napari<span class="o">[</span>all,<span class="w"> </span>pyqt<span class="o">]</span><span class="w"> </span>-c<span class="w"> </span>constraints_py3.10.txt
+</pre></div>
 </div>
 </section>
 <section id="install-as-a-bundled-app">

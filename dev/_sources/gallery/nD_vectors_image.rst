@@ -83,7 +83,7 @@ which are vector projections centered on a pixel of the MxNxP grid
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.637 seconds)
+   **Total running time of the script:** ( 0 minutes  10.005 seconds)
 
 
 .. _sphx_glr_download_gallery_nD_vectors_image.py:

@@ -500,7 +500,7 @@ current dims point (`viewer.dims.point`).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.560 seconds)
+   **Total running time of the script:** ( 0 minutes  10.848 seconds)
 
 
 .. _sphx_glr_download_gallery_multiple_viewer_widget.py:

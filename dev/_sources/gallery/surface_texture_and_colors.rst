@@ -127,7 +127,7 @@ This example demonstrates how surfaces may be colored by:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.301 seconds)
+   **Total running time of the script:** ( 0 minutes  10.374 seconds)
 
 
 .. _sphx_glr_download_gallery_surface_texture_and_colors.py:

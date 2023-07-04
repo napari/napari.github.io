@@ -61,11 +61,6 @@ Display one 4-D image layer using the :func:`view_image` API.
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  10.259 seconds)
-
-
 .. _sphx_glr_download_gallery_nD_image.py:
 
 .. only:: html

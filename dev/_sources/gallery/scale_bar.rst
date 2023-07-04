@@ -61,6 +61,11 @@ Display a 3D volume and the scale bar
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.075 seconds)
+
+
 .. _sphx_glr_download_gallery_scale_bar.py:
 
 .. only:: html

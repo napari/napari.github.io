@@ -81,6 +81,11 @@ which are vector projections centered on a pixel of the MxNxP grid
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.637 seconds)
+
+
 .. _sphx_glr_download_gallery_nD_vectors_image.py:
 
 .. only:: html

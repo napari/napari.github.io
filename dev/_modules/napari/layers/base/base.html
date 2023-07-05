@@ -272,7 +272,16 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">magicgui</span> <span class="k">as</span> <span class="nn">mgui</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -315,6 +324,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
 <span class="kn">from</span> <span class="nn">napari.utils.transforms</span> <span class="kn">import</span> <span class="n">Affine</span><span class="p">,</span> <span class="n">CompositeAffine</span><span class="p">,</span> <span class="n">TransformChain</span>
 <span class="kn">from</span> <span class="nn">napari.utils.translations</span> <span class="kn">import</span> <span class="n">trans</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
+
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;napari.layers.base.base&quot;</span><span class="p">)</span>
 
@@ -1436,11 +1449,11 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Layer.get_value"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Value of the data at a position.</span>
 
@@ -1465,6 +1478,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        value : tuple, None</span>
 <span class="sd">            Value of the data. If the layer is not visible return None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">world</span><span class="p">:</span>
                 <span class="n">ndim_world</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
@@ -1485,9 +1499,7 @@ function checkPageExistsAndRedirect(event) {
                     <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">position</span><span class="p">))</span>
 
                 <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                    <span class="n">view_direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_data_ray</span><span class="p">(</span>
-                        <span class="nb">list</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)</span>
-                    <span class="p">)</span>
+                    <span class="n">view_direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_data_ray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)</span>
                     <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ray_intersections</span><span class="p">(</span>
                         <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
                         <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
@@ -1536,11 +1548,11 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Layer.projected_distance_from_mouse_drag"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.projected_distance_from_mouse_drag">[docs]</a>    <span class="k">def</span> <span class="nf">projected_distance_from_mouse_drag</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">start_position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">end_position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">view_direction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">start_position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
+        <span class="n">end_position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
+        <span class="n">view_direction</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
         <span class="n">vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the length of the projection of a line between two mouse</span>
 <span class="sd">        clicks onto a vector (or array of vectors) in data coordinates.</span>
@@ -1558,13 +1570,17 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            (3,) unit vector or (n, 3) array thereof on which to project the drag</span>
 <span class="sd">            vector from start_event to end_event. This argument is defined in data</span>
 <span class="sd">            coordinates.</span>
-<span class="sd">        dims_displayed : Union[List, np.ndarray]</span>
+<span class="sd">        dims_displayed : List[int]</span>
 <span class="sd">            (3,) list of currently displayed dimensions</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        projected_distance : (1, ) or (n, ) np.ndarray of float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">start_position</span><span class="p">)</span>
+        <span class="n">end_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">end_position</span><span class="p">)</span>
+        <span class="n">view_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)</span>
+
         <span class="n">start_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_displayed_data</span><span class="p">(</span>
             <span class="n">start_position</span><span class="p">,</span> <span class="n">dims_displayed</span>
         <span class="p">)</span>
@@ -1605,7 +1621,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Layer.world_to_data"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.world_to_data">[docs]</a>    <span class="k">def</span> <span class="nf">world_to_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+<div class="viewcode-block" id="Layer.world_to_data"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.world_to_data">[docs]</a>    <span class="k">def</span> <span class="nf">world_to_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert from world coordinates to data coordinates.</span>
 
 <span class="sd">        Parameters</span>
@@ -1620,12 +1636,13 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        tuple</span>
 <span class="sd">            Position in data coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">position</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
             <span class="n">coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">coords</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">position</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">simplified</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">coords</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">simplified</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Layer.data_to_world"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.data_to_world">[docs]</a>    <span class="k">def</span> <span class="nf">data_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert from data coordinates to world coordinates.</span>
@@ -1650,8 +1667,8 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">simplified</span><span class="p">(</span><span class="n">coords</span><span class="p">))</span></div>
 
     <span class="k">def</span> <span class="nf">_world_to_displayed_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert world to data coordinates for displayed dimensions only.</span>
 
 <span class="sd">        Parameters</span>
@@ -1660,7 +1677,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Position in world coordinates. If longer then the</span>
 <span class="sd">            number of dimensions of the layer, the later</span>
 <span class="sd">            dimensions will be used.</span>
-<span class="sd">        dims_displayed : list, 1D array</span>
+<span class="sd">        dims_displayed : list[int]</span>
 <span class="sd">            Indices of displayed dimensions of the data.</span>
 
 <span class="sd">        Returns</span>
@@ -1669,8 +1686,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Position in data coordinates for the displayed dimensions only</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">position_nd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
-        <span class="n">position_ndisplay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position_nd</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">position_ndisplay</span><span class="p">)</span>
+        <span class="n">position_ndisplay</span> <span class="o">=</span> <span class="n">position_nd</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">position_ndisplay</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_data_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Affine</span><span class="p">:</span>
@@ -1683,7 +1700,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">simplified</span>
 
-    <span class="k">def</span> <span class="nf">_world_to_data_ray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_world_to_data_ray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a vector defining an orientation from world coordinates to data coordinates.</span>
 <span class="sd">        For example, this would be used to convert the view ray.</span>
 
@@ -1701,10 +1718,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">p0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">vector</span><span class="p">)))</span>
         <span class="n">normalized_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">normalized_vector</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">normalized_vector</span>
 
     <span class="k">def</span> <span class="nf">_world_to_displayed_data_ray</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">vector_world</span><span class="p">,</span> <span class="n">dims_displayed</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">vector_world</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert an orientation from world to displayed data coordinates.</span>
 
@@ -1712,7 +1729,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        vector_world : tuple, list, 1D array</span>
+<span class="sd">        vector_world : 1D array</span>
 <span class="sd">            A vector in world coordinates.</span>
 
 <span class="sd">        Returns</span>
@@ -1720,14 +1737,14 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        tuple</span>
 <span class="sd">            Vector in data coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">vector_data_nd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_world_to_data_ray</span><span class="p">(</span><span class="n">vector_world</span><span class="p">))</span>
+        <span class="n">vector_data_nd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_data_ray</span><span class="p">(</span><span class="n">vector_world</span><span class="p">)</span>
         <span class="n">vector_data_ndisplay</span> <span class="o">=</span> <span class="n">vector_data_nd</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span>
         <span class="n">vector_data_ndisplay</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vector_data_ndisplay</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">vector_data_ndisplay</span>
 
     <span class="k">def</span> <span class="nf">_world_to_layer_dims</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world_dims</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">ndim_world</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">world_dims</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">ndim_world</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Map world dimensions to layer dimensions while maintaining order.</span>
 
 <span class="sd">        This is used to map dimensions from the full world space defined by ``Dims``</span>
@@ -1741,28 +1758,32 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        world_dims : List[int]</span>
+<span class="sd">        world_dims : ndarray</span>
 <span class="sd">            The world dimensions.</span>
 <span class="sd">        ndim_world : int</span>
 <span class="sd">            The number of dimensions in the world coordinate system.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        List[int]</span>
+<span class="sd">        ndarray</span>
 <span class="sd">            The corresponding layer dimensions with the same ordering as the given world dimensions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">offset</span> <span class="o">=</span> <span class="n">ndim_world</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
         <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">world_dims</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">offset</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">order</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">order</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">offset</span><span class="p">),</span> <span class="n">order</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="n">order</span> <span class="o">&gt;=</span> <span class="n">offset</span><span class="p">]</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">order</span><span class="p">[</span><span class="n">order</span> <span class="o">&gt;=</span> <span class="n">offset</span><span class="p">]</span> <span class="o">-</span> <span class="n">offset</span>
 
-    <span class="k">def</span> <span class="nf">_display_bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_display_bounding_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;An axis aligned (ndisplay, 2) bounding box around the data&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">[:,</span> <span class="n">dims_displayed</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
 
-    <span class="k">def</span> <span class="nf">_display_bounding_box_augmented</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_display_bounding_box_augmented</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;An augmented, axis-aligned (ndisplay, 2) bounding box.</span>
 
 <span class="sd">        This bounding box for includes the &quot;full&quot; size of the layer, including</span>
@@ -1772,9 +1793,9 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Layer.click_plane_from_click_data"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.click_plane_from_click_data">[docs]</a>    <span class="k">def</span> <span class="nf">click_plane_from_click_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">click_position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">view_direction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
+        <span class="n">click_position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
+        <span class="n">view_direction</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
+        <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate a (point, normal) plane parallel to the canvas in data</span>
 <span class="sd">        coordinates, centered on the centre of rotation of the camera.</span>
@@ -1785,7 +1806,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            click position in world coordinates from mouse event.</span>
 <span class="sd">        view_direction : np.ndarray</span>
 <span class="sd">            view direction in world coordinates from mouse event.</span>
-<span class="sd">        dims_displayed : List</span>
+<span class="sd">        dims_displayed : List[int]</span>
 <span class="sd">            dimensions of the data array currently in view.</span>
 
 <span class="sd">        Returns</span>
@@ -1801,8 +1822,8 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Layer.get_ray_intersections"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.get_ray_intersections">[docs]</a>    <span class="k">def</span> <span class="nf">get_ray_intersections</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
-        <span class="n">view_direction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
+        <span class="n">view_direction</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
@@ -1817,7 +1838,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        view_direction : np.ndarray</span>
 <span class="sd">            a unit vector giving the direction of the ray in nD coordinates.</span>
 <span class="sd">            World vs. data is set by the world keyword argument.</span>
-<span class="sd">        dims_displayed</span>
+<span class="sd">        dims_displayed : List[int]</span>
 <span class="sd">            a list of the dimensions currently being displayed in the viewer.</span>
 <span class="sd">        world : bool</span>
 <span class="sd">            True if the provided coordinates are in world coordinates.</span>
@@ -1838,6 +1859,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            If the click does not intersect the axis-aligned data bounding box,</span>
 <span class="sd">            None is returned.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">view_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_displayed</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
@@ -1855,17 +1878,17 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_offset_data_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_get_offset_data_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adjust position for offset between viewer and data coordinates.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">position</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_ray_intersections</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
         <span class="n">view_direction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">bounding_box</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">bounding_box</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the start and end point for the ray extending</span>
 <span class="sd">        from a point through the data bounding box.</span>
@@ -1878,7 +1901,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        view_direction : np.ndarray</span>
 <span class="sd">            a unit vector giving the direction of the ray in nD coordinates.</span>
 <span class="sd">            World vs. data is set by the world keyword argument.</span>
-<span class="sd">        dims_displayed</span>
+<span class="sd">        dims_displayed : List[int]</span>
 <span class="sd">            a list of the dimensions currently being displayed in the viewer.</span>
 <span class="sd">        world : bool</span>
 <span class="sd">            True if the provided coordinates are in world coordinates.</span>
@@ -1913,8 +1936,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># adjust for any offset between viewer and data coordinates</span>
             <span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_offset_data_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
 
-            <span class="n">view_dir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span>
-            <span class="n">click_pos_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">dims_displayed</span><span class="p">]</span>
+            <span class="n">view_dir</span> <span class="o">=</span> <span class="n">view_direction</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span>
+            <span class="n">click_pos_data</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span>
 
         <span class="c1"># Determine the front and back faces</span>
         <span class="n">front_face_normal</span><span class="p">,</span> <span class="n">back_face_normal</span> <span class="o">=</span> <span class="n">find_front_back_face</span><span class="p">(</span>
@@ -1937,9 +1960,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="c1"># add the coordinates for the axes not displayed</span>
-        <span class="n">start_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">start_point</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">start_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_point_displayed_dimensions</span>
-        <span class="n">end_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">end_point</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">end_point</span><span class="p">[</span><span class="n">dims_displayed</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_point_displayed_dimensions</span>
 
         <span class="k">return</span> <span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span>
@@ -2072,9 +2095,9 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Layer.get_status"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">world</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
@@ -2101,6 +2124,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Dictionary containing a information that can be used as a status update.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
                 <span class="n">position</span><span class="p">,</span>
                 <span class="n">view_direction</span><span class="o">=</span><span class="n">view_direction</span><span class="p">,</span>
@@ -2111,27 +2135,32 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">source_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_source_info</span><span class="p">()</span>
-        <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_layer_coords_status</span><span class="p">(</span>
-            <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span> <span class="n">value</span>
-        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_layer_coords_status</span><span class="p">(</span>
+                <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span> <span class="n">value</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">source_info</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">generate_layer_coords_status</span><span class="p">(</span>
+                <span class="n">position</span><span class="p">,</span> <span class="n">value</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">source_info</span></div>
 
     <span class="k">def</span> <span class="nf">_get_tooltip_text</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">view_direction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">world</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        tooltip message of the data at a coordinate position.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        position : tuple</span>
+<span class="sd">        position : ndarray</span>
 <span class="sd">            Position in either data or world coordinates.</span>
-<span class="sd">        view_direction : Optional[np.ndarray]</span>
+<span class="sd">        view_direction : Optional[ndarray]</span>
 <span class="sd">            A unit vector giving the direction of the ray in nD world coordinates.</span>
 <span class="sd">            The default value is None.</span>
 <span class="sd">        dims_displayed : Optional[List[int]]</span>
@@ -2173,7 +2202,10 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Layer.create"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.create">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">meta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">layer_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Layer</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create layer from `data` of type `layer_type`.</span>
 
@@ -2224,7 +2256,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_type</span><span class="p">:</span>
             <span class="n">layer_type</span> <span class="o">=</span> <span class="n">guess_labels</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">layer_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">layer_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layers</span><span class="o">.</span><span class="n">NAMES</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;Unrecognized layer_type: &#39;</span><span class="si">{layer_type}</span><span class="s2">&#39;. Must be one of: </span><span class="si">{layer_names}</span><span class="s2">.&quot;</span><span class="p">,</span>

@@ -852,15 +852,15 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># Update the layer slice state to temporarily support behavior</span>
             <span class="c1"># that depends on it.</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="c1"># Update the layer&#39;s loaded state before everything else,</span>
+            <span class="c1"># because they may rely on its updated value.</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">_update_loaded_slice_id</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">request_id</span><span class="p">)</span>
             <span class="c1"># The rest of `Layer.refresh` after `set_view_slice`, where</span>
             <span class="c1"># `set_data` notifies the corresponding vispy layer of the new</span>
             <span class="c1"># slice.</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="p">()</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
             <span class="n">layer</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="c1"># Update the layer&#39;s loaded state after everything else, so</span>
-            <span class="c1"># that a user can rely on the rendered state being updated.</span>
-            <span class="n">layer</span><span class="o">.</span><span class="n">_update_loaded_slice_id</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">request_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_active_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;When active layer changes change keymap handler.&quot;&quot;&quot;</span>

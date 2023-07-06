@@ -271,6 +271,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
+<span class="kn">from</span> <span class="nn">skimage.draw</span> <span class="kn">import</span> <span class="n">polygon2mask</span>
 
 <span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">no_op</span>
 <span class="kn">from</span> <span class="nn">napari.layers.base._base_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
@@ -488,6 +489,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">draw</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">POLYGON</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>  <span class="c1"># the overlay handles mouse events in this mode</span>
     <span class="p">}</span>
 
     <span class="n">brush_size_on_mouse_move</span> <span class="o">=</span> <span class="n">BrushSizeOnMouseMove</span><span class="p">(</span><span class="n">min_brush_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -499,7 +501,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="n">brush_size_on_mouse_move</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="n">brush_size_on_mouse_move</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">POLYGON</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>  <span class="c1"># the overlay handles mouse events in this mode</span>
     <span class="p">}</span>
+
     <span class="n">_cursor_modes</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">TRANSFORM</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
@@ -507,6 +511,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">:</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">:</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
+        <span class="n">Mode</span><span class="o">.</span><span class="n">POLYGON</span><span class="p">:</span> <span class="s1">&#39;cross&#39;</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">_history_limit</span> <span class="o">=</span> <span class="mi">100</span>
@@ -595,6 +600,12 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">paint</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">labels_update</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
+
+        <span class="kn">from</span> <span class="nn">napari.components.overlays.labels_polygon</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">LabelsPolygonOverlay</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;polygon&quot;</span><span class="p">:</span> <span class="n">LabelsPolygonOverlay</span><span class="p">()})</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span> <span class="o">=</span> <span class="n">_FeatureTable</span><span class="o">.</span><span class="n">from_layer</span><span class="p">(</span>
             <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span>
@@ -1025,6 +1036,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">mode</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlays</span><span class="p">[</span><span class="s2">&quot;polygon&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">POLYGON</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">{</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">}:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_cursor_size</span><span class="p">()</span>
 
@@ -1700,13 +1712,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            Whether to refresh view slice or not. Set to False to batch paint</span>
 <span class="sd">            calls.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:]</span>
-        <span class="p">)</span>
-        <span class="n">dims_not_painted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">]</span>
-        <span class="p">)</span>
+        <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_shape_and_dims_to_paint</span><span class="p">()</span>
         <span class="n">paint_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
         <span class="p">)</span>
@@ -1714,7 +1720,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">slice_coord</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
             <span class="n">coord_paint</span> <span class="o">=</span> <span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">]</span>
-            <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">coord_paint</span> <span class="o">=</span> <span class="n">coord</span>
 
@@ -1727,6 +1732,71 @@ function checkPageExistsAndRedirect(event) {
             <span class="nb">int</span>
         <span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_indices</span><span class="p">(</span>
+            <span class="n">mask_indices</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">slice_coord</span><span class="p">,</span> <span class="n">refresh</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Labels.paint_polygon"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.paint_polygon">[docs]</a>    <span class="k">def</span> <span class="nf">paint_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">new_label</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint a polygon over existing labels with a new label.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        points : list of coordinates</span>
+<span class="sd">            List of coordinates of the vertices of a polygon.</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            Value of the new label to be filled in.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_shape_and_dims_to_paint</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_to_paint</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s2">&quot;Polygon painting is implemented only in 2D.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">points2d</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:,</span> <span class="n">dims_to_paint</span><span class="p">]</span>
+
+        <span class="n">polygon_mask</span> <span class="o">=</span> <span class="n">polygon2mask</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">points2d</span><span class="p">)</span>
+        <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">polygon_mask</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_indices</span><span class="p">(</span>
+            <span class="n">mask_indices</span><span class="p">,</span>
+            <span class="n">new_label</span><span class="p">,</span>
+            <span class="n">shape</span><span class="p">,</span>
+            <span class="n">dims_to_paint</span><span class="p">,</span>
+            <span class="n">slice_coord</span><span class="p">,</span>
+            <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_paint_indices</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">mask_indices</span><span class="p">,</span>
+        <span class="n">new_label</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">,</span>
+        <span class="n">dims_to_paint</span><span class="p">,</span>
+        <span class="n">slice_coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Paint over existing labels with a new label, using the selected</span>
+<span class="sd">        mask indices, either only on the visible slice or in all n dimensions.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mask_indices : numpy array of integer coordinates</span>
+<span class="sd">            Mask to paint represented by an array of its coordinates.</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            Value of the new label to be filled in.</span>
+<span class="sd">        shape : list</span>
+<span class="sd">            The label data shape upon which painting is performed.</span>
+<span class="sd">        dims_to_paint: list</span>
+<span class="sd">            List of dimensions of the label data that are used for painting.</span>
+<span class="sd">        refresh : bool</span>
+<span class="sd">            Whether to refresh view slice or not. Set to False to batch paint</span>
+<span class="sd">            calls.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dims_not_painted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span><span class="p">]</span>
+        <span class="p">)</span>
         <span class="c1"># discard candidate coordinates that are out of bounds</span>
         <span class="n">mask_indices</span> <span class="o">=</span> <span class="n">indices_in_shape</span><span class="p">(</span><span class="n">mask_indices</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
 
@@ -1755,7 +1825,19 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">keep_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">slice_coord</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span>
             <span class="n">slice_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sc</span><span class="p">[</span><span class="n">keep_coords</span><span class="p">]</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">slice_coord</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_setitem</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_shape_and_dims_to_paint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+        <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_dims_to_paint</span><span class="p">())</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span>
+
+    <span class="k">def</span> <span class="nf">_get_dims_to_paint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="p">:])</span>
 
 <div class="viewcode-block" id="Labels.data_setitem"><a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.data_setitem">[docs]</a>    <span class="k">def</span> <span class="nf">data_setitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set `indices` in `data` to `value`, while writing to edit history.</span>

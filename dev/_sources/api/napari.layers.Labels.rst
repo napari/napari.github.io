@@ -65,6 +65,9 @@ napari.layers.Labels
       ~Labels.paint
    
    
+      ~Labels.paint_polygon
+   
+   
       ~Labels.projected_distance_from_mouse_drag
    
    

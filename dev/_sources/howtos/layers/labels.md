@@ -263,6 +263,38 @@ pixels depending on if the contiguous property is disabled or not.
 You can quickly select the fill bucket by pressing the `F` key when the labels
 layer is selected.
 
+## Drawing using polygons in the labels layer
+
+Another tool that can be used to quickly add or edit image segmentations is the 
+`polygon` tool. It combines functionality of the `paintbrush` and `fill bucket` 
+tool by allowing for readily drawing enclosed instance segmentations. The `polygon` tool 
+can be activated by clicking on the icon resembling a polygon in the layer control 
+panel or by pressing `3`. Once activated, the user actions are as follows:
+
+1. Left-click anywhere on the canvas to start drawing the polygon.
+2. Move the mouse to the location where you want the next vertex to be.
+3. Click again to set the vertex that is tracking the mouse cursor.
+4. After this step a polygon overlay will appear when moving the mouse. Repeat step 2 and 3
+   until the shape to be segmented is enclosed by the polygon overlay. 
+5. To undo the last added vertex right-click.'
+6. To cancel the drawing at any time without making a permanent change on the labels layer press
+   `escape`. This will delete the polygon overlay
+7. Press `enter` to finish drawing at any time or double click within a radius of 20 screen pixels
+   of the first vertex. This will add the polygon overlay to the labels layer.
+
+The polygon overlay will have the color of the label. The polygon overlay also has an opacity 
+that can be adjusted the value of the `opacity` slider in the layer control panel. 
+Furthermore, while the polygon overlay may be visible outside the canvas space during drawing, upon 
+finishing drawing the polygon will be cut off so that the part outside the canvas space is
+removed. This ensures that the dimensions of the label image are not larger than the image
+for which you are segmenting of for which you are editing the segmentations.
+
+Note: if you use the `polygon` tool for adding or editing segmentations of 3D image data, you can only 
+adjust labels in one plane, with the exception when viewing the image data as RGB. 
+The `polygon` tool cannot be activated if the number of displayed dimensions is higher than two.
+If already active upon toggling the number of displayed dimensions, the `polygon` tool will be 
+automatically deactivated.
+
 ## Creating, deleting, merging, and splitting connected components
 
 Using the `color picker`, `paintbrush`, and `fill bucket` tools one can create

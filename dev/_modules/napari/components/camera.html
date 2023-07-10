@@ -341,7 +341,11 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span>
             <span class="n">seq</span><span class="o">=</span><span class="s1">&#39;yzx&#39;</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rotation_matrix</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">rotation_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="n">rotation_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="n">rotation_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="Camera.set_view_direction"><a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera.set_view_direction">[docs]</a>    <span class="k">def</span> <span class="nf">set_view_direction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -382,15 +386,15 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">up_direction</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># align up direction along z axis</span>
 
         <span class="c1"># xyz ordering for vispy, normalise vectors for rotation matrix</span>
-        <span class="n">view_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">view_direction</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">view_direction</span><span class="p">)</span>
+        <span class="n">view_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">view_direction</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">view_vector</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">view_vector</span><span class="p">)</span>
 
-        <span class="n">up_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">up_direction</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">up_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">view_direction</span><span class="p">,</span> <span class="n">up_direction</span><span class="p">)</span>
-        <span class="n">up_direction</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">up_direction</span><span class="p">)</span>
+        <span class="n">up_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">up_direction</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">up_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">view_vector</span><span class="p">,</span> <span class="n">up_vector</span><span class="p">)</span>
+        <span class="n">up_vector</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">up_vector</span><span class="p">)</span>
 
         <span class="c1"># explicit check for parallel view direction and up direction</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">view_direction</span><span class="p">,</span> <span class="n">up_direction</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">view_vector</span><span class="p">,</span> <span class="n">up_vector</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
                     <span class="s2">&quot;view direction and up direction are parallel&quot;</span><span class="p">,</span>
@@ -398,13 +402,11 @@ function checkPageExistsAndRedirect(event) {
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="n">x_direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">up_direction</span><span class="p">,</span> <span class="n">view_direction</span><span class="p">)</span>
-        <span class="n">x_direction</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_direction</span><span class="p">)</span>
+        <span class="n">x_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">up_vector</span><span class="p">,</span> <span class="n">view_vector</span><span class="p">)</span>
+        <span class="n">x_vector</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_vector</span><span class="p">)</span>
 
         <span class="c1"># construct rotation matrix, convert to euler angles</span>
-        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">up_direction</span><span class="p">,</span> <span class="n">view_direction</span><span class="p">,</span> <span class="n">x_direction</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">up_vector</span><span class="p">,</span> <span class="n">view_vector</span><span class="p">,</span> <span class="n">x_vector</span><span class="p">))</span>
         <span class="n">euler_angles</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">rotation_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span>
             <span class="n">seq</span><span class="o">=</span><span class="s1">&#39;yzx&#39;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
@@ -412,7 +414,7 @@ function checkPageExistsAndRedirect(event) {
 
 <div class="viewcode-block" id="Camera.calculate_nd_view_direction"><a class="viewcode-back" href="../../../api/napari.components.Camera.html#napari.components.Camera.calculate_nd_view_direction">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_nd_view_direction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the nD view direction vector of the camera.</span>
 
 <span class="sd">        Parameters</span>

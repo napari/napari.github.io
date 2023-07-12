@@ -93,7 +93,7 @@ apprearing on each slice.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  12.254 seconds)
+   **Total running time of the script:** ( 0 minutes  10.376 seconds)
 
 
 .. _sphx_glr_download_gallery_nD_vectors.py:

@@ -305,6 +305,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">get_extent_world</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.plane</span> <span class="kn">import</span> <span class="n">ClippingPlane</span><span class="p">,</span> <span class="n">ClippingPlaneList</span>
+<span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dask_utils</span> <span class="kn">import</span> <span class="n">configure_dask</span>
 <span class="kn">from</span> <span class="nn">napari.utils._magicgui</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">add_layer_to_viewer</span><span class="p">,</span>
@@ -1402,7 +1403,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">force</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">!=</span> <span class="n">slice_input</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">slice_input</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_sync</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_input</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span>
@@ -1615,11 +1616,20 @@ function checkPageExistsAndRedirect(event) {
 <div class="viewcode-block" id="Layer.refresh"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh all layer data based on current view slice.&quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Layer.refresh: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># If async is enabled then emit an event that the viewer should handle.</span>
+        <span class="k">if</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">async_</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># Otherwise, slice immediately on the calling thread.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_sync</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_refresh_sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Layer._refresh_sync: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_view_slice</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">set_data</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_thumbnail</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_highlight</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Layer.world_to_data"><a class="viewcode-back" href="../../../../api/napari.layers.Layer.html#napari.layers.Layer.world_to_data">[docs]</a>    <span class="k">def</span> <span class="nf">world_to_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert from world coordinates to data coordinates.</span>
@@ -2032,7 +2042,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">=</span> <span class="n">level</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">corners</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">Event</span><span class="p">(</span><span class="s1">&#39;reload&#39;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="bp">self</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># The stored corner_pixels attribute must contain valid indices.</span>
             <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>

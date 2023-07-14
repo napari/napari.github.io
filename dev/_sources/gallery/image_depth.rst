@@ -63,7 +63,7 @@ Image depth
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.060 seconds)
+   **Total running time of the script:** ( 0 minutes  13.353 seconds)
 
 
 .. _sphx_glr_download_gallery_image_depth.py:

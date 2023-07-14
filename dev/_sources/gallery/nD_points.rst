@@ -77,6 +77,11 @@ across the dimensions, specified by their size
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.007 seconds)
+
+
 .. _sphx_glr_download_gallery_nD_points.py:
 
 .. only:: html

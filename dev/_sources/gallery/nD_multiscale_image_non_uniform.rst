@@ -75,11 +75,6 @@ Displays an nD multiscale image
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  10.901 seconds)
-
-
 .. _sphx_glr_download_gallery_nD_multiscale_image_non_uniform.py:
 
 .. only:: html

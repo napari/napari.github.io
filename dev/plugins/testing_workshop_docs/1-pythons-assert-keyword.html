@@ -464,8 +464,8 @@ function checkPageExistsAndRedirect(event) {
 </ul>
 <section id="this-lesson-covers">
 <h3>This lesson covers:<a class="headerlink" href="#this-lesson-covers" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="#assert-keyword"><span class="std std-doc">Assert keyword</span></a><br />
-<a class="reference internal" href="#test-for-the-pass-case"><span class="std std-doc">Test for Pass</span></a><br />
+<p><a class="reference internal" href="#assert-keyword"><span class="std std-doc">Assert keyword</span></a>
+<a class="reference internal" href="#test-for-the-pass-case"><span class="std std-doc">Test for Pass</span></a>
 <a class="reference internal" href="#test-for-the-fail-case"><span class="std std-doc">Test for Fail</span></a></p>
 </section>
 <section id="resources">
@@ -476,15 +476,15 @@ function checkPageExistsAndRedirect(event) {
 <section id="assert-keyword">
 <h2>Assert keyword<a class="headerlink" href="#assert-keyword" title="Permalink to this headline">¶</a></h2>
 <p>The key to testing in Python is the <a class="reference external" href="https://realpython.com/python-assert-statement/">assert</a> keyword. We <em>assert</em> a Boolean expression is true and create an error message that appears when that expression is false.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="o">&lt;</span><span class="n">Boolean</span> <span class="n">expression</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">error</span> <span class="n">message</span><span class="o">&gt;</span>    
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="o">&lt;</span><span class="n">Boolean</span> <span class="n">expression</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">error</span> <span class="n">message</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>If it is true, code execution continues as though the assert statement doesn’t exist. If the Boolean expression is false, an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> is thrown, an exception raised, and the error message displayed.</p>
 <p>Here is a simple function, <code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code>. It takes a mark (score) from zero to 100. If the mark (score) is more than 50, the grade is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>; if it’s less than 50, the grade is <code class="docutils literal notranslate"><span class="pre">Fail</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span> 
+    <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Pass&quot;</span>
-    <span class="k">else</span><span class="p">:</span>   
+    <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Fail&quot;</span>
 </pre></div>
 </div>
@@ -527,12 +527,12 @@ function checkPageExistsAndRedirect(event) {
 </pre></div>
 </div>
 <p>If we assert that 70 fails, the <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code>, “Expected something to fail, but the result was pass.” would be thrown, which is correct. It would look like this:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>python<span class="w"> </span>example_func.py<span class="w">  </span>
-<span class="go">Traceback (most recent call last):  </span>
-<span class="go">File “/Users/user/directory/example_test.py” line 20, in &lt;module&gt; test_get_grade_fail(70)  </span>
-<span class="go">File “/Users/user/directory/example_test.py” line 16, in &lt;module&gt; test_get_grade_fail  </span>
-<span class="go">Assert grade == “Fail”, f”Expected {mark} to fail, but result was {grade}”  </span>
-<span class="go">AssertionError: Expected 70 to fail, but result was Pass.   </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>python<span class="w"> </span>example_func.py
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">File “/Users/user/directory/example_test.py” line 20, in &lt;module&gt; test_get_grade_fail(70)</span>
+<span class="go">File “/Users/user/directory/example_test.py” line 16, in &lt;module&gt; test_get_grade_fail</span>
+<span class="go">Assert grade == “Fail”, f”Expected {mark} to fail, but result was {grade}”</span>
+<span class="go">AssertionError: Expected 70 to fail, but result was Pass.</span>
 </pre></div>
 </div>
 <p>Note that when the assertion fails, a traceback occurs.</p>

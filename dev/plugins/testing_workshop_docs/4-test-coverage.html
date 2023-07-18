@@ -479,37 +479,37 @@ function checkPageExistsAndRedirect(event) {
 <section id="pytest-cov">
 <h2>pytest –cov<a class="headerlink" href="#pytest-cov" title="Permalink to this headline">¶</a></h2>
 <p>To run tests with coverage, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> and add <code class="docutils literal notranslate"><span class="pre">--cov</span></code> pointing to the module you’re covering. There is also an option to generate an html report, which we do in this case. [Note that the <code class="docutils literal notranslate"><span class="pre">.</span></code> (period character) is part of the command.]</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>pytest<span class="w"> </span>--cov<span class="o">=</span>plugin_tests<span class="w"> </span>--cov-report<span class="o">=</span>html<span class="w"> </span>.<span class="w">  </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>pytest<span class="w"> </span>--cov<span class="o">=</span>plugin_tests<span class="w"> </span>--cov-report<span class="o">=</span>html<span class="w"> </span>.
 
-<span class="go">=========================== test session starts ==========================  </span>
-<span class="go">platform darwin -- Python 3.9.7, pytest-6.2.5, py-1.11.0, pluggy-1.0.0  </span>
-<span class="go">PyQt 5.15.6 -- Qt runtime 5.15.2 -- Qt compiled 5.15.2  </span>
-<span class="go">rootdir: qt-4.0.2, napari-plugin-engine-0.2.0, napari-0.4.13, cov-3.0.0  </span>
-<span class="go">collected 2 items  </span>
+<span class="go">=========================== test session starts ==========================</span>
+<span class="go">platform darwin -- Python 3.9.7, pytest-6.2.5, py-1.11.0, pluggy-1.0.0</span>
+<span class="go">PyQt 5.15.6 -- Qt runtime 5.15.2 -- Qt compiled 5.15.2</span>
+<span class="go">rootdir: qt-4.0.2, napari-plugin-engine-0.2.0, napari-0.4.13, cov-3.0.0</span>
+<span class="go">collected 2 items</span>
 
-<span class="go">src/plugin_tests/_tests/test-reader.py ..                           [100%]  </span>
+<span class="go">src/plugin_tests/_tests/test-reader.py ..                           [100%]</span>
 
-<span class="go">--------- coverage: platform darwin, python 3.0.7-final-0 --------  </span>
-<span class="go">Coverage HTML written to dir htmlcov  </span>
+<span class="go">--------- coverage: platform darwin, python 3.0.7-final-0 --------</span>
+<span class="go">Coverage HTML written to dir htmlcov</span>
 
-<span class="go">=========================== 2 passed in 6.72s ==========================  </span>
+<span class="go">=========================== 2 passed in 6.72s ==========================</span>
 </pre></div>
 </div>
 <p>This command runs the tests, gets the coverage, and then writes the Coverage HTML report to the <code class="docutils literal notranslate"><span class="pre">htmlcov</span></code> directory.</p>
 <p>There is a large folder (<code class="docutils literal notranslate"><span class="pre">htmlcov</span></code>) in the directory where the tests were run (<code class="docutils literal notranslate"><span class="pre">plugin_tests</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="go">plugin-tests % tree -L 1`  </span>
-<span class="go">.  </span>
-<span class="go">├── LICENSE    </span>
-<span class="go">├── MANIFEST.in  </span>
-<span class="go">├── README.md  </span>
-<span class="go">├── _pycache__  </span>
-<span class="go">├── example_func.py  </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="go">plugin-tests % tree -L 1`</span>
+<span class="go">.</span>
+<span class="go">├── LICENSE</span>
+<span class="go">├── MANIFEST.in</span>
+<span class="go">├── README.md</span>
+<span class="go">├── _pycache__</span>
+<span class="go">├── example_func.py</span>
 <span class="go">├── htmlcov		        # &lt;&lt;=============== directory created by pytest-cov</span>
-<span class="go">├── requirements.txt  </span>
-<span class="go">├── setup.cfg  </span>
-<span class="go">├── setup.py  </span>
-<span class="go">├── src  </span>
-<span class="go">└── tox.ini  </span>
+<span class="go">├── requirements.txt</span>
+<span class="go">├── setup.cfg</span>
+<span class="go">├── setup.py</span>
+<span class="go">├── src</span>
+<span class="go">└── tox.ini</span>
 </pre></div>
 </div>
 <p>If we open the <code class="docutils literal notranslate"><span class="pre">index.html</span></code> file from the list of files in the left panel (to the left of line 32) in a browser, we can see the coverage report.</p>
@@ -519,18 +519,18 @@ function checkPageExistsAndRedirect(event) {
 <p><img alt="Lines not run highlighted in red" src="../../_images/lines_not_run_highlighted_in_red.png" /></p>
 <p>Because we never provided a list of paths, we don’t know what will happen in that case. We also never ran code that tests not returning a reader. In other words, we never tested the failed cases. We can and should add those tests. The first one is <code class="docutils literal notranslate"><span class="pre">test_get_reader_pass</span></code>. We’ll call it with a file that doesn’t end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> and assert that it returned <code class="docutils literal notranslate"><span class="pre">None</span></code>. Then we’ll create a second test to call with a list of paths.</p>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code> fixture again, we can write two files, call <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with two paths and assert that it still returns a callable.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_get_reader_pass</span><span class="p">():</span>  
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader with non-numpy file path returns None&quot;&quot;&quot;</span>  
-    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="s2">&quot;fake.file&quot;</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="n">reader</span> <span class="ow">is</span> <span class="kc">None</span>  
-    
-<span class="k">def</span> <span class="nf">test_get_reader_path_list</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>  
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on list of numpy files returns callable&quot;&quot;&quot;</span>  
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_get_reader_pass</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader with non-numpy file path returns None&quot;&quot;&quot;</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="s2">&quot;fake.file&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">reader</span> <span class="ow">is</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">test_get_reader_path_list</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on list of numpy files returns callable&quot;&quot;&quot;</span>
     <span class="n">pth1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile1.npy&quot;</span><span class="p">)</span>
     <span class="n">pth2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile2.npy&quot;</span><span class="p">)</span>
-    
-<span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">([</span><span class="n">pth1</span><span class="p">,</span> <span class="n">pth2</span><span class="p">])</span>  
-<span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
+
+<span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">([</span><span class="n">pth1</span><span class="p">,</span> <span class="n">pth2</span><span class="p">])</span>
+<span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If we re-run <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, the coverage report is also updated and coverage should improve.</p>

@@ -507,35 +507,35 @@ function checkPageExistsAndRedirect(event) {
 <p>We create a file to read. First, we’ll build a file path, then generate a small amount of data. We’re just testing to see if the function returns a <code class="docutils literal notranslate"><span class="pre">callable</span></code> as expected, so we don’t need a large array.</p>
 <p>There are no specific requirements for the contents of the array in this case. We just need some sort of file to save to this temporary directory. The test file will not appear anywhere unless there is a pause during test execution.</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with this path, we assert that the reader is callable. A function should be returned. If it isn’t, we could put an error message here.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tmp_path is a pytest fixture  </span>
-<span class="k">def</span> <span class="nf">test_get_reader_returns_callable</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>  
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on numpy file returns callable&quot;&quot;&quot;</span>  
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tmp_path is a pytest fixture</span>
+<span class="k">def</span> <span class="nf">test_get_reader_returns_callable</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on numpy file returns callable&quot;&quot;&quot;</span>
 
-    <span class="c1"># write some fake data  </span>
-    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>  
-    <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  
-    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>  
+    <span class="c1"># write some fake data</span>
+    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>
+    <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 
-    <span class="c1"># try to read it back in  </span>
-    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
+    <span class="c1"># try to read it back in</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Running the command <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">.</span></code> in the root directory of the plugin, we discover all the functions recognized as tests. It should recognize <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> because it’s a test file, prefixed with the word test. <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> was found and passed the test.</p>
 <p><img alt="pytest passed" src="../../_images/napari_plugins_3rd_pytest_passed.png" /></p>
 <p>If the file did not end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> the test would fail because what was returned wasn’t callable. This code has been modified to produce an error:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tmp_path is a pytest fixture  </span>
-<span class="k">def</span> <span class="nf">test_get_reader_returns_callable</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>  
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on numpy file returns callable&quot;&quot;&quot;</span>  
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tmp_path is a pytest fixture</span>
+<span class="k">def</span> <span class="nf">test_get_reader_returns_callable</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calling get_reader on numpy file returns callable&quot;&quot;&quot;</span>
 
     <span class="c1"># write some fake data</span>
-    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;myfile.np&quot;</span><span class="p">)</span> <span class="c1"># note ends in .np  </span>
-    <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  
-    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>  
+    <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;myfile.np&quot;</span><span class="p">)</span> <span class="c1"># note ends in .np</span>
+    <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 
-    <span class="c1"># try to read it back in  </span>
-    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
+    <span class="c1"># try to read it back in</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Once we run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> we can see that it traced back that the callable of <code class="docutils literal notranslate"><span class="pre">reader</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code> and it has filled in the fact that <code class="docutils literal notranslate"><span class="pre">reader</span></code> at the time of the assertion was <code class="docutils literal notranslate"><span class="pre">None</span></code>. This is useful in debugging.</p>
@@ -549,47 +549,47 @@ function checkPageExistsAndRedirect(event) {
 <p>We will have access to what <code class="docutils literal notranslate"><span class="pre">write_func</span></code> returns once it’s been called inside the test. It returns both the path where the data has been written and the original data.</p>
 <p>The benefit of creating this fixture is that whenever we want to write our own test data we don’t have to copy three lines of code, we can just use the fixture. This is useful in testing data with different structures like integers or a specific layer type. Those arguments could be passed to further customize your fixture.</p>
 <p>We still want to make sure we get a reader when we call <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with the file. We call that <code class="docutils literal notranslate"><span class="pre">reader</span></code> function with the file we created to see if it returns what we expect. Based on the <a class="reference external" href="https://napari.org/stable/plugins/contributions.html#contributions-readers">reader spec</a>, it should return a layer data list. Here is the full test, with the fixture:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>  
-<span class="k">def</span> <span class="nf">write_im_to_file</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>  
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">write_im_to_file</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">write_func</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>  
-        <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="n">filename</span><span class="p">)</span>  
-        <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  
-        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>  
-    
-        <span class="k">return</span> <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span>  
+    <span class="k">def</span> <span class="nf">write_func</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="n">my_test_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="n">original_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">write_func</span>  
+        <span class="k">return</span> <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span>
 
-<span class="k">def</span> <span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>  
-    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>  
-    
-    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
-    
-    <span class="n">layer_data_list</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">,</span> <span class="n">List</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>  
-    
-    <span class="n">layer_data_tuple</span> <span class="o">=</span> <span class="n">layer_data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
-    <span class="n">layer_data</span> <span class="o">=</span> <span class="n">layer_data_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
-    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>  
+    <span class="k">return</span> <span class="n">write_func</span>
+
+<span class="k">def</span> <span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
+    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>
+
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+
+    <span class="n">layer_data_list</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">,</span> <span class="n">List</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="n">layer_data_tuple</span> <span class="o">=</span> <span class="n">layer_data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">layer_data</span> <span class="o">=</span> <span class="n">layer_data_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We’re going to assert a list length greater than zero. There must be a layer in there; otherwise, we didn’t read it correctly. We also assert that it is a list.</p>
 <p>We will test that inside that list is what we expected - layer data tuples. The first item of a layer data tuple is the actual data. We’re going to test that explicitly.</p>
 <p>Then we assert, using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>’s asserting mechanism, <code class="docutils literal notranslate"><span class="pre">np.testing.assert_allclose</span></code> that they are all close, even though they should be exactly the same. This is standard practice when working with floating point precision. NumPy also has <a class="reference external" href="https://numpy.org/doc/stable/reference/routines.testing.html">other assertion options</a> you may find useful. The layer data we read back with the reader function should be the same as the original data. If that’s true, then we made the entire round trip. We saved the file and we used the reader to read the file.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>  
-    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>  
-    
-    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>  
-    
-    <span class="n">layer_data_list</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>  
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">,</span> <span class="n">List</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>  
-    
-    <span class="n">layer_data_tuple</span> <span class="o">=</span> <span class="n">layer_data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
-    <span class="n">layer_data</span> <span class="o">=</span> <span class="n">layer_data_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
-    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>  
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
+    <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s2">&quot;myfile.npy&quot;</span><span class="p">)</span>
+
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">napari_get_reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+
+    <span class="n">layer_data_list</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">my_test_file</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">,</span> <span class="n">List</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_data_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="n">layer_data_tuple</span> <span class="o">=</span> <span class="n">layer_data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">layer_data</span> <span class="o">=</span> <span class="n">layer_data_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We run our tests again, and now two are collected, both passing.</p>

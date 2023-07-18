@@ -11,7 +11,7 @@ To learn more about the current languages that are in the process of
 translation, visit the [language packs repository](https://github.com/napari/napari-language-packs)
 
 This guide is limited to providing translations to the napari core codebase.
-We will soon provide more information on how to make your napari plugins 
+We will soon provide more information on how to make your napari plugins
 localizable.
 
 ## How to make strings translatable?
@@ -50,13 +50,13 @@ from napari.utils.translations import trans
 class SomeWidget(QWidget):
 
     def __init__(self):
-        self.channel_combo_box = QComboBox(self)        
+        self.channel_combo_box = QComboBox(self)
         self.channel_combo_box.addItem(trans._("red"), "red")
         self.channel_combo_box.addItem(trans._("green"), "green")
         self.channel_combo_box.addItem(trans._("blue"), "blue")
 ```
 
-On this example, we add a RGB channel combo box selector. The first argument of 
+On this example, we add a RGB channel combo box selector. The first argument of
 `addItem` is the actual display name of that combobox item, whereas the second
 argument is the data associated to that item, in this case the original channel
 name.
@@ -97,7 +97,7 @@ from napari.utils.translations import trans
 class SomeWidget(QWidget):
 
     def __init__(self):
-        self.context_combo_box = QComboBox(self)        
+        self.context_combo_box = QComboBox(self)
         self.context_combo_box.addItem(trans._p("character", "tab", ), "tab")
         self.context_combo_box.addItem(trans._p("music", "tab"), "tab")
         self.context_combo_box.addItem(trans._p("ui-element", "tab"), "tab")

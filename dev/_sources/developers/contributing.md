@@ -110,7 +110,7 @@ Now you are all set to start developing with napari.
 
 ## Contributing documentation
 
-If you wish to contribute documentation changes to napari, please read the [guide on contributing documentation](documentation/index.md). 
+If you wish to contribute documentation changes to napari, please read the [guide on contributing documentation](documentation/index.md).
 
 (add-examples)=
 ## Adding examples to the [Gallery](gallery)

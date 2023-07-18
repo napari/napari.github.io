@@ -7,7 +7,7 @@
 :Created: 2022-06-08
 :Status: Draft
 :Type: Standards Track
-``` 
+```
 
 
 ## Abstract
@@ -131,7 +131,7 @@ app.spaces  # spaces list, but held by the app object (and thus accessible acros
 viewer.active_space = app.spaces[0]  # choose which space to display in a viewer
 ```
 
-This improves on the [](nap-3:multiple-viewers) approach ont the clarity of separation between `Spaces` and `Viewers`, and on the main proposal by explicitly allowing sharing spaces between viewers. 
+This improves on the [](nap-3:multiple-viewers) approach ont the clarity of separation between `Spaces` and `Viewers`, and on the main proposal by explicitly allowing sharing spaces between viewers.
 
 A downside is that we lose the single point of truth for the `Spaces`. If a space is loaded in two viewers, we would need to connect events so that if something about the state is changed (such as the `Dims`) it should update the state of all the other Viewers attached to the state. This is not necessary for the layerlist and the layers, since those would *be* the same objects; in fact, this is a point in favour of using `ViewerModel` themselves to encode the state, as proposed in [](nap-3:multiple-viewers), or to at least *split out* from the `ViewerModel` the fields that would be instead held by `Spaces`.
 

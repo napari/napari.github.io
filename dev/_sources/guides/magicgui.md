@@ -269,7 +269,7 @@ def make_points(...) -> List[napari.layers.Layer]:
 ```{note}
 Note: the `List[]` syntax here is optional from the perspective of `napari`.  You
 can return either a single Layer or a list of Layers and they will all be added
-to the viewer as long as you use either `List[napari.layers.Layer]` or 
+to the viewer as long as you use either `List[napari.layers.Layer]` or
 `napari.layers.Layer`.  If you want your code to be properly typed, however,
 your return type must match your return annotation.
 ```
@@ -338,7 +338,7 @@ The following are all valid {attr}`napari.types.LayerDataTuple` examples:
 
 ```python
 # an image array
-(np.random.rand(64, 64),) 
+(np.random.rand(64, 64),)
 
 # an image with name and custom blending mode
 (np.random.rand(64, 64), {'name': 'My Image', 'blending': 'additive'})
@@ -393,7 +393,7 @@ def make_points(...) -> List[napari.types.LayerDataTuple]:
 ```{note}
 Note: the `List[]` syntax here is optional from the perspective of `napari`.  You
 can return either a single tuple or a list of tuples and they will all be added
-to the viewer as long as you use either `List[napari.types.LayerDataTuple]` or 
+to the viewer as long as you use either `List[napari.types.LayerDataTuple]` or
 `napari.types.LayerDataTuple`.  If you want your code to be properly typed, however,
 your return type must match your return annotation.
 ```

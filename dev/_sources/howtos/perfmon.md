@@ -34,7 +34,7 @@ here.
 ## Enabling perfmon
 
 There are two ways to enable performance monitoring. Set the environment
-variable `NAPARI_PERFMON=1` or set `NAPARI_PERFMON` to the path of 
+variable `NAPARI_PERFMON=1` or set `NAPARI_PERFMON` to the path of
 a JSON configuration file, for example `NAPARI_PERFMON=/tmp/perfmon.json`.
 
 ```{note}
@@ -191,7 +191,7 @@ find out they actually run fast, so you can remove them.
 
 To add the {meth}`Labels.paint<napari.layers.Labels.paint>` method to
 the trace, create a new list of callables named `labels` and put the
-{meth}`Labels.paint<napari.layers.Labels.paint>` method into 
+{meth}`Labels.paint<napari.layers.Labels.paint>` method into
 that list.
 
 ```json

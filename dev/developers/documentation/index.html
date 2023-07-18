@@ -1135,6 +1135,15 @@ help you edit your document and find the right spot!</p>
 </section>
 <section id="building-the-documentation-on-windows">
 <h2>Building the documentation on Windows<a class="headerlink" href="#building-the-documentation-on-windows" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is very important that you clone the <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> repository to a path that does not contain spaces.
+For example, <code class="docutils literal notranslate"><span class="pre">C:\Users\myusername\Documents\GitHub\napari-docs</span></code> is a valid path, but <br />
+<code class="docutils literal notranslate"><span class="pre">C:\Users\my</span> <span class="pre">username\Documents\GitHub\napari-docs</span></code> is not.
+If you clone the napari-docs repository to a directory following the default Windows path naming convention, e.g. <br />
+<code class="docutils literal notranslate"><span class="pre">C:\Users\my</span> <span class="pre">username\Documents\GitHub\napari-docs</span></code> (note the space), and run the <code class="docutils literal notranslate"><span class="pre">make</span></code> commands to build the napari docs, it may remove unintended files from your computer as it will essentially run the command <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">C:\Users</span></code>.
+This is because the napari documentation is built using <code class="docutils literal notranslate"><span class="pre">make</span></code> which does not work on paths which contain spaces.</p>
+</div>
 <p>The documentation build requires some Linux specific commands, so some extra steps are required to build the documentation on Windows. There are multiple tools for this, but <a class="reference external" href="https://gitforwindows.org/">Git Bash</a> or <a class="reference external" href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux (WSL)</a> are recommended.</p>
 <section id="git-bash">
 <h3>Git Bash<a class="headerlink" href="#git-bash" title="Permalink to this headline">¶</a></h3>

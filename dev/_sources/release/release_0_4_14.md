@@ -8,7 +8,7 @@ rendering), and the scientific Python stack (numpy, scipy).
 
 This is a small release containing some new features and fixing a few issues that have come up since 0.4.13 was released.
 
-This release adds the ability to convert a shapes layer to a labels layer from a context menu available on right clicking the layer list entry (#3978). Our vectors layer has gained the 
+This release adds the ability to convert a shapes layer to a labels layer from a context menu available on right clicking the layer list entry (#3978). Our vectors layer has gained the
 ability to render vectors in 2D across multiple slices (#2902) and points in the points
 layer can now be hidden individually (#3625).
 
@@ -85,5 +85,5 @@ Complete list of changes below:
 - [Nathan Clack](https://github.com/napari/napari/commits?author=nclack) - @nclack
 - [Nicholas Sofroniew](https://github.com/napari/napari/commits?author=sofroniewn) - @sofroniewn
 - [Talley Lambert](https://github.com/napari/napari/commits?author=tlambert03) - @tlambert03
-  
+
 

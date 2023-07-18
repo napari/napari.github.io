@@ -21,7 +21,7 @@ After discussion in [#4102](https://github.com/napari/napari/pull/4102), [#4111]
 
 This has led to the following API and GUI changes
 
--  `builtins` is now the default value for the `plugin` argument in `viewer.open`. This means 
+-  `builtins` is now the default value for the `plugin` argument in `viewer.open`. This means
     - you should **always** explicitly pass a plugin to `viewer.open`, if you don't want to use `builtins` (and we encourage you to pass the argument anyway).
 
         - To specify a plugin in a Python script:
@@ -63,7 +63,7 @@ This has led to the following API and GUI changes
     - This dialog does not pop up if only one plugin can open your file
 - Running `napari path` in the shell will also provide the reader dialog. You can still pass through a plugin choice, or layer keyword arguments
     - To specify a plugin at the command line, use:
-    
+
     ```sh
     napari my-path.tif --plugin napari_tifffile
     ```

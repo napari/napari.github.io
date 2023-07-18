@@ -31,7 +31,7 @@ We introduced a new plugin engine [`npe2`][npe2] in December 2021.
 Unless otherwise stated, most of the documentation herein pertains
 to the new npe2 format (which uses a static `napari.yaml` manifest)
 
-Plugins targeting the first generation `napari-plugin-engine` 
+Plugins targeting the first generation `napari-plugin-engine`
 (using `@napari_hook_implementation` decorators) will
 continue to work for at least the first half of 2022, but we
 recommend migrating to `npe2`. See the

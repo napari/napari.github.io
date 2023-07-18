@@ -37,9 +37,9 @@ of this document, but strategies generally fall into one of three camps:
 3. Single-thread concurrency with
    [asyncio](https://docs.python.org/3/library/asyncio.html)
 
-For a good high level overview on concurrency in python, see 
+For a good high level overview on concurrency in python, see
 [this post](https://realpython.com/python-concurrency/).
-See the 
+See the
 [trio docs](https://trio.readthedocs.io/en/stable/tutorial.html)
 for a good introduction to Python's new `async/await` syntax.
 And of course, see the python docs on
@@ -111,7 +111,7 @@ napari.run()
 ```
 
 ```{note}
-When the `connect` argument to 
+When the `connect` argument to
 {func}`@thread_worker<napari.qt.threading.thread_worker>`
 is not `None`, the thread will start
 by default when the decorated function is called.  Otherwise the thread must
@@ -158,7 +158,7 @@ def error_prone_function():
 
 A generator function is a
 [special kind of function](https://realpython.com/introduction-to-python-generators/)
-that returns a lazy iterator. To make a generator, you "yield" 
+that returns a lazy iterator. To make a generator, you "yield"
 results rather than (or in addition to) "returning" them:
 
 ```python
@@ -312,7 +312,7 @@ So whenever possible, sprinkle your long-running functions with `yield`.
 So far we've mostly been *receiving* results from the threaded function, but we
 can send values *into* a generator-based thread as well using
 {meth}`worker.send() <napari.qt.threading.GeneratorWorker.send>` This works
-exactly like a standard python 
+exactly like a standard python
 [generator.send](https://docs.python.org/3/reference/expressions.html#generator.send)
 pattern.  This next example ties together a number of concepts and demonstrates
 two-thread communication with conditional flow control.  It's a simple

@@ -87,7 +87,7 @@ for a member elected by the [Institutional and Funding Partner Advisory Council]
 as detailed below. This member need not be an existing core developer.
 
 The SC membership, including the Institutional and Funding Partner (IFP) seat, is revisited every January.
-SC members who do not actively engage with the SC duties are expected to resign. New members for 
+SC members who do not actively engage with the SC duties are expected to resign. New members for
 vacant spots are added by nomination by a core developer. Nominees should have demonstrated
 long-term, continued commitment to the project and its [mission and values](mission-and-values). A
 nomination will result in discussion that cannot take more than a month and

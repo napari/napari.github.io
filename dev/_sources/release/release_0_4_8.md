@@ -147,7 +147,7 @@ and
 - Fix vertical_stretch injection and kwargs passing on DockWidget (#2705)
 - Fix tracks icons, and visibility icons (#2708)
 - Patch horizontalAdvance for older Qt versions (#2711)
-- Fix segfaults in test (#2716) 
+- Fix segfaults in test (#2716)
 - Fix napari_provide_sample_data documentation typo (#2718)
 - Fix mpl colormaps (#2719)
 - Fix active layer keybindings (#2722)

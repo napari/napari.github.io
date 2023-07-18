@@ -12,7 +12,7 @@ https://github.com/napari/napari
 
 ## Highlights
 This release is the first that adds support for persistent settings in napari (#2212).
-Right now we just store the current theme and window geometry but we will be expanding 
+Right now we just store the current theme and window geometry but we will be expanding
 this to include a full set of preferences in future releases.
 
 We've also made plugin installation from our plugin dialog more flexible, including

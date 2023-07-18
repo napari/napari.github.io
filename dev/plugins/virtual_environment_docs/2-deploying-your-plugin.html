@@ -504,18 +504,18 @@ function checkPageExistsAndRedirect(event) {
 <section id="manually-via-twine">
 <h3>Manually via <strong>twine</strong>.<a class="headerlink" href="#manually-via-twine" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://twine.readthedocs.io/en/latest/">twine</a> is a command line client you can use to upload your distribution to PyPI. Note that you will need to set up a PyPI account and authenticate yourself when uploading. See <a class="reference external" href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">this great guide</a> for a detailed tutorial to building and sharing your first Python packages.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">    # </span>twine<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>PyPI<span class="w"> </span>Client<span class="w">  </span>
-<span class="gp">    # </span>build<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>PEP<span class="w"> </span><span class="m">517</span><span class="w"> </span>package<span class="w"> </span>builder<span class="w">  </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">    # </span>twine<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>PyPI<span class="w"> </span>Client
+<span class="gp">    # </span>build<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>PEP<span class="w"> </span><span class="m">517</span><span class="w"> </span>package<span class="w"> </span>builder
 <span class="gp">    $ </span>pip<span class="w"> </span>install<span class="w"> </span>twine<span class="w"> </span>build
 
-<span class="gp">    # </span>create<span class="w"> </span>a<span class="w"> </span>wheel<span class="w"> </span>and<span class="w"> </span>an<span class="w"> </span>sdist<span class="w">  </span>
-<span class="gp">    $ </span>python<span class="w"> </span>-m<span class="w"> </span>build<span class="w">  </span>
-<span class="go">     </span>
-<span class="gp">    # </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>upload<span class="w"> </span>to<span class="w"> </span><span class="nb">test</span><span class="w"> </span>PyPI<span class="w">  </span>
-<span class="gp">    $ </span>twine<span class="w"> </span>upload<span class="w"> </span>-r<span class="w"> </span>testpypi<span class="w"> </span>dist/*<span class="w">  </span>
+<span class="gp">    # </span>create<span class="w"> </span>a<span class="w"> </span>wheel<span class="w"> </span>and<span class="w"> </span>an<span class="w"> </span>sdist
+<span class="gp">    $ </span>python<span class="w"> </span>-m<span class="w"> </span>build
 
-<span class="gp">    # </span>Upload<span class="w"> </span>to<span class="w"> </span>PyPI<span class="w">  </span>
-<span class="gp">    $ </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/*<span class="w">  </span>
+<span class="gp">    # </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>upload<span class="w"> </span>to<span class="w"> </span><span class="nb">test</span><span class="w"> </span>PyPI
+<span class="gp">    $ </span>twine<span class="w"> </span>upload<span class="w"> </span>-r<span class="w"> </span>testpypi<span class="w"> </span>dist/*
+
+<span class="gp">    # </span>Upload<span class="w"> </span>to<span class="w"> </span>PyPI
+<span class="gp">    $ </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/*
 </pre></div>
 </div>
 <p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code> is the modern alternative to <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>’ <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code>. It calls <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> behind the scenes.</p>
@@ -530,30 +530,30 @@ or</p></li>
 </ul>
 <p>Here is an example workflow that manually deploys using <code class="docutils literal notranslate"><span class="pre">twine</span></code> when tests pass and you push a tagged commit.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#your-repo/.github/workflows/deploy.yaml</span>
-<span class="nt">jobs</span><span class="p">:</span><span class="w">  </span>
-<span class="w">    </span><span class="nt">deploy</span><span class="p">:</span><span class="w">  </span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">deploy</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy</span>
-<span class="w">      </span><span class="nt">runs on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span><span class="w">  </span>
-<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">“success() &amp;&amp; startsWith(github.ref, ‘refs/tags/’)”</span><span class="w">  </span>
-<span class="w">      </span><span class="nt">steps</span><span class="p">:</span><span class="w">  </span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w">  </span>
+<span class="w">      </span><span class="nt">runs on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">      </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">“success() &amp;&amp; startsWith(github.ref, ‘refs/tags/’)”</span>
+<span class="w">      </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
 
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span><span class="w">  </span>
-<span class="w">           </span><span class="l l-Scalar l-Scalar-Plain">uses</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span><span class="w">  </span>
-<span class="w">    </span><span class="w w-Error"> </span><span class="p p-Indicator">-</span><span class="w">     </span><span class="nt">with</span><span class="p">:</span><span class="w">   </span>
-<span class="w">           </span><span class="l l-Scalar l-Scalar-Plain">python-version “3.x”</span><span class="w">  </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
+<span class="w">           </span><span class="l l-Scalar l-Scalar-Plain">uses</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span>
+<span class="w">    </span><span class="w w-Error"> </span><span class="p p-Indicator">-</span><span class="w">     </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">           </span><span class="l l-Scalar l-Scalar-Plain">python-version “3.x”</span>
 
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install</span><span class="w">  </span>
-<span class="w">           </span><span class="nt">run</span><span class="p">:</span><span class="w">  </span>
-<span class="w">               </span><span class="l l-Scalar l-Scalar-Plain">pip install -U pip</span><span class="w">  </span>
-<span class="w">               </span><span class="l l-Scalar l-Scalar-Plain">pip install -U build twine</span><span class="w">  </span>
-<span class="w">               </span><span class="l l-Scalar l-Scalar-Plain">python -m build</span><span class="w">  </span>
-<span class="w">  </span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and publish</span><span class="w">  </span>
-<span class="w">          </span><span class="nt">run</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">twine upload dist/*</span><span class="w">  </span>
-<span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span>
-<span class="w">             </span><span class="nt">TWINE_USERNAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">__token__</span><span class="w">  </span>
-<span class="w">             </span><span class="nt">TWINE_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.TWINE_API_KEY }}</span><span class="w">  </span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install</span>
+<span class="w">           </span><span class="nt">run</span><span class="p">:</span>
+<span class="w">               </span><span class="l l-Scalar l-Scalar-Plain">pip install -U pip</span>
+<span class="w">               </span><span class="l l-Scalar l-Scalar-Plain">pip install -U build twine</span>
+<span class="w">               </span><span class="l l-Scalar l-Scalar-Plain">python -m build</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and publish</span>
+<span class="w">          </span><span class="nt">run</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">twine upload dist/*</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">TWINE_USERNAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">__token__</span>
+<span class="w">             </span><span class="nt">TWINE_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.TWINE_API_KEY }}</span>
 </pre></div>
 </div>
 <p><strong>Note:</strong> Gate this action on some criterion, e.g. a git tag as above, or <a class="reference external" href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows">some other criterion</a>.</p>

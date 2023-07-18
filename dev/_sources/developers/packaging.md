@@ -14,22 +14,22 @@ Despite its numerous dependencies, `napari` itself is a regular Python project t
 
 ### PyPI packages
 
-Creating and submitting the packages to PyPI (the repository you query when you do `pip install`) is handled in the [`make_release.yml`][2] workflow. 
-Creation is handled with `make dist` (as specified in our [`Makefile`][3]) and submission is done using the [official PyPA GitHub Action][4]. 
+Creating and submitting the packages to PyPI (the repository you query when you do `pip install`) is handled in the [`make_release.yml`][2] workflow.
+Creation is handled with `make dist` (as specified in our [`Makefile`][3]) and submission is done using the [official PyPA GitHub Action][4].
 This workflow will also create a GitHub release. See {doc}`release` for more details.
 
 ### conda-forge packages
 
 Once the Python package makes it to PyPI, it will be picked by the `conda-forge` bots.
-The bots will automatically submit a PR to the [`napari-feedstock`][1] repository within a few hours. 
+The bots will automatically submit a PR to the [`napari-feedstock`][1] repository within a few hours.
 This is all automated by the `conda-forge` infrastructure (see [previous examples][16]).
-We only need to check that the metadata in the recipe has been adjusted for the new release. 
+We only need to check that the metadata in the recipe has been adjusted for the new release.
 Pay special attention to the runtime dependencies and version strings!
 
-> We keep a copy of the feedstock's recipe in the `napari/packaging` repo, which is updated manually whenever a change to `setup.cfg` is detected. 
+> We keep a copy of the feedstock's recipe in the `napari/packaging` repo, which is updated manually whenever a change to `setup.cfg` is detected.
 > Check the file `conda-recipe/meta.yaml` and make sure its `outputs` are synced to the `napari-feedstock` copy.
 
-Once the conda-forge CI is passing and the PR is approved and merged, the final packages will be built on the default branch and uploaded to the `conda-forge` channel. 
+Once the conda-forge CI is passing and the PR is approved and merged, the final packages will be built on the default branch and uploaded to the `conda-forge` channel.
 Due to the staging steps and CDN synchronization delays, the conda packages can take up to 1 h to be available after the merge.
 
 ```{note}
@@ -52,16 +52,16 @@ Otherwise, we would have to wait for the `conda-forge` PR, which is only trigger
 That means we would not be able to create the installers in the same tagging event.
 ```
 
-To do it in a `conda-forge` compatible way, we clone `napari-feedstock` and patch the `source` instructions to use the code from the repository branch. 
-The version is also patched to match the `setuptools-scm` string. 
+To do it in a `conda-forge` compatible way, we clone `napari-feedstock` and patch the `source` instructions to use the code from the repository branch.
+The version is also patched to match the `setuptools-scm` string.
 After [re-rendering][8] the feedstock, we run `conda-build` in the same way `conda-forge` would do and upload the resulting tarballs to our [Anaconda.org channel][17].
 
 Additionally, the tarballs are also passed as artifacts to the next stage in the pipeline: building the `constructor` installers (more below).
 
 ## Installers
 
-Once the packages have been built and uploaded to their corresponding repositories, 
-we can bundle them along with their dependencies in a single executable that end users can run to install napari on their systems, 
+Once the packages have been built and uploaded to their corresponding repositories,
+we can bundle them along with their dependencies in a single executable that end users can run to install napari on their systems,
 with no prior knowledge of `pip`, `conda`, virtual environments or anything.
 
 A software installer is usually expected to fulfill these requirements:
@@ -71,7 +71,7 @@ A software installer is usually expected to fulfill these requirements:
 * It will allow the user to uninstall the application, leaving no artifacts behind.
 
 We use `constructor` to build the bundled installers, which takes `conda` packages.
-`conda` packages offer several advantages when it comes to bundling dependencies, since it makes very few assumptions about the underlying system installation. 
+`conda` packages offer several advantages when it comes to bundling dependencies, since it makes very few assumptions about the underlying system installation.
 As a result, `constructor` bundles include libraries that might be missing in the target system and hence should provide a more robust user experience.
 
 The automation is implemented in the `.github/workflows/make_bundle_conda.yml` workflow, which only
@@ -79,15 +79,15 @@ specifies the triggers used to call the actual workflow implementation under the
 repository. This repository stores all the logic and files needed to create the nightly `conda`
 packages and the `constructor` installers.
 
-[`constructor`][6] allows you to build cross-platform installers out of `conda` packages. 
+[`constructor`][6] allows you to build cross-platform installers out of `conda` packages.
 It supports the following installer types:
 
 * On Linux, a shell-based installer is generated; users can execute it with `bash installer.sh`.
-* On macOS, you can generate both PKG and shell-based installers. 
+* On macOS, you can generate both PKG and shell-based installers.
   PKG files are graphical installers native to macOS, so that's the method we use with napari.
 * On Windows, a graphical installer based on [NSIS][19] is generated.
 
-The configuration is done through a `construct.yaml` file, documented [here][7]. 
+The configuration is done through a `construct.yaml` file, documented [here][7].
 We generate one on the fly in the `build_installers.py` script found in `napari/packaging`.
 For a hypothetical napari v1.2.3 we would have built this configuration file:
 
@@ -144,16 +144,16 @@ signing_certificate: certificate.pfx  # path to signing certificate
 
 The main OS-agnostic keys are:
 
-* `channels`: where the packages will be downloaded from. 
-  We mainly rely on `conda-forge` for this, where `napari` is published. 
-  However, we also have `napari/label/bundle_tools_2`, where we store our `constructor` stack forks (more on this later). 
-  In nightly installers, we locally build our own development packages for `conda`, without resorting to `conda-forge`. 
-  To make use of those (which are eventually published to `napari/label/nightly`), 
+* `channels`: where the packages will be downloaded from.
+  We mainly rely on `conda-forge` for this, where `napari` is published.
+  However, we also have `napari/label/bundle_tools_2`, where we store our `constructor` stack forks (more on this later).
+  In nightly installers, we locally build our own development packages for `conda`, without resorting to `conda-forge`.
+  To make use of those (which are eventually published to `napari/label/nightly`),
   we unpack the GitHub Actions artifact in a specific location that `constructor` recognizes as a _local_ channel once indexed.
 * {{ '`extra_envs> napari-NAPARI_VER`'.replace('NAPARI_VER', napari_version) }}: the environment that will actually contain the napari installation.
-  In this key, you will find `specs`, which lists the conda packages to be installed in that environment. 
+  In this key, you will find `specs`, which lists the conda packages to be installed in that environment.
   Constructor will perform a conda solve here to retrieve the needed dependencies.
-* `menu_packages`: restrict which packages can create shortcuts. 
+* `menu_packages`: restrict which packages can create shortcuts.
   We only want the shortcuts provided by `napari-menu`, and not any that could come from the (many) dependencies of napari.
 
 Then, depending on the operating systems and the installer format, we customize the configuration a bit more.

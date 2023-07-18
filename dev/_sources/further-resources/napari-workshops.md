@@ -27,12 +27,12 @@ or contact the core developers on [zulip chat](https://napari.zulipchat.com/logi
 
 
 * September 2022, Helmholtz Imaging Summer Academy
-  * [Image analysis with Python and Napari](https://biapol.github.io/HIP_Introduction_to_Napari_and_image_processing_with_Python_2022/intro.html) 
+  * [Image analysis with Python and Napari](https://biapol.github.io/HIP_Introduction_to_Napari_and_image_processing_with_Python_2022/intro.html)
   * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7102242.svg)](https://doi.org/10.5281/zenodo.7102242)
 
 * July 2022, SciPy 2022
   * [watch it here](https://www.youtube.com/watch?v=vismuuc4y1I&list=PLYx7XA2nY5Gfxu98P_HL1MnFb_BSkpxLV&index=10)
-  * [Workshop materials available here](https://alisterburt.github.io/napari-workshops/SciPy-0722/intro.html) 
+  * [Workshop materials available here](https://alisterburt.github.io/napari-workshops/SciPy-0722/intro.html)
 
 * January to May 2022, [accelerator grantee plugin workshop](https://chanzuckerberg.github.io/napari-plugin-accel-workshops/)
 
@@ -40,7 +40,7 @@ or contact the core developers on [zulip chat](https://napari.zulipchat.com/logi
   * [Read the workshop materials online](https://github.com/haesleinhuepf/I2K2022-napari-workshop)
 
 * April 2022, ABRF LMRG image analysis workshop
-  * [watch it here](https://www.youtube.com/watch?v=lkw5di8NgUA) 
+  * [watch it here](https://www.youtube.com/watch?v=lkw5di8NgUA)
 
 * March 2022, [Alt text workshop](https://hackmd.io/vDsWUBqQSxW_7TNxF-RKKA)
 

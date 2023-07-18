@@ -1,15 +1,15 @@
-# Working groups 
+# Working groups
 
-Working groups are subteams of the napari community formed by members interested in diving deep on a particular topic (ex:‘Bundled Application’, ‘Documentation’) that meet on a semi-regular cadence to discuss, implement, and track ideas over time. 
+Working groups are subteams of the napari community formed by members interested in diving deep on a particular topic (ex:‘Bundled Application’, ‘Documentation’) that meet on a semi-regular cadence to discuss, implement, and track ideas over time.
 
 ## Working group guidelines
 
 We believe working groups are a helpful way to move forward work on particular topics. The following guidelines serve to help community members form and/or maintain healthy working groups. Working groups should:
 
-- Identify at least two co-leads responsible for the creation and continuation of the group. 
+- Identify at least two co-leads responsible for the creation and continuation of the group.
 - Have a [core developer](https://napari.org/community/team.html#current-core-developers) “sponsor” who is kept aware of work and can help shepherd through PRs as needed. If you don't have a sponsor in mind directly for your proposed working group, please post on the `#general` channel on [Zulip](https://napari.zulipchat.com) and ask whether any core members would like to sponsor your group.
-- Create a readme for your [working groups folder](https://github.com/napari/meeting-notes/tree/main/2021/working-groups) that names leads/sponsor, describes the working group’s core goals/priorities, lists Zulip channel, and links to meeting schedule (see readme template below). 
-- Identify achievable goals and deliverables that map thoughtfully to napari’s larger strategies and [roadmap](https://napari.org/roadmaps/index.html). These goals may focus on specific short-term goals or longer term efforts that still require exploration. 
+- Create a readme for your [working groups folder](https://github.com/napari/meeting-notes/tree/main/2021/working-groups) that names leads/sponsor, describes the working group’s core goals/priorities, lists Zulip channel, and links to meeting schedule (see readme template below).
+- Identify achievable goals and deliverables that map thoughtfully to napari’s larger strategies and [roadmap](https://napari.org/roadmaps/index.html). These goals may focus on specific short-term goals or longer term efforts that still require exploration.
 - Hold regular public meetings that are listed on the [napari community calendar](https://napari.org/stable/community/meeting_schedule.html). Cadence is up to the team, but monthly minimum is recommended.
 - Maintain and publicly store the working group’s meeting minutes in [napari/meeting-notes](https://github.com/napari/meeting-notes).
 - Present updates at least once per month at a napari community meeting (done by at least one working group member).
@@ -32,7 +32,7 @@ Membership is optional and opt-in, and you can join by attending group meetings 
 1. Check the existing working groups list (above) to make sure the problem space is unique.
 2. Propose working group on [napari’s main Zulip](https://napari.zulipchat.com) and schedule meeting to begin readme creation (live or asynchronously).
 3. Start a working groups folder in [napari/meeting-notes](https://github.com/napari/meeting-notes) and complete readme with associated items (see below) and share with group.
-4. Set up Zulip stream named working-group-[name], add group and associated items to this site, and add meeting to napari community calendar. 
+4. Set up Zulip stream named working-group-[name], add group and associated items to this site, and add meeting to napari community calendar.
 5. Collaborate with others and get working. After each meeting, store the working group’s meeting minutes in [napari/meeting-notes](https://github.com/napari/meeting-notes).
 6. Share out at the next community meeting. Boom, you’ve done it!
 
@@ -48,7 +48,7 @@ This folder contains meeting notes for the **working group name**
 
 **Meeting schedule and Zoom link**
 
-**Working group goals:** 
+**Working group goals:**
 _example: ensure that all napari users have a place to easily find the information necessary to meet their goals with napari. We want to ensure that the napari community has the infrastructure needed to contribute reproducible documentation._
 
 **Team priorities:**

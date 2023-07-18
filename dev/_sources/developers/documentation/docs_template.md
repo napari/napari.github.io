@@ -27,7 +27,7 @@ Include things like:
 - python and/or napari version needed
 - links to any existing napari.org tutorials or how-to guides that can help the user fulfill these prerequisites
 - the level of python/napari knowledge required to follow this document
-    - try to be specific about what skills are needed e.g. 
+    - try to be specific about what skills are needed e.g.
     'connecting callbacks to layer events' or 'using matplotlib to produce plots'
 - napari plugins that should be installed
 - python packages that should be installed (don't list napari or its dependencies)
@@ -53,7 +53,7 @@ Note that wherever possible, auto-generated screenshots are *greatly* preferred 
 
 #### 1. Use `nbscreenshot` for screenshots of the viewer
 
-This utility allows you to pass an active Viewer as a parameter and produces a screenshot of the Viewer at that 
+This utility allows you to pass an active Viewer as a parameter and produces a screenshot of the Viewer at that
 point in time. This screenshot will be displayed to the user in the notebook.
 
 ```{code-cell} ipython3
@@ -78,12 +78,12 @@ want to execute these notebooks in their own workflows.
 To avoid this frustration, we place calls to `nbscreenshot` in a removed cell in our notebooks.
 You can completely remove input (i.e. the code that's running) in a notebook cell by adding a `remove-input` tag to the cell metadata.
 
-How you add cell tags depends on how you're editing your notebook. 
+How you add cell tags depends on how you're editing your notebook.
 
 1. If you're working in Jupyter notebook,
 you can open up the Tags toolbar for your cell using `View -> Cell Toolbar -> Tags`. A toolbar
 will be added to the top right of your cell. You can then add any tags you want
-(e.g. `remove-input`) by typing into the text entry box of the toolbar and clicking `Add Tag`. 
+(e.g. `remove-input`) by typing into the text entry box of the toolbar and clicking `Add Tag`.
 
 2. If you're editing a MyST Markdown file directly, you can add tags to your code blocks like so:
 
@@ -96,7 +96,7 @@ will be added to the top right of your cell. You can then add any tags you want
 ```
 #### What to put in removed cells
 
-Alongside your call to `nbscreenshot`, you can also place other potentially distracting code in these tagged cells, 
+Alongside your call to `nbscreenshot`, you can also place other potentially distracting code in these tagged cells,
 such as resizing the Viewer window or opening a menu. In general, if you're running code the reader isn't meant to run,
 this should be in a removed cell.
 The screenshot below is produced by the following code. The code that ran was removed using the `remove-input` tag.

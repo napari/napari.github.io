@@ -51,7 +51,7 @@ viewer = napari.Viewer()
 ...  # Continue setting  up your program
 
 # Start the program, show the viewer, wait for GUI interaction.
-napari.run() 
+napari.run()
 
 # Anything below here will execute only after the viewer is closed.
 ```
@@ -151,7 +151,7 @@ with napari.gui_qt():
 
 On entering the context, `gui_qt` would create a `QApplication`, and on exiting
 the context, it would start the event loop (the two critical steps [mentioned
-above](#qt-applications-and-event-loops)).  
+above](#qt-applications-and-event-loops)).
 
 Unlike a typical context manager, however, it did not actually *destroy* the
 `QApplication` (since it may still be needed in the same session)... and future

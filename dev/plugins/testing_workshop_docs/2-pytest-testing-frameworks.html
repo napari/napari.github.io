@@ -487,34 +487,34 @@ function checkPageExistsAndRedirect(event) {
 </ul>
 <p>Pytest goes through the target destination, such as a file or directory, finding any method or function prefaced with the word <code class="docutils literal notranslate"><span class="pre">test</span></code>. It runs all the methods and functions prefaced with the word <code class="docutils literal notranslate"><span class="pre">test</span></code> but <em>not</em> the code under the main block. When <code class="docutils literal notranslate"><span class="pre">pytest</span></code> runs against <code class="docutils literal notranslate"><span class="pre">example_test.py</span></code> (refer to the <a class="reference internal" href="1-pythons-assert-keyword.html"><span class="doc std std-doc">Python’s assert keyword</span></a> lesson), it finds several tests that all pass.</p>
 <p>If the tests fail, <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is very good at tracing back the reason they failed and showing their values throughout test execution. In more complicated examples, this traceback mechanism can be very helpful. In this example, the message is that we got a <code class="docutils literal notranslate"><span class="pre">Pass</span></code> but were expecting a <code class="docutils literal notranslate"><span class="pre">Fail</span></code>. See the lines below that show the <code class="docutils literal notranslate"><span class="pre">assert</span></code> keyword and the errors.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>pytest<span class="w">   </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>pytest
 
-<span class="go">example_test.py  </span>
-<span class="go">    </span>
-<span class="go">========================== test session starts ==========================  </span>
-<span class="go">Platform darwin -- 3.9.7, pytest-6.2.5, py-1.11.0, pluggy-1.0.0  </span>
-<span class="go">PyQt5 5.15.6 -- Qt runtime 5.15.2 -- Qt compiled 5.15.2  </span>
-<span class="go">rootdir: /Users/user/directory  </span>
-<span class="go">Plugins: qt-4.0.2, napari-plugin-engine-0.2.0, napari-0.4.13  </span>
-<span class="go">Collected 2 items  </span>
+<span class="go">example_test.py</span>
 
-<span class="go">example_func.py .F  </span>
-<span class="go">    </span>
-<span class="go">================================= FAILURES ===============================  </span>
-<span class="go">—-------------------------- test_get_grade_fail --------------------------  </span>
-<span class="go">def test_get_grade_fail():  </span>
-<span class="go">    grade = get_grade_from_mark(65)  </span>
-<span class="go">&gt;   assert grade == “Fail”, f”Expected 65 to fail but result was {grade}”  </span>
-<span class="go">E   AssertionError: Expected 65 to fail but result was Pass  </span>
-<span class="go">E   assert ‘Pass’ == ‘Fail’  </span>
-<span class="go">E     - Fail  </span>
-<span class="go">E     + Pass  </span>
-<span class="go">    </span>
-<span class="go">example_func_py: 16: AssertionError  </span>
-<span class="go">======================== short test summary info =========================  </span>
-<span class="go">FAILED example_func_py::test_get_grade_fail - AssertionError: Expected 65 to fail, but result was Pass  </span>
-<span class="go">====================== 1 failed in 0.56s =======================  </span>
-<span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory %   </span>
+<span class="go">========================== test session starts ==========================</span>
+<span class="go">Platform darwin -- 3.9.7, pytest-6.2.5, py-1.11.0, pluggy-1.0.0</span>
+<span class="go">PyQt5 5.15.6 -- Qt runtime 5.15.2 -- Qt compiled 5.15.2</span>
+<span class="go">rootdir: /Users/user/directory</span>
+<span class="go">Plugins: qt-4.0.2, napari-plugin-engine-0.2.0, napari-0.4.13</span>
+<span class="go">Collected 2 items</span>
+
+<span class="go">example_func.py .F</span>
+
+<span class="go">================================= FAILURES ===============================</span>
+<span class="go">—-------------------------- test_get_grade_fail --------------------------</span>
+<span class="go">def test_get_grade_fail():</span>
+<span class="go">    grade = get_grade_from_mark(65)</span>
+<span class="go">&gt;   assert grade == “Fail”, f”Expected 65 to fail but result was {grade}”</span>
+<span class="go">E   AssertionError: Expected 65 to fail but result was Pass</span>
+<span class="go">E   assert ‘Pass’ == ‘Fail’</span>
+<span class="go">E     - Fail</span>
+<span class="go">E     + Pass</span>
+
+<span class="go">example_func_py: 16: AssertionError</span>
+<span class="go">======================== short test summary info =========================</span>
+<span class="go">FAILED example_func_py::test_get_grade_fail - AssertionError: Expected 65 to fail, but result was Pass</span>
+<span class="go">====================== 1 failed in 0.56s =======================</span>
+<span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory %</span>
 </pre></div>
 </div>
 </section>
@@ -527,7 +527,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="k">def</span> <span class="nf">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;</span> <span class="mi">50</span>
         <span class="k">return</span> <span class="s2">&quot;Pass&quot;</span>
-    <span class="k">else</span><span class="p">:</span> 
+    <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Fail&quot;</span>
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;mark&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
@@ -548,21 +548,21 @@ function checkPageExistsAndRedirect(event) {
 </div>
 <p>We run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> which finds and runs <code class="docutils literal notranslate"><span class="pre">test_get_grade_pass(mark)</span></code>. <code class="docutils literal notranslate"><span class="pre">test_get_grade_pass(mark)</span></code> fails because the code says <code class="docutils literal notranslate"><span class="pre">mark</span> <span class="pre">&gt;</span> <span class="pre">50</span></code>, so a mark of 50 still fails. The code should say <code class="docutils literal notranslate"><span class="pre">&gt;=50</span></code> for a mark to pass.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">example_func.py ..F..</span>
-<span class="go">================================= FAILURES ===============================  </span>
-<span class="go">—------------------------ test_get_grade_pass[50] ------------------------  </span>
-<span class="go">mark = 50  </span>
-<span class="go">@pytest parametrize(‘mark’, [65, 80, 50])  </span>
-<span class="go">def test_get_grade_pass(mark):  </span>
-<span class="go">    grade = get_grade_from_mark(mark)  </span>
-<span class="go">&gt;   assert grade == “Pass”, f”Expected {mark} to pass, but result was {grade}”  </span>
-<span class="go">E   AssertionError: Expected 50 to pass but result was fail  </span>
-<span class="go">E   assert ‘Fail’ == ‘Pass’  </span>
-<span class="go">E     - Pass  </span>
-<span class="go">E     + Fail  </span>
+<span class="go">================================= FAILURES ===============================</span>
+<span class="go">—------------------------ test_get_grade_pass[50] ------------------------</span>
+<span class="go">mark = 50</span>
+<span class="go">@pytest parametrize(‘mark’, [65, 80, 50])</span>
+<span class="go">def test_get_grade_pass(mark):</span>
+<span class="go">    grade = get_grade_from_mark(mark)</span>
+<span class="go">&gt;   assert grade == “Pass”, f”Expected {mark} to pass, but result was {grade}”</span>
+<span class="go">E   AssertionError: Expected 50 to pass but result was fail</span>
+<span class="go">E   assert ‘Fail’ == ‘Pass’</span>
+<span class="go">E     - Pass</span>
+<span class="go">E     + Fail</span>
 
-<span class="go">example_func_py:12: AssertionError  </span>
-<span class="go">======================== short test summary info =========================  </span>
-<span class="go">FAILED example_func_py::test_get_grade_pass[50] - AssertionError: Expected 50 to pass, but result was Fail   </span>
+<span class="go">example_func_py:12: AssertionError</span>
+<span class="go">======================== short test summary info =========================</span>
+<span class="go">FAILED example_func_py::test_get_grade_pass[50] - AssertionError: Expected 50 to pass, but result was Fail</span>
 </pre></div>
 </div>
 <p>Another valuable feature of <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is the <code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code> option discussed in the <a class="reference internal" href="4-test-coverage.html"><span class="doc std std-doc">Test coverage</span></a> lesson</p>

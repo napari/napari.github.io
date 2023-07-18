@@ -407,6 +407,15 @@ help you edit your document and find the right spot!
 
 ## Building the documentation on Windows
 
+```{note}
+It is very important that you clone the `napari/docs` repository to a path that does not contain spaces.
+For example, `C:\Users\myusername\Documents\GitHub\napari-docs` is a valid path, but \
+`C:\Users\my username\Documents\GitHub\napari-docs` is not.
+If you clone the napari-docs repository to a directory following the default Windows path naming convention, e.g. \
+`C:\Users\my username\Documents\GitHub\napari-docs` (note the space), and run the `make` commands to build the napari docs, it may remove unintended files from your computer as it will essentially run the command `rm -rf C:\Users`.
+This is because the napari documentation is built using `make` which does not work on paths which contain spaces.
+```
+
 The documentation build requires some Linux specific commands, so some extra steps are required to build the documentation on Windows. There are multiple tools for this, but [Git Bash](https://gitforwindows.org/) or [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) are recommended.
 
 ### Git Bash

@@ -23,7 +23,7 @@ viewer.layers.selection.active.data.ndim >= 3
 ```
 
 However, if you don't have access to an actual `viewer` instance, that
-doesn't work.  
+doesn't work.
 
 *Contexts* and *Expressions* are two concepts being introduced along with the
 second-generation napari plugin engine (npe2) that capture the abstract idea of
@@ -103,7 +103,7 @@ BoolOp(
 The expression object can be evaluated by passing a context (a Mapping) to
 its `eval` method:
 
-```python        
+```python
 In [9]: expr.eval({'x': 7, 'y': 'hello'})
 Out[9]: True
 ```
@@ -150,11 +150,11 @@ Some example context key names (currently) include:
 
 | Name     | Description |
 | -------- | -------- |
-| `layers_selection_count`  | Number of layers currently selected  | 
-| `all_layers_linked`  | True when all selected layers are linked  | 
-| `active_layer_is_rgb`  | True when the active layer is RGB  | 
-| `active_layer_type`  | Lowercase name of active layer type, or None if no layer is active.  | 
-| `only_images_selected`  | True when there is at least one selected layer and all selected layers are images  | 
+| `layers_selection_count`  | Number of layers currently selected  |
+| `all_layers_linked`  | True when all selected layers are linked  |
+| `active_layer_is_rgb`  | True when the active layer is RGB  |
+| `active_layer_type`  | Lowercase name of active layer type, or None if no layer is active.  |
+| `only_images_selected`  | True when there is at least one selected layer and all selected layers are images  |
 | `active_layer_ndim` | Number of dimensions in the active layer, or `None` if nothing is active |
 ...  many more
 
@@ -194,8 +194,8 @@ class LayerListContextKeys(ContextNamespace):
     )
 ```
 
-The members of a `ContextNamespace` are static `Expr` objects. 
-Similar to a python `Enum`, you can see all of its members using the 
+The members of a `ContextNamespace` are static `Expr` objects.
+Similar to a python `Enum`, you can see all of its members using the
 `__members__` attribute on the class:
 
 ```python
@@ -211,7 +211,7 @@ mappingproxy({
 A nice aspect of `ContextKeys` is that they can be used in expressions:
 
 ```python
-In [14]: expr = LayerListContextKeys.active_layer_ndim >= 3 
+In [14]: expr = LayerListContextKeys.active_layer_ndim >= 3
 
 In [15]: expr.eval({'active_layer_ndim': 2})
 Out[15]: False
@@ -251,7 +251,7 @@ that also emits events when a key has been modified. `ChainMap` is useful here
 as it allows us to have "sub-contexts" that are children of some parent context.
 Child contexts can access all of the keys of the parent (but not vice-versa).
 For example because a `Viewer` has a `LayerList`, all of the keys in the
-`Viewer` context are available to the `LayerList` context. 
+`Viewer` context are available to the `LayerList` context.
 
 ```python
 In [1]: from napari.utils.context import get_context
@@ -272,7 +272,7 @@ Out[3]: Context(
     'active_layer_shape': None,
     'active_layer_dtype': None,
     'all_layers_same_shape': False
-    }, 
+    },
     {},  # the viewer context ... (no keys yet)
     SettingsAwareContext({})
 )
@@ -386,7 +386,7 @@ Out[12]: 1
       when: active_layer_is_rgb
     ```
 
-    When this manifest is parsed, those expressions will be converted into 
+    When this manifest is parsed, those expressions will be converted into
     napari `Expr` objects internally.
 
 4. During runtime, napari maintains and [updates contexts](#updating-contexts)

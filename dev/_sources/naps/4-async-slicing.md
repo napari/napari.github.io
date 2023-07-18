@@ -45,7 +45,7 @@ by the host operating system.
 There are two main reasons why slicing can be slow.
 
 1. Some layer specific slicing operations perform non-trivial calculations (e.g. points).
-2. The layer data is read lazily (i.e. it is not in RAM) and latency from the source may be non-negligible (e.g. stored remotely, napari-omero plugin). 
+2. The layer data is read lazily (i.e. it is not in RAM) and latency from the source may be non-negligible (e.g. stored remotely, napari-omero plugin).
 
 By slicing asynchronously, we can keep napari responsive while allowing for slow
 slicing operations. We could also consider optimizing napari to make (1) less of
@@ -92,7 +92,7 @@ current form, but are captured here to prevent any regression caused by this wor
 
 - P0. Encapsulate the slice input and output state for each layer type, so that I can quickly and clearly identify those.
 	- Minimize number of (nested) classes per layer-type (e.g. `ImageSlice`, `ImageSliceData`, `ImageView`, `ImageLoader`).
-- P0. Simplify the program flow of slicing, so that developing and debugging against allows for faster implementation. 
+- P0. Simplify the program flow of slicing, so that developing and debugging against allows for faster implementation.
 	- Reduce the complexity of the call stack associated with slicing a layer.
 	- The implementation details for some layer/data types might be complex (e.g. multi-scale image), but the high level logic should be simple.
 - P1. Move the slice state off the layer, so that its attributes only represent the whole data.
@@ -149,7 +149,7 @@ To help clarify the scope, we also define some things that were are not explicit
 	- Nice to have, but should not put too much effort into this.
     - May want to remove it to avoid confusion.
 
-    
+
 ## Related work
 
 As this project focuses on re-designing slicing in napari, this section contains information on how slicing in napari currently works.
@@ -188,7 +188,7 @@ we group and highlight some of the more important state.
 
 #### Input state
 
-Some input state for slicing is directly mutated by `Layer._slice_dims`. 
+Some input state for slicing is directly mutated by `Layer._slice_dims`.
 
 - `_ndisplay: int`, the display dimensionality (either 2 or 3).
 - `_dims_point: List[Union[numeric, slice]]`, the current slice position in world coordinates.
@@ -233,7 +233,7 @@ For example, `Points.face_color` is indexed by the points that are visible in th
 
 The output of slicing is typically layer-type specific, stored as state
 on the layer, and mostly consumed by the corresponding vispy layer.
-    
+
 - `_ImageBase`
     - `_slice: ImageSlice`, contains a loader, and the sliced image and thumbnail
         - much complexity encapsulated here and other related classes like `ImageSliceData`.
@@ -382,7 +382,7 @@ to create an immutable slice request that the slicing operation will use
 on another thread.
 This method should be called from the main thread, so that nothing else
 should be mutating the `Layer` or `Dims`.
-Therefore, we should try to ensure that this method returns quickly, so as 
+Therefore, we should try to ensure that this method returns quickly, so as
 not to block the main thread.
 
 Most of the request's fields, like `point` and `dims_displayed` are small,
@@ -400,7 +400,7 @@ the now stale output.
 The second, `_get_slice`, takes the slice request and generates a response
 using layer-type specific logic.
 The method is static to prevent it from using any layer state directly and
-instead can only use the state in the immutable slice request. 
+instead can only use the state in the immutable slice request.
 This allows us to execute this method on another thread without worrying
 about mutations to the layer that might occur on the main thread.
 
@@ -621,7 +621,7 @@ and could make cancellation behavior more complex, but may be worth it regardles
 - This will need to be acquired to access this state and at the beginning of many methods that access any of that state.
 - How to emit events on the main thread?
 - Does not address goal 2.
-    
+
 ### Just access `data` asynchronously
 
 - Targets main cause of unresponsiveness (i.e. reading data).
@@ -629,7 +629,7 @@ and could make cancellation behavior more complex, but may be worth it regardles
 - Less lazy when cancelling is possible (i.e. we do more work on the main thread before submitting the async task).
 - Splits up slicing logic into pre/post data reading, making program flow harder to follow.
 - Does not address goal 2.
-    
+
 ### Use `QThread` and similar utilities instead of `concurrent.futures`
 
 - Standard way for plugins to support long running operations.
@@ -637,7 +637,7 @@ and could make cancellation behavior more complex, but may be worth it regardles
 - Can easily process done callback (which might update Qt widgets) on main thread.
 - Need to define our own task queue to achieve lazy slicing.
 - Need to connect a `QObject`, which ties our core to Qt, unless the code that controls threads does not live in core.
-    
+
 ### Use `asyncio` package instead of `concurrent.futures`
 
 - May improve general readability of async code for some.
@@ -706,7 +706,7 @@ which might cause issues with things like selection that may depend on that stat
 ## Discussion
 
 - [Initial announcement on Zulip](https://napari.zulipchat.com/#narrow/stream/296574-working-group-architecture/topic/Async.20slicing.20project).
-    - Consider (re)sampling instead of slicing as the name for the operation discussed here.  
+    - Consider (re)sampling instead of slicing as the name for the operation discussed here.
 - [Problems with `NAPARI_ASYNC=1`](https://forum.image.sc/t/even-with-napari-async-1-data-loading-is-blocking-the-ui-thread/68097/4)
     - The existing experimental async code doesn't handle some seemingly simple usage.
 - [Remove slice state from layer](https://github.com/napari/napari/issues/4682)
@@ -722,9 +722,9 @@ which might cause issues with things like selection that may depend on that stat
     - [Replace `point` and similar with `bbox`](https://github.com/napari/napari/pull/4892/files#r935877117)
     - The idea here is to collapse some of the existing input slicing state like `point` and `dims_displayed` into one class that describes the bounding box for slicing in world coordinates.
     - Decision: postpone.
-        - This can be done independently of this work and the order is not important enough to slow this work down. 
+        - This can be done independently of this work and the order is not important enough to slow this work down.
 - [Replace layer slice request and response types with a single slice type](https://github.com/napari/napari/pull/4892/files#r935773848)
-    - Motivation is make it easier to add a new layer type by reducing the number of class types needed. 
+    - Motivation is make it easier to add a new layer type by reducing the number of class types needed.
     - Some disagreement here as one type for two purposes (input vs. output) seems confusing.
     - Keeping the request and response types separate may also allow us to better target alternatives to vispy.
     - Decision: keep request and response types separate for now.

@@ -471,8 +471,8 @@ function checkPageExistsAndRedirect(event) {
 <p>Install <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a> or <a class="reference external" href="https://github.com/conda-forge/miniforge">mini forge</a> (comes pre-configured with <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>) in the home directory.</p>
 <p>Adding the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel to the conda config makes packages in <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> visible to the conda installer. Setting <code class="docutils literal notranslate"><span class="pre">channel_priority</span></code> to strict ensures packages in high priority channels are always installed over packages of the same name in lower priority channels. See <a class="reference external" href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html">this guide</a> for more details.</p>
 <p>Make sure the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel is in your config by using the following commands:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">    $</span>conda<span class="w"> </span>config<span class="w"> </span>--add<span class="w"> </span>channels<span class="w"> </span>conda-forge<span class="w">  </span>
-<span class="gp">    $</span>conda<span class="w"> </span>config<span class="w"> </span>--set<span class="w"> </span>channel_priority<span class="w"> </span>strict<span class="w">  </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">    $</span>conda<span class="w"> </span>config<span class="w"> </span>--add<span class="w"> </span>channels<span class="w"> </span>conda-forge
+<span class="gp">    $</span>conda<span class="w"> </span>config<span class="w"> </span>--set<span class="w"> </span>channel_priority<span class="w"> </span>strict
 </pre></div>
 </div>
 <p><strong>Note:</strong> The default anaconda channel has some very outdated packages, e.g. <a class="reference external" href="https://forum.image.sc/t/napari-issues-on-bigsur/52630/10">old version of Qt</a>.</p>
@@ -483,7 +483,7 @@ function checkPageExistsAndRedirect(event) {
 <p>To create an environment, use the following commands at the command prompt (terminal):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">    $ </span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>name-of-env<span class="w"> </span>python
 <span class="gp">    $ </span>conda<span class="w"> </span>activate<span class="w"> </span>name-of-env
-<span class="gp">    $ </span>pip/conda<span class="w"> </span>install<span class="w"> </span>&lt;whatever&gt;<span class="w"> </span>
+<span class="gp">    $ </span>pip/conda<span class="w"> </span>install<span class="w"> </span>&lt;whatever&gt;
 </pre></div>
 </div>
 <p>Virtual environments are made to be ephemeral.</p>
@@ -492,7 +492,7 @@ function checkPageExistsAndRedirect(event) {
 <h2>Removing environments<a class="headerlink" href="#removing-environments" title="Permalink to this headline">¶</a></h2>
 <p>Consider your environment to be disposable.
 If you are ever having weird problems, nuke your environment and start over using the following commands:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">    $ </span>conda<span class="w"> </span>activate<span class="w"> </span>base<span class="w">  </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">    $ </span>conda<span class="w"> </span>activate<span class="w"> </span>base
 <span class="gp">    $ </span>conda<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>name-of-env<span class="w"> </span>--all<span class="w"> </span>-y
 <span class="gp">    $ </span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>name-of-env<span class="w"> </span>python
 <span class="gp">    $ </span>conda<span class="w"> </span>activate<span class="w"> </span>name-of-env

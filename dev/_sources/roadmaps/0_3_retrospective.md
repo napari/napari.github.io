@@ -71,7 +71,7 @@ Once the above goals are met, we will develop napari's capabilities for image pr
     > We have a stable specification for adding both [reader and writer plugins](hook-specifications-reference) that is being used in the community.
 
 - Support for persistent settings [#834](https://github.com/napari/napari/pull/834) to allow **saving of preferences** between launches of the viewer.
-    
+
     > We have not done this work yet, and this work will be moved to our 0.4 series of releases.
 
 

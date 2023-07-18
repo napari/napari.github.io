@@ -148,8 +148,8 @@ provides metadata). From now on we will refer to them as _napari pinnings_.
 > There are precedents in other projects that support the usage of pinnings. For example,
 > Fiji/SciJava [^scijava-pinnings], conda-forge [^conda-forge-pinnings], or Maxiconda [^maxiconda].
 
-[A prototype notebook](https://colab.research.google.com/drive/1QxbBZYe9-AThGuRsTfwYzT72_UkamXmk) 
-assessing the "installability" of all plugins in the same environment is available. 
+[A prototype notebook](https://colab.research.google.com/drive/1QxbBZYe9-AThGuRsTfwYzT72_UkamXmk)
+assessing the "installability" of all plugins in the same environment is available.
 Results across Python versions show incompatibilities on Linux, possibly even more intricate on macOS
 and Windows. Excerpt for Python 3.9:
 

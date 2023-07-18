@@ -15,7 +15,7 @@ The latest release candidate can be installed with
 The release will be coordinated by a release manager whose responsibilities include...
 
 ## Two weeks before release (one week before release candidate)
-- Look through currently open PRs and get a sense of what would be good to merge before the first release candidate 
+- Look through currently open PRs and get a sense of what would be good to merge before the first release candidate
 - Ensure `conda-recipe/meta.yaml` in `napari/packaging` is up-to-date (e.g. `run` dependencies match `setup.cfg` requirements).
 - Create a zulip thread in the release channel letting people know the release candidate is coming and pointing out PRs that would be nice to merge before release
 
@@ -203,11 +203,11 @@ when the metadata of an existing package is proven wrong after it has been relea
 
 To amend the metadata, we need to:
 
-* Encode the patch instructions as a PR to 
+* Encode the patch instructions as a PR to
   [`conda-forge/conda-forge-repodata-patches-feedstock`](https://github.com/conda-forge/conda-forge-repodata-patches-feedstock):
   - Add the required changes to `recipe/gen_patch_json.py`, under the [`record_name == 'napari'` section](https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1562).
   - Use a [timestamp condition](https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1564) to ensure only existing releases are patched.
-* If necessary, make sure the metadata is amended in the feedstock too. 
+* If necessary, make sure the metadata is amended in the feedstock too.
   Usually this is not needed until a new release is made, but it's important to remember!
 
 Some previous examples include:
@@ -221,7 +221,7 @@ In some cases, a wrongly merged PR might cause the release of a broken artifact.
 If this is not fixable with a metadata patch (see above), then the packages can be marked as broken.
 To do so, we can submit a PR to `conda-forge/admin-requests`.
 
-For more details, follow the instructions for 
+For more details, follow the instructions for
 ["Mark packages as broken on conda-forge"](https://github.com/conda-forge/admin-requests#mark-packages-as-broken-on-conda-forge).
 
 Please make sure a correct build for the problematic release is available before (or shortly after) the `admin-requests` PR is merged!

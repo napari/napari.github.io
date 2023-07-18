@@ -893,7 +893,7 @@ For a hypothetical napari v1.2.3 we would have built this configuration file:</p
 <span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EULA.md</span>
 <span class="nt">channels</span><span class="p">:</span>
 <span class="w">  </span><span class="c1"># - local  # only in certain situations, like nightly installers where we build napari locally</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/label/bundle_tools_2</span><span class="w">  </span><span class="c1"># temporary location of our forks of the constructor stack</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari/label/bundle_tools_3</span><span class="w">  </span><span class="c1"># temporary location of our forks of the constructor stack</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
 <span class="nt">specs</span><span class="p">:</span><span class="w"> </span><span class="c1"># specs for the &#39;base&#39;  environment</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to the version of the running interpreter, configured in the CI</span>
@@ -903,9 +903,10 @@ For a hypothetical napari v1.2.3 we would have built this configuration file:</p
 <span class="nt">extra_envs</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">napari-1.2.3</span><span class="p">:</span><span class="w"> </span><span class="c1"># this is the environment that will actually contain the napari packages</span>
 <span class="w">    </span><span class="nt">specs</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari=1.2.3=*pyside*</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari=1.2.3</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-menu=1.2.3</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w">   </span><span class="c1"># pinned to a specific version, configured by CI</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyside2</span><span class="w">  </span><span class="c1"># pinned to a specific version, configured by CI</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda</span><span class="w">    </span><span class="c1"># needed for the plugin manager</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba</span><span class="w">    </span><span class="c1"># needed for the plugin manager</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w">      </span><span class="c1"># needed for the plugin manager</span>
@@ -939,7 +940,7 @@ For a hypothetical napari v1.2.3 we would have built this configuration file:</p
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">channels</span></code>: where the packages will be downloaded from.
 We mainly rely on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> for this, where <code class="docutils literal notranslate"><span class="pre">napari</span></code> is published.
-However, we also have <code class="docutils literal notranslate"><span class="pre">napari/label/bundle_tools_2</span></code>, where we store our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack forks (more on this later).
+However, we also have <code class="docutils literal notranslate"><span class="pre">napari/label/bundle_tools_3</span></code>, where we store our <code class="docutils literal notranslate"><span class="pre">constructor</span></code> stack forks (more on this later).
 In nightly installers, we locally build our own development packages for <code class="docutils literal notranslate"><span class="pre">conda</span></code>, without resorting to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>.
 To make use of those (which are eventually published to <code class="docutils literal notranslate"><span class="pre">napari/label/nightly</span></code>),
 we unpack the GitHub Actions artifact in a specific location that <code class="docutils literal notranslate"><span class="pre">constructor</span></code> recognizes as a <em>local</em> channel once indexed.</p></li>
@@ -1056,15 +1057,15 @@ it to the final napari installer:</p>
 <td><p><a class="reference external" href="https://github.com/jaimergp-forge/conda-feedstock">jaimergp-forge/conda-feedstock</a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">menuinst</span></code></p></td>
-<td><p><a class="reference external" href="https://github.com/jaimergp/menuinst/tree/cep">jaimergp/menuinst &#64; <code class="docutils literal notranslate"><span class="pre">cep</span></code></a></p></td>
+<td><p><a class="reference external" href="https://github.com/conda/menuinst/tree/cep-devel">conda/menuinst &#64; <code class="docutils literal notranslate"><span class="pre">cep-devel</span></code></a></p></td>
 <td><p><a class="reference external" href="https://github.com/jaimergp-forge/menuinst-feedstock">jaimergp-forge/menuinst-feedstock</a></p></td>
 </tr>
 </tbody>
 </table>
 <p>Most of the forks live in <code class="docutils literal notranslate"><span class="pre">jaimergp</span></code>’s account, under a non-default branch. They are published
-through the <code class="docutils literal notranslate"><span class="pre">jaimergp-forge</span></code> every time a commit to <code class="docutils literal notranslate"><span class="pre">master</span></code> is made. Versions are arbitrary here,
-but they are set to be greater than the latest official version, and the <code class="docutils literal notranslate"><span class="pre">build</span></code> number is
-incremented for every rebuild.</p>
+through the <code class="docutils literal notranslate"><span class="pre">jaimergp-forge</span></code> every time a commit to <code class="docutils literal notranslate"><span class="pre">main</span></code> (<code class="docutils literal notranslate"><span class="pre">master</span></code> in some repos) is made.
+Versions are arbitrary here, but they are set to be greater than the latest official version, and
+the <code class="docutils literal notranslate"><span class="pre">build</span></code> number is incremented for every rebuild.</p>
 <p>The only exception is <code class="docutils literal notranslate"><span class="pre">conda-standalone</span></code>. It doesn’t have its own repository or fork because it’s
 basically a repackaged <code class="docutils literal notranslate"><span class="pre">conda</span></code> with some patches. Those patches live in the feedstock only. The
 other difference is that the feedstock does not live in <code class="docutils literal notranslate"><span class="pre">jaimergp-forge</span></code>, but just as draft PR in
@@ -1084,13 +1085,12 @@ a high-level list of the main changes introduced in the stack.</p>
 <li><p>Maintain backwards compatibility with Windows</p></li>
 <li><p>Simplify API</p></li>
 <li><p>Remove CLI</p></li>
-<li><p>Provide binary launchers for better compatibility with the macOS permissions system</p></li>
+<li><p>Provide binary launchers for better compatibility with the macOS permissions and events system</p></li>
 </ul>
 </section>
 <section id="changes-in-conda">
 <h4>Changes in <code class="docutils literal notranslate"><span class="pre">conda</span></code><a class="headerlink" href="#changes-in-conda" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><p>Add API support for menuinst v2</p></li>
 <li><p>Enable code paths for non-Windows Platforms</p></li>
 <li><p>Fix shortcut removal logic</p></li>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">--shortcuts-only</span></code> flag to support <code class="docutils literal notranslate"><span class="pre">menu_packages</span></code> constructor key natively</p></li>

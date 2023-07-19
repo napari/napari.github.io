@@ -77,7 +77,7 @@ Displays an nD multiscale image
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.814 seconds)
+   **Total running time of the script:** ( 0 minutes  11.115 seconds)
 
 
 .. _sphx_glr_download_gallery_nD_multiscale_image_non_uniform.py:

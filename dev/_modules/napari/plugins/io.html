@@ -364,13 +364,27 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">plugin</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">plugin_manager</span><span class="o">.</span><span class="n">plugins</span><span class="p">:</span>
-            <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">plugin_name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_hookimpls</span><span class="p">()}</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_npe2</span><span class="o">.</span><span class="n">get_readers</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">plugin_name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">get_hookimpls</span><span class="p">()}</span>
+            <span class="p">)</span>
+            <span class="n">err_helper</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="s2">&quot;No readers are available. &quot;</span>
+                    <span class="s2">&quot;Do you have any plugins installed?&quot;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+                <span class="k">else</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Names of plugins offering readers are: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
+                    <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>
-                    <span class="s2">&quot;There is no registered plugin named &#39;</span><span class="si">{plugin}</span><span class="s2">&#39;.</span><span class="se">\n</span><span class="s2">Names of plugins offering readers are: </span><span class="si">{names}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;There is no registered plugin named &#39;</span><span class="si">{plugin}</span><span class="s2">&#39;. </span><span class="si">{err_helper}</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="n">deferred</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">,</span>
-                    <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+                    <span class="n">err_helper</span><span class="o">=</span><span class="n">err_helper</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="n">reader</span> <span class="o">=</span> <span class="n">hook_caller</span><span class="o">.</span><span class="n">_call_plugin</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">npe1_path</span><span class="p">)</span>

@@ -890,14 +890,27 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_view_face_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;(Mx4) np.ndarray : colors for the M in view vectors&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(Mx4) np.ndarray : colors for the M in view triangles&quot;&quot;&quot;</span>
+
+        <span class="c1"># Create as many colors as there are visible vectors.</span>
+        <span class="c1"># Using fancy array indexing implicitly creates a new</span>
+        <span class="c1"># array rather than creating a view of the original one</span>
+        <span class="c1"># in ColorManager</span>
         <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span><span class="p">]</span>
         <span class="n">face_color</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_alphas</span>
 
+        <span class="c1"># Generally, several triangles are drawn for each vector,</span>
+        <span class="c1"># so we need to duplicate the colors accordingly</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_style</span> <span class="o">==</span> <span class="s1">&#39;line&#39;</span><span class="p">:</span>
+            <span class="c1"># Line vectors are drawn with 2 triangles</span>
             <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">face_color</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_style</span> <span class="o">==</span> <span class="s1">&#39;triangle&#39;</span><span class="p">:</span>
+            <span class="c1"># Triangle vectors are drawn with 1 triangle</span>
+            <span class="k">pass</span>  <span class="c1"># No need to duplicate colors</span>
+
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_style</span> <span class="o">==</span> <span class="s1">&#39;arrow&#39;</span><span class="p">:</span>
+            <span class="c1"># Arrow vectors are drawn with 3 triangles</span>
             <span class="n">face_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">face_color</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>

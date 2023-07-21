@@ -66,6 +66,11 @@ nD shapes with text
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.214 seconds)
+
+
 .. _sphx_glr_download_gallery_nD_shapes_with_text.py:
 
 .. only:: html

@@ -77,11 +77,6 @@ Display a 4-D image and points layer and swap the displayed dimensions
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  10.222 seconds)
-
-
 .. _sphx_glr_download_gallery_swap_dims.py:
 
 .. only:: html

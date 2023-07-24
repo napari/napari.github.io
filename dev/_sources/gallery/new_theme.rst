@@ -87,7 +87,7 @@ Displays an image and sets the theme to new custom theme.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 6 minutes  32.051 seconds)
+   **Total running time of the script:** ( 7 minutes  47.315 seconds)
 
 
 .. _sphx_glr_download_gallery_new_theme.py:

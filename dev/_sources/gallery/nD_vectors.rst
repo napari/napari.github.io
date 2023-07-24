@@ -91,11 +91,6 @@ apprearing on each slice.
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  11.625 seconds)
-
-
 .. _sphx_glr_download_gallery_nD_vectors.py:
 
 .. only:: html

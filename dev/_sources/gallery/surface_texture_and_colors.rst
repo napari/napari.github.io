@@ -56,8 +56,6 @@ This example demonstrates how surfaces may be colored by:
     Downloading data from https://raw.githubusercontent.com/vispy/demo-data/main/spot/spot.png (77 kB)
     [.................................       ] 83.27425 | downloading       [........................................] 100.00000 / downloading   
     File saved as /home/runner/.vispy/data/spot/spot.png.
-    /opt/hostedtoolcache/Python/3.9.17/x64/lib/python3.9/site-packages/vispy/io/image.py:176: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning disappear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
-      return imageio.imread(filename, format)
 
 
 

@@ -681,7 +681,7 @@ by the corresponding writer contribution in the manifest).</p>
 <p>The formal type is as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DataType</span> <span class="o">=</span> <span class="n">Any</span>  <span class="c1"># usually something like a numpy array, but varies by layer</span>
 <span class="n">LayerAttributes</span> <span class="o">=</span> <span class="nb">dict</span>
-<span class="n">LayerName</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">,</span> <span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="s2">&quot;shapes&quot;</span><span class="p">,</span> <span class="s2">&quot;surface&quot;</span><span class="p">,</span> <span class="s2">&quot;tracks&quot;</span><span class="p">,</span> <span class="s2">&quot;vectors&quot;</span><span class="p">]</span>
+<span class="n">LayerName</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;graph&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">,</span> <span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="s2">&quot;shapes&quot;</span><span class="p">,</span> <span class="s2">&quot;surface&quot;</span><span class="p">,</span> <span class="s2">&quot;tracks&quot;</span><span class="p">,</span> <span class="s2">&quot;vectors&quot;</span><span class="p">]</span>
 <span class="n">FullLayerData</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataType</span><span class="p">,</span> <span class="n">LayerAttributes</span><span class="p">,</span> <span class="n">LayerName</span><span class="p">]</span>
 <span class="n">MultiWriterFunction</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">FullLayerData</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 </pre></div>
@@ -821,8 +821,8 @@ specification:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span>
 
 <span class="k">class</span> <span class="nc">MyPluginWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;napari.viewer.Viewer&#39;</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;napari.viewer.Viewer&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_viewer</span> <span class="o">=</span> <span class="n">viewer</span>
 </pre></div>
 </div>

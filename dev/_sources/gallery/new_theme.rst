@@ -25,7 +25,7 @@ Displays an image and sets the theme to new custom theme.
 
 .. tags:: experimental
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-41
+.. GENERATED FROM PYTHON SOURCE LINES 9-42
 
 
 
@@ -72,6 +72,7 @@ Displays an image and sets the theme to new custom theme.
     blue_theme.foreground = [45, 52, 71]  # or as list
     blue_theme.primary = '#50586c'  # or as hexes
     blue_theme.current = 'orange'  # or as color name
+    blue_theme.font_size = '10pt'  # you can provide a font size in points (pt) for the application
 
     register_theme('blue', blue_theme, "custom")
 

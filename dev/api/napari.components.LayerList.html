@@ -93,6 +93,12 @@
  </a>
 </li>
 
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../developers/index.html">
+  Contributing
+ </a>
+</li>
+
 <li class="toctree-l1 current active nav-item">
  <a class="reference internal nav-link" href="index.html">
   API Reference
@@ -992,7 +998,7 @@ Raise ValueError if the value is not present.</p>
 <dd><p>Save all or only selected layers to a path using writer plugins.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is not provided and only one layer is targeted, then we
 directly call the corresponding``napari_write_&lt;layer_type&gt;`` hook (see
-<a class="reference internal" href="../plugins/npe1.html#write-single-layer-hookspecs"><span class="std std-ref">single layer writer hookspecs</span></a>)
+<a class="reference internal" href="../plugins/advanced_topics/npe1.html#write-single-layer-hookspecs"><span class="std std-ref">single layer writer hookspecs</span></a>)
 which will loop through implementations and stop when the first one
 returns a non-<code class="docutils literal notranslate"><span class="pre">None</span></code> result. The order in which implementations are
 called can be changed with the Plugin sorter in the GUI or with the
@@ -1001,12 +1007,12 @@ corresponding hook’s
 method.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is not provided and multiple layers are targeted,
 then we call
-<a class="reference internal" href="../plugins/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> which
+<a class="reference internal" href="../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> which
 loops through plugins to find the first one that knows how to handle
 the combination of layers and is able to write the file. If no plugins
-offer <a class="reference internal" href="../plugins/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> for
+offer <a class="reference internal" href="../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> for
 that combination of layers then the default
-<a class="reference internal" href="../plugins/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> will
+<a class="reference internal" href="../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> will
 create a folder and call <code class="docutils literal notranslate"><span class="pre">napari_write_&lt;layer_type&gt;</span></code> for each layer
 using the <code class="docutils literal notranslate"><span class="pre">Layer.name</span></code> variable to modify the path such that the
 layers are written to unique files in the folder.</p>
@@ -1015,7 +1021,7 @@ call the <code class="docutils literal notranslate"><span class="pre">napari_wri
 we error.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">plugin</span></code> is provided and multiple layers are targeted, then
 we call we call
-<a class="reference internal" href="../plugins/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> for
+<a class="reference internal" href="../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer" title="napari.plugins.hook_specifications.napari_get_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari_get_writer()</span></code></a> for
 that plugin, and if it doesn`t return a <code class="docutils literal notranslate"><span class="pre">WriterFunction</span></code> we error,
 otherwise we call it and if that fails if it we error.</p>
 <dl class="field-list simple">

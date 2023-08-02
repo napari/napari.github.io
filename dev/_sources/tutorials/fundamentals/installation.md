@@ -85,7 +85,7 @@ python -m pip install "napari[all]" --upgrade
 *(See [Choosing a different Qt backend](#choosing-a-different-qt-backend) below for an explanation of the `[all]`
 notation.)*
 
-*(See[Using constraints file](#using-constraints-file) for help installing older versions of napari)*
+*(See [Using constraints file](#using-constraints-files) for help installing older versions of napari)*
 
 ````
 
@@ -184,7 +184,7 @@ them.
 
 Running `python -m pip install "napari[all]"` will install the default framework, which is currently
 PyQt5--but this could change in the future. However, if you have a Mac with the newer arm64
-architecture (Apple Silicon), this will not work--see {ref}`note-m1`.
+architecture (Apple Silicon), this will not work--see [note on m1](note-m1).
 
 To install napari with a specific framework, you can use:
 
@@ -195,8 +195,8 @@ python -m pip install "napari[pyqt5]"    # for PyQt5
 python -m pip install "napari[pyside2]"  # for PySide2
 ```
 
+(note-m1)=
 ```{note}
-:name: note-m1
 
 For arm64 macOS machines (Apple Silicon), pre-compiled PyQt5 or PySide2 packages
 ([wheels](https://realpython.com/python-wheels/)) are not available on

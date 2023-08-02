@@ -461,7 +461,7 @@ We will use Ubuntu for this guide since it is the default WSL distribution, easy
 6. You can test that all of this OpenGL setup is working by running `glxgears` from the Ubuntu terminal. You should see a window with some gears spinning.
 7. `sudo apt install fontconfig`.
 8. `pip install pyqt5-tools`.
-9. Fork the napari docs repository and clone it to the same parent folder as the napari repository (see [](#prerequisites)). Then navigate to the napari docs folder via `cd napari-docs`.
+9. Fork the napari docs repository and clone it to the same parent folder as the napari repository (see [](prerequisites)). Then navigate to the napari docs folder via `cd napari-docs`.
 10. Install `make` with `sudo apt install make`.
 11. Run `make docs` or other `make` commands to build the documentation.
 

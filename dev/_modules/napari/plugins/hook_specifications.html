@@ -89,6 +89,12 @@
 </li>
 
 <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../developers/index.html">
+  Contributing
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../api/index.html">
   API Reference
  </a>
@@ -318,7 +324,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># -------------------------------------------------------------------------- #</span>
 
 
-<div class="viewcode-block" id="napari_provide_sample_data"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_provide_sample_data">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_provide_sample_data"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_provide_sample_data">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_provide_sample_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SampleData</span><span class="p">,</span> <span class="n">SampleDict</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Provide sample data.</span>
 
@@ -373,7 +379,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_get_reader"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_get_reader">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_get_reader"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_reader">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a function capable of loading ``path`` into napari, or ``None``.</span>
 
@@ -429,7 +435,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_get_writer"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_get_writer">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_get_writer"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_get_writer">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_get_writer</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterFunction</span><span class="p">]:</span>
@@ -482,7 +488,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_write_image"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_write_image">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_write_image"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_write_image">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_write_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Write image data and metadata into a path.</span>
 
@@ -510,7 +516,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_write_labels"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_write_labels">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_write_labels"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_write_labels">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_write_labels</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Write labels data and metadata into a path.</span>
 
@@ -539,7 +545,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_write_points"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_write_points">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_write_points"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_write_points">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Write points data and metadata into a path.</span>
 
@@ -565,7 +571,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_write_shapes"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_write_shapes">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_write_shapes"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_write_shapes">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_write_shapes</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Write shapes data and metadata into a path.</span>
 
@@ -592,7 +598,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_write_surface"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_write_surface">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_write_surface"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_write_surface">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_write_surface</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Write surface data and metadata into a path.</span>
 
@@ -622,7 +628,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_write_vectors"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_write_vectors">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_write_vectors"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_write_vectors">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">firstresult</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_write_vectors</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Write vectors data and metadata into a path.</span>
 
@@ -653,7 +659,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="c1"># -------------------------------------------------------------------------- #</span>
 
 
-<div class="viewcode-block" id="napari_experimental_provide_function"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_function">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_experimental_provide_function"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_function">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_experimental_provide_function</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">Union</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">]]</span>
 <span class="p">):</span>
@@ -689,7 +695,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_experimental_provide_dock_widget"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_dock_widget">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_experimental_provide_dock_widget"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_dock_widget">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_experimental_provide_dock_widget</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">Union</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">]]</span>
 <span class="p">):</span>
@@ -763,7 +769,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="napari_experimental_provide_theme"><a class="viewcode-back" href="../../../plugins/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_theme">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="napari_experimental_provide_theme"><a class="viewcode-back" href="../../../plugins/advanced_topics/npe1.html#napari.plugins.hook_specifications.napari_experimental_provide_theme">[docs]</a><span class="nd">@napari_hook_specification</span><span class="p">(</span><span class="n">historic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">napari_experimental_provide_theme</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">]]]</span>
 <span class="p">):</span>

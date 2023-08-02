@@ -1,3 +1,4 @@
+(in-depth-guide-to-plugin-testing)=
 # In-depth guide to plugin testing
 
 This is the frontpage for the tutorial developed from the [January 2022 workshop on testing](https://youtu.be/IsHYnI8Tbfw?list=PLilvrWT8aLuYID3YZ7KddS5ky2SaH4DKK). This tutorial will be more meaningful to you if you are familiar with the Python programming language and napari software. These lessons summarize the information in the video and should stand on their own. The lessons  are listed here with the timings on the video next to each:

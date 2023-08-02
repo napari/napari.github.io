@@ -3,13 +3,13 @@
 This guide explains some of the techniques you can use to deploy your plugin.
 
 ## This guide covers:
-* [Overview of PyPI and Anaconda](#overview-of-pypi-and-anaconda)
-* [Building your package](#building-your-package)
-* [Deploying plugins to PyPI](#deploying-plugins-to-pypi)
-    - [Manually via twine](#manually-via-twine)
-    - [Automatically via GitHub actions](#automatically-via-github-actions)
-* [Deploying plugins to Anaconda](#deploying-to-anaconda)
 
+- [Overview of PyPI and Anaconda](#overview-of-pypi-and-anaconda)
+- [Building your package](#building-your-package)
+- [Deploying plugins to PyPI](#deploying-plugins-to-pypi)
+  - [Manually via twine](#manually-via-twine)
+  - [Automatically via GitHub actions](#automatically-via-github-actions)
+- [Deploying to Anaconda](#deploying-to-anaconda)
 
 ## Overview of PyPI and Anaconda
 PyPI and Anaconda are two options for how you distribute your package and allow your users to more easily find and install it.  Try to deploy to both! But for now, try to at least use PyPI. You can always also provide your users with manual installation instructions (e.g. if you want them to use `conda` or have specific dependencies).
@@ -92,6 +92,7 @@ jobs:
 
   **Note:** Gate this action on some criterion, e.g. a git tag as above, or [some other criterion](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows).
 
+(deploying-to-anaconda)=
 ## Deploying to Anaconda
 This is only a brief guide to deploying to `conda-forge`. More information can be found in the [conda-forge docs](https://conda-forge.org/docs/maintainer/adding_pkgs.html).
 

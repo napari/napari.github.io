@@ -5,20 +5,20 @@
 maxdepth: 1
 caption: With this tag
 ---
-../gallery/magic_image_arithmetic.rst
-../gallery/bbox_annotator.rst
-../gallery/action_manager.rst
-../gallery/magic_viewer.rst
-../gallery/fourier_transform_playground.rst
-../gallery/inherit_viewer_style.rst
-../gallery/custom_mouse_functions.rst
-../gallery/get_current_viewer.rst
-../gallery/custom_key_bindings.rst
-../gallery/multiple_viewer_widget.rst
-../gallery/multiple_viewers.rst
-../gallery/image_custom_kernel.rst
-../gallery/3Dimage_plane_rendering.rst
-../gallery/mouse_drag_callback.rst
 ../gallery/set_theme.rst
+../gallery/multiple_viewer_widget.rst
+../gallery/inherit_viewer_style.rst
+../gallery/get_current_viewer.rst
+../gallery/multiple_viewers.rst
+../gallery/bbox_annotator.rst
+../gallery/magic_viewer.rst
+../gallery/magic_image_arithmetic.rst
+../gallery/custom_key_bindings.rst
 ../gallery/magic_parameter_sweep.rst
+../gallery/action_manager.rst
+../gallery/fourier_transform_playground.rst
+../gallery/custom_mouse_functions.rst
+../gallery/image_custom_kernel.rst
+../gallery/mouse_drag_callback.rst
+../gallery/3Dimage_plane_rendering.rst
 ```

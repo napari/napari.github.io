@@ -30,7 +30,7 @@ current dims point (`viewer.dims.point`).
 
 .. tags:: gui
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-465
+.. GENERATED FROM PYTHON SOURCE LINES 14-466
 
 
 
@@ -47,6 +47,7 @@ current dims point (`viewer.dims.point`).
 
 
     from copy import deepcopy
+    from typing import Optional
 
     import numpy as np
     from packaging.version import parse as parse_version
@@ -182,8 +183,8 @@ current dims point (`viewer.dims.point`).
             self,
             filenames: list,
             stack: bool,
-            plugin: str = None,
-            layer_type: str = None,
+            plugin: Optional[str] = None,
+            layer_type: Optional[str] = None,
             **kwargs,
         ):
             """for drag and drop open files"""

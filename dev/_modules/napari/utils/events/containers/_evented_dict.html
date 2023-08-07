@@ -269,7 +269,7 @@ function checkPageExistsAndRedirect(event) {
               
   <h1>Source code for napari.utils.events.containers._evented_dict</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;MutableMapping that emits events when altered.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">napari.utils.events.containers._dict</span> <span class="kn">import</span> <span class="n">_K</span><span class="p">,</span> <span class="n">_T</span><span class="p">,</span> <span class="n">TypedMutableMapping</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.event</span> <span class="kn">import</span> <span class="n">EmitterGroup</span><span class="p">,</span> <span class="n">Event</span>
@@ -313,7 +313,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">data</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">_K</span><span class="p">,</span> <span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="n">_K</span><span class="p">,</span> <span class="n">_T</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">basetype</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">_T</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">_T</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_events</span> <span class="o">=</span> <span class="p">{</span>

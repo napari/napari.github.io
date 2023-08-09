@@ -278,6 +278,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">ClassVar</span><span class="p">,</span>
     <span class="n">Generator</span><span class="p">,</span>
     <span class="n">Generic</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
@@ -334,10 +335,9 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="WorkerBaseSignals"><a class="viewcode-back" href="../../../api/napari.qt.threading.WorkerBaseSignals.html#napari.qt.threading.WorkerBaseSignals">[docs]</a><span class="k">class</span> <span class="nc">WorkerBaseSignals</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
-
     <span class="n">started</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>  <span class="c1"># emitted when the work is started</span>
     <span class="n">finished</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>  <span class="c1"># emitted when the work is finished</span>
-    <span class="n">_finished</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>  <span class="c1"># emitted when the work is finished ro delete</span>
+    <span class="n">_finished</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>  <span class="c1"># emitted when the work is finished to delete</span>
     <span class="n">returned</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>  <span class="c1"># emitted with return value</span>
     <span class="n">errored</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>  <span class="c1"># emitted with error object on Exception</span>
     <span class="n">warned</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">tuple</span><span class="p">)</span>  <span class="c1"># emitted with showwarning args on warning</span></div>
@@ -358,7 +358,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#: A set of Workers.  Add to set using `WorkerBase.start`</span>
-    <span class="n">_worker_set</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">_worker_set</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="n">WorkerBase</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="n">returned</span><span class="p">:</span> <span class="n">SigInst</span><span class="p">[</span><span class="n">_R</span><span class="p">]</span>
     <span class="n">errored</span><span class="p">:</span> <span class="n">SigInst</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span>
     <span class="n">warned</span><span class="p">:</span> <span class="n">SigInst</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span>
@@ -455,6 +455,7 @@ function checkPageExistsAndRedirect(event) {
                     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">&quot;RuntimeError in aborted thread: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                         <span class="ne">RuntimeWarning</span><span class="p">,</span>
+                        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                     <span class="p">)</span>
                     <span class="k">return</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -628,7 +629,6 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="GeneratorWorkerSignals"><a class="viewcode-back" href="../../../api/napari.qt.threading.GeneratorWorkerSignals.html#napari.qt.threading.GeneratorWorkerSignals">[docs]</a><span class="k">class</span> <span class="nc">GeneratorWorkerSignals</span><span class="p">(</span><span class="n">WorkerBaseSignals</span><span class="p">):</span>
-
     <span class="n">yielded</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>  <span class="c1"># emitted with yielded values (if generator used)</span>
     <span class="n">paused</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>  <span class="c1"># emitted when a running job has successfully paused</span>
     <span class="n">resumed</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>  <span class="c1"># emitted when a paused job has successfully resumed</span>

@@ -17,3 +17,5 @@ You can see the general direction for napari development and possible work plans
 
 - [Core Developer guide](./core_dev_guide)
 - [Release guide](./release)
+- [Maintenance](./maintenance)
+

@@ -268,11 +268,10 @@ function checkPageExistsAndRedirect(event) {
             <div>
               
   <h1>Source code for napari.utils.events.evented_model</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">app_model.types</span> <span class="kn">import</span> <span class="n">KeyBinding</span>
@@ -491,6 +490,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="c1"># when field is changed, an event for dependent properties will be emitted.</span>
     <span class="n">__field_dependents__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span>
     <span class="n">__eq_operators__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]]</span>
+    <span class="n">_changes_queue</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">_primary_changes</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
+    <span class="n">_delay_check_semaphore</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="vm">__slots__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;__weakref__&quot;</span><span class="p">}</span>  <span class="c1"># type: ignore</span>
 
     <span class="c1"># pydantic BaseModel configuration.  see:</span>
@@ -546,7 +548,66 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_check_if_differ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">old_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check new value of a field and emit event if it is different from the old one.</span>
+
+<span class="sd">        Returns True if data changed, else False. Return current value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">:</span>
+            <span class="n">are_equal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">are_equal</span> <span class="o">=</span> <span class="n">pick_equality_operator</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="n">are_equal</span><span class="p">(</span><span class="n">new_value</span><span class="p">,</span> <span class="n">old_value</span><span class="p">),</span> <span class="n">new_value</span>
+
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="p">{}):</span>
+            <span class="c1"># This is a workaround needed because `EventedConfigFileSettings` uses</span>
+            <span class="c1"># `_config_path` before calling the superclass constructor</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">with</span> <span class="n">ComparisonDelayer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_setattr_impl</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_if_values_changed_and_emit_if_needed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if field values changed and emit events if needed.</span>
+
+<span class="sd">        The advantage of moving this to the end of all the modifications is</span>
+<span class="sd">        that comparisons will be performed only once for every potential change.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delay_check_semaphore</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># do not run whole machinery if there is no need</span>
+            <span class="k">return</span>
+        <span class="n">to_emit</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="p">:</span>
+            <span class="c1"># primary changes should contains only fields that are changed directly by assigment</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">old_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_differ</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">old_value</span><span class="p">))[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">to_emit</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">to_emit</span><span class="p">:</span>
+            <span class="c1"># If no direct changes was made then we can skip whole machinery</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">old_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># check if any of dependent properties changed</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_if_differ</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">old_value</span><span class="p">))[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">to_emit</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_primary_changes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">ComparisonDelayer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># Again delay comparison to avoid having events caused by callback functions</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">new_value</span> <span class="ow">in</span> <span class="n">to_emit</span><span class="p">:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">name</span><span class="p">)(</span><span class="n">value</span><span class="o">=</span><span class="n">new_value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_setattr_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="p">{}):</span>
             <span class="c1"># fallback to default behavior</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_super_setattr_</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
@@ -573,40 +634,15 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">dep</span> <span class="k">for</span> <span class="n">dep</span><span class="p">,</span> <span class="n">has_cb</span> <span class="ow">in</span> <span class="n">has_callbacks</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">has_cb</span>
         <span class="p">]</span>
 
-        <span class="n">before</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
-        <span class="n">before_deps</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-            <span class="c1"># we still need to check for deprecated properties</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">dep_with_callbacks</span><span class="p">:</span>
-                <span class="n">before_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">dep_with_callbacks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_changes_queue</span><span class="p">[</span><span class="n">dep</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
 
         <span class="c1"># set value using original setter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_super_setattr_</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
-        <span class="c1"># if different we emit the event with new value</span>
-        <span class="n">after</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-        <span class="n">after_deps</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-            <span class="c1"># we still need to check for deprecated properties</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">dep_with_callbacks</span><span class="p">:</span>
-                <span class="n">after_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="nb">object</span><span class="p">())</span>
-
-        <span class="n">are_equal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">eq</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">are_equal</span><span class="p">(</span><span class="n">after</span><span class="p">,</span> <span class="n">before</span><span class="p">):</span>
-            <span class="c1"># no change</span>
-            <span class="k">return</span>
-        <span class="n">emitter</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">after</span><span class="p">)</span>  <span class="c1"># emit event</span>
-
-        <span class="c1"># emit events for any dependent computed properties as well</span>
-        <span class="k">for</span> <span class="n">dep</span><span class="p">,</span> <span class="n">value_</span> <span class="ow">in</span> <span class="n">before_deps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">dep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">:</span>
-                <span class="n">are_equal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__eq_operators__</span><span class="p">[</span><span class="n">dep</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">are_equal</span> <span class="o">=</span> <span class="n">pick_equality_operator</span><span class="p">(</span><span class="n">after_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">])</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">are_equal</span><span class="p">(</span><span class="n">after_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">],</span> <span class="n">value_</span><span class="p">):</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="n">dep</span><span class="p">)(</span><span class="n">value</span><span class="o">=</span><span class="n">after_deps</span><span class="p">[</span><span class="n">dep</span><span class="p">])</span>
 
     <span class="c1"># expose the private EmitterGroup publically</span>
     <span class="nd">@property</span>
@@ -733,6 +769,18 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">d</span> <span class="o">=</span> <span class="n">get_defaults</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">type_</span><span class="p">)</span>
         <span class="n">dflt</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
     <span class="k">return</span> <span class="n">dflt</span>
+
+
+<span class="k">class</span> <span class="nc">ComparisonDelayer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">EventedModel</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">_delay_check_semaphore</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">_delay_check_semaphore</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="o">.</span><span class="n">_check_if_values_changed_and_emit_if_needed</span><span class="p">()</span>
 </pre></div>
 
             </div>

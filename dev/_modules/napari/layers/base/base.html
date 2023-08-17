@@ -1013,7 +1013,7 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="nd">@_translate_grid</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">_translate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translate_grid</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_translate_grid</span> <span class="o">==</span> <span class="n">translate_grid</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_translate_grid</span><span class="p">,</span> <span class="n">translate_grid</span><span class="p">):</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="s1">&#39;world2grid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">translate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">translate_grid</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">translate</span><span class="p">()</span>

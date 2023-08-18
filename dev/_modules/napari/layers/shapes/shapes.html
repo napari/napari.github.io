@@ -943,17 +943,23 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
         <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_shapes</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
             <span class="n">shape_type</span><span class="o">=</span><span class="n">shape_type</span><span class="p">,</span>
             <span class="n">edge_width</span><span class="o">=</span><span class="n">edge_widths</span><span class="p">,</span>
             <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
             <span class="n">face_color</span><span class="o">=</span><span class="n">face_color</span><span class="p">,</span>
             <span class="n">z_index</span><span class="o">=</span><span class="n">z_indices</span><span class="p">,</span>
+            <span class="n">n_new_shapes</span><span class="o">=</span><span class="n">n_new_shapes</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_dims</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="n">ActionType</span><span class="o">.</span><span class="n">CHANGE</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="n">data_indices</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span>
+            <span class="n">vertex_indices</span><span class="o">=</span><span class="p">((),),</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_editable</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_on_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
@@ -2249,28 +2255,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">shape_type</span> <span class="o">=</span> <span class="n">extract_shape_type</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">shape_type</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">edge_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">edge_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span>
-
         <span class="n">n_new_shapes</span> <span class="o">=</span> <span class="n">number_of_shapes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">edge_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_shape_color</span><span class="p">(</span>
-                <span class="n">n_new_shapes</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;edge&#39;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">face_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_shape_color</span><span class="p">(</span>
-                <span class="n">n_new_shapes</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;face&#39;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">z_index</span> <span class="o">=</span> <span class="n">z_index</span> <span class="ow">or</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_z_index</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">z_index</span> <span class="o">=</span> <span class="n">z_index</span> <span class="ow">or</span> <span class="mi">0</span>
-
         <span class="k">if</span> <span class="n">n_new_shapes</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">total_shapes</span> <span class="o">=</span> <span class="n">n_new_shapes</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">total_shapes</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_shapes</span><span class="p">(</span>
                 <span class="n">data</span><span class="p">,</span>
                 <span class="n">shape_type</span><span class="o">=</span><span class="n">shape_type</span><span class="p">,</span>
@@ -2278,6 +2265,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
                 <span class="n">face_color</span><span class="o">=</span><span class="n">face_color</span><span class="p">,</span>
                 <span class="n">z_index</span><span class="o">=</span><span class="n">z_index</span><span class="p">,</span>
+                <span class="n">n_new_shapes</span><span class="o">=</span><span class="n">n_new_shapes</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
                 <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
@@ -2375,7 +2363,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
                 <span class="n">face_color</span><span class="o">=</span><span class="n">face_color</span><span class="p">,</span>
                 <span class="n">z_index</span><span class="o">=</span><span class="n">z_index</span><span class="p">,</span>
-                <span class="n">z_refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">n_new_shapes</span><span class="o">=</span><span class="n">n_shapes</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_update_z_order</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">()</span>
@@ -2389,7 +2377,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">edge_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">face_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">z_refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">n_new_shapes</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add shapes to the data view.</span>
 
@@ -2430,13 +2418,24 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">            same length as the length of `data` and each element will be</span>
 <span class="sd">            applied to each shape otherwise the same value will be used for all</span>
 <span class="sd">            shapes.</span>
-<span class="sd">        z_refresh : bool</span>
-<span class="sd">            If set to true, the mesh elements are reindexed with the new z order.</span>
-<span class="sd">            When shape_index is provided, z_refresh will be overwritten to false,</span>
-<span class="sd">            as the z indices will not change.</span>
-<span class="sd">            When adding a batch of shapes, set to false  and then call</span>
-<span class="sd">            ShapesList._update_z_order() once at the end.</span>
+<span class="sd">        n_new_shapes: int</span>
+<span class="sd">            The number of new shapes to be added to the Shapes layer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">n_new_shapes</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">total_shapes</span> <span class="o">=</span> <span class="n">n_new_shapes</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_feature_table</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">total_shapes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">edge_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_shape_color</span><span class="p">(</span>
+                <span class="n">n_new_shapes</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;edge&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">face_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">face_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_shape_color</span><span class="p">(</span>
+                <span class="n">n_new_shapes</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s1">&#39;face&#39;</span>
+            <span class="p">)</span>
+
         <span class="k">if</span> <span class="n">edge_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">edge_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_edge_width</span>
         <span class="k">if</span> <span class="n">edge_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

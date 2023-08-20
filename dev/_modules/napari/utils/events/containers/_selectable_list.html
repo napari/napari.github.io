@@ -315,7 +315,9 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_activate_on_insert</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_pre_add_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preselect_hook</span>
+        <span class="c1"># bound/unbound methods are ambiguous for mypy so we need to ignore</span>
+        <span class="c1"># https://mypy.readthedocs.io/en/stable/error_code_list.html?highlight=method-assign#check-that-assignment-target-is-not-a-method-method-assign</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">_pre_add_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preselect_hook</span>  <span class="c1"># type: ignore[method-assign]</span>
 
     <span class="k">def</span> <span class="nf">_preselect_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Called before adding an item to the selection.&quot;&quot;&quot;</span>

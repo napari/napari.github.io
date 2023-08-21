@@ -731,7 +731,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__newlike__</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span><span class="p">:</span>
-            <span class="n">_types</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span><span class="p">),</span> <span class="n">NestableEventedList</span><span class="p">)</span>
+            <span class="n">_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basetypes</span> <span class="o">+</span> <span class="p">(</span><span class="n">NestableEventedList</span><span class="p">,)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">_types</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                     <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span>

@@ -329,21 +329,43 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">basetype</span><span class="o">=</span><span class="n">Layer</span><span class="p">,</span>
             <span class="n">lookup</span><span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">},</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_contexts</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_create_contexts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create contexts to manage enabled/visible action/menu states.</span>
+
+<span class="sd">        Connects LayerList and Selection[Layer] to their context keys to allow</span>
+<span class="sd">        actions and menu items (in the GUI) to be dynamically enabled/disabled</span>
+<span class="sd">        and visible/hidden based on the state of layers in the list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># TODO: figure out how to move this context creation bit.</span>
         <span class="c1"># Ideally, the app should be aware of the layerlist, but not vice versa.</span>
-        <span class="c1"># This could probably be done by having the layerlist emit events that the app</span>
-        <span class="c1"># connects to, then the `_ctx` object would live on the app, (not here)</span>
+        <span class="c1"># This could probably be done by having the layerlist emit events that</span>
+        <span class="c1"># the app connects to, then the `_ctx` object would live on the app,</span>
+        <span class="c1"># (not here)</span>
         <span class="kn">from</span> <span class="nn">napari._app_model.context</span> <span class="kn">import</span> <span class="n">create_context</span>
         <span class="kn">from</span> <span class="nn">napari._app_model.context._layerlist_context</span> <span class="kn">import</span> <span class="p">(</span>
             <span class="n">LayerListContextKeys</span><span class="p">,</span>
+            <span class="n">LayerListSelectionContextKeys</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span> <span class="o">=</span> <span class="n">create_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># happens during Viewer type creation</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ctx_keys</span> <span class="o">=</span> <span class="n">LayerListContextKeys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ctx_keys</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ctx_keys</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ctx_keys</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selection_ctx</span> <span class="o">=</span> <span class="n">create_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selection_ctx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">):</span>  <span class="c1"># happens during Viewer type creation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selection_ctx_keys</span> <span class="o">=</span> <span class="n">LayerListSelectionContextKeys</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selection_ctx</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selection_ctx_keys</span><span class="o">.</span><span class="n">update</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_process_delete_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_delete_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>

@@ -310,11 +310,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">direct_colormap</span><span class="p">,</span>
     <span class="n">label_colormap</span><span class="p">,</span>
-    <span class="n">low_discrepancy_image</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
 <span class="kn">from</span> <span class="nn">napari.utils.geometry</span> <span class="kn">import</span> <span class="n">clamp_point_to_bounding_box</span>
+<span class="kn">from</span> <span class="nn">napari.utils.indexing</span> <span class="kn">import</span> <span class="n">index_in_slice</span>
 <span class="kn">from</span> <span class="nn">napari.utils.misc</span> <span class="kn">import</span> <span class="n">StringEnum</span><span class="p">,</span> <span class="n">_is_array_type</span>
 <span class="kn">from</span> <span class="nn">napari.utils.naming</span> <span class="kn">import</span> <span class="n">magic_name</span>
 <span class="kn">from</span> <span class="nn">napari.utils.status_messages</span> <span class="kn">import</span> <span class="n">generate_layer_coords_status</span>
@@ -1072,30 +1072,14 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reset_history</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_lookup_with_low_discrepancy_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">selected_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns display version of im using low_discrepancy_image.</span>
+    <span class="k">def</span> <span class="nf">_to_vispy_texture_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert data to a dtype that can be used as a VisPy texture.</span>
 
-<span class="sd">        Passes the image through low_discrepancy_image, only coloring</span>
-<span class="sd">        selected_label if it&#39;s not None.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        im : array or int</span>
-<span class="sd">            Raw integer input image.</span>
-<span class="sd">        selected_label : int, optional</span>
-<span class="sd">            Value of selected label to color, by default None</span>
+<span class="sd">        Labels layers allow all integer dtypes for data, but only a subset</span>
+<span class="sd">        are supported by VisPy textures. For now, we convert all data to</span>
+<span class="sd">        float32 as it can represent all input values (though not losslessly,</span>
+<span class="sd">        see https://github.com/napari/napari/issues/6084).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">selected_label</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-                <span class="n">im</span> <span class="o">==</span> <span class="n">selected_label</span><span class="p">,</span>
-                <span class="n">low_discrepancy_image</span><span class="p">(</span><span class="n">selected_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span><span class="p">),</span>
-                <span class="mi">0</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">im</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">low_discrepancy_image</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seed</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">image</span>
-
-    <span class="k">def</span> <span class="nf">_as_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">selected_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1209,7 +1193,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="n">labels_to_map</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">]</span>
 
-        <span class="n">mapped_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_type</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">)</span>
+        <span class="n">mapped_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_vispy_texture_dtype</span><span class="p">(</span><span class="n">labels_to_map</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">update_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_labels</span><span class="p">[</span><span class="n">data_slice</span><span class="p">][</span><span class="n">update_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_labels</span>
@@ -1268,7 +1252,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">):</span>
             <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_type</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label</span><span class="p">]))</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_vispy_texture_dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label</span><span class="p">]))</span>
             <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">col</span></div>
 
@@ -1715,9 +1699,9 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        indices : tuple of int, slice, or sequence of int</span>
-<span class="sd">            Indices in data to overwrite. Can be any valid NumPy indexing</span>
-<span class="sd">            expression [1]_.</span>
+<span class="sd">        indices : tuple of arrays of int</span>
+<span class="sd">            Indices in data to overwrite. Must be a tuple of arrays of length</span>
+<span class="sd">            equal to the number of data dimensions. (Fancy indexing in [1]_).</span>
 <span class="sd">        value : int or array of int</span>
 <span class="sd">            New label value(s). If more than one value, must match or</span>
 <span class="sd">            broadcast with the given indices.</span>
@@ -1744,6 +1728,21 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># update the labels image</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>  <span class="c1"># if not a numpy array or numpy-backed xarray</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="c1"># In the absence of slicing, the current slice becomes</span>
+            <span class="c1"># invalidated by data_setitem; only in the special case of a NumPy</span>
+            <span class="c1"># array, or a NumPy-array-backed Xarray, is the slice a view and</span>
+            <span class="c1"># therefore updated automatically.</span>
+            <span class="c1"># For other types, we update it manually here.</span>
+            <span class="n">dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">dims</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">pt_not_disp</span> <span class="o">=</span> <span class="p">{</span><span class="n">dim</span><span class="p">:</span> <span class="n">point</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">dims</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">}</span>
+            <span class="n">displayed_indices</span> <span class="o">=</span> <span class="n">index_in_slice</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">pt_not_disp</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span><span class="p">[</span><span class="n">displayed_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
         <span class="c1"># tensorstore and xarray do not return their indices in</span>
         <span class="c1"># np.ndarray format, so they need to be converted explicitly</span>

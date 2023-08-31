@@ -657,6 +657,11 @@ function checkPageExistsAndRedirect(event) {
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#running-tests-without-pop-up-windows">
+     Running tests without pop-up windows
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#tips-for-speeding-up-local-testing">
      Tips for speeding up local testing
     </a>
@@ -773,6 +778,45 @@ If you’d like to include them in local tests, set the environment variable “
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">CI</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>pytest
 </pre></div>
 </div>
+<p>It is also possible to run test using <code class="docutils literal notranslate"><span class="pre">tox</span></code>. This is the same way as it is done in CI.
+The main difference is that tox will create a virtual environment for each test environment, so it will take more time
+but it will be more similar to the CI environment.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+</pre></div>
+</div>
+<p>To get list of all available environments run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>list
+</pre></div>
+</div>
+<section id="running-tests-without-pop-up-windows">
+<h3>Running tests without pop-up windows<a class="headerlink" href="#running-tests-without-pop-up-windows" title="Permalink to this headline">¶</a></h3>
+<p>Some tests create visible napari viewers, which pop up on your monitor then quickly disappear.
+This can be annoying if you are trying to use your computer while the tests are running.
+There are two ways to avoid this:</p>
+<ol class="arabic">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">QT_QPA_PLATFORM=offscreen</span></code> environment variable.
+This tells Qt to render windows “offscreen”, which is slower but will avoid the pop-ups.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>offscreen<span class="w"> </span>pytest<span class="w"> </span>napari
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>offscreen<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+</pre></div>
+</div>
+</li>
+<li><p>If you are using Linux or WSL, you can use the <code class="docutils literal notranslate"><span class="pre">xvfb-run</span></code> command.
+This will run the tests in a virtual X server.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>xvfb-run<span class="w"> </span>pytest<span class="w"> </span>napari
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>xvfb-run<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>py310-linux-pyqt5
+</pre></div>
+</div>
+</li>
+</ol>
+<p>where the tox environment selector <code class="docutils literal notranslate"><span class="pre">py310-linux-pyqt5</span></code> must match your OS and Python version.</p>
+</section>
 <section id="tips-for-speeding-up-local-testing">
 <h3>Tips for speeding up local testing<a class="headerlink" href="#tips-for-speeding-up-local-testing" title="Permalink to this headline">¶</a></h3>
 <p>Very often when developing new code, you don’t need or want to run the entire test suite (which can take many minutes to finish).  With <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, it’s easy to run a subset of your tests:</p>

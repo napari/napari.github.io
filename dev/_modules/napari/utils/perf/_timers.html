@@ -356,14 +356,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">now</span> <span class="o">=</span> <span class="n">perf_counter_ns</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">PerfEvent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_counter_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one counter event.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : str</span>
 <span class="sd">            The name of this event like &quot;draw&quot;.</span>
-<span class="sd">        **kwargs : Dict[str, float]</span>
+<span class="sd">        **kwargs : float</span>
 <span class="sd">            The individual counters for this event.</span>
 
 <span class="sd">        Notes</span>
@@ -371,7 +371,18 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        For example add_counter_event(&quot;draw&quot;, triangles=5, squares=10).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">now</span> <span class="o">=</span> <span class="n">perf_counter_ns</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">PerfEvent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span>
+            <span class="n">PerfEvent</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span>
+                <span class="n">now</span><span class="p">,</span>
+                <span class="n">now</span><span class="p">,</span>
+                <span class="n">phase</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">process_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">thread_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all timers.&quot;&quot;&quot;</span>

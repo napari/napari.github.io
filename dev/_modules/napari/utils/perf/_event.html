@@ -341,7 +341,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">process_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">thread_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span>  <span class="c1"># &quot;X&quot; is a &quot;complete event&quot; in their spec.</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">process_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">process_id</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
@@ -350,7 +350,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">span</span><span class="p">:</span> <span class="n">Span</span> <span class="o">=</span> <span class="n">Span</span><span class="p">(</span><span class="n">start_ns</span><span class="p">,</span> <span class="n">end_ns</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">category</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">category</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">:</span> <span class="n">Origin</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">(</span><span class="n">process_id</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">kwargs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">phase</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">phase</span>

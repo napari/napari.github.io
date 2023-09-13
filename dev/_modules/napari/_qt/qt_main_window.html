@@ -318,6 +318,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">superqt.utils</span> <span class="kn">import</span> <span class="n">QSignalThrottler</span>
 
 <span class="kn">from</span> <span class="nn">napari._app_model.constants</span> <span class="kn">import</span> <span class="n">MenuId</span>
+<span class="kn">from</span> <span class="nn">napari._app_model.context</span> <span class="kn">import</span> <span class="n">get_context</span>
 <span class="kn">from</span> <span class="nn">napari._qt</span> <span class="kn">import</span> <span class="n">menus</span>
 <span class="kn">from</span> <span class="nn">napari._qt._qapp_model</span> <span class="kn">import</span> <span class="n">build_qmodel_menu</span>
 <span class="kn">from</span> <span class="nn">napari._qt._qapp_model.qactions</span> <span class="kn">import</span> <span class="n">init_qactions</span>
@@ -337,6 +338,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">menu_item_template</span> <span class="k">as</span> <span class="n">plugin_menu_item_template</span><span class="p">,</span>
     <span class="n">plugin_manager</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">napari.plugins._npe2</span> <span class="kn">import</span> <span class="n">_rebuild_npe1_samples_menu</span>
 <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
 <span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">perf</span>
 <span class="kn">from</span> <span class="nn">napari.utils._proxies</span> <span class="kn">import</span> <span class="n">PublicOnlyProxy</span>
@@ -856,7 +858,6 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Help menu.</span>
 <span class="sd">    main_menu : qtpy.QtWidgets.QMainWindow.menuBar</span>
 <span class="sd">        Main menubar.</span>
-
 <span class="sd">    view_menu : qtpy.QtWidgets.QMenu</span>
 <span class="sd">        View menu.</span>
 <span class="sd">    window_menu : qtpy.QtWidgets.QMenu</span>
@@ -872,6 +873,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="nb">str</span><span class="p">,</span> <span class="n">QtViewerDockWidget</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">WeakValueDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_unnamed_dockwidget_count</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Connect the Viewer and create the Main Window</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span> <span class="o">=</span> <span class="n">_QtMainWindow</span><span class="p">(</span><span class="n">viewer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -909,7 +912,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">help</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_help_changed</span><span class="p">)</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_title_changed</span><span class="p">)</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">)</span>
-        <span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
         <span class="n">viewer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_status_changed</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
@@ -1024,6 +1026,21 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># TODO: remove from window</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span>
 
+    <span class="k">def</span> <span class="nf">_update_menu_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menu</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update enabled/visible state of menu item with context.&quot;&quot;&quot;</span>
+        <span class="n">layerlist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">_layers</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">sourceModel</span><span class="p">()</span><span class="o">.</span><span class="n">_root</span>
+        <span class="n">menu_model</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menu</span><span class="p">)</span>
+        <span class="n">menu_model</span><span class="o">.</span><span class="n">update_from_context</span><span class="p">(</span><span class="n">get_context</span><span class="p">(</span><span class="n">layerlist</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_setup_npe1_samples_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Register npe1 sample data, build menu and connect to events.&quot;&quot;&quot;</span>
+        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">discover_sample_data</span><span class="p">()</span>
+        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">enabled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_samples_menu</span><span class="p">)</span>
+        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">disabled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_samples_menu</span><span class="p">)</span>
+        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">registered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_samples_menu</span><span class="p">)</span>
+        <span class="n">plugin_manager</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">unregistered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_rebuild_npe1_samples_menu</span><span class="p">)</span>
+        <span class="n">_rebuild_npe1_samples_menu</span><span class="p">()</span>
+
     <span class="k">def</span> <span class="nf">_add_menus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add menubar to napari app.&quot;&quot;&quot;</span>
         <span class="c1"># TODO: move this to _QMainWindow... but then all of the Menu()</span>
@@ -1041,19 +1058,35 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_main_menu_shortcut</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_menubar_visible</span>
         <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">FileMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># file menu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
+            <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_FILE</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;File&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_npe1_samples_menu</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;file_menu&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="p">)</span>
+        <span class="c1"># view menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_VIEW</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;View&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;view_menu&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span><span class="p">)</span>
+        <span class="c1"># plugin menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">PluginsMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plugins_menu</span><span class="p">)</span>
+        <span class="c1"># window menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span> <span class="o">=</span> <span class="n">menus</span><span class="o">.</span><span class="n">WindowMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span><span class="p">)</span>
+        <span class="c1"># help menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="n">build_qmodel_menu</span><span class="p">(</span>
             <span class="n">MenuId</span><span class="o">.</span><span class="n">MENUBAR_HELP</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;&amp;Help&#39;</span><span class="p">),</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">aboutToShow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_menu_state</span><span class="p">(</span><span class="s1">&#39;help_menu&#39;</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="p">)</span>
 
@@ -1751,10 +1784,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_setup_existing_themes</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">added</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_theme</span><span class="p">)</span>
         <span class="n">_themes</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removed</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_remove_theme</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">menu</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">_INSTANCES</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
-                <span class="n">menu</span><span class="o">.</span><span class="n">_destroy</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Window.close"><a class="viewcode-back" href="../../../api/napari.window.Window.html#napari.qt.Window.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the viewer window and cleanup sub-widgets.&quot;&quot;&quot;</span>
@@ -1764,7 +1793,43 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_teardown</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span></div></div>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span></div>
+
+    <span class="k">def</span> <span class="nf">_open_preferences_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Edit preferences from the menubar.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">napari._qt.dialogs.preferences_dialog</span> <span class="kn">import</span> <span class="n">PreferencesDialog</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">win</span> <span class="o">=</span> <span class="n">PreferencesDialog</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span> <span class="o">=</span> <span class="n">win</span>
+
+            <span class="n">app_pref</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">application</span>
+            <span class="k">if</span> <span class="n">app_pref</span><span class="o">.</span><span class="n">preferences_size</span><span class="p">:</span>
+                <span class="n">win</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="o">*</span><span class="n">app_pref</span><span class="o">.</span><span class="n">preferences_size</span><span class="p">)</span>
+
+            <span class="nd">@win</span><span class="o">.</span><span class="n">resized</span><span class="o">.</span><span class="n">connect</span>
+            <span class="k">def</span> <span class="nf">_save_size</span><span class="p">(</span><span class="n">sz</span><span class="p">:</span> <span class="n">QSize</span><span class="p">):</span>
+                <span class="n">app_pref</span><span class="o">.</span><span class="n">preferences_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">sz</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">sz</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
+
+            <span class="k">def</span> <span class="nf">_clean_pref_dialog</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">win</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_clean_pref_dialog</span><span class="p">)</span>
+            <span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_screenshot_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save screenshot of current display with viewer, default .png&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">napari._qt.dialogs.screenshot_dialog</span> <span class="kn">import</span> <span class="n">ScreenshotDialog</span>
+        <span class="kn">from</span> <span class="nn">napari.utils.history</span> <span class="kn">import</span> <span class="n">get_save_history</span><span class="p">,</span> <span class="n">update_save_history</span>
+
+        <span class="n">hist</span> <span class="o">=</span> <span class="n">get_save_history</span><span class="p">()</span>
+        <span class="n">dial</span> <span class="o">=</span> <span class="n">ScreenshotDialog</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">screenshot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="p">,</span> <span class="n">hist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hist</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">dial</span><span class="o">.</span><span class="n">exec_</span><span class="p">():</span>
+            <span class="n">update_save_history</span><span class="p">(</span><span class="n">dial</span><span class="o">.</span><span class="n">selectedFiles</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span></div>
 
 
 <span class="k">def</span> <span class="nf">_instantiate_dock_widget</span><span class="p">(</span><span class="n">wdg_cls</span><span class="p">,</span> <span class="n">viewer</span><span class="p">:</span> <span class="s1">&#39;Viewer&#39;</span><span class="p">):</span>

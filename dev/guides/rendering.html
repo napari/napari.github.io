@@ -265,12 +265,12 @@ function checkPageExistsAndRedirect(event) {
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/fundamentals/installation.html">
-     Installing
+     How to install napari
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/fundamentals/getting_started.html">
-     Getting started
+     How to launch napari
     </a>
    </li>
    <li class="toctree-l2">
@@ -1179,11 +1179,6 @@ function checkPageExistsAndRedirect(event) {
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#time-series-data">
-     Time-series data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#multi-scale-images">
      Multi-scale images
     </a>
@@ -1299,8 +1294,6 @@ call <code class="docutils literal notranslate"><span class="pre">np.asarray()</
 it will call <code class="xref py py-meth docutils literal notranslate"><span class="pre">on_chunk_loaded()</span></code> with
 the loaded data. The next frame <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>
 can display the new data.</p>
-<section id="time-series-data">
-<h3>Time-series data<a class="headerlink" href="#time-series-data" title="Permalink to this headline">¶</a></h3>
 <p>Without <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC</span></code> napari will block when switching slices. Napari
 will hang until the new slice has loaded. If the slice loads slowly enough
 you might see the “spinning wheel of death” on a Mac indicating the process
@@ -1308,7 +1301,6 @@ is hung.</p>
 <p>Asynchronous rendering allows the user to interrupt the loading of a slice
 at any time. The user can freely move the slice slider. This is especially
 nice for remote or slow-loading data.</p>
-</section>
 <section id="multi-scale-images">
 <h3>Multi-scale images<a class="headerlink" href="#multi-scale-images" title="Permalink to this headline">¶</a></h3>
 <p>With today’s <a class="reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> class there are no
@@ -1326,7 +1318,7 @@ improvement, but working with slow-loading data is still slow. Most large
 image viewers improve on this experience with chunks or tiles. With chunks
 or tiles when the image is panned the existing tiles are translated and
 re-used. Then the viewer only needs to fetch tiles which newly slid onto
-the screen. This style of rendering what our <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code> flag
+the screen. This style of rendering is what the <code class="docutils literal notranslate"><span class="pre">NAPARI_OCTREE</span></code> flag
 enables.</p>
 </section>
 </section>

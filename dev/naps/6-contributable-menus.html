@@ -874,7 +874,7 @@ not within scope for this NAP, but will be made available to users via a command
 </div>
 <section id="what-is-a-menu-contribution">
 <h3>What is a Menu Contribution?<a class="headerlink" href="#what-is-a-menu-contribution" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> contribution in the <a class="reference external" href="https://github.com/napari/npe2/blob/main/npe2/manifest/contributions/_menus.py"><code class="docutils literal notranslate"><span class="pre">npe2</span></code> manifest</a>
+<p>A <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> contribution in the <a class="reference external" href="https://github.com/napari/npe2/blob/main/src/npe2/manifest/contributions/_menus.py"><code class="docutils literal notranslate"><span class="pre">npe2</span></code> manifest</a>
 adds a new item to one of the <code class="docutils literal notranslate"><span class="pre">napari</span></code> menus (defined by an ID). When this item is clicked,
 the associated <code class="docutils literal notranslate"><span class="pre">command</span></code> is executed. Additionally, <code class="docutils literal notranslate"><span class="pre">enablement</span></code> clauses can be defined
 that control when this menu item is available for clicking and when it is disabled. Similarly,
@@ -900,9 +900,9 @@ in the screenshot below. The new menu items and submenu are produced by the foll
 <span class="w">  </span><span class="nt">menus</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">napari/layers/context</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">submenu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context_submenu</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.submenu_item</span>
-<span class="w">    </span><span class="nt">hello_world</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.menu_item</span>
+<span class="w">    </span><span class="nt">context_submenu</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo.submenu_item</span>
 
 <span class="w">  </span><span class="nt">submenus</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context_submenu</span>
@@ -915,9 +915,10 @@ in the screenshot below. The new menu items and submenu are produced by the foll
 <section id="what-do-menu-contributions-do">
 <h3>What do Menu Contributions do?<a class="headerlink" href="#what-do-menu-contributions-do" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> contributions can be thought of as auxiliary contributions that
-provide a dispatch mechanism for other existing contributions. Currently
-these would strictly be <code class="docutils literal notranslate"><span class="pre">widget</span></code> contributions, but this mechanism
-can easily be extended to other commands, which can take as input
+provide a dispatch mechanism for binding an existing contribution to a menu item and
+executing it. Currently these would strictly be <code class="docutils literal notranslate"><span class="pre">widget</span></code> contributions as the other
+contribution types (reader, writer, sample data) have defined menu locations. However,
+this mechanism can easily be extended to other commands, which can take as input
 <code class="docutils literal notranslate"><span class="pre">napari</span></code> objects like specific layers, or the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>, and produce
 output the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> uses - currently this would be new layers.</p>
 <p>Moving forward, new contribution types could be defined that allow
@@ -948,7 +949,7 @@ actions.</p>
 <section id="the-layers-menu">
 <h3>The <code class="docutils literal notranslate"><span class="pre">Layers</span></code> Menu<a class="headerlink" href="#the-layers-menu" title="Permalink to this headline">¶</a></h3>
 <p>Currently the foremost example of such an object is the napari <code class="docutils literal notranslate"><span class="pre">Layers</span></code>, and this
-menu therefore contains five submenus organized by the types of processing
+top level menu therefore contains five submenus organized by the types of processing
 the user may wish to perform on the selected <code class="docutils literal notranslate"><span class="pre">Layer</span></code> or <code class="docutils literal notranslate"><span class="pre">Layers</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Layers</span></code> submenus are organized to give the user an immediate
 feeling of what might happen to their <code class="docutils literal notranslate"><span class="pre">Layers</span></code> as a result of clicking
@@ -1027,6 +1028,9 @@ Layers
 │  ├─ Tracks
 │  ├─ Classification
 Acquisition
+Plugins/&lt;my_plugin&gt;    # only individual plugins submenu contributable
+
+Layers Context  # already open for contribution
 </pre></div>
 </div>
 <p>As a case study, we take four plugins offering between 9 and 14 widget contributions and arrange their widgets in these menus:

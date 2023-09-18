@@ -850,12 +850,12 @@ Additionally, this unwanted behavior might cause installation issues with other 
 <p>Ideally, you could change your project structure to follow the recommended skeleton followed in
 the cookiecutter template. Howevever, if that’s unfeasible, you can fix this in the project metadata files.</p>
 <p>You need to explicitly <em>exclude</em> the top-level <code class="docutils literal notranslate"><span class="pre">tests</span></code> directory from the packaged contents:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span># pyproject.toml
-...
-[options.packages.find]
-exclude =
-    tests
-    tests.*
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="c1"># pyproject.toml</span>
+<span class="p">...</span>
+<span class="k">[options.packages.find]</span>
+<span class="n">exclude</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">tests</span>
+<span class="w">    </span><span class="n">tests</span><span class="p">.</span><span class="err">*</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup.py</span>

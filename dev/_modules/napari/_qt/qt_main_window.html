@@ -1839,6 +1839,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">wdg_cls</span><span class="o">.</span><span class="fm">__init__</span><span class="p">)</span>
+    <span class="c1"># Inspection can fail when adding to bundle as it thinks widget is a builtin</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
         <span class="k">pass</span>
     <span class="k">else</span><span class="p">:</span>

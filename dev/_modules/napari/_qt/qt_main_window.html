@@ -323,6 +323,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari._qt._qapp_model</span> <span class="kn">import</span> <span class="n">build_qmodel_menu</span>
 <span class="kn">from</span> <span class="nn">napari._qt._qapp_model.qactions</span> <span class="kn">import</span> <span class="n">init_qactions</span>
 <span class="kn">from</span> <span class="nn">napari._qt.dialogs.confirm_close_dialog</span> <span class="kn">import</span> <span class="n">ConfirmCloseDialog</span>
+<span class="kn">from</span> <span class="nn">napari._qt.dialogs.preferences_dialog</span> <span class="kn">import</span> <span class="n">PreferencesDialog</span>
 <span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_activity_dialog</span> <span class="kn">import</span> <span class="n">QtActivityDialog</span>
 <span class="kn">from</span> <span class="nn">napari._qt.dialogs.qt_notification</span> <span class="kn">import</span> <span class="n">NapariQtNotification</span>
 <span class="kn">from</span> <span class="nn">napari._qt.qt_event_loop</span> <span class="kn">import</span> <span class="n">NAPARI_ICON_PATH</span><span class="p">,</span> <span class="n">get_app</span><span class="p">,</span> <span class="n">quit_app</span>
@@ -1795,10 +1796,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span></div>
 
-    <span class="k">def</span> <span class="nf">_open_preferences_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_open_preferences_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PreferencesDialog</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Edit preferences from the menubar.&quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">napari._qt.dialogs.preferences_dialog</span> <span class="kn">import</span> <span class="n">PreferencesDialog</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">win</span> <span class="o">=</span> <span class="n">PreferencesDialog</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span> <span class="o">=</span> <span class="n">win</span>
@@ -1818,6 +1817,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pref_dialog</span>
 
     <span class="k">def</span> <span class="nf">_screenshot_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save screenshot of current display with viewer, default .png&quot;&quot;&quot;</span>

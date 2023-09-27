@@ -292,6 +292,8 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">    Events</span>
 <span class="sd">    ------</span>
+<span class="sd">    changing (key: K)</span>
+<span class="sd">        emitted before an item at ``key`` is changed</span>
 <span class="sd">    changed (key: K, old_value: T, value: T)</span>
 <span class="sd">        emitted when item at ``key`` is changed from ``old_value`` to ``value``</span>
 <span class="sd">    adding (key: K)</span>
@@ -345,6 +347,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">added</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connect_child_emitters</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changing</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">old_value</span><span class="o">=</span><span class="n">old</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
 

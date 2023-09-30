@@ -36,8 +36,8 @@
     <script src="../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Swap dims" href="swap_dims.html" />
-    <link rel="prev" title="Image points 3D" href="image-points-3d.html" />
+    <link rel="next" title="nD points" href="nD_points.html" />
+    <link rel="prev" title="Add points 3D" href="add-points-3d.html" />
     <script async defer data-domain="napari.org" src="https://plausible.io/js/plausible.js"></script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -562,6 +562,11 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul>
        <li class="toctree-l4">
+        <a class="reference internal" href="add_labels_with_features.html">
+         Add labels with features
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="annotate_segmentation_with_text.html">
          Annotate segmentation with text
         </a>
@@ -576,11 +581,6 @@ function checkPageExistsAndRedirect(event) {
          Paint nD
         </a>
        </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_labels_with_features.html">
-         Add labels with features
-        </a>
-       </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
@@ -593,18 +593,23 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="viewer_fps_label.html">
-         Viewer FPS label
-        </a>
-       </li>
-       <li class="toctree-l4">
         <a class="reference internal" href="surface_normals_wireframe.html">
          Surface normals wireframe
         </a>
        </li>
        <li class="toctree-l4">
+        <a class="reference internal" href="interaction_box_image.html">
+         Interaction box image
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="action_manager.html">
          Action manager
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="scale_bar.html">
+         Scale bar
         </a>
        </li>
        <li class="toctree-l4">
@@ -618,23 +623,18 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="interaction_box_image.html">
-         Interaction box image
-        </a>
-       </li>
-       <li class="toctree-l4">
         <a class="reference internal" href="interactive_move_rectangle_3d.html">
          Interactive move rectangle
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="linked_layers.html">
-         Linked layers
+        <a class="reference internal" href="viewer_fps_label.html">
+         Viewer FPS label
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="scale_bar.html">
-         Scale bar
+        <a class="reference internal" href="linked_layers.html">
+         Linked layers
         </a>
        </li>
       </ul>
@@ -649,8 +649,8 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="get_current_viewer.html">
-         Get current viewer
+        <a class="reference internal" href="magic_viewer.html">
+         magicgui viewer
         </a>
        </li>
        <li class="toctree-l4">
@@ -659,28 +659,13 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="magic_viewer.html">
-         magicgui viewer
+        <a class="reference internal" href="image_custom_kernel.html">
+         Custom image interpolation kernels
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="multiple_viewer_widget.html">
-         Multiple viewer widget
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="magic_parameter_sweep.html">
-         magicgui parameter sweep
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="3Dimage_plane_rendering.html">
-         3D image plane rendering
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="action_manager.html">
-         Action manager
+        <a class="reference internal" href="multiple_viewers.html">
+         Multiple viewers
         </a>
        </li>
        <li class="toctree-l4">
@@ -694,23 +679,13 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="set_theme.html">
-         Set theme
+        <a class="reference internal" href="action_manager.html">
+         Action manager
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="mouse_drag_callback.html">
-         Mouse drag callback
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="magic_image_arithmetic.html">
-         magicgui Image Arithmetic
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="multiple_viewers.html">
-         Multiple viewers
+        <a class="reference internal" href="get_current_viewer.html">
+         Get current viewer
         </a>
        </li>
        <li class="toctree-l4">
@@ -719,13 +694,38 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
+        <a class="reference internal" href="set_theme.html">
+         Set theme
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="magic_image_arithmetic.html">
+         magicgui Image Arithmetic
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="magic_parameter_sweep.html">
+         magicgui parameter sweep
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="custom_key_bindings.html">
          Custom key bindings
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="image_custom_kernel.html">
-         Custom image interpolation kernels
+        <a class="reference internal" href="multiple_viewer_widget.html">
+         Multiple viewer widget
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mouse_drag_callback.html">
+         Mouse drag callback
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="3Dimage_plane_rendering.html">
+         3D image plane rendering
         </a>
        </li>
       </ul>
@@ -740,13 +740,13 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="reader_plugin.html">
-         Reader plugin
+        <a class="reference internal" href="update_console.html">
+         Update console
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="update_console.html">
-         Update console
+        <a class="reference internal" href="shapes_to_labels.html">
+         Shapes to labels
         </a>
        </li>
        <li class="toctree-l4">
@@ -755,8 +755,8 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="shapes_to_labels.html">
-         Shapes to labels
+        <a class="reference internal" href="reader_plugin.html">
+         Reader plugin
         </a>
        </li>
       </ul>
@@ -771,18 +771,13 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="cursor_position.html">
-         Cursor position
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="interactive_scripting.html">
-         Interactive scripting
-        </a>
-       </li>
-       <li class="toctree-l4">
         <a class="reference internal" href="fourier_transform_playground.html">
          Fourier transform playground
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="inherit_viewer_style.html">
+         Method to get napari style in magicgui based windows
         </a>
        </li>
        <li class="toctree-l4">
@@ -791,8 +786,13 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="inherit_viewer_style.html">
-         Method to get napari style in magicgui based windows
+        <a class="reference internal" href="cursor_position.html">
+         Cursor position
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="interactive_scripting.html">
+         Interactive scripting
         </a>
        </li>
       </ul>
@@ -807,18 +807,8 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="3Dimage_plane_rendering.html">
-         3D image plane rendering
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_labels.html">
-         Add labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="3D_paths.html">
-         3D Paths
+        <a class="reference internal" href="add_labels_with_features.html">
+         Add labels with features
         </a>
        </li>
        <li class="toctree-l4">
@@ -827,8 +817,18 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="add_labels_with_features.html">
-         Add labels with features
+        <a class="reference internal" href="3D_paths.html">
+         3D Paths
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="add_labels.html">
+         Add labels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="3Dimage_plane_rendering.html">
+         3D image plane rendering
         </a>
        </li>
       </ul>
@@ -843,33 +843,23 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="points-over-time.html">
-         Points over time
+        <a class="reference internal" href="nD_multiscale_image_non_uniform.html">
+         nD multiscale image non-uniform
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="add_multiscale_image.html">
-         Add multiscale image
+        <a class="reference internal" href="dynamic-projections-dask.html">
+         Dynamic projections dask
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="show_points_based_on_feature.html">
-         Show points based on feature
+        <a class="reference internal" href="to_screenshot.html">
+         To screenshot
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="affine_transforms.html">
-         Affine transforms
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="tracks_3d.html">
-         Tracks 3D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="3Dimage_plane_rendering.html">
-         3D image plane rendering
+        <a class="reference internal" href="3D_paths.html">
+         3D Paths
         </a>
        </li>
        <li class="toctree-l4">
@@ -878,8 +868,8 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="to_screenshot.html">
-         To screenshot
+        <a class="reference internal" href="add_multiscale_image.html">
+         Add multiscale image
         </a>
        </li>
        <li class="toctree-l4">
@@ -893,18 +883,28 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="3D_paths.html">
-         3D Paths
+        <a class="reference internal" href="points-over-time.html">
+         Points over time
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="dynamic-projections-dask.html">
-         Dynamic projections dask
+        <a class="reference internal" href="tracks_3d.html">
+         Tracks 3D
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="nD_multiscale_image_non_uniform.html">
-         nD multiscale image non-uniform
+        <a class="reference internal" href="affine_transforms.html">
+         Affine transforms
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="show_points_based_on_feature.html">
+         Show points based on feature
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="3Dimage_plane_rendering.html">
+         3D image plane rendering
         </a>
        </li>
       </ul>
@@ -919,8 +919,8 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="add_vectors_image.html">
-         Add vectors image
+        <a class="reference internal" href="tracks_2d.html">
+         Tracks 2D
         </a>
        </li>
        <li class="toctree-l4">
@@ -929,28 +929,13 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="add_surface_2D.html">
-         Add surface 2D
+        <a class="reference internal" href="add_image_transformed.html">
+         Add image transformed
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="image_depth.html">
-         Image depth
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_points.html">
-         Add points
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_vectors.html">
-         Add vectors
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_points_with_text.html">
-         Add points with text
+        <a class="reference internal" href="pass_colormaps.html">
+         Pass colormaps
         </a>
        </li>
        <li class="toctree-l4">
@@ -959,43 +944,8 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="add_labels.html">
-         Add labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="layers.html">
-         Layers
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="tracks_2d.html">
-         Tracks 2D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_shapes.html">
-         Add shapes
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="minimum_blending.html">
-         Minimum blending
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_points_with_multicolor_text.html">
-         Add points with multicolor text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_image_transformed.html">
-         Add image transformed
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="labels-2d.html">
-         Labels 2D
+        <a class="reference internal" href="point_cloud.html">
+         Point cloud
         </a>
        </li>
        <li class="toctree-l4">
@@ -1004,13 +954,23 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="point_cloud.html">
-         Point cloud
+        <a class="reference internal" href="add_surface_2D.html">
+         Add surface 2D
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="add_shapes_with_text.html">
-         Add shapes with text
+        <a class="reference internal" href="layers.html">
+         Layers
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="add_points_with_text.html">
+         Add points with text
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="add_points_with_multicolor_text.html">
+         Add points with multicolor text
         </a>
        </li>
        <li class="toctree-l4">
@@ -1019,13 +979,53 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
+        <a class="reference internal" href="add_points.html">
+         Add points
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="add_vectors_image.html">
+         Add vectors image
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="add_grayscale_image.html">
          Add grayscale image
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="pass_colormaps.html">
-         Pass colormaps
+        <a class="reference internal" href="add_shapes.html">
+         Add shapes
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="add_vectors.html">
+         Add vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="add_labels.html">
+         Add labels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="labels-2d.html">
+         Labels 2D
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="minimum_blending.html">
+         Minimum blending
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="add_shapes_with_text.html">
+         Add shapes with text
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="image_depth.html">
+         Image depth
         </a>
        </li>
       </ul>
@@ -1040,73 +1040,8 @@ function checkPageExistsAndRedirect(event) {
       </a>
       <ul class="current">
        <li class="toctree-l4">
-        <a class="reference internal" href="nD_surface.html">
-         nD surface
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add-points-3d.html">
-         Add points 3D
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="nD_vectors_image.html">
-         nD vectors image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="surface_texture_and_colors.html">
-         Surface with texture and vertex_colors
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="add_points_on_nD_shapes.html">
-         Add points on nD shapes
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="nD_shapes_with_text.html">
-         nD shapes with text
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="mixed-dimensions-labels.html">
-         Mixed dimensions labels
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="image-points-3d.html">
-         Image points 3D
-        </a>
-       </li>
-       <li class="toctree-l4 current active">
-        <a class="current reference internal" href="#">
-         Surface with multiple textures
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="swap_dims.html">
-         Swap dims
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="nD_points.html">
-         nD points
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="nD_image.html">
-         nD image
-        </a>
-       </li>
-       <li class="toctree-l4">
         <a class="reference internal" href="add_3D_image.html">
          Add 3D image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="labels3d.html">
-         Labels 3D
         </a>
        </li>
        <li class="toctree-l4">
@@ -1115,23 +1050,13 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="nD_points_with_features.html">
-         nD points with features
+        <a class="reference internal" href="add_points_on_nD_shapes.html">
+         Add points on nD shapes
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="dask_nD_image.html">
-         Dask nD image
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="nD_vectors.html">
-         nD vectors
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="nD_labels.html">
-         nD labels
+        <a class="reference internal" href="image-points-3d.html">
+         Image points 3D
         </a>
        </li>
        <li class="toctree-l4">
@@ -1140,8 +1065,83 @@ function checkPageExistsAndRedirect(event) {
         </a>
        </li>
        <li class="toctree-l4">
+        <a class="reference internal" href="nD_image.html">
+         nD image
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="surface_texture_and_colors.html">
+         Surface with texture and vertex_colors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="nD_vectors.html">
+         nD vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="concentric-spheres.html">
          Concentric spheres
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="labels3d.html">
+         Labels 3D
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="mixed-dimensions-labels.html">
+         Mixed dimensions labels
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="nD_vectors_image.html">
+         nD vectors image
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="dask_nD_image.html">
+         Dask nD image
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="add-points-3d.html">
+         Add points 3D
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         Surface with multiple textures
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="nD_points.html">
+         nD points
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="nD_surface.html">
+         nD surface
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="swap_dims.html">
+         Swap dims
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="nD_shapes_with_text.html">
+         nD shapes with text
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="nD_points_with_features.html">
+         nD points with features
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="nD_labels.html">
+         nD labels
         </a>
        </li>
       </ul>
@@ -1302,73 +1302,58 @@ coordinates, and may require resizing the textures to match each other.</p>
 downloading PocilloporaDamicornisSkin.obj
 
   0%|                                              | 0.00/93.8M [00:00&lt;?, ?B/s]
-  0%|                                      | 51.2k/93.8M [00:00&lt;05:52, 266kB/s]
-  0%|                                       | 130k/93.8M [00:00&lt;03:11, 488kB/s]
-  0%|▏                                      | 312k/93.8M [00:00&lt;01:34, 993kB/s]
-  1%|▎                                     | 643k/93.8M [00:00&lt;00:51, 1.80MB/s]
-  1%|▍                                    | 1.17M/93.8M [00:00&lt;00:31, 2.96MB/s]
-  2%|▉                                    | 2.31M/93.8M [00:00&lt;00:16, 5.69MB/s]
-  5%|█▋                                   | 4.28M/93.8M [00:00&lt;00:08, 10.1MB/s]
-  7%|██▌                                  | 6.49M/93.8M [00:00&lt;00:06, 13.8MB/s]
-  9%|███▎                                 | 8.47M/93.8M [00:00&lt;00:05, 15.7MB/s]
- 11%|████▏                                | 10.6M/93.8M [00:01&lt;00:04, 17.5MB/s]
- 14%|█████                                | 12.7M/93.8M [00:01&lt;00:04, 18.4MB/s]
- 16%|█████▊                               | 14.9M/93.8M [00:01&lt;00:04, 19.4MB/s]
- 18%|██████▋                              | 16.9M/93.8M [00:01&lt;00:03, 19.7MB/s]
- 20%|███████▌                             | 19.0M/93.8M [00:01&lt;00:03, 20.1MB/s]
- 22%|████████▎                            | 21.0M/93.8M [00:01&lt;00:03, 20.1MB/s]
- 25%|█████████                            | 23.1M/93.8M [00:01&lt;00:03, 20.3MB/s]
- 28%|██████████▎                          | 26.2M/93.8M [00:01&lt;00:02, 23.4MB/s]
- 31%|███████████▎                         | 28.8M/93.8M [00:01&lt;00:02, 24.3MB/s]
- 33%|████████████▎                        | 31.2M/93.8M [00:01&lt;00:02, 24.1MB/s]
- 37%|█████████████▌                       | 34.3M/93.8M [00:02&lt;00:02, 26.1MB/s]
- 40%|██████████████▌                      | 37.0M/93.8M [00:02&lt;00:02, 26.5MB/s]
- 42%|███████████████▋                     | 39.7M/93.8M [00:02&lt;00:02, 26.3MB/s]
- 45%|████████████████▋                    | 42.3M/93.8M [00:02&lt;00:01, 26.2MB/s]
- 48%|█████████████████▉                   | 45.4M/93.8M [00:02&lt;00:01, 27.4MB/s]
- 51%|██████████████████▉                  | 48.1M/93.8M [00:02&lt;00:01, 27.4MB/s]
- 54%|████████████████████                 | 50.9M/93.8M [00:02&lt;00:01, 27.5MB/s]
- 57%|█████████████████████▏               | 53.8M/93.8M [00:02&lt;00:01, 27.9MB/s]
- 61%|██████████████████████▍              | 56.8M/93.8M [00:02&lt;00:01, 26.9MB/s]
- 64%|███████████████████████▌             | 59.8M/93.8M [00:03&lt;00:01, 27.7MB/s]
- 67%|████████████████████████▊            | 62.7M/93.8M [00:03&lt;00:01, 28.3MB/s]
- 70%|█████████████████████████▉           | 65.6M/93.8M [00:03&lt;00:00, 28.5MB/s]
- 73%|███████████████████████████          | 68.5M/93.8M [00:03&lt;00:00, 28.4MB/s]
- 76%|████████████████████████████▏        | 71.4M/93.8M [00:03&lt;00:00, 28.7MB/s]
- 79%|█████████████████████████████▍       | 74.5M/93.8M [00:03&lt;00:00, 29.4MB/s]
- 83%|██████████████████████████████▌      | 77.5M/93.8M [00:03&lt;00:00, 29.5MB/s]
- 86%|███████████████████████████████▋     | 80.5M/93.8M [00:03&lt;00:00, 29.5MB/s]
- 89%|████████████████████████████████▉    | 83.5M/93.8M [00:03&lt;00:00, 29.8MB/s]
- 92%|██████████████████████████████████▏  | 86.5M/93.8M [00:03&lt;00:00, 29.8MB/s]
- 95%|███████████████████████████████████▎ | 89.5M/93.8M [00:04&lt;00:00, 29.8MB/s]
- 99%|████████████████████████████████████▍| 92.5M/93.8M [00:04&lt;00:00, 29.8MB/s]
+  0%|                                      | 43.0k/93.8M [00:00&lt;05:34, 280kB/s]
+  0%|                                       | 217k/93.8M [00:00&lt;02:02, 763kB/s]
+  1%|▎                                     | 792k/93.8M [00:00&lt;00:44, 2.07MB/s]
+  2%|▊                                    | 1.94M/93.8M [00:00&lt;00:22, 4.11MB/s]
+  5%|█▉                                   | 4.89M/93.8M [00:00&lt;00:08, 10.8MB/s]
+  8%|███                                  | 7.77M/93.8M [00:00&lt;00:06, 14.2MB/s]
+ 12%|████▍                                | 11.1M/93.8M [00:00&lt;00:04, 19.2MB/s]
+ 15%|█████▌                               | 14.0M/93.8M [00:01&lt;00:04, 19.6MB/s]
+ 18%|██████▊                              | 17.3M/93.8M [00:01&lt;00:03, 23.3MB/s]
+ 22%|████████                             | 20.3M/93.8M [00:01&lt;00:03, 22.6MB/s]
+ 25%|█████████▎                           | 23.7M/93.8M [00:01&lt;00:02, 25.5MB/s]
+ 28%|██████████▍                          | 26.6M/93.8M [00:01&lt;00:02, 24.0MB/s]
+ 32%|███████████▊                         | 30.0M/93.8M [00:01&lt;00:02, 26.5MB/s]
+ 35%|████████████▉                        | 32.8M/93.8M [00:01&lt;00:02, 24.5MB/s]
+ 39%|██████████████▎                      | 36.2M/93.8M [00:01&lt;00:02, 26.9MB/s]
+ 42%|███████████████▍                     | 39.1M/93.8M [00:02&lt;00:02, 24.8MB/s]
+ 45%|████████████████▊                    | 42.5M/93.8M [00:02&lt;00:01, 27.2MB/s]
+ 49%|██████████████████▏                  | 45.9M/93.8M [00:02&lt;00:01, 29.1MB/s]
+ 52%|███████████████████▎                 | 49.1M/93.8M [00:02&lt;00:01, 28.2MB/s]
+ 56%|████████████████████▊                | 52.6M/93.8M [00:02&lt;00:01, 30.3MB/s]
+ 60%|██████████████████████               | 55.8M/93.8M [00:02&lt;00:01, 30.7MB/s]
+ 64%|███████████████████████▌             | 59.9M/93.8M [00:02&lt;00:01, 31.8MB/s]
+ 68%|█████████████████████████▏           | 63.8M/93.8M [00:02&lt;00:00, 32.6MB/s]
+ 72%|██████████████████████████▌          | 67.4M/93.8M [00:02&lt;00:00, 33.6MB/s]
+ 75%|███████████████████████████▉         | 70.8M/93.8M [00:03&lt;00:00, 33.1MB/s]
+ 80%|█████████████████████████████▌       | 74.9M/93.8M [00:03&lt;00:00, 35.4MB/s]
+ 84%|██████████████████████████████▉      | 78.4M/93.8M [00:03&lt;00:00, 34.2MB/s]
+ 87%|████████████████████████████████▎    | 81.9M/93.8M [00:03&lt;00:00, 33.0MB/s]
+ 92%|█████████████████████████████████▊   | 85.8M/93.8M [00:03&lt;00:00, 34.8MB/s]
+ 95%|███████████████████████████████████▎ | 89.4M/93.8M [00:03&lt;00:00, 35.0MB/s]
+ 99%|████████████████████████████████████▋| 92.9M/93.8M [00:03&lt;00:00, 33.6MB/s]
   0%|                                              | 0.00/93.8M [00:00&lt;?, ?B/s]
-100%|██████████████████████████████████████| 93.8M/93.8M [00:00&lt;00:00, 281GB/s]
+100%|██████████████████████████████████████| 93.8M/93.8M [00:00&lt;00:00, 284GB/s]
 downloading PocilloporaDamicornisSkin_Texture_0.jpg
 
   0%|                                              | 0.00/17.3M [00:00&lt;?, ?B/s]
-  0%|                                      | 17.4k/17.3M [00:00&lt;01:46, 162kB/s]
-  0%|                                      | 52.2k/17.3M [00:00&lt;01:07, 256kB/s]
-  1%|▎                                      | 122k/17.3M [00:00&lt;00:39, 433kB/s]
-  2%|▌                                      | 261k/17.3M [00:00&lt;00:22, 771kB/s]
-  3%|█▏                                    | 540k/17.3M [00:00&lt;00:11, 1.41MB/s]
-  6%|██▍                                  | 1.11M/17.3M [00:00&lt;00:05, 2.73MB/s]
- 13%|████▊                                | 2.26M/17.3M [00:00&lt;00:02, 5.28MB/s]
- 26%|█████████▋                           | 4.55M/17.3M [00:00&lt;00:01, 10.3MB/s]
- 37%|█████████████▋                       | 6.38M/17.3M [00:00&lt;00:00, 12.4MB/s]
- 50%|██████████████████▍                  | 8.61M/17.3M [00:01&lt;00:00, 14.9MB/s]
- 61%|██████████████████████▌              | 10.5M/17.3M [00:01&lt;00:00, 15.8MB/s]
- 73%|███████████████████████████          | 12.6M/17.3M [00:01&lt;00:00, 16.9MB/s]
- 85%|███████████████████████████████▍     | 14.7M/17.3M [00:01&lt;00:00, 17.5MB/s]
- 97%|███████████████████████████████████▊ | 16.8M/17.3M [00:01&lt;00:00, 18.0MB/s]
+  0%|                                      | 52.2k/17.3M [00:00&lt;00:46, 369kB/s]
+  2%|▌                                     | 261k/17.3M [00:00&lt;00:16, 1.02MB/s]
+  6%|██▍                                  | 1.11M/17.3M [00:00&lt;00:04, 3.27MB/s]
+ 23%|████████▎                            | 3.90M/17.3M [00:00&lt;00:01, 9.67MB/s]
+ 46%|████████████████▊                    | 7.89M/17.3M [00:00&lt;00:00, 18.2MB/s]
+ 58%|█████████████████████▌               | 10.1M/17.3M [00:00&lt;00:00, 18.6MB/s]
+ 80%|█████████████████████████████▊       | 13.9M/17.3M [00:00&lt;00:00, 24.1MB/s]
+ 96%|███████████████████████████████████▎ | 16.5M/17.3M [00:01&lt;00:00, 23.3MB/s]
   0%|                                              | 0.00/17.3M [00:00&lt;?, ?B/s]
-100%|█████████████████████████████████████| 17.3M/17.3M [00:00&lt;00:00, 66.0GB/s]
+100%|█████████████████████████████████████| 17.3M/17.3M [00:00&lt;00:00, 57.2GB/s]
 downloading PocilloporaDamicornisSkin_GeneratedMat2.png
 
   0%|                                               | 0.00/120k [00:00&lt;?, ?B/s]
- 43%|████████████████▉                      | 52.2k/120k [00:00&lt;00:00, 263kB/s]
+ 43%|████████████████▉                      | 52.2k/120k [00:00&lt;00:00, 368kB/s]
   0%|                                               | 0.00/120k [00:00&lt;?, ?B/s]
-100%|████████████████████████████████████████| 120k/120k [00:00&lt;00:00, 466MB/s]
+100%|████████████████████████████████████████| 120k/120k [00:00&lt;00:00, 512MB/s]
 </pre></div>
 </div>
 </section>
@@ -1441,7 +1426,7 @@ sphinx_gallery_thumbnail_number = 2</p>
     <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_surface_multi_texture_002.png" srcset="../_images/sphx_glr_surface_multi_texture_002.png" alt="surface multi texture" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 45.317 seconds)</p>
+<img src="../_images/sphx_glr_surface_multi_texture_002.png" srcset="../_images/sphx_glr_surface_multi_texture_002.png" alt="surface multi texture" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 41.444 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-surface-multi-texture-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/802ea58787c1d584d201e38104158907/surface_multi_texture.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">surface_multi_texture.py</span></code></a></p>
@@ -1460,7 +1445,7 @@ sphinx_gallery_thumbnail_number = 2</p>
             
             <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="image-points-3d.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="add-points-3d.html" title="previous page">
         <svg
             width="10"
             height="16"
@@ -1476,13 +1461,13 @@ sphinx_gallery_thumbnail_number = 2</p>
         </svg>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Image points 3D</p>
+            <p class="prev-next-title">Add points 3D</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="swap_dims.html" title="next page">
+    <a class='right-next' id="next-link" href="nD_points.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Swap dims</p>
+        <p class="prev-next-title">nD points</p>
     </div>
 
     <svg

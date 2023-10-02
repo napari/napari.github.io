@@ -315,9 +315,10 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">transform_color</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
-<span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span>
+<span class="kn">from</span> <span class="nn">napari.utils._dtype</span> <span class="kn">import</span> <span class="n">normalize_dtype</span><span class="p">,</span> <span class="n">vispy_texture_dtype</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">direct_colormap</span><span class="p">,</span>
+    <span class="n">ensure_colormap</span><span class="p">,</span>
     <span class="n">label_colormap</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
@@ -1026,12 +1027,12 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># invalidates labels cache</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color_mode</span> <span class="o">=</span> <span class="n">color_mode</span>
         <span class="k">if</span> <span class="n">color_mode</span> <span class="o">==</span> <span class="n">LabelColorMode</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_colormap</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_colormap</span> <span class="o">=</span> <span class="n">ensure_colormap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_direct_colormap</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">color_mode</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colormap</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">colormap</span><span class="p">()</span>  <span class="c1"># If remove this emitting, connect shader update to color_mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">selected_label</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -1044,6 +1045,7 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">show_selected_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show_selected</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_show_selected_label</span> <span class="o">=</span> <span class="n">show_selected</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">use_selection</span> <span class="o">=</span> <span class="n">show_selected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">show_selected_label</span><span class="p">(</span><span class="n">show_selected_label</span><span class="o">=</span><span class="n">show_selected</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cached_labels</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
@@ -1133,7 +1135,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        float32 as it can represent all input values (though not losslessly,</span>
 <span class="sd">        see https://github.com/napari/napari/issues/6084).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vispy_texture_dtype</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Override to convert raw slice data to displayed label colors.&quot;&quot;&quot;</span>
@@ -1151,7 +1153,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="c1"># Keep only the dimensions that correspond to the current view</span>
         <span class="n">updated_slice</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">dims_displayed</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_updated_slice</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">dims_displayed</span>
         <span class="p">)</span>
 
         <span class="n">offset</span> <span class="o">=</span> <span class="p">[</span><span class="n">axis_slice</span><span class="o">.</span><span class="n">start</span> <span class="k">for</span> <span class="n">axis_slice</span> <span class="ow">in</span> <span class="n">updated_slice</span><span class="p">]</span>

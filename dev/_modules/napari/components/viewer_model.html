@@ -526,7 +526,17 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ndisplay</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
+        <span class="c1"># FIXME: the next line is a temporary workaround. With #5522 and #5751 Dims.point became</span>
+        <span class="c1">#        the source of truth, and is now defined in world space. This exposed an existing</span>
+        <span class="c1">#        bug where if a field in Dims is modified by the root_validator, events won&#39;t</span>
+        <span class="c1">#        be fired for it. This won&#39;t happen for properties because we have dependency</span>
+        <span class="c1">#        checks. To fix this, we need dep checks for fileds (psygnal!) and then we</span>
+        <span class="c1">#        can remove the following line. Note that because of this we fire double events,</span>
+        <span class="c1">#        but this should be ok because we have early returns when slices are unchanged.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">margin_left</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">margin_right</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_status_bar_from_cursor</span>
         <span class="p">)</span>
@@ -996,6 +1006,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an image layer to the layer list.</span>
 
@@ -1173,6 +1184,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="s1">&#39;plane&#39;</span><span class="p">:</span> <span class="n">plane</span><span class="p">,</span>
             <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="n">experimental_clipping_planes</span><span class="p">,</span>
             <span class="s1">&#39;custom_interpolation_kernel_2d&#39;</span><span class="p">:</span> <span class="n">custom_interpolation_kernel_2d</span><span class="p">,</span>
+            <span class="s1">&#39;projection_mode&#39;</span><span class="p">:</span> <span class="n">projection_mode</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="c1"># these arguments are *already* iterables in the single-channel case.</span>

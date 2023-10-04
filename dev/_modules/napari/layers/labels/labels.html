@@ -557,6 +557,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">magic_name</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -598,6 +599,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">plane</span><span class="o">=</span><span class="n">plane</span><span class="p">,</span>
             <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">projection_mode</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -1793,9 +1795,13 @@ function checkPageExistsAndRedirect(event) {
             <span class="c1"># array, or a NumPy-array-backed Xarray, is the slice a view and</span>
             <span class="c1"># therefore updated automatically.</span>
             <span class="c1"># For other types, we update it manually here.</span>
-            <span class="n">dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">dims</span>
-            <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-            <span class="n">pt_not_disp</span> <span class="o">=</span> <span class="p">{</span><span class="n">dim</span><span class="p">:</span> <span class="n">point</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">dims</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">}</span>
+            <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">slice_input</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">world_to_data</span><span class="p">(</span><span class="n">slice_input</span><span class="o">.</span><span class="n">world_slice</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">pt_not_disp</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">dim</span><span class="p">:</span> <span class="n">point</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
+            <span class="p">}</span>
             <span class="n">displayed_indices</span> <span class="o">=</span> <span class="n">index_in_slice</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">pt_not_disp</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">raw</span><span class="p">[</span><span class="n">displayed_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 

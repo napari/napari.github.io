@@ -114,6 +114,7 @@ napari.layers.Image
       ~Image.ndim
       ~Image.opacity
       ~Image.plane
+      ~Image.projection_mode
       ~Image.rendering
       ~Image.rotate
       ~Image.scale

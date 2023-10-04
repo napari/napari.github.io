@@ -132,6 +132,7 @@ napari.layers.Points
       ~Points.ndim
       ~Points.opacity
       ~Points.out_of_slice_display
+      ~Points.projection_mode
       ~Points.properties
       ~Points.property_choices
       ~Points.rotate

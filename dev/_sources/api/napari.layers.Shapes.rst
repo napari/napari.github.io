@@ -156,6 +156,7 @@ napari.layers.Shapes
       ~Shapes.ndim
       ~Shapes.nshapes
       ~Shapes.opacity
+      ~Shapes.projection_mode
       ~Shapes.properties
       ~Shapes.property_choices
       ~Shapes.rotate

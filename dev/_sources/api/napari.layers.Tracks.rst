@@ -103,6 +103,7 @@ napari.layers.Tracks
       ~Tracks.name
       ~Tracks.ndim
       ~Tracks.opacity
+      ~Tracks.projection_mode
       ~Tracks.properties
       ~Tracks.properties_to_color_by
       ~Tracks.rotate

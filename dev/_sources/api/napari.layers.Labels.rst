@@ -154,6 +154,7 @@ napari.layers.Labels
       ~Labels.opacity
       ~Labels.plane
       ~Labels.preserve_labels
+      ~Labels.projection_mode
       ~Labels.properties
       ~Labels.rendering
       ~Labels.rotate

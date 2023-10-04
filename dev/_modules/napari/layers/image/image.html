@@ -284,6 +284,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.layers._multiscale_data</span> <span class="kn">import</span> <span class="n">MultiScaleData</span>
 <span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ImageProjectionMode</span><span class="p">,</span>
     <span class="n">ImageRendering</span><span class="p">,</span>
     <span class="n">Interpolation</span><span class="p">,</span>
     <span class="n">VolumeDepiction</span><span class="p">,</span>
@@ -295,7 +296,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">from</span> <span class="nn">napari.layers.image._image_utils</span> <span class="kn">import</span> <span class="n">guess_multiscale</span><span class="p">,</span> <span class="n">guess_rgb</span>
 <span class="kn">from</span> <span class="nn">napari.layers.image._slice</span> <span class="kn">import</span> <span class="n">_ImageSliceRequest</span><span class="p">,</span> <span class="n">_ImageSliceResponse</span>
 <span class="kn">from</span> <span class="nn">napari.layers.intensity_mixin</span> <span class="kn">import</span> <span class="n">IntensityVisualizationMixin</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">_ThickNDSlice</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">calc_data_range</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.plane</span> <span class="kn">import</span> <span class="n">SlicingPlane</span>
 <span class="kn">from</span> <span class="nn">napari.utils._dask_utils</span> <span class="kn">import</span> <span class="n">DaskIndexer</span>
@@ -526,6 +527,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">magic_name</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -578,6 +580,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">multiscale</span><span class="o">=</span><span class="n">multiscale</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">projection_mode</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -624,7 +627,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">_ImageSliceResponse</span><span class="o">.</span><span class="n">make_empty</span><span class="p">(</span>
-            <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span>
+            <span class="n">slice_input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span>
         <span class="p">)</span>
 
         <span class="c1"># Set contrast limits, colormaps and plane parameters</span>
@@ -981,22 +984,12 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_set_view_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the slice output based on this layer&#39;s current state.&quot;&quot;&quot;</span>
-        <span class="c1"># Skip if any non-displayed data indices are out of bounds.</span>
-        <span class="c1"># This can happen when slicing layers with different extents.</span>
-        <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span>
-        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extent_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">_ImageSliceResponse</span><span class="o">.</span><span class="n">make_empty</span><span class="p">(</span>
-                    <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span>
-                <span class="p">)</span>
-                <span class="k">return</span>
-
         <span class="c1"># The new slicing code makes a request from the existing state and</span>
         <span class="c1"># executes the request on the calling thread directly.</span>
         <span class="c1"># For async slicing, the calling thread will not be the main thread.</span>
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span>
             <span class="n">slice_input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span>
-            <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
+            <span class="n">data_slice</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="p">,</span>
             <span class="n">dask_indexer</span><span class="o">=</span><span class="n">nullcontext</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">()</span>
@@ -1004,19 +997,17 @@ function checkPageExistsAndRedirect(event) {
 
     <span class="k">def</span> <span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ImageSliceRequest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make an image slice request based on the given dims and this image.&quot;&quot;&quot;</span>
-        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span>
-            <span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span>
-        <span class="p">)</span>
+        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
         <span class="c1"># For the existing sync slicing, indices is passed through</span>
         <span class="c1"># to avoid some performance issues related to the evaluation of the</span>
         <span class="c1"># data-to-world transform and its inverse. Async slicing currently</span>
         <span class="c1"># absorbs these performance issues here, but we can likely improve</span>
         <span class="c1"># things either by caching the world-to-data transform on the layer</span>
         <span class="c1"># or by lazily evaluating it in the slice task itself.</span>
-        <span class="n">indices</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span>
             <span class="n">slice_input</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
-            <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
+            <span class="n">data_slice</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
             <span class="n">dask_indexer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dask_optimized_slicing</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -1024,7 +1015,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span>
-        <span class="n">indices</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">data_slice</span><span class="p">:</span> <span class="n">_ThickNDSlice</span><span class="p">,</span>
         <span class="n">dask_indexer</span><span class="p">:</span> <span class="n">DaskIndexer</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ImageSliceRequest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Needed to support old-style sync slicing through _slice_dims and</span>
@@ -1034,10 +1025,11 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        the async slicing project: https://github.com/napari/napari/issues/4795</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">_ImageSliceRequest</span><span class="p">(</span>
-            <span class="n">dims</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
+            <span class="n">slice_input</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
             <span class="n">dask_indexer</span><span class="o">=</span><span class="n">dask_indexer</span><span class="p">,</span>
-            <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
+            <span class="n">data_slice</span><span class="o">=</span><span class="n">data_slice</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
             <span class="n">multiscale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">,</span>
             <span class="n">corner_pixels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">,</span>
             <span class="n">rgb</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rgb</span><span class="p">,</span>
@@ -1051,7 +1043,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the slice output state currently on the layer. Currently used</span>
 <span class="sd">        for both sync and async slicing.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">dims</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">slice_input</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">tile_to_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span> <span class="o">=</span> <span class="n">response</span>
 
@@ -1172,6 +1164,8 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../../../api/napari.layers.Image.html#napari.layers.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">_ImageBase</span><span class="p">):</span>
+    <span class="n">_projectionclass</span> <span class="o">=</span> <span class="n">ImageProjectionMode</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rendering</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return current rendering mode.</span>

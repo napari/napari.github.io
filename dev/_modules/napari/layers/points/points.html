@@ -295,7 +295,11 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">highlight_box_handles</span><span class="p">,</span>
     <span class="n">transform_with_box</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.points._points_constants</span> <span class="kn">import</span> <span class="n">Mode</span><span class="p">,</span> <span class="n">Shading</span>
+<span class="kn">from</span> <span class="nn">napari.layers.points._points_constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Mode</span><span class="p">,</span>
+    <span class="n">PointsProjectionMode</span><span class="p">,</span>
+    <span class="n">Shading</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.points._points_mouse_bindings</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">highlight</span><span class="p">,</span> <span class="n">select</span>
 <span class="kn">from</span> <span class="nn">napari.layers.points._points_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_create_box_from_corners_3d</span><span class="p">,</span>
@@ -306,7 +310,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.points._slice</span> <span class="kn">import</span> <span class="n">_PointSliceRequest</span><span class="p">,</span> <span class="n">_PointSliceResponse</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils._color_manager_constants</span> <span class="kn">import</span> <span class="n">ColorMode</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">_ThickNDSlice</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_manager</span> <span class="kn">import</span> <span class="n">ColorManager</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.interactivity_utils</span> <span class="kn">import</span> <span class="p">(</span>
@@ -574,6 +578,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_modeclass</span> <span class="o">=</span> <span class="n">Mode</span>
+    <span class="n">_projectionclass</span> <span class="o">=</span> <span class="n">PointsProjectionMode</span>
 
     <span class="n">_drag_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Mode</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="s2">&quot;Points&quot;</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
@@ -641,6 +646,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">canvas_size_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10000</span><span class="p">),</span>
         <span class="n">antialiasing</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">shown</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
@@ -670,7 +676,6 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_drag_box_stored</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_selecting</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_round_index</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
@@ -687,6 +692,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">projection_mode</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -2051,37 +2057,34 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># executes the request on the calling thread directly.</span>
         <span class="c1"># For async slicing, the calling thread will not be the main thread.</span>
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span>
         <span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_PointSliceRequest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make a Points slice request based on the given dims and these data.&quot;&quot;&quot;</span>
-        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span>
-            <span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span>
-        <span class="p">)</span>
+        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
         <span class="c1"># See Image._make_slice_request to understand why we evaluate this here</span>
-        <span class="c1"># instead of using `self._slice_indices`.</span>
-        <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_indices</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">,</span> <span class="n">round_index</span><span class="o">=</span><span class="kc">False</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">slice_indices</span><span class="p">)</span>
+        <span class="c1"># instead of using `self._data_slice`.</span>
+        <span class="n">data_slice</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_request_internal</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">dims_indices</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">:</span> <span class="n">_ThickNDSlice</span>
     <span class="p">):</span>
         <span class="k">return</span> <span class="n">_PointSliceRequest</span><span class="p">(</span>
-            <span class="n">dims</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
+            <span class="n">slice_input</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">dims_indices</span><span class="o">=</span><span class="n">dims_indices</span><span class="p">,</span>
+            <span class="n">data_slice</span><span class="o">=</span><span class="n">data_slice</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
             <span class="n">out_of_slice_display</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
             <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_PointSliceResponse</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a slicing response.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">dims</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">slice_input</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">indices</span>
         <span class="n">scale</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">scale</span>
 
@@ -2356,7 +2359,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">not_disp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
             <span class="n">offset</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">not_disp</span>
             <span class="p">]</span>
             <span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">not_disp</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
@@ -2414,7 +2417,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;edge_width&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
-                <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">,</span>
+                <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="p">,</span>
                 <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="n">index</span><span class="p">),</span>
             <span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>

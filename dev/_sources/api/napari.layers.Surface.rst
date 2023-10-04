@@ -104,6 +104,7 @@ napari.layers.Surface
       ~Surface.ndim
       ~Surface.normals
       ~Surface.opacity
+      ~Surface.projection_mode
       ~Surface.rotate
       ~Surface.scale
       ~Surface.shading

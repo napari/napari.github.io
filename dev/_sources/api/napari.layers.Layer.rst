@@ -90,6 +90,7 @@ napari.layers.Layer
       ~Layer.name
       ~Layer.ndim
       ~Layer.opacity
+      ~Layer.projection_mode
       ~Layer.rotate
       ~Layer.scale
       ~Layer.shear

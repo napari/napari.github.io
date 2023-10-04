@@ -277,7 +277,7 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="kn">from</span> <span class="nn">napari.layers.base</span> <span class="kn">import</span> <span class="n">Layer</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils._color_manager_constants</span> <span class="kn">import</span> <span class="n">ColorMode</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">_ThickNDSlice</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_manager</span> <span class="kn">import</span> <span class="n">ColorManager</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.color_transformations</span> <span class="kn">import</span> <span class="n">ColorType</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.layer_utils</span> <span class="kn">import</span> <span class="n">_FeatureTable</span>
@@ -286,7 +286,10 @@ function checkPageExistsAndRedirect(event) {
     <span class="n">_VectorSliceResponse</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.vectors._vector_utils</span> <span class="kn">import</span> <span class="n">fix_data_vectors</span>
-<span class="kn">from</span> <span class="nn">napari.layers.vectors._vectors_constants</span> <span class="kn">import</span> <span class="n">VectorStyle</span>
+<span class="kn">from</span> <span class="nn">napari.layers.vectors._vectors_constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">VectorsProjectionMode</span><span class="p">,</span>
+    <span class="n">VectorStyle</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.utils.colormaps</span> <span class="kn">import</span> <span class="n">Colormap</span><span class="p">,</span> <span class="n">ValidColormapArg</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">napari.utils.events.custom_types</span> <span class="kn">import</span> <span class="n">Array</span>
@@ -433,6 +436,8 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        subsampled.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">_projectionclass</span> <span class="o">=</span> <span class="n">VectorsProjectionMode</span>
+
     <span class="c1"># The max number of vectors that will ever be used to render the thumbnail</span>
     <span class="c1"># If more vectors are present then they are randomly subsampled</span>
     <span class="n">_max_vectors_thumbnail</span> <span class="o">=</span> <span class="mi">1024</span>
@@ -466,6 +471,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
@@ -487,6 +493,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">projection_mode</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># events for non-napari calculations</span>
@@ -931,16 +938,14 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># executes the request on the calling thread directly.</span>
         <span class="c1"># For async slicing, the calling thread will not be the main thread.</span>
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span>
         <span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_slice_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_VectorSliceRequest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make a Vectors slice request based on the given dims and these data.&quot;&quot;&quot;</span>
-        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span>
-            <span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span>
-        <span class="p">)</span>
+        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
         <span class="c1"># TODO: [see Image]</span>
         <span class="c1">#   For the existing sync slicing, slice_indices is passed through</span>
         <span class="c1"># to avoid some performance issues related to the evaluation of the</span>
@@ -948,25 +953,24 @@ function checkPageExistsAndRedirect(event) {
         <span class="c1"># absorbs these performance issues here, but we can likely improve</span>
         <span class="c1"># things either by caching the world-to-data transform on the layer</span>
         <span class="c1"># or by lazily evaluating it in the slice task itself.</span>
-        <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_indices</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">,</span> <span class="n">round_index</span><span class="o">=</span><span class="kc">False</span>
-        <span class="p">)</span>
+        <span class="n">slice_indices</span> <span class="o">=</span> <span class="n">slice_input</span><span class="o">.</span><span class="n">data_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_request_internal</span><span class="p">(</span><span class="n">slice_input</span><span class="p">,</span> <span class="n">slice_indices</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_request_internal</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">dims_indices</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">slice_input</span><span class="p">:</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">:</span> <span class="n">_ThickNDSlice</span>
     <span class="p">):</span>
         <span class="k">return</span> <span class="n">_VectorSliceRequest</span><span class="p">(</span>
-            <span class="n">dims</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
+            <span class="n">slice_input</span><span class="o">=</span><span class="n">slice_input</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">dims_indices</span><span class="o">=</span><span class="n">dims_indices</span><span class="p">,</span>
+            <span class="n">data_slice</span><span class="o">=</span><span class="n">data_slice</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
             <span class="n">out_of_slice_display</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">out_of_slice_display</span><span class="p">,</span>
             <span class="n">length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_slice_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">_VectorSliceResponse</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a slicing response.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">dims</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">slice_input</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">indices</span>
         <span class="n">alphas</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">alphas</span>
 

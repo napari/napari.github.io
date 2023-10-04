@@ -697,6 +697,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -729,6 +730,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">projection_mode</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -767,7 +769,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="bp">self</span><span class="o">.</span><span class="n">_current_edge_width</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">)[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
         <span class="p">]</span>
 
@@ -958,7 +960,7 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span> <span class="o">=</span> <span class="n">ShapeList</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">)[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_shapes</span><span class="p">(</span>
@@ -2604,7 +2606,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="c1"># Clear clipboard if dimensions swap</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span> <span class="o">=</span> <span class="p">{}</span>
 
-            <span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)[</span>
+            <span class="n">slice_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">)[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
             <span class="p">]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">slice_key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">slice_key</span><span class="p">):</span>
@@ -3240,7 +3242,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="s1">&#39;edge_color&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;face_color&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_face_color</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
                 <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
-                <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">,</span>
+                <span class="s1">&#39;indices&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">,</span>
                 <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="n">index</span><span class="p">),</span>
             <span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
@@ -3252,7 +3254,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># Calculate offset based on dimension shifts</span>
             <span class="n">offset</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clipboard</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span>
             <span class="p">]</span>
 

@@ -294,12 +294,16 @@ function checkPageExistsAndRedirect(event) {
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">npe2</span> <span class="kn">import</span> <span class="n">plugin_manager</span> <span class="k">as</span> <span class="n">pm</span>
 
-<span class="kn">from</span> <span class="nn">napari.layers.base._base_constants</span> <span class="kn">import</span> <span class="n">Blending</span><span class="p">,</span> <span class="n">Mode</span>
+<span class="kn">from</span> <span class="nn">napari.layers.base._base_constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseProjectionMode</span><span class="p">,</span>
+    <span class="n">Blending</span><span class="p">,</span>
+    <span class="n">Mode</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">napari.layers.base._base_mouse_bindings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">highlight_box_handles</span><span class="p">,</span>
     <span class="n">transform_with_box</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span>
+<span class="kn">from</span> <span class="nn">napari.layers.utils._slice_input</span> <span class="kn">import</span> <span class="n">_SliceInput</span><span class="p">,</span> <span class="n">_ThickNDSlice</span>
 <span class="kn">from</span> <span class="nn">napari.layers.utils.interactivity_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">drag_data_to_projected_distance</span><span class="p">,</span>
 <span class="p">)</span>
@@ -335,6 +339,8 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
+
+    <span class="kn">from</span> <span class="nn">napari.components.dims</span> <span class="kn">import</span> <span class="n">Dims</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;napari.layers.base.base&quot;</span><span class="p">)</span>
@@ -403,6 +409,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        Whether the data is multiscale or not. Multiscale data is</span>
 <span class="sd">        represented by a list of data objects and should go from largest to</span>
 <span class="sd">        smallest.</span>
+<span class="sd">    projection_mode : str</span>
+<span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
+<span class="sd">        be projected onto the viewed dimenions.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -498,6 +507,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        depends on the current zoom level.</span>
 <span class="sd">    source : Source</span>
 <span class="sd">        source of the layer (such as a plugin or widget)</span>
+<span class="sd">    projection_mode : str</span>
+<span class="sd">        How data outside the viewed dimensions but inside the thick Dims slice will</span>
+<span class="sd">        be projected onto the viewed dimenions.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -513,6 +525,7 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_modeclass</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">StringEnum</span><span class="p">]</span> <span class="o">=</span> <span class="n">Mode</span>
+    <span class="n">_projectionclass</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">StringEnum</span><span class="p">]</span> <span class="o">=</span> <span class="n">BaseProjectionMode</span>
 
     <span class="n">_drag_modes</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">StringEnum</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Layer</span><span class="p">,</span> <span class="n">Event</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">Mode</span><span class="o">.</span><span class="n">PAN_ZOOM</span><span class="p">:</span> <span class="n">no_op</span><span class="p">,</span>
@@ -547,6 +560,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># this should move to future &quot;data source&quot; object.</span>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;pan_zoom&#39;</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -584,12 +598,13 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span> <span class="o">=</span> <span class="n">multiscale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_experimental_clipping_planes</span> <span class="o">=</span> <span class="n">ClippingPlaneList</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modeclass</span><span class="p">(</span><span class="s1">&#39;pan_zoom&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_projectionclass</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">projection_mode</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">_SliceInput</span><span class="p">(</span>
             <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="n">ndim</span><span class="p">,</span>
+            <span class="n">world_slice</span><span class="o">=</span><span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">),</span>
             <span class="n">order</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)),</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
@@ -684,6 +699,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">_extent_augmented</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">_overlays</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
             <span class="n">mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">Event</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
@@ -790,6 +806,24 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">projection_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mode of projection of the thick slice onto the viewed dimensions.</span>
+
+<span class="sd">        The sliced data is described by an n-dimensional bounding box (&quot;thick slice&quot;),</span>
+<span class="sd">        which needs to be projected onto the visible dimensions to be visible.</span>
+<span class="sd">        The projection mode controls the projection logic.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span>
+
+    <span class="nd">@projection_mode</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">projection_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_projectionclass</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span> <span class="o">!=</span> <span class="n">mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_projection_mode</span> <span class="o">=</span> <span class="n">mode</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_basename</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
@@ -1175,14 +1209,15 @@ function checkPageExistsAndRedirect(event) {
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_slice_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;(D, ) array: Slice indices in data coordinates.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_data_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ThickNDSlice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Slice in data coordinates.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># All dims are displayed dimensions</span>
-            <span class="k">return</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">data_indices</span><span class="p">(</span>
+            <span class="c1"># all dims are displayed dimensions</span>
+            <span class="c1"># early return to avoid evaluating data_to_world.inverse</span>
+            <span class="k">return</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">data_slice</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data_to_world</span><span class="o">.</span><span class="n">inverse</span><span class="p">,</span>
-            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_round_index&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
         <span class="p">)</span>
 
     <span class="nd">@abstractmethod</span>
@@ -1211,6 +1246,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="s1">&#39;experimental_clipping_planes&#39;</span><span class="p">:</span> <span class="p">[</span>
                 <span class="n">plane</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">plane</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">experimental_clipping_planes</span>
             <span class="p">],</span>
+            <span class="s1">&#39;projection_mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection_mode</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">base_dict</span>
 
@@ -1387,7 +1423,9 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="k">def</span> <span class="nf">_slice_dims</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Slice data with values from a global dims model.</span>
 
@@ -1395,51 +1433,52 @@ function checkPageExistsAndRedirect(event) {
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        point : list</span>
-<span class="sd">            Values of data to slice at in world coordinates.</span>
-<span class="sd">        ndisplay : int</span>
-<span class="sd">            Number of dimensions to be displayed.</span>
-<span class="sd">        order : list of int</span>
-<span class="sd">            Order of dimensions, where last `ndisplay` will be</span>
-<span class="sd">            rendered in canvas.</span>
+<span class="sd">        dims: Dims</span>
+<span class="sd">            The dims model to use to slice this layer.</span>
 <span class="sd">        force: bool</span>
 <span class="sd">            True if slicing should be forced to occur, even when some cache thinks</span>
 <span class="sd">            it already has a valid slice ready. False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s1">&#39;Layer._slice_dims: </span><span class="si">%s</span><span class="s1">, point=</span><span class="si">%s</span><span class="s1">, ndisplay=</span><span class="si">%s</span><span class="s1">, order=</span><span class="si">%s</span><span class="s1">, force=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Layer._slice_dims: </span><span class="si">%s</span><span class="s1">, dims=</span><span class="si">%s</span><span class="s1">, force=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">point</span><span class="p">,</span>
-            <span class="n">ndisplay</span><span class="p">,</span>
-            <span class="n">order</span><span class="p">,</span>
+            <span class="n">dims</span><span class="p">,</span>
             <span class="n">force</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">ndisplay</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+        <span class="n">slice_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_slice_input</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">force</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">!=</span> <span class="n">slice_input</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span> <span class="o">=</span> <span class="n">slice_input</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_sync</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_make_slice_input</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_SliceInput</span><span class="p">:</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="n">world_ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dims</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># if no dims is given, &quot;world&quot; has same dimensionality of self</span>
+            <span class="c1"># this happens for example if a layer is not in a viewer</span>
+            <span class="c1"># in this case, we assume all dims are displayed dimensions</span>
+            <span class="n">world_slice</span> <span class="o">=</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">make_full</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">world_slice</span> <span class="o">=</span> <span class="n">_ThickNDSlice</span><span class="o">.</span><span class="n">from_dims</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
 
-        <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">))</span>
-
-        <span class="c1"># Correspondence between dimensions across all layers and</span>
-        <span class="c1"># dimensions of this layer.</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:]</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">world_ndim</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">dims</span><span class="o">.</span><span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_layer_dims</span><span class="p">(</span><span class="n">world_dims</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">ndim_world</span><span class="o">=</span><span class="n">ndim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_world_to_layer_dims</span><span class="p">(</span>
+                <span class="n">world_dims</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                <span class="n">ndim_world</span><span class="o">=</span><span class="n">world_ndim</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">_SliceInput</span><span class="p">(</span>
-            <span class="n">ndisplay</span><span class="o">=</span><span class="n">ndisplay</span><span class="p">,</span>
-            <span class="n">point</span><span class="o">=</span><span class="n">point</span><span class="p">,</span>
-            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+            <span class="n">ndisplay</span><span class="o">=</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span><span class="p">,</span>
+            <span class="n">world_slice</span><span class="o">=</span><span class="n">world_slice</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span>
+            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="p">:],</span>
         <span class="p">)</span>
 
     <span class="nd">@abstractmethod</span>

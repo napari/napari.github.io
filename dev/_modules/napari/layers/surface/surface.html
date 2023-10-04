@@ -474,6 +474,7 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">texture</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">texcoords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">vertex_colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">projection_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ndim</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
@@ -492,6 +493,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="n">experimental_clipping_planes</span><span class="p">,</span>
+            <span class="n">projection_mode</span><span class="o">=</span><span class="n">projection_mode</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -813,7 +815,10 @@ function checkPageExistsAndRedirect(event) {
         <span class="n">data_ndim</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">data_ndim</span> <span class="o">&gt;=</span> <span class="n">dims</span><span class="p">:</span>
             <span class="c1"># Get indices for axes corresponding to data dimensions</span>
-            <span class="n">data_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[:</span><span class="o">-</span><span class="n">vertex_ndim</span><span class="p">]</span>
+            <span class="n">data_indices</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">[:</span><span class="o">-</span><span class="n">vertex_ndim</span><span class="p">]</span>
+            <span class="p">)</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data_indices</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="n">dims</span><span class="p">:</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
@@ -852,7 +857,7 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="n">values_ndim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">[</span><span class="o">-</span><span class="n">vertex_ndim</span><span class="p">:])</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">[</span><span class="o">-</span><span class="n">vertex_ndim</span><span class="p">:])</span>
             <span class="n">disp</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">d</span>
                 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">,</span> <span class="n">values_ndim</span><span class="p">)</span>
@@ -866,7 +871,7 @@ function checkPageExistsAndRedirect(event) {
                 <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">0</span>
             <span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_indices</span><span class="p">)</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_slice</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
             <span class="n">not_disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">not_displayed</span><span class="p">)</span>
             <span class="n">disp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">)</span>
 

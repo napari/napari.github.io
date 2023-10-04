@@ -75,11 +75,6 @@ Display a 3D mesh with normals and wireframe
         napari.run()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** (0 minutes 14.843 seconds)
-
-
 .. _sphx_glr_download_gallery_surface_normals_wireframe.py:
 
 .. only:: html

@@ -269,7 +269,7 @@ function checkPageExistsAndRedirect(event) {
               
   <h1>Source code for napari._qt.qt_resources</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">napari._qt.qt_resources._svg</span> <span class="kn">import</span> <span class="n">QColoredSVGIcon</span>
 <span class="kn">from</span> <span class="nn">napari.settings</span> <span class="kn">import</span> <span class="n">get_settings</span>
@@ -282,7 +282,9 @@ function checkPageExistsAndRedirect(event) {
 
 
 <div class="viewcode-block" id="get_stylesheet"><a class="viewcode-back" href="../../../api/napari.qt.html#napari.qt.get_stylesheet">[docs]</a><span class="k">def</span> <span class="nf">get_stylesheet</span><span class="p">(</span>
-    <span class="n">theme_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">theme_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">extra</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">extra_variables</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Combine all qss files into single, possibly pre-themed, style string.</span>
 
@@ -295,6 +297,9 @@ function checkPageExistsAndRedirect(event) {
 <span class="sd">        to using the stylesheet.</span>
 <span class="sd">    extra : list of str, optional</span>
 <span class="sd">        Additional paths to QSS files to include in stylesheet, by default None</span>
+<span class="sd">    extra_variables : dict, optional</span>
+<span class="sd">        Dictionary of variables values that replace default theme values.</span>
+<span class="sd">        For example: `{ &#39;font_size&#39;: &#39;14pt&#39;}`</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -314,7 +319,11 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">if</span> <span class="n">theme_id</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">napari.utils.theme</span> <span class="kn">import</span> <span class="n">get_theme</span><span class="p">,</span> <span class="n">template</span>
 
-        <span class="k">return</span> <span class="n">template</span><span class="p">(</span><span class="n">stylesheet</span><span class="p">,</span> <span class="o">**</span><span class="n">get_theme</span><span class="p">(</span><span class="n">theme_id</span><span class="p">)</span><span class="o">.</span><span class="n">to_rgb_dict</span><span class="p">())</span>
+        <span class="n">theme_dict</span> <span class="o">=</span> <span class="n">get_theme</span><span class="p">(</span><span class="n">theme_id</span><span class="p">)</span><span class="o">.</span><span class="n">to_rgb_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">extra_variables</span><span class="p">:</span>
+            <span class="n">theme_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_variables</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">template</span><span class="p">(</span><span class="n">stylesheet</span><span class="p">,</span> <span class="o">**</span><span class="n">theme_dict</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">stylesheet</span></div>
 

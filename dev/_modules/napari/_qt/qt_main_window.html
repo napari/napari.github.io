@@ -892,7 +892,11 @@ function checkPageExistsAndRedirect(event) {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_menus</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_font_size</span><span class="p">()</span>
         <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">)</span>
+        <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">font_size</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme_font_size</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_viewer_dock_widget</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">dockConsole</span><span class="p">,</span> <span class="n">tabify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window_menu</span>
@@ -1612,8 +1616,16 @@ function checkPageExistsAndRedirect(event) {
     <span class="k">def</span> <span class="nf">_update_theme_no_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_update_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_update_theme_font_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
+        <span class="n">font_size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">event</span> <span class="k">else</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">font_size</span>
+        <span class="n">extra_variables</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;font_size&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">font_size</span><span class="si">}</span><span class="s2">pt&quot;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_theme</span><span class="p">(</span><span class="n">extra_variables</span><span class="o">=</span><span class="n">extra_variables</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update widget color theme.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">extra_variables</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">extra_variables</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">event</span> <span class="k">else</span> <span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">theme</span>
@@ -1622,8 +1634,17 @@ function checkPageExistsAndRedirect(event) {
             <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;system&quot;</span><span class="p">:</span>
                 <span class="c1"># system isn&#39;t a theme, so get the name</span>
                 <span class="n">actual_theme_name</span> <span class="o">=</span> <span class="n">get_system_theme</span><span class="p">()</span>
-            <span class="c1"># set the style sheet with the theme name</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">get_stylesheet</span><span class="p">(</span><span class="n">actual_theme_name</span><span class="p">))</span>
+            <span class="c1"># check `font_size` value is always passed when updating style</span>
+            <span class="k">if</span> <span class="s2">&quot;font_size&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">extra_variables</span><span class="p">:</span>
+                <span class="n">extra_variables</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="p">{</span><span class="s2">&quot;font_size&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">appearance</span><span class="o">.</span><span class="n">font_size</span><span class="si">}</span><span class="s2">pt&quot;</span><span class="p">}</span>
+                <span class="p">)</span>
+            <span class="c1"># set the style sheet with the theme name and extra_variables</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_qt_window</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span>
+                <span class="n">get_stylesheet</span><span class="p">(</span>
+                    <span class="n">actual_theme_name</span><span class="p">,</span> <span class="n">extra_variables</span><span class="o">=</span><span class="n">extra_variables</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_status_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update status bar.</span>

@@ -16,6 +16,7 @@
       :toctree:
    
       Colormap
+      LabelColormap
       nbscreenshot
       cancelable_progress
       progress

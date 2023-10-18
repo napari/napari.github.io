@@ -873,10 +873,13 @@ function checkPageExistsAndRedirect(event) {
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">color</span><span class="p">:</span>
             <span class="n">color</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_background_label</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;transparent&#39;</span>
 
-        <span class="n">none_color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="n">default_color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="c1"># this is default color for label that is not in the color dict</span>
+        <span class="c1"># is provided as None key</span>
+        <span class="c1"># we pop it as `None` cannot be cast to float</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_colors</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
 
-        <span class="n">color</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">none_color</span>
+        <span class="n">color</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_color</span>
 
         <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">label</span><span class="p">:</span> <span class="n">transform_color</span><span class="p">(</span><span class="n">color_str</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>

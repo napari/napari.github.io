@@ -2135,8 +2135,8 @@ function checkPageExistsAndRedirect(event) {
             <span class="p">)</span>
             <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">display_shape</span><span class="p">):</span>
                 <span class="k">return</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_level</span> <span class="o">!=</span> <span class="n">level</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">==</span> <span class="n">corners</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_level</span> <span class="o">!=</span> <span class="n">level</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span><span class="p">,</span> <span class="n">corners</span>
             <span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_data_level</span> <span class="o">=</span> <span class="n">level</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">corners</span>

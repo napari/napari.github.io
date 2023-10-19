@@ -18,4 +18,5 @@ caption: With this tag
 ../gallery/nD_multiscale_image_non_uniform.rst
 ../gallery/tracks_3d.rst
 ../gallery/add_vectors_color_by_angle.rst
+../gallery/vortex.rst
 ```

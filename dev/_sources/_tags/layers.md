@@ -10,4 +10,5 @@ caption: With this tag
 ../gallery/3D_paths.rst
 ../gallery/add_labels_with_features.rst
 ../gallery/add_labels.rst
+../gallery/vortex.rst
 ```
